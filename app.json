@@ -1,10 +1,10 @@
 {
   "pages":[
-    "pages/PointInfo/PointInfo",
+    "pages/pointInfo/pointInfo",
     "pages/deviceDetails/deviceDetails",
     "pages/realTimeData/realTimeData",
     "pages/dataMonitor/dataMonitor",
-    "pages/My/My",
+    "pages/my/my",
     "pages/logs/logs"
   
   ],
@@ -12,10 +12,15 @@
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#56A6FF",
     "navigationBarTitleText": "",
-    "navigationBarTextStyle":"white"
+    "navigationBarTextStyle":"white",
+    "enablePullDownRefresh":true
   },
   "tabBar": {
 
+"backgroundColor": "#FFF",
+"color": "#9C9C9C",
+"selectedColor": "#56A6FF",
+"borderStyle": "white",
     "list": [
       {
         "selectedIconPath": "images/SSGY_Select.png",
@@ -32,7 +37,7 @@
       {
         "selectedIconPath": "images/PKXX_Select.png",
         "iconPath": "images/PKXX.png",
-        "pagePath": "pages/PointInfo/PointInfo",
+        "pagePath": "pages/pointInfo/pointInfo",
         "text": "排口信息"
       },
       {
@@ -44,15 +49,11 @@
       {
         "selectedIconPath": "images/WD_Select.png",
         "iconPath": "images/WD.png",
-        "pagePath": "pages/My/My",
+        "pagePath": "pages/my/my",
         "text": "我的"
       }
   
     
-    ],
-    "backgroundColor": "#FFF",
-    "color": "#9C9C9C",
-    "selectedColor": "#56A6FF",
-    "borderStyle": "white"
+    ]
   }
 }
