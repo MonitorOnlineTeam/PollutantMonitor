@@ -12,7 +12,9 @@
 <text class='tips'>请输入手机号</text>
 </view>
 
-<input type='text' class='phone'></input>
-<button class='determine' type='primary' >确定</button>
+<input type='text' class='phone' bindinput='phone'></input>
+
+<button class='determine' type='primary' bindtap='Determine'  wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo">确定</button>
+
 </view>
 </view>

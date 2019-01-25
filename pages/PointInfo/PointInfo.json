@@ -1,4 +1,5 @@
 {
-  "component": true,
-  "usingComponents": {}
+  "pages": [
+    "pages/home/home"
+  ]
 }
