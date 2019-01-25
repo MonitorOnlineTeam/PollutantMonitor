@@ -1,5 +1,6 @@
 {
   "pages":[
+    "pages/proving/proving",
     "pages/pointInfo/pointInfo",
     "pages/deviceDetails/deviceDetails",
     "pages/realTimeData/realTimeData",
@@ -12,8 +13,8 @@
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#56A6FF",
     "navigationBarTitleText": "",
-    "navigationBarTextStyle":"white",
-    "enablePullDownRefresh":true
+    "navigationBarTextStyle":"white"
+
   },
   "tabBar": {
 

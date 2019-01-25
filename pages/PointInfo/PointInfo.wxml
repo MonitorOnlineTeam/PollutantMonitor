@@ -1,4 +1,2 @@
-<!--index.wxml-->
-<view class='Maximum'> 
-
-</view>
+<!--pages/pointInfo/pointInfo.wxml-->
+<text>pages/pointInfo/pointInfo.wxml</text>

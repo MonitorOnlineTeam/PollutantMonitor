@@ -1,0 +1,9 @@
+{
+  "component": true,
+  "usingComponents": {},
+  "navigationBarTitleText": "",
+  "navigationBarTextStyle":"white",
+  "backgroundTextStyle": "light",
+  "navigationStyle":"custom"
+
+}

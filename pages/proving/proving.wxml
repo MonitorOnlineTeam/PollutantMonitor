@@ -1,0 +1,18 @@
+<!--pages/proving/proving.wxml-->
+<!-- 手机号验证 -->
+<!--     // "enablePullDownRefresh":true -->
+<view class='container'>
+<view class='main-outer'>
+
+<view class='main-within'>
+<image class='logo-image' src='/images/logo.png'></image>
+<text class='logo-title'>污染源数据监控</text>
+</view>
+<view class='main-tips'>
+<text class='tips'>请输入手机号</text>
+</view>
+
+<input type='text' class='phone'></input>
+<button class='determine' type='primary' >确定</button>
+</view>
+</view>
