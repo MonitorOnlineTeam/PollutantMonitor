@@ -1,0 +1,4 @@
+<!--index.wxml-->
+<view class='Maximum'> 
+<text>当前时间：{{time}}</text>
+</view>
