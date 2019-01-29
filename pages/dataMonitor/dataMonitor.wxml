@@ -29,7 +29,7 @@
  <view class='tab-view-box'>
     <view class='tab-view-i'>
       实时
-    </view>
+              </view>     
     <view class='tab-view-i'>
       分钟
     </view>
