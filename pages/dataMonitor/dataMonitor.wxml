@@ -1,2 +1,50 @@
 <!--pages/dataMonitor/dataMonitor.wxml-->
-<text>pages/dataMonitor/dataMonitor.wxml</text>
+<view class='main'>
+  <view class='navigation'>
+    <text class='navigation-title'> 数据监控</text>
+  </view>
+  <view class='titlecard'>
+    <view class='titlecard-datetime'>
+      <view class='titlecard-datetime-box'>
+        <image class='titlecard-datetime-Arrow' src="/images/Left.png"></image>
+      </view>
+      <view class='titlecard-datetime-time'>
+        <picker class="input-picker" mode="selector">
+          <button class="datetime-input">2019年01月02日 19:00</button>
+        </picker>
+      </view>
+      <view class='titlecard-datetime-box'>
+        <image class='titlecard-datetime-Arrow' src="/images/Right.png"></image>
+      </view>
+    </view>
+    <view class='titlecard-polltype'>
+      <picker class="input-picker" mode="selector">
+        <button class='select-polltype'> 污染物：烟尘
+          <image class='titlecard-polltype-img' src="/images/Down.png"></image>
+        </button>
+      </picker>
+    </view>
+  </view>
+  <view class='tab-view'>
+ <view class='tab-view-box'>
+    <view class='tab-view-i'>
+      实时
+    </view>
+    <view class='tab-view-i'>
+      分钟
+    </view>
+
+    <view class='tab-view-i'>
+      小时
+    </view>
+
+    <view class='tab-view-i'>
+      日
+    </view>
+</view>
+
+
+
+  </view>
+
+</view>

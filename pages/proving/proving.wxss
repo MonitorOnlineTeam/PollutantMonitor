@@ -9,7 +9,10 @@
   color: #9c9c9c;
   margin-bottom: 62rpx;
 }
+.userBorder{
 
+  border:#19C417 1px solid;
+}
 .main-within{
   
   width: 75%;
@@ -25,11 +28,12 @@ justify-content: left;
   justify-content: left;
 }
 .determine{
-
+ 
   color: #FFF;
   background: #56A6FF;
   width: 74%;
-  border:none;
+
+    
 }
 .main-outer {
  

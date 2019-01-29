@@ -14,7 +14,7 @@
 
 <input type='text' class='phone' bindinput='phone'></input>
 
-<button class='determine' type='primary' bindtap='Determine'  wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo">确定</button>
+<button class='determine' type='primary' bindtap='Determine' hover-class="userBorder"   open-type="getUserInfo" bindgetuserinfo="getUserInfo">确定</button>
 
 </view>
 </view>
