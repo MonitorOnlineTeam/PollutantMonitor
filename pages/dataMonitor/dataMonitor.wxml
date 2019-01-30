@@ -44,22 +44,52 @@
     </view>
   </view>
   <!-- 图表 -->
-  <view>
+  <view class='canvas-view'>
     <canvas canvas-id="lineCanvas" disable-scroll="true" class="canvas"></canvas>
   </view>
   <!-- 列表 -->
-  <scroll-view class='list-view'>
-      <view class='list-title-item'> 
+  <view class='list-title-item'> 
        <view class='list-item-title'>时间</view>
        <view  class='list-item-title'>监测值</view>
        <view  class='list-item-title'>状态</view>
+        </view>
+  <scroll-view class='list-view' scroll-y="true">
+      
+   <view class='list-item'> 
+       <view class='list-item-text'>01-24 20:00</view>
+       <view class='list-item-text'>7.1</view>
+       <view class='list-item-text'>正常</view>
         </view>
    <view class='list-item'> 
        <view class='list-item-text'>01-24 20:00</view>
        <view class='list-item-text'>7.1</view>
        <view class='list-item-text'>正常</view>
         </view>
-
+           <view class='list-item'> 
+       <view class='list-item-text'>01-24 20:00</view>
+       <view class='list-item-text'>7.1</view>
+       <view class='list-item-text'>正常</view>
+        </view>
+           <view class='list-item'> 
+       <view class='list-item-text'>01-24 20:00</view>
+       <view class='list-item-text'>7.1</view>
+       <view class='list-item-text'>正常</view>
+        </view>
+           <view class='list-item'> 
+       <view class='list-item-text'>01-24 20:00</view>
+       <view class='list-item-text'>7.1</view>
+       <view class='list-item-text'>正常</view>
+        </view>
+           <view class='list-item'> 
+       <view class='list-item-text'>01-24 20:00</view>
+       <view class='list-item-text'>7.1</view>
+       <view class='list-item-text'>正常</view>
+        </view>
+           <view class='list-item'> 
+       <view class='list-item-text'>01-24 20:00</view>
+       <view class='list-item-text'>7.1</view>
+       <view class='list-item-text'>正常</view>
+        </view>
   </scroll-view>
 
 </view>

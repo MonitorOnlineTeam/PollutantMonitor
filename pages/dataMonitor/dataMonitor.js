@@ -19,7 +19,7 @@ Page({
     try {
       var res = wx.getSystemInfoSync();    //试图获取屏幕宽高数据
       windowWidth = res.windowWidth / 750 * 750;   
-      windowHeight = res.windowWidth / 750 * 400    
+      windowHeight = res.windowWidth / 750 * 300    
     } catch (e) {
       console.error('失败?');   
     }
@@ -29,7 +29,7 @@ Page({
       categories: ['3:00', '4:00', '4:00', '6:00', '7:00', '8:00', '9:00'],    //模拟的x轴横坐标参数
       animation: true,  //是否开启动画
       series: [{   //具体坐标数据
-  
+        color:"#1AAD19",
         data: [60, 90, 60, 110, 120, 105, 70],  //数据点
    
       }
