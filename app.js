@@ -1,14 +1,17 @@
+/**
+ * Api API 模块
+ * @type {Object}
+ */
+const api = require('./utils/api.js')
+
 //app.js
 
 App({
-  onLoad:function(){
 
-    // 登录
-    wx.login({
-      success: res => {
-        // 发送 res.code 到后台换取 openId, sessionKey, unionId
-      }
-    })
+  api: api,
+  onLoad: function() {
+    console.log(2);
+    
     // 获取用户信息
     wx.getSetting({
       success: res => {
@@ -30,9 +33,22 @@ App({
       }
     })
   },
-  onLaunch: function () {
-  
-  
+  onLaunch: function() {
+    console.log(1);
+    // 登录
+    wx.login({
+      success: res => {
+        console.log(res)
+        // 发送 res.code 到后台换取 openId, sessionKey, unionId
+        return api.getOpenId(res.code)
+          .then(d => {
+            console.log('success', d)
+          })
+          .catch(e => {
+            console.error('error', e)
+          })
+      }
+    })
   },
   globalData: {
     userInfo: null
