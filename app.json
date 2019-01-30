@@ -1,58 +1,56 @@
 {
-  "pages":[
-        "pages/dataMonitor/dataMonitor",
-  "pages/proving/proving",
+  "pages": [
+    "pages/dataMonitor/dataMonitor",
+    "pages/proving/proving",
     "pages/homePage/homePage",
-     
     "pages/pointInfo/pointInfo",
     "pages/deviceDetails/deviceDetails",
     "pages/realTimeData/realTimeData",
-
     "pages/my/my",
-    "pages/logs/logs" 
+    "pages/logs/logs"
   ],
-  "window":{
-    "backgroundTextStyle":"light",
+  "window": {
+    "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#56A6FF",
     "navigationBarTitleText": "",
-    "navigationBarTextStyle":"white"
-
-    },"tabBar": {
-      "backgroundColor": "#FFF",
-      "color": "#9C9C9C",
-      "selectedColor": "#56A6FF",
-      "borderStyle": "white",
-      "list": [
-        {
-          "selectedIconPath": "images/SSGY_Select.png",
-          "iconPath": "images/SSGY.png",
-          "pagePath": "pages/realTimeData/realTimeData",
-          "text": "实时工艺"
-        },
-        {
-          "selectedIconPath": "images/SJJK_Select.png",
-          "iconPath": "images/SJJK.png",
-          "pagePath": "pages/dataMonitor/dataMonitor",
-          "text": "数据监控"
-        },
-        {
-          "selectedIconPath": "images/PKXX_Select.png",
-          "iconPath": "images/PKXX.png",
-          "pagePath": "pages/pointInfo/pointInfo",
-          "text": "排口信息"
-        },
-        {
-          "selectedIconPath": "images/SBXQ_Select.png",
-          "iconPath": "images/SBXQ.png",
-          "pagePath": "pages/deviceDetails/deviceDetails",
-          "text": "设备详情"
-        },
-        {
-          "selectedIconPath": "images/WD_Select.png",
-          "iconPath": "images/WD.png",
-          "pagePath": "pages/my/my",
-          "text": "我的"
-        }
-      ]
-    }
+    "navigationBarTextStyle": "white"
+  },
+  "tabBar": {
+    "backgroundColor": "#FFF",
+    "color": "#9C9C9C",
+    "selectedColor": "#56A6FF",
+    "borderStyle": "white",
+    "list": [
+      {
+        "selectedIconPath": "images/SSGY_Select.png",
+        "iconPath": "images/SSGY.png",
+        "pagePath": "pages/realTimeData/realTimeData",
+        "text": "实时工艺"
+      },
+      {
+        "selectedIconPath": "images/SJJK_Select.png",
+        "iconPath": "images/SJJK.png",
+        "pagePath": "pages/dataMonitor/dataMonitor",
+        "text": "数据监控"
+      },
+      {
+        "selectedIconPath": "images/PKXX_Select.png",
+        "iconPath": "images/PKXX.png",
+        "pagePath": "pages/pointInfo/pointInfo",
+        "text": "排口信息"
+      },
+      {
+        "selectedIconPath": "images/SBXQ_Select.png",
+        "iconPath": "images/SBXQ.png",
+        "pagePath": "pages/deviceDetails/deviceDetails",
+        "text": "设备详情"
+      },
+      {
+        "selectedIconPath": "images/WD_Select.png",
+        "iconPath": "images/WD.png",
+        "pagePath": "pages/my/my",
+        "text": "我的"
+      }
+    ]
+  }
 }
