@@ -1,2 +1,81 @@
-<!--pages/pointInfo/pointInfo.wxml-->
-<text>pages/pointInfo/pointInfo.wxml</text>
+<view class='main'>
+  <view class='navigation'>
+    <text class='navigation-title'>排口信息</text>
+  </view>
+  <view class='titlecard'>
+    <view class='name-view'>
+      <text class='name-text'>16号脱硫出口</text>
+    </view>
+    <view class='dgimn'>排口号：1000136546541</view>
+    <!-- 底部 -->
+    <view class='point-view'>
+      <view class='point-type'>排口类型:出口</view>
+      <view class='point-state'>
+        <view class='name-state-name'> 排口状态:</view>
+
+        <view class='name-state-text'>
+          <text class='name-state-z'> ●</text>正常</view>
+      </view>
+      <view class='point-polltype'>污染物:废气</view>
+
+      <view></view>
+
+    </view>
+  </view>
+
+   <scroll-view scroll-y="true" class="swiper-item ">
+             <view class='list-item'> 
+       <view class='list-item-text-left'>排口直径</view>
+       <view class='list-item-text-right'>160MM</view>
+        </view>
+
+             <view class='list-item'> 
+       <view class='list-item-text-left'>排口高度</view>
+       <view class='list-item-text-right'>10M</view>
+        </view>
+
+
+             <view class='list-item'> 
+       <view class='list-item-text-left'>负责人</view>
+       <view class='list-item-text-right'>刘惜君</view>
+        </view>
+
+
+             <view class='list-item'> 
+       <view class='list-item-text-left'>负责人电话</view>
+       <view class='list-item-text-right'>156991169871</view>
+        </view>
+
+
+             <view class='list-item'> 
+       <view class='list-item-text-left'>运维人</view>
+       <view class='list-item-text-right'>张栋梁</view>
+        </view>
+
+
+             <view class='list-item'> 
+       <view class='list-item-text-left'>运维人电话</view>
+       <view class='list-item-text-right'>156991169871</view>
+        </view>
+
+       <view class='list-item-newline'> 
+       <view class='list-item-newline-left'>地址</view>
+       <view class='list-item-newline-right'>河北省唐山市曹妃甸区曹妃甸工业区滦南曹妃甸南站中日唐山曹妃甸生态工业园</view>
+        </view>
+   <view class="page-section page-section-gap">
+    <map
+      id="myMap"
+      style="width: 100%; height: 300px;"
+      latitude="{{latitude}}"
+      longitude="{{longitude}}"
+      markers="{{markers}}"
+      covers="{{covers}}"
+      show-location
+    ></map>
+  </view>
+       </scroll-view>
+           <view class="page-section page-section-gap">
+ 
+  </view>   
+
+</view>

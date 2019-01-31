@@ -14,7 +14,7 @@
        
         </button>
   <view>
-  </view>
+  </view> 
   </view>
 <!-- 标签 -->
  <view wx:if="{{tab_config.fixed}}" class="tab-bar">
@@ -42,7 +42,8 @@
               current="{{swipe_config.current}}" bindchange="swiperChange">
         <block wx:for="{{swipe_config.swipes}}">
           <swiper-item style="height:500rpx;">
-                   <scroll-view scroll-y="true" class="swiper-item ">
+          <!-- 数据列表 -->
+     <scroll-view scroll-y="true" class="swiper-item ">
              <view class='list-item'> 
        <view class='list-item-text-left'>当前零点</view>
        <view class='list-item-text-right'>39</view>
