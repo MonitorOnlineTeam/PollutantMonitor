@@ -3,7 +3,7 @@
   <view class='navigation'>
     <text class='navigation-title'> 数据监控</text>
   </view>
-  <view class='titlecard'>
+  <view class='titlecard'>  
     <view class='titlecard-datetime'>
       <view class='titlecard-datetime-box'>
         <image class='titlecard-datetime-Arrow' src="/images/Left.png"></image>
@@ -25,6 +25,7 @@
       </picker>
     </view>
   </view>
+  <!-- tab -->
   <view class='tab-view'>
     <view class='tab-view-box'>
       <view class='tab-view-i-Left  '>

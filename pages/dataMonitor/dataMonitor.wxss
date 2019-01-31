@@ -4,6 +4,7 @@
 }
 /* 1AAD19 */
 /* 56A6FF */
+  
 /* 导航栏 */
 
 .navigation {
@@ -217,12 +218,12 @@
   font-size: 26rpx;
   color: #555555;
 }
-
+/* 标题块 */
 .list-item-title {
   width: 30%;
   text-align: center;
 }
-
+/* 文字块 */
 .list-item {
   width: 100%;
   height: 90rpx;
@@ -234,7 +235,7 @@
   font-size: 26rpx;
   color: #555555;
 }
-
+/* 文字块 */
 .list-item-text {
   width: 30%;
   text-align: center;

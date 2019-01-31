@@ -1,11 +1,12 @@
 {
   "pages": [
+        "pages/realTimeData/realTimeData",
     "pages/dataMonitor/dataMonitor",
     "pages/proving/proving",
     "pages/homePage/homePage",
     "pages/pointInfo/pointInfo",
     "pages/deviceDetails/deviceDetails",
-    "pages/realTimeData/realTimeData",
+
     "pages/my/my",
     "pages/logs/logs"
   ],
@@ -13,7 +14,8 @@
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#56A6FF",
     "navigationBarTitleText": "",
-    "navigationBarTextStyle": "white"
+  "navigationStyle": "custom"
+
   },
   "tabBar": {
     "backgroundColor": "#FFF",
