@@ -1,30 +1,58 @@
 function login() {
   return new Promise((resolve, reject) => {
-    wx.login({ success: resolve, fail: reject })
+    wx.login({
+      success: resolve,
+      fail: reject
+    })
   })
 }
 
 function getUserInfo() {
   return new Promise((resolve, reject) => {
-    wx.getUserInfo({ success: resolve, fail: reject })
+    wx.getUserInfo({
+      success: resolve,
+      fail: reject
+    })
   })
 }
 
 function setStorage(key, value) {
-  return new Promise((resolve, reject) => {
-    wx.setStorage({ key: key, data: value, success: resolve, fail: reject })
-  })
+  try {
+    wx.setStorageSync(key, value)
+  } catch (e) { }
 }
 
 function getStorage(key) {
-  return new Promise((resolve, reject) => {
-    wx.getStorage({ key: key, success: resolve, fail: reject })
-  })
+  try {
+    return wx.getStorageSync(key);
+  } catch (e) {
+  }
+}
+
+function removeStorage(key)
+{
+  try {
+    wx.removeStorageSync(key)
+  } catch (e) {
+    
+  }
+}
+
+function clearStorage()
+{
+  try {
+    wx.clearStorageSync()
+  } catch (e) {
+  }
 }
 
 function getLocation(type) {
   return new Promise((resolve, reject) => {
-    wx.getLocation({ type: type, success: resolve, fail: reject })
+    wx.getLocation({
+      type: type,
+      success: resolve,
+      fail: reject
+    })
   })
 }
 
@@ -33,6 +61,7 @@ module.exports = {
   getUserInfo,
   setStorage,
   getStorage,
+  removeStorage,
   getLocation,
   original: wx
 }

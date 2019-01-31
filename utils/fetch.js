@@ -8,7 +8,7 @@
  * @return {Promise}       包含服务端的Promise
  */
 module.exports = function(api, path, params, method) {
-  console.log(`${api}/${path}`, `${JSON.stringify(params)}${method}`);
+  //console.log(`${api}/${path}`, `${JSON.stringify(params)}${method}`);
   return new Promise((resolve, reject) => {
     wx.request({
       url: `${api}/${path}`,
