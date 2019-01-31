@@ -14,8 +14,8 @@
   height: 83rpx;
   padding-left: 20rpx;
   padding-top: 5vh;
-  background: #1aad19;
-  border: 1px #1aad19 solid;
+  background: #3B98FF;
+  border: 1px #3B98FF solid;
   display: flex;
 }
 
@@ -36,7 +36,7 @@
   width: 100%;
   padding-bottom: 10rpx;
   height: 164rpx;
-  background: #1aad19;
+  background: #3B98FF;
   margin-bottom: 10rpx;
 }
 

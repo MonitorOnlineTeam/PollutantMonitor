@@ -6,7 +6,7 @@
     <view class='name-view'>
       <text class='name-text'>16号脱硫出口</text>
     </view>
-    <view class='dgimn'>排口号：1000136546541</view>
+    <view class='dgimn'>排口号：1000136546541</view> 
     <!-- 底部 -->
     <view class='point-view'>
       <view class='point-type'>排口类型:出口</view>
@@ -74,8 +74,6 @@
     ></map>
   </view>
        </scroll-view>
-           <view class="page-section page-section-gap">
- 
-  </view>   
+         
 
 </view>

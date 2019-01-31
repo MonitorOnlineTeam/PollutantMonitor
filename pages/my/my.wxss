@@ -1,1 +1,109 @@
-/* pages/my/my.wxss */
+.main {
+  height: 100vh;
+  background: #f8f8f8;
+}
+
+/* 1AAD19 */
+
+/* 56A6FF */
+
+/* 导航栏 */
+
+.navigation {
+  width: 100%;
+  height: 83rpx;
+  padding-left: 20rpx;
+  padding-top: 5vh;
+  background: #3B98FF;
+  border: 1px #3B98FF solid;
+  display: flex;
+}
+
+/* 导航栏标题 */
+
+.navigation-title {
+  color: #fff;
+  font-size: 34rpx;
+  font-weight: 400;
+}
+
+/* 上标题卡片 */
+
+.titlecard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding-bottom: 10rpx;
+  height: 400rpx;
+  background: #3B98FF;
+}
+
+.userinfo-avatar {
+  width: 178rpx;
+  height: 178rpx;
+  margin: 10rpx;
+  margin-top: 80rpx;
+  border-radius: 50%;
+}
+
+.userinfo-nickname {
+  color: #fff;
+  font-size: 42rpx;
+}
+
+.user-phone {
+  margin-top: 10rpx;
+  color: #fff;
+  font-size: 30rpx;
+}
+
+.tips-view {
+  color: #c6c6c6;
+  font-size: 25rpx;
+  padding-left: 29rpx;
+  padding-top: 10rpx;
+  padding-bottom: 10rpx;
+}
+
+.history-item {
+  max-height: 50vh;
+}
+
+.history-item-view {
+  width: 100%;
+  padding-left: 30rpx;
+  padding-right: 30rpx;
+  background:#fff;
+  border-bottom: 1px #f3f3f3 solid;
+  display: flex;
+  flex-direction: row;
+}
+
+.history-item-ent {
+  font-size: 28rpx;
+  padding-top: 20rpx;
+  padding-bottom: 10rpx;
+}
+
+.history-item-view-left
+{
+width: 80%;
+font-size: 25rpx;
+
+padding-bottom: 20rpx;
+}
+
+.history-item-view-right
+{
+width: 20%;
+}
+.bo{
+  color: #C6C6C6;
+}
+
+.g{
+  padding: 33rpx;
+  width: 40rpx;
+  height: 40rpx;
+}

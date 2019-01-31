@@ -1,0 +1,148 @@
+
+.main {
+  height: 100vh;
+  background: #f8f8f8;
+}
+
+/* 1AAD19 */
+
+/* 56A6FF */
+ 
+/* 导航栏 */
+
+.navigation {
+  width: 100%;
+  height: 83rpx;
+  padding-left: 20rpx;
+  padding-top: 5vh;
+  background: #3B98FF;
+  border: 1px #3B98FF solid;
+  display: flex;
+}
+
+/* 导航栏标题 */
+
+.navigation-title {
+  color: #fff;
+  font-size: 34rpx;
+  font-weight: 400;
+}
+
+
+/*tab 标签*/
+.withAnimate {
+  transition: all 200ms ease-out;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-perspective: 1000;
+  -moz-perspective: 1000;
+  -ms-perspective: 1000;
+  perspective: 1000;
+}
+.tab-bar {
+  position: relative;
+  white-space: nowrap;
+  display: block;
+  font-size: 15px;
+  color: #666666;
+  height:42px;
+}
+.tab-bar .tab {
+  display: inline-block;
+  padding-top:8px;
+  padding-bottom:7px;
+  text-align: center;
+}
+.tab-bar .tab-active {
+  color: #3B98FF;
+}
+.tab-bar .under-line {
+  position: absolute;
+  height: 3px;
+  background-color: #3B98FF;
+}
+
+/*tab 标签 end*/
+
+
+.page-section-spacing {
+  padding: 0;
+}
+.swiper{
+  height: 78vh;
+}
+
+/* 列表 */
+.swiper-item {
+  margin-top: 10rpx;
+  margin-bottom: 10rpx;
+  max-height: 78vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  background: #fff;
+}
+/* 列表 */
+.list-item {
+  width: 100%;
+  height: 90rpx;
+  border-bottom: 1px #f3f3f3 solid;
+  display: flex;
+  flex-direction: row;
+  justify-content:  space-around;
+  align-items: center;
+  font-size: 26rpx;
+  color: #555555;
+
+}
+/* 列表 */
+.list-item-text-right {
+  color: #656565;
+  width: 40%;
+ padding-right: 50rpx;
+  text-align: right;
+
+}
+
+.list-item-text-left {
+  color: #B2B2B2;
+  padding-left: 50rpx;
+  width: 50%;
+ padding-right: 230rpx;
+  text-align: left;
+}
+/* 换行列表 */
+.list-item-newline{
+width: 100%;
+
+  display: flex;
+  flex-direction: row;
+  justify-content:  space-around;
+  align-items: center;
+  font-size: 26rpx;
+  color: #555555;
+}
+.list-item-newline-left{
+  color: #B2B2B2;
+  padding-left: 50rpx;
+  width: 30%;
+
+  text-align: left;
+
+}
+.list-item-newline-right{
+padding-top: 10px;
+padding-bottom: 10px;
+    color: #555555;
+  width: 70%;
+ padding-right: 50rpx;
+  text-align: left;
+}

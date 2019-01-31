@@ -1,2 +1,96 @@
-<!--pages/deviceDetails/deviceDetails.wxml-->
-<text>pages/deviceDetails/deviceDetails.wxml</text>
+<view class='main'>
+  <view class='navigation'>
+    <text class='navigation-title'>设备仪器详情</text>
+  </view>
+
+
+
+<!-- 标签 -->
+ <view wx:if="{{tab_config.fixed}}" class="tab-bar">
+      <view wx:for="{{tab_config.tabs}}" wx:key="unique" data-index="{{index}}" bindtap="handlerTabTap"
+            class="tab {{tab_config.active_tab==index?'tab-active':''}} " style="width: {{tab_config.item_width}}px;">
+        <text>{{item}}</text>
+      </view>
+      <view style="width: {{tab_config.item_width}}px; left: {{tab_config.underline.offset}}px;"
+            class="under-line withAnimate"></view>
+    </view>
+    <scroll-view wx:else class="tab-bar" scroll-x="true" bindscroll="onScroll" style="width: 100%;"
+                 scroll-left="{{tab_config.tab_left}}">
+      <view wx:for="{{tab_config.tabs}}" wx:key="unique" data-index="{{index}}" bindtap="handlerTabTap"
+            class="tab {{tab_config.active_tab==index?'tab-active':''}} " style="width: {{tab_config.item_width}}px;">
+        <text>{{item}}</text>
+      </view>
+      <view style="width: {{tab_config.item_width}}px; left: {{tab_config.underline.offset}}px;"
+            class="under-line withAnimate"></view>
+    </scroll-view>
+    
+        <!-- tab panel -->
+    <view class="page-section page-section-spacing swiper-wrap">
+      <swiper class="swiper" indicator-dots="{{swipe_config.indicator_dots}}" autoplay="{{swipe_config.autoplay}}"
+              interval="{{swipe_config.interval}}" duration="{{swipe_config.duration}}"
+              current="{{swipe_config.current}}" bindchange="swiperChange">
+        <block wx:for="{{swipe_config.swipes}}">
+          <swiper-item style="height:500rpx;">
+          <!-- 数据列表 -->
+     <scroll-view scroll-y="true" class="swiper-item ">
+             <view class='list-item'> 
+       <view class='list-item-text-left'>排口编号</view>
+       <view class='list-item-text-right'>5015614612132</view>
+        </view>
+
+             <view class='list-item'> 
+       <view class='list-item-text-left'>排口名称</view>
+       <view class='list-item-text-right'>16号脱销出口</view>
+        </view>
+
+
+             <view class='list-item'> 
+       <view class='list-item-text-left'>分析仪名称</view>
+       <view class='list-item-text-right'>1080红外线气体分析仪</view>
+        </view>
+
+
+             <view class='list-item'> 
+       <view class='list-item-text-left'>型号</view>
+       <view class='list-item-text-right'>MODEL 1080</view>
+        </view>
+
+
+             <view class='list-item'> 
+       <view class='list-item-text-left'>测试项目</view>
+       <view class='list-item-text-right'>NOX</view>
+        </view>
+
+
+             <view class='list-item'> 
+       <view class='list-item-text-left'>量程</view>
+       <view class='list-item-text-right'>0-500</view>
+        </view>
+
+             <view class='list-item'> 
+       <view class='list-item-text-left'>计量单位</view>
+       <view class='list-item-text-right'>mg/m3</view>
+        </view>
+             <view class='list-item'> 
+       <view class='list-item-text-left'>斜率</view>
+       <view class='list-item-text-right'>11</view>
+        </view>
+             <view class='list-item'> 
+       <view class='list-item-text-left'>截距</view>
+       <view class='list-item-text-right'>156991169871</view>
+        </view>
+       <view class='list-item-newline'> 
+       <view class='list-item-newline-left'>分析仪原理</view>
+       <view class='list-item-newline-right'>基于某些气体对红外波段特定波长的红外辐射有吸收能力，其吸收程度取决于被测气体的浓度</view>
+        </view>
+   <view class="page-section page-section-gap">
+ 
+  </view>
+       </scroll-view>
+         
+          </swiper-item>
+        </block>
+      </swiper>
+    </view>
+    <!-- tab panel end -->
+ </view> 

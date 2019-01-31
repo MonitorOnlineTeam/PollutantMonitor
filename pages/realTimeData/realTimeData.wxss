@@ -1,13 +1,13 @@
 
 .main {
-  height: 100vh;
+  height: 100vh; 
   background: #f8f8f8;
 }
 
 /* 1AAD19 */
 
 /* 56A6FF */
-
+ 
 /* 导航栏 */
 
 .navigation {
@@ -15,8 +15,8 @@
   height: 83rpx;
   padding-left: 20rpx;
   padding-top: 5vh;
-  background: #1aad19;
-  border: 1px #1aad19 solid;
+  background: #3B98FF;
+  border: 1px #3B98FF solid;
   display: flex;
 }
 
@@ -37,7 +37,7 @@
   width: 100%;
   padding-bottom: 10rpx;
   height: 164rpx;
-  background: #1aad19;
+  background: #3B98FF;
 }
 
 
@@ -72,12 +72,12 @@
   text-align: center;
 }
 .tab-bar .tab-active {
-  color: #1aad19;
+  color: #3B98FF;
 }
 .tab-bar .under-line {
   position: absolute;
   height: 3px;
-  background-color: #1aad19;
+  background-color: #3B98FF;
 }
 
 /*tab 标签 end*/
@@ -87,11 +87,11 @@
   padding: 0;
 }
 .swiper{
-  height: 67vh;
+  height: 65vh;
 }
 /* 列表 */
 .swiper-item {
-  max-height: 80vh;
+  max-height: 65vh;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -132,7 +132,7 @@
   color: #fff;
   font-size: 25rpx;
   line-height: 42rpx;
-  background: #1AAD19;
+  background: #3B98FF;
   border: 1px #fff solid;
   border-radius: 20px;
 }
