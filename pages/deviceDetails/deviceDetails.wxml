@@ -2,117 +2,55 @@
   <view class='navigation'>
     <text class='navigation-title'>设备仪器详情</text>
   </view>
-          <!-- 数据列表 -->
-     <scroll-view scroll-y="true" class="swiper-item ">
-     
-  <wux-accordion-group title="气态污染物CEMS设备仪器" controlled current="{{ current }}" bind:change="onChange">
-            <wux-accordion title="NOX" key="key1" content="">
-           <view class='list-item'> 
-       <view class='list-item-text-left'>排口编号</view>
-       <view class='list-item-text-right'>5015614612132</view>
-        </view>
-
-             <view class='list-item'> 
-       <view class='list-item-text-left'>排口名称</view>
-       <view class='list-item-text-right'>16号脱销出口</view>
-        </view>
+  <!-- 数据列表 -->
+  <scroll-view scroll-y="true" class="swiper-item ">
+    <block wx:for="{{ deviceData }}" wx:key="{{index}}">
+      <wux-accordion-group title="{{item.Name}}" controlled current="{{ current }}" bind:change="onChange">
+      <block wx:for="{{ item.child }}" wx:key="{{item.Name}}">
+        <wux-accordion title="{{item.ComponentName}}" key="{{item.DeviceModel}}" content="">
+          <view class='list-item'>
+            <view class='list-item-text-left'>分析仪名称</view>
+            <view class='list-item-text-right'>{{item.AnalyzerName}}</view>
+          </view>
 
 
-             <view class='list-item'> 
-       <view class='list-item-text-left'>分析仪名称</view>
-       <view class='list-item-text-right'>1080红外线气体分析仪</view>
-        </view>
+          <view class='list-item'>
+            <view class='list-item-text-left'>型号</view>
+            <view class='list-item-text-right'>{{item.DeviceModel}}</view>
+          </view>
 
 
-             <view class='list-item'> 
-       <view class='list-item-text-left'>型号</view>
-       <view class='list-item-text-right'>MODEL 1080</view>
-        </view>
+          <view class='list-item'>
+            <view class='list-item-text-left'>测试项目</view>
+            <view class='list-item-text-right'>{{item.ComponentName}}</view>
+          </view>
 
 
-             <view class='list-item'> 
-       <view class='list-item-text-left'>测试项目</view>
-       <view class='list-item-text-right'>NOX</view>
-        </view>
+          <view class='list-item'>
+            <view class='list-item-text-left'>量程</view>
+            <view class='list-item-text-right'>{{item.AnalyzerRange}}</view>
+          </view>
 
-
-             <view class='list-item'> 
-       <view class='list-item-text-left'>量程</view>
-       <view class='list-item-text-right'>0-500</view>
-        </view>
-
-             <view class='list-item'> 
-       <view class='list-item-text-left'>计量单位</view>
-       <view class='list-item-text-right'>mg/m3</view>
-        </view>
-             <view class='list-item'> 
-       <view class='list-item-text-left'>斜率</view>
-       <view class='list-item-text-right'>11</view>
-        </view>
-             <view class='list-item'> 
-       <view class='list-item-text-left'>截距</view>
-       <view class='list-item-text-right'>156991169871</view>
-        </view>
-       <view class='list-item-newline'> 
-       <view class='list-item-newline-left'>分析仪原理</view>
-       <view class='list-item-newline-right'>基于某些气体对红外波段特定波长的红外辐射有吸收能力，其吸收程度取决于被测气体的浓度</view>
-        </view>
-            </wux-accordion>
-        </wux-accordion-group>
-        <wux-accordion-group title="颗粒污染物CEMS设备仪器"controlled current="{{ current }}" bind:change="onChange">
-            <wux-accordion title="NOX"  key="key2" content="">
-           <view class='list-item'> 
-       <view class='list-item-text-left'>排口编号</view>
-       <view class='list-item-text-right'>5015614612132</view>
-        </view>
-
-             <view class='list-item'> 
-       <view class='list-item-text-left'>排口名称</view>
-       <view class='list-item-text-right'>16号脱销出口</view>
-        </view>
-
-
-             <view class='list-item'> 
-       <view class='list-item-text-left'>分析仪名称</view>
-       <view class='list-item-text-right'>1080红外线气体分析仪</view>
-        </view>
-
-
-             <view class='list-item'> 
-       <view class='list-item-text-left'>型号</view>
-       <view class='list-item-text-right'>MODEL 1080</view>
-        </view>
-
-
-             <view class='list-item'> 
-       <view class='list-item-text-left'>测试项目</view>
-       <view class='list-item-text-right'>NOX</view>
-        </view>
-
-
-             <view class='list-item'> 
-       <view class='list-item-text-left'>量程</view>
-       <view class='list-item-text-right'>0-500</view>
-        </view>
-
-             <view class='list-item'> 
-       <view class='list-item-text-left'>计量单位</view>
-       <view class='list-item-text-right'>mg/m3</view>
-        </view>
-             <view class='list-item'> 
-       <view class='list-item-text-left'>斜率</view>
-       <view class='list-item-text-right'>11</view>
-        </view>
-             <view class='list-item'> 
-       <view class='list-item-text-left'>截距</view>
-       <view class='list-item-text-right'>156991169871</view>
-        </view>
-       <view class='list-item-newline'> 
-       <view class='list-item-newline-left'>分析仪原理</view>
-       <view class='list-item-newline-right'>基于某些气体对红外波段特定波长的红外辐射有吸收能力，其吸收程度取决于被测气体的浓度</view>
-        </view>
-            </wux-accordion>
-        </wux-accordion-group>
-       </scroll-view>
-    <!-- tab panel end -->
- </view> 
+          <view class='list-item'>
+            <view class='list-item-text-left'>计量单位</view>
+            <view class='list-item-text-right'>{{item.MeasurementUnit}}</view>
+          </view>
+          <view class='list-item'>
+            <view class='list-item-text-left'>斜率</view>
+            <view class='list-item-text-right'>{{item.Slope}}</view>
+          </view>
+          <view class='list-item'>
+            <view class='list-item-text-left'>截距</view>
+            <view class='list-item-text-right'>{{item.Intercept}}</view>
+          </view>
+          <view class='list-item-newline'>
+            <view class='list-item-newline-left'>分析仪原理</view>
+            <view class='list-item-newline-right'>{{item.AnalyzerPrinciple}}</view>
+          </view>
+        </wux-accordion>
+        </block>
+      </wux-accordion-group>
+    </block>
+  </scroll-view>
+  <!-- tab panel end -->
+</view>

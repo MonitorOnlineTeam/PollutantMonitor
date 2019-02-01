@@ -107,7 +107,7 @@
 /* 列表 */
 .list-item-text-right {
   color: #656565;
-  width: 40%;
+  width: 70%;
  padding-right: 50rpx;
   text-align: right;
 
@@ -116,7 +116,7 @@
 .list-item-text-left {
   color: #B2B2B2;
   padding-left: 50rpx;
-  width: 50%;
+  width: 30%;
  padding-right: 230rpx;
   text-align: left;
 }
