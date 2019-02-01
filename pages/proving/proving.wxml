@@ -8,12 +8,11 @@
 <image class='logo-image' src='/images/logo.png'></image>
 <text class='logo-title'>污染源数据监控</text>
 </view>
-<view class='main-tips'>
-<text class='tips'>请输入手机号</text>
-</view>
 
-<input type='text' class='phone' bindinput='phone'></input>
 
+<input type='text' class='phone' bindinput='phone' adjust-position="true" placeholder="手机号" placeholder-class="pphone"></input>
+
+<input type='password' class='phone' bindinput='phone' adjust-position="true" placeholder="设备密码"  placeholder-class="pphone"></input>
 <button class='determine' type='primary' bindtap='Determine' hover-class="userBorder"   open-type="getUserInfo" bindgetuserinfo="getUserInfo">确定</button>
 
 </view>
