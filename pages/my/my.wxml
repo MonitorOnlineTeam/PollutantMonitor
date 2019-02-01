@@ -4,7 +4,7 @@
   </view>
   <view class='titlecard'>
     <view class='user-img'>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="/images/user.jpg" mode="cover"></image>
+      <image bindtap="bindViewTap" class="userinfo-avatar" src="/images/user.png" mode="cover"></image>
     </view>
 
     <view class='user-name'>

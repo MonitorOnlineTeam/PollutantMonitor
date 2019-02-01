@@ -2,6 +2,7 @@
 .main {
   height: 100vh; 
   background: #f8f8f8;
+    overflow-x: hidden;
 }
 
 /* 1AAD19 */
@@ -26,6 +27,7 @@
   color: #fff;
   font-size: 34rpx;
   font-weight: 400;
+
 }
 
 /* 上标题卡片 */
