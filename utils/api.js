@@ -1,4 +1,4 @@
- const URI = 'http://172.16.9.13:8019/rest/PollutantSourceApi/'
+const URI = 'http://172.16.9.13:8019/rest/PollutantSourceApi/'
  //const URI = 'http://localhost:52198/rest/PollutantSourceApi'
  const fetch = require('./fetch')
  const common = require('./common.js')
@@ -24,7 +24,28 @@
   * @return {Promise}       包含抓取任务的Promise
   */
  function fetchApi(type, params, method) {
-   return fetch(URI, type, params, method)
+   wx.showLoading({
+     title: '正在加载中',
+   })
+   return fetch(URI, type, params, method).then(res=>{
+     wx.hideLoading()
+     return res;
+   }).catch(res=>{
+    //  wx.showModal({
+    //    title: '提示',
+    //    content: '网络错误，请重试',
+    //    showCancel: false,
+    //    success(res) {
+    //      if (res.confirm) {
+    //        console.log('用户点击确定')
+    //      } else if (res.cancel) {
+    //        console.log('用户点击取消')
+    //      }
+    //    }
+    //  })
+     wx.hideLoading()
+     return res;
+   })
  }
 
  /**

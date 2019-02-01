@@ -1,24 +1,21 @@
 {
   "pages": [
+    "pages/pointInfo/pointInfo",
     "pages/proving/proving",
-        "pages/my/my",
+    "pages/my/my",
     "pages/deviceDetails/deviceDetails",
-        "pages/pointInfo/pointInfo",
-        "pages/realTimeData/realTimeData",
-    "pages/dataMonitor/dataMonitor",
     
+    "pages/realTimeData/realTimeData",
+    "pages/dataMonitor/dataMonitor",
     "pages/homePage/homePage",
-
-
-
+    "pages/indexPage/index",
     "pages/logs/logs"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#56A6FF",
     "navigationBarTitleText": "",
-  "navigationStyle": "custom"
-
+    "navigationStyle": "custom"
   },
   "tabBar": {
     "backgroundColor": "#FFF",
