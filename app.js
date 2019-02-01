@@ -64,21 +64,21 @@ App({
                 common.setStorage("AuthorCode", res.Data.AuthorCode)
               }
               if (res.Data.IsFirstLogin) {
-                wx.showToast({
-                  title: '首次登陆',
+                // wx.showToast({
+                //   title: '首次登陆',
 
-                  icon: 'success',
-                  duration: 2000
-                })
+                //   icon: 'success',
+                //   duration: 2000
+                // })
               } else {
-                wx.showToast({
-                  title: '已登录',
-                  icon: 'success',
-                  duration: 2000
-                })
-                wx.switchTab({
-                  url: '/pages/indexPage/index'
-                })
+                // wx.showToast({
+                //   title: '已登录',
+                //   icon: 'success',
+                //   duration: 2000
+                // })
+                // wx.switchTab({
+                //   url: '/pages/indexPage/index'
+                // })
                 // api.getUserInfo().then(res=>{
                 //   console.log('getUserInfo',res)
                 // })
@@ -145,19 +145,19 @@ App({
             }
           })
 
-          wx.showModal({
-            title: '提示',
-            content: '请先授权',
-            showCancel: false,
-            success(res) {
-              if (res.confirm) {
-                console.log('用户点击确定')
-              } else if (res.cancel) {
-                console.log('用户点击取消')
+          // wx.showModal({
+          //   title: '提示',
+          //   content: '请先授权',
+          //   showCancel: false,
+          //   success(res) {
+          //     if (res.confirm) {
+          //       console.log('用户点击确定')
+          //     } else if (res.cancel) {
+          //       console.log('用户点击取消')
                 
-              }
-            }
-          })
+          //     }
+          //   }
+          // })
         }
       }
     })

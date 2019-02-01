@@ -1,118 +1,38 @@
-
 <view class='main'>
- <view class='navigation'>
+  <view class='navigation'>
     <text class='navigation-title'> 实时工艺</text>
   </view>
   <view class='titlecard'>
-  <view class='name-view'>
-    <text class='name-state-z'>●</text> 
-    <text class='name-text'>16号脱硫出口</text>
-  </view>
- <view class='dgimn'>排口号：1000136546541</view>
- 
-   <button class='butadd'> 进入流程图
-       
-        </button>
-  <view>
-  </view>  
-  </view>
-<!-- 标签 -->
- <view wx:if="{{tab_config.fixed}}" class="tab-bar">
-      <view wx:for="{{tab_config.tabs}}" wx:key="unique" data-index="{{index}}" bindtap="handlerTabTap"
-            class="tab {{tab_config.active_tab==index?'tab-active':''}} " style="width: {{tab_config.item_width}}px;">
-        <text>{{item}}</text>
-      </view>
-      <view style="width: {{tab_config.item_width}}px; left: {{tab_config.underline.offset}}px;"
-            class="under-line withAnimate"></view>
+    <view class='name-view'>
+      <text class='name-state-z'>●</text>
+      <text class='name-text'>{{pointName}}</text>
     </view>
-    <scroll-view wx:else class="tab-bar" scroll-x="true" bindscroll="onScroll" style="width: 100%;"
-                 scroll-left="{{tab_config.tab_left}}">
-      <view wx:for="{{tab_config.tabs}}" wx:key="unique" data-index="{{index}}" bindtap="handlerTabTap"
-            class="tab {{tab_config.active_tab==index?'tab-active':''}} " style="width: {{tab_config.item_width}}px;">
-        <text>{{item}}</text>
-      </view>
-      <view style="width: {{tab_config.item_width}}px; left: {{tab_config.underline.offset}}px;"
-            class="under-line withAnimate"></view>
-    </scroll-view>
-    
-        <!-- tab panel -->
-    <view class="page-section page-section-spacing swiper-wrap">
-      <swiper class="swiper" indicator-dots="{{swipe_config.indicator_dots}}" autoplay="{{swipe_config.autoplay}}"
-              interval="{{swipe_config.interval}}" duration="{{swipe_config.duration}}"
-              current="{{swipe_config.current}}" bindchange="swiperChange">
-        <block wx:for="{{swipe_config.swipes}}">
-          <swiper-item style="height:500rpx;">
-          <!-- 数据列表 -->
-     <scroll-view scroll-y="true" class="swiper-item ">
-             <view class='list-item'> 
-       <view class='list-item-text-left'>当前零点</view>
-       <view class='list-item-text-right'>39</view>
-        </view>
+    <view class='dgimn'>排口号：{{DGIMN}}</view>
 
-             <view class='list-item'> 
-       <view class='list-item-text-left'>校准偏差</view>
-       <view class='list-item-text-right'>2</view>
-        </view>
-
-
-             <view class='list-item'> 
-       <view class='list-item-text-left'>零点偏差</view>
-       <view class='list-item-text-right'>39</view>
-        </view>
-
-
-             <view class='list-item'> 
-       <view class='list-item-text-left'>标定系数</view>
-       <view class='list-item-text-right'>39</view>
-        </view>
-
-
-             <view class='list-item'> 
-       <view class='list-item-text-left'>斜率</view>
-       <view class='list-item-text-right'>39</view>
-        </view>
-
-
-             <view class='list-item'> 
-       <view class='list-item-text-left'>标气</view>
-       <view class='list-item-text-right'>39</view>
-        </view>
-
-           <view class='list-item'> 
-       <view class='list-item-text-left'>测量程度</view>
-       <view class='list-item-text-right'>39</view>
-        </view>
-
-
-           <view class='list-item'> 
-       <view class='list-item-text-left'>测量程度</view>
-       <view class='list-item-text-right'>39</view>
-        </view>
-
-           <view class='list-item'> 
-       <view class='list-item-text-left'>测量程度</view>
-       <view class='list-item-text-right'>39</view>
-        </view>
-
-           <view class='list-item'> 
-       <view class='list-item-text-left'>测量程度</view>
-       <view class='list-item-text-right'>39</view>
-        </view>
-
-           <view class='list-item'> 
-       <view class='list-item-text-left'>测量程度</view>
-       <view class='list-item-text-right'>39</view>
-        </view>
-
-           <view class='list-item'> 
-       <view class='list-item-text-left'>测量程度</view>
-       <view class='list-item-text-right'>39</view>
-        </view>
-
-            </scroll-view>
-          </swiper-item>
-        </block>
-      </swiper>
+    <button class='butadd'> 进入流程图</button>
+    <view>
     </view>
-    <!-- tab panel end -->
+  </view>
+  <!-- 标签 -->
+  <wux-tabs wux-class="bordered" controlled current="{{ key }}" bindchange="onTabsChange">
+    <block wx:for="{{ tabs }}" wx:key="key">
+      <wux-tab key="{{ item.key }}" title="{{ item.title }}"></wux-tab>
+    </block>
+  </wux-tabs>
+  <swiper style='height:65vh' current="{{ index }}" bindchange="onSwiperChange">
+    <block wx:for="{{ tabs }}" wx:key="key">
+      <swiper-item>
+        <!-- 数据列表 -->
+        <scroll-view scroll-y="true" class="swiper-item ">
+        <block wx:for="{{ item.data }}" wx:key="key">
+          <view class='list-item'>
+            <view class='list-item-text-left'>{{ item.name }}</view>
+            <view class='list-item-text-right'>{{ item.value }}</view>
+          </view>
+          </block>
+        </scroll-view>
+      </swiper-item>
+    </block>
+  </swiper>
+  <!-- tab panel end -->
 </view>
