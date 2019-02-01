@@ -1,82 +1,161 @@
-
+const app = getApp()
+const comApi = app.api;
 var resX = wx.getSystemInfoSync()
 
 Page({
+
+  /**
+   * 页面的初始数据
+   */
   data: {
-    window_width: 375,// 单位是px
-    tab_config: {
-      tabs: ['SO2分析仪', 'NOX分析仪', '烟气分析仪'],// tabs
-      fixed: false, // tabbar是否固定宽度
-      active_tab: 0, //当前激活的tab
-      item_width: resX.windowWidth/ 750 * 250,// 单位是px
-      tab_left: 0, // 如果tabbar不是固定宽度，则目前左移的位置
-      underline: {
-        offset: 0 //下划线的位移
-      }
-    },
-    swipe_config: {
-      swipes: ['SO2分析仪', 'NOX分析仪', '烟气分析仪'],// 不同面板的内容
-      indicator_dots: false, // 不显示小圆点
-      autoplay: false,// 自动切换
-      interval: 2000,// 自动切换频率
-      duration: 500, // 切换时间
-      current: 0 // 当前激活的panel
+    current: 'tab1',
+    tabs: [],
+    pointName:'',
+    DGIMN:'',
+    pointStatus:''
+  },
+  onSwiperChange(e) {
+    //console.log('onSwiperChange', e)
+    const { current: index, source } = e.detail
+    const { key } = this.data.tabs[index]
+
+    if (!!source) {
+      this.setData({
+        key,
+        index,
+      })
     }
   },
-  onLoad: function (options) {
-  
-    // 页面初始化 options为页面跳转所带来的参数
-    let that = this;
-    try {
-      let { window_width, tab_config } = that.data;
-      var res = wx.getSystemInfoSync()
-      window_width = res.windowWidth;
+  onTabsChange(e) {
+    //console.log('onTabsChange', e)
+    const { key } = e.detail
+    const index = this.data.tabs.map((n) => n.key).indexOf(key)
 
-      if (tab_config.fixed) {
-        tab_config.item_width = window_width / tab_config.tabs.length;
+    this.setData({
+      key,
+      index,
+    })
+  },
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function(options) {
+    let so2 = {
+      key: 'SO2分析仪',
+      title: 'SO2分析仪',
+      data: []
+    };
+    let nox = {
+      key: 'NOX分析仪',
+      title: 'NOX分析仪',
+      data: []
+    };
+    let pm = {
+      key: '烟气分析仪',
+      title: '烟气分析仪',
+      data: []
+    };
+
+    comApi.getProcessFlowChartStatus('51052216080302').then(res => {
+      console.log('getProcessFlowChartStatus', res)
+      if (res&&res.IsSuccess)
+      {
+        if(res.Data)
+        {
+          var thisData = res.Data;
+          var dataInfo=thisData.dataInfo;
+          var tableCol = thisData.paramNameInfo;
+          var tableValue = thisData.paramsInfo;
+          for (var i = 0; i < tableCol.length;i++)
+          {
+            var model_zs01 = '';
+            var model_zs02 = '';
+            var model_zs03 = '';
+            tableValue.map(function (items) {
+              if (items.name == 'zs01_' + tableCol[i].code) {
+                model_zs01 = items.value;
+              }
+              if (items.name == 'zs02_' + tableCol[i].code) {
+                model_zs02 = items.value;
+              }
+              if (items.name == 'zs03_' + tableCol[i].code) {
+                model_zs03 = items.value;
+              }
+            });
+            so2.data.push({
+              name: tableCol[i].name,
+                value: model_zs02
+              });
+            nox.data.push({
+              name: tableCol[i].name,
+              value: model_zs03
+            });
+            pm.data.push({
+              name: tableCol[i].name,
+              value: model_zs01
+            });
+
+            // $("#yanqiTable tbody").append('<tr><td>' + item.name + '</td><td>' + model_zs01 + '</td></tr>');
+            // $("#s2Table tbody").append('<tr><td>' + item.name + '</td><td>' + model_zs02 + '</td></tr>');
+            // $("#x2Table tbody").append('<tr><td>' + item.name + '</td><td>' + model_zs03 + '</td></tr>');
+          }
+          this.setData({
+            tabs:[so2,nox,pm],
+            pointName: dataInfo.pointName,
+            DGIMN:dataInfo.DGIMN,
+            pointStatus:dataInfo.status==1?'正常':'异常'
+          })
+        }
       }
-
-      that.setData({ "window_width": window_width, "tab_config": tab_config });
-
-    } catch (e) {
-
-    }
+    })
   },
-  // 更换页面到指定page ，从0开始
-  updateSelectedPage(page) {
-    let that = this;
-    // console.log("====_updateSelectedPage");
-    let { window_width, tab_config, swipe_config } = this.data;
-    let underline_offset = tab_config.item_width * page;
 
-    tab_config.active_tab = page;
-    swipe_config.current = page;
-    tab_config.underline.offset = underline_offset;
-    if (!tab_config.fixed) {
-      // 如果tab不是固定的 就要 检测tab是否被遮挡
-      let show_item_num = Math.floor(window_width / tab_config.item_width); //一个界面完整显示的tab item个数
-      let min_left_item = tab_config.item_width * (page - show_item_num + 1); // 最小scroll-left 
-      let max_left_item = tab_config.item_width * page; //  最大scroll-left
-      if (tab_config.tab_left < min_left_item || tab_config.tab_left > max_left_item) {
-        // 如果被遮挡，则要移到当前元素居中位置
-        tab_config.tab_left = max_left_item - (window_width - tab_config.item_width) / 2;
-      }
-    }
-    that.setData({
-      "tab_config": tab_config,
-      "swipe_config": swipe_config
-    });
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function() {
+
   },
-  handlerTabTap(e) {
-    let that = this;
-    that.updateSelectedPage(e.currentTarget.dataset.index);
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function() {
+
   },
-  swiperChange(e) {
-    let that = this;
-    // console.log("===== swiperChange " + e.detail.current);
-    that.updateSelectedPage(e.detail.current);
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function() {
+
   },
-  onScroll(e) {
-    let that = this;
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function() {
+
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function() {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function() {
+
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function() {
+
   }
 })
