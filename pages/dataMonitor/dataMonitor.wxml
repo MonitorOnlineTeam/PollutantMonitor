@@ -26,8 +26,11 @@
     </view>
   </view>
   <!-- tab -->
+ 
   <view class='tab-view'>
-    <view class='tab-view-box'>
+     <wux-segmented-control default-current="2" bind:change="onChange" values="{{ ['实时', '分钟', '小时','日'] }}" />
+     
+    <!-- <view class='tab-view-box'>
       <view class='tab-view-i-Left  '>
         实时
       </view>
@@ -42,7 +45,7 @@
       <view class='tab-view-i'>
         日
       </view>
-    </view>
+    </view> -->
   </view>
   <!-- 图表 -->
   <view class='canvas-view'>

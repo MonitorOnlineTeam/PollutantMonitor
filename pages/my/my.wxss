@@ -68,7 +68,7 @@
 }
 
 .history-item {
-  max-height: 50vh;
+  max-height: 610rpx;
 }
 
 .history-item-view {

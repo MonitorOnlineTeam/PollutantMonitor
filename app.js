@@ -66,6 +66,7 @@ App({
               if (res.Data.IsFirstLogin) {
                 wx.showToast({
                   title: '首次登陆',
+
                   icon: 'success',
                   duration: 2000
                 })

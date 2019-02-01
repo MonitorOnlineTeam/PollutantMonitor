@@ -1,4 +1,6 @@
 {
-
+"usingComponents": {
+  "wux-segmented-control": "../../dist/segmented-control/index"
+},
   "navigationStyle": "custom"
 }

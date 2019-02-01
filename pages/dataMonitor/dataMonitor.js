@@ -59,7 +59,21 @@ Page({
     });
    
   },
- 
+  // 分段器切换
+  onChange(e) {
+    console.log(e)
+
+    if (e.detail.key === this.key) {
+      return wx.showModal({
+        title: 'No switching is allowed',
+        showCancel: !1,
+      })
+    }
+
+    this.setData({
+      current: e.detail.key,
+    })
+  },
   ontouchstart: function (e) {
 
 
