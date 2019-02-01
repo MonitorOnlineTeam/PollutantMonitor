@@ -8,7 +8,6 @@
 
 .wux-cell-group__bd {
   position: relative;
-  font-size: 28rpx;
   background-color: #fff;
 }
 

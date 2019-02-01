@@ -5,7 +5,7 @@
   overflow: hidden;
   min-height: 54rpx;
   opacity: 1;
-  margin:0 30rpx 0 30rpx;
+  margin: 0 30rpx 0 30rpx;
 }
 
 .wux-segment--disabled {
@@ -21,12 +21,12 @@
   justify-content: center;
   -ms-flex-align: center;
   align-items: center;
-  color: #3B98FF;
+  color: #56A6FF;
   font-size: 28rpx;
   line-height: 1;
   transition: background 0.3s;
   position: relative;
-  border: 2rpx solid #3B98FF;
+  border: 2rpx solid #56A6FF;
   width: 100%;
   box-sizing: border-box;
   border-left-width: 0;
@@ -42,7 +42,7 @@
 }
 
 .wux-segment__item--current {
-  background: #3B98FF;
+  background: #56A6FF;
   color: #fff;
 }
 
@@ -97,12 +97,12 @@
 }
 
 .wux-segment--balanced .wux-segment__item {
-  color: #3B98FF;
-  border-color: #3B98FF;
+  color: #56A6FF;
+  border-color: #56A6FF;
 }
 
 .wux-segment--balanced .wux-segment__item--current {
-  background: #3B98FF;
+  background: #56A6FF;
   color: #fff;
 }
 
