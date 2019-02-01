@@ -82,3 +82,4 @@
 .wux-accordion--current .wux-accordion__bd {
   display: block;
 }
+.wux-accordion__title{font-size: 30rpx;}
