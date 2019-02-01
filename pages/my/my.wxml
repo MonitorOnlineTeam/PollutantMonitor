@@ -10,7 +10,7 @@
     <view class='user-name'>
       <text class="userinfo-nickname">韩金龙</text>
     </view>
-    <view class='user-phone'>手机号：131539756987</view>
+    <view class='user-phone'>手机号：{{userPhone}}</view>
 
   </view>
   <view class='tips-view'>
@@ -18,177 +18,23 @@
 
   </view>
   <scroll-view scroll-y="true" class="history-item ">
-  <!-- item -->
-    <view class='history-item-view'>
-      <view class='history-item-view-left'>
-        <view class='history-item-ent'>
-首钢京唐钢铁联合有限责任公司
-        </view>
-        <view class='history-item-print'>
-       <text class='bo'>排口:16号脱销出口</text>
-       <text class='bo'>　　上次使用:2019/12/11 00:00</text>
-        </view>
-
-      </view>
-
-      <view class='history-item-view-right'>
-
- <image class="g" src="/images/More.png"></image>
-      </view>
-    </view>
-    <!-- item end -->
-        <view class='history-item-view'>
-      <view class='history-item-view-left'>
-        <view class='history-item-ent'>
-首钢京唐钢铁联合有限责任公司
-        </view>
-        <view class='history-item-print'>
-       <text class='bo'>排口:16号脱销出口</text>
-       <text class='bo'>　　上次使用:2019/12/11 00:00</text>
-        </view>
-
-      </view>
-
-      <view class='history-item-view-right'>
-
- <image class="g" src="/images/More.png"></image>
-      </view>
-
-
-    </view>
-        <view class='history-item-view'>
-      <view class='history-item-view-left'>
-        <view class='history-item-ent'>
-首钢京唐钢铁联合有限责任公司
-        </view>
-        <view class='history-item-print'>
-       <text class='bo'>排口:16号脱销出口</text>
-       <text class='bo'>　　上次使用:2019/12/11 00:00</text>
-        </view>
-
-      </view>
-
-      <view class='history-item-view-right'>
-
- <image class="g" src="/images/More.png"></image>
-      </view>
-
-
-    </view>
+    <block wx:for="{{ historyRecord }}" wx:key="{{index}}">
+      <!-- item -->
       <view class='history-item-view'>
-      <view class='history-item-view-left'>
-        <view class='history-item-ent'>
-首钢京唐钢铁联合有限责任公司
+        <view class='history-item-view-left'>
+          <view class='history-item-ent'>
+            {{item.EnterpriseName}}
+          </view>
+          <view class='history-item-print'>
+            <text class='bo'>排口:{{item.PointName}}</text>
+            <text class='bo'>　　上次使用:{{item.VisitTime}}</text>
+          </view>
         </view>
-        <view class='history-item-print'>
-       <text class='bo'>排口:16号脱销出口</text>
-       <text class='bo'>　　上次使用:2019/12/11 00:00</text>
+        <view class='history-item-view-right'>
+          <image class="g" src="/images/More.png"></image>
         </view>
-
       </view>
-
-      <view class='history-item-view-right'>
-
- <image class="g" src="/images/More.png"></image>
-      </view>
-
-
-    </view>
-      <view class='history-item-view'>
-      <view class='history-item-view-left'>
-        <view class='history-item-ent'>
-首钢京唐钢铁联合有限责任公司
-        </view>
-        <view class='history-item-print'>
-       <text class='bo'>排口:16号脱销出口</text>
-       <text class='bo'>　　上次使用:2019/12/11 00:00</text>
-        </view>
-
-      </view>
-
-      <view class='history-item-view-right'>
-
- <image class="g" src="/images/More.png"></image>
-      </view>
-
-
-    </view>
-      <view class='history-item-view'>
-      <view class='history-item-view-left'>
-        <view class='history-item-ent'>
-首钢京唐钢铁联合有限责任公司
-        </view>
-        <view class='history-item-print'>
-       <text class='bo'>排口:16号脱销出口</text>
-       <text class='bo'>　　上次使用:2019/12/11 00:00</text>
-        </view>
-
-      </view>
-
-      <view class='history-item-view-right'>
-
- <image class="g" src="/images/More.png"></image>
-      </view>
-
-
-    </view>
-      <view class='history-item-view'>
-      <view class='history-item-view-left'>
-        <view class='history-item-ent'>
-首钢京唐钢铁联合有限责任公司
-        </view>
-        <view class='history-item-print'>
-       <text class='bo'>排口:16号脱销出口</text>
-       <text class='bo'>　　上次使用:2019/12/11 00:00</text>
-        </view>
-
-      </view>
-
-      <view class='history-item-view-right'>
-
- <image class="g" src="/images/More.png"></image>
-      </view>
-
-
-    </view>
-      <view class='history-item-view'>
-      <view class='history-item-view-left'>
-        <view class='history-item-ent'>
-首钢京唐钢铁联合有限责任公司
-        </view>
-        <view class='history-item-print'>
-       <text class='bo'>排口:16号脱销出口</text>
-       <text class='bo'>　　上次使用:2019/12/11 00:00</text>
-        </view>
-
-      </view>
-
-      <view class='history-item-view-right'>
-
- <image class="g" src="/images/More.png"></image>
-      </view>
-
-
-    </view>
-      <view class='history-item-view'>
-      <view class='history-item-view-left'>
-        <view class='history-item-ent'>
-首钢京唐钢铁联合有限责任公司
-        </view>
-        <view class='history-item-print'>
-       <text class='bo'>排口:16号脱销出口</text>
-       <text class='bo'>　　上次使用:2019/12/11 00:00</text>
-        </view>
-
-      </view>
-
-      <view class='history-item-view-right'>
-
- <image class="g" src="/images/More.png"></image>
-      </view>
-
-
-    </view>
-    
+      <!-- item end -->
+    </block>
   </scroll-view>
 </view>
