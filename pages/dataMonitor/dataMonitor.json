@@ -1,6 +1,7 @@
 {
 "usingComponents": {
-  "wux-segmented-control": "../../dist/segmented-control/index"
+  "wux-segmented-control": "../../dist/segmented-control/index",
+  "ec-canvas": "../../dist/ec-canvas/ec-canvas"
 },
   "navigationStyle": "custom"
 }

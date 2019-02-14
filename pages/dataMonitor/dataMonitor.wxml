@@ -51,8 +51,12 @@
   <view class='canvas-view'>
     <canvas canvas-id="lineCanvas" disable-scroll="true" class="canvas"></canvas>
   </view>
+  <view class="container">
+  <ec-canvas id="mychart-dom-line" canvas-id="mychart-line" ec="{{ ec }}"></ec-canvas>
+</view>
   <!-- 列表 -->
   <view class='list-title-item'> 
+  
        <view class='list-item-title'>时间</view>
        <view  class='list-item-title'>监测值</view>
        <view  class='list-item-title'>状态</view>
