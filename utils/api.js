@@ -1,4 +1,4 @@
-const URI = 'http://172.16.9.13:8019/rest/PollutantSourceApi/'
+  const URI = 'http://172.16.9.13:8019/rest/PollutantSourceApi/'
  //const URI = 'http://localhost:52198/rest/PollutantSourceApi'
  const fetch = require('./fetch')
  const common = require('./common.js')
@@ -112,7 +112,7 @@ const URI = 'http://172.16.9.13:8019/rest/PollutantSourceApi/'
    //   console.log('getPointInfo', res)
    // })
    return fetchApi(pageUrl.getPointInfo, {
-     DGIMN: DGIMNs
+     DGIMN: common.getStorage('DGIMN_New')
    }, 'post').then(res => res.data)
  }
 
@@ -125,7 +125,7 @@ const URI = 'http://172.16.9.13:8019/rest/PollutantSourceApi/'
    //   console.log('getDeviceInfo', res)
    // })
    return fetchApi(pageUrl.getDeviceInfo, {
-     DGIMN: DGIMNs
+     DGIMN: common.getStorage('DGIMN_New')
    }, 'post').then(res => res.data)
  }
 
@@ -135,7 +135,7 @@ const URI = 'http://172.16.9.13:8019/rest/PollutantSourceApi/'
   */
  function getPollutantList(DGIMNs) {
    return fetchApi(pageUrl.getPollutant, {
-     DGIMN: DGIMNs
+     DGIMN: common.getStorage('DGIMN_New')
    }, 'post').then(res => res.data)
  }
 
@@ -145,7 +145,7 @@ const URI = 'http://172.16.9.13:8019/rest/PollutantSourceApi/'
   */
  function getProcessFlowChartStatus(DGIMNs) {
    return fetchApi(pageUrl.getProcessFlowChartStatus, {
-     DGIMN: DGIMNs
+     DGIMN: common.getStorage('DGIMN_New')
    }, 'post').then(res => res.data)
  }
 
@@ -158,7 +158,7 @@ const URI = 'http://172.16.9.13:8019/rest/PollutantSourceApi/'
   */
  function getMonitorDatas(DGIMNs, pollutantCodes, datatype, endTime = null) {
    return fetchApi(pageUrl.getProcessFlowChartStatus, {
-     DGIMNs: DGIMNs,
+     DGIMNs: common.getStorage('DGIMN_New'),
      pollutantCodes: pollutantCodes,
      datatype: datatype,
      pageIndex: 1,
@@ -167,6 +167,8 @@ const URI = 'http://172.16.9.13:8019/rest/PollutantSourceApi/'
      endTime: datatype == 'realtime' ? null : endTime
    }, 'post').then(res => res.data)
  }
+
+
 
  module.exports = {
    validateFirstLogin,

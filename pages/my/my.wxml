@@ -3,12 +3,15 @@
     <text class='navigation-title'> 实时工艺</text>
   </view>
   <view class='titlecard'>
+    <open-data type="userAvatarUrl"></open-data>
+      <open-data type="userNickName" style="color:#fff"></open-data>
     <view class='user-img'>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="/images/user.png" mode="cover"></image>
+      <!-- <image bindtap="bindViewTap" class="userinfo-avatar" src="{{avatarUrl}}" mode="cover"></image> -->
     </view>
 
     <view class='user-name'>
-      <text class="userinfo-nickname">韩金龙</text>
+    <!-- <open-data type="userNickName"></open-data> -->
+      <!-- <text class="userinfo-nickname">{{nickName}}</text> -->
     </view>
     <view class='user-phone'>手机号：{{userPhone}}</view>
 
@@ -20,7 +23,7 @@
   <scroll-view scroll-y="true" class="history-item ">
     <block wx:for="{{ historyRecord }}" wx:key="{{index}}">
       <!-- item -->
-      <view class='history-item-view'>
+      <view class='history-item-view' bindtap='Determine' data-Dgimn='{{item.DGIMN}}'>
         <view class='history-item-view-left'>
           <view class='history-item-ent'>
             {{item.EnterpriseName}}

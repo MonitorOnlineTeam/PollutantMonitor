@@ -1,5 +1,6 @@
 const app = getApp()
 const comApi = app.api;
+const common = app.common;
 
 Page({
 
@@ -7,46 +8,15 @@ Page({
    * 页面的初始数据
    */
   data: {
-    deviceData: []
+    deviceData: [],
+    DGIMN:''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    let deviceData = [];
-    comApi.getDeviceInfo('51052216080302').then(res => {
-      console.log('getDeviceInfo', res)
-      if (res && res.IsSuccess) {
-        if (res.Data) {
-          var thisData = res.Data;
-          thisData.map(function (items) {
-            let obj={
-              Name: items.Name,
-              child: []
-            }
-            items.TestComponents.map(function(item){
-              obj.child.push({
-                AnalyzerName: item.AnalyzerName,
-                AnalyzerPrinciple: item.AnalyzerPrinciple,
-                AnalyzerRange: item.AnalyzerRange,
-                ComponentName: item.ComponentName,
-                DeviceModel: item.DeviceModel,
-                MeasurementUnit: item.MeasurementUnit,
-                Slope: item.Slope,
-                Intercept: item.Intercept
-              })
-            })
-            deviceData.push(obj)
-          })
-          console.log(this.data.deviceData);
-          this.setData({
-            deviceData:deviceData
-          })
-          console.log(this.data.deviceData);
-        }
-      }
-    })
+    this.getData()
   },
 
   /**
@@ -60,7 +30,11 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    console.log('设备详情DGIMN_New', common.getStorage('DGIMN_New'))
+    console.log('设备详情DGIMN', this.data.DGIMN)
+    if (common.getStorage('DGIMN_New') != this.data.DGIMN) {
+      this.getData()
+    }
   },
 
   /**
@@ -112,4 +86,40 @@ Page({
     })
   },
 
+  getData:function(){
+    let deviceData = [];
+    comApi.getDeviceInfo().then(res => {
+      console.log('getDeviceInfo', res)
+      if (res && res.IsSuccess) {
+        if (res.Data) {
+          var thisData = res.Data;
+          thisData.map(function (items) {
+            let obj = {
+              Name: items.Name,
+              child: []
+            }
+            items.TestComponents.map(function (item) {
+              obj.child.push({
+                AnalyzerName: item.AnalyzerName,
+                AnalyzerPrinciple: item.AnalyzerPrinciple,
+                AnalyzerRange: item.AnalyzerRange,
+                ComponentName: item.ComponentName,
+                DeviceModel: item.DeviceModel,
+                MeasurementUnit: item.MeasurementUnit,
+                Slope: item.Slope,
+                Intercept: item.Intercept
+              })
+            })
+            deviceData.push(obj)
+          })
+          console.log(this.data.deviceData);
+          this.setData({
+            deviceData: deviceData,
+            DGIMN: common.getStorage('DGIMN_New')
+          })
+          console.log(this.data.deviceData);
+        }
+      }
+    })
+  }
 })

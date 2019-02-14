@@ -10,10 +10,11 @@
 </view>
 
 
-<input type='text' class='phone' bindinput='phone' adjust-position="true" placeholder="手机号" placeholder-class="pphone"></input>
+<input type='number' maxlength="11" class='phone' bindinput='phone' adjust-position="true" placeholder="手机号" placeholder-class="pphone"></input>
 
 <input type='password' class='phone' bindinput='phone' adjust-position="true" placeholder="设备密码"  placeholder-class="pphone"></input>
-<button class='determine' type='primary' bindtap='Determine' hover-class="userBorder"   open-type="getUserInfo" bindgetuserinfo="getUserInfo">确定</button>
+<!-- <button class='determine' type='primary' bindtap='RegisterBtn' hover-class="userBorder"   open-type="getUserInfo" bindgetuserinfo="getUserInfo">确定</button> -->
+<button class='determine' type='primary' bindtap='RegisterBtn' hover-class="userBorder" open-type="getUserInfo" bindgetuserinfo="getUserInfo">确定</button>
 
 </view>
 </view>

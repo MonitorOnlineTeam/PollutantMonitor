@@ -1,5 +1,6 @@
 const app = getApp()
 const comApi = app.api;
+const common = app.common;
 Page({
 
   /**
@@ -37,7 +38,67 @@ Page({
    */
   onLoad: function(options) {
    
-    comApi.getPointInfo('51052216080302').then(res => {
+    this.getData()
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function(e) {
+    this.mapCtx = wx.createMapContext('myMap')
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function() {
+    // console.log(common.getStorage('DGIMN_New'))
+    // console.log(this.data.DGIMN)
+    console.log('排口详情DGIMN_New', common.getStorage('DGIMN_New'))
+    console.log('排口详情DGIMN', this.data.DGIMN)
+    if (common.getStorage('DGIMN_New')!=this.data.DGIMN){
+      this.getData()
+    }
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function() {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function() {
+
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function() {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function() {
+
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function() {
+
+  }
+  ,
+  getData:function(){
+    comApi.getPointInfo().then(res => {
       //console.log('getPointInfo', res)
       if (res && res.IsSuccess) {
         if (res.Data.length > 0) {
@@ -95,55 +156,5 @@ Page({
         })
       }
     })
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function(e) {
-    this.mapCtx = wx.createMapContext('myMap')
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function() {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function() {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function() {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function() {
-
   }
 })

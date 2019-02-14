@@ -1,91 +1,130 @@
-// pages/proving/proving.js
 const app = getApp()
+const comApi = app.api;
+const common = app.common;
 Page({
 
-  onLoad: function () {
-  
-  },
-  getUserInfo: function (e) {
-    console.log(e)
-    
-    app.globalData.userInfo = e.detail.userInfo
-    this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
-    })
-  },
-  Determine(){
-    console.log(this.data.phonecode);
-    //this.data.userInfo 
- 
-    wx.switchTab({
-      url: '../my/my'
-    })
-  },
-  phone(val){
-  this.setData({
-
-    phonecode: val.detail.value
-  });
-
-  },
   /**
-   * 组件的属性列表
-   */
-  properties: {
-
-  },
-
-  /**
-   * 组件的初始数据
+   * 页面的初始数据
    */
   data: {
-    phonecode: '', 
-    userInfo: {},
-    hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
+    phoneCode: '',
+    isAuthor: false
   },
 
   /**
-   * 组件的方法列表
+   * 生命周期函数--监听页面加载
    */
-  methods: {
-   
+  onLoad: function(options) {
+
   },
-onLoad(e){
-  console.log('app.globalData.userInfo', app.globalData.userInfo);
-  
-  if (app.globalData.userInfo) {
-    this.setData({
-      userInfo: app.globalData.userInfo,
-      hasUserInfo: true
-    })
-  } else if (this.data.canIUse) {
-    // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-    // 所以此处加入 callback 以防止这种情况
-    app.userInfoReadyCallback = res => {
-      this.setData({
-        userInfo: res.userInfo,
-        hasUserInfo: true
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function() {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function() {
+    //console.log('设备详情DGIMN_New', common.getStorage('DGIMN_New'))
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function() {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function() {
+
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function() {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function() {
+
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function() {
+
+  },
+  getUserInfo: function(e) {
+    console.log(e)
+
+    if(!this.data.isAuthor){
+      if (e.detail.userInfo) {
+        app.globalData.userInfo = e.detail.userInfo
+
+        this.setData({
+          isAuthor: true
+        })
+        this.RegisterBtn();
+      } else {
+        console.log(1)
+      }
+    }
+  },
+  RegisterBtn() {
+    console.log('phonecode', this.data.phonecode);
+
+    if (!this.data.isAuthor)
+      return false;
+
+    // 获取用户信息
+    if (this.data.phoneCode.length != 11) {
+      wx.showModal({
+        title: '提示',
+        content: '请输入正确的手机号',
+        showCancel: false,
+        success(res) {}
+      })
+      return false;
+    }
+    if (this.data.phoneCode && this.data.phoneCode.length == 11) {
+      comApi.updateUserInfo(this.data.phoneCode).then(res => {
+        console.log('updateUserInfo', res)
+        if (res && res.IsSuccess) {
+          if (res.Data) {
+            common.setStorage("IsFirstLogin", res.Data.IsFirstLogin)
+            common.setStorage("AuthorCode", res.Data.AuthorCode)
+            //TODO:跳转到设备密码界面
+            wx.switchTab({
+              url: '../my/my'
+            })
+          }
+        }else
+        {
+          wx.showModal({
+            title: '提示',
+            content: res.Message,
+            showCancel: false,
+            success(res) { }
+          })
+        }
       })
     }
-  } else {
-    // 在没有 open-type=getUserInfo 版本的兼容处理
-    wx.getUserInfo({
-      success: res => {
-        app.globalData.userInfo = res.userInfo
-        this.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true
-        })
-      }
-    })
-  }
-
-  
-  
-}
- 
-
+  },
+  phone(val) {
+    this.setData({
+      phoneCode: val.detail.value
+    });
+  },
 })
-// Page(pageObject)
