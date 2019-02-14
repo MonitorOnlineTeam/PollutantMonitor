@@ -1,5 +1,6 @@
 const app = getApp()
 const comApi = app.api;
+const common = app.common;
 var resX = wx.getSystemInfoSync()
 
 Page({
@@ -40,74 +41,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    let so2 = {
-      key: 'SO2分析仪',
-      title: 'SO2分析仪',
-      data: []
-    };
-    let nox = {
-      key: 'NOX分析仪',
-      title: 'NOX分析仪',
-      data: []
-    };
-    let pm = {
-      key: '烟气分析仪',
-      title: '烟气分析仪',
-      data: []
-    };
-
-    comApi.getProcessFlowChartStatus('51052216080302').then(res => {
-      console.log('getProcessFlowChartStatus', res)
-      if (res&&res.IsSuccess)
-      {
-        if(res.Data)
-        {
-          var thisData = res.Data;
-          var dataInfo=thisData.dataInfo;
-          var tableCol = thisData.paramNameInfo;
-          var tableValue = thisData.paramsInfo;
-          for (var i = 0; i < tableCol.length;i++)
-          {
-            var model_zs01 = '';
-            var model_zs02 = '';
-            var model_zs03 = '';
-            tableValue.map(function (items) {
-              if (items.name == 'zs01_' + tableCol[i].code) {
-                model_zs01 = items.value;
-              }
-              if (items.name == 'zs02_' + tableCol[i].code) {
-                model_zs02 = items.value;
-              }
-              if (items.name == 'zs03_' + tableCol[i].code) {
-                model_zs03 = items.value;
-              }
-            });
-            so2.data.push({
-              name: tableCol[i].name,
-                value: model_zs02
-              });
-            nox.data.push({
-              name: tableCol[i].name,
-              value: model_zs03
-            });
-            pm.data.push({
-              name: tableCol[i].name,
-              value: model_zs01
-            });
-
-            // $("#yanqiTable tbody").append('<tr><td>' + item.name + '</td><td>' + model_zs01 + '</td></tr>');
-            // $("#s2Table tbody").append('<tr><td>' + item.name + '</td><td>' + model_zs02 + '</td></tr>');
-            // $("#x2Table tbody").append('<tr><td>' + item.name + '</td><td>' + model_zs03 + '</td></tr>');
-          }
-          this.setData({
-            tabs:[so2,nox,pm],
-            pointName: dataInfo.pointName,
-            DGIMN:dataInfo.DGIMN,
-            pointStatus:dataInfo.status==1?'正常':'异常'
-          })
-        }
-      }
-    })
+    this.getData()
   },
 
   /**
@@ -121,7 +55,12 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    console.log('实时工艺DGIMN_New', common.getStorage('DGIMN_New'))
+    console.log('实时工艺DGIMN', this.data.DGIMN)
+    
+    if (common.getStorage('DGIMN_New') != this.data.DGIMN) {
+      this.getData()
+    }
   },
 
   /**
@@ -157,5 +96,72 @@ Page({
    */
   onShareAppMessage: function() {
 
+  },
+  getData:function(){
+    let so2 = {
+      key: 'SO2分析仪',
+      title: 'SO2分析仪',
+      data: []
+    };
+    let nox = {
+      key: 'NOX分析仪',
+      title: 'NOX分析仪',
+      data: []
+    };
+    let pm = {
+      key: '烟气分析仪',
+      title: '烟气分析仪',
+      data: []
+    };
+
+    comApi.getProcessFlowChartStatus().then(res => {
+      console.log('getProcessFlowChartStatus', res)
+      if (res && res.IsSuccess) {
+        if (res.Data) {
+          var thisData = res.Data;
+          var dataInfo = thisData.dataInfo;
+          var tableCol = thisData.paramNameInfo;
+          var tableValue = thisData.paramsInfo;
+          for (var i = 0; i < tableCol.length; i++) {
+            var model_zs01 = '';
+            var model_zs02 = '';
+            var model_zs03 = '';
+            tableValue.map(function (items) {
+              if (items.name == 'zs01_' + tableCol[i].code) {
+                model_zs01 = items.value;
+              }
+              if (items.name == 'zs02_' + tableCol[i].code) {
+                model_zs02 = items.value;
+              }
+              if (items.name == 'zs03_' + tableCol[i].code) {
+                model_zs03 = items.value;
+              }
+            });
+            so2.data.push({
+              name: tableCol[i].name,
+              value: model_zs02
+            });
+            nox.data.push({
+              name: tableCol[i].name,
+              value: model_zs03
+            });
+            pm.data.push({
+              name: tableCol[i].name,
+              value: model_zs01
+            });
+
+            // $("#yanqiTable tbody").append('<tr><td>' + item.name + '</td><td>' + model_zs01 + '</td></tr>');
+            // $("#s2Table tbody").append('<tr><td>' + item.name + '</td><td>' + model_zs02 + '</td></tr>');
+            // $("#x2Table tbody").append('<tr><td>' + item.name + '</td><td>' + model_zs03 + '</td></tr>');
+          }
+          this.setData({
+            tabs: [so2, nox, pm],
+            pointName: dataInfo.pointName,
+            DGIMN: common.getStorage('DGIMN_New'),
+            pointStatus: dataInfo.status == 1 ? '正常' : '异常'
+          })
+        }
+      }
+    })
   }
 })
