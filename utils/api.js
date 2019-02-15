@@ -1,5 +1,5 @@
-  const URI = 'http://172.16.9.13:8019/rest/PollutantSourceApi/'
- //const URI = 'http://localhost:52198/rest/PollutantSourceApi'
+  //const URI = 'http://172.16.9.13:8019/rest/PollutantSourceApi/'
+ const URI = 'http://localhost:52198/rest/PollutantSourceApi'
  const fetch = require('./fetch')
  const common = require('./common.js')
  const authorCode = '48f3889c-af8d-401f-ada2-c383031af92d'
@@ -64,24 +64,6 @@
   * @param  {String}} userPhone  用户手机号
   */
  function updateUserInfo(userPhone) {
-   // api.updateUserInfo('18601364600').then(res=>{
-   //   console.log('updateUserInfo',res)
-
-   //   if (res && res.IsSuccess) {
-   //     if (res.Data) {
-   //       common.setStorage("IsFirstLogin", res.Data.IsFirstLogin)
-   //       common.setStorage("AuthorCode", res.Data.AuthorCode)
-   //     }
-
-   //     wx.showToast({
-   //       title: '修改成功',
-   //       icon: 'success',
-   //       duration: 2000
-   //     })
-   //   }
-   // })
-
-
    return fetchApi(pageUrl.updateUserInfo, {
        IsFirstLogin: common.getStorage('IsFirstLogin'),
        AuthorCode: common.getStorage('AuthorCode'),
@@ -156,8 +138,8 @@
   * @param  {String}} datatype 数据类型：realtime|minute|hour|day
   * @param  {String}} endTime 时间过滤
   */
- function getMonitorDatas(DGIMNs, pollutantCodes, datatype, endTime = null) {
-   return fetchApi(pageUrl.getProcessFlowChartStatus, {
+ function getMonitorDatas(pollutantCodes, datatype, endTime = null) {
+   return fetchApi(pageUrl.getMonitorData, {
      DGIMNs: common.getStorage('DGIMN_New'),
      pollutantCodes: pollutantCodes,
      datatype: datatype,
