@@ -20,14 +20,17 @@
     功能
   </view>
    <scroll-view scroll-y="true" class="history-item ">
+   <view class='history-item-view'>
+     <view class='history-item-ent'>
+           扫一扫
+          </view>
+   </view>
 <view>
  <text></text>
 </view>
-
      </scroll-view>
   <view class='tips-view'>
     排口操作历史
-
   </view>
   <scroll-view scroll-y="true" class="history-item ">
     <block wx:for="{{ historyRecord }}" wx:key="{{index}}">
