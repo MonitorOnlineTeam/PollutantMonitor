@@ -106,6 +106,9 @@ Page({
             common.setStorage("IsFirstLogin", res.Data.IsFirstLogin)
             common.setStorage("AuthorCode", res.Data.AuthorCode)
             //TODO:跳转到设备密码界面
+            // wx.navigateTo({
+            //   url: '../device/device',
+            // });
             wx.switchTab({
               url: '../my/my'
             })
