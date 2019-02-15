@@ -139,14 +139,14 @@ App({
                   icon: 'success',
                   duration: 2000
                 })
-                this.redirectTo('/pages/proving/proving');
+                //this.redirectTo('/pages/proving/proving');
               } else {
                 wx.showToast({
                   title: '已登录',
                   icon: 'success',
                   duration: 2000
                 })
-                this.redirectTo('/pages/my/my');
+                //this.redirectTo('/pages/my/my');
               }
             }
           })

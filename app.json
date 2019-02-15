@@ -1,11 +1,12 @@
 {
   "pages": [
+        "pages/dataMonitor/dataMonitor",
     "pages/proving/proving",
     "pages/my/my",
     "pages/pointInfo/pointInfo",
     "pages/deviceDetails/deviceDetails",
     "pages/realTimeData/realTimeData",
-    "pages/dataMonitor/dataMonitor",
+
     "pages/homePage/homePage",
     "pages/indexPage/index",
     "pages/logs/logs"

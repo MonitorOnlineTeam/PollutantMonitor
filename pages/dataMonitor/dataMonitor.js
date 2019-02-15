@@ -1,118 +1,52 @@
 // pages/dataMonitor/dataMonitor.js
 import * as echarts from '../../dist/ec-canvas/echarts';
+const moment = require('../../utils/moment.min.js')
 const app = getApp()
 const comApi = app.api;
 const common = app.common;
-var wxCharts = require('../../utils/wxcharts-min.js');
-var lineChart = null;
-function initCharts(canvas, width, height) {
-  const chart = echarts.init(canvas, null, {
-    width: width,
-    height: height
-  });
-  canvas.setChart(chart);
-
-  var option = {
-    // title: {
-    //   text: '测试下面legend的红色区域不应被裁剪',
-    //   left: 'center'
-    // },
-    color: ["#37A2DA", "#67E0E3", "#9FE6B8"],
-    legend: {
-      data: ['A'],
-      // top: 50,
-      left: 'center',
-      //backgroundColor: 'red',
-      z: 100
-    },
-    grid: {
-      containLabel: true
-    },
-    tooltip: {
-      show: true,
-      trigger: 'axis'
-    },
-    xAxis: {
-      type: 'category',
-      boundaryGap: false,
-      data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日', '周四', '周五', '周六', '周1', '周一', '周二', '周三', '周四', '周五', '周六', '周日', '周四', '周五', '周六', '周1'],
-      // show: false
-    },
-    yAxis: {
-      x: 'center',
-      type: 'value',
-      splitLine: {
-        lineStyle: {
-          type: 'dashed'
-        }
-      }
-      // show: false
-    },
-    series: [{
-      name: 'A',
-      type: 'line',
-      smooth: true,
-      data: [18, 36, 65, 30, 78, 40, 33, 18, 36, 65, 30, 18, 36, 65, 30, 78, 40, 33, 18, 36, 65, 30]
-    }]
-  };
-
-  chart.setOption(option);
-  return chart;
-}
-
 Page({
   /**
    * 页面的初始数据
    */
   data: {
-    chartData:[],
+    chartData: [],
     ec: {
-      onInit: initCharts
-    }
+      lazyLoad: true
+    },
+    isLoaded: false,
+    isDisposed: false,
+    xAxisData: [],
+    seriesData: [],
+    selectedPollutantName: '',
+    selectedPollutantCode: '',
+    selectedPollutantUnit:'',
+    tableDatas: [],
+    dataType: 0,
+    pollutantDatas: [],
+    selectTime: '',
+    selectTimeFormat: { 0: 'HH:mm', 1: 'MM-DD HH:mm', 2: 'MM-DD HH:00', 3:'MM-DD'}
   },
- 
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    // 获取组件
+    this.ecComponent = this.selectComponent('#mychart-dom-line');
+    this.getPollutantList();
     this.getData();
 
   },
   // 分段器切换
   onChange(e) {
     console.log(e)
-
-    if (e.detail.key === this.key) {
-      return wx.showModal({
-        title: 'No switching is allowed',
-        showCancel: !1,
+    console.log(e.detail.key + '-' + this.data.dataType)
+    if (e.detail.key !== this.data.dataType) {
+      this.setData({
+        dataType: e.detail.key
       })
+      this.getData();
     }
-
-    this.setData({
-      current: e.detail.key,
-    })
-  },
-  ontouchstart: function(e) {
-
-
-
-    lineChart.scrollStart(e); //开始滚动
-
-  },
-
-  onTouchMove: function(e) {
-
-
-    lineChart.scroll(e);
-
-  },
-
-  ontouchend: function(e) {
-
-
-    lineChart.scrollEnd(e);
-
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -162,66 +96,125 @@ Page({
   onShareAppMessage: function() {
 
   },
-   /**
-   * 刷新数据
-   */
-  getData:function(){
-    //
-    comApi.getPollutantList().then(res=>{
-      console.log('污染物',res);
-      this.reloadChart();
+
+  // 点击按钮后初始化图表
+  init: function() {
+    this.ecComponent.init((canvas, width, height) => {
+      console.log(2)
+      // 获取组件的 canvas、width、height 后的回调函数
+      // 在这里初始化图表
+      const chart = echarts.init(canvas, null, {
+        width: width,
+        height: height
+      });
+      this.setOption(chart);
+
+      // 将图表实例绑定到 this 上，可以在其他成员函数（如 dispose）中访问
+      this.chart = chart;
+
+      this.setData({
+        isLoaded: true,
+        isDisposed: false
+      });
+
+      // 注意这里一定要返回 chart 实例，否则会影响事件处理等
+      return chart;
     });
-
-    comApi.getMonitorDatas('02', 'realtime').then(res => {
+  },
+  //获取污染物
+  getPollutantList: function() {
+    comApi.getPollutantList().then(res => {
+      console.log('污染物', res);
+      //this.reloadChart();
+      if (res && res.IsSuccess && res.Data) {
+        let thisData = res.Data;
+        this.setData({
+          selectedPollutantCode: thisData[0] && thisData[0].pollutantCode,
+          selectedPollutantName: thisData[0] && thisData[0].pollutantName,
+          selectedPollutantUnit: thisData[0] && thisData[0].unit,
+          pollutantDatas: thisData
+        })
+      }
+    });
+  },
+  //获取监控数据
+  getData: function() {
+    let {
+      selectedPollutantCode,
+      dataType,
+      selectTime,
+      selectTimeFormat
+    } = this.data;
+    comApi.getMonitorDatas(selectedPollutantCode, dataType).then(res => {
       console.log('getMonitorDatas', res)
-      this.reloadChart();
-   })
-
-    
+      if (res && res.IsSuccess && res.Data) {
+        let thisData = res.Data;
+        let xAxisData = [];
+        let seriesData = [];
+        thisData.map(function(item) {
+          item.MonitorTime = moment(item.MonitorTime).format(selectTimeFormat[dataType]);
+          xAxisData.push(item.MonitorTime);
+          seriesData.push(item[selectedPollutantCode]);
+        })
+        this.setData({
+          xAxisData: xAxisData,
+          seriesData: seriesData,
+          tableDatas: thisData
+        });
+        this.init();
+      }
+    })
   },
 
-  reloadChart:function(){
-    var windowWidth = '',
-      windowHeight = ''; //定义宽高
-    try {
-      var res = wx.getSystemInfoSync(); //试图获取屏幕宽高数据
-      windowWidth = res.windowWidth / 750 * 750;
-      windowHeight = res.windowWidth / 750 * 300
-    } catch (e) {
-      console.error('失败?');
-    }
-    lineChart = new wxCharts({ //定义一个wxCharts图表实例
-      canvasId: 'lineCanvas', //输入wxml中canvas的id
-      type: 'line', //图标展示的类型有:'line','pie','column','area','ring','radar'
-      categories: ['3:00', '4:00', '4:00', '6:00', '7:00', '8:00', '9:00', '1:00', '2:00', '3:00'], //模拟的x轴横坐标参数
-      animation: true, //是否开启动画
-      series: [{ //具体坐标数据
-        color: "#56A6FF",
-        data: [60, 90, 60, 110, 120, 105, 70, 120, 105, 70], //数据点
-
-      }],
-      xAxis: { //是否隐藏x轴分割线
-        disableGrid: true,
-
+  setOption: function(chart) {
+    console.log(this.data.xAxisData);
+    var option = {
+      // title: {
+      //   text: '测试下面legend的红色区域不应被裁剪',
+      //   left: 'center'
+      // },
+      color: ["#37A2DA", "#67E0E3", "#9FE6B8"],
+      // legend: {
+      //   data: ['A'],
+      //   // top: 50,
+      //   left: 'center',
+      //   //backgroundColor: 'red',
+      //   z: 100
+      // },
+      grid: {
+        containLabel: true,
+        left: '2%',
+        top: '10%',
+        bottom: '10%'
       },
-      yAxis: { //y轴数据
-        //标题
-        format: function (val) { //返回数值
-          return val.toFixed(1);
+      tooltip: {
+        show: true,
+        trigger: 'axis'
+      },
+      xAxis: {
+        type: 'category',
+        boundaryGap: false,
+        data: this.data.xAxisData,
+        // show: false
+      },
+      yAxis: {
+        x: 'center',
+        type: 'value',
+        splitLine: {
+          lineStyle: {
+            type: 'dashed'
+          }
         },
-        min: 30, //最小值
-        max: 180, //最大值
-        gridColor: '#ececec',
+        name:this.data.selectedPollutantUnit,
+        // show: false
       },
-      legend: false, //是否显示图例
-      enableScroll: true, //是否滚动
-      width: windowWidth, //图表展示内容宽度
-      height: windowHeight, //图表展示内容高度
-      dataLabel: false, //是否在图表上直接显示数据
-      dataPointShape: true, //是否在图标上显示数据点标志
-      extra: {
-        lineStyle: 'curve' //曲线
-      },
-    });
+      series: [{
+        name: this.data.selectedPollutantName,
+        type: 'line',
+        smooth: true,
+        data: this.data.seriesData
+      }]
+    };
+    chart.setOption(option);
   }
 })

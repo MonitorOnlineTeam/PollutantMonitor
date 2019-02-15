@@ -3,7 +3,7 @@
   <view class='navigation'>
     <text class='navigation-title'> 数据监控</text>
   </view>
-  <view class='titlecard'>  
+  <view class='titlecard'>
     <view class='titlecard-datetime'>
       <view class='titlecard-datetime-box'>
         <image class='titlecard-datetime-Arrow' src="/images/Left.png"></image>
@@ -19,85 +19,37 @@
     </view>
     <view class='titlecard-polltype'>
       <picker class="input-picker" mode="selector">
-        <button class='select-polltype'> 污染物：烟尘
+        <button class='select-polltype'> 污染物：{{selectedPollutantName}}
           <image class='titlecard-polltype-img' src="/images/Down.png"></image>
         </button>
       </picker>
     </view>
   </view>
   <!-- tab -->
- 
+
   <view class='tab-view'>
-     <wux-segmented-control default-current="2" bind:change="onChange" values="{{ ['实时', '分钟', '小时','日'] }}" />
-     
-    <!-- <view class='tab-view-box'>
-      <view class='tab-view-i-Left  '>
-        实时
-      </view>
-      <view class='tab-view-i tab-view-select'>
-        分钟
-      </view>
-
-      <view class='tab-view-i'>
-        小时
-      </view>
-
-      <view class='tab-view-i'>
-        日
-      </view>
-    </view> -->
+    <wux-segmented-control default-current="{{dataType}}" bind:change="onChange" values="{{ ['实时', '分钟', '小时','日'] }}" />
   </view>
   <!-- 图表 -->
-  <view class='canvas-view'>
-    <canvas canvas-id="lineCanvas" disable-scroll="true" class="canvas"></canvas>
+  <view class="container-charts">
+    <ec-canvas wx:if="{{!isDisposed}}" id="mychart-dom-line" canvas-id="mychart-line" ec="{{ ec }}"></ec-canvas>
   </view>
-  <view class="container">
-  <ec-canvas id="mychart-dom-line" canvas-id="mychart-line" ec="{{ ec }}"></ec-canvas>
-</view>
   <!-- 列表 -->
-  <view class='list-title-item'> 
-  
-       <view class='list-item-title'>时间</view>
-       <view  class='list-item-title'>监测值</view>
-       <view  class='list-item-title'>状态</view>
-        </view>
+  <view class='list-title-item'>
+
+    <view class='list-item-title'>时间</view>
+    <view class='list-item-title'>监测值</view>
+    <view class='list-item-title'>状态</view>
+  </view>
   <scroll-view class='list-view' scroll-y="true">
-      
-   <view class='list-item'> 
-       <view class='list-item-text'>01-24 20:00</view>
-       <view class='list-item-text'>7.1</view>
-       <view class='list-item-text'>正常</view>
-        </view>
-   <view class='list-item'> 
-       <view class='list-item-text'>01-24 20:00</view>
-       <view class='list-item-text'>7.1</view>
-       <view class='list-item-text'>正常</view>
-        </view>
-           <view class='list-item'> 
-       <view class='list-item-text'>01-24 20:00</view>
-       <view class='list-item-text'>7.1</view>
-       <view class='list-item-text'>正常</view>
-        </view>
-           <view class='list-item'> 
-       <view class='list-item-text'>01-24 20:00</view>
-       <view class='list-item-text'>7.1</view>
-       <view class='list-item-text'>正常</view>
-        </view>
-           <view class='list-item'> 
-       <view class='list-item-text'>01-24 20:00</view>
-       <view class='list-item-text'>7.1</view>
-       <view class='list-item-text'>正常</view>
-        </view>
-           <view class='list-item'> 
-       <view class='list-item-text'>01-24 20:00</view>
-       <view class='list-item-text'>7.1</view>
-       <view class='list-item-text'>正常</view>
-        </view>
-           <view class='list-item'> 
-       <view class='list-item-text'>01-24 20:00</view>
-       <view class='list-item-text'>7.1</view>
-       <view class='list-item-text'>正常</view>
-        </view>
+    <block wx:for="{{ tableDatas }}" wx:key="{{index}}">
+      <view class='list-item'>
+        <view class='list-item-text'>{{item.MonitorTime}}</view>
+        <view class='list-item-text'>{{item[selectedPollutantCode]}}</view>
+        <view class='list-item-text'>{{item[selectedPollutantCode+'_params']?'超标':'正常'}}</view>
+      </view>
+    </block>
+
   </scroll-view>
 
 </view>

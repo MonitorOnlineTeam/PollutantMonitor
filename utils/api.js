@@ -1,9 +1,9 @@
-  //const URI = 'http://172.16.9.13:8019/rest/PollutantSourceApi/'
- const URI = 'http://localhost:52198/rest/PollutantSourceApi'
+  const URI = 'http://172.16.9.13:8019/rest/PollutantSourceApi/'
+ //const URI = 'http://localhost:52198/rest/PollutantSourceApi'
  const fetch = require('./fetch')
  const common = require('./common.js')
  const authorCode = '48f3889c-af8d-401f-ada2-c383031af92d'
-
+const dataTypeObj={ 0: 'realtime', 1: 'minute', 2: 'hour', 3: 'day' }
  const pageUrl = {
    getOpenId: `/UserInfoApi/PostLogin?authorCode=${authorCode}`,
    validateFirstLogin: '/UserInfoApi/ValidateFirstLogin',
@@ -139,10 +139,11 @@
   * @param  {String}} endTime 时间过滤
   */
  function getMonitorDatas(pollutantCodes, datatype, endTime = null) {
+   
    return fetchApi(pageUrl.getMonitorData, {
      DGIMNs: common.getStorage('DGIMN_New'),
      pollutantCodes: pollutantCodes,
-     datatype: datatype,
+     datatype: dataTypeObj[datatype],
      pageIndex: 1,
      pageSize: 100,
      isAsc: true,
