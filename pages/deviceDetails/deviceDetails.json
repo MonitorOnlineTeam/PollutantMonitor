@@ -1,5 +1,6 @@
 {
   "navigationBarTitleText": "Accordion",
+   "navigationStyle": "custom",
   "usingComponents": {
     "wux-accordion-group": "../../dist/accordion-group/index",
     "wux-accordion": "../../dist/accordion/index"

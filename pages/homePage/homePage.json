@@ -9,6 +9,7 @@
     "pages/my/my",
     "pages/logs/logs"
   ],
+  "navigationStyle": "custom",
   "component": true,
   "usingComponents": {}
 

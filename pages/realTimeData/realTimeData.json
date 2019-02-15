@@ -1,5 +1,6 @@
 {
   "component": true,
+  "navigationStyle": "custom",
   "usingComponents": {
     "wux-tabs": "../../dist/tabs/index",
     "wux-tab": "../../dist/tab/index",

@@ -1,30 +1,20 @@
 <!--pages/dataMonitor/dataMonitor.wxml-->
 <view class='main'>
-  <view class='navigation'>
-    <text class='navigation-title'> 数据监控</text>
-  </view>
-  <view class='titlecard'>
-    <view class='titlecard-datetime'>
-      <view class='titlecard-datetime-box'>
-        <image class='titlecard-datetime-Arrow' src="/images/Left.png"></image>
-      </view>
-      <view class='titlecard-datetime-time'>
-        <picker class="input-picker" mode="selector">
-          <button class="datetime-input">2019年01月02日 19:00</button>
-        </picker>
-      </view>
-      <view class='titlecard-datetime-box'>
-        <image class='titlecard-datetime-Arrow' src="/images/Right.png"></image>
-      </view>
-    </view>
-    <view class='titlecard-polltype'>
-      <picker class="input-picker" mode="selector">
-        <button class='select-polltype'> 污染物：{{selectedPollutantName}}
-          <image class='titlecard-polltype-img' src="/images/Down.png"></image>
-        </button>
-      </picker>
-    </view>
-  </view>
+<view class='title'>
+<view class='felx-1'>
+<text class='flex-text'>污染物：{{selectedPollutantName}}</text>
+</view>
+<view  class='felx-2'>
+<image class='x' src='/images/X.png'></image>
+</view>
+
+<view  class='felx-1'><text class='flex-text'>2019-02-14
+</text>
+
+
+</view>
+</view>
+
   <!-- tab -->
 
   <view class='tab-view'>

@@ -3,5 +3,11 @@
   "wux-segmented-control": "../../dist/segmented-control/index",
   "ec-canvas": "../../dist/ec-canvas/ec-canvas"
 },
-  "navigationStyle": "custom"
+
+  "navigationBarBackgroundColor": "#3b98ff",
+  "navigationBarTextStyle": "white",
+  "navigationBarTitleText": "数据监控",
+  "backgroundColor": "#FFFFFF",
+  "backgroundTextStyle": "light"
+   
 }
