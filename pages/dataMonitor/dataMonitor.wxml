@@ -3,6 +3,7 @@
 <view class='title'>
 <view class='felx-1'>
 <text class='flex-text'>污染物：{{selectedPollutantName}}</text>
+
 </view>
 <view  class='felx-2'>
 <image class='x' src='/images/X.png'></image>
