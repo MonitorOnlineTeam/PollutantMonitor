@@ -15,7 +15,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
+    console.log(common.getStorage('DGIMN'));
+    this.setData({
+      isAuthor: true//!!common.getStorage('DGIMN')
+    });
   },
 
   /**
@@ -100,18 +103,21 @@ Page({
       return false;
     }
     if (this.data.phoneCode && this.data.phoneCode.length == 11) {
-      comApi.updateUserInfo(this.data.phoneCode).then(res => {
-        console.log('updateUserInfo', res)
+      comApi.verifyPhone(this.data.phoneCode).then(res=>{
         if (res && res.IsSuccess) {
-          if (res.Data) {
-            common.setStorage("IsFirstLogin", res.Data.IsFirstLogin)
-            common.setStorage("AuthorCode", res.Data.AuthorCode)
-            //TODO:跳转到设备密码界面
-            // wx.navigateTo({
-            //   url: '../device/device',
-            // });
-            wx.switchTab({
-              url: '../my/my'
+          if(res.Data)
+          {
+            common.setStorage("OpenId", res.Data);
+            wx.navigateTo({
+              url: '../device/device'
+            })
+          }else
+          {
+            wx.showModal({
+              title: '提示',
+              content: '服务器内部错误',
+              showCancel: false,
+              success(res) { }
             })
           }
         }else
@@ -124,6 +130,36 @@ Page({
           })
         }
       })
+      // comApi.updateUserInfo(this.data.phoneCode).then(res => {
+      //   console.log('updateUserInfo', res)
+      //   if (res && res.IsSuccess) {
+      //     if (res.Data) {
+      //       common.setStorage("IsFirstLogin", res.Data.IsFirstLogin)
+      //       common.setStorage("AuthorCode", res.Data.AuthorCode)
+      //       //TODO:跳转到设备密码界面
+      //       // wx.navigateTo({
+      //       //   url: '../device/device',
+      //       // });
+      //       if (common.setStorage('DevicePwd')) {
+      //         wx.switchTab({
+      //           url: '../my/my'
+      //         })
+      //       } else {
+      //         wx.switchTab({
+      //           url: '../device/device'
+      //         })
+      //       }
+      //     }
+      //   }else
+      //   {
+      //     wx.showModal({
+      //       title: '提示',
+      //       content: res.Message,
+      //       showCancel: false,
+      //       success(res) { }
+      //     })
+      //   }
+      // })
     }
   },
   phone(val) {
@@ -131,4 +167,32 @@ Page({
       phoneCode: val.detail.value
     });
   },
+  scanCode:function(){
+    wx.scanCode({
+      success(ress) {
+        if (ress.result)
+        {
+          comApi.verifyDGIMN(ress.result).then(res => {
+            if (res && res.IsSuccess) {
+              if (res.Data) {
+                common.setStorage("DGIMN", ress.result);
+                wx.navigateTo({
+                  url: '../proving/proving'
+                })
+              }
+            }else
+            {
+              wx.showModal({
+                title: '提示',
+                content: res.Message,
+                showCancel: false,
+                success(res) { }
+              })
+            }
+          })
+        }
+      },
+      fail() { }
+    })
+  }
 })

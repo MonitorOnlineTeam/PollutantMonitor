@@ -19,7 +19,10 @@
     getDeviceInfo: `/UserInfoApi/GetAnalyzerList?authorCode=${authorCode}`,
     getPollutant: `/UserInfoApi/GetPollutantList?authorCode=${authorCode}`,
     getMonitorData: `/UserInfoApi/GetMonitorDatas?authorCode=${authorCode}`,
-    getProcessFlowChartStatus: `/UserInfoApi/GetProcessFlowChartStatus?authorCode=${authorCode}`
+    getProcessFlowChartStatus: `/UserInfoApi/GetProcessFlowChartStatus?authorCode=${authorCode}`,
+    verifyDevicePwd: `/UserInfoApi/VerifyDevicePwd?authorCode=${authorCode}`,
+    verifyPhone: `/UserInfoApi/VerifyPhone?authorCode=${authorCode}`,
+    verifyDGIMN: `/UserInfoApi/VerifyDGIMN?authorCode=${authorCode}`
   }
 
   /**
@@ -86,7 +89,7 @@
     //    console.log('getUserInfo', res)
     //  })
     return fetchApi(pageUrl.getUserInfo, {
-        AuthorCode: common.getStorage('AuthorCode')
+        AuthorCode: common.getStorage('OpenId')
       }, 'get')
       .then(res => res.data)
   }
@@ -100,7 +103,7 @@
     //   console.log('getPointInfo', res)
     // })
     return fetchApi(pageUrl.getPointInfo, {
-      DGIMN: common.getStorage('DGIMN_New')
+      DGIMN: common.getStorage('DGIMN')
     }, 'post').then(res => res.data)
   }
 
@@ -113,7 +116,7 @@
     //   console.log('getDeviceInfo', res)
     // })
     return fetchApi(pageUrl.getDeviceInfo, {
-      DGIMN: common.getStorage('DGIMN_New')
+      DGIMN: common.getStorage('DGIMN')
     }, 'post').then(res => res.data)
   }
 
@@ -123,7 +126,7 @@
    */
   function getPollutantList(DGIMNs) {
     return fetchApi(pageUrl.getPollutant, {
-      DGIMN: common.getStorage('DGIMN_New')
+      DGIMN: common.getStorage('DGIMN')
     }, 'post').then(res => res.data)
   }
 
@@ -133,7 +136,7 @@
    */
   function getProcessFlowChartStatus(DGIMNs) {
     return fetchApi(pageUrl.getProcessFlowChartStatus, {
-      DGIMN: common.getStorage('DGIMN_New')
+      DGIMN: common.getStorage('DGIMN')
     }, 'post').then(res => res.data)
   }
 
@@ -154,7 +157,7 @@
     }
 
     return fetchApi(pageUrl.getMonitorData, {
-      DGIMNs: common.getStorage('DGIMN_New'),
+      DGIMNs: common.getStorage('DGIMN'),
       pollutantCodes: pollutantCodes,
       datatype: dataTypeObj[datatype],
       pageIndex: 1,
@@ -163,7 +166,38 @@
       endTime: datatype == 'realtime' ? null : endTime
     }, 'post').then(res => res.data)
   }
+/**
+ * 验证设备访问密码
+ * @param  {String}} pwd 设备密码
+ */
+function verifyDevicePwd(pwd) {
+  return fetchApi(pageUrl.verifyDevicePwd, {
+    OpenId: common.getStorage('OpenId'),
+    DGIMN: common.getStorage('DGIMN'),
+    DevicePwd: common.getStorage('DevicePwd')
+  }, 'post').then(res => res.data)
+}
 
+/**
+ * 验证手机号是否能进入系统
+ * @param  {String}} phone 手机号
+ */
+function verifyPhone(phone) {
+  return fetchApi(pageUrl.verifyPhone, {
+    WxCode: common.getStorage('WxCode'),
+    Phone: phone
+  }, 'post').then(res => res.data)
+}
+
+/**
+ * 验证二维码是否为内部二维码
+ * @param  {String}} phone 手机号
+ */
+function verifyDGIMN(DGIMN) {
+  return fetchApi(pageUrl.verifyDGIMN, {
+    DGIMN: DGIMN
+  }, 'post').then(res => res.data)
+}
 
 
   module.exports = {
@@ -174,5 +208,8 @@
     getDeviceInfo,
     getPollutantList,
     getProcessFlowChartStatus,
-    getMonitorDatas
+    getMonitorDatas,
+    verifyDevicePwd,
+    verifyPhone,
+    verifyDGIMN
   }

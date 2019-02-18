@@ -47,9 +47,9 @@ App({
     //TODO：判断是否需要输入设备密码  缓存用则跳转到 wode  没有的话，跳转到设备密码界面
     this.login();
     // if (!common.getStorage('AuthorCode')) {
-      
+
     // }
-   
+
     // // 获取用户信息
     // wx.getSetting({
     //   success: res => {
@@ -114,45 +114,86 @@ App({
     })
   },
   login: function() {
+    // wx.scanCode({
+    //   success(res) {
+
+    //   },
+    //   fail() { }
+    // })
+    //this.redirectTo('/pages/proving/proving');
     // 登录
     wx.login({
       success: res => {
+        common.setStorage("WxCode", res.code);
         console.log('login', res)
+        console.log('OpenId', common.getStorage('OpenId'))
+        common.setStorage('DGIMN', '62262431qlsp02')
+        if (!common.getStorage('OpenId')) {
+          wx.navigateTo({
+            url: '/pages/proving/proving'
+          })
+        } else {
+          common.setStorage('DevicePwd','')
+          if (common.getStorage('DevicePwd')) {
+            api.verifyDevicePwd()
+              .then(res => {
+                if (res && res.IsSuccess) {
+                  this.redirectTo('/pages/my/my');
+                } else {
+                  wx.showModal({
+                    title: '提示',
+                    content: res.Message,
+                    showCancel: false,
+                    success(res) {
+                    }
+                  })
+                }
+              })
+          }
+        }
+
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
-        return api.validateFirstLogin(res.code)
-          .then(res => {
-            console.log('validateFirstLogin', res)
-            if (res && res.IsSuccess) {
-              if (res.Data) {
-                common.setStorage("IsFirstLogin", res.Data.IsFirstLogin)
-                common.setStorage("AuthorCode", res.Data.AuthorCode)
-                common.setStorage("DGIMN_New", '62262431qlsp02')//62262431qlsp02  51052216080302
-              }
-              // if (!common.getStorage('IsFirstLogin')) {
-              //   this.redirectTo('/pages/my/my');
-              // } else {
-              //   this.redirectTo('/pages/proving/proving');
-              // }
-              if (res.Data.IsFirstLogin) {
-                wx.showToast({
-                  title: '首次登陆',
-                  icon: 'success',
-                  duration: 2000
-                })
-                //this.redirectTo('/pages/proving/proving');
-              } else {
-                wx.showToast({
-                  title: '已登录',
-                  icon: 'success',
-                  duration: 2000
-                })
-                //this.redirectTo('/pages/my/my');
-              }
-            }
-          })
-          .catch(e => {
-            console.error('error', e)
-          })
+        // return api.validateFirstLogin(res.code)
+        //   .then(res => {
+        //     console.log('validateFirstLogin', res)
+        //     if (res && res.IsSuccess) {
+        //       if (res.Data) {
+        //         common.setStorage("IsFirstLogin", res.Data.IsFirstLogin)
+        //         common.setStorage("AuthorCode", res.Data.AuthorCode)
+        //         common.setStorage("DGIMN_New", '62262431qlsp02')//62262431qlsp02  51052216080302
+        //       }
+        //       // if (!common.getStorage('IsFirstLogin')) {
+        //       //   this.redirectTo('/pages/my/my');
+        //       // } else {
+        //       //   this.redirectTo('/pages/proving/proving');
+        //       // }
+        //       if (res.Data.IsFirstLogin) {
+        //         wx.showToast({
+        //           title: '首次登陆',
+        //           icon: 'success',
+        //           duration: 2000
+        //         })
+        //         //this.redirectTo('/pages/proving/proving');
+        //       } else {
+        //         wx.showToast({
+        //           title: '已登录',
+        //           icon: 'success',
+        //           duration: 2000
+        //         })
+        //         if (common.gettStorage('DevicePwd'))
+        //         {
+        //           this.redirectTo('/pages/my/my');
+        //         }else
+        //         {
+        //           this.redirectTo('/pages/device/device');
+        //         }
+        //         //this.redirectTo('/pages/my/my');
+        //       }
+        //     }
+        //   })
+        //   .catch(e => {
+        //     console.error('error', e)
+        //   })
       }
     })
   }

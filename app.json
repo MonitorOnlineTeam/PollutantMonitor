@@ -1,23 +1,20 @@
 {
   "pages": [
-
-        "pages/dataMonitor/dataMonitor",
+    "pages/device/device",
     "pages/proving/proving",
+    "pages/dataMonitor/dataMonitor",
     "pages/my/my",
     "pages/pointInfo/pointInfo",
     "pages/deviceDetails/deviceDetails",
     "pages/realTimeData/realTimeData",
-
     "pages/homePage/homePage",
     "pages/indexPage/index",
     "pages/logs/logs"
-   
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#56A6FF",
     "navigationBarTitleText": ""
-  
   },
   "tabBar": {
     "backgroundColor": "#FFF",

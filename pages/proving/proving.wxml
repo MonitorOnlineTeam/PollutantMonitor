@@ -2,18 +2,26 @@
 <!-- 手机号验证 -->
 <!--     // "enablePullDownRefresh":true -->
 <view class='container'>
-<view class='main-outer'>
+  <view class='main-outer'>
 
-<view class='main-within'>
-<image class='logo-image' src='/images/logo.png'></image>
-<text class='logo-title'>污染源数据监控</text>
-</view>
+    <view class='main-within'>
+      <image class='logo-image' src='/images/logo.png'></image>
+      <text class='logo-title'>污染源数据监控</text>
+    </view>
 
 
-<input type='number' maxlength="11" class='phone' bindinput='phone' adjust-position="true" placeholder="手机号" placeholder-class="pphone"></input>
 
-<!-- <button class='determine' type='primary' bindtap='RegisterBtn' hover-class="userBorder"   open-type="getUserInfo" bindgetuserinfo="getUserInfo">确定</button> -->
-<button class='determine' type='primary' bindtap='RegisterBtn' hover-class="userBorder" open-type="getUserInfo" bindgetuserinfo="getUserInfo">确定</button>
 
-</view>
+    <!-- <button class='determine' type='primary' bindtap='RegisterBtn' hover-class="userBorder"   open-type="getUserInfo" bindgetuserinfo="getUserInfo">确定</button> -->
+    <view wx:if="{{isAuthor==true}}">
+      <input type='number' maxlength="11" class='phone' bindinput='phone' adjust-position="true" placeholder="手机号" placeholder-class="pphone"></input>
+      <button class='determine' type='primary' bindtap='RegisterBtn' hover-class="userBorder" open-type="getUserInfo" bindgetuserinfo="getUserInfo">下一步</button>
+    </view>
+    <view wx:elif="{{isAuthor==false}}">
+      <button type="primary" bindtap="scanCode">扫一扫</button>
+    </view>
+
+
+
+  </view>
 </view>
