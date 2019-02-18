@@ -17,14 +17,48 @@ Page({
     isDisposed: false,
     xAxisData: [],
     seriesData: [],
-    selectedPollutantName: '',
-    selectedPollutantCode: '',
-    selectedPollutantUnit:'',
+    selectedPollutant: {},
     tableDatas: [],
     dataType: 0,
+    pickerType: 'day',
     pollutantDatas: [],
-    selectTime: '',
-    selectTimeFormat: { 0: 'HH:mm', 1: 'MM-DD HH:mm', 2: 'MM-DD HH:00', 3:'MM-DD'}
+    pollutantNames: [],
+    pollutantNamesObject: [],
+    startDate: moment().add(-1, 'years').format('YYYY-MM-DD'),
+    endDate: moment().format('YYYY-MM-DD'),
+    selectedDate: moment().format('YYYY-MM-DD'),
+    selectTime: moment().format('YYYY-MM-DD HH:00'),
+
+
+
+    selectTimeFormat: {
+      0: {
+        serverFormat: 'HH:mm',
+        pickerTime: moment().format('HH:00'),
+        pickerType: ''
+      },
+      1: {
+        serverFormat: 'MM-DD HH:mm',
+        pickerTime: moment().format('YYYY-MM-DD'),
+        pickerType: 'day'
+      },
+      2: {
+        serverFormat: 'MM-DD HH:00',
+        pickerTime: moment().format('YYYY-MM-DD'),
+        pickerType: 'day'
+      },
+      3: {
+        serverFormat: 'MM-DD',
+        pickerTime: moment().format('YYYY-MM'),
+        pickerType: 'month'
+      }
+    }
+    // selectTimeFormat: {
+    //   0: 'HH:mm',
+    //   1: 'MM-DD HH:mm',
+    //   2: 'MM-DD HH:00',
+    //   3: 'MM-DD'
+    // }
   },
 
   /**
@@ -33,17 +67,19 @@ Page({
   onLoad: function(options) {
     // 获取组件
     this.ecComponent = this.selectComponent('#mychart-dom-line');
-    this.getPollutantList();
-    this.getData();
-
+    let that = this;
+    this.getPollutantList(function() {
+      that.getData();
+    });
   },
   // 分段器切换
   onChange(e) {
-    console.log(e)
+    // console.log(e)
     console.log(e.detail.key + '-' + this.data.dataType)
     if (e.detail.key !== this.data.dataType) {
       this.setData({
-        dataType: e.detail.key
+        dataType: e.detail.key,
+        selectedDate: e.detail.key != 0 ? moment(this.data.selectedDate).format(this.data.selectTimeFormat[e.detail.key].pickerTime) : this.data.selectedDate
       })
       this.getData();
     }
@@ -97,10 +133,10 @@ Page({
 
   },
 
-  // 点击按钮后初始化图表
+  // 初始化图表
   init: function() {
     this.ecComponent.init((canvas, width, height) => {
-      console.log(2)
+      //console.log(2)
       // 获取组件的 canvas、width、height 后的回调函数
       // 在这里初始化图表
       const chart = echarts.init(canvas, null, {
@@ -122,39 +158,60 @@ Page({
     });
   },
   //获取污染物
-  getPollutantList: function() {
+  getPollutantList: function(callback) {
     comApi.getPollutantList().then(res => {
       console.log('污染物', res);
       //this.reloadChart();
       if (res && res.IsSuccess && res.Data) {
         let thisData = res.Data;
-        this.setData({
-          selectedPollutantCode: thisData[0] && thisData[0].pollutantCode,
-          selectedPollutantName: thisData[0] && thisData[0].pollutantName,
-          selectedPollutantUnit: thisData[0] && thisData[0].unit,
-          pollutantDatas: thisData
+        let selectedPollutant = {};
+        let pollutantNames = [];
+        let pollutantNamesObject = [];
+        thisData.map(function(item, index) {
+          let pObj = {};
+          //pollutantObjectArray
+          if (index === 0) {
+            selectedPollutant = item;
+            selectedPollutant.id = index;
+          }
+          pObj = item;
+          pObj.id = index;
+
+          pollutantNames.push(item.pollutantName)
+          pollutantNamesObject.push(pObj)
         })
+        //console.log(pollutantNamesObject);
+
+        this.setData({
+          selectedPollutant: selectedPollutant,
+          pollutantDatas: thisData,
+          pollutantNames: pollutantNames,
+          pollutantNamesObject: pollutantNamesObject
+        })
+        callback();
       }
     });
   },
   //获取监控数据
   getData: function() {
     let {
-      selectedPollutantCode,
+      selectedPollutant,
       dataType,
       selectTime,
-      selectTimeFormat
+      selectTimeFormat,
+      selectedDate
     } = this.data;
-    comApi.getMonitorDatas(selectedPollutantCode, dataType).then(res => {
+    comApi.getMonitorDatas(selectedPollutant.pollutantCode, dataType, selectedDate).then(res => {
       console.log('getMonitorDatas', res)
       if (res && res.IsSuccess && res.Data) {
         let thisData = res.Data;
         let xAxisData = [];
         let seriesData = [];
+        console.log(selectedPollutant)
         thisData.map(function(item) {
-          item.MonitorTime = moment(item.MonitorTime).format(selectTimeFormat[dataType]);
+          item.MonitorTime = moment(item.MonitorTime).format(selectTimeFormat[dataType].serverFormat);
           xAxisData.push(item.MonitorTime);
-          seriesData.push(item[selectedPollutantCode]);
+          seriesData.push(item[selectedPollutant.pollutantCode] || '0');
         })
         this.setData({
           xAxisData: xAxisData,
@@ -165,26 +222,21 @@ Page({
       }
     })
   },
-
+  //图表重绘
   setOption: function(chart) {
-    console.log(this.data.xAxisData);
+    let {
+      xAxisData,
+      selectedPollutant,
+      seriesData
+    } = this.data;
+    console.log(seriesData)
+    //console.log(this.data.xAxisData);
     var option = {
-      // title: {
-      //   text: '测试下面legend的红色区域不应被裁剪',
-      //   left: 'center'
-      // },
       color: ["#37A2DA", "#67E0E3", "#9FE6B8"],
-      // legend: {
-      //   data: ['A'],
-      //   // top: 50,
-      //   left: 'center',
-      //   //backgroundColor: 'red',
-      //   z: 100
-      // },
       grid: {
         containLabel: true,
-        left: '2%',
-        top: '10%',
+        left: '5%',
+        top: '15%',
         bottom: '10%'
       },
       tooltip: {
@@ -194,7 +246,7 @@ Page({
       xAxis: {
         type: 'category',
         boundaryGap: false,
-        data: this.data.xAxisData,
+        data: xAxisData,
         // show: false
       },
       yAxis: {
@@ -205,16 +257,40 @@ Page({
             type: 'dashed'
           }
         },
-        name:this.data.selectedPollutantUnit,
+        name: '单位:' + selectedPollutant.unit,
         // show: false
       },
       series: [{
-        name: this.data.selectedPollutantName,
+        name: selectedPollutant.pollutantName,
         type: 'line',
         smooth: true,
-        data: this.data.seriesData
+        data: seriesData
       }]
     };
     chart.setOption(option);
+  },
+  //绑定污染物
+  bindPollutantChange: function(e) {
+    let data = this.data.pollutantNamesObject.filter(m => m.id == e.detail.value);
+    if (data) {
+      this.setData({
+        selectedPollutant: data[0],
+      });
+      this.getData();
+    }
+  },
+  //时间选择
+  bindDateChange:function(e){
+    console.log(e.detail);
+    console.log(this.data.selectedDate);
+    //moment(endTime).add(1, 'months').add(-1,'seconds').format('YYYY-MM-DD 23:59:59');
+    //console.log(moment('2018-12').add(1, 'months').add(-1, 'seconds').format('YYYY-MM-DD 23:59:59'));
+    if (e.detail.value !== this.data.selectedDate)
+    {
+      this.setData({
+        selectedDate: e.detail.value
+      });
+      this.getData();
+    }
   }
 })

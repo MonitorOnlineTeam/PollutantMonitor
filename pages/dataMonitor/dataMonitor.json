@@ -8,6 +8,6 @@
   "navigationBarTextStyle": "white",
   "navigationBarTitleText": "数据监控",
   "backgroundColor": "#FFFFFF",
-  "backgroundTextStyle": "light"
-   
+  "backgroundTextStyle": "light",
+   "enablePullDownRefresh": true
 }

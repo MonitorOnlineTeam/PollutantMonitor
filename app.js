@@ -126,7 +126,7 @@ App({
               if (res.Data) {
                 common.setStorage("IsFirstLogin", res.Data.IsFirstLogin)
                 common.setStorage("AuthorCode", res.Data.AuthorCode)
-                common.setStorage("DGIMN_New", '51052216080302')
+                common.setStorage("DGIMN_New", '62262431qlsp02')//62262431qlsp02  51052216080302
               }
               // if (!common.getStorage('IsFirstLogin')) {
               //   this.redirectTo('/pages/my/my');

@@ -1,20 +1,29 @@
 <!--pages/dataMonitor/dataMonitor.wxml-->
 <view class='main'>
-<view class='title'>
-<view class='felx-1'>
-<text class='flex-text'>污染物：{{selectedPollutantName}}</text>
-
-</view>
-<view  class='felx-2'>
-<image class='x' src='/images/X.png'></image>
-</view>
-
-<view  class='felx-1'><text class='flex-text'>2019-02-14
-</text>
-
-
-</view>
-</view>
+  <view class='title'>
+    <view class='felx-1'>
+      <picker mode="selector" value="{{selectedPollutantName}}" range="{{pollutantNames}}" bindchange="bindPollutantChange">
+        <view class="picker">
+          <text class='flex-text'>污染物：{{selectedPollutant.pollutantName}}</text>
+        </view>
+      </picker>
+    </view>
+    <view class='felx-2'>
+      <image class='x' src='/images/X.png'></image>
+    </view>
+    <view class='felx-1'>
+      <view wx:if="{{dataType===0}}">
+        <text class='flex-text'>{{selectTime}}</text>
+      </view>
+      <view wx:elif="{{dataType !== 0}}">
+        <picker mode="date" value="{{selectTimeFormat[dataType].pickerTime}}" fields="{{selectTimeFormat[dataType].pickerType}}" start="{{startDate}}" end="{{endDate}}" bindchange="bindDateChange">
+          <view class="picker">
+            <text class='flex-text'>时间：{{selectedDate}}</text>
+          </view>
+        </picker>
+      </view>
+    </view>
+  </view>
 
   <!-- tab -->
 
@@ -29,15 +38,15 @@
   <view class='list-title-item'>
 
     <view class='list-item-title'>时间</view>
-    <view class='list-item-title'>监测值</view>
+    <view class='list-item-title'>监测值({{selectedPollutant.unit}})</view>
     <view class='list-item-title'>状态</view>
   </view>
   <scroll-view class='list-view' scroll-y="true">
     <block wx:for="{{ tableDatas }}" wx:key="{{index}}">
       <view class='list-item'>
         <view class='list-item-text'>{{item.MonitorTime}}</view>
-        <view class='list-item-text'>{{item[selectedPollutantCode]}}</view>
-        <view class='list-item-text'>{{item[selectedPollutantCode+'_params']?'超标':'正常'}}</view>
+        <view class='list-item-text'>{{item[selectedPollutant.pollutantCode]||'-'}}</view>
+        <view class='list-item-text'>{{item[selectedPollutant.pollutantCode+'_params']?'超标':!item[selectedPollutant.pollutantCode]?'-':'正常'}}</view>
       </view>
     </block>
 
