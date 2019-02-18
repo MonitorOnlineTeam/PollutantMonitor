@@ -1,5 +1,12 @@
 {
+  "enablePullDownRefresh": true,
+  "onPullDownRefresh": true,
+  "onReachBottom": true,
   "component": true,
-  "navigationStyle": "custom",
+  "navigationBarBackgroundColor": "#3b98ff",
+  "navigationBarTextStyle": "white",
+  "navigationBarTitleText": "我的",
+  "backgroundColor": "#FFFFFF",
+  "backgroundTextStyle": "light",
   "usingComponents": {}
 }

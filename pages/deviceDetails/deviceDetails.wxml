@@ -1,7 +1,5 @@
 <view class='main'>
-  <view class='navigation'>
-    <text class='navigation-title'>设备仪器详情</text>
-  </view>
+
   <!-- 数据列表 -->
   <scroll-view scroll-y="true" class="swiper-item ">
     <block wx:for="{{ deviceData }}" wx:key="{{index}}">

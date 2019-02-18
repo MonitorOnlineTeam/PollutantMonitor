@@ -1,7 +1,5 @@
 <view class='main'>
-  <view class='navigation'>
-    <text class='navigation-title'>排口信息</text>
-  </view>
+
   <view class='titlecard'>
     <view class='name-view'>
       <text class='name-text'>{{pointName}}</text>

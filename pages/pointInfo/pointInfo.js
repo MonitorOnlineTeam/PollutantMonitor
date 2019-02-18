@@ -97,6 +97,17 @@ Page({
 
   }
   ,
+  /**
+ * 下拉刷新
+ */
+  onPullDownRefresh: function () {
+
+    wx.showNavigationBarLoading();
+
+    wx.hideNavigationBarLoading();
+
+    wx.stopPullDownRefresh();
+  },
   getData:function(){
     comApi.getPointInfo().then(res => {
       //console.log('getPointInfo', res)
@@ -157,4 +168,5 @@ Page({
       }
     })
   }
+  
 })

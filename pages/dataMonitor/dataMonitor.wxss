@@ -16,10 +16,10 @@ height: 5vh;
 background: #3b98ff;
 flex-direction: row;
 justify-content: space-around;
-padding: 10rpx;
+
 }
 .felx-1{
-  width: 250rpx;
+  width: 390rpx;
   height: 5vh;
   text-align: center;
 }

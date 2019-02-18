@@ -1,7 +1,5 @@
 <view class='main'>
-  <view class='navigation'>
-    <text class='navigation-title'> 实时工艺</text>
-  </view>
+ 
   <view class='titlecard'>
     <open-data type="userAvatarUrl"></open-data>
       <open-data type="userNickName" style="color:#fff"></open-data>

@@ -97,6 +97,17 @@ Page({
   onShareAppMessage: function() {
 
   },
+  /**
+* 下拉刷新
+*/
+  onPullDownRefresh: function () {
+
+    wx.showNavigationBarLoading();
+
+    wx.hideNavigationBarLoading();
+
+    wx.stopPullDownRefresh();
+  },
   getData:function(){
     let so2 = {
       key: 'SO2分析仪',

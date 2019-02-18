@@ -1,5 +1,12 @@
 {
+  "enablePullDownRefresh": true,
+  "onPullDownRefresh": true,
+  "onReachBottom": true,
   "component": true,
   "usingComponents": {},
-    "navigationStyle": "custom"
+  "navigationBarBackgroundColor": "#3b98ff",
+  "navigationBarTextStyle": "white",
+  "navigationBarTitleText": "排口管理",
+  "backgroundColor": "#FFFFFF",
+  "backgroundTextStyle": "light"
 }

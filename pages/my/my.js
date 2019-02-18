@@ -8,27 +8,25 @@ Page({
    * 页面的初始数据
    */
   data: {
-    historyRecord:[],
-    userPhone:'-',
-    nickName:'-',
-    avatarUrl:'-'
+    historyRecord: [],
+    userPhone: '-',
+    nickName: '-',
+    avatarUrl: '-'
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     // console.log(app.globalData.userInfo);
     // console.log(app.globalData.userInfo.avatarUrl);
-    if (app.globalData.userInfo)
-    {
+    if (app.globalData.userInfo) {
       // this.setData({
       //   nickName: app.globalData.userInfo.nickName,
       //   avatarUrl: app.globalData.userInfo.avatarUrl
       // })
-      
-    }else
-    {
+
+    } else {
       // wx.switchTab({
       //   url: '../proving/proving'
       // })
@@ -40,7 +38,7 @@ Page({
       if (res && res.IsSuccess) {
         if (res.Data) {
           var thisData = res.Data;
-          thisData.PointVisitHistorys.map(function (items) {
+          thisData.PointVisitHistorys.map(function(items) {
             historyRecord.push({
               EnterpriseName: items.EnterpriseName,
               PointName: items.PointName,
@@ -48,20 +46,19 @@ Page({
               DGIMN: items.DGIMN
             })
           })
-         this.setData({
-           historyRecord: historyRecord,
-           userPhone: thisData.UserPhone,
-          //  nickName: app.globalData.userInfo.nickName,
-          //  avatarUrl: app.globalData.userInfo.avatarUrl
-         })
+          this.setData({
+            historyRecord: historyRecord,
+            userPhone: thisData.UserPhone,
+            //  nickName: app.globalData.userInfo.nickName,
+            //  avatarUrl: app.globalData.userInfo.avatarUrl
+          })
         }
       }
     })
   },
-  Determine :function(e){
+  Determine: function(e) {
     console.log(e)
-    if(e)
-    {
+    if (e) {
       //e.currentTarget.dataset.dgimn
       common.setStorage("DGIMN_New", e.currentTarget.dataset.dgimn)
       console.log(common.getStorage('DGIMN_New'));
@@ -77,49 +74,62 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
-    
+  onReady: function() {
+
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
-    
+  onShow: function() {
+
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
-    
+  onHide: function() {
+
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
-    
+  onUnload: function() {
+
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
     console.log(2)
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
-    
+  onReachBottom: function() {
+
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
-    
+  onShareAppMessage: function() {
+
+  },
+  /**
+   * 下拉刷新
+   */
+  onPullDownRefresh: function() {
+
+    wx.showNavigationBarLoading();
+
+    wx.hideNavigationBarLoading();
+
+    wx.stopPullDownRefresh();
   }
+
+
 })

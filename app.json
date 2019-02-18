@@ -1,5 +1,6 @@
 {
   "pages": [
+
         "pages/dataMonitor/dataMonitor",
     "pages/proving/proving",
     "pages/my/my",
@@ -10,12 +11,13 @@
     "pages/homePage/homePage",
     "pages/indexPage/index",
     "pages/logs/logs"
+   
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#56A6FF",
-    "navigationBarTitleText": "",
-    "navigationStyle": "custom"
+    "navigationBarTitleText": ""
+  
   },
   "tabBar": {
     "backgroundColor": "#FFF",

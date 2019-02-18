@@ -1,9 +1,16 @@
 {
+  "enablePullDownRefresh": true,
+  "onPullDownRefresh": true,
+  "onReachBottom": true,
   "component": true,
-  "navigationStyle": "custom",
+  "navigationBarBackgroundColor": "#3b98ff",
+  "navigationBarTextStyle": "white",
+  "navigationBarTitleText": "数据监控",
+  "backgroundColor": "#FFFFFF",
+  "backgroundTextStyle": "light",
   "usingComponents": {
     "wux-tabs": "../../dist/tabs/index",
     "wux-tab": "../../dist/tab/index",
     "wux-badge": "../../dist/badge/index"
-  }
+  } 
 }
