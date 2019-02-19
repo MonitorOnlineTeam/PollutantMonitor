@@ -102,7 +102,7 @@ Page({
   ,
   getData:function(){
     comApi.getPointInfo().then(res => {
-      //console.log('getPointInfo', res)
+      console.log('getPointInfo', res)
       if (res && res.IsSuccess) {
         if (res.Data.length > 0) {
           let data = res.Data[0];

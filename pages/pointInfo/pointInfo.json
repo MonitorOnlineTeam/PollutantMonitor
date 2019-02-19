@@ -6,7 +6,7 @@
   "usingComponents": {},
   "navigationBarBackgroundColor": "#3b98ff",
   "navigationBarTextStyle": "white",
-  "navigationBarTitleText": "排口管理",
+  "navigationBarTitleText": "排口信息",
   "backgroundColor": "#FFFFFF",
   "backgroundTextStyle": "light"
 }
