@@ -1,7 +1,8 @@
 {
   "pages": [
-    "pages/device/device",
     "pages/proving/proving",
+    "pages/device/device",
+    
     "pages/dataMonitor/dataMonitor",
     "pages/my/my",
     "pages/pointInfo/pointInfo",

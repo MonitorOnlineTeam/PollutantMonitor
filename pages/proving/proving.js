@@ -16,9 +16,9 @@ Page({
    */
   onLoad: function(options) {
     console.log(common.getStorage('DGIMN'));
-    this.setData({
-      isAuthor: true//!!common.getStorage('DGIMN')
-    });
+    // this.setData({
+    //   isAuthor: true//!!common.getStorage('DGIMN')
+    // });
   },
 
   /**
@@ -123,12 +123,19 @@ Page({
         }else
         {
           wx.showModal({
-            title: '提示',
+            title: 'server提示',
             content: res.Message,
             showCancel: false,
             success(res) { }
           })
         }
+      }).catch(res=>{
+        wx.showModal({
+          title: 'catch提示',
+          content: res.Message,
+          showCancel: false,
+          success(res) { }
+        })
       })
       // comApi.updateUserInfo(this.data.phoneCode).then(res => {
       //   console.log('updateUserInfo', res)

@@ -9,6 +9,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    DGIMN:'',
     chartData: [],
     ec: {
       lazyLoad: true
@@ -67,10 +68,11 @@ Page({
   onLoad: function(options) {
     // 获取组件
     this.ecComponent = this.selectComponent('#mychart-dom-line');
-    let that = this;
-    this.getPollutantList(function() {
-      that.getData();
+    this.setData({
+      DGIMN: common.getStorage('DGIMN')
     });
+    this.onPullDownRefresh();
+    //this.fetchData();
   },
   // 分段器切换
   onChange(e) {
@@ -95,7 +97,12 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    if (this.data.DGIMN !== common.getStorage('DGIMN')) {
+      this.setData({
+        DGIMN: common.getStorage('DGIMN')
+      });
+      this.onPullDownRefresh();
+    }
   },
 
   /**
@@ -116,7 +123,9 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function() {
-
+    wx.showNavigationBarLoading();
+    wx.stopPullDownRefresh();
+    this.fetchData();
   },
 
   /**
@@ -220,6 +229,7 @@ Page({
         });
         this.init();
       }
+      wx.hideNavigationBarLoading();
     })
   },
   //图表重绘
@@ -280,17 +290,22 @@ Page({
     }
   },
   //时间选择
-  bindDateChange:function(e){
+  bindDateChange: function(e) {
     console.log(e.detail);
     console.log(this.data.selectedDate);
     //moment(endTime).add(1, 'months').add(-1,'seconds').format('YYYY-MM-DD 23:59:59');
     //console.log(moment('2018-12').add(1, 'months').add(-1, 'seconds').format('YYYY-MM-DD 23:59:59'));
-    if (e.detail.value !== this.data.selectedDate)
-    {
+    if (e.detail.value !== this.data.selectedDate) {
       this.setData({
         selectedDate: e.detail.value
       });
       this.getData();
     }
+  },
+  fetchData:function(){
+    let that = this;
+    this.getPollutantList(function () {
+      that.getData();
+    });
   }
 })

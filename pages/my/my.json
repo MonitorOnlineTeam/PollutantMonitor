@@ -1,6 +1,5 @@
 {
   "enablePullDownRefresh": true,
-  "onPullDownRefresh": true,
   "onReachBottom": true,
   "component": true,
   "navigationBarBackgroundColor": "#3b98ff",

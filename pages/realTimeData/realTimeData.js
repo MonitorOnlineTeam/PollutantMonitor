@@ -41,7 +41,14 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    this.getData()
+    this.setData({
+      DGIMN: common.getStorage('DGIMN')
+    });
+    this.onPullDownRefresh();
+    // this.setData({
+    //   DGIMN: common.getStorage('DGIMN')
+    // });
+    // this.getData();
   },
 
   /**
@@ -55,12 +62,18 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    console.log('实时工艺DGIMN_New', common.getStorage('DGIMN_New'))
-    console.log('实时工艺DGIMN', this.data.DGIMN)
+    // console.log('实时工艺DGIMN', common.getStorage('DGIMN'))
+    // console.log('实时工艺DGIMN', this.data.DGIMN)
     
-    if (common.getStorage('DGIMN_New') != this.data.DGIMN) {
-      this.getData()
+    if (this.data.DGIMN !== common.getStorage('DGIMN')) {
+      this.setData({
+        DGIMN: common.getStorage('DGIMN')
+      });
+      this.onPullDownRefresh();
     }
+    // if (common.getStorage('DGIMN') != this.data.DGIMN) {
+    //   this.getData()
+    // }
   },
 
   /**
@@ -77,12 +90,6 @@ Page({
 
   },
 
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function() {
-
-  },
 
   /**
    * 页面上拉触底事件的处理函数
@@ -101,12 +108,9 @@ Page({
 * 下拉刷新
 */
   onPullDownRefresh: function () {
-
     wx.showNavigationBarLoading();
-
-    wx.hideNavigationBarLoading();
-
     wx.stopPullDownRefresh();
+    this.getData();
   },
   getData:function(){
     let so2 = {
@@ -168,11 +172,12 @@ Page({
           this.setData({
             tabs: [so2, nox, pm],
             pointName: dataInfo.pointName,
-            DGIMN: common.getStorage('DGIMN_New'),
+            DGIMN: common.getStorage('DGIMN'),
             pointStatus: dataInfo.status == 1 ? '正常' : '异常'
           })
         }
       }
+      wx.hideNavigationBarLoading();
     })
   }
 })

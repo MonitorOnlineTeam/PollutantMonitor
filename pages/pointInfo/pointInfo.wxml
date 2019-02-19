@@ -4,7 +4,7 @@
     <view class='name-view'>
       <text class='name-text'>{{pointName}}</text>
     </view>
-    <view class='dgimn'>排口号：{{DGIMN}}</view> 
+    <view class='dgimn'>排口号：{{DGIMN}}</view>
     <!-- 底部 -->
     <view class='point-view'>
       <view class='point-type'>排口类型:{{pointType}}</view>
@@ -21,56 +21,49 @@
     </view>
   </view>
 
-   <scroll-view scroll-y="true" class="swiper-item ">
-             <view class='list-item'> 
-       <view class='list-item-text-left'>排口直径</view>
-       <view class='list-item-text-right'>{{pointDiameter}}MM</view>
-        </view>
+  <scroll-view scroll-y="true" class="swiper-item ">
+    <view class='list-item'>
+      <view class='list-item-text-left'>排口直径</view>
+      <view class='list-item-text-right'>{{pointDiameter}}MM</view>
+    </view>
 
-             <view class='list-item'> 
-       <view class='list-item-text-left'>排口高度</view>
-       <view class='list-item-text-right'>{{pointHeight}}M</view>
-        </view>
-
-
-             <view class='list-item'> 
-       <view class='list-item-text-left'>负责人</view>
-       <view class='list-item-text-right'>{{fzUserName}}</view>
-        </view>
+    <view class='list-item'>
+      <view class='list-item-text-left'>排口高度</view>
+      <view class='list-item-text-right'>{{pointHeight}}M</view>
+    </view>
 
 
-             <view class='list-item'> 
-       <view class='list-item-text-left'>负责人电话</view>
-       <view class='list-item-text-right'>{{fzUserPhone}}</view>
-        </view>
+    <view class='list-item'>
+      <view class='list-item-text-left'>负责人</view>
+      <view class='list-item-text-right'>{{fzUserName}}</view>
+    </view>
 
 
-             <view class='list-item'> 
-       <view class='list-item-text-left'>运维人</view>
-       <view class='list-item-text-right'>{{operationName}}</view>
-        </view>
+    <view class='list-item'>
+      <view class='list-item-text-left'>负责人电话</view>
+      <view class='list-item-text-right'>{{fzUserPhone}}</view>
+    </view>
 
 
-             <view class='list-item'> 
-       <view class='list-item-text-left'>运维人电话</view>
-       <view class='list-item-text-right'>{{operationPhone}}</view>
-        </view>
+    <view class='list-item'>
+      <view class='list-item-text-left'>运维人</view>
+      <view class='list-item-text-right'>{{operationName}}</view>
+    </view>
 
-       <view class='list-item-newline'> 
-       <view class='list-item-newline-left'>地址</view>
-       <view class='list-item-newline-right'>{{pointAddress}}</view>
-        </view>
-   <view class="page-section page-section-gap">
-    <map
-      id="myMap"
-      style="width: 100%; height: 300px;"
-      latitude="{{latitude}}"
-      longitude="{{longitude}}"
-      markers="{{markers}}"
-      show-location
-    ></map>
-  </view>
-       </scroll-view>
-         
+
+    <view class='list-item'>
+      <view class='list-item-text-left'>运维人电话</view>
+      <view class='list-item-text-right'>{{operationPhone}}</view>
+    </view>
+
+    <view class='list-item-newline'>
+      <view class='list-item-newline-left'>地址</view>
+      <view class='list-item-newline-right'>{{pointAddress}}</view>
+    </view>
+    <view class="page-section page-section-gap">
+      <map id="myMap" style="width: 100%; height: 150px;" latitude="{{latitude}}" longitude="{{longitude}}" markers="{{markers}}" show-location></map>
+    </view>
+  </scroll-view>
+
 
 </view>

@@ -11,64 +11,29 @@ Page({
     historyRecord: [],
     userPhone: '-',
     nickName: '-',
-    avatarUrl: '-'
+    avatarUrl: '-',
+    DGIMN:''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    // console.log(app.globalData.userInfo);
-    // console.log(app.globalData.userInfo.avatarUrl);
-    if (app.globalData.userInfo) {
-      // this.setData({
-      //   nickName: app.globalData.userInfo.nickName,
-      //   avatarUrl: app.globalData.userInfo.avatarUrl
-      // })
+    this.setData({
+      DGIMN: common.getStorage('DGIMN')
+    });
+    this.onPullDownRefresh();
 
-    } else {
-      // wx.switchTab({
-      //   url: '../proving/proving'
-      // })
-    }
-    console.log(this.data.avatarUrl);
-    let historyRecord = [];
-    comApi.getUserInfo().then(res => {
-      console.log('getUserInfo', res)
-      if (res && res.IsSuccess) {
-        if (res.Data) {
-          var thisData = res.Data;
-          thisData.PointVisitHistorys.map(function(items) {
-            historyRecord.push({
-              EnterpriseName: items.EnterpriseName,
-              PointName: items.PointName,
-              VisitTime: items.VisitTime,
-              DGIMN: items.DGIMN
-            })
-          })
-          this.setData({
-            historyRecord: historyRecord,
-            userPhone: thisData.UserPhone,
-            //  nickName: app.globalData.userInfo.nickName,
-            //  avatarUrl: app.globalData.userInfo.avatarUrl
-          })
-        }
-      }
-    })
   },
   Determine: function(e) {
     console.log(e)
     if (e) {
-      //e.currentTarget.dataset.dgimn
-      common.setStorage("DGIMN_New", e.currentTarget.dataset.dgimn)
-      console.log(common.getStorage('DGIMN_New'));
-      // app.globalData.setData({
-      //   DGIMN: e.currentTarget.dataset.dgimn
-      // })
+      
+      common.setStorage("DGIMN", e.currentTarget.dataset.dgimn)
+      //console.log(common.getStorage('DGIMN'));
       wx.switchTab({
-        url: '../pointInfo/pointInfo'
+        url: '../realTimeData/realTimeData'
       })
-
     }
   },
   /**
@@ -82,7 +47,13 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    if (this.data.DGIMN !== common.getStorage('DGIMN'))
+    {
+      this.setData({
+        DGIMN: common.getStorage('DGIMN')
+      });
+      this.onPullDownRefresh();
+    }
   },
 
   /**
@@ -98,14 +69,6 @@ Page({
   onUnload: function() {
 
   },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function() {
-    console.log(2)
-  },
-
   /**
    * 页面上拉触底事件的处理函数
    */
@@ -125,11 +88,32 @@ Page({
   onPullDownRefresh: function() {
 
     wx.showNavigationBarLoading();
-
-    wx.hideNavigationBarLoading();
-
     wx.stopPullDownRefresh();
+    this.getData();
+  },
+
+  getData: function() {
+    let historyRecord = [];
+    comApi.getUserInfo().then(res => {
+      console.log('getUserInfo', res)
+      if (res && res.IsSuccess) {
+        if (res.Data) {
+          var thisData = res.Data;
+          thisData.PointVisitHistorys.map(function(items) {
+            historyRecord.push({
+              EnterpriseName: items.EnterpriseName,
+              PointName: items.PointName,
+              VisitTime: items.VisitTime,
+              DGIMN: items.DGIMN
+            })
+          })
+          this.setData({
+            historyRecord: historyRecord,
+            userPhone: thisData.UserPhone,
+          })
+        }
+      }
+      wx.hideNavigationBarLoading();
+    })
   }
-
-
 })

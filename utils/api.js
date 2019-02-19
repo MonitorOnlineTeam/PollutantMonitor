@@ -1,5 +1,7 @@
-  const URI = 'http://172.16.9.13:8019/rest/PollutantSourceApi/'
-  //const URI = 'http://localhost:52198/rest/PollutantSourceApi'
+  //const URL = 'http://172.16.9.13:8019/rest/PollutantSourceApi/'
+  //const URL = 'http://localhost:52198/rest/PollutantSourceApi'
+  //const URL = 'http://api.chsdl.cn/WxWryApi/rest/PollutantSourceApi'
+const URL = 'http://172.16.30.107/WxWryApi/rest/PollutantSourceApi'
   const fetch = require('./fetch')
   const common = require('./common.js')
   const moment = require('../utils/moment.min.js')
@@ -36,22 +38,22 @@
     wx.showLoading({
       title: '正在加载中',
     })
-    return fetch(URI, type, params, method).then(res => {
+    return fetch(URL, type, params, method).then(res => {
       wx.hideLoading()
       return res;
     }).catch(res => {
-      //  wx.showModal({
-      //    title: '提示',
-      //    content: '网络错误，请重试',
-      //    showCancel: false,
-      //    success(res) {
-      //      if (res.confirm) {
-      //        console.log('用户点击确定')
-      //      } else if (res.cancel) {
-      //        console.log('用户点击取消')
-      //      }
-      //    }
-      //  })
+      wx.showModal({
+        title: '提示',
+        content: JSON.stringify(res), //'网络错误，请重试',
+        showCancel: false,
+        success(res) {
+          if (res.confirm) {
+            console.log('用户点击确定')
+          } else if (res.cancel) {
+            console.log('用户点击取消')
+          }
+        }
+      })
       wx.hideLoading()
       return res;
     })
@@ -151,9 +153,8 @@
     console.log('传递时间：', endTime)
     if (datatype === 1 || datatype === 2) {
       endTime = moment(endTime).format('YYYY-MM-DD 23:59:59');
-    }else if(datatype === 3)
-    {
-      endTime = moment(endTime).add(1, 'months').add(-1,'seconds').format('YYYY-MM-DD 23:59:59');
+    } else if (datatype === 3) {
+      endTime = moment(endTime).add(1, 'months').add(-1, 'seconds').format('YYYY-MM-DD 23:59:59');
     }
 
     return fetchApi(pageUrl.getMonitorData, {
@@ -166,38 +167,38 @@
       endTime: datatype == 'realtime' ? null : endTime
     }, 'post').then(res => res.data)
   }
-/**
- * 验证设备访问密码
- * @param  {String}} pwd 设备密码
- */
-function verifyDevicePwd(pwd) {
-  return fetchApi(pageUrl.verifyDevicePwd, {
-    OpenId: common.getStorage('OpenId'),
-    DGIMN: common.getStorage('DGIMN'),
-    DevicePwd: common.getStorage('DevicePwd')
-  }, 'post').then(res => res.data)
-}
+  /**
+   * 验证设备访问密码
+   * @param  {String}} pwd 设备密码
+   */
+  function verifyDevicePwd(pwd) {
+    return fetchApi(pageUrl.verifyDevicePwd, {
+      OpenId: common.getStorage('OpenId'),
+      DGIMN: common.getStorage('DGIMN'),
+      DevicePwd: common.getStorage('DevicePwd')
+    }, 'post').then(res => res.data)
+  }
 
-/**
- * 验证手机号是否能进入系统
- * @param  {String}} phone 手机号
- */
-function verifyPhone(phone) {
-  return fetchApi(pageUrl.verifyPhone, {
-    WxCode: common.getStorage('WxCode'),
-    Phone: phone
-  }, 'post').then(res => res.data)
-}
+  /**
+   * 验证手机号是否能进入系统
+   * @param  {String}} phone 手机号
+   */
+  function verifyPhone(phone) {
+    return fetchApi(pageUrl.verifyPhone, {
+      WxCode: common.getStorage('WxCode'),
+      Phone: phone
+    }, 'post').then(res => res.data)
+  }
 
-/**
- * 验证二维码是否为内部二维码
- * @param  {String}} phone 手机号
- */
-function verifyDGIMN(DGIMN) {
-  return fetchApi(pageUrl.verifyDGIMN, {
-    DGIMN: DGIMN
-  }, 'post').then(res => res.data)
-}
+  /**
+   * 验证二维码是否为内部二维码
+   * @param  {String}} phone 手机号
+   */
+  function verifyDGIMN(DGIMN) {
+    return fetchApi(pageUrl.verifyDGIMN, {
+      DGIMN: DGIMN
+    }, 'post').then(res => res.data)
+  }
 
 
   module.exports = {

@@ -1,7 +1,6 @@
 const app = getApp()
 const comApi = app.api;
 const common = app.common;
-
 Page({
 
   /**
@@ -16,24 +15,27 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    this.getData()
+    this.setData({
+      DGIMN: common.getStorage('DGIMN')
+    });
+    this.onPullDownRefresh();
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    console.log('设备详情DGIMN_New', common.getStorage('DGIMN_New'))
-    console.log('设备详情DGIMN', this.data.DGIMN)
-    if (common.getStorage('DGIMN_New') != this.data.DGIMN) {
-      this.getData()
+    if (this.data.DGIMN !== common.getStorage('DGIMN')) {
+      this.setData({
+        DGIMN: common.getStorage('DGIMN')
+      });
+      this.onPullDownRefresh();
     }
   },
 
@@ -41,28 +43,27 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function() {
-
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function() {
-
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function() {
-
+    wx.showNavigationBarLoading();
+    wx.stopPullDownRefresh();
+    this.getData();
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function() {
-
   },
 
   /**
@@ -72,20 +73,16 @@ Page({
 
   },
   onChange(e) {
-
-
     if (e.detail.key.indexOf(this.key) !== -1) {
       return wx.showModal({
         title: 'No switching is allowed',
         showCancel: !1,
       })
     }
-
     this.setData({
       current: e.detail.key,
     })
   },
-
   getData:function(){
     let deviceData = [];
     comApi.getDeviceInfo().then(res => {
@@ -115,11 +112,12 @@ Page({
           console.log(this.data.deviceData);
           this.setData({
             deviceData: deviceData,
-            DGIMN: common.getStorage('DGIMN_New')
+            //DGIMN: common.getStorage('DGIMN_New')
           })
           console.log(this.data.deviceData);
         }
       }
+      wx.hideNavigationBarLoading();
     })
   }
 })

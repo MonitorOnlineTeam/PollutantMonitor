@@ -129,11 +129,12 @@ App({
         console.log('OpenId', common.getStorage('OpenId'))
         common.setStorage('DGIMN', '62262431qlsp02')
         if (!common.getStorage('OpenId')) {
-          wx.navigateTo({
-            url: '/pages/proving/proving'
-          })
+          console.log('OpenId1', common.getStorage('OpenId'))
+          // wx.navigateTo({
+          //   url: '/pages/proving/proving'
+          // })
         } else {
-          common.setStorage('DevicePwd','')
+          //common.setStorage('DevicePwd','')
           if (common.getStorage('DevicePwd')) {
             api.verifyDevicePwd()
               .then(res => {

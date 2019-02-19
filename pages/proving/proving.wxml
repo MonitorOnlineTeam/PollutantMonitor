@@ -13,13 +13,14 @@
 
 
     <!-- <button class='determine' type='primary' bindtap='RegisterBtn' hover-class="userBorder"   open-type="getUserInfo" bindgetuserinfo="getUserInfo">确定</button> -->
-    <view wx:if="{{isAuthor==true}}">
-      <input type='number' maxlength="11" class='phone' bindinput='phone' adjust-position="true" placeholder="手机号" placeholder-class="pphone"></input>
+    <input type='number' maxlength="11" class='phone' bindinput='phone' adjust-position="true" placeholder="手机号" placeholder-class="pphone"></input>
       <button class='determine' type='primary' bindtap='RegisterBtn' hover-class="userBorder" open-type="getUserInfo" bindgetuserinfo="getUserInfo">下一步</button>
+    <!-- <view wx:if="{{isAuthor==true}}">
+      
     </view>
     <view wx:elif="{{isAuthor==false}}">
       <button type="primary" bindtap="scanCode">扫一扫</button>
-    </view>
+    </view> -->
 
 
 
