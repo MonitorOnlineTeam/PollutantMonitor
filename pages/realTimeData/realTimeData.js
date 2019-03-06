@@ -64,7 +64,23 @@ Page({
   onShow: function() {
     // console.log('实时工艺DGIMN', common.getStorage('DGIMN'))
     // console.log('实时工艺DGIMN', this.data.DGIMN)
-    
+    if (!common.getStorage('IsHaveHistory')) {
+      wx.showModal({
+        title: '提示',
+        content: '请先扫描设备二维码',
+        showCancel: false,
+        success(res) {
+          if (res.confirm) {
+            wx.switchTab({
+              url: '../my/my'
+            })
+          } else if (res.cancel) {
+            console.log('用户点击取消')
+          }
+        }
+      })
+      return false;
+    }
     if (this.data.DGIMN !== common.getStorage('DGIMN')) {
       this.setData({
         DGIMN: common.getStorage('DGIMN')

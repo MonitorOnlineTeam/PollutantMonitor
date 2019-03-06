@@ -25,10 +25,14 @@ Page({
         if (res && res.IsSuccess) {
           if (res.Data) {
             common.setStorage("DevicePwd", this.data.passwrod);
+            common.setStorage("IsHaveHistory", true);
             //common.setStorage("DGIMN", ress.result);
+            // wx.switchTab({
+            //   url: '../my/my'
+            // })
             wx.switchTab({
-              url: '../my/my'
-            })
+                    url: '../realTimeData/realTimeData'
+                  })
           }
         } else {
           wx.showModal({

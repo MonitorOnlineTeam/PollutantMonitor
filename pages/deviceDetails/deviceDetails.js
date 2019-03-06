@@ -8,29 +8,48 @@ Page({
    */
   data: {
     deviceData: [],
-    DGIMN:''
+    DGIMN: ''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    this.setData({
-      DGIMN: common.getStorage('DGIMN')
-    });
-    this.onPullDownRefresh();
+    if (common.getStorage('IsHaveHistory')) {
+      this.setData({
+        DGIMN: common.getStorage('DGIMN')
+      });
+      this.onPullDownRefresh();
+    }
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
-  },
+  onReady: function() {},
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+    console.log(common.getStorage('IsHaveHistory'));
+    if (!common.getStorage('IsHaveHistory')) {
+      wx.showModal({
+        title: '提示',
+        content: '请先扫描设备二维码',
+        showCancel: false,
+        success(res) {
+          if (res.confirm) {
+            wx.switchTab({
+              url: '../my/my'
+            })
+          } else if (res.cancel) {
+            console.log('用户点击取消')
+          }
+        }
+      })
+      return false;
+    }
     if (this.data.DGIMN !== common.getStorage('DGIMN')) {
       this.setData({
         DGIMN: common.getStorage('DGIMN')
@@ -42,14 +61,12 @@ Page({
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function() {
-  },
+  onHide: function() {},
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function() {
-  },
+  onUnload: function() {},
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
@@ -63,8 +80,7 @@ Page({
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
-  },
+  onReachBottom: function() {},
 
   /**
    * 用户点击右上角分享
@@ -83,19 +99,19 @@ Page({
       current: e.detail.key,
     })
   },
-  getData:function(){
+  getData: function() {
     let deviceData = [];
     comApi.getDeviceInfo().then(res => {
       console.log('getDeviceInfo', res)
       if (res && res.IsSuccess) {
         if (res.Data) {
           var thisData = res.Data;
-          thisData.map(function (items) {
+          thisData.map(function(items) {
             let obj = {
               Name: items.Name,
               child: []
             }
-            items.TestComponents.map(function (item) {
+            items.TestComponents.map(function(item) {
               obj.child.push({
                 AnalyzerName: item.AnalyzerName,
                 AnalyzerPrinciple: item.AnalyzerPrinciple,

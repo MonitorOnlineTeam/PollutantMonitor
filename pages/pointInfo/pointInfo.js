@@ -22,25 +22,28 @@ Page({
     fzUserName: ''
   },
   getCenterLocation: function() {
-    
+
   },
   moveToLocation: function() {
     this.mapCtx.moveToLocation()
   },
   translateMarker: function() {
-   
+
   },
   includePoints: function() {
-    
+
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    this.setData({
-      DGIMN: common.getStorage('DGIMN')
-    });
-    this.onPullDownRefresh();
+    if (common.getStorage('IsHaveHistory')) {
+      this.setData({
+        DGIMN: common.getStorage('DGIMN')
+      });
+      this.onPullDownRefresh();
+    }
+
   },
 
   /**
@@ -55,6 +58,23 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+    if (!common.getStorage('IsHaveHistory')) {
+      wx.showModal({
+        title: '提示',
+        content: '请先扫描设备二维码',
+        showCancel: false,
+        success(res) {
+          if (res.confirm) {
+            wx.switchTab({
+              url: '../my/my'
+            })
+          } else if (res.cancel) {
+            console.log('用户点击取消')
+          }
+        }
+      })
+      return false;
+    }
     if (this.data.DGIMN !== common.getStorage('DGIMN')) {
       this.setData({
         DGIMN: common.getStorage('DGIMN')
@@ -98,9 +118,8 @@ Page({
    */
   onShareAppMessage: function() {
 
-  }
-  ,
-  getData:function(){
+  },
+  getData: function() {
     comApi.getPointInfo().then(res => {
       console.log('getPointInfo', res)
       if (res && res.IsSuccess) {
@@ -161,5 +180,5 @@ Page({
       wx.hideNavigationBarLoading();
     })
   }
-  
+
 })

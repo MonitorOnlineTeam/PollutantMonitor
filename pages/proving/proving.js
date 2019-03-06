@@ -69,11 +69,11 @@ Page({
   onShareAppMessage: function() {
 
   },
-  
+
   getUserInfo: function(e) {
     console.log(e)
 
-    if(!this.data.isAuthor){
+    if (!this.data.isAuthor) {
       if (e.detail.userInfo) {
         app.globalData.userInfo = e.detail.userInfo
 
@@ -103,38 +103,44 @@ Page({
       return false;
     }
     if (this.data.phoneCode && this.data.phoneCode.length == 11) {
-      comApi.verifyPhone(this.data.phoneCode).then(res=>{
+      comApi.verifyPhone(this.data.phoneCode).then(res => {
         if (res && res.IsSuccess) {
-          if(res.Data)
-          {
+          if (res.Data) {
             common.setStorage("OpenId", res.Data);
-            wx.navigateTo({
-              url: '../device/device'
-            })
-          }else
-          {
+            if (common.getStorage("DGIMN")) {
+              wx.navigateTo({
+                url: '../device/device'
+              })
+            } else {
+              wx.switchTab({
+                url: '../my/my'
+              })
+            }
+            // wx.navigateTo({
+            //   url: '../device/device'
+            // })
+          } else {
             wx.showModal({
               title: '提示',
               content: '服务器内部错误',
               showCancel: false,
-              success(res) { }
+              success(res) {}
             })
           }
-        }else
-        {
+        } else {
           wx.showModal({
-            title: 'server提示',
+            title: '提示',
             content: res.Message,
             showCancel: false,
-            success(res) { }
+            success(res) {}
           })
         }
-      }).catch(res=>{
+      }).catch(res => {
         wx.showModal({
-          title: 'catch提示',
+          title: '提示',
           content: res.Message,
           showCancel: false,
-          success(res) { }
+          success(res) {}
         })
       })
       // comApi.updateUserInfo(this.data.phoneCode).then(res => {
@@ -174,11 +180,10 @@ Page({
       phoneCode: val.detail.value
     });
   },
-  scanCode:function(){
+  scanCode: function() {
     wx.scanCode({
       success(ress) {
-        if (ress.result)
-        {
+        if (ress.result) {
           comApi.verifyDGIMN(ress.result).then(res => {
             if (res && res.IsSuccess) {
               if (res.Data) {
@@ -187,19 +192,18 @@ Page({
                   url: '../proving/proving'
                 })
               }
-            }else
-            {
+            } else {
               wx.showModal({
                 title: '提示',
                 content: res.Message,
                 showCancel: false,
-                success(res) { }
+                success(res) {}
               })
             }
           })
         }
       },
-      fail() { }
+      fail() {}
     })
   }
 })

@@ -1,7 +1,8 @@
-  //const URL = 'http://172.16.9.13:8019/rest/PollutantSourceApi/'
+  //const URL = 'http://172.16.9.13:8019/api/rest/PollutantSourceApi/'
   //const URL = 'http://localhost:52198/rest/PollutantSourceApi'
   //const URL = 'http://api.chsdl.cn/WxWryApi/rest/PollutantSourceApi'
-const URL = 'http://172.16.30.107/WxWryApi/rest/PollutantSourceApi'
+  //http://api.chsdl.cn/wxwryapi?flag=sdl&mn=62262431qlsp099
+  const URL = 'http://172.16.30.107/WxWryApi/rest/PollutantSourceApi'
   const fetch = require('./fetch')
   const common = require('./common.js')
   const moment = require('../utils/moment.min.js')

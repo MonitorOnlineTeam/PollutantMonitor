@@ -34,8 +34,8 @@ App({
    * 小程序从前台进入后台时
    */
   onHide: function() {
-    common.setStorage("userId", "123456")
-    common.setStorage("userName", "zhangsan")
+    // common.setStorage("userId", "123456")
+    // common.setStorage("userName", "zhangsan")
 
   },
   /**
@@ -125,14 +125,12 @@ App({
     wx.login({
       success: res => {
         common.setStorage("WxCode", res.code);
+        common.setStorage("IsHaveHistory", false);
         console.log('login', res)
         console.log('OpenId', common.getStorage('OpenId'))
-        common.setStorage('DGIMN', '62262431qlsp02')
+        //common.setStorage('DGIMN', '62262431qlsp02')
         if (!common.getStorage('OpenId')) {
           console.log('OpenId1', common.getStorage('OpenId'))
-          // wx.navigateTo({
-          //   url: '/pages/proving/proving'
-          // })
         } else {
           //common.setStorage('DevicePwd','')
           if (common.getStorage('DevicePwd')) {

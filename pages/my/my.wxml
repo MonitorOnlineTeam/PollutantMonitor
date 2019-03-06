@@ -1,14 +1,14 @@
 <view class='main'>
- 
+
   <view class='titlecard'>
     <open-data type="userAvatarUrl"></open-data>
-      <open-data type="userNickName" style="color:#fff"></open-data>
+    <open-data type="userNickName" style="color:#fff"></open-data>
     <view class='user-img'>
       <!-- <image bindtap="bindViewTap" class="userinfo-avatar" src="{{avatarUrl}}" mode="cover"></image> -->
     </view>
 
     <view class='user-name'>
-    <!-- <open-data type="userNickName"></open-data> -->
+      <!-- <open-data type="userNickName"></open-data> -->
       <!-- <text class="userinfo-nickname">{{nickName}}</text> -->
     </view>
     <view class='user-phone'>手机号：{{userPhone}}</view>
@@ -17,16 +17,16 @@
   <view class='tips-view'>
     功能
   </view>
-   <scroll-view scroll-y="true" class="history-item ">
-   <view class='history-item-view'>
-     <view class='history-item-ent'>
-           扫一扫
-          </view>
-   </view>
-<view>
- <text></text>
-</view>
-     </scroll-view>
+  <scroll-view scroll-y="true" class="history-item ">
+    <view class='history-item-view' bindtap='clickScan'>
+      <view class='history-item-ent'>
+        扫一扫
+      </view>
+    </view>
+    <view>
+      <text></text>
+    </view>
+  </scroll-view>
   <view class='tips-view'>
     排口操作历史
   </view>
