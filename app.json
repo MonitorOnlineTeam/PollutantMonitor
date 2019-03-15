@@ -1,55 +1,59 @@
 {
   "pages": [
+    "pages/historyData/home/home",
+    "pages/historyData/selectPollutant/selectPollutant",
+    "pages/historyData/historyDataTransverse/historyDataTransverse",
     "pages/proving/proving",
     "pages/device/device",
     "pages/dataMonitor/dataMonitor",
-    "pages/my/my",
-    "pages/pointInfo/pointInfo",
-    "pages/deviceDetails/deviceDetails",
     "pages/realTimeData/realTimeData",
-    "pages/homePage/homePage",
-    "pages/indexPage/index",
-    "pages/logs/logs"
+    "pages/logs/logs",
+    "pages/deviceInfo/deviceInfo",
+    "pages/realTimeData/home/home",
+    "pages/realTimeData/flowChart/flowChart",
+    "pages/deviceInfo/home/home",
+    "pages/deviceInfo/address/address",
+    "pages/my/home/home",
+    "pages/my/visitHistory/visitHistory",
+    "pages/my/feedBack/feedBack",
+    "pages/login/login",
+    "pages/authPage/authPage"
   ],
   "window": {
-    "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#56A6FF",
-    "navigationBarTitleText": ""
+    "navigationBarTitleText": "Color UI",
+    "navigationBarTextStyle": "white"
   },
+  "usingComponents": {},
   "tabBar": {
-    "backgroundColor": "#FFF",
+    "custom": false,
     "color": "#9C9C9C",
     "selectedColor": "#56A6FF",
-    "borderStyle": "white",
+    "borderStyle": "black",
+    "backgroundColor": "#ffffff",
     "list": [
       {
         "selectedIconPath": "images/SSGY_Select.png",
         "iconPath": "images/SSGY.png",
-        "pagePath": "pages/realTimeData/realTimeData",
+        "pagePath": "pages/realTimeData/home/home",
         "text": "实时工艺"
       },
       {
         "selectedIconPath": "images/SJJK_Select.png",
         "iconPath": "images/SJJK.png",
-        "pagePath": "pages/dataMonitor/dataMonitor",
-        "text": "数据监控"
-      },
-      {
-        "selectedIconPath": "images/PKXX_Select.png",
-        "iconPath": "images/PKXX.png",
-        "pagePath": "pages/pointInfo/pointInfo",
-        "text": "排口信息"
+        "pagePath": "pages/historyData/home/home",
+        "text": "历史数据"
       },
       {
         "selectedIconPath": "images/SBXQ_Select.png",
         "iconPath": "images/SBXQ.png",
-        "pagePath": "pages/deviceDetails/deviceDetails",
-        "text": "设备详情"
+        "pagePath": "pages/deviceInfo/home/home",
+        "text": "设备信息"
       },
       {
         "selectedIconPath": "images/WD_Select.png",
         "iconPath": "images/WD.png",
-        "pagePath": "pages/my/my",
+        "pagePath": "pages/my/home/home",
         "text": "我的"
       }
     ]

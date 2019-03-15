@@ -1,0 +1,109 @@
+<!--pages/deviceInfo/deviceInfo.wxml-->
+<!-- <view class="cu-custom" style="height:{{CustomBar}}px;">
+  <view class="cu-bar fixed bg-blue light" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+    <view class='content text-black' style='top:{{StatusBar}}px;color:#000;font-size:34rpx;'>
+      3号脱硫出口
+    </view>
+  </view>
+</view> -->
+
+<!-- <view class='content-phone'>
+  <view class='content-phone-left'>
+    <view class='content-phone-left-avatar' style="background-image:url(/images/p2.png);"></view>
+    <view class='content-phone-left-content'>
+      <view class='text-grey'>文晓港</view>
+      <view class='text-grey  text-sm'>环保负责人</view> 
+    </view>
+  </view>
+  <view class='content-phone-right'>
+    <view class='content-phone-right-avatar' style="background-image:url(/images/p1.png);"></view>
+    <view class='content-phone-right-content'>
+      <view class='text-grey'>文晓港</view>
+      <view class='text-grey text-sm'>环保负责人</view>
+    </view>
+  </view>
+</view> -->
+<view class="cu-list menu menu-avatar">
+  <view class="cu-item">
+    <view class="cu-avatar round lg" style="background-image:url(/images/p2.png);"></view>
+    <view class='content flex-sub' style='flex:0.5'>
+      <view style='font-size:30rpx;'>刘亦菲</view>
+      <view class='text-gray text-sm flex justify-between' style='font-size:24rpx;'>
+        环保负责人
+      </view>
+    </view>
+    <view class="cu-avatar round lg" style="background-image:url(/images/p1.png);left:55%;"></view>
+    <view class='content flex-sub' style='flex:0.5;padding-left:35%;'>
+      <view style='font-size:30rpx;'>王宝强</view>
+      <view class='text-gray text-sm flex justify-between' style='font-size:24rpx;'>
+        排口运维人
+      </view>
+    </view>
+  </view>
+</view>
+
+<view class="cu-list menu sm-border margin-top">
+  <view class="cu-item">
+    <view class='content'>
+      <text class='lable-text'>设备编号</text>
+    </view>
+    <view class='action'>
+      <text class='lable-value'>31011500000002</text>
+    </view>
+  </view>
+  <view class="cu-item">
+    <view class='content'>
+      <text class='lable-text' style='font-size:28rpx;color:#333'>排口状态</text>
+    </view>
+    <view class='action'>
+      <text class='lable-value' style='font-size:28rpx;color:#666'>正常</text>
+    </view>
+  </view>
+  <view class="cu-item">
+    <view class='content'>
+      <text class='lable-text' style='font-size:28rpx;color:#333'>排口直径</text>
+    </view>
+    <view class='action'>
+      <text class='lable-value' style='font-size:28rpx;color:#666'>3.22M</text>
+    </view>
+  </view>
+  <view class="cu-item">
+    <view class='content'>
+      <text class='lable-text' style='font-size:28rpx;color:#333'>排口高度</text>
+    </view>
+    <view class='action'>
+      <text class='lable-value' style='font-size:28rpx;color:#666'>98MM</text>
+    </view>
+  </view>
+</view>
+<view class="cu-list menu margin-top">
+  <view class="cu-item">
+    <view class='content padding-tb-sm'>
+      <view style='background-image:url(/images/003.png);position:absolute;width:20px;height:20px;background-size:100% 100%;'></view>
+      <view style='padding-left:50rpx;' class='lable-text'>测试组分</view>
+      <view class='lable-value'>
+        颗粒物、NOX、SO2、O2、温度、压力、流速、湿度
+      </view>
+    </view>
+  </view>
+</view>
+<view class="cu-list menu margin-top">
+  <view class="cu-item">
+    <view class='content padding-tb-sm'>
+      <view style='background-image:url(/images/address.png);position:absolute;width:20px;height:20px;background-size:100% 100%;'></view>
+      <view style='padding-left:50rpx;' class='lable-text'>地址</view>
+      <view class='lable-value'>
+        北京市海淀区清河小营西路29号院东北角一个小小旮沓不起眼的一个高大上的很牛逼的地方</view>
+    </view>
+  </view>
+
+</view>
+<view class="cu-list menu margin-top">
+  <view class="cu-item">
+    <view class='content padding-tb-sm'>
+      <map id="map" longitude="113.324520" latitude="23.099994" scale="14" controls="{{controls}}" bindcontroltap="controltap" markers="{{markers}}" bindmarkertap="markertap" polyline="{{polyline}}" bindregionchange="regionchange" show-location style="width: 100%; height: 300px;"></map>
+    </view>
+  </view>
+</view>
+<!-- 
+<view class='cu-tabbar-height'></view> -->

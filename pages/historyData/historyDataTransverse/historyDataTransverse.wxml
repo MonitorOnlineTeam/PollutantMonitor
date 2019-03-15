@@ -1,0 +1,107 @@
+<!--pages/historyData/historyDataTransverse/historyDataTransverse.wxml-->
+<!-- <view class="cu-custom" style="height:{{CustomBar}}px;">
+  <view class="cu-bar fixed bg-gradual-blue" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+    <navigator class='action' open-type="navigateBack" delta="1" hover-class="none">
+      <text class='icon-back'></text> 3号脱硫出口
+    </navigator>
+    <view class='action'>
+      <view class="cu-load load-icon {{!isLoad?'loading':'over'}}"></view>
+    </view>
+  </view>
+</view> -->
+<!-- 图表 -->
+
+<!-- <view class="main">
+  <view class="item item1">
+    <view class="container-charts">
+      <ec-canvas wx:if="{{!isDisposed}}" id="mychart-dom-line" canvas-id="mychart-line" ec="{{ ec }}"></ec-canvas>
+    </view>
+  </view>
+  <view class="item item2">
+    <view>
+      <view class='bg-white nav flex text-center tabSelect'>
+        <view class="cu-item flex-sub {{index==TabCur?'tab-text-color active cur':'tab-text-color'}}" wx:for="{{tabList}}" wx:key bindtap='tabSelect' data-id="{{index}}">
+          {{item}}
+        </view>
+      </view>
+    </view>
+    <view style='padding-top:50vh;transform:rotate(90deg);'>1</view>
+  </view>
+</view> -->
+
+<view class="main">
+  <view class='left'>
+    <view class='left-content'>
+      <view class='left-item'>
+        <view>SO2</view>
+        <view class='value'>139mg/L</view>
+      </view>
+      <view class='left-item'>
+        <view>SO2</view>
+        <view class='value'>139mg/L</view>
+      </view>
+      <view class='left-item'>
+        <view>SO2</view>
+        <view class='value'>139mg/L</view>
+      </view>
+      <view class='left-item'>
+        <view>SO2</view>
+        <view class='value'>139mg/L</view>
+      </view>
+      <view class='left-item'>
+        <view>SO2</view>
+        <view class='value'>139mg/L</view>
+      </view>
+      <view class='left-item'>
+        <view>SO2</view>
+        <view class='value'>139mg/L</view>
+      </view>
+    </view>
+
+  </view>
+  <view class="center">
+    <view class="container-charts">
+      <ec-canvas wx:if="{{!isDisposed}}" id="mychart-dom-line" canvas-id="mychart-line" ec="{{ ec }}"></ec-canvas>
+    </view>
+  </view>
+  <view class="right">
+    <view class="right-top">
+      <view class="right-top-item {{selectTab==1?'active':''}}" bindtap='tabSelect' data-id="1">
+        <view></view>
+        5分钟
+      </view>
+      <view class="right-top-item {{selectTab==2?'active':''}}" bindtap='tabSelect' data-id="2">
+        <view></view>
+        小时
+      </view>
+      <view class="right-top-item {{selectTab==3?'active':''}}" bindtap='tabSelect' data-id="3">
+        <view></view>
+        日
+      </view>
+      <view class="right-top-item {{selectTab==4?'active':''}}" bindtap='tabSelect' data-id="4">
+        <view></view>
+        月
+      </view>
+    </view>
+
+    <view class='right-center'>
+      <view class="right-center-top">
+        <text class='icon-fold text-orange'></text>
+      </view>
+      <view class="right-center-center">
+        <text>2019-03-14 19</text>
+      </view>
+      <view class="right-center-bottom">
+        <text class='icon-unfold text-orange'></text>
+      </view>
+    </view>
+
+    <view class='right-bottom'>
+      <view class="right-bottom-top" bindtap='navigateBack'>
+        <text class='icon-close text-gary' style='font-size:60rpx;'></text>
+      </view>
+
+    </view>
+
+  </view>
+</view>

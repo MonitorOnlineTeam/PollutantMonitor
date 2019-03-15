@@ -1,0 +1,138 @@
+/* pages/deviceInfo/deviceInfo.wxss */
+
+.cu-bar .content image {
+  height: 60rpx;
+  width: 240rpx;
+}
+
+.cardTitle {
+  color: #fff;
+  padding: 90rpx 60rpx;
+  font-size: 40rpx;
+  font-weight: 300;
+  transform: skew(-10deg, 0deg);
+  position: relative;
+  text-shadow: 0px 0px 6rpx rgba(0, 0, 0, 0.3);
+}
+
+.cardTitle::before {
+  content: "";
+  position: absolute;
+  width: 60rpx;
+  height: 6rpx;
+  border-radius: 20rpx;
+  background-color: #fff;
+  display: block;
+  top: 60rpx;
+  left: 50rpx;
+  transform: skew(10deg, 0deg);
+}
+
+.cardTitle::after {
+  content: "";
+  position: absolute;
+  width: 140rpx;
+  border-radius: 6rpx;
+  height: 24rpx;
+  background-color: #fff;
+  display: block;
+  bottom: 76rpx;
+  left: 90rpx;
+  transform: skew(10deg, 0deg);
+  opacity: 0.1;
+}
+
+.content-phone {
+  display: block;
+  overflow: hidden;
+  background: #fff;
+  height: 140rpx;
+  position: relative;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 100rpx;
+  /* padding: 30rpx; */
+}
+
+.content-phone .content-phone-left {
+  width: 45%;
+  padding-left: 150rpx;
+  padding-top:20rpx;
+  float: left;
+}
+
+.content-phone .content-phone-left .content-phone-left-avatar {
+  left: 5%;
+  position: absolute;
+  width: 96rpx;
+  height: 96rpx;
+  font-size: 2em;
+  font-variant: small-caps;
+  margin: 0;
+  padding: 0;
+  display: inline-flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  background: #ccc;
+  color: #fff;
+  white-space: nowrap;
+  background-size: cover;
+  background-position: center;
+  vertical-align: middle;
+  border-radius: 5000rpx;
+}
+
+.content-phone .content-phone-left .content-phone-left-content {
+  line-height: 1.6em;
+  flex: 1;
+  font-size: 30rpx;
+}
+
+.content-phone .content-phone-right {
+  width: 45%;
+  padding-left: 120rpx;
+  padding-top:20rpx;
+  float: right;
+}
+
+.content-phone .content-phone-right .content-phone-right-avatar {
+  left: 55%;
+  position: absolute;
+  width: 96rpx;
+  height: 96rpx;
+  font-size: 2em;
+  font-variant: small-caps;
+  margin: 0;
+  padding: 0;
+  display: inline-flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  background: #ccc;
+  color: #fff;
+  white-space: nowrap;
+  background-size: cover;
+  background-position: center;
+  vertical-align: middle;
+  border-radius: 5000rpx;
+}
+
+.content-phone .content-phone-right .content-phone-right-content {
+  line-height: 1.6em;
+  flex: 1;
+  font-size: 30rpx;
+}
+
+.lable-text{
+  font-size: 28rpx;
+  color: #333333;
+}
+
+.lable-value{
+  font-size: 28rpx;
+  color: #666666;
+}
+.margin-top{
+  margin-top: 20rpx !important;
+}

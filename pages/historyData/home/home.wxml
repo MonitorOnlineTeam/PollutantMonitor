@@ -1,0 +1,71 @@
+<!--pages/historyData/home/home.wxml-->
+<!-- <view class="cu-custom" style="height:{{CustomBar}}px;">
+  <view class="cu-bar fixed bg-blue light" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
+    <view class='content text-black' style='top:{{StatusBar}}px;color:#000;font-size:34rpx;'>
+      3号脱硫出口
+    </view>
+  </view>
+</view> -->
+
+
+
+<view class='bg-white nav flex text-center'>
+  <view class="cu-item flex-sub {{index==TabCur?'tab-text-color active cur':'tab-text-color'}}" wx:for="{{tabList}}" wx:key bindtap='tabSelect' data-id="{{index}}">
+    {{item}}
+  </view>
+</view>
+
+<view class="bg-white">
+  <view class="flex solid-top padding justify-between">
+    <view class='' bindtap="showModal" data-target="RadioModal">选择污染物
+      <text class='icon-filter sm'></text>
+    </view>
+
+
+    <view class=''>
+      <picker mode="date" value="{{date}}" start="2015-09-01" end="2017-09-01" bindchange="bindTimeChange">
+        <view class="picker">
+          当前选择: {{date}}
+          <text class='icon-triangledownfill lg'></text>
+        </view>
+      </picker>
+    </view>
+  </view>
+</view>
+
+<cover-view style='position:absolute;right:10rpx;top:13.5%;z-index:1;' bindtap="horizontalScreen">
+  <cover-view class='text-blue'>横屏</cover-view>
+</cover-view>
+<view>
+
+  <ec-canvas id="mychart-dom-line" canvas-id="mychart-line" ec="{{ ec }}"></ec-canvas>
+</view>
+
+<view class="bg-white  margin-top" style='position: absolute;top:63.5%;width:100%'>
+  <scroll-view class='list-view' scroll-y="true">
+    <view class='grid col-3'>
+      <view class='padding-sm' wx:for="{{ColorList}}" wx:key>
+        <view class='bg-blue light padding radius text-left shadow-blur'>
+          <view class='data-tag' style="background-image:url(/images/exception.png);"></view>
+          <view class="text-lg text-black">{{item.title}}</view>
+          <view class='margin-top-sm  text-black'>{{item.value}}/{{item.unit}}</view>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+</view>
+
+<!-- <view class="cu-modal {{modalName=='RadioModal'?'show':''}}" bindtap='hideModal' style='position: absolute;'>
+  <view class="cu-dialog" catchtap>
+    <radio-group class="block">
+      <view class='cu-list menu text-left'>
+        <view class='cu-item' wx:for="{{5}}" wx:key>
+          <label class='flex justify-between align-center flex-sub'>
+            <view class='flex-sub'>Item {{index +1}}</view>
+            <radio class='round'></radio>
+          </label>
+        </view>
+      </view>
+    </radio-group>
+  </view>
+</view> -->

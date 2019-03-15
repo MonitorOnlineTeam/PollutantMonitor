@@ -1,0 +1,25 @@
+<!--pages/historyData/selectPollutant/selectPollutant.wxml-->
+<view class="cu-form-group margin-top">
+  <view class='title'>SO2</view>
+  <checkbox></checkbox>
+</view>
+<view class="cu-form-group">
+  <view class='title'>NOX</view>
+  <checkbox></checkbox>
+</view>
+<view class="cu-form-group">
+  <view class='title'>颗粒物</view>
+  <checkbox></checkbox>
+</view>
+<view class="cu-form-group">
+  <view class='title'>湿度</view>
+  <checkbox></checkbox>
+</view>
+<view class="cu-form-group">
+  <view class='title'>温度</view>
+  <checkbox></checkbox>
+</view>
+
+<view class="padding flex flex-direction">
+  <button class='cu-btn bg-blue margin-tb-sm lg' bindtap='navigateBack'>确定</button>
+</view>
