@@ -1,2 +1,43 @@
 <!--pages/my/home/home.wxml-->
-<text>pages/my/home/home.wxml</text>
+<!-- <text>pages/my/home/home.wxml</text> -->
+<view class='UCenter-bg'>
+  <image src='/images/icons.png' class='png'></image>
+  <view class='margin-top-sm'>
+    <text>快乐时光</text>
+  </view>
+</view>
+
+<view class='QRcodeClass'>
+  <view class="cu-list menu">
+    <view class="cu-item {{'arrow'}}">
+      <view class="cu-avatar round lg">
+        <image src='/images/QRicons.png' class='imageClass'></image>
+      </view>
+      <view class='content'>
+        <text>扫一扫</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="cu-list menu">
+    <view class="cu-item {{'arrow'}}">
+      <view class="cu-avatar round lg">
+        <image src='/images/history.png' class='imageClass'></image>
+      </view>
+      <view class='content'>
+        <text>访问历史</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="cu-list menu" bindtap="showModal">
+    <view class="cu-item {{'arrow'}}">
+      <view class="cu-avatar round lg">
+        <image src='/images/fankui.png' class='imageClass'></image>
+      </view>
+      <view class='content'>
+        <text>意见反馈</text>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,1 +1,112 @@
 /* pages/realTimeData/home/home.wxss */
+
+.png {
+  width: 13px;
+  height: 13px;
+  margin-right: 2px;
+}
+
+.content1 {
+  width: 50%;
+  float: left;
+  background-color: white;
+  border-right: 2px solid #f2f2f2;
+}
+
+.content2 {
+  width: 50%;
+  float: left;
+  background-color: white;
+}
+
+.states {
+  text-align: center;
+  margin-top: 12px;
+}
+
+.statesText {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 12px;
+}
+
+.datetime {
+  text-align: center;
+  margin-top: 12px;
+}
+
+.datetimeText {
+  text-align: center;
+  margin-top: 10px;
+  /* 此处和左侧布局差三个像素，请知晓 */
+  margin-bottom: 15px;
+}
+
+.image {
+  width: 100%;
+  height: 40vh;
+}
+
+.image {
+  margin-top: 10px;
+}
+
+/*下面为表格布局 */
+
+.table {
+  border: 0px solid darkgray;
+  background-color: white;
+  margin-top: 10px;
+}
+
+.tr {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  height: 45px;
+  align-items: center;
+  border-bottom: 1px solid #f3f3f3;
+}
+
+.td {
+  width: 40%;
+  justify-content: center;
+  text-align: center;
+  font-size: 13px;
+}
+.tdNormal
+{
+    width: 40%;
+  justify-content: center;
+  text-align: center;
+  font-size: 13px;
+}
+.tdException{
+       width: 40%;
+  justify-content: center;
+  text-align: center;
+  font-size: 13px;
+  color: orange;
+}
+.tdOver{
+     width: 40%;
+  justify-content: center;
+  text-align: center;
+  font-size: 13px;
+  color: red
+}
+/* .bg-w {
+  background: snow;
+}
+
+.bg-g {
+  background: #e6f3f9;
+} */
+
+.th {
+  width: 40%;
+  justify-content: center;
+  display: flex;
+  height: 45px;
+  align-items: center;
+}

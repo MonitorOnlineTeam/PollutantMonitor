@@ -1,2 +1,44 @@
 <!--pages/realTimeData/home/home.wxml-->
-<text>pages/realTimeData/home/home.wxml</text>
+<!-- <text>pages/realTimeData/home/home.wxml</text> -->
+<view>
+  <!--  第一部分  -->
+  <view>
+    <view class='content1'>
+      <view class='states'>
+        <image src='/images/states.png' class='png' mode='aspectFit'></image>
+        <text>排口状态</text>
+      </view>
+      <view class='statesText'>{{States}}</view>
+    </view>
+    <view class='content2'>
+      <view class='datetime'>
+        <image src='/images/datetimes.png' class='png' mode='aspectFit'></image>
+        <text>检测时间</text>
+      </view>
+      <view class='datetimeText'>{{MonitorTimes}}</view>
+    </view>
+  </view>
+  <!-- 第二部分（工艺流程图） -->
+  <view>
+    <image src='/images/GyProcessPic.jpg' class='image'></image>
+  </view>
+  <!-- 第三部分（列表） -->
+  <view class="table">
+    <view class="tr bg-w">
+      <view class="th">污染物</view>
+      <view class="th">检测值</view>
+      <view class="th ">单位</view>
+      <view class="th">状态</view>
+    </view>
+    <block wx:for="{{listData}}" wx:key="{{code}}">
+      <view class="tr">
+        <view class="td">{{item.PollutantName}}</view>
+        <view class="td">{{item.MonitorValue}}</view>
+        <view class="td">{{item.Unit}}</view>
+        <view class="tdOver" wx:if="{{item.States == '超标'}}">{{item.States}}</view>
+         <view class="tdException" wx:elif="{{item.States == '异常'}}">{{item.States}}</view>
+        <view class="tdNormal" wx:else>{{item.States}}</view>
+      </view>
+    </block>
+  </view>
+</view>

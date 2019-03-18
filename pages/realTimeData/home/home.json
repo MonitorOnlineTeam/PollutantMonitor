@@ -1,5 +1,7 @@
 {
-  "usingComponents": {},
+    "usingComponents": {
+      "ec-canvas": "../../../dist/ec-canvas/ec-canvas"
+    },
   "navigationBarBackgroundColor": "#cce6ff",
   "navigationBarTextStyle": "black",
   "navigationBarTitleText": "3号脱硫出口",

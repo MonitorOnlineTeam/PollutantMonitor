@@ -1,2 +1,18 @@
 <!--pages/my/feedBack/feedBack.wxml-->
-<text>pages/my/feedBack/feedBack.wxml</text>
+<!-- <text>pages/my/feedBack/feedBack.wxml</text> -->
+<view class="cu-form-group margin-top" style='height:20px'>
+  <view class='title'>姓名：</view>
+  <input class='radius' name='input'></input>
+</view>
+<view class="cu-form-group">
+  <view class='title'>电话：</view>
+  <input class='radius' name='input'></input>
+</view>
+<view class="cu-form-group top">
+  <view class='title'>详情：</view>
+  <textarea maxlength="-1" disabled="{{modalName!=null}}" placeholder-class='placeholder'></textarea>
+</view>
+<view class='bottomButton'>
+  <button class='cu-btn block bg-blue margin-tb-sm lg'>
+    确认提交</button>
+</view>
