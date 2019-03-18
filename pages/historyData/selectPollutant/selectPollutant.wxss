@@ -1,1 +1,10 @@
 /* pages/historyData/selectPollutant/selectPollutant.wxss */
+
+/* @import "../../../weui.wxss";
+.checkbox{
+  margin-right: 20rpx;
+} */
+
+.cu-form-group:active {
+  background-color:rgb(236, 236, 236);
+}

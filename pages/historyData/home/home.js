@@ -1,12 +1,17 @@
 // pages/historyData/home/home.js
 import * as echarts from '../../../dist/ec-canvas/echarts';
+const moment = require('../../../utils/moment.min.js')
 const app = getApp();
+const comApi = app.api;
+const common = app.common;
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    currentDate1: new Date(2018, 2, 31).getTime(),
+    minDate: new Date(2018, 0, 1).getTime(),
     StatusBar: app.globalData.StatusBar,
     CustomBar: app.globalData.CustomBar,
     time: '12:01',
@@ -98,130 +103,9 @@ Page({
     })
   },
   setOption: function (chart) {
-    //color: ['#37a2da', '#32c5e9', '#67e0e3'],
-    // const option = {
-    //   color: ['#feac36', 'rgb(27,208,129)', '#8f3ee9','#fb0c28','#3558ef','#30c8e3','#e94810'],
-    //   animation: true,
-    //   legend: {
-    //     top: 'top',
-    //     data: ['NOX','SO2']
-    //   },
-    //   tooltip: {
-    //     triggerOn: 'none',
-    //     position: function (pt) {
-    //       return [pt[0], 130];
-    //     }
-    //   },
-    //   xAxis: {
-    //     type: 'time',
-    //     // boundaryGap: [0, 0],
-    //     axisPointer: {
-    //       value: '2016-10-7',
-    //       snap: true,
-    //       lineStyle: {
-    //         color: '#004E52',
-    //         opacity: 0.5,
-    //         width: 2
-    //       },
-    //       label: {
-    //         show: true,
-    //         formatter: function (params) {
-    //           return echarts.format.formatTime('yyyy-MM-dd', params.value);
-    //         },
-    //         backgroundColor: '#004E52'
-    //       },
-    //       handle: {
-    //         show: true,
-    //         color: '#004E52'
-    //       }
-    //     },
-    //     splitLine: {
-    //       show: false
-    //     }
-    //   },
-    //   yAxis: {
-    //     type: 'value',
-    //     axisTick: {
-    //       inside: true
-    //     },
-    //     splitLine: {
-    //       show: false
-    //     },
-    //     axisLabel: {
-    //       inside: true,
-    //       formatter: '{value}\n'
-    //     },
-    //     z: 10
-    //   },
-    //   grid: {
-    //     top: '20%',
-    //     left: 15,
-    //     right: 15,
-    //     height: 160
-    //   },
-    //   dataZoom: [{
-    //     type: 'inside',
-    //     throttle: 30
-    //   }],
-    //   series: [
-    //     {
-    //       name: 'NOX',
-    //       type: 'line',
-    //       smooth: true,
-    //       symbol: 'circle',
-    //       symbolSize: 5,
-    //       sampling: 'average',
-    //       itemStyle: {
-    //         normal: {
-    //           color: '#feac36'
-    //         }
-    //       },
-    //       stack: 'a',
-    //       areaStyle: {
-    //         normal: {
-    //           color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-    //             offset: 0,
-    //             color: '#feac36'
-    //           }, {
-    //             offset: 1,
-    //             color: '#ffe'
-    //           }])
-    //         }
-    //       },
-    //       data: [2,1, 6, 5, 6, 7, 8]
-    //     },
-    //     {
-    //       name: 'SO2',
-    //       type: 'line',
-    //       smooth: true,
-    //       stack: 'a',
-    //       symbol: 'circle',
-    //       symbolSize: 5,
-    //       sampling: 'average',
-    //       itemStyle: {
-    //         normal: {
-    //           color: 'rgb(27,208,129)'
-    //         }
-    //       },
-    //       areaStyle: {
-    //         normal: {
-    //           color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-    //             offset: 0,
-    //             color: 'rgb(27,208,129)'
-    //           }, {
-    //             offset: 1,
-    //             color: '#ffe'
-    //           }])
-    //         }
-    //       },
-    //       data: [1,3,4,5,6,7,8]
-    //     }
-
-    //   ]
-    // };
 
     const option = {
-      color: ['#feac36', 'rgb(27,208,129)', '#8f3ee9', '#fb0c28', '#3558ef', '#30c8e3', '#e94810'],
+      color: ['#feac36', '#8de9c0', '#c79ef4', '#fd8593', '#9aabf7', '#97e3f1', '#f4a387'],
       // title: {
       //   text: '堆叠区域图'
       // },
@@ -305,11 +189,33 @@ Page({
       ]
     };
     chart.setOption(option);
+  },onInput(event) {
+    const { detail, currentTarget } = event;
+    const result = this.getResult(detail, currentTarget.dataset.type);
+
+    console.log(result);
+  },
+
+  getResult(time, type) {
+    const date = new Date(time);
+    switch (type) {
+      case 'datetime':
+        return moment(date).format('YYYY-MM-DD HH:mm:00');//.toLocaleString();
+      case 'date':
+        return date.toLocaleDateString();
+      case 'year-month':
+        return `${date.getFullYear()}/${date.getMonth() + 1}`;
+      case 'time':
+        return time;
+      default:
+        return '';
+    }
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log(options);
     // 获取组件
     this.ecComponent = this.selectComponent('#mychart-dom-line');
     this.init()
@@ -326,7 +232,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    console.log(common.getStorage('selectedPollutants'));
   },
 
   /**

@@ -107,7 +107,7 @@ Page({
   setOption: function (chart) {
 
     var option = {
-
+      color: ['#feac36', '#8de9c0', '#c79ef4', '#fd8593', '#9aabf7', '#97e3f1', '#f4a387'],
       tooltip: {
 
         trigger: 'axis',

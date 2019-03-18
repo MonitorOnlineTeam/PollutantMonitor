@@ -42,7 +42,7 @@ App({
    * 小程序初始化完成时（全局只触发一次）
    */
   onLaunch: function() {
-
+    common.setStorage('DGIMN', '62262431qlsp02')
     wx.getSystemInfo({
       success: e => {
         this.globalData.StatusBar = e.statusBarHeight;
@@ -214,7 +214,7 @@ App({
         common.setStorage("IsHaveHistory", false);
         console.log('login', res)
         console.log('OpenId', common.getStorage('OpenId'))
-        //common.setStorage('DGIMN', '62262431qlsp02')
+        common.setStorage('DGIMN', '62262431qlsp02')
         if (!common.getStorage('OpenId')) {
           console.log('OpenId1', common.getStorage('OpenId'))
         } else {
