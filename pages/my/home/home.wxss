@@ -44,6 +44,7 @@
 .imageClass {
   width: 20px;
   height: 20px;
+  background-color: white;
 }
 
 .cu-avatar.lg {
@@ -53,9 +54,4 @@
 
 .content {
   margin-left: 10px;
-}
-
-.imageClass {
-  width: 22px;
-  height: 22px;
 }

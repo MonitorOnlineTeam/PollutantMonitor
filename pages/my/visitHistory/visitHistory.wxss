@@ -1,1 +1,19 @@
 /* pages/my/visitHistory/visitHistory.wxss */
+
+.textOneClass {
+  width: 40%;
+  display: inline-block;
+}
+
+.entNameClass {
+  margin-top: 2px;
+  margin-bottom: 5px;
+}
+
+.text-sm {
+  margin-bottom: 3;
+}
+
+.cu-list.menu>.cu-item .content {
+  margin-left: 5px;
+}
