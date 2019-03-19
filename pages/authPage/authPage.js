@@ -1,4 +1,7 @@
 // pages/authPage/authPage.js
+const app = getApp()
+const comApi = app.api;
+const common = app.common;
 Page({
 
   /**
@@ -6,6 +9,15 @@ Page({
    */
   data: {
 
+  },
+  getUserInfo: function (e) {
+    if (e.detail.rawData)
+    {
+      const data = e.detail.rawData;
+      app.globalData.userInfo = e.detail.userInfo;
+      app.getUserInfo();
+      
+    }
   },
 
   /**

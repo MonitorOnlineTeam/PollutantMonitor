@@ -1,4 +1,7 @@
 // pages/realTimeData/home/home.js
+const app = getApp();
+const comApi = app.api;
+const common = app.common;
 Page({
 
   /**
@@ -56,7 +59,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
+    
   },
 
   /**
@@ -70,7 +73,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    app.verifyPointIsNull();
   },
 
   /**

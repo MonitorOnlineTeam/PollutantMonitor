@@ -9,7 +9,7 @@
     <text>获取您的公开信息（昵称、头像等）</text>
   </view>
   <view class='buttonClass'>
-    <button class='cu-btn block bg-blue margin-tb-sm lg'>
+    <button class='cu-btn block bg-blue margin-tb-sm lg' open-type="getUserInfo" bindgetuserinfo="getUserInfo">
       确定授权</button>
   </view>
 </view>

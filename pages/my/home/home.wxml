@@ -1,9 +1,9 @@
 <!--pages/my/home/home.wxml-->
 <!-- <text>pages/my/home/home.wxml</text> -->
 <view class='UCenter-bg'>
-  <image src='/images/icons.png' class='png'></image>
+  <image src='{{userInfo.avatarUrl}}' class='png'></image>
   <view class='margin-top-sm'>
-    <text>快乐时光</text>
+    <text>{{userInfo.nickName}}</text>
   </view>
 </view>
 

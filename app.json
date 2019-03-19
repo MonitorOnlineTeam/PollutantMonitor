@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/login/login",
     "pages/historyData/home/home",
     "pages/historyData/selectPollutant/selectPollutant",
     "pages/historyData/historyDataTransverse/historyDataTransverse",
@@ -16,8 +17,9 @@
     "pages/my/home/home",
     "pages/my/visitHistory/visitHistory",
     "pages/my/feedBack/feedBack",
-    "pages/login/login",
-    "pages/authPage/authPage"
+    
+    "pages/authPage/authPage",
+    "pages/historyData/selectDateTime/selectDateTime"
   ],
   "window": {
     "navigationBarBackgroundColor": "#56A6FF",

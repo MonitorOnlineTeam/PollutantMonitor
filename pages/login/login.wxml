@@ -1,14 +1,14 @@
 <!--pages/login/login.wxml-->
 <!-- <text>pages/login/login.wxml</text> -->
-<view  class="warp">
+<view class="warp">
   <image src="../../images/login_bg.jpg" class='imageClass'></image>
   <view class="phoneClass">
     <label class='lableClass'>手机号</label>
-    <input class='inputClass' name='input'></input>
+    <input class='inputClass' type='number' maxlength="11" placeholder="请输入手机号" name='input' value='{{phone}}' bindinput='phone' value='18601364063'></input>
   </view>
   <view>
     <view class='buttonClass'>
-      <button class='cu-btn block bg-blue margin-tb-sm lg'>
+      <button class='cu-btn block bg-blue margin-tb-sm lg' bindtap="btnLogin">
         登录</button>
     </view>
   </view>
