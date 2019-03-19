@@ -1,2 +1,15 @@
 <!--pages/authPage/authPage.wxml-->
-<text>pages/authPage/authPage.wxml</text>
+<!-- <text>pages/authPage/authPage.wxml</text> -->
+<view class='UCenter-bg'>
+  <image src='/images/authorization.png' class='png'></image>
+  <view class='textOneClass'>
+    <text>为了更好的体验，此应用需要基本的信息授权。</text>
+  </view>
+  <view class='textTwoClass'>
+    <text>获取您的公开信息（昵称、头像等）</text>
+  </view>
+  <view class='buttonClass'>
+    <button class='cu-btn block bg-blue margin-tb-sm lg'>
+      确定授权</button>
+  </view>
+</view>

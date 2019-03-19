@@ -10,7 +10,7 @@
   width: 50%;
   float: left;
   background-color: white;
-  border-right: 2px solid #f2f2f2;
+  border-right: 1px solid #f2f2f2;
 }
 
 .content2 {
@@ -28,6 +28,7 @@
   text-align: center;
   margin-top: 10px;
   margin-bottom: 12px;
+  font-size: 13px;
 }
 
 .datetime {
@@ -40,6 +41,7 @@
   margin-top: 10px;
   /* 此处和左侧布局差三个像素，请知晓 */
   margin-bottom: 15px;
+  font-size: 13px;
 }
 
 .image {
@@ -74,27 +76,30 @@
   text-align: center;
   font-size: 13px;
 }
-.tdNormal
-{
-    width: 40%;
+
+.tdNormal {
+  width: 40%;
   justify-content: center;
   text-align: center;
   font-size: 13px;
 }
-.tdException{
-       width: 40%;
+
+.tdException {
+  width: 40%;
   justify-content: center;
   text-align: center;
   font-size: 13px;
   color: orange;
 }
-.tdOver{
-     width: 40%;
+
+.tdOver {
+  width: 40%;
   justify-content: center;
   text-align: center;
   font-size: 13px;
-  color: red
+  color: red;
 }
+
 /* .bg-w {
   background: snow;
 }
