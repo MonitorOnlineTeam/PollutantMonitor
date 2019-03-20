@@ -224,5 +224,6 @@
     getMonitorDatas,
     verifyDevicePwd,
     verifyPhone,
-    verifyDGIMN
+    verifyDGIMN,
+    getRealTimeDataForPoint
   }
