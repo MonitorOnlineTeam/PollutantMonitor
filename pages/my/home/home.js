@@ -3,7 +3,6 @@ const app = getApp()
 const comApi = app.api;
 const common = app.common;
 Page({
-
   /**
    * 页面的初始数据
    */
@@ -69,12 +68,19 @@ Page({
   onShareAppMessage: function() {
 
   },
+
+
+  //意见反馈
   showModal(e) {
-    // this.setData({
-    //   modalName: e.currentTarget.dataset.target
-    // })
     wx.navigateTo({
       url: '../feedBack/feedBack'
     })
   },
+  //访问历史
+  showHistory() {
+    wx.navigateTo({
+      url: '../visitHistory/visitHistory'
+    })
+  },
+  
 })

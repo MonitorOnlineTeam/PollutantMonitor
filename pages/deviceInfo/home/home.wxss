@@ -57,7 +57,7 @@
 .content-phone .content-phone-left {
   width: 45%;
   padding-left: 150rpx;
-  padding-top:20rpx;
+  padding-top: 20rpx;
   float: left;
 }
 
@@ -92,7 +92,7 @@
 .content-phone .content-phone-right {
   width: 45%;
   padding-left: 120rpx;
-  padding-top:20rpx;
+  padding-top: 20rpx;
   float: right;
 }
 
@@ -124,15 +124,47 @@
   font-size: 30rpx;
 }
 
-.lable-text{
+.lable-text {
   font-size: 28rpx;
-  color: #333333;
+  color: #333;
 }
 
-.lable-value{
+.lable-value {
   font-size: 28rpx;
-  color: #666666;
+  color: #666;
 }
-.margin-top{
+
+.margin-top {
   margin-top: 20rpx !important;
+}
+
+.imageClass {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+}
+
+.txtPhoneClass {
+  vertical-align: middle;
+  margin-right: 10px;
+}
+
+.callClass {
+  margin: auto;
+  font-size: 12px;
+  color: #666;
+}
+
+.cu-bar .action {
+  width: 100%;
+  height: 100%;
+  vertical-align: middle;
+}
+.cu-dialog {
+z-index: 999999;
+}
+.iconPhoneClass{
+  width: 100rpx;
+  height: 100rpx;
 }

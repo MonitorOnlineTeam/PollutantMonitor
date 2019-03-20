@@ -10,7 +10,7 @@
 <view class='QRcodeClass'>
   <view class="cu-list menu">
     <view class="cu-item {{'arrow'}}">
-      <view class="cu-avatar round lg">
+      <view>
         <image src='/images/QRicons.png' class='imageClass'></image>
       </view>
       <view class='content'>
@@ -19,9 +19,9 @@
     </view>
   </view>
 
-  <view class="cu-list menu">
+  <view class="cu-list menu" bindtap="showHistory">
     <view class="cu-item {{'arrow'}}">
-      <view class="cu-avatar round lg">
+      <view>
         <image src='/images/history.png' class='imageClass'></image>
       </view>
       <view class='content'>
@@ -32,7 +32,7 @@
 
   <view class="cu-list menu" bindtap="showModal">
     <view class="cu-item {{'arrow'}}">
-      <view class="cu-avatar round lg">
+      <view>
         <image src='/images/fankui.png' class='imageClass'></image>
       </view>
       <view class='content'>

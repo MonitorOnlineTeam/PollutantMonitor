@@ -1,16 +1,20 @@
 <!--pages/deviceInfo/home/home.wxml-->
 <view class="cu-list menu menu-avatar">
   <view class="cu-item">
-    <view class="cu-avatar round lg" style="background-image:url(/images/p2.png);"></view>
-    <view class='content flex-sub' style='flex:0.5'>
-      <view style='font-size:30rpx;'>刘亦菲</view>
+    <view class="cu-avatar round lg">
+      <image src='/images/p2.png' class='iconPhoneClass'></image>
+    </view>
+    <view class='content flex-sub' style='flex:0.5' id="{{resultData.HBFZRPhone}}" bindtap="Call">
+      <view style='font-size:30rpx;'>{{resultData.HBFZRName=='-'?'暂无负责人':resultData.HBFZRName}}</view>
       <view class='text-gray text-sm flex justify-between' style='font-size:24rpx;'>
         环保负责人
       </view>
     </view>
-    <view class="cu-avatar round lg" style="background-image:url(/images/p1.png);left:55%;"></view>
+    <view class="cu-avatar round lg" style="left:55%;">
+      <image src='/images/p1.png' class='iconPhoneClass'></image>
+    </view>
     <view class='content flex-sub' style='flex:0.5;padding-left:35%;'>
-      <view style='font-size:30rpx;'>王宝强</view>
+      <view style='font-size:30rpx;'>{{resultData.OperationName}}</view>
       <view class='text-gray text-sm flex justify-between' style='font-size:24rpx;'>
         排口运维人
       </view>
@@ -24,7 +28,7 @@
       <text class='lable-text'>设备编号</text>
     </view>
     <view class='action'>
-      <text class='lable-value'>31011500000002</text>
+      <text class='lable-value'>{{resultData.DGIMN}}</text>
     </view>
   </view>
   <view class="cu-item">
@@ -32,7 +36,7 @@
       <text class='lable-text' style='font-size:28rpx;color:#333'>排口状态</text>
     </view>
     <view class='action'>
-      <text class='lable-value' style='font-size:28rpx;color:#666'>正常</text>
+      <text class='lable-value' style='font-size:28rpx;color:#666'>{{resultData.PointStatusText}}</text>
     </view>
   </view>
   <view class="cu-item">
@@ -40,7 +44,7 @@
       <text class='lable-text' style='font-size:28rpx;color:#333'>排口直径</text>
     </view>
     <view class='action'>
-      <text class='lable-value' style='font-size:28rpx;color:#666'>3.22M</text>
+      <text class='lable-value' style='font-size:28rpx;color:#666'>{{resultData.OutputDiameter}}</text>
     </view>
   </view>
   <view class="cu-item">
@@ -48,17 +52,19 @@
       <text class='lable-text' style='font-size:28rpx;color:#333'>排口高度</text>
     </view>
     <view class='action'>
-      <text class='lable-value' style='font-size:28rpx;color:#666'>98MM</text>
+      <text class='lable-value' style='font-size:28rpx;color:#666'>{{resultData.OutputHigh}}</text>
     </view>
   </view>
 </view>
 <view class="cu-list menu margin-top">
   <view class="cu-item">
     <view class='content padding-tb-sm'>
-      <view style='background-image:url(/images/003.png);position:absolute;width:20px;height:20px;background-size:100% 100%;'></view>
+      <view>
+        <image style='position:absolute;width:20px;height:20px;background-size:100% 100%;' src='/images/003.png'></image>
+      </view>
       <view style='padding-left:50rpx;' class='lable-text'>测试组分</view>
       <view class='lable-value'>
-        颗粒物、NOX、SO2、O2、温度、压力、流速、湿度
+        {{resultData.TestComponent}}
       </view>
     </view>
   </view>
@@ -66,10 +72,12 @@
 <view class="cu-list menu margin-top">
   <view class="cu-item">
     <view class='content padding-tb-sm'>
-      <view style='background-image:url(/images/address.png);position:absolute;width:20px;height:20px;background-size:100% 100%;'></view>
+      <view>
+        <image style='position:absolute;width:20px;height:20px;background-size:100% 100%;' src='/images/address.png'></image>
+      </view>
       <view style='padding-left:50rpx;' class='lable-text'>地址</view>
       <view class='lable-value'>
-        北京市海淀区清河小营西路29号院东北角一个小小旮沓不起眼的一个高大上的很牛逼的地方</view>
+        {{resultData.PointAddress}}</view>
     </view>
   </view>
 

@@ -40,7 +40,7 @@ page {
 }
 
 .lableClass {
-  width: 25%;
+  width: 30%;
   float: left;
   background-color: white;
   height: 45px;
@@ -54,7 +54,7 @@ page {
 }
 
 .inputClass {
-  width: 75%;
+  width: 70%;
   float: left;
   background-color: white;
   height: 45px;

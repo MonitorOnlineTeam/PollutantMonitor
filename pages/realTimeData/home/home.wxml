@@ -6,21 +6,21 @@
     <view class='content1'>
       <view class='states'>
         <image src='/images/states.png' class='png' mode='aspectFit'></image>
-        <text>排口状态</text>
+        <text class='txtClass'>排口状态</text>
       </view>
       <view class='statesText'>{{States}}</view>
     </view>
     <view class='content2'>
       <view class='datetime'>
         <image src='/images/datetimes.png' class='png' mode='aspectFit'></image>
-        <text>检测时间</text>
+        <text class='txtClass'>检测时间</text>
       </view>
       <view class='datetimeText'>{{MonitorTimes}}</view>
     </view>
   </view>
   <!-- 第二部分（工艺流程图） -->
   <view>
-    <image src='/images/GyProcessPic.jpg' class='image'></image>
+  <image mode='scaleToFill' src='/images/GyProcessPic.jpg' bindtouchstart='touchStartHandle' bindtouchmove='touchMoveHandle' bindload='load' style="width: {{ touch.scaleWidth }}px;height: {{ touch.scaleHeight }}px"></image>
   </view>
   <!-- 第三部分（列表） -->
   <view class="table">

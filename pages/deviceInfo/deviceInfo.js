@@ -1,11 +1,14 @@
-// pages/deviceInfo/deviceInfo.js
-const app = getApp();
+//  pages/deviceInfo/deviceInfo.js
+const app = getApp()
+const comApi = app.api;
+const common = app.common;
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    resultData: [],
     StatusBar: app.globalData.StatusBar,
     CustomBar: app.globalData.CustomBar,
     list: [{
@@ -83,21 +86,51 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
+    debugger
+    if (common.getStorage('IsHaveHistory')) {
+      this.setData({
+        DGIMN: common.getStorage('DGIMN')
+      });
+      this.onPullDownRefresh();
+    }
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-
+    debugger
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    debugger
+    if (!common.getStorage('IsHaveHistory')) {
+      wx.showModal({
+        title: '提示',
+        content: '请先扫描设备二维码',
+        showCancel: false,
+        success(res) {
+          if (res.confirm) {
+            wx.switchTab({
+              url: '../my/my'
+            })
+          } else if (res.cancel) {
+            console.log('用户点击取消')
+          }
+        }
+      })
+      return false;
+    }
+    debugger
+    if (this.data.DGIMN !== common.getStorage('DGIMN')) {
+      this.setData({
+        DGIMN: common.getStorage('DGIMN')
+      });
+      this.onPullDownRefresh();
+    }
   },
 
   /**
@@ -118,7 +151,9 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function() {
-
+    wx.showNavigationBarLoading();
+    wx.stopPullDownRefresh();
+    this.getData();
   },
 
   /**
@@ -133,5 +168,70 @@ Page({
    */
   onShareAppMessage: function() {
 
+  },
+  //获取数据
+  getData: function() {
+    var resultData = [];
+    comApi.getPointInfo().then(res => {
+      if (res && res.IsSuccess) {
+        if (res.Data.length > 0) {
+          let data = res.Data[0];
+          this.setData({
+            resultData: data
+          })
+          console.log(this.resultData)
+          debugger
+          // this.setData({
+          //   DGIMN: data.DGIMN,
+          //   pointName: data.pointName,
+          //   pointType: data.OutputType,
+          //   pointStatus: data.pointstatus == 1 ? '正常' : '异常',
+          //   pointPFType: data.pollutantTypeName,
+          //   pointDiameter: data.OutputDiameter,
+          //   pointHeight: data.OutputHigh,
+          //   longitude: data.longitude,
+          //   latitude: data.latitude,
+          //   fzUserName: data.SWUserName,
+          //   fzUserPhone: '138001380000',
+          //   operationName: data.operationUserName,
+          //   operationPhone: '18601364607',
+          //   pointAddress: data.Address,
+          //   markers: [{
+          //     id: 1,
+          //     latitude: data.latitude,
+          //     longitude: data.longitude,
+          //     name: 'T.I.T 创意园'
+          //   }]
+          // })
+        } else {
+          wx.showModal({
+            title: '提示',
+            content: '暂无数据，请重试',
+            showCancel: false,
+            success(res) {
+              if (res.confirm) {
+                console.log('用户点击确定')
+              } else if (res.cancel) {
+                console.log('用户点击取消')
+              }
+            }
+          })
+        }
+      } else {
+        wx.showModal({
+          title: '提示',
+          content: '网络错误，请重试',
+          showCancel: false,
+          success(res) {
+            if (res.confirm) {
+              console.log('用户点击确定')
+            } else if (res.cancel) {
+              console.log('用户点击取消')
+            }
+          }
+        })
+      }
+      wx.hideNavigationBarLoading();
+    })
   }
 })

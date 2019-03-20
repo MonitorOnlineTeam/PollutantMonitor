@@ -27,7 +27,7 @@
   <view class="cu-item">
     <view class="cu-avatar round lg" style="background-image:url(/images/p2.png);"></view>
     <view class='content flex-sub' style='flex:0.5'>
-      <view style='font-size:30rpx;'>刘亦菲</view>
+      <view style='font-size:30rpx;'>{{resultData[0].SWUserName}}</view>
       <view class='text-gray text-sm flex justify-between' style='font-size:24rpx;'>
         环保负责人
       </view>

@@ -99,6 +99,8 @@ Page({
       if (res && res.IsSuccess) {
         if (res.Data) {
           var thisData = res.Data;
+          console.log(thisData);
+          debugger
           thisData.PointVisitHistorys.map(function(items) {
             historyRecord.push({
               EnterpriseName: items.EnterpriseName,
