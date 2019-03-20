@@ -4,19 +4,35 @@ const moment = require('../../../utils/moment.min.js')
 const app = getApp();
 const comApi = app.api;
 const common = app.common;
+const selectTimeFormat = {
+  0: {
+    showFormat: 'YYYY-MM-DD HH:mm'
+  },
+  1: {
+    showFormat: 'YYYY-MM-DD HH:00'
+  },
+  2: {
+    showFormat: 'YYYY-MM-DD'
+  },
+  3: {
+    showFormat: 'YYYY-MM'
+  }
+}
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    DGIMN: '',
+    dataType: 0,
     currentDate1: new Date(2018, 2, 31).getTime(),
     minDate: new Date(2018, 0, 1).getTime(),
     StatusBar: app.globalData.StatusBar,
     CustomBar: app.globalData.CustomBar,
     time: '12:01',
     date: '2016-09-01',
-    TabCur: 0,
+    selectedDate: '',
     scrollLeft: 0,
     tabList: ['5分钟', '小时', '日', '月'],
     ec: {
@@ -26,31 +42,31 @@ Page({
     isLoaded: false,
     isDisposed: false,
     ColorList: [{
-      title: 'SO2',
-      value: '139',
-      unit: 'mg/L'
-    },
-    {
-      title: 'NOX',
-      value: '139',
-      unit: 'mg/L'
-    },
-    {
-      title: 'NOX',
-      value: '139',
-      unit: 'mg/L'
-    },
-    {
-      title: 'NOX',
-      value: '139',
-      unit: 'mg/L'
-    }]
+        title: 'SO2',
+        value: '139',
+        unit: 'mg/L'
+      },
+      {
+        title: 'NOX',
+        value: '139',
+        unit: 'mg/L'
+      },
+      {
+        title: 'NOX',
+        value: '139',
+        unit: 'mg/L'
+      },
+      {
+        title: 'NOX',
+        value: '139',
+        unit: 'mg/L'
+      }
+    ]
   },
   tabSelect(e) {
     console.log(e);
     this.setData({
-      TabCur: e.currentTarget.dataset.id,
-      scrollLeft: (e.currentTarget.dataset.id - 1) * 60
+      dataType: e.currentTarget.dataset.id
     })
   },
   transverse() {
@@ -58,12 +74,15 @@ Page({
       url: '../historyDataTransverse/historyDataTransverse'
     })
   },
-  showModal(e) {
-    // this.setData({
-    //   modalName: e.currentTarget.dataset.target
-    // })
+  onChangePollutant(e) {
+
     wx.navigateTo({
       url: '../selectPollutant/selectPollutant'
+    })
+  },
+  onChangeDate(e) {
+    wx.navigateTo({
+      url: '../selectDateTime/selectDateTime?dataType='+this.data.dataType
     })
   },
   hideModal(e) {
@@ -73,7 +92,7 @@ Page({
   },
 
   // 点击按钮后初始化图表
-  init: function () {
+  init: function() {
 
     this.ecComponent.init((canvas, width, height) => {
 
@@ -97,12 +116,12 @@ Page({
       return chart;
     });
   },
-  horizontalScreen: function () {
+  horizontalScreen: function() {
     wx.navigateTo({
       url: '../historyDataTransverse/historyDataTransverse'
     })
   },
-  setOption: function (chart) {
+  setOption: function(chart) {
 
     const option = {
       color: ['#feac36', '#8de9c0', '#c79ef4', '#fd8593', '#9aabf7', '#97e3f1', '#f4a387'],
@@ -132,20 +151,15 @@ Page({
         bottom: '3%',
         containLabel: true
       },
-      xAxis: [
-        {
-          type: 'category',
-          boundaryGap: false,
-          data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
-        }
-      ],
-      yAxis: [
-        {
-          type: 'value'
-        }
-      ],
-      series: [
-        {
+      xAxis: [{
+        type: 'category',
+        boundaryGap: false,
+        data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+      }],
+      yAxis: [{
+        type: 'value'
+      }],
+      series: [{
           name: '邮件营销',
           type: 'line',
           stack: '总量',
@@ -170,7 +184,9 @@ Page({
           name: '直接访问',
           type: 'line',
           stack: '总量',
-          areaStyle: { normal: {} },
+          areaStyle: {
+            normal: {}
+          },
           data: [320, 332, 301, 334, 390, 330, 320]
         },
         {
@@ -183,90 +199,120 @@ Page({
               position: 'top'
             }
           },
-          areaStyle: { normal: {} },
+          areaStyle: {
+            normal: {}
+          },
           data: [820, 932, 901, 934, 1290, 1330, 1320]
         }
       ]
     };
     chart.setOption(option);
-  },onInput(event) {
-    const { detail, currentTarget } = event;
+  },
+  onInput(event) {
+    const {
+      detail,
+      currentTarget
+    } = event;
     const result = this.getResult(detail, currentTarget.dataset.type);
 
     console.log(result);
   },
-
-  getResult(time, type) {
-    const date = new Date(time);
-    switch (type) {
-      case 'datetime':
-        return moment(date).format('YYYY-MM-DD HH:mm:00');//.toLocaleString();
-      case 'date':
-        return date.toLocaleDateString();
-      case 'year-month':
-        return `${date.getFullYear()}/${date.getMonth() + 1}`;
-      case 'time':
-        return time;
-      default:
-        return '';
-    }
-  },
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     console.log(options);
     // 获取组件
     this.ecComponent = this.selectComponent('#mychart-dom-line');
+    this.setData({
+      DGIMN: common.getStorage('DGIMN')
+    });
     this.init()
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
-    console.log(common.getStorage('selectedPollutants'));
+  onShow: function() {
+    // console.log(common.getStorage('selectedPollutants'));
+    // console.log(common.getStorage('selectedDate'));
+    this.setData({
+      selectedDate: moment(common.getStorage('selectedDate')).format(selectTimeFormat[this.data.dataType].showFormat) 
+    });
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
-
+  onPullDownRefresh: function() {
+    wx.showNavigationBarLoading();
+    wx.stopPullDownRefresh();
+    this.getData();
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
+  },
+  //获取监控数据
+  getData: function() {
+    let {
+      selectedPollutant,
+      dataType,
+      selectTime,
+      selectTimeFormat,
+      selectedDate
+    } = this.data;
+    comApi.getMonitorDatas(selectedPollutant.pollutantCode, dataType, selectedDate).then(res => {
+      console.log('getMonitorDatas', res)
+      if (res && res.IsSuccess && res.Data) {
+        let thisData = res.Data;
+        let xAxisData = [];
+        let seriesData = [];
+        console.log(selectedPollutant)
+        thisData.map(function(item) {
+          item.MonitorTime = moment(item.MonitorTime).format(selectTimeFormat[dataType].serverFormat);
+          xAxisData.push(item.MonitorTime);
+          seriesData.push(item[selectedPollutant.pollutantCode] || '0');
+        })
+        this.setData({
+          xAxisData: xAxisData,
+          seriesData: seriesData,
+          tableDatas: thisData
+        });
+        this.init();
+      }
+      wx.hideNavigationBarLoading();
+    })
   }
 })

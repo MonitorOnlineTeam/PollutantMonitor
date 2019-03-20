@@ -25,7 +25,8 @@
     getProcessFlowChartStatus: `/UserInfoApi/GetProcessFlowChartStatus?authorCode=${authorCode}`,
     verifyDevicePwd: `/UserInfoApi/VerifyDevicePwd?authorCode=${authorCode}`,
     verifyPhone: `/UserInfoApi/VerifyPhone?authorCode=${authorCode}`,
-    verifyDGIMN: `/UserInfoApi/VerifyDGIMN?authorCode=${authorCode}`
+    verifyDGIMN: `/UserInfoApi/VerifyDGIMN?authorCode=${authorCode}`,
+    getRealTimeDataForPoint: `/UserInfoApi/GetRealTimeDataForPoint?authorCode=${authorCode}`
   }
 
   /**
@@ -138,12 +139,21 @@
    * 获取工艺流程图数据
    * @param  {String}} DGIMNs MN
    */
-  function getProcessFlowChartStatus(DGIMNs) {
+  function getProcessFlowChartStatus() {
     return fetchApi(pageUrl.getProcessFlowChartStatus, {
       DGIMN: common.getStorage('DGIMN')
     }, 'post').then(res => res.data)
   }
 
+  /**
+   * 获取实时工艺数据
+   * @param  {String}} DGIMNs MN
+   */
+  function getRealTimeDataForPoint() {
+    return fetchApi(pageUrl.getRealTimeDataForPoint, {
+      DGIMN: common.getStorage('DGIMN')
+    }, 'post').then(res => res.data)
+  }
   /**
    * 获取监控数据
    * @param  {String}} DGIMNs MN

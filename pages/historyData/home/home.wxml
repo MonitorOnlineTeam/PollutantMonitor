@@ -19,26 +19,31 @@
 </demo-block> -->
 
 <view class='bg-white nav flex text-center'>
-  <view class="cu-item flex-sub {{index==TabCur?'tab-text-color active cur':'tab-text-color'}}" wx:for="{{tabList}}" wx:key bindtap='tabSelect' data-id="{{index}}">
+  <view class="cu-item flex-sub {{index==dataType?'tab-text-color active cur':'tab-text-color'}}" wx:for="{{tabList}}" wx:key bindtap='tabSelect' data-id="{{index}}">
     {{item}}
   </view>
 </view>
 
 <view class="bg-white">
   <view class="flex solid-top padding justify-between">
-    <view class='' bindtap="showModal" data-target="RadioModal">选择污染物
+    <view class='' bindtap="onChangePollutant" data-target="RadioModal">选择污染物
       <text class='icon-filter sm'></text>
     </view>
-
-
     <view class=''>
+        <view class="picker" bindtap="onChangeDate">
+          当前选择: {{selectedDate}}
+          <text class='icon-triangledownfill lg'></text>
+        </view>
+    </view>
+
+    <!-- <view class=''>
       <picker mode="date" value="{{date}}" start="2015-09-01" end="2017-09-01" bindchange="bindTimeChange">
         <view class="picker">
           当前选择: {{date}}
           <text class='icon-triangledownfill lg'></text>
         </view>
       </picker>
-    </view>
+    </view> -->
   </view>
 </view>
 

@@ -90,14 +90,13 @@ Page({
     } else {
       let selectedPollutants = common.getStorage('selectedPollutants');
       let newData = [];
-
       cookiePollutant.map(function(item, index) {
-
-        let that = selectedPollutants.filter(m => m.code == item.code);
-        if (that.length > 0) {
-          item.checked = true;
+        if (selectedPollutants) {
+          let that = selectedPollutants.filter(m => m.code == item.code);
+          if (that.length > 0) {
+            item.checked = true;
+          }
         }
-
         newData.push(item);
       });
       this.setData({
@@ -122,8 +121,7 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
-  },
+  onShow: function() {},
 
   /**
    * 生命周期函数--监听页面隐藏
