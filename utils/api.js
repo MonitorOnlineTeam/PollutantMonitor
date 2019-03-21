@@ -26,7 +26,8 @@
     verifyDevicePwd: `/UserInfoApi/VerifyDevicePwd?authorCode=${authorCode}`,
     verifyPhone: `/UserInfoApi/VerifyPhone?authorCode=${authorCode}`,
     verifyDGIMN: `/UserInfoApi/VerifyDGIMN?authorCode=${authorCode}`,
-    getRealTimeDataForPoint: `/UserInfoApi/GetRealTimeDataForPoint?authorCode=${authorCode}`
+    getRealTimeDataForPoint: `/UserInfoApi/GetRealTimeDataForPoint?authorCode=${authorCode}`,
+    addFeedback: `/UserInfoApi/AddFeedback?authorCode=${authorCode}`,
   }
 
   /**
@@ -221,7 +222,18 @@
       DGIMN: DGIMN
     }, 'post').then(res => res.data)
   }
-
+/**
+ * 添加意见反馈
+ * @param  {String}} phone 手机号
+ */
+function addFeedback(Name, EmailAddress, Details) {
+  return fetchApi(pageUrl.addFeedback, {
+    CreateUserID: common.getStorage('OpenId'),//不是用户id
+    Name: Name,
+    EmailAddress: EmailAddress,
+    Details: Details
+  }, 'post').then(res => res.data)
+}
 
   module.exports = {
     validateFirstLogin,
@@ -235,5 +247,6 @@
     verifyDevicePwd,
     verifyPhone,
     verifyDGIMN,
-    getRealTimeDataForPoint
+    getRealTimeDataForPoint,
+    addFeedback
   }
