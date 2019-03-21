@@ -162,10 +162,19 @@
    * @param  {String}} endTime 时间过滤
    */
   function getMonitorDatas(pollutantCodes, datatype, endTime = null) {
-    console.log('传递时间：', endTime)
-    if (datatype === 1 || datatype === 2) {
-      endTime = moment(endTime).format('YYYY-MM-DD 23:59:59');
+    
+    let beginTime = '';
+    if (datatype === 0) {
+      endTime = moment(endTime).format('YYYY-MM-DD HH:mm:00');
+      beginTime = moment(endTime).add(-5, 'minute').format('YYYY-MM-DD HH:mm:ss');
+    } else if (datatype === 1) {
+      endTime = moment(endTime).format('YYYY-MM-DD HH:59:59');
+      beginTime = moment(endTime).format('YYYY-MM-DD HH:00:00');
+    } else if (datatype === 2) {
+      endTime = moment(endTime).add(1, 'day').format('YYYY-MM-DD 00:00:00');
+      beginTime = moment(endTime).format('YYYY-MM-DD 59:59:59');
     } else if (datatype === 3) {
+      beginTime = moment(endTime).format('YYYY-MM-01 00:00:00');
       endTime = moment(endTime).add(1, 'months').add(-1, 'seconds').format('YYYY-MM-DD 23:59:59');
     }
 
@@ -176,7 +185,8 @@
       pageIndex: 1,
       pageSize: 100,
       isAsc: true,
-      endTime: datatype == 'realtime' ? null : endTime
+      beginTime: beginTime,
+      endTime: endTime
     }, 'post').then(res => res.data)
   }
   /**

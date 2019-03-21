@@ -6,16 +6,20 @@ const comApi = app.api;
 const common = app.common;
 const selectTimeFormat = {
   0: {
-    showFormat: 'YYYY-MM-DD HH:mm'
+    showFormat: 'YYYY-MM-DD HH:mm',
+    chartFormat: 'HH:mm'
   },
   1: {
-    showFormat: 'YYYY-MM-DD HH:00'
+    showFormat: 'YYYY-MM-DD HH:00',
+    chartFormat: 'mm'
   },
   2: {
-    showFormat: 'YYYY-MM-DD'
+    showFormat: 'YYYY-MM-DD',
+    chartFormat: 'HH'
   },
   3: {
-    showFormat: 'YYYY-MM'
+    showFormat: 'YYYY-MM',
+    chartFormat: 'DD'
   }
 }
 Page({
@@ -26,6 +30,9 @@ Page({
   data: {
     DGIMN: '',
     dataType: 0,
+    selectedPollutants: [],
+    xAxisData: [],
+    seriesData: [],
     currentDate1: new Date(2018, 2, 31).getTime(),
     minDate: new Date(2018, 0, 1).getTime(),
     StatusBar: app.globalData.StatusBar,
@@ -66,8 +73,10 @@ Page({
   tabSelect(e) {
     console.log(e);
     this.setData({
-      dataType: e.currentTarget.dataset.id
+      dataType: e.currentTarget.dataset.id,
+      selectedDate: moment(common.getStorage('selectedDate')).format(selectTimeFormat[e.currentTarget.dataset.id].showFormat),
     })
+    this.getData();
   },
   transverse() {
     wx.navigateTo({
@@ -82,7 +91,7 @@ Page({
   },
   onChangeDate(e) {
     wx.navigateTo({
-      url: '../selectDateTime/selectDateTime?dataType='+this.data.dataType
+      url: '../selectDateTime/selectDateTime?dataType=' + this.data.dataType
     })
   },
   hideModal(e) {
@@ -98,23 +107,25 @@ Page({
 
       // 获取组件的 canvas、width、height 后的回调函数
       // 在这里初始化图表
-      const chart = echarts.init(canvas, null, {
+      let chart = echarts.init(canvas, null, {
         width: width,
         height: height
       });
+     
       this.setOption(chart);
-
+      chart.on('click', function (params) {
+        console.log(1111111111111111111111111);
+      });
       // 将图表实例绑定到 this 上，可以在其他成员函数（如 dispose）中访问
       this.chart = chart;
-
       this.setData({
         isLoaded: true,
         isDisposed: false
       });
-
       // 注意这里一定要返回 chart 实例，否则会影响事件处理等
       return chart;
     });
+    
   },
   horizontalScreen: function() {
     wx.navigateTo({
@@ -122,6 +133,11 @@ Page({
     })
   },
   setOption: function(chart) {
+    let {
+      selectedPollutants,
+      seriesData,
+      xAxisData
+    } = this.data;
 
     const option = {
       color: ['#feac36', '#8de9c0', '#c79ef4', '#fd8593', '#9aabf7', '#97e3f1', '#f4a387'],
@@ -138,7 +154,7 @@ Page({
         }
       },
       legend: {
-        data: ['邮件营销', '联盟广告', '视频广告', '直接访问', '搜索引擎']
+        data: this.formatPollutantNames() //['邮件营销', '联盟广告', '视频广告', '直接访问', '搜索引擎']
       },
       toolbox: {
         feature: {
@@ -154,57 +170,12 @@ Page({
       xAxis: [{
         type: 'category',
         boundaryGap: false,
-        data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+        data: xAxisData //['周一', '周二', '周三', '周四', '周五', '周六', '周日']
       }],
       yAxis: [{
         type: 'value'
       }],
-      series: [{
-          name: '邮件营销',
-          type: 'line',
-          stack: '总量',
-          areaStyle: {},
-          data: [120, 132, 101, 134, 90, 230, 210]
-        },
-        {
-          name: '联盟广告',
-          type: 'line',
-          stack: '总量',
-          areaStyle: {},
-          data: [220, 182, 191, 234, 290, 330, 310]
-        },
-        {
-          name: '视频广告',
-          type: 'line',
-          stack: '总量',
-          areaStyle: {},
-          data: [150, 232, 201, 154, 190, 330, 410]
-        },
-        {
-          name: '直接访问',
-          type: 'line',
-          stack: '总量',
-          areaStyle: {
-            normal: {}
-          },
-          data: [320, 332, 301, 334, 390, 330, 320]
-        },
-        {
-          name: '搜索引擎',
-          type: 'line',
-          stack: '总量',
-          label: {
-            normal: {
-              show: true,
-              position: 'top'
-            }
-          },
-          areaStyle: {
-            normal: {}
-          },
-          data: [820, 932, 901, 934, 1290, 1330, 1320]
-        }
-      ]
+      series: seriesData
     };
     chart.setOption(option);
   },
@@ -225,9 +196,12 @@ Page({
     // 获取组件
     this.ecComponent = this.selectComponent('#mychart-dom-line');
     this.setData({
-      DGIMN: common.getStorage('DGIMN')
+      DGIMN: common.getStorage('DGIMN'),
+      selectedPollutants: common.getStorage('selectedPollutants') || [],
+      selectedDate: moment(common.getStorage('selectedDate')).format(selectTimeFormat[this.data.dataType].showFormat),
     });
-    this.init()
+    this.getData();
+   
   },
 
   /**
@@ -241,10 +215,11 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    // console.log(common.getStorage('selectedPollutants'));
-    // console.log(common.getStorage('selectedDate'));
+    console.log(common.getStorage('selectedPollutants'));
+    console.log(common.getStorage('selectedDate'));
     this.setData({
-      selectedDate: moment(common.getStorage('selectedDate')).format(selectTimeFormat[this.data.dataType].showFormat) 
+      selectedDate: moment(common.getStorage('selectedDate')).format(selectTimeFormat[this.data.dataType].showFormat),
+      selectedPollutants: common.getStorage('selectedPollutants') || []
     });
   },
 
@@ -284,27 +259,57 @@ Page({
   onShareAppMessage: function() {
 
   },
+  formatPollutantNames: function() {
+    let {
+      selectedPollutants
+    } = this.data;
+    let pollutantNames = [];
+    selectedPollutants.map(function(item) {
+      pollutantNames.push(item.name);
+    });
+    return pollutantNames;
+  },
   //获取监控数据
   getData: function() {
     let {
       selectedPollutant,
       dataType,
-      selectTime,
-      selectTimeFormat,
-      selectedDate
+      selectedDate,
+      selectedPollutants
     } = this.data;
-    comApi.getMonitorDatas(selectedPollutant.pollutantCode, dataType, selectedDate).then(res => {
-      console.log('getMonitorDatas', res)
+
+    let pollutantCodes = [];
+
+    selectedPollutants.map(function(item) {
+      pollutantCodes.push(item.code);
+    });
+    //debugger;
+    comApi.getMonitorDatas(pollutantCodes.join(','), dataType, selectedDate).then(res => {
+      console.log('getMonitorDatas', res);
+      console.log('selectedPollutants', selectedPollutants);
       if (res && res.IsSuccess && res.Data) {
         let thisData = res.Data;
         let xAxisData = [];
         let seriesData = [];
-        console.log(selectedPollutant)
-        thisData.map(function(item) {
-          item.MonitorTime = moment(item.MonitorTime).format(selectTimeFormat[dataType].serverFormat);
-          xAxisData.push(item.MonitorTime);
-          seriesData.push(item[selectedPollutant.pollutantCode] || '0');
-        })
+        let index = 0;
+        selectedPollutants.map(function(item) {
+          let obj = {
+            name: item.name,
+            type: 'line',
+            stack: '总量',
+            areaStyle: {},
+            data: []
+          };
+          thisData.map(function(itemData) {
+            if (index === 0) {
+              xAxisData.push(moment(itemData.MonitorTime).format(selectTimeFormat[dataType].chartFormat));
+            }
+            obj.data.push(itemData[item.code] || '0');
+          });
+          index = 1;
+          seriesData.push(obj);
+        });
+
         this.setData({
           xAxisData: xAxisData,
           seriesData: seriesData,
