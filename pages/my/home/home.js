@@ -31,7 +31,12 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    var pointName = common.getStorage("PointName");
+    if (pointName != "") {
+      wx.setNavigationBarTitle({
+        title: pointName,
+      })
+    }
   },
 
   /**
@@ -82,5 +87,5 @@ Page({
       url: '../visitHistory/visitHistory'
     })
   },
-  
+
 })

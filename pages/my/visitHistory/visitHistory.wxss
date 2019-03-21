@@ -8,7 +8,6 @@
 .entNameClass {
   margin-top: 2px;
   margin-bottom: 5px;
-  font-size: 13px;
 }
 
 .text-sm {
@@ -19,10 +18,3 @@
   margin-left: 5px;
 }
 
-.textOneClass {
-  font-size: 12px;
-}
-
-.textTwoClass {
-  font-size: 12px;
-}

@@ -25,11 +25,36 @@
   margin-top: 12px;
 }
 
-.statesText {
+.statesTextOffLine {
   text-align: center;
   margin-top: 10px;
   margin-bottom: 12px;
   font-size: 13px;
+  color: #999;
+}
+
+.statesTextOnLine {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 12px;
+  font-size: 13px;
+  color: #4ec062;
+}
+
+.statesTextOver {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 12px;
+  font-size: 13px;
+  color: #e64b49;
+}
+
+.statesTextException {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 12px;
+  font-size: 13px;
+  color: #e7983a;
 }
 
 .datetime {
@@ -56,7 +81,7 @@
 .table {
   border: 0px solid darkgray;
   background-color: white;
-  margin-top: 10px;
+  margin-top: 4px;
 }
 
 .tr {
@@ -125,7 +150,7 @@
 
 .imgClass {
   width: 100%;
-  margin-top: 12px;
+  margin-top: 6px;
 }
 
 .img-plus-style {
@@ -152,10 +177,35 @@
 
 .overClass {
   color: red;
-  font-size: 12px;
 }
 
 .exceptionClass {
-  font-size: 12px;
   color: orange;
+}
+
+.padding-sm {
+  height: 12vh;
+}
+
+.descriptionClass {
+  height: 100%;
+}
+
+.disClass {
+  height: 100%;
+  vertical-align: middle;
+}
+
+.descriptionClass {
+  height: 12vh;
+  vertical-align: middle;
+  display: table-cell;
+  text-align: center;
+  width: 100vh;
+}
+.tab-text-color{
+  background-color: #ffffff;
+}
+.tab-text-color.active{
+  background-color: #FCF0BC;
 }

@@ -161,10 +161,34 @@
   height: 100%;
   vertical-align: middle;
 }
+
 .cu-dialog {
-z-index: 999999;
+  z-index: 999999;
 }
-.iconPhoneClass{
+
+.iconPhoneClass {
   width: 100rpx;
   height: 100rpx;
+}
+
+.statesTextOffLine {
+  color: #999;
+}
+
+.statesTextOnLine {
+  color: #4ec062;
+}
+
+.statesTextOver {
+  color: #e64b49;
+}
+
+.statesTextException {
+  color: #e7983a;
+}
+.pollutantItemsClass{
+  margin-top: 5px;
+  width: 100%;
+  height: 100%;
+  font-size: 13px;
 }

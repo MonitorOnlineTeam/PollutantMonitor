@@ -1,7 +1,7 @@
 <!--pages/my/visitHistory/visitHistory.wxml-->
 <!-- <text>pages/my/visitHistory/visitHistory.wxml</text> -->
 <block wx:for="{{historyRecord}}" wx:key="{{DGIMN}}">
-  <view class="cu-list menu" id="{{item.DGIMN}}" dgimn="item.PointName" bindtap="showDetail">
+  <view class="cu-list menu" id="{{item.DGIMN}}" data-pointname="{{item.PointName}}" bindtap="showDetail">
     <view class="cu-item {{'arrow'}}">
       <view class='content padding-tb-sm'>
         <view class='entNameClass'>

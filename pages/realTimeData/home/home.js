@@ -8,6 +8,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    selectedRow:'-',
+    pageBackgroundColor:'white',
     identificationName: '', //异常详情
     identificationCode: '', //标识
     overMultiple: '', //超标倍数
@@ -64,8 +66,6 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    wx.showNavigationBarLoading();
-    wx.stopPullDownRefresh();
     //扫描二维码后改缓存变为true
     // if (!common.getStorage('IsHaveHistory')) {
     //   wx.showModal({
@@ -138,6 +138,12 @@ Page({
   },
   //获取数据
   getData: function() {
+    var pointName = common.getStorage("PointName");
+    if (pointName != "") {
+      wx.setNavigationBarTitle({
+        title: pointName,
+      })
+    }
     var resultData = null;
     comApi.getRealTimeDataForPoint().then(res => {
       if (res && res.IsSuccess) {
@@ -152,13 +158,7 @@ Page({
             title: '提示',
             content: '暂无数据，请重试',
             showCancel: false,
-            success(res) {
-              if (res.confirm) {
-                console.log('用户点击确定')
-              } else if (res.cancel) {
-                console.log('用户点击取消')
-              }
-            }
+            success(res) {}
           })
         }
       } else {
@@ -167,11 +167,6 @@ Page({
           content: '网络错误，请重试',
           showCancel: false,
           success(res) {
-            if (res.confirm) {
-              console.log('用户点击确定')
-            } else if (res.cancel) {
-              console.log('用户点击取消')
-            }
           }
         })
       }
@@ -181,23 +176,27 @@ Page({
   //超标异常时弹出窗口
   showModal(e) {
     var id = e.currentTarget.id;
+    const pollutantName = e.currentTarget.dataset.pollutantname;
     if (id == "1") {
       this.setData({
         identificationCode: id,
         overMultiple: e.currentTarget.dataset.overmultiple,
-        modalName: e.currentTarget.dataset.target
+        modalName: e.currentTarget.dataset.target,
+        selectedRow: pollutantName
       })
     } else {
       this.setData({
         identificationCode: id,
         identificationName: e.currentTarget.dataset.identificationname,
-        modalName: e.currentTarget.dataset.target
+        modalName: e.currentTarget.dataset.target,
+        selectedRow: pollutantName
       })
     }
   },
   hideModal(e) {
     this.setData({
-      modalName: null
+      modalName: null,
+      selectedRow: '-'
     })
   },
 })

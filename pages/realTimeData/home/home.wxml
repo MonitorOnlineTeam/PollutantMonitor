@@ -8,12 +8,15 @@
         <image src='/images/states.png' class='png' mode='aspectFit'></image>
         <text class='txtClass'>排口状态</text>
       </view>
-      <view class='statesText'>{{pointInfo.statusName}}</view>
+      <view class='statesTextOffLine' wx:if="{{pointInfo.status==0}}">{{pointInfo.statusName}}</view>
+      <view class='statesTextOnLine' wx:elif="{{pointInfo.status==1}}">{{pointInfo.statusName}}</view>
+      <view class='statesTextOver' wx:elif="{{pointInfo.status==2}}">{{pointInfo.statusName}}</view>
+      <view class='statesTextException' wx:else>{{pointInfo.statusName}}</view>
     </view>
     <view class='content2'>
       <view class='datetime'>
         <image src='/images/datetimes.png' class='png' mode='aspectFit'></image>
-        <text class='txtClass'>检测时间</text>
+        <text class='txtClass'>监测时间</text>
       </view>
       <view class='datetimeText'>{{pointInfo.mointorTime}}</view>
     </view>
@@ -32,11 +35,11 @@
       <view class="th">状态</view>
     </view>
     <block wx:for="{{dataitem}}" wx:key="{{pollutantCode}}">
-      <view class="tr">
-        <view class="td">{{item.pollutantName}}</view>
+      <view class="tr {{item.pollutantName==selectedRow? 'tab-text-color active': 'tab-text-color'}} ">
+        <view class="td">{{item.pollutantName||'-'}}</view>
         <view class="td">{{item.value}}</view>
-        <view class="td">{{item.unit}}</view>
-        <view class="tdOver" id="{{item.identificationCode}}" data-identificationName="{{item.identificationName}}" data-overMultiple="{{item.overMultiple}}" bindtap="showModal" data-target="ChooseModal" wx:if="{{item.identificationCode == '1'}}">超标</view>
+        <view class="td">{{item.unit||'-'}}</view>
+        <view class="tdOver" id="{{item.identificationCode}}" data-identificationName="{{item.identificationName}}" data-overMultiple="{{item.overMultiple}}" data-pollutantName="{{item.pollutantName}}" bindtap="showModal" data-target="ChooseModal" wx:if="{{item.identificationCode == '1'}}">超标</view>
         <view class="tdException" id="{{item.identificationCode}}" data-identificationName="{{item.identificationName}}" data-overMultiple="{{item.overMultiple}}" bindtap="showModal" data-target="ChooseModal" wx:elif="{{item.identificationCode == '-1'}}">
           异常
         </view>
@@ -50,27 +53,16 @@
 
 <view class="cu-modal bottom-modal {{modalName=='ChooseModal'?'show':''}}" bindtap='hideModal'>
   <view class="cu-dialog" catchtap>
-    <view class='grid col-3 padding-sm'>
-      <view class='' wx:if="{{identificationCode==1}}">
+    <view>
+      <view class='descriptionClass' wx:if="{{identificationCode==1}}">
         超标倍数：
         <text class='overClass'>{{overMultiple}} 倍</text>
       </view>
-      <view wx:else>
+
+      <view class='descriptionClass' wx:else>
         异常情况：
         <text class='exceptionClass'>{{identificationName}} 倍</text>
       </view>
     </view>
   </view>
-</view>
-
-
-
-
-
-
-
-
-<view>
-  <!-- <image src="/images/SSGY.png" class="img-style" animation="{{animTranspond}}" bindtap="transpond"></image> -->
-  <!-- <image src="/images/Down.png" class="img-plus-style" animation="{{animPlus}}" bindtap="plus"></image> -->
 </view>

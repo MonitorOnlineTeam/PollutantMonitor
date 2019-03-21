@@ -1,18 +1,23 @@
 <!--pages/my/feedBack/feedBack.wxml-->
 <!-- <text>pages/my/feedBack/feedBack.wxml</text> -->
-<view class="cu-form-group" style='height:20px'>
-  <view class='title'>姓名：</view>
-  <input class='radius' name='input' bindinput="name"></input>
-</view>
-<view class="cu-form-group">
-  <view class='title'>邮箱：</view>
-  <input class='radius' name='input' bindinput="email"></input>
-</view>
-<view class="cu-form-group top">
-  <view class='title'>详情：</view>
-  <textarea maxlength="-1" disabled="{{modalName!=null}}" placeholder-class='placeholder' bindinput="details"></textarea>
+
+
+<view class="cu-card case {{isCard?'no-card':''}}">
+  <view wx:for="{{1}}" wx:key class="cu-item shadow">
+    <view class="cu-form-group" style='height:20px'>
+      <view class='title'>姓名：</view>
+      <input class='radius' placeholder='请输入姓名' name='input' bindinput="name"></input>
+    </view>
+    <view class="cu-form-group">
+      <view class='title'>邮箱：</view>
+      <input class='radius' placeholder='请输入邮箱' name='input' bindinput="email"></input>
+    </view>
+    <view class="cu-form-group margin-top" wx:hide="{{modalName==null}}">
+     <textarea maxlength="-1" placeholder='请输入意见' disabled="{{modalName!=null}}" placeholder-class='placeholder' bindinput="details"></textarea>
+    </view>
+  </view>
 </view>
 <view class='bottomButton'>
-  <button class='cu-btn block bg-blue margin-tb-sm lg'  bindtap="loginBtnClick">
+  <button class='cu-btn block bg-blue margin-tb-sm lg' bindtap="loginBtnClick">
     确认提交</button>
 </view>

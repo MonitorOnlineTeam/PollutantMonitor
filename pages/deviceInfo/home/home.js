@@ -9,78 +9,17 @@ Page({
    */
   data: {
     resultData: null,
-    DGIMN: '',
-    StatusBar: app.globalData.StatusBar,
-    CustomBar: app.globalData.CustomBar,
-    list: [{
-        title: '索引列表',
-        img: 'https://image.weilanwl.com/color2.0/plugin/sylb2244.jpg',
-        url: '../indexes/indexes'
-      },
-      {
-        title: '微动画',
-        img: 'https://image.weilanwl.com/color2.0/plugin/wdh2236.jpg',
-        url: '../animation/animation'
-      },
-      {
-        title: '全屏抽屉',
-        img: 'https://image.weilanwl.com/color2.0/plugin/qpct2148.jpg',
-        url: '../drawer/drawer'
-      },
-      {
-        title: '垂直导航',
-        img: 'https://image.weilanwl.com/color2.0/plugin/qpczdh2307.jpg',
-        url: '../verticalnav/verticalnav'
-      }
-    ],
+    dgimn: '',
+    y: '',
+    x: '',
     markers: [{
-      iconPath: '/resources/others.png',
+      iconPath: '',
       id: 0,
-      latitude: 23.099994,
-      longitude: 113.324520,
-      width: 20,
-      height: 35
-    }],
-    polyline: [{
-      points: [{
-        longitude: 113.3245211,
-        latitude: 23.10229
-      }, {
-        longitude: 113.324520,
-        latitude: 23.21229
-      }],
-      color: '#FF0000DD',
-      width: 2,
-      dottedLine: true
-    }],
-    controls: [{
-      id: 1,
-      iconPath: '/resources/location.png',
-      position: {
-        left: 0,
-        top: 300 - 50,
-        width: 50,
-        height: 50
-      },
-      clickable: true
+      latitude: 39.920000,
+      longitude: 116.460000,
+      width: 18,
+      height: 35,
     }]
-  },
-  methods: {
-    toChild(e) {
-      wx.navigateTo({
-        url: e.currentTarget.dataset.url
-      })
-    },
-  },
-  pageLifetimes: {
-    show() {
-      if (typeof this.getTabBar === 'function' &&
-        this.getTabBar()) {
-        this.getTabBar().setData({
-          selected: 2
-        })
-      }
-    }
   },
 
   /**
@@ -127,9 +66,9 @@ Page({
     //   return false;
     // }
     //登陆（或者扫描二维码）时已经把MN号码赋上，  ----目前时登陆赋上
-    if (this.data.DGIMN !== common.getStorage('DGIMN')) {
+    if (this.data.dgimn !== common.getStorage('DGIMN')) {
       this.setData({
-        DGIMN: common.getStorage('DGIMN')
+        dgimn: common.getStorage('DGIMN')
       });
       this.onPullDownRefresh();
     }
@@ -173,13 +112,29 @@ Page({
   },
   //获取数据
   getData: function() {
-    var resultData = null;
+    var pointName = common.getStorage("PointName");
+    if (pointName != "") {
+      wx.setNavigationBarTitle({
+        title: pointName,
+      })
+    }
     comApi.getPointInfo().then(res => {
       if (res && res.IsSuccess) {
         if (res.Data) {
           let data = res.Data;
+          //将数组中的某个字段拼接出来
+          var lo = "markers[" + 0 + "].longitude";
+          var la = "markers[" + 0 + "].latitude";
+
+          var yy = (data.Longitude).toString();
+          var xx = (data.Latitude).toString();
+
           this.setData({
-            resultData: data
+            resultData: data,
+            [lo]: data.Longitude, //markers中的经度
+            [la]: data.Latitude, //markers中的纬度
+            y: yy, //经度
+            x: xx, //纬度
           })
         } else {
           wx.showModal({
@@ -212,11 +167,18 @@ Page({
       wx.hideNavigationBarLoading();
     })
   },
-  //拨打电话
-  Call(e) {
+  //拨打电话(环保专工)
+  CallHBFZ(e) {
     var phone = e.currentTarget.id;
     wx.makePhoneCall({
       phoneNumber: phone,
     })
   },
+  //拨打电话(运维人员)
+  CallOperation(e) {
+    var phone = e.currentTarget.id;
+    wx.makePhoneCall({
+      phoneNumber: phone,
+    })
+  }
 })
