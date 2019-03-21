@@ -86,7 +86,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    debugger
     if (common.getStorage('IsHaveHistory')) {
       this.setData({
         DGIMN: common.getStorage('DGIMN')
@@ -99,14 +98,12 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-    debugger
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    debugger
     if (!common.getStorage('IsHaveHistory')) {
       wx.showModal({
         title: '提示',
@@ -124,7 +121,6 @@ Page({
       })
       return false;
     }
-    debugger
     if (this.data.DGIMN !== common.getStorage('DGIMN')) {
       this.setData({
         DGIMN: common.getStorage('DGIMN')

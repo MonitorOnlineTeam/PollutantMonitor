@@ -1,7 +1,6 @@
 const app = getApp()
 const comApi = app.api;
 const common = app.common;
-var resX = wx.getSystemInfoSync()
 
 Page({
 

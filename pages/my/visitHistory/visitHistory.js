@@ -97,6 +97,8 @@ Page({
   //详情跳转到实时工艺页面
   showDetail(e) {
     var dgimn = e.currentTarget.id;
+    // dgimn = e.currentTarget.dataset.dgimn;
+
     common.setStorage("DGIMN", dgimn);
     wx.switchTab({
       url: '/pages/realTimeData/home/home',

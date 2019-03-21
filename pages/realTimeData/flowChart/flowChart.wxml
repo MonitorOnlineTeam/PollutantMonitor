@@ -1,2 +1,8 @@
 <!--pages/realTimeData/flowChart/flowChart.wxml-->
-<text>pages/realTimeData/flowChart/flowChart.wxml</text>
+
+
+<view>
+  <view class='globleClass'>
+    <image style="width: {{scrollWidth  }}px;height: {{ scrollHeight }}px" class='rotateClass' src='/images/GyProcessPic.jpg'></image>
+  </view>
+</view>

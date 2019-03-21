@@ -8,66 +8,49 @@ Page({
    * 页面的初始数据
    */
   data: {
+    identificationName: '', //异常详情
+    identificationCode: '', //标识
+    overMultiple: '', //超标倍数
+    pointInfo: null,
+    // dataitem: [{
+    //     "pollutantName": "二氧化硫",
+    //     "value": "250",
+    //     "unit": "mg/m³",
+    //     "identificationCode": "-1",
+    //     "identificationName": "异常51256",
+    //     "overMultiple": "66",
 
-    touch: {
-      distance: 0,
-      scale: 1,
-      baseWidth: null,
-      baseHeight: null,
-      scaleWidth: null,
-      scaleHeight: null
-    },
-    listData: [{
-        "PollutantName": "二氧化硫",
-        "MonitorValue": "250",
-        "Unit": "mg/m³",
-        "States": "异常",
-      },
-      {
-        "PollutantName": "氮氧化物",
-        "MonitorValue": "250",
-        "Unit": "mg/m³",
-        "States": "正常",
-      },
-      {
-        "PollutantName": "烟尘",
-        "MonitorValue": "150",
-        "Unit": "mg/m³",
-        "States": "异常",
-      },
-      {
-        "PollutantName": "实测烟尘",
-        "MonitorValue": "100",
-        "Unit": "mg/m³",
-        "States": "超标",
-      },
-      {
-        "PollutantName": "流量",
-        "MonitorValue": "200",
-        "Unit": "mg/m³",
-        "States": "超标",
-      },
-      {
-        "PollutantName": "温度",
-        "MonitorValue": "100",
-        "Unit": "mg/m³",
-        "States": "正常",
-      },
-      {
-        "PollutantName": "压力",
-        "MonitorValue": "100",
-        "Unit": "mg/m³",
-        "States": "正常",
-      }
-    ],
-    MonitorTimes:"2019-3-18 00:00:00",
-    States:"正常",
+    //   },
+    //   {
+    //     "pollutantName": "氮氧化物",
+    //     "value": "250",
+    //     "unit": "mg/m³",
+    //     "identificationCode": "1",
+    //     "identificationName": "异常121212",
+    //     "overMultiple": "66",
+    //   },
+    //   {
+    //     "pollutantName": "烟尘",
+    //     "value": "250",
+    //     "unit": "mg/m³",
+    //     "identificationCode": "-1",
+    //     "identificationName": "异常99999",
+    //     "overMultiple": "66",
+    //   }
+    // ],
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+
+    // if (common.getStorage('IsHaveHistory')) {
+    //   this.setData({
+    //     DGIMN: common.getStorage('DGIMN')
+    //   });
+    //   this.onPullDownRefresh();
+    // }
   },
 
   /**
@@ -81,8 +64,34 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    // console.log(common.getStorage('DGIMN'))
-    app.verifyPointIsNull();
+    wx.showNavigationBarLoading();
+    wx.stopPullDownRefresh();
+    //扫描二维码后改缓存变为true
+    // if (!common.getStorage('IsHaveHistory')) {
+    //   wx.showModal({
+    //     title: '提示',
+    //     content: '请先扫描设备二维码',
+    //     showCancel: false,
+    //     success(res) {
+    //       if (res.confirm) {
+    //         wx.switchTab({
+    //           url: '/pages/my/home/home',
+    //         })
+    //       } else if (res.cancel) {
+    //         console.log('用户点击取消')
+    //       }
+    //     }
+    //   })
+    //   return false;
+    // }
+
+    //登陆（或者扫描二维码）时已经把MN号码赋上，  ----目前时登陆赋上
+    if (this.data.DGIMN !== common.getStorage('DGIMN')) {
+      this.setData({
+        DGIMN: common.getStorage('DGIMN')
+      });
+      this.onPullDownRefresh();
+    }
   },
 
   /**
@@ -103,7 +112,9 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function() {
-
+    wx.showNavigationBarLoading();
+    wx.stopPullDownRefresh();
+    this.getData();
   },
 
   /**
@@ -119,62 +130,74 @@ Page({
   onShareAppMessage: function() {
 
   },
-    touchStartHandle(e) {
-    // 单手指缩放开始，也不做任何处理 
-    if (e.touches.length == 1) {
-      console.log("单滑了")
-      return
-    }
-    console.log('双手指触发开始')
-    // 注意touchstartCallback 真正代码的开始 
-    // 一开始我并没有这个回调函数，会出现缩小的时候有瞬间被放大过程的bug 
-    // 当两根手指放上去的时候，就将distance 初始化。 
-    let xMove = e.touches[1].clientX - e.touches[0].clientX;
-    let yMove = e.touches[1].clientY - e.touches[0].clientY;
-    let distance = Math.sqrt(xMove * xMove + yMove * yMove);
-    this.setData({
-      'touch.distance': distance,
+  //点击页面横屏
+  horizontalScreen: function() {
+    wx.navigateTo({
+      url: '../flowChart/flowChart'
     })
   },
-  touchMoveHandle(e) {
-    let touch = this.data.touch
-    // 单手指缩放我们不做任何操作 
-    if (e.touches.length == 1) {
-      console.log("单滑了");
-      return
-    }
-    console.log('双手指运动开始')
-    let xMove = e.touches[1].clientX - e.touches[0].clientX;
-    let yMove = e.touches[1].clientY - e.touches[0].clientY;
-    // 新的 ditance 
-    let distance = Math.sqrt(xMove * xMove + yMove * yMove);
-    let distanceDiff = distance - touch.distance;
-    let newScale = touch.scale + 0.005 * distanceDiff
-    // 为了防止缩放得太大，所以scale需要限制，同理最小值也是 
-    if (newScale >= 2) {
-      newScale = 2
-    }
-    if (newScale <= 0.6) {
-      newScale = 0.6
-    }
-    let scaleWidth = newScale * touch.baseWidth
-    let scaleHeight = newScale * touch.baseHeight
-    // 赋值 新的 => 旧的 
-    this.setData({
-      'touch.distance': distance,
-      'touch.scale': newScale,
-      'touch.scaleWidth': scaleWidth,
-      'touch.scaleHeight': scaleHeight,
-      'touch.diff': distanceDiff
+  //获取数据
+  getData: function() {
+    var resultData = null;
+    comApi.getRealTimeDataForPoint().then(res => {
+      if (res && res.IsSuccess) {
+        if (res.Data) {
+          let data = res.Data;
+          this.setData({
+            dataitem: data.dataitem,
+            pointInfo: data.pointInfo,
+          })
+        } else {
+          wx.showModal({
+            title: '提示',
+            content: '暂无数据，请重试',
+            showCancel: false,
+            success(res) {
+              if (res.confirm) {
+                console.log('用户点击确定')
+              } else if (res.cancel) {
+                console.log('用户点击取消')
+              }
+            }
+          })
+        }
+      } else {
+        wx.showModal({
+          title: '提示',
+          content: '网络错误，请重试',
+          showCancel: false,
+          success(res) {
+            if (res.confirm) {
+              console.log('用户点击确定')
+            } else if (res.cancel) {
+              console.log('用户点击取消')
+            }
+          }
+        })
+      }
+      wx.hideNavigationBarLoading();
     })
   },
-  load: function (e) {
-    // bindload 这个api是<image>组件的api类似<img>的onload属性 
+  //超标异常时弹出窗口
+  showModal(e) {
+    var id = e.currentTarget.id;
+    if (id == "1") {
+      this.setData({
+        identificationCode: id,
+        overMultiple: e.currentTarget.dataset.overmultiple,
+        modalName: e.currentTarget.dataset.target
+      })
+    } else {
+      this.setData({
+        identificationCode: id,
+        identificationName: e.currentTarget.dataset.identificationname,
+        modalName: e.currentTarget.dataset.target
+      })
+    }
+  },
+  hideModal(e) {
     this.setData({
-      'touch.baseWidth': e.detail.width,
-      'touch.baseHeight': e.detail.height,
-      'touch.scaleWidth': e.detail.width,
-      'touch.scaleHeight': e.detail.height
-    });
-  }
+      modalName: null
+    })
+  },
 })

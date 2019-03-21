@@ -1,1 +1,10 @@
 /* pages/realTimeData/flowChart/flowChart.wxss */
+
+
+
+.globleClass {
+
+   transform: rotate(90deg);
+   /* overflow: scroll;
+   flex-direction: column; */
+}

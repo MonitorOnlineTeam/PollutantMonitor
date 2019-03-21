@@ -1,7 +1,7 @@
 <!--pages/my/visitHistory/visitHistory.wxml-->
 <!-- <text>pages/my/visitHistory/visitHistory.wxml</text> -->
 <block wx:for="{{historyRecord}}" wx:key="{{DGIMN}}">
-  <view class="cu-list menu" id="{{item.DGIMN}}" bindtap="showDetail">
+  <view class="cu-list menu" id="{{item.DGIMN}}" dgimn="item.PointName" bindtap="showDetail">
     <view class="cu-item {{'arrow'}}">
       <view class='content padding-tb-sm'>
         <view class='entNameClass'>
@@ -9,7 +9,7 @@
         </view>
         <view class='text-gray text-sm'>
           <text class='textOneClass'>排口：{{item.PointName}}</text>
-          <text>上次使用：{{item.VisitTime}}</text>
+          <text class='textTwoClass'>上次使用：{{item.VisitTime}}</text>
         </view>
       </view>
     </view>
