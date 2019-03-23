@@ -1,0 +1,26 @@
+{
+  "name": "wxpm",
+  "version": "1.0.0",
+  "description": "f2",
+  "main": "app.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MonitorOnlineTeam/PollutantMonitor.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MonitorOnlineTeam/PollutantMonitor/issues"
+  },
+  "homepage": "https://github.com/MonitorOnlineTeam/PollutantMonitor#readme",
+  "dependencies": {
+    "@antv/f2-canvas": "^1.0.5",
+    "@antv/wx-f2": "^1.1.4"
+  }
+}
