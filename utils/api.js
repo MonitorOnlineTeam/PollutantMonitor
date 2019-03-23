@@ -163,7 +163,7 @@
    * @param  {String}} endTime 时间过滤
    */
   function getMonitorDatas(pollutantCodes, datatype, endTime = null) {
-    
+
     let beginTime = '';
     if (datatype === 0) {
       endTime = moment(endTime).format('YYYY-MM-DD HH:mm:00');
@@ -172,14 +172,13 @@
       endTime = moment(endTime).format('YYYY-MM-DD HH:59:59');
       beginTime = moment(endTime).format('YYYY-MM-DD HH:00:00');
     } else if (datatype === 2) {
-      endTime = moment(endTime).add(1, 'day').format('YYYY-MM-DD 00:00:00');
-      beginTime = moment(endTime).format('YYYY-MM-DD 59:59:59');
+      endTime = moment(endTime).add(1, 'day').add(-1, 'seconds').format('YYYY-MM-DD 23:59:59');
+      beginTime = moment(endTime).format('YYYY-MM-DD 00:00:00');
     } else if (datatype === 3) {
       beginTime = moment(endTime).format('YYYY-MM-01 00:00:00');
       endTime = moment(endTime).add(1, 'months').add(-1, 'seconds').format('YYYY-MM-DD 23:59:59');
     }
-
-    return fetchApi(pageUrl.getMonitorData, {
+    let body = {
       DGIMNs: common.getStorage('DGIMN'),
       pollutantCodes: pollutantCodes,
       datatype: dataTypeObj[datatype],
@@ -188,7 +187,9 @@
       isAsc: true,
       beginTime: beginTime,
       endTime: endTime
-    }, 'post').then(res => res.data)
+    };
+    console.log(body);
+    return fetchApi(pageUrl.getMonitorData, body, 'post').then(res => res.data)
   }
   /**
    * 验证设备访问密码
@@ -222,18 +223,18 @@
       DGIMN: DGIMN
     }, 'post').then(res => res.data)
   }
-/**
- * 添加意见反馈
- * @param  {String}} phone 手机号
- */
-function addFeedback(Name, EmailAddress, Details) {
-  return fetchApi(pageUrl.addFeedback, {
-    CreateUserID: common.getStorage('OpenId'),//不是用户id
-    Name: Name,
-    EmailAddress: EmailAddress,
-    Details: Details
-  }, 'post').then(res => res.data)
-}
+  /**
+   * 添加意见反馈
+   * @param  {String}} phone 手机号
+   */
+  function addFeedback(Name, EmailAddress, Details) {
+    return fetchApi(pageUrl.addFeedback, {
+      CreateUserID: common.getStorage('OpenId'), //不是用户id
+      Name: Name,
+      EmailAddress: EmailAddress,
+      Details: Details
+    }, 'post').then(res => res.data)
+  }
 
   module.exports = {
     validateFirstLogin,

@@ -9,10 +9,11 @@
 		"postcss": true,
 		"minified": true,
 		"newFeature": true,
+		"nodeModules": true,
 		"autoAudits": false,
 		"uglifyFileName": false
 	},
-	"compileType": "miniprogram",
+	"compileType": "miniprogram", 
 	"libVersion": "2.5.1",
 	"appid": "wx9a771e92f79bf08d",
 	"projectname": "PollutantMonitor",

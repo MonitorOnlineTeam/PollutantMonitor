@@ -1,7 +1,7 @@
 {
   "usingComponents": {
-    "ec-canvas": "../../../dist/ec-canvas/ec-canvas",
-    "van-datetime-picker": "/dist/datetime-picker/index"
+    "van-datetime-picker": "/dist/datetime-picker/index",
+    "ff-canvas": "../../../miniprogram_npm/@antv/f2-canvas"
   },
   "navigationBarBackgroundColor": "#cce6ff",
   "navigationBarTextStyle": "black",

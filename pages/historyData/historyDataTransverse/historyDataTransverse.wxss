@@ -1,10 +1,58 @@
 /* pages/historyData/historyDataTransverse/historyDataTransverse.wxss */
+
+ff-canvas {
+  position: absolute;
+  width: 45vh;
+  height: 100vh;
+  background-color: #fff;
+  z-index: 9999;
+}
+
+.container {
+  height: 100vh;
+  background-color: #fff;
+}
+
 .main {
   width: 100%;
   /* background-color: antiquewhite; */
   display: flex;
   flex-direction: row;
   overflow-x: hidden;
+}
+
+.legend {
+  height: 100vh;
+  width: 8vh;
+  background-color: #fff;
+  margin-right: 10rpx;
+}
+
+.legend-content {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.legend-item {
+  height: 5vh;
+  width: 98vh;
+  background-color: #fff;
+  color: #333;
+  transform: rotate(90deg);
+  text-align: left;
+  font-size: 24rpx;
+  padding-top: 15rpx;
+  padding-left: 10rpx;
+  border-radius: 5%;
+  margin-left: 10%;
+ 
+}
+
+.legend-item .icon-title {
+  margin-left: 15px;
 }
 
 .left {
@@ -21,18 +69,19 @@
 .left-item {
   height: 10vh;
   width: 170rpx;
-  background-color:#def;
+  background-color: #def;
   color: #333;
   transform: rotate(90deg);
   text-align: left;
   font-size: 30rpx;
   padding-top: 20rpx;
   padding-left: 10rpx;
-  border-radius:5%;
-  margin-top:70rpx;
+  border-radius: 5%;
+  margin-top: 70rpx;
 }
-.left-item .value{
-  margin-top:10rpx;
+
+.left-item .value {
+  margin-top: 10rpx;
 }
 
 .center {
@@ -105,12 +154,12 @@
 }
 
 .right-center-center {
-  height: 18vh;
+  height: 10vh;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  width: 93px;
-  align-items: flex-end;
+  width: 140px;
+  align-items: flex-start;
   transform: rotate(90deg);
 }
 

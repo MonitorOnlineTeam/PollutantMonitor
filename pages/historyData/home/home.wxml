@@ -1,61 +1,37 @@
 <!--pages/historyData/home/home.wxml-->
-<!-- <view class="cu-custom" style="height:{{CustomBar}}px;">
-  <view class="cu-bar fixed bg-blue light" style="height:{{CustomBar}}px;padding-top:{{StatusBar}}px;">
-    <view class='content text-black' style='top:{{StatusBar}}px;color:#000;font-size:34rpx;'>
-      3号脱硫出口
-    </view>
-  </view>
-</view> -->
-
-<!-- <demo-block title="选择完整时间">
-  <van-datetime-picker
-    type="datetime"
-    data-type="datetime"
-    loading="{{ loading }}"
-    value="{{ currentDate1 }}"
-    min-date="{{ minDate }}"
-    bind:input="onInput"
-  />
-</demo-block> -->
-
 <view class='bg-white nav flex text-center'>
   <view class="cu-item flex-sub {{index==dataType?'tab-text-color active cur':'tab-text-color'}}" wx:for="{{tabList}}" wx:key bindtap='tabSelect' data-id="{{index}}">
     {{item}}
   </view>
 </view>
 
-<view class="bg-white">
+ <view class="bg-white">
   <view class="flex solid-top padding justify-between">
     <view class='' bindtap="onChangePollutant" data-target="RadioModal">选择污染物
       <text class='icon-filter sm'></text>
     </view>
     <view class=''>
-        <view class="picker" bindtap="onChangeDate">
-          当前选择: {{selectedDate}}
-          <text class='icon-triangledownfill lg'></text>
-        </view>
+      <view class="picker" bindtap="onChangeDate">
+        当前选择: {{selectedDate}}
+        <text class='icon-triangledownfill lg'></text>
+      </view>
     </view>
-
-    <!-- <view class=''>
-      <picker mode="date" value="{{date}}" start="2015-09-01" end="2017-09-01" bindchange="bindTimeChange">
-        <view class="picker">
-          当前选择: {{date}}
-          <text class='icon-triangledownfill lg'></text>
-        </view>
-      </picker>
-    </view> -->
   </view>
 </view>
 
 <cover-view style='position:absolute;right:10rpx;top:13.5%;z-index:1;' bindtap="horizontalScreen">
   <cover-view class='text-blue'>横屏</cover-view>
 </cover-view>
-<view>
-
-  <ec-canvas id="mychart-dom-line" canvas-id="mychart-line" ec="{{ ec }}"></ec-canvas>
+<view class='container'>
+  <ff-canvas id="line-dom" canvas-id="line" opts="{{ opts }}"></ff-canvas>
 </view>
 
-<view class="bg-white  margin-top" style='position: absolute;top:63.5%;width:100%'>
+<!-- <view>
+
+  <ec-canvas id="mychart-dom-line" canvas-id="mychart-line" ec="{{ ec }}"></ec-canvas>
+</view> -->
+
+<!-- <view class="bg-white  margin-top" style='position: absolute;top:63.5%;width:100%'>
   <scroll-view class='list-view' scroll-y="true">
     <view class='grid col-3'>
       <view class='padding-sm' wx:for="{{ColorList}}" wx:key>
@@ -67,7 +43,7 @@
       </view>
     </view>
   </scroll-view>
-</view>
+</view> -->
 
 <!-- <view class="cu-modal {{modalName=='RadioModal'?'show':''}}" bindtap='hideModal' style='position: absolute;'>
   <view class="cu-dialog" catchtap>

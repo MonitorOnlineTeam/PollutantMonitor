@@ -1,6 +1,6 @@
 {
   "usingComponents": {
-    "ec-canvas": "../../../dist/ec-canvas/ec-canvas"
+    "ff-canvas": "../../../miniprogram_npm/@antv/f2-canvas"
   },
   "navigationBarBackgroundColor": "#cce6ff",
   "navigationBarTextStyle": "black",

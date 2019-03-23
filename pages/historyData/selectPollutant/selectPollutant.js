@@ -53,6 +53,22 @@ Page({
   reloadData() {
     const items = this.data.items;
     let length = items.filter(m => m.checked == true);
+    if (length.length==0)
+    {
+      wx.showModal({
+        title: '提示',
+        content: '最少选择一种污染物',
+        showCancel: false,
+        success(res) {
+          if (res.confirm) {
+            console.log('用户点击确定')
+          } else if (res.cancel) {
+            console.log('用户点击取消')
+          }
+        }
+      })
+      return false;
+    }
     common.setStorage('selectedPollutants', length);
     wx.switchTab({
       url: '/pages/historyData/home/home'
@@ -78,7 +94,9 @@ Page({
               code: item.pollutantCode,
               name: item.pollutantName,
               unit: item.unit,
-              checked: false
+              checked: false,
+              color:'',
+              value:'-'
             });
           })
           this.setData({

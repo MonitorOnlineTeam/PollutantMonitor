@@ -1,6 +1,29 @@
 // pages/historyData/historyDataTransverse/historyDataTransverse.js
-import * as echarts from '../../../dist/ec-canvas/echarts';
+import F2 from '../../../miniprogram_npm/@antv/f2-canvas/lib/f2-all.min.js';
+const moment = require('../../../utils/moment.min.js');
 const app = getApp();
+const comApi = app.api;
+const common = app.common;
+// ['#feac36', '#8de9c0', '#c79ef4', '#fd8593', '#9aabf7', '#97e3f1', '#f4a387'],
+let chart = null;
+const selectTimeFormat = {
+  0: {
+    showFormat: 'YYYY-MM-DD HH:mm',
+    chartFormat: 'HH:mm'
+  },
+  1: {
+    showFormat: 'YYYY-MM-DD HH:00',
+    chartFormat: 'HH:mm'
+  },
+  2: {
+    showFormat: 'YYYY-MM-DD',
+    chartFormat: 'HH:mm'
+  },
+  3: {
+    showFormat: 'YYYY-MM',
+    chartFormat: 'MM-DD'
+  }
+}
 Page({
 
   /**
@@ -9,27 +32,32 @@ Page({
   data: {
     StatusBar: app.globalData.StatusBar,
     CustomBar: app.globalData.CustomBar,
+    dataType: 0,
     loadProgress: 0,
     time: '12:01',
-    isDisposed: false,
-    ec: {
+    TabCur: 0,
+    tabList: ['5分钟', '小时', '日', '月'],
+    selectTab: 1,
+    selectValue: 0,
+    opts: {
       lazyLoad: true
     },
-    isLoaded: false,
-    TabCur: 0,
-    scrollLeft: 0,
-    tabList: ['5分钟', '小时', '日', '月'],
-    selectTab: 1
+    DGIMN: '',
+    selectedPollutants: [],
+    chartDatas: [],
+    tipsData:[],
+    selectedDate: ''
   },
   tabSelect(e) {
-    console.log(e);
-    // this.setData({
-    //   TabCur: e.currentTarget.dataset.id,
-    //   scrollLeft: (e.currentTarget.dataset.id - 1) * 60
-    // })
     this.setData({
-      selectTab: e.currentTarget.dataset.id,
-      // scrollLeft: (e.currentTarget.dataset.id - 1) * 60
+      dataType: e.currentTarget.dataset.id,
+      selectedDate: moment(common.getStorage('selectedDate')).format(selectTimeFormat[e.currentTarget.dataset.id].showFormat),
+    })
+    this.getData();
+  },
+  onChangeDate(e) {
+    wx.navigateTo({
+      url: '../selectDateTime/selectDateTime?dataType=' + this.data.dataType
     })
   },
   navigateBack() {
@@ -69,119 +97,205 @@ Page({
       url: '../historyDataTransverse/historyDataTransverse'
     })
   },
-
-  // 初始化图表
-  init: function () {
-    this.ecComponent.init((canvas, width, height) => {
-      console.log(width, height)
-      // 获取组件的 canvas、width、height 后的回调函数
-      // 在这里初始化图表
-      const chart = echarts.init(canvas, null, {
-        width: width,
-        height: height
-      });
-      this.setOption(chart);
-
-      // 将图表实例绑定到 this 上，可以在其他成员函数（如 dispose）中访问
-      this.chart = chart;
-
-      this.setData({
-        isLoaded: true,
-        isDisposed: false
-      });
-
-      // 注意这里一定要返回 chart 实例，否则会影响事件处理等
-      return chart;
-    });
-  },
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-    this.ecComponent = this.selectComponent('#mychart-dom-line');
+  onLoad: function(options) {
 
-    console.log(this.ecComponent);
-    this.init();
+    this.chartComponent = this.selectComponent('#line-dom');
+    let selectedPollutants = common.getStorage('selectedPollutants') || [];
+    let selectedDate = common.getStorage('selectedDate');
+    //debugger
+    if(!selectedDate)
+    {
+      selectedDate = moment().format(selectTimeFormat[this.data.dataType].showFormat);
+    }else
+    {
+      selectedDate = moment(selectedDate).format(selectTimeFormat[this.data.dataType].showFormat);
+    }
+    
+
+    this.setData({
+      DGIMN: common.getStorage('DGIMN'),
+      selectedPollutants: selectedPollutants,
+      tipsData: selectedPollutants,
+      selectedDate: selectedDate,
+    });
+    common.setStorage('selectedDate', selectedDate);
+    // if (!selectedPollutants)
+    // {
+      
+    //   let tipsData=[];
+    //   selectedPollutants.map(function(item){
+    //     tipsData.push({
+
+    //     });
+    //   });
+    // }
+
+    //this.getData();
   },
-  //图表重绘
-  setOption: function (chart) {
+  initChart: function() {
+    let that = this;
+    this.chartComponent.init((canvas, width, height, F2) => {
+      chart = new F2.Chart({
+        el: canvas,
+        width,
+        height,
+        padding: [50, 20, 'auto', 50]
+      });
 
-    var option = {
-      color: ['#feac36', '#8de9c0', '#c79ef4', '#fd8593', '#9aabf7', '#97e3f1', '#f4a387'],
-      tooltip: {
-
-        trigger: 'axis',
-
-        extraCssText: 'transform: rotate(90deg)'
-
-      },
-      grid: {
-        right: '20%',
-        left: '20%',
-        bottom: '2%'
-      },
-      xAxis: {
-
-        type: 'value', //数据
-
-        position: 'top', //x 轴的位置【top bottom】
-
-        nameRotate: -90, //坐标轴名字旋转，角度值。
-
-        axisLabel: {  //坐标轴刻度标签的相关设置。
-
-          rotate: 90 //刻度标签旋转的角度，
-
+      var Global = F2.Global;
+      var data = this.data.chartDatas;
+      var margin = 1 / data.length;
+      chart.source(data, {
+        'MonitorTime': {
+          type: 'timeCat',
+          mask: selectTimeFormat[this.data.dataType].chartFormat,
+          // tickCount: 6,
+          range: [0, 1]
         },
+        'Value': {
+          type: 'linear',
+          tickCount: 5,
+        }
+        // population: {
+        //   tickCount: 5
+        // },
+        // country: {
+        //   range: [margin / 4, 1 - margin / 4] // 配置 range 范围，使左右两边不留边距
+        // }
+      });
 
-        scale: true, //是否是脱离 0 值比例
+      chart.coord({
+        transposed: true
+      });
+      chart.legend(false);
+      chart.axis('MonitorTime', {
+        line: Global._defaultAxis.line,
+        grid: null,
+        labelOffset: 20,
+        label: {
+          rotate: 1.59,
+          textAlign: 'center',
+          textBaseline: 'middle'
+        }
+      });
+      chart.axis('Value', {
+        position: 'right',
+        line: null,
+        grid: Global._defaultAxis.grid,
+        labelOffset: 10,
+        label: {
+          rotate: 1.59,
+          textAlign: 'end',
+          textBaseline: 'middle'
+        }
+      });
+      chart.tooltip({
+        showXTip: false,
+        // showYTip: true,
+        showCrosshairs: true,
+        custom: true, // 自定义 tooltip 内容框
+        onChange(obj) {
 
-      },
-      legend: {
-        data: ['邮件营销', '联盟广告'],
-        // right: '0%',
-        // top:'30%',
-        // orient: 'vertical',
-        rotate: -90
-      },
-      yAxis: {
 
-        type: 'category',
+          // const legend = chart.get('legendController').legends.right[0];
+          const tooltipItems = obj.items;
+          // //debugger
+          // const legendItems = legend.items;
+          const map = {};
+          // legendItems.map(item => {
+          //   map[item.name] = Object.assign({}, item);
+          // });
+          let thisTip=[];
+          that.data.selectedPollutants.map(function(item,index){
+            //debugger;
+            let thisData = tooltipItems.filter(m=>m.name==item.name);
+            //item.name = `${item.name} /${item.unit}`;
+            if (thisData && thisData.length>0)
+            {
+              item.name = `${ item.name }`;
+              item.color = thisData[0].color;
+              item.value = thisData[0].value;
+            }
+            
+            thisTip.push(item);
+          })
+          that.setData({
+            tipsData: thisTip
+            });
+          // tooltipItems.map(item => {
+          //   const {
+          //     color,
+          //     origin
+          //   } = item;
+          //     //debugger;
+          //   // that.setData({
+          //   //   tipData: color
+          //   // });
+          // });
+          // legend.setItems(Object.values(map));
+        }
+      });
+      chart.line().position('MonitorTime*Value').color('PollutantName');
+      // chart.area().position('country*population');
+      chart.render();
 
-        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+      return chart;
+    })
+  },
+  //获取监控数据
+  getData: function() {
+    let {
+      selectedPollutant,
+      dataType,
+      selectedDate,
+      selectedPollutants
+    } = this.data;
 
-        inverse: 'true', //是否是反向坐标轴。
+    let pollutantCodes = [];
 
-        axisLabel: {
+    selectedPollutants.map(function(item) {
+      pollutantCodes.push(item.code);
+    });
+    //debugger;
+    comApi.getMonitorDatas(pollutantCodes.join(','), dataType, selectedDate).then(res => {
+      console.log('getMonitorDatas', res);
+      console.log('selectedPollutants', selectedPollutants);
+      if (res && res.IsSuccess && res.Data) {
+        let thisData = res.Data;
+        let chartDatas = [];
+        let xAxisData = [];
+        let seriesData = [];
+        let index = 0;
 
-          rotate: -90
+        thisData.map(function(itemD) {
+          selectedPollutants.map(function(itemP) {
+            chartDatas.push({
+              PollutantName: `${itemP.name}`,
+              Value: itemD[itemP.code],
+              MonitorTime: itemD.MonitorTime,
+              Status: 0,
+              PollutantCode: itemP.code,
+              Unit: itemP.unit
+            });
+          });
+        });
 
-        },
-
-      },
-
-      series: [{
-        name: '邮件营销',
-        data: [820, 932, 901, 934, 1290, 1330, 1320],
-        areaStyle: {},
-        type: 'line',
-        smooth: true //是否平滑曲线显示
-      },
-      {
-        name: '联盟广告',
-        data: [720, 932, 501, 834, 790, 1330, 1320],
-        areaStyle: {},
-        type: 'line',
-        smooth: true //是否平滑曲线显示
-      }]
-    };
-    chart.setOption(option);
+        this.setData({
+          chartDatas: chartDatas
+        });
+        this.initChart();
+      }
+      wx.hideNavigationBarLoading();
+    })
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
     // let that = this;
     // that.init();
   },
@@ -189,42 +303,63 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
-
+  onShow: function() {
+    this.setData({
+      selectedDate: moment(common.getStorage('selectedDate')).format(selectTimeFormat[this.data.dataType].showFormat),
+      selectedPollutants: common.getStorage('selectedPollutants') || []
+    });
+    if (!common.getStorage('selectedPollutants')) {
+      wx.showModal({
+        title: '提示',
+        content: '请先选择污染物',
+        showCancel: false,
+        success(res) {
+          if (res.confirm) {
+            wx.navigateTo({
+              url: '../selectPollutant/selectPollutant'
+            })
+          } else if (res.cancel) {
+            console.log('用户点击取消')
+          }
+        }
+      })
+      return false;
+    }
+    this.getData();
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   }
 })

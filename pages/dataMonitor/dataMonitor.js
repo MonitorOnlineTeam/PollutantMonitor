@@ -1,5 +1,5 @@
 // pages/dataMonitor/dataMonitor.js
-import * as echarts from '../../dist/ec-canvas/echarts';
+// import * as echarts from '../../dist/ec-canvas/echarts';
 const moment = require('../../utils/moment.min.js')
 const app = getApp()
 const comApi = app.api;
