@@ -87,5 +87,88 @@ Page({
       url: '../visitHistory/visitHistory'
     })
   },
+  clickScan: function () {
+    //http://api.chsdl.cn/wxwryapi?flag=sdl&mn=62262431qlsp01
+    wx.scanCode({
+      success(res) {
+        if (res.errMsg == 'scanCode:ok') {
+
+          try {
+            //var scene = decodeURIComponent(options.scene);
+            var scene = res.result;
+            var arrPara = scene.split("?");
+            let mn = '';
+            if (arrPara.length > 1) {
+              arrPara = arrPara[1].split("&");
+              var arr = [];
+
+              for (var i in arrPara) {
+                arr = arrPara[i].split("=");
+                if (arr[0] === 'mn' && arr[1]) {
+                  mn = arr[1];
+                }
+                //wx.setStorageSync(arr[0], arr[1]);
+                console.log("setStorageSync:", arr[0], "=", arr[1]);
+              }
+              console.log(mn)
+              if (mn) {
+                comApi.verifyDGIMN(mn).then(res => {
+                  console.log(res);
+                  if (res && res.IsSuccess && res.Data) {
+                    common.setStorage("DGIMN", mn);
+                    // wx.switchTab({
+                    //   url: '../realTimeData/realTimeData'
+                    // })
+                    wx.navigateTo({
+                      url: '../device/device'
+                    })
+                  } else {
+                    wx.showModal({
+                      title: '提示',
+                      content: '无法识别，请重试',
+                      showCancel: false,
+                      success(res) {
+                        if (res.confirm) {
+                          console.log('用户点击确定')
+                        } else if (res.cancel) {
+                          console.log('用户点击取消')
+                        }
+                      }
+                    })
+                  }
+                })
+              }
+            } else {
+              wx.showModal({
+                title: '提示',
+                content: '无法识别，请重试',
+                showCancel: false,
+                success(res) {
+                  if (res.confirm) {
+                    console.log('用户点击确定')
+                  } else if (res.cancel) {
+                    console.log('用户点击取消')
+                  }
+                }
+              })
+            }
+          } catch (e) {
+            wx.showToast({
+              icon: 'none',
+              title: '无法识别二维码'
+            })
+          }
+        }
+        console.log(res)
+      },
+      fail: res => {
+        // 接口调用失败
+        // wx.showToast({
+        //   icon: 'none',
+        //   title: '二维码识别无效'
+        // })
+      }
+    })
+  },
 
 })

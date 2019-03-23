@@ -2,7 +2,7 @@
 
 
 <view>
-  <view class='globleClass'>
-    <image style="width: {{scrollWidth  }}px;height: {{ scrollHeight }}px" class='rotateClass' src='/images/GyProcessPic.jpg'></image>
+  <view class='globleClass' bindtouchmove="touchmoveCallback" bindtouchstart="touchstartCallback">
+    <image style="width: {{ touch.scaleWidth }}px;height: {{ touch.scaleHeight }}px" class='rotateClass' src='/images/GyProcessPic.jpg'></image>
   </view>
 </view>

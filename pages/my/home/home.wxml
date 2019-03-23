@@ -9,7 +9,7 @@
 
 <view class='QRcodeClass'>
   <view class="cu-list menu">
-    <view class="cu-item {{'arrow'}}">
+    <view class="cu-item {{'arrow'}}" bindtap='clickScan'>
       <view>
         <image src='/images/QRicons.png' class='imageClass'></image>
       </view>
