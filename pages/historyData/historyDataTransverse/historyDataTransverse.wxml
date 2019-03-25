@@ -71,8 +71,9 @@
       <view class='legend-item'>
         <block wx:for="{{tipsData}}" wx:key="{{index}}">
           <text class='icon-title' style='color:{{item.color}}'></text>{{item.name}}/{{item.unit}}:
-          <text>{{item.value}}</text>
-
+          <text wx:if="{{item.status==0}}">{{item.value}}</text>
+          <text wx:elif="{{item.status==1}}" style="color:rgb(255, 0, 0)">{{item.value}}</text>
+          <text wx:elif="{{item.status==-1}}" style="color:#efac36">{{item.value}}</text>
         </block>
       </view>
 

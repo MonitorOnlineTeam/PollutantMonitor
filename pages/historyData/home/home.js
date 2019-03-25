@@ -40,6 +40,8 @@ Page({
     chartDatas: [],
     selectedDate: '',
     tabList: ['5分钟', '小时', '日', '月'],
+    legendHeight:8,
+    tipsData:[]
   },
   tabSelect(e) {
     // console.log(e);
@@ -94,7 +96,7 @@ Page({
       selectedDate: selectedDate
     });
     common.setStorage('selectedDate', selectedDate);
-    this.getData();
+    //this.getData();
   },
 
   /**
@@ -191,10 +193,30 @@ Page({
     } = this.data;
     
     let pollutantCodes = [];
-
+    let tipsData=[];
     selectedPollutants.map(function(item) {
       pollutantCodes.push(item.code);
+      tipsData.push({
+        name: `${item.name}`,
+        color: item.color,
+        value: item.value,
+        status: item.Value,
+        unit: item.unit
+      });
     });
+    if (selectedPollutants.length>3)
+    {
+      this.setData({
+        legendHeight: 12,
+        tipsData: tipsData
+      });
+    }else
+    {
+      this.setData({
+        legendHeight: 8,
+        tipsData: tipsData
+      });
+    }
     //debugger;
     comApi.getMonitorDatas(pollutantCodes.join(','), dataType, selectedDate).then(res => {
       console.log('getMonitorDatas', res);
@@ -202,14 +224,27 @@ Page({
       if (res && res.IsSuccess && res.Data) {
         let thisData = res.Data;
         let chartDatas = [];
+        thisData.map(function (itemD) {
+          let row = itemD;
 
-        thisData.map(function(itemD) {
-          selectedPollutants.map(function(itemP) {
+          selectedPollutants.map(function (itemP) {
+            let statusFlag = row[`${itemP.code}_params`];
+            let status = 0;
+            if (statusFlag) {
+              let flagArray = statusFlag.split('§');
+              if (flagArray[0] === 'IsOver') {
+                status = 1;
+              } else if (flagArray[0] === 'IsException') {
+                status = -1;
+              }
+            }
             chartDatas.push({
-              PollutantName: `${itemP.name}/${itemP.unit}`,
+              PollutantName: `${itemP.name}`,
               Value: itemD[itemP.code],
               MonitorTime: itemD.MonitorTime,
-              Status: 0
+              Status: status,
+              PollutantCode: itemP.code,
+              Unit: itemP.unit
             });
           });
         });
@@ -217,12 +252,14 @@ Page({
         this.setData({
           chartDatas: chartDatas
         });
+        //console.log(chartDatas);
         this.initChart();
       }
       wx.hideNavigationBarLoading();
     })
   },
   initChart: function() {
+    let that = this;
     this.chartComponent.init((canvas, width, height, F2) => {
       const arr = this.data.chartDatas;
       const chart = new F2.Chart({
@@ -243,11 +280,12 @@ Page({
           tickCount: 5,
         }
       });
-      chart.legend('PollutantName', {
-        position: 'top',
-        // offsetY: 40,
-        // labelOffset: 60,
-      });
+      chart.legend(false);
+      // chart.legend('PollutantName', {
+      //   position: 'top',
+      //   // offsetY: 40,
+      //   // labelOffset: 60,
+      // });
       chart.axis('MonitorTime', {
         // labelOffset: 40,
         label(text, index, total) {
@@ -269,26 +307,25 @@ Page({
         showCrosshairs: true,
         custom: true, // 自定义 tooltip 内容框
         onChange(obj) {
-          const legend = chart.get('legendController').legends.top[0];
           const tooltipItems = obj.items;
-          //debugger
-          const legendItems = legend.items;
           const map = {};
-          legendItems.map(item => {
-            map[item.name] = Object.assign({}, item);
-          });
-          tooltipItems.map(item => {
-            const {
-              name,
-              value,
-              title,
-              orign
-            } = item;
-            if (map[name]) {
-              map[name].value = `${value}`;
+          let thisTip = [];
+          that.data.selectedPollutants.map(function (item, index) {
+            let thisData = tooltipItems.filter(m => m.name == item.name);
+            if (thisData && thisData.length > 0) {
+              let {
+                origin
+              } = thisData[0];
+              item.name = `${item.name}`;
+              item.color = thisData[0].color;
+              item.value = thisData[0].value;
+              item.status = origin.Status;
             }
+            thisTip.push(item);
+          })
+          that.setData({
+            tipsData: thisTip
           });
-          legend.setItems(Object.values(map));
         },
         onHide() {
           // const legend = chart.get('legendController').legends.top[0];

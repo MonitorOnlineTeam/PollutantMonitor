@@ -5,7 +5,7 @@
   </view>
 </view>
 
- <view class="bg-white">
+<view class="bg-white">
   <view class="flex solid-top padding justify-between">
     <view class='' bindtap="onChangePollutant" data-target="RadioModal">选择污染物
       <text class='icon-filter sm'></text>
@@ -22,7 +22,17 @@
 <cover-view style='position:absolute;right:10rpx;top:13.5%;z-index:1;' bindtap="horizontalScreen">
   <cover-view class='text-blue'>横屏</cover-view>
 </cover-view>
-<view class='container'>
+<view class='legend-container' style='height:{{legendHeight}}vh'>
+  <view class='legend-content'>
+    <view class='lengend-item' wx:for="{{tipsData}}" wx:key="{{index}}">
+      <text class='icon-title' style='color:{{item.color}}'></text>{{item.name}}/{{item.unit}}:
+      <text wx:if="{{item.status==0}}">{{item.value}}</text>
+      <text wx:elif="{{item.status==1}}" style="color:rgb(255, 0, 0)">{{item.value}}</text>
+      <text wx:elif="{{item.status==-1}}" style="color:#efac36">{{item.value}}</text>
+    </view>
+  </view>
+</view>
+<view class='container' style='height:{{legendHeight>=8?(81-legendHeight-8):81}}vh'>
   <ff-canvas id="line-dom" canvas-id="line" opts="{{ opts }}"></ff-canvas>
 </view>
 

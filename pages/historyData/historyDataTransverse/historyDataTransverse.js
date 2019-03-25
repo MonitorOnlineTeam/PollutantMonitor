@@ -45,7 +45,7 @@ Page({
     DGIMN: '',
     selectedPollutants: [],
     chartDatas: [],
-    tipsData:[],
+    tipsData: [],
     selectedDate: ''
   },
   tabSelect(e) {
@@ -106,14 +106,12 @@ Page({
     let selectedPollutants = common.getStorage('selectedPollutants') || [];
     let selectedDate = common.getStorage('selectedDate');
     //debugger
-    if(!selectedDate)
-    {
+    if (!selectedDate) {
       selectedDate = moment().format(selectTimeFormat[this.data.dataType].showFormat);
-    }else
-    {
+    } else {
       selectedDate = moment(selectedDate).format(selectTimeFormat[this.data.dataType].showFormat);
     }
-    
+
 
     this.setData({
       DGIMN: common.getStorage('DGIMN'),
@@ -124,7 +122,7 @@ Page({
     common.setStorage('selectedDate', selectedDate);
     // if (!selectedPollutants)
     // {
-      
+
     //   let tipsData=[];
     //   selectedPollutants.map(function(item){
     //     tipsData.push({
@@ -198,44 +196,25 @@ Page({
         showCrosshairs: true,
         custom: true, // 自定义 tooltip 内容框
         onChange(obj) {
-
-
-          // const legend = chart.get('legendController').legends.right[0];
           const tooltipItems = obj.items;
-          // //debugger
-          // const legendItems = legend.items;
           const map = {};
-          // legendItems.map(item => {
-          //   map[item.name] = Object.assign({}, item);
-          // });
-          let thisTip=[];
-          that.data.selectedPollutants.map(function(item,index){
-            //debugger;
-            let thisData = tooltipItems.filter(m=>m.name==item.name);
-            //item.name = `${item.name} /${item.unit}`;
-            if (thisData && thisData.length>0)
-            {
+          let thisTip = [];
+          that.data.selectedPollutants.map(function(item, index) {
+            let thisData = tooltipItems.filter(m => m.name == item.name);
+            if (thisData && thisData.length > 0) {
+              let {
+                origin
+              } = thisData[0];
               item.name = `${ item.name }`;
               item.color = thisData[0].color;
               item.value = thisData[0].value;
+              item.status = origin.Status;
             }
-            
             thisTip.push(item);
           })
           that.setData({
             tipsData: thisTip
-            });
-          // tooltipItems.map(item => {
-          //   const {
-          //     color,
-          //     origin
-          //   } = item;
-          //     //debugger;
-          //   // that.setData({
-          //   //   tipData: color
-          //   // });
-          // });
-          // legend.setItems(Object.values(map));
+          });
         }
       });
       chart.line().position('MonitorTime*Value').color('PollutantName');
@@ -266,17 +245,25 @@ Page({
       if (res && res.IsSuccess && res.Data) {
         let thisData = res.Data;
         let chartDatas = [];
-        let xAxisData = [];
-        let seriesData = [];
-        let index = 0;
-
         thisData.map(function(itemD) {
+          let row = itemD;
+
           selectedPollutants.map(function(itemP) {
+            let statusFlag = row[`${itemP.code}_params`];
+            let status = 0;
+            if (statusFlag) {
+              let flagArray = statusFlag.split('§');
+              if (flagArray[0] === 'IsOver') {
+                status = 1;
+              } else if (flagArray[0] === 'IsException') {
+                status = -1;
+              }
+            }
             chartDatas.push({
               PollutantName: `${itemP.name}`,
               Value: itemD[itemP.code],
               MonitorTime: itemD.MonitorTime,
-              Status: 0,
+              Status: status,
               PollutantCode: itemP.code,
               Unit: itemP.unit
             });
@@ -286,6 +273,7 @@ Page({
         this.setData({
           chartDatas: chartDatas
         });
+        //console.log(chartDatas);
         this.initChart();
       }
       wx.hideNavigationBarLoading();
