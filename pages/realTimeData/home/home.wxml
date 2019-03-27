@@ -22,9 +22,9 @@
     </view>
   </view>
   <!-- 第二部分（工艺流程图） -->
-  <view>
-    <image class='imgClass' src='/images/GyProcessPic.jpg' bindtap="horizontalScreen"></image>
-    <!-- <image mode='scaleToFill' src='/images/GyProcessPic.jpg' bindtouchstart='touchStartHandle' bindtouchmove='touchMoveHandle' bindload='load' style="width: {{ touch.scaleWidth }}px;height: {{ touch.scaleHeight }}px"></image> -->
+  <view bindtap="horizontalScreen" class='tu'>
+    <image class='imgClass' src='/images/gongyi.png'></image>
+    <image class='fangda' src='/images/fangda.png'></image>
   </view>
   <!-- 第三部分（列表） -->
   <view class="table">
@@ -35,14 +35,18 @@
       <view class="th">状态</view>
     </view>
     <block wx:for="{{dataitem}}" wx:key="{{pollutantCode}}">
-      <view class="tr {{item.pollutantName==selectedRow? 'tab-text-color active': 'tab-text-color'}} ">
-        <view class="td">{{item.pollutantName||'-'}}</view>
-        <view class="td">{{item.value}}</view>
-        <view class="td">{{item.unit||'-'}}</view>
-        <view class="tdOver" id="{{item.identificationCode}}" data-identificationName="{{item.identificationName}}" data-overMultiple="{{item.overMultiple}}" data-pollutantName="{{item.pollutantName}}" bindtap="showModal" data-target="ChooseModal" wx:if="{{item.identificationCode == '1'}}">超标</view>
-        <view class="tdException" id="{{item.identificationCode}}" data-identificationName="{{item.identificationName}}" data-overMultiple="{{item.overMultiple}}" bindtap="showModal" data-target="ChooseModal" wx:elif="{{item.identificationCode == '-1'}}">
+      <view class="tr {{item.pollutantName==selectedRow? 'tab-text-color active': 'tab-text-color'}} " bindtap="showModal" data-obj="{{item}}" data-target="ChooseModal">
+        <view class="td {{item.identificationCode == '1'?'tdOver': item.identificationCode=='-1'?'tdException':''}}">{{item.pollutantName||'-'}}</view>
+        <view class="td {{item.identificationCode == '1'?'tdOver': item.identificationCode=='-1'?'tdException':''}}">{{item.value}}</view>
+        <view class="td {{item.identificationCode == '1'?'tdOver': item.identificationCode=='-1'?'tdException':''}}">{{item.unit||'-'}}</view>
+        <view class="tdOver" wx:if="{{item.identificationCode == '1'}}">超标</view>
+        <view class="tdException" wx:elif="{{item.identificationCode == '-1'}}">
           异常
         </view>
+        <!-- <view class="tdOver" id="{{item.identificationCode}}" data-identificationName="{{item.identificationName}}" data-overMultiple="{{item.overMultiple}}" data-pollutantName="{{item.pollutantName}}" bindtap="showModal" data-target="ChooseModal" wx:if="{{item.identificationCode == '1'}}">超标</view>
+        <view class="tdException" id="{{item.identificationCode}}" data-identificationName="{{item.identificationName}}" data-overMultiple="{{item.overMultiple}}" bindtap="showModal" data-target="ChooseModal" wx:elif="{{item.identificationCode == '-1'}}">
+          异常
+        </view> -->
         <view class="tdNormal" wx:else>正常</view>
       </view>
     </block>
@@ -54,11 +58,15 @@
 <view class="cu-modal bottom-modal {{modalName=='ChooseModal'?'show':''}}" bindtap='hideModal'>
   <view class="cu-dialog" catchtap>
     <view>
+
       <view class='descriptionClass' wx:if="{{identificationCode==1}}">
         超标倍数：
         <text class='overClass'>{{overMultiple}} 倍</text>
       </view>
-
+      <view class='descriptionClass' wx:if="{{identificationCode==1}}">
+        监测标准：
+        <text class=''>{{standValue||'-'}}</text>
+      </view>
       <view class='descriptionClass' wx:else>
         异常情况：
         <text class='exceptionClass'>{{identificationName}} 倍</text>

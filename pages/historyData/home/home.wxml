@@ -18,21 +18,21 @@
     </view>
   </view>
 </view>
-
-<cover-view style='position:absolute;right:10rpx;top:13.5%;z-index:1;' bindtap="horizontalScreen">
+<!-- <cover-image style='' bindtap="horizontalScreen" src='/images/fangda.png' class='fangda'></cover-image> -->
+<!-- <cover-view style='position:absolute;right:10rpx;top:13.5%;z-index:1;' bindtap="horizontalScreen">
   <cover-view class='text-blue'>横屏</cover-view>
-</cover-view>
-<view class='legend-container' style='height:{{legendHeight}}vh'>
+</cover-view> -->
+<!-- <view class='legend-container' style='height:{{legendHeight}}vh'>
   <view class='legend-content'>
     <view class='lengend-item' wx:for="{{tipsData}}" wx:key="{{index}}">
       <text class='icon-title' style='color:{{item.color}}'></text>{{item.name}}/{{item.unit}}:
-      <text wx:if="{{item.status==0}}">{{item.value}}</text>
+      <text wx:if="{{item.status==0}}" style="color:#333">{{item.value}}</text>
       <text wx:elif="{{item.status==1}}" style="color:rgb(255, 0, 0)">{{item.value}}</text>
       <text wx:elif="{{item.status==-1}}" style="color:#efac36">{{item.value}}</text>
     </view>
   </view>
-</view>
-<view class='container' style='height:{{legendHeight>=8?(81-legendHeight-8):81}}vh'>
+</view> -->
+<view class='container' style=''>
   <ff-canvas id="line-dom" canvas-id="line" opts="{{ opts }}"></ff-canvas>
 </view>
 
@@ -41,19 +41,20 @@
   <ec-canvas id="mychart-dom-line" canvas-id="mychart-line" ec="{{ ec }}"></ec-canvas>
 </view> -->
 
-<!-- <view class="bg-white  margin-top" style='position: absolute;top:63.5%;width:100%'>
+<view class="bg-white  margin-top" style='position: absolute;top:69%;width:100%'>
   <scroll-view class='list-view' scroll-y="true">
-    <view class='grid col-3'>
-      <view class='padding-sm' wx:for="{{ColorList}}" wx:key>
-        <view class='bg-blue light padding radius text-left shadow-blur'>
-          <view class='data-tag' style="background-image:url(/images/exception.png);"></view>
-          <view class="text-lg text-black">{{item.title}}</view>
-          <view class='margin-top-sm  text-black'>{{item.value}}/{{item.unit}}</view>
+    <view class='grid col-3' style='padding-left:15rpx;padding-right:15rpx;'>
+      <view class='padding-sm' style='padding:9rpx;' wx:for="{{tipsData}}" wx:key>
+        <view class='bg-blue light radius text-left shadow-blur' style='padding-left:12rpx;padding-top:20rpx;padding-bottom:20rpx;'>
+          <image wx:if="{{item.Status=='-1'}}" class='data-tag' src='/images/exception.png'></image>
+          <image wx:elif="{{item.Status=='1'}}" class='data-tag' src='/images/overdata.png'></image>
+          <view class="text-black" style='font-size:30rpx;'>{{item.PollutantName}}</view>
+          <view class='margin-top-sm  text-black'>{{item.Value}} {{item.Unit}}</view>
         </view>
       </view>
     </view>
   </scroll-view>
-</view> -->
+</view>
 
 <!-- <view class="cu-modal {{modalName=='RadioModal'?'show':''}}" bindtap='hideModal' style='position: absolute;'>
   <view class="cu-dialog" catchtap>

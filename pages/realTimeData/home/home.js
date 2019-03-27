@@ -13,33 +13,8 @@ Page({
     identificationName: '', //异常详情
     identificationCode: '', //标识
     overMultiple: '', //超标倍数
-    pointInfo: null,
-    // dataitem: [{
-    //     "pollutantName": "二氧化硫",
-    //     "value": "250",
-    //     "unit": "mg/m³",
-    //     "identificationCode": "-1",
-    //     "identificationName": "异常51256",
-    //     "overMultiple": "66",
-
-    //   },
-    //   {
-    //     "pollutantName": "氮氧化物",
-    //     "value": "250",
-    //     "unit": "mg/m³",
-    //     "identificationCode": "1",
-    //     "identificationName": "异常121212",
-    //     "overMultiple": "66",
-    //   },
-    //   {
-    //     "pollutantName": "烟尘",
-    //     "value": "250",
-    //     "unit": "mg/m³",
-    //     "identificationCode": "-1",
-    //     "identificationName": "异常99999",
-    //     "overMultiple": "66",
-    //   }
-    // ],
+    standValue:'',
+    pointInfo: null
   },
 
   /**
@@ -53,6 +28,7 @@ Page({
     //   });
     //   this.onPullDownRefresh();
     // }
+    this.onPullDownRefresh();
   },
 
   /**
@@ -139,7 +115,7 @@ Page({
   //获取数据
   getData: function() {
     var pointName = common.getStorage("PointName");
-    if (pointName != "") {
+    if (pointName) {
       wx.setNavigationBarTitle({
         title: pointName,
       })
@@ -175,19 +151,22 @@ Page({
   },
   //超标异常时弹出窗口
   showModal(e) {
-    var id = e.currentTarget.id;
-    const pollutantName = e.currentTarget.dataset.pollutantname;
-    if (id == "1") {
+    //debugger
+    let { pollutantCode, pollutantName, overMultiple, identificationName, identificationCode, standValue} = e.currentTarget.dataset.obj;
+    //var id = pollutantCode; //e.currentTarget.id;
+    //const pollutantName = e.currentTarget.dataset.pollutantname;
+    if (identificationCode == "1") {
       this.setData({
-        identificationCode: id,
-        overMultiple: e.currentTarget.dataset.overmultiple,
+        identificationCode: identificationCode,
+        overMultiple: overMultiple,//e.currentTarget.dataset.overmultiple,
         modalName: e.currentTarget.dataset.target,
-        selectedRow: pollutantName
+        selectedRow: pollutantName,
+        standValue: standValue
       })
-    } else {
+    } else if (identificationCode == "-1") {
       this.setData({
-        identificationCode: id,
-        identificationName: e.currentTarget.dataset.identificationname,
+        identificationCode: identificationCode,
+        identificationName: identificationName,//e.currentTarget.dataset.identificationname,
         modalName: e.currentTarget.dataset.target,
         selectedRow: pollutantName
       })

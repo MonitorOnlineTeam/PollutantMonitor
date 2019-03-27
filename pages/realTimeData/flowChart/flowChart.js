@@ -1,4 +1,8 @@
 // pages/realTimeData/flowChart/flowChart.js
+const moment = require('../../../utils/moment.min.js');
+const app = getApp();
+const comApi = app.api;
+const common = app.common;
 Page({
 
   /**
@@ -12,65 +16,37 @@ Page({
       baseHeight: null,
       scaleWidth: null,
       scaleHeight: null
-    }
-  },
-  touchstartCallback: function(e) {
-    // 单手指缩放开始，也不做任何处理 if(e.touches.length == 1) return console.log('双手指触发开始')
-    // 注意touchstartCallback 真正代码的开始 // 一开始我并没有这个回调函数，会出现缩小的时候有瞬间被放大过程的bug // 当两根手指放上去的时候，就将distance 初始化。 let xMove = e.touches[1].clientX - e.touches[0].clientX;
-    let yMove = e.touches[1].clientY - e.touches[0].clientY;
-    let distance = Math.sqrt(xMove * xMove + yMove * yMove);
-    this.setData({
-      'touch.distance': distance,
-    })
-  },
-  touchmoveCallback: function(e) {
-    let touch = this.data.touch
-    // 单手指缩放我们不做任何操作 if(e.touches.length == 1) return console.log('双手指运动')
-    let xMove = e.touches[1].clientX - e.touches[0].clientX;
-    let yMove = e.touches[1].clientY - e.touches[0].clientY;
-    // 新的 ditance let distance = Math.sqrt(xMove * xMove + yMove * yMove);
-    let distanceDiff = distance - touch.distance;
-    let newScale = touch.scale + 0.005 * distanceDiff
-    // 为了防止缩放得太大，所以scale需要限制，同理最小值也是 
-    if (newScale >= 2) {
-      newScale = 2
-    }
-    if (newScale <= 0.6) {
-      newScale = 0.6
-    }
-    let scaleWidth = newScale * touch.baseWidth
-    let scaleHeight = newScale * touch.baseHeight
-    // 赋值 新的 => 旧的 
-    this.setData({
-      'touch.distance': distance,
-      'touch.scale': newScale,
-      'touch.scaleWidth': scaleWidth,
-      'touch.scaleHeight': scaleHeight,
-      'touch.diff': distanceDiff
-    });
-  },
-  bindload: function(e) {
-    // bindload 这个api是<image>组件的api类似<img>的onload属性 
-    this.setData({
-      'touch.baseWidth': e.detail.width,
-      'touch.baseHeight': e.detail.height,
-      'touch.scaleWidth': e.detail.width,
-      'touch.scaleHeight': e.detail.height
-    })
+    },
+    scale: 1,
+    tantouwendu: '暂未上传',
+    guanxianwendu: '暂未上传',
+    zhilengwendu: '暂未上传',
 
+    lvxinxiacigenghuanshijian: '暂未上传',
+    lingqilvxinggenghuanshijian: '暂未上传',
+    quyangbenggenghuanshijian: '暂未上传',
+    rudongbenggenghuanshijian: '暂未上传',
+    guolvqigenghuanshijian: '暂未上传',
+
+    pituoguan: '暂未上传',
+    gognzuozhuangtai: '暂未上传',
+    cemsstauts: '暂未上传',
+    yeweizhi: '暂未上传',
+    jiezhifazhuangtai: '暂未上传',
+    PointName:''
+  },
+  navigateBack() {
+    wx.navigateBack()
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    // wx.getSystemInfo({
-    //   success: function(res) {
-    //     debugger
-    //     scrollWidth: res.windowWidth;
-    //     scrollHeight: res.windowHeight;
-    //   },
-    // })
+    this.setData({
+      PointName: common.getStorage('PointName')
+    });
+    this.getData();
   },
 
   /**
@@ -120,5 +96,57 @@ Page({
    */
   onShareAppMessage: function() {
 
+  },
+  //获取数据
+  getData: function() {
+    // var pointName = common.getStorage("PointName");
+    // if (pointName != "") {
+    //   wx.setNavigationBarTitle({
+    //     title: pointName,
+    //   })
+    // }
+    var resultData = null;
+    comApi.getProcessFlowChartStatus().then(res => {
+      console.log('getProcessFlowChartStatus', res)
+      if (res && res.IsSuccess) {
+        if (res.Data) {
+          var $thisData = res.Data;
+
+          var stateNameInfo = $thisData.stateNameInfo;
+          var operationInfo = $thisData.operationInfo;
+          var stateInfo = $thisData.stateInfo;
+          var paramstatusInfo = $thisData.paramstatusInfo
+
+          this.setData({
+            tantouwendu: !paramstatusInfo['i33003'] ? '暂未上传' : paramstatusInfo['i33003'] + '℃',
+            guanxianwendu: !paramstatusInfo['i33001'] ? '暂未上传' : paramstatusInfo['i33001'] + '℃',
+            zhilengwendu: !paramstatusInfo['i33002'] ? '暂未上传' : paramstatusInfo['i33002'] + '℃',
+
+            lvxinxiacigenghuanshijian: moment(operationInfo['探头滤芯']).format('YYYY-MM-DD') || '暂未上传',
+            lingqilvxinggenghuanshijian: moment(operationInfo['调节阀滤芯']).format('YYYY-MM-DD') || '暂未上传',
+            quyangbenggenghuanshijian: moment(operationInfo['取样泵']).format('YYYY-MM-DD') || '暂未上传',
+            rudongbenggenghuanshijian: moment(operationInfo['蠕动泵']).format('YYYY-MM-DD') || '暂未上传',
+            guolvqigenghuanshijian: moment(operationInfo['过滤器']).format('YYYY-MM-DD') || '暂未上传',
+
+            pituoguan: this.getValue(stateInfo, 'i12106')[0] || '暂未上传',
+            pituoguanColor: (+(this.getValue(stateInfo, 'i12106')[1])) > 0 ? 'red' : '',
+            gognzuozhuangtai: this.getValue(stateInfo, 'i12001')[0] || '暂未上传',
+            gognzuozhuangtaiColor: (+(this.getValue(stateInfo, 'i12001')[1])) > 0 ? 'red' : '',
+            cemsstauts: this.getValue(stateInfo, 'i12103')[0] || '暂未上传',
+            cemsstautscolor: (+(this.getValue(stateInfo, 'i12103')[1])) > 0 ? 'red' : '',
+            yeweizhi: paramstatusInfo['i33501'] || '暂未上传',
+            jiezhifazhuangtai: this.getValue(stateInfo, 'i12104')[0] || '暂未上传',
+            jiezhifazhuangtaicolor: (+(this.getValue(stateInfo, 'i12104')[1])) > 0 ? 'red' : '',
+          })
+        }
+      }
+      wx.hideNavigationBarLoading();
+    })
+  },
+  getValue: function(data, obj) {
+    //debugger
+    if (!data[obj])
+      return [undefined,undefined];
+    return data[obj].split('_');
   }
 })

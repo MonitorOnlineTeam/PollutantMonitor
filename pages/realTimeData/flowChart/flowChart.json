@@ -6,5 +6,6 @@
   "navigationBarTitleText": "3号脱硫出口",
   "backgroundColor": "#fff",
   "backgroundTextStyle": "light",
-  "pageOrientation": "landscape"
+  "pageOrientation": "landscape",
+  "navigationStyle": "custom"
 }

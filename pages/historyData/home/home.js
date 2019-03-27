@@ -40,8 +40,8 @@ Page({
     chartDatas: [],
     selectedDate: '',
     tabList: ['5分钟', '小时', '日', '月'],
-    legendHeight:8,
-    tipsData:[]
+    legendHeight: 8,
+    tipsData: []
   },
   tabSelect(e) {
     // console.log(e);
@@ -96,7 +96,7 @@ Page({
       selectedDate: selectedDate
     });
     common.setStorage('selectedDate', selectedDate);
-    //this.getData();
+    this.onPullDownRefresh();
   },
 
   /**
@@ -116,6 +116,12 @@ Page({
       selectedDate: moment(common.getStorage('selectedDate')).format(selectTimeFormat[this.data.dataType].showFormat),
       selectedPollutants: common.getStorage('selectedPollutants') || []
     });
+    var pointName = common.getStorage("PointName");
+    if (pointName != "") {
+      wx.setNavigationBarTitle({
+        title: pointName,
+      })
+    }
     if (!common.getStorage('selectedPollutants')) {
       wx.showModal({
         title: '提示',
@@ -133,7 +139,15 @@ Page({
       })
       return false;
     }
-    this.getData();
+
+    if (this.data.DGIMN !== common.getStorage('DGIMN')) {
+      this.setData({
+        DGIMN: common.getStorage('DGIMN')
+      });
+      //this.getData();
+
+    }
+    this.onPullDownRefresh();
   },
 
   /**
@@ -184,16 +198,16 @@ Page({
   },
   //获取监控数据
   getData: function() {
-    
+
     let {
       selectedPollutant,
       dataType,
       selectedDate,
       selectedPollutants
     } = this.data;
-    
+
     let pollutantCodes = [];
-    let tipsData=[];
+    let tipsData = [];
     selectedPollutants.map(function(item) {
       pollutantCodes.push(item.code);
       tipsData.push({
@@ -204,14 +218,12 @@ Page({
         unit: item.unit
       });
     });
-    if (selectedPollutants.length>3)
-    {
+    if (selectedPollutants.length >= 3) {
       this.setData({
         legendHeight: 12,
         tipsData: tipsData
       });
-    }else
-    {
+    } else {
       this.setData({
         legendHeight: 8,
         tipsData: tipsData
@@ -224,10 +236,10 @@ Page({
       if (res && res.IsSuccess && res.Data) {
         let thisData = res.Data;
         let chartDatas = [];
-        thisData.map(function (itemD) {
+        thisData.map(function(itemD, index) {
           let row = itemD;
 
-          selectedPollutants.map(function (itemP) {
+          selectedPollutants.map(function(itemP) {
             let statusFlag = row[`${itemP.code}_params`];
             let status = 0;
             if (statusFlag) {
@@ -260,6 +272,10 @@ Page({
   },
   initChart: function() {
     let that = this;
+    let {
+      selectedPollutants,
+      dataType
+    } = this.data;
     this.chartComponent.init((canvas, width, height, F2) => {
       const arr = this.data.chartDatas;
       const chart = new F2.Chart({
@@ -270,70 +286,75 @@ Page({
       });
       chart.source(arr, {
         'MonitorTime': {
-          type: 'timeCat',
-          mask: selectTimeFormat[this.data.dataType].chartFormat,
+          // type: 'timeCat',
+          // mask: selectTimeFormat[dataType].chartFormat,
           tickCount: 6,
           range: [0, 1]
         },
         'Value': {
           type: 'linear',
-          tickCount: 5,
+          tickCount: 7,
         }
       });
-      chart.legend(false);
-      // chart.legend('PollutantName', {
-      //   position: 'top',
-      //   // offsetY: 40,
-      //   // labelOffset: 60,
-      // });
+      //chart.legend(false);
+      chart.legend('PollutantName', {
+        position: 'top',
+        offsetY: selectedPollutants.length > 4 ? 33 : 20,
+        align: 'center',
+        nameStyle: {
+          fontSize: '14', // 文本大小
+        },
+        marker: {
+          symbol: 'circle', // marker 的形状
+          radius: 4 // 半径大小
+        },
+        // labelOffset: 60,
+      });
       chart.axis('MonitorTime', {
         // labelOffset: 40,
         label(text, index, total) {
+          //console.log(text);
           const cfg = {
-            textAlign: 'center'
+            textAlign: 'center',
+            text: moment(text).format(selectTimeFormat[dataType].chartFormat)
           };
           if (index === 0) {
             cfg.textAlign = 'left';
+            if (dataType!=3)
+            cfg.text = moment(text).format(selectTimeFormat[dataType].chartFormat) + `\n${moment(text).format('MM-DD')}`; 
           }
           if (index > 0 && index === total - 1) {
             cfg.textAlign = 'right';
+            if (dataType != 3)
+            cfg.text = moment(text).format(selectTimeFormat[dataType].chartFormat) + `\n${moment(text).format('MM-DD')}`; 
           }
           return cfg;
         }
       });
       chart.tooltip({
         showXTip: true,
+        // showTitle: true,
+        layout: 'vertical',
         // showYTip: true,
+        snap: true,
         showCrosshairs: true,
-        custom: true, // 自定义 tooltip 内容框
-        onChange(obj) {
-          const tooltipItems = obj.items;
-          const map = {};
+        onShow(obj) {
           let thisTip = [];
-          that.data.selectedPollutants.map(function (item, index) {
-            let thisData = tooltipItems.filter(m => m.name == item.name);
-            if (thisData && thisData.length > 0) {
-              let {
-                origin
-              } = thisData[0];
-              item.name = `${item.name}`;
-              item.color = thisData[0].color;
-              item.value = thisData[0].value;
-              item.status = origin.Status;
-            }
-            thisTip.push(item);
-          })
-          that.setData({
-            tipsData: thisTip
-          });
-        },
-        onHide() {
-          // const legend = chart.get('legendController').legends.top[0];
-          // legend.setItems(chart.getLegendItems().country);
-        }
+          if (obj.items.length > 0) {
+            obj.items.map(function(item) {
+              thisTip.push(item.origin);
+            });
+            that.setData({
+              tipsData: thisTip
+            });
+          }
+        }, // tooltip 显示时的回调函数
+        onHide(obj) {
+          
+        }, // tooltip 隐藏时的回调函数
       });
-      // chart.area().position('MonitorTime*Value').color('PollutantName');
-      chart.line().position('MonitorTime*Value').color('PollutantName');
+      //chart.area().position('MonitorTime*Value').color('PollutantName', ['#feac36', '#8de9c0', '#c79ef4', '#fd8593', '#9aabf7', '#97e3f1', '#f4a387']);
+      chart.line().position('MonitorTime*Value').color('PollutantName', ['#feac36', '#8de9c0', '#c79ef4', '#fd8593', '#9aabf7', '#97e3f1', '#f4a387']);
       chart.render();
       return chart;
     });

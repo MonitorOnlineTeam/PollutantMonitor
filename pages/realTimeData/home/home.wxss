@@ -149,8 +149,17 @@
 }
 
 .imgClass {
+  /* position: absolute; */
   width: 100%;
   margin-top: 6px;
+  height:35vh;
+}
+.fangda{
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: 160rpx;
+  right: 15rpx;
 }
 
 .img-plus-style {

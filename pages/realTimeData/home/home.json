@@ -5,5 +5,7 @@
   "navigationBarTextStyle": "black",
   "navigationBarTitleText": "3号脱硫出口",
   "backgroundColor": "#fff",
-  "backgroundTextStyle": "light"
+  "backgroundTextStyle": "light",
+  "enablePullDownRefresh": true,
+  "onPullDownRefresh": true
 }

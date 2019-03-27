@@ -120,7 +120,7 @@ Page({
                     //   url: '../realTimeData/realTimeData'
                     // })
                     wx.navigateTo({
-                      url: '../device/device'
+                      url: '/pages/realTimeData/home/home'
                     })
                   } else {
                     wx.showModal({

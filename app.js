@@ -24,6 +24,7 @@ App({
    */
   onLaunch: function() {
     common.setStorage('DGIMN', '62262431qlsp02')
+    common.setStorage("PointName", '10号脱硫出口');
     wx.getSystemInfo({
       success: e => {
         this.globalData.StatusBar = e.statusBarHeight;

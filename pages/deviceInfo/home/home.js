@@ -34,6 +34,8 @@ Page({
     //   });
     //   this.onPullDownRefresh();
     // }
+
+    this.onPullDownRefresh();
   },
 
   /**

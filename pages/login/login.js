@@ -8,7 +8,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    phoneCode: '18601364063'
+    phoneCode: ''//18601364063
   },
   phone(val) {
     this.setData({

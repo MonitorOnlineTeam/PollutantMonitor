@@ -23,6 +23,7 @@
   color: rgb(139, 136, 136);
   margin-bottom: 0rpx;
   font-size: 25rpx;
+  padding-right: 20rpx;
 }
 .container {
   /* position: absolute;
@@ -37,13 +38,13 @@
   box-sizing: border-box; *//* background-color: #fff; */
   /* height: 81vh; */
   background-color: #fff;
-  /* margin-top: 10rpx; */
+  margin-top: 10rpx;
 }
 
 ff-canvas {
   position: absolute;
   width: 100%;
-  height: 380px;
+  height: 53vh;
   background-color: #fff;
   z-index: 9999;
 }
@@ -76,10 +77,10 @@ button {
 }
 
 .data-tag {
-  background-image: url(/images/exception.png);
+  /* background-image: url(/images/exception.png); */
   background-size: 100% 100%;
-  width: 80rpx;
-  height: 45rpx;
+  width: 60rpx;
+  height: 34rpx;
   position: absolute;
   right: 0rpx;
   top: 0rpx;
@@ -117,4 +118,12 @@ button {
   justify-content: space-around;
   align-items: center;
   background: #fff;
+}
+.fangda{
+  width: 20px;
+  height: 20px;
+  position:absolute;
+  right:15rpx;
+  top:18.5%;
+  z-index:1;
 }
