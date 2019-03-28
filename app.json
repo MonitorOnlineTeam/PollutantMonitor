@@ -4,10 +4,6 @@
     "pages/historyData/home/home",
     "pages/historyData/selectPollutant/selectPollutant",
     "pages/historyData/historyDataTransverse/historyDataTransverse",
-    "pages/proving/proving",
-    "pages/device/device",
-    "pages/dataMonitor/dataMonitor",
-    "pages/realTimeData/realTimeData",
     "pages/logs/logs",
     "pages/deviceInfo/deviceInfo",
     "pages/realTimeData/home/home",
@@ -18,8 +14,7 @@
     "pages/my/visitHistory/visitHistory",
     "pages/my/feedBack/feedBack",
     "pages/authPage/authPage",
-    "pages/historyData/selectDateTime/selectDateTime",
-    "pages/historyData/homeTransverse/homeTransverse"
+    "pages/historyData/selectDateTime/selectDateTime"
   ],
   "window": {
     "navigationBarBackgroundColor": "#56A6FF",
