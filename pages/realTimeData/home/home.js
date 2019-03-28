@@ -21,13 +21,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
-    // if (common.getStorage('IsHaveHistory')) {
-    //   this.setData({
-    //     DGIMN: common.getStorage('DGIMN')
-    //   });
-    //   this.onPullDownRefresh();
-    // }
     this.onPullDownRefresh();
   },
 
@@ -120,22 +113,16 @@ Page({
         title: pointName,
       })
     }
-    var resultData = null;
+    var resultData ={
+      dataitem:[],
+      pointInfo:{}
+    };
     comApi.getRealTimeDataForPoint().then(res => {
       if (res && res.IsSuccess) {
         if (res.Data) {
           let data = res.Data;
-          this.setData({
-            dataitem: data.dataitem,
-            pointInfo: data.pointInfo,
-          })
-        } else {
-          wx.showModal({
-            title: '提示',
-            content: '暂无数据，请重试',
-            showCancel: false,
-            success(res) {}
-          })
+          resultData.dataitem = data.dataitem || [];
+          resultData.pointInfo = data.pointInfo;
         }
       } else {
         wx.showModal({
@@ -146,6 +133,10 @@ Page({
           }
         })
       }
+      this.setData({
+        dataitem: resultData.dataitem,
+        pointInfo: resultData.pointInfo,
+      })
       wx.hideNavigationBarLoading();
     })
   },
@@ -153,12 +144,10 @@ Page({
   showModal(e) {
     //debugger
     let { pollutantCode, pollutantName, overMultiple, identificationName, identificationCode, standValue} = e.currentTarget.dataset.obj;
-    //var id = pollutantCode; //e.currentTarget.id;
-    //const pollutantName = e.currentTarget.dataset.pollutantname;
     if (identificationCode == "1") {
       this.setData({
         identificationCode: identificationCode,
-        overMultiple: overMultiple,//e.currentTarget.dataset.overmultiple,
+        overMultiple: overMultiple,
         modalName: e.currentTarget.dataset.target,
         selectedRow: pollutantName,
         standValue: standValue
@@ -166,7 +155,7 @@ Page({
     } else if (identificationCode == "-1") {
       this.setData({
         identificationCode: identificationCode,
-        identificationName: identificationName,//e.currentTarget.dataset.identificationname,
+        identificationName: identificationName,
         modalName: e.currentTarget.dataset.target,
         selectedRow: pollutantName
       })

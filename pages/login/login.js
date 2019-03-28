@@ -35,6 +35,7 @@ Page({
         if (res && res.IsSuccess) {
           if (res.Data) {
             common.setStorage("OpenId", res.Data);
+            common.setStorage("PhoneCode", phone);
             app.getUserInfo();
           }
         } else {
@@ -59,7 +60,13 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
+    if (common.getStorage("PhoneCode"))
+    {
+      this.setData({
+        phoneCode: common.getStorage("PhoneCode")
+      });
+      this.btnLogin();
+    }
   },
 
   /**

@@ -1,18 +1,24 @@
 <!--pages/realTimeData/flowChart/flowChart.wxml-->
 
+<movable-area scale-area>
+        <movable-view direction="all" bindchange="onChange"  scale  scale-value="{{scale}}"><image src='/images/point.png' mode='aspectFit'></image>
+        <text class='imgContent cemsstauts' style='color:{{cemsstautscolor}};'>CEMS运行状态:{{cemsstauts}}</text></movable-view>
+        
+      </movable-area>
+
 <!-- <movable-area scale-area>
   <movable-view direction="all" bindchange="onChange" bindscale="onScale" scale scale-min="0.5" scale-max="4" scale-value="{{scale}}">
-    <image src='/images/gongyi.png' mode='aspectFit'></image>
+    <image src='/images/point.png' mode='aspectFit'></image>
    
   </movable-view>
   
 </movable-area> -->
 
-<view class="container">
+<!-- <view class="container">
   <view class='img'>
-    <image src="/images/gongyi.png" style="width: 400vh;height: 100vh"></image>
+    <image src="/images/point.png" style="width: 400vh;height: 100vh"></image> -->
    
-      <text class='imgContent yacha'>压差:{{yacha||'暂未上传'}}</text>
+      <!-- <text class='imgContent yacha'>压差:{{yacha||'暂未上传'}}</text>
       <text class='imgContent pituoguan' style='color:{{pituoguanColor}}'>皮托管吹扫:{{pituoguan}}</text>
       <text class='imgContent tantouwendu'>探头温度:{{tantouwendu}}</text>
       <text class='imgContent gognzuozhuangtai' style='color:{{gognzuozhuangtaiColor}}'>工作状态:{{gognzuozhuangtai}}</text>
@@ -24,9 +30,9 @@
       <text class='imgContent quyangbenggenghuanshijian'>取样泵下次更换:{{quyangbenggenghuanshijian}}</text>
       <text class='imgContent rudongbenggenghuanshijian'>蠕动泵下次更换:{{rudongbenggenghuanshijian}}</text>
       <text class='imgContent guolvqigenghuanshijian'>过滤器下次更换:{{guolvqigenghuanshijian}}</text>
-      <text class='imgContent yeweizhi'>液位值:{{yeweizhi}}</text>
-      <text class='imgContent cemsstauts' style='color:{{cemsstautscolor}}'>CEMS运行状态:{{cemsstauts}}</text>
+      <text class='imgContent yeweizhi'>液位值:{{yeweizhi}}</text> -->
+      <!-- <text class='imgContent cemsstauts' style='color:{{cemsstautscolor}}'>CEMS运行状态:{{cemsstauts}}</text>
       <button class='imgContent cu-btn round sm' bindtap='navigateBack'>返回-{{PointName}}</button>
   </view>
 
-</view>
+</view> -->

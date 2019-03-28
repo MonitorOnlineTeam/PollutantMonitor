@@ -135,6 +135,11 @@ Page({
   },
   initChart: function() {
     let that = this;
+    let {
+      selectedPollutants,
+      dataType,
+      chartDatas
+    } = this.data;
     this.chartComponent.init((canvas, width, height, F2) => {
       chart = new F2.Chart({
         el: canvas,
@@ -144,14 +149,14 @@ Page({
       });
 
       var Global = F2.Global;
-      var data = this.data.chartDatas;
+      var data = chartDatas;
       var margin = 1 / data.length;
       chart.source(data, {
         'MonitorTime': {
-          type: 'timeCat',
-          mask: selectTimeFormat[this.data.dataType].chartFormat,
-          // tickCount: 6,
-          range: [0, 1]
+          // type: 'timeCat',
+          // mask: selectTimeFormat[dataType].chartFormat,
+          tickCount: 7,
+          //range: [0, 1]
         },
         'Value': {
           type: 'linear',
@@ -170,15 +175,31 @@ Page({
       });
       chart.legend(false);
       chart.axis('MonitorTime', {
-        line: Global._defaultAxis.line,
-        grid: null,
+        // line: Global._defaultAxis.line,
+        // grid: null,
         labelOffset: 20,
-        label: {
-          rotate: 1.59,
-          textAlign: 'center',
-          textBaseline: 'middle'
+        label(text, index, total) {
+          console.log(text);
+          const cfg = {
+            textAlign: 'center',
+            text: moment(text).format(selectTimeFormat[dataType].chartFormat),
+            rotate: 1.59,
+            // textBaseline: 'middle'
+          };
+          if (index === 0) {
+            cfg.textAlign = 'right';
+            if (dataType != 3)
+              cfg.text = moment(text).format(selectTimeFormat[dataType].chartFormat) + `\n${moment(text).format('MM-DD')}`;
+          }
+          if (index > 0 && index === total - 1) {
+            //cfg.textAlign = 'right';
+            if (dataType != 3)
+              cfg.text = moment(text).format(selectTimeFormat[dataType].chartFormat) + `\n${moment(text).format('MM-DD')}`;
+          }
+          return cfg;
         }
       });
+      
       chart.axis('Value', {
         position: 'right',
         line: null,
@@ -186,14 +207,27 @@ Page({
         labelOffset: 10,
         label: {
           rotate: 1.59,
-          textAlign: 'end',
-          textBaseline: 'middle'
+          //textAlign: 'end',
+          //textBaseline: 'middle'
         }
       });
       chart.tooltip({
-        showXTip: false,
-        // showYTip: true,
+        //showXTip: true,
+        showYTip: true,
         showCrosshairs: true,
+        crosshairsType: 'x',
+        yTip: function yTip(val) {
+          return {
+            text: moment(val).format(selectTimeFormat[dataType].chartFormat),
+            fill: '#fff',
+            rotate: 1.59,
+          };
+        },
+        yTipBackground: {
+          radius: 1,
+          fill: 'rgba(0, 0, 0, 0.65)',
+          padding: [20, 1]
+        },
         custom: true, // 自定义 tooltip 内容框
         onChange(obj) {
           const tooltipItems = obj.items;

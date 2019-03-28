@@ -119,7 +119,12 @@ Page({
       selectTime: moment(selectedDate.format('YYYY-MM-DD HH:mm:00')).valueOf()
 
     });
-
+    var pointName = common.getStorage("PointName");
+    if (pointName) {
+      wx.setNavigationBarTitle({
+        title: pointName,
+      })
+    }
     // console.log(this.data.dataType);
   },
 

@@ -33,13 +33,7 @@ App({
         this.globalData.CustomBar = custom.bottom + custom.top - e.statusBarHeight;
       }
     })
-
-    //TODO：判断是否需要输入设备密码  缓存用则跳转到 wode  没有的话，跳转到设备密码界面
-    if (!common.getStorage('OpenId')) {
-      this.login();
-    } else {
-      this.getUserInfo();
-    }
+    this.login();
   },
   redirectTo: function(url) {
     wx.switchTab({
@@ -47,19 +41,10 @@ App({
     })
   },
   login: function() {
-    // 登录
+    // 微信登录
     wx.login({
       success: res => {
         common.setStorage("WxCode", res.code);
-        common.setStorage("IsHaveHistory", false);
-        console.log('login', res)
-        console.log('OpenId', common.getStorage('OpenId'))
-        //common.setStorage('DGIMN', '62262431qlsp02')
-        if (!common.getStorage('OpenId')) {
-          console.log('OpenId1', common.getStorage('OpenId'))
-        } else {
-          this.getUserInfo();
-        }
       }
     })
   },

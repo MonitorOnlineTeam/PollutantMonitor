@@ -1,4 +1,7 @@
 // pages/realTimeData/flowChart/flowChart.js
+
+// "pageOrientation": "landscape",
+//   "navigationStyle": "custom"
 const moment = require('../../../utils/moment.min.js');
 const app = getApp();
 const comApi = app.api;
@@ -17,7 +20,7 @@ Page({
       scaleWidth: null,
       scaleHeight: null
     },
-    scale: 1,
+    scale: 1.5,
     tantouwendu: '暂未上传',
     guanxianwendu: '暂未上传',
     zhilengwendu: '暂未上传',
@@ -105,6 +108,12 @@ Page({
     //     title: pointName,
     //   })
     // }
+    var pointName = common.getStorage("PointName");
+    if (pointName) {
+      wx.setNavigationBarTitle({
+        title: pointName,
+      })
+    }
     var resultData = null;
     comApi.getProcessFlowChartStatus().then(res => {
       console.log('getProcessFlowChartStatus', res)

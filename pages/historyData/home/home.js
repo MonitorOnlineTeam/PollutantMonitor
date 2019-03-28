@@ -230,15 +230,15 @@ Page({
       });
     }
     //debugger;
+    let chartDatas = [];
     comApi.getMonitorDatas(pollutantCodes.join(','), dataType, selectedDate).then(res => {
       console.log('getMonitorDatas', res);
       console.log('selectedPollutants', selectedPollutants);
       if (res && res.IsSuccess && res.Data) {
         let thisData = res.Data;
-        let chartDatas = [];
+        
         thisData.map(function(itemD, index) {
           let row = itemD;
-
           selectedPollutants.map(function(itemP) {
             let statusFlag = row[`${itemP.code}_params`];
             let status = 0;
@@ -260,14 +260,15 @@ Page({
             });
           });
         });
-
-        this.setData({
-          chartDatas: chartDatas
-        });
-        //console.log(chartDatas);
-        this.initChart();
-      }
+        
+      };
       wx.hideNavigationBarLoading();
+      this.setData({
+        chartDatas: chartDatas
+      });
+      this.chartComponent = this.selectComponent('#line-dom');
+      this.initChart();
+      
     })
   },
   initChart: function() {
@@ -299,7 +300,7 @@ Page({
       //chart.legend(false);
       chart.legend('PollutantName', {
         position: 'top',
-        offsetY: selectedPollutants.length > 4 ? 33 : 20,
+        offsetY: selectedPollutants.length > 4 ? 33 : 0,
         align: 'center',
         nameStyle: {
           fontSize: '14', // 文本大小

@@ -1,29 +1,33 @@
 <!--pages/realTimeData/home/home.wxml-->
-<!-- <text>pages/realTimeData/home/home.wxml</text> -->
-<view>
-  <!--  第一部分  -->
-  <view>
-    <view class='content1'>
-      <view class='states'>
-        <image src='/images/states.png' class='png' mode='aspectFit'></image>
+<!--  第一部分  -->
+<view class='top'>
+  <view class='top-content'>
+    <view class='top-content-left'>
+      <view class='content-top'>
+        <image src='/images/states.png' mode='aspectFit'></image>
         <text class='txtClass'>排口状态</text>
       </view>
-      <view class='statesTextOffLine' wx:if="{{pointInfo.status==0}}">{{pointInfo.statusName}}</view>
-      <view class='statesTextOnLine' wx:elif="{{pointInfo.status==1}}">{{pointInfo.statusName}}</view>
-      <view class='statesTextOver' wx:elif="{{pointInfo.status==2}}">{{pointInfo.statusName}}</view>
-      <view class='statesTextException' wx:else>{{pointInfo.statusName}}</view>
+      <view class='content-bottom OffLine' wx:if="{{pointInfo.status==0}}">{{pointInfo.statusName||'-'}}</view>
+      <view class='content-bottom OnLine' wx:elif="{{pointInfo.status==1}}">{{pointInfo.statusName||'-'}}</view>
+      <view class='content-bottom Over' wx:elif="{{pointInfo.status==2}}">{{pointInfo.statusName||'-'}}</view>
+      <view class='content-bottom Exception' wx:else>{{pointInfo.statusName||'-'}}</view>
     </view>
-    <view class='content2'>
-      <view class='datetime'>
-        <image src='/images/datetimes.png' class='png' mode='aspectFit'></image>
+    <view class='top-content-right'>
+      <view class='content-top'>
+        <image src='/images/datetimes.png' mode='aspectFit'></image>
         <text class='txtClass'>监测时间</text>
       </view>
-      <view class='datetimeText'>{{pointInfo.mointorTime}}</view>
+      <view class='content-bottom'>
+        {{pointInfo.mointorTime||'-'}}
+      </view>
     </view>
   </view>
+</view>
+<view>
+
   <!-- 第二部分（工艺流程图） -->
   <view bindtap="horizontalScreen" class='tu'>
-    <image class='imgClass' src='/images/gongyi.png'></image>
+    <image class='imgClass' src='/images/point.png' style='background-color:#fff;padding:16rpx;'></image>
     <image class='fangda' src='/images/fangda.png'></image>
   </view>
   <!-- 第三部分（列表） -->
@@ -34,6 +38,9 @@
       <view class="th ">单位</view>
       <view class="th">状态</view>
     </view>
+    <view wx:if="{{dataitem.length==0}}" class='tr' style='color:#ccc'>
+      暂无数据
+    </view>
     <block wx:for="{{dataitem}}" wx:key="{{pollutantCode}}">
       <view class="tr {{item.pollutantName==selectedRow? 'tab-text-color active': 'tab-text-color'}} " bindtap="showModal" data-obj="{{item}}" data-target="ChooseModal">
         <view class="td {{item.identificationCode == '1'?'tdOver': item.identificationCode=='-1'?'tdException':''}}">{{item.pollutantName||'-'}}</view>
@@ -43,10 +50,6 @@
         <view class="tdException" wx:elif="{{item.identificationCode == '-1'}}">
           异常
         </view>
-        <!-- <view class="tdOver" id="{{item.identificationCode}}" data-identificationName="{{item.identificationName}}" data-overMultiple="{{item.overMultiple}}" data-pollutantName="{{item.pollutantName}}" bindtap="showModal" data-target="ChooseModal" wx:if="{{item.identificationCode == '1'}}">超标</view>
-        <view class="tdException" id="{{item.identificationCode}}" data-identificationName="{{item.identificationName}}" data-overMultiple="{{item.overMultiple}}" bindtap="showModal" data-target="ChooseModal" wx:elif="{{item.identificationCode == '-1'}}">
-          异常
-        </view> -->
         <view class="tdNormal" wx:else>正常</view>
       </view>
     </block>
@@ -69,7 +72,7 @@
       </view>
       <view class='descriptionClass' wx:else>
         异常情况：
-        <text class='exceptionClass'>{{identificationName}} 倍</text>
+        <text class='exceptionClass'>{{identificationName}}</text>
       </view>
     </view>
   </view>

@@ -17,9 +17,9 @@
     "pages/my/home/home",
     "pages/my/visitHistory/visitHistory",
     "pages/my/feedBack/feedBack",
-    
     "pages/authPage/authPage",
-    "pages/historyData/selectDateTime/selectDateTime"
+    "pages/historyData/selectDateTime/selectDateTime",
+    "pages/historyData/homeTransverse/homeTransverse"
   ],
   "window": {
     "navigationBarBackgroundColor": "#56A6FF",
