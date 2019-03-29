@@ -39,7 +39,7 @@ Page({
     selectedPollutants: [],
     chartDatas: [],
     selectedDate: '',
-    tabList: ['5分钟', '小时', '日', '月'],
+    tabList: ['分钟', '小时', '日', '月'],
     legendHeight: 8,
     tipsData: []
   },
@@ -300,7 +300,7 @@ Page({
       //chart.legend(false);
       chart.legend('PollutantName', {
         position: 'top',
-        offsetY: selectedPollutants.length > 4 ? 33 : 0,
+        offsetY: selectedPollutants.length>= 4 ? 33 : 15,
         align: 'center',
         nameStyle: {
           fontSize: '14', // 文本大小
@@ -357,6 +357,12 @@ Page({
       //chart.area().position('MonitorTime*Value').color('PollutantName', ['#feac36', '#8de9c0', '#c79ef4', '#fd8593', '#9aabf7', '#97e3f1', '#f4a387']);
       chart.line().position('MonitorTime*Value').color('PollutantName', ['#feac36', '#8de9c0', '#c79ef4', '#fd8593', '#9aabf7', '#97e3f1', '#f4a387']);
       chart.render();
+      // 默认展示 tooltip
+      if (arr.length>0)
+      {
+        var point = chart.getPosition(arr[arr.length - 1]); // 获取该数据的画布坐标
+        chart.showTooltip(point); // 展示该点的 tooltip
+      }
       return chart;
     });
   }

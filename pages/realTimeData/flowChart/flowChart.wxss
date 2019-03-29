@@ -1,15 +1,5 @@
 /* pages/realTimeData/flowChart/flowChart.wxss */
 
-movable-view {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  width: 100vh;
-  background: #fff;
-  color: #fff;  
-}
-
 movable-area {
   height: 100vh;
   width: 100vh;
@@ -17,26 +7,20 @@ movable-area {
   overflow: hidden;
   /* transform: rotate(90deg); */
 }
-
-/* movable-view {
-  height: 135vh;
-  width: 104vh;
-  color: #fff;
-
-} */
+movable-view {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 310vh;
+  background: #fff;
+  color: #fff;  
+}
 
 image {
   width: 100%;
   height: 100%;
 }
-
-/* movable-area {
-  height: 100vh;
-  width: 100vh;
-  background-color: #ccc;
-  overflow: hidden;
-  transform: rotate(90deg);
-} */
 
 .container {
   overflow: hidden;
@@ -120,8 +104,8 @@ image {
 }
 
 .cemsstauts {
-  font-size: 16rpx;
-  top:24%;left:11%;
+  font-size: 30rpx;
+  top:7%;left:30%;
   color: rgb(0, 0, 0);
 }
 

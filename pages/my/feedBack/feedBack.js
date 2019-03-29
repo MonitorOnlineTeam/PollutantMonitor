@@ -132,6 +132,7 @@ Page({
         content: '邮箱格式不正确',
         showCancel: false,
       })
+      wx.hideNavigationBarLoading();
     }
   }
 })

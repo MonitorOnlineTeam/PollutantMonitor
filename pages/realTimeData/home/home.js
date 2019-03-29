@@ -124,15 +124,16 @@ Page({
           resultData.dataitem = data.dataitem || [];
           resultData.pointInfo = data.pointInfo;
         }
-      } else {
-        wx.showModal({
-          title: '提示',
-          content: '网络错误，请重试',
-          showCancel: false,
-          success(res) {
-          }
-        })
       }
+      // else {
+      //   wx.showModal({
+      //     title: '提示',
+      //     content: '网络错误，请重试',
+      //     showCancel: false,
+      //     success(res) {
+      //     }
+      //   })
+      // }
       this.setData({
         dataitem: resultData.dataitem,
         pointInfo: resultData.pointInfo,

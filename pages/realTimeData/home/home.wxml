@@ -43,14 +43,14 @@
     </view>
     <block wx:for="{{dataitem}}" wx:key="{{pollutantCode}}">
       <view class="tr {{item.pollutantName==selectedRow? 'tab-text-color active': 'tab-text-color'}} " bindtap="showModal" data-obj="{{item}}" data-target="ChooseModal">
-        <view class="td {{item.identificationCode == '1'?'tdOver': item.identificationCode=='-1'?'tdException':''}}">{{item.pollutantName||'-'}}</view>
-        <view class="td {{item.identificationCode == '1'?'tdOver': item.identificationCode=='-1'?'tdException':''}}">{{item.value}}</view>
-        <view class="td {{item.identificationCode == '1'?'tdOver': item.identificationCode=='-1'?'tdException':''}}">{{item.unit||'-'}}</view>
-        <view class="tdOver" wx:if="{{item.identificationCode == '1'}}">超标</view>
-        <view class="tdException" wx:elif="{{item.identificationCode == '-1'}}">
+        <view class="td {{item.identificationCode == '1'?'Over': item.identificationCode=='-1'?'Exception':''}}">{{item.pollutantName||'-'}}</view>
+        <view class="td {{item.identificationCode == '1'?'Over': item.identificationCode=='-1'?'Exception':''}}">{{item.value}}</view>
+        <view class="td {{item.identificationCode == '1'?'Over': item.identificationCode=='-1'?'Exception':''}}">{{item.unit||'-'}}</view>
+        <view class="td Over" wx:if="{{item.identificationCode == '1'}}">超标</view>
+        <view class="td Exception" wx:elif="{{item.identificationCode == '-1'}}">
           异常
         </view>
-        <view class="tdNormal" wx:else>正常</view>
+        <view class="td" wx:else>正常</view>
       </view>
     </block>
   </view>
@@ -64,7 +64,7 @@
 
       <view class='descriptionClass' wx:if="{{identificationCode==1}}">
         超标倍数：
-        <text class='overClass'>{{overMultiple}} 倍</text>
+        <text class='Over'>{{overMultiple}} 倍</text>
       </view>
       <view class='descriptionClass' wx:if="{{identificationCode==1}}">
         监测标准：
@@ -72,7 +72,7 @@
       </view>
       <view class='descriptionClass' wx:else>
         异常情况：
-        <text class='exceptionClass'>{{identificationName}}</text>
+        <text class='Exception'>{{identificationName}}</text>
       </view>
     </view>
   </view>

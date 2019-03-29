@@ -2,6 +2,7 @@
 <!-- <text>pages/login/login.wxml</text> -->
 <view class="warp">
   <image src="../../images/login_bg.jpg" class='imageClass'></image>
+ 
   <view class="phoneClass">
     <label class='lableClass'>手机号</label>
     <input class='inputClass' type='number' maxlength="11" placeholder="请输入手机号" name='input' bindinput='phone' value='{{phoneCode}}'></input>
@@ -12,4 +13,5 @@
         登录</button>
     </view>
   </view>
+   <image src='../../images/login_1.png' class='imageClassTop'></image>
 </view>

@@ -14,13 +14,13 @@ Page({
   data: {
     touch: {
       distance: 0,
-      scale: 1,
+      scale: 0.5,
       baseWidth: null,
       baseHeight: null,
       scaleWidth: null,
       scaleHeight: null
     },
-    scale: 1.5,
+    scale: 0.5,
     tantouwendu: '暂未上传',
     guanxianwendu: '暂未上传',
     zhilengwendu: '暂未上传',

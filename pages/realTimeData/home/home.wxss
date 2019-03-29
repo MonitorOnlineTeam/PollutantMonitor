@@ -47,21 +47,7 @@
   margin-bottom: 13rpx;
 }
 
-.OffLine {
-  color: #999;
-}
 
-.OnLine {
-  color: #4ec062;
-}
-
-.Over {
-  color: #e64b49;
-}
-
-.Exception {
-  color: #e7983a;
-}
 /* 头部布局 */
 
 /*下面为表格布局 */
@@ -70,6 +56,8 @@
   border: 0px solid darkgray;
   background-color: white;
   margin-top: 4px;
+  padding-left: 26rpx;
+  padding-right: 26rpx;
 }
 
 .tr {
@@ -80,61 +68,29 @@
   align-items: center;
   border-bottom: 1px solid #f3f3f3;
 }
-
-.td {
-  width: 40%;
-  justify-content: center;
-  text-align: center;
-  font-size: 13px;
-}
-
-.tdNormal {
-  width: 40%;
-  justify-content: center;
-  text-align: center;
-  font-size: 13px;
-}
-
-.tdException {
-  width: 40%;
-  justify-content: center;
-  text-align: center;
-  font-size: 13px;
-  color: orange;
-}
-
-.tdOver {
-  width: 40%;
-  justify-content: center;
-  text-align: center;
-  font-size: 13px;
-  color: red;
-}
-
 .th {
   width: 40%;
   justify-content: center;
   display: flex;
-  height: 45px;
+  height: 30rpx;
   align-items: center;
+  color: #333;
 }
+.td {
+  width: 40%;
+  justify-content: center;
+  text-align: center;
+  font-size: 24rpx;
+  color: #666;
+}
+
+
 
 .txtClass {
   vertical-align: middle;
 }
 
-.imgList {
-  width: 100%;
-}
 
-.imgList .imgList-li {
-  width: 100%;
-}
-
-.imgList .imgList-li .img {
-  width: 400rpx;
-  height: 400rpx;
-}
 
 .imgClass {
   /* position: absolute; */
@@ -151,23 +107,6 @@
   right: 15rpx;
 }
 
-.img-plus-style {
-  height: 150rpx;
-  width: 150rpx;
-  position: absolute;
-  bottom: 250rpx;
-  right: 100rpx;
-  z-index: 100;
-}
-
-.img-style {
-  height: 150rpx;
-  width: 150rpx;
-  position: absolute;
-  bottom: 250rpx;
-  right: 100rpx;
-  opacity: 0;
-}
 
 .grid.col-3>view {
   width: 100%;
@@ -208,4 +147,23 @@
 
 .tab-text-color.active {
   background-color: #fcf0bc;
+}
+
+
+
+
+.OffLine {
+  color: #999;
+}
+
+.OnLine {
+  color: #4ec062;
+}
+
+.Over {
+  color:red;
+}
+
+.Exception {
+  color: orange;
 }

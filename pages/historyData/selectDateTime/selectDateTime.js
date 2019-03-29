@@ -103,11 +103,11 @@ Page({
         pickerType = 'datetime';
         break;
       case 2:
-        currentDate = selectedDate.valueOf();
+        currentDate = moment(selectedDate.format('YYYY-MM-DD')).valueOf();
         pickerType = 'date';
         break;
       case 3:
-        currentDate = selectedDate.valueOf();
+        currentDate = moment(selectedDate.format('YYYY-MM-01')).valueOf();
         pickerType = 'year-month';
         break;
     }
@@ -116,7 +116,7 @@ Page({
       currentDate: currentDate,
       maxDate: maxDate,
       pickerType: pickerType,
-      selectTime: moment(selectedDate.format('YYYY-MM-DD HH:mm:00')).valueOf()
+      selectTime: currentDate//moment(selectedDate.format('YYYY-MM-DD HH:mm:00')).valueOf()
 
     });
     var pointName = common.getStorage("PointName");

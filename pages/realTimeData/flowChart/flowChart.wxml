@@ -1,7 +1,7 @@
 <!--pages/realTimeData/flowChart/flowChart.wxml-->
 
 <movable-area scale-area>
-        <movable-view direction="all" bindchange="onChange"  scale  scale-value="{{scale}}"><image src='/images/point.png' mode='aspectFit'></image>
+        <movable-view direction="all" inertia  touch-out-of-bounds bindchange="onChange"  scale  scale-value="{{scale}}"><image src='/images/point.png' mode='aspectFit'></image>
         <text class='imgContent cemsstauts' style='color:{{cemsstautscolor}};'>CEMS运行状态:{{cemsstauts}}</text></movable-view>
         
       </movable-area>

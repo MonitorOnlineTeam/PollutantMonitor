@@ -254,7 +254,11 @@ Page({
       chart.line().position('MonitorTime*Value').color('PollutantName');
       // chart.area().position('country*population');
       chart.render();
-
+      // 默认展示 tooltip
+      if (data.length > 0) {
+        var point = chart.getPosition(data[data.length - 1]); // 获取该数据的画布坐标
+        chart.showTooltip(point); // 展示该点的 tooltip
+      }
       return chart;
     })
   },
