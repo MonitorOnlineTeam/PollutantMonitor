@@ -251,7 +251,7 @@ Page({
           });
         }
       });
-      chart.line().position('MonitorTime*Value').color('PollutantName');
+      chart.line().position('MonitorTime*Value').color('PollutantName', ['#feac36', '#8de9c0', '#c79ef4', '#fd8593', '#9aabf7', '#97e3f1', '#f4a387']);
       // chart.area().position('country*population');
       chart.render();
       // 默认展示 tooltip
