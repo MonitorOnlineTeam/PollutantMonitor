@@ -2,7 +2,7 @@
   //const URL = 'http://localhost:52198/rest/PollutantSourceApi/'
   //const URL = 'http://api.chsdl.cn/WxWryApi/rest/PollutantSourceApi'
   //http://api.chsdl.cn/wxwryapi?flag=sdl&mn=62262431qlsp099
-  const URL = 'http://172.16.30.107/WxWryApi/rest/PollutantSourceApi'
+  const URL = 'https://api.chsdl.net/wxwryapi/rest/PollutantSourceApi'
   const fetch = require('./fetch')
   const common = require('./common.js')
   const moment = require('../utils/moment.min.js')
@@ -25,6 +25,7 @@
     getProcessFlowChartStatus: `/UserInfoApi/GetProcessFlowChartStatus?authorCode=${authorCode}`,
     verifyDevicePwd: `/UserInfoApi/VerifyDevicePwd?authorCode=${authorCode}`,
     verifyPhone: `/UserInfoApi/VerifyPhone?authorCode=${authorCode}`,
+    qRCodeVerifyDGIMN: `/UserInfoApi/QRCodeVerifyDGIMN?authorCode=${authorCode}`,
     verifyDGIMN: `/UserInfoApi/VerifyDGIMN?authorCode=${authorCode}`,
     getRealTimeDataForPoint: `/UserInfoApi/GetRealTimeDataForPoint?authorCode=${authorCode}`,
     addFeedback: `/UserInfoApi/AddFeedback?authorCode=${authorCode}`,
@@ -174,7 +175,7 @@
     } else if (datatype === 2) {
       beginTime = moment(endTime).add(-1, 'day').format('YYYY-MM-DD HH:mm:ss');
       endTime = moment(endTime).add(1, 'day').add(-1, 'seconds').format('YYYY-MM-DD 23:59:59');
-      
+
     } else if (datatype === 3) {
       beginTime = moment(endTime).format('YYYY-MM-01 00:00:00');
       endTime = moment(endTime).add(1, 'months').add(-1, 'seconds').format('YYYY-MM-DD 23:59:59');
@@ -224,6 +225,18 @@
       DGIMN: DGIMN
     }, 'post').then(res => res.data)
   }
+
+/**
+   * 根据扫码获取访问权限
+   * @param  {String}} phone 手机号
+   */
+function qRCodeVerifyDGIMN(DGIMN) {
+  return fetchApi(pageUrl.qRCodeVerifyDGIMN, {
+    DGIMN: DGIMN,
+    OpenId: common.getStorage('OpenId')
+  }, 'post').then(res => res.data)
+}
+
   /**
    * 添加意见反馈
    * @param  {String}} phone 手机号
@@ -248,6 +261,7 @@
     getMonitorDatas,
     verifyDevicePwd,
     verifyPhone,
+    qRCodeVerifyDGIMN,
     verifyDGIMN,
     getRealTimeDataForPoint,
     addFeedback

@@ -8,7 +8,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    phoneCode: ''//18601364063
+    phoneCode: '' //18601364063
   },
   phone(val) {
     this.setData({
@@ -60,13 +60,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    if (common.getStorage("PhoneCode"))
-    {
-      this.setData({
-        phoneCode: common.getStorage("PhoneCode")
-      });
-      this.btnLogin();
-    }
+    //console.log(decodeURIComponent(options.q));
+    this.ValidateDGIMN();
+    
   },
 
   /**
@@ -116,5 +112,46 @@ Page({
    */
   onShareAppMessage: function() {
 
+  },
+  /**
+   * 验证是否为扫码进入系统
+   */
+  ValidateDGIMN: function(options) {
+    if (options && options.q) {
+      let url = decodeURIComponent(options.q);
+      let substr = url.substr(url.lastIndexOf('/') + 1, url.length);
+      if (substr && substr.indexOf('flag=sdl&mn=') >= 0) {
+        let mn = substr.split('&')[1].split('=')[1];
+        if (mn) {
+          comApi.verifyDGIMN(mn).then(res => {
+            if (res && res.IsSuccess) {
+              common.setStorage("DGIMN", mn);
+              if (common.getStorage("PhoneCode")) {
+                this.setData({
+                  phoneCode: common.getStorage("PhoneCode")
+                });
+                this.btnLogin();
+              }
+            } else {
+              //common.setStorage("DGIMN", mn);
+              wx.showModal({
+                title: '提示',
+                content: res.Message,
+                showCancel: false,
+                success(res) {}
+              })
+            }
+          })
+        }
+      }
+    }else
+    {
+      if (common.getStorage("PhoneCode")) {
+        this.setData({
+          phoneCode: common.getStorage("PhoneCode")
+        });
+        this.btnLogin();
+      }
+    }
   }
 })
