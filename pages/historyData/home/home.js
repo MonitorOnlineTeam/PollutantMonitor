@@ -110,12 +110,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    // console.log(common.getStorage('selectedPollutants'));
-    // console.log(common.getStorage('selectedDate'));
-    this.setData({
-      selectedDate: moment(common.getStorage('selectedDate')).format(selectTimeFormat[this.data.dataType].showFormat),
-      selectedPollutants: common.getStorage('selectedPollutants') || []
-    });
+    
     var pointName = common.getStorage("PointName");
     if (pointName != "") {
       wx.setNavigationBarTitle({
@@ -140,14 +135,21 @@ Page({
       return false;
     }
 
-    if (this.data.DGIMN !== common.getStorage('DGIMN')) {
+    
+    let selectedDate = moment(common.getStorage('selectedDate')).format(selectTimeFormat[this.data.dataType].showFormat);
+    let selectedPollutants = common.getStorage('selectedPollutants') || [];
+    if (this.data.selectedDate != selectedDate || JSON.stringify(this.data.selectedPollutants) != JSON.stringify(selectedPollutants) || this.data.DGIMN !== common.getStorage('DGIMN')) {
       this.setData({
-        DGIMN: common.getStorage('DGIMN')
+        DGIMN: common.getStorage('DGIMN'),
+        selectedDate: selectedDate,
+        selectedPollutants: selectedPollutants
       });
-      //this.getData();
-
+      this.onPullDownRefresh();
     }
-    this.onPullDownRefresh();
+   
+    
+
+    
   },
 
   /**

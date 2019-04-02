@@ -1,6 +1,6 @@
 <!--pages/realTimeData/home/home.wxml-->
 <!--  第一部分  -->
-<view style='display:{{isShowContent?"block":"none"}}'>
+
   <view class='top'>
     <view class='top-content'>
       <view class='top-content-left'>
@@ -56,27 +56,6 @@
       </block>
     </view>
   </view>
-</view>
-
-<view style='background-color:#fff;height:100vh;display:{{isShowInfo?"block":"none"}};padding-top:25%;'>
-  <view class='bg-white padding-lr'>
-    <view class='padding-xs flex align-center'>
-      <view class='flex-sub text-center'>
-        <view class='text-xsl padding'>
-          <text class=' icon-emoji' style='color:#aaa'></text>
-        </view>
-        <view class='padding'>请先通过以下方式获取排口信息</view>
-        <view class="padding-xl">
-          <button class='cu-btn block line-orange lg' bindtap='redrictScan'>
-            <text class='icon-scan' style='margin-right:15rpx;'></text> 扫一扫</button>
-          <button class='cu-btn block line-blue margin-tb-sm lg' bindtap='redrictHistory'>
-            <text class='icon-list' style='margin-right:15rpx;'></text> 访问历史</button>
-        </view>
-      </view>
-    </view>
-  </view>
-</view>
-
 
 <view class="cu-modal bottom-modal {{modalName=='ChooseModal'?'show':''}}" bindtap='hideModal'>
   <view class="cu-dialog" catchtap>

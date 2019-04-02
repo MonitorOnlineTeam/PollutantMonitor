@@ -40,18 +40,6 @@ Page({
    */
   onShow: function() {
 
-    if (!common.getStorage('DGIMN')) {
-      this.setData({
-        isShowInfo: true,
-        isShowContent:false
-      });
-    }else
-    {
-      this.setData({
-        isShowInfo: false,
-        isShowContent: true
-      });
-    }
     //登陆（或者扫描二维码）时已经把MN号码赋上，  ----目前时登陆赋上
     if (this.data.DGIMN !== common.getStorage('DGIMN')) {
       this.setData({
@@ -171,82 +159,6 @@ Page({
     this.setData({
       modalName: null,
       selectedRow: '-'
-    })
-  },
-  redrictHistory: function() {
-    wx.navigateTo({
-      url: '/pages/my/visitHistory/visitHistory'
-    })
-  },
-  redrictScan: function() {
-    let that=this;
-    wx.scanCode({
-      success(res) {
-        if (res.errMsg == 'scanCode:ok') {
-
-          try {
-            //var scene = decodeURIComponent(options.scene);
-            var scene = res.result;
-            let url = decodeURIComponent(scene);
-            let substr = url.substr(url.lastIndexOf('/') + 1, url.length);
-            console.log('substr', substr);
-            if (substr && substr.indexOf('flag=sdl&mn=') >= 0) {
-              let mn = substr.split('&')[1].split('=')[1];
-              if (mn) {
-                comApi.qRCodeVerifyDGIMN(mn).then(res => {
-                  if (res && res.IsSuccess) {
-                    common.setStorage("DGIMN", mn);
-
-                    that.setData({
-                      isShowInfo: false,
-                      isShowContent: true
-                    });
-                    that.onPullDownRefresh();
-                    // wx.switchTab({
-                    //   url: '/pages/realTimeData/home/home'
-                    // })
-
-                  } else {
-                    //common.setStorage("DGIMN", mn);
-                    wx.showModal({
-                      title: '提示',
-                      content: res.Message,
-                      showCancel: false,
-                      success(res) {}
-                    })
-                  }
-                })
-              }
-            } else {
-              wx.showModal({
-                title: '提示',
-                content: '无法识别，请重试',
-                showCancel: false,
-                success(res) {
-                  if (res.confirm) {
-                    console.log('用户点击确定')
-                  } else if (res.cancel) {
-                    console.log('用户点击取消')
-                  }
-                }
-              })
-            }
-          } catch (e) {
-            wx.showToast({
-              icon: 'none',
-              title: '无法识别二维码'
-            })
-          }
-        }
-        console.log(res)
-      },
-      fail: res => {
-        // 接口调用失败
-        // wx.showToast({
-        //   icon: 'none',
-        //   title: '二维码识别无效'
-        // })
-      }
     })
   }
 })

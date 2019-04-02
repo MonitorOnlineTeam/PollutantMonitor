@@ -182,5 +182,13 @@ Page({
     wx.makePhoneCall({
       phoneNumber: phone,
     })
+  },
+  lookAddress:function(){
+    wx.openLocation({
+      longitude: Number(this.data.y),
+      latitude: Number(this.data.x),
+      name: this.data.resultData && common.getStorage("PointName"),
+      address: this.data.resultData && this.data.resultData.PointAddress
+    })
   }
 })

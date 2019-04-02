@@ -63,7 +63,10 @@ App({
                   url: '/pages/realTimeData/home/home'
                 })
               } else {
-                this.redirectTo('/pages/my/home/home');
+                wx.redirectTo({
+                  url: '/pages/others/others'
+                })
+                //this.redirectTo('/pages/my/home/home');
               }
               // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
               // 所以此处加入 callback 以防止这种情况
@@ -73,7 +76,7 @@ App({
             }
           })
         } else {
-          wx.navigateTo({
+          wx.redirectTo({
             url: '/pages/authPage/authPage'
           })
         }
@@ -82,19 +85,8 @@ App({
   },
   verifyPointIsNull: function() {
     if (!common.getStorage('DGIMN')) {
-      wx.showModal({
-        title: '提示',
-        content: '请先扫描设备二维码',
-        showCancel: false,
-        success(res) {
-          if (res.confirm) {
-            wx.switchTab({
-              url: '/pages/my/home/home'
-            })
-          } else if (res.cancel) {
-            console.log('用户点击取消')
-          }
-        }
+      wx.redirectTo({
+        url: '/pages/others/others'
       })
       return false;
     }
@@ -102,81 +94,7 @@ App({
   globalData: {
     userInfo: null,
     DGIMN: null,
-    ColorList: [{
-        title: '嫣红',
-        name: 'red',
-        color: '#e54d42'
-      },
-      {
-        title: '桔橙',
-        name: 'orange',
-        color: '#f37b1d'
-      },
-      {
-        title: '明黄',
-        name: 'yellow',
-        color: '#fbbd08'
-      },
-      {
-        title: '橄榄',
-        name: 'olive',
-        color: '#8dc63f'
-      },
-      {
-        title: '森绿',
-        name: 'green',
-        color: '#39b54a'
-      },
-      {
-        title: '天青',
-        name: 'cyan',
-        color: '#1cbbb4'
-      },
-      {
-        title: '海蓝',
-        name: 'blue',
-        color: '#0081ff'
-      },
-      {
-        title: '姹紫',
-        name: 'purple',
-        color: '#6739b6'
-      },
-      {
-        title: '木槿',
-        name: 'mauve',
-        color: '#9c26b0'
-      },
-      {
-        title: '桃粉',
-        name: 'pink',
-        color: '#e03997'
-      },
-      {
-        title: '棕褐',
-        name: 'brown',
-        color: '#a5673f'
-      },
-      {
-        title: '玄灰',
-        name: 'grey',
-        color: '#8799a3'
-      },
-      {
-        title: '草灰',
-        name: 'gray',
-        color: '#aaaaaa'
-      },
-      {
-        title: '墨黑',
-        name: 'black',
-        color: '#333333'
-      },
-      {
-        title: '雅白',
-        name: 'white',
-        color: '#ffffff'
-      },
-    ]
+    isShowContent: false,
+    isShowInfo: false
   }
 })

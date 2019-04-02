@@ -13,7 +13,8 @@
     "pages/my/visitHistory/visitHistory",
     "pages/my/feedBack/feedBack",
     "pages/authPage/authPage",
-    "pages/historyData/selectDateTime/selectDateTime"
+    "pages/historyData/selectDateTime/selectDateTime",
+    "pages/others/others"
   ],
   "window": {
     "navigationBarBackgroundColor": "#56A6FF",
