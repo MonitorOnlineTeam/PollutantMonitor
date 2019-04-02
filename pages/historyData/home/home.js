@@ -266,8 +266,9 @@ Page({
       this.setData({
         chartDatas: chartDatas
       });
+      //console.log(chartDatas);
       this.chartComponent = this.selectComponent('#line-dom');
-      this.initChart();
+      chartDatas.length>0&&this.initChart();
       
     })
   },

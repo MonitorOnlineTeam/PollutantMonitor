@@ -36,7 +36,7 @@ Page({
     loadProgress: 0,
     time: '12:01',
     TabCur: 0,
-    tabList: ['5分钟', '小时', '日', '月'],
+    tabList: ['分钟', '小时', '日', '月'],
     selectTab: 1,
     selectValue: 0,
     opts: {

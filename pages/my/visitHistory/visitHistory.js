@@ -80,14 +80,7 @@ Page({
               VisitTime: items.VisitTime,
               DGIMN: items.DGIMN
             })
-          })
-          // if (!common.getStorage('DGIMN')) {
-          //   common.setStorage("IsHaveHistory", false)
-          // }
-
-          if (historyRecord.length > 0) {
-            common.setStorage("DGIMN", historyRecord[0].DGIMN)
-          }
+          });
           this.setData({
             historyRecord: historyRecord,
           })

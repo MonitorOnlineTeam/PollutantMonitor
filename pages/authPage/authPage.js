@@ -14,7 +14,7 @@ Page({
     if (e.detail.rawData)
     {
       wx.showLoading({
-        title: '正在跳转……',
+        title: '正在跳转…',
       })
       const data = e.detail.rawData;
       app.globalData.userInfo = e.detail.userInfo;

@@ -5,7 +5,6 @@
     "pages/historyData/selectPollutant/selectPollutant",
     "pages/historyData/historyDataTransverse/historyDataTransverse",
     "pages/logs/logs",
-    "pages/deviceInfo/deviceInfo",
     "pages/realTimeData/home/home",
     "pages/realTimeData/flowChart/flowChart",
     "pages/deviceInfo/home/home",

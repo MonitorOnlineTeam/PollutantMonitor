@@ -5,7 +5,7 @@
   },
   "navigationBarBackgroundColor": "#cce6ff",
   "navigationBarTextStyle": "black",
-  "navigationBarTitleText": "3号脱硫出口",
+  "navigationBarTitleText": "历史数据",
   "backgroundColor": "#fff",
   "backgroundTextStyle": "light",
   "enablePullDownRefresh": true,

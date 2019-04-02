@@ -23,8 +23,8 @@ App({
    * 小程序初始化完成时（全局只触发一次）
    */
   onLaunch: function() {
-    common.setStorage('DGIMN', '62262431qlsp02')
-    common.setStorage("PointName", '10号脱硫出口');
+    // common.setStorage('DGIMN', '62262431qlsp02')
+    // common.setStorage("PointName", '10号脱硫出口');
     wx.getSystemInfo({
       success: e => {
         this.globalData.StatusBar = e.statusBarHeight;
