@@ -2,10 +2,10 @@
 <!-- <text>pages/my/visitHistory/visitHistory.wxml</text> -->
 <block wx:for="{{historyRecord}}" wx:key="{{DGIMN}}">
   <view class="cu-list menu" id="{{item.DGIMN}}" data-pointname="{{item.PointName}}" bindtap="showDetail">
-    <view class="cu-item {{'arrow'}}" style='{{DGIMN==item.DGIMN?"border:1px solid orange":""}} '>
+    <view class="cu-item {{'arrow'}}" style=''>
       <view class='content padding-tb-sm'>
         <view class='entNameClass'>
-          {{item.EnterpriseName}}
+         <text class='icon-roundcheck {{DGIMN==item.DGIMN?"text-blue":""}}'></text> {{item.EnterpriseName}}
         </view>
         <view class='text-gray text-sm'>
           <text class='textOneClass'>排口：{{item.PointName}}</text>
