@@ -33,14 +33,14 @@ App({
         this.globalData.CustomBar = custom.bottom + custom.top - e.statusBarHeight;
       }
     })
-    this.login();
+    this.wxLogin();
   },
   redirectTo: function(url) {
     wx.switchTab({
       url: url
     })
   },
-  login: function() {
+  wxLogin:function(){
     // 微信登录
     wx.login({
       success: res => {

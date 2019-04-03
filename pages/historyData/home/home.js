@@ -118,6 +118,9 @@ Page({
       })
     }
     if (!common.getStorage('selectedPollutants')) {
+      this.setData({
+        chartDatas: []
+      });
       wx.showModal({
         title: '提示',
         content: '请先选择污染物',
@@ -252,9 +255,18 @@ Page({
                 status = -1;
               }
             }
+            //debugger;
+            let value = itemD[itemP.code];
+            if (value)
+            {
+              value = (+itemD[itemP.code].toFixed(2)); 
+            }else
+            {
+              value=null;
+            }
             chartDatas.push({
               PollutantName: `${itemP.name}`,
-              Value: itemD[itemP.code],
+              Value: value,
               MonitorTime: itemD.MonitorTime,
               Status: status,
               PollutantCode: itemP.code,
@@ -298,6 +310,9 @@ Page({
         'Value': {
           type: 'linear',
           tickCount: 7,
+          formatter: function formatter(val) {
+            return val.toFixed(2);
+          }
         }
       });
       //chart.legend(false);

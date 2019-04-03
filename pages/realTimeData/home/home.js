@@ -1,4 +1,5 @@
 // pages/realTimeData/home/home.js
+const moment = require('../../../utils/moment.min.js');
 const app = getApp();
 const comApi = app.api;
 const common = app.common;
@@ -97,13 +98,14 @@ Page({
     if (pointName) {
       wx.setNavigationBarTitle({
         title: pointName,
-      })
+      });
     }
     var resultData = {
       dataitem: [],
       pointInfo: {}
     };
     comApi.getRealTimeDataForPoint().then(res => {
+      console.log(res)
       if (res && res.IsSuccess) {
         if (res.Data) {
           let data = res.Data;
@@ -111,19 +113,17 @@ Page({
           resultData.pointInfo = data.pointInfo;
         }
       }
-      // else {
-      //   wx.showModal({
-      //     title: '提示',
-      //     content: '网络错误，请重试',
-      //     showCancel: false,
-      //     success(res) {
-      //     }
-      //   })
-      // }
       this.setData({
         dataitem: resultData.dataitem,
         pointInfo: resultData.pointInfo,
       })
+      let pointName = resultData.pointInfo && resultData.pointInfo.pointName;
+      wx.setNavigationBarTitle({
+        title: pointName,
+      });
+      common.setStorage("PointName", pointName);
+      common.setStorage('selectedPollutants', "");
+      common.setStorage('selectedDate', moment().format('YYYY-MM-DD HH:mm'));
       wx.hideNavigationBarLoading();
     })
   },

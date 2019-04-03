@@ -8,12 +8,16 @@ Page({
    */
   data: {
     historyRecord: [],
+    DGIMN:""
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    this.setData({
+      DGIMN: common.getStorage("DGIMN")
+    })
     this.onPullDownRefresh();
   },
 
@@ -70,6 +74,7 @@ Page({
   getData: function() {
     let historyRecord = [];
     comApi.getUserInfo().then(res => {
+      console.log(res)
       if (res && res.IsSuccess) {
         if (res.Data) {
           var thisData = res.Data;

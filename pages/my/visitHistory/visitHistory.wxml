@@ -2,10 +2,10 @@
 <!-- <text>pages/my/visitHistory/visitHistory.wxml</text> -->
 <block wx:for="{{historyRecord}}" wx:key="{{DGIMN}}">
   <view class="cu-list menu" id="{{item.DGIMN}}" data-pointname="{{item.PointName}}" bindtap="showDetail">
-    <view class="cu-item {{'arrow'}}">
+    <view class="cu-item {{'arrow'}}" style='{{DGIMN==item.DGIMN?"border:1px solid orange":""}} '>
       <view class='content padding-tb-sm'>
         <view class='entNameClass'>
-         {{item.EnterpriseName}}
+          {{item.EnterpriseName}}
         </view>
         <view class='text-gray text-sm'>
           <text class='textOneClass'>排口：{{item.PointName}}</text>
@@ -15,3 +15,7 @@
     </view>
   </view>
 </block>
+
+<view class='infoBlock' style='display:{{historyRecord.length>0?"none":"block"}}'>
+  暂无数据
+</view>

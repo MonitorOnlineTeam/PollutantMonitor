@@ -18,3 +18,11 @@
   margin-left: 5px;
 }
 
+.infoBlock {
+  width: 100%;
+  background-color: #fff;
+  height: 100vh;
+  font-size: 30rpx;
+  text-align: center;
+  padding-top: 10rpx;
+}

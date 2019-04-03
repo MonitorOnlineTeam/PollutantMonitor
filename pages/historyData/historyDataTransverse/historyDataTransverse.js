@@ -161,6 +161,9 @@ Page({
         'Value': {
           type: 'linear',
           tickCount: 5,
+          formatter: function formatter(val) {
+            return val.toFixed(2);
+          }
         }
         // population: {
         //   tickCount: 5
@@ -302,9 +305,15 @@ Page({
                 status = -1;
               }
             }
+            let value = itemD[itemP.code];
+            if (value) {
+              value = (+itemD[itemP.code].toFixed(2));
+            } else {
+              value = null;
+            }
             chartDatas.push({
               PollutantName: `${itemP.name}`,
-              Value: itemD[itemP.code],
+              Value: value,
               MonitorTime: itemD.MonitorTime,
               Status: status,
               PollutantCode: itemP.code,

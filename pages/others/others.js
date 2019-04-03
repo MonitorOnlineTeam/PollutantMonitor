@@ -1,4 +1,7 @@
 // pages/others/others.js
+const app = getApp()
+const comApi = app.api;
+const common = app.common;
 Page({
 
   /**
@@ -80,8 +83,8 @@ Page({
             let url = decodeURIComponent(scene);
             let substr = url.substr(url.lastIndexOf('/') + 1, url.length);
             console.log('substr', substr);
-            if (substr && substr.indexOf('flag=sdl&mn=') >= 0) {
-              let mn = substr.split('&')[1].split('=')[1];
+            if (substr && substr.indexOf('flag=sdl,mn=') >-1) {
+              let mn = substr.split(',')[1].split('=')[1];
               if (mn) {
                 comApi.qRCodeVerifyDGIMN(mn).then(res => {
                   if (res && res.IsSuccess) {
