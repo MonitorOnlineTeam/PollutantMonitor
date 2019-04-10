@@ -2,8 +2,8 @@
 <!-- <text>pages/login/login.wxml</text> -->
 <view class="warp">
   <image src="../../images/login_bg.jpg" class='imageClass'></image>
- 
-  <view class="phoneClass">
+
+  <!-- <view class="phoneClass">
     <label class='lableClass'>手机号</label>
     <input class='inputClass' type='number' maxlength="11" placeholder="请输入手机号" name='input' bindinput='phone' value='{{phoneCode}}'></input>
   </view>
@@ -12,6 +12,12 @@
       <button class='cu-btn block bg-blue margin-tb-sm lg' bindtap="btnLogin">
         登录</button>
     </view>
+  </view> -->
+  <image src='../../images/login_1.png' class='imageClassTop'></image>
+  <view class='submitClass'>
+    <label>手机号</label>
+    <input type='number' placeholder="请输入手机号" maxlength="11" name='input' bindinput='phone' value='{{phoneCode}}'></input>
+    <button style='top:21%;' class='cu-btn block bg-blue margin-tb-sm lg' bindtap="btnLogin">
+        登录</button>
   </view>
-   <image src='../../images/login_1.png' class='imageClassTop'></image>
 </view>

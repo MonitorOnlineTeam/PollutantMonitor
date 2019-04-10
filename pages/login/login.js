@@ -130,6 +130,7 @@ Page({
                 this.setData({
                   phoneCode: common.getStorage("PhoneCode")
                 });
+                app.wxLogin();
                 this.btnLogin();
               }
             } else {

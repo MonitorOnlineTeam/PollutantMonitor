@@ -17,15 +17,17 @@ Page({
     standValue: '',
     pointInfo: null,
     isShowContent:false,
-    isShowInfo: false
+    isShowInfo: false,
+    DGIMN:''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
-
+    this.setData({
+      DGIMN: common.getStorage('DGIMN')
+    });
     this.onPullDownRefresh();
   },
 
@@ -33,16 +35,16 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-
+    
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
-    //登陆（或者扫描二维码）时已经把MN号码赋上，  ----目前时登陆赋上
     if (this.data.DGIMN !== common.getStorage('DGIMN')) {
+      common.setStorage('selectedPollutants', "");
+      common.setStorage('selectedDate', moment().format('YYYY-MM-DD HH:mm'));
       this.setData({
         DGIMN: common.getStorage('DGIMN')
       });
@@ -94,12 +96,6 @@ Page({
   },
   //获取数据
   getData: function() {
-    var pointName = common.getStorage("PointName");
-    if (pointName) {
-      wx.setNavigationBarTitle({
-        title: pointName,
-      });
-    }
     var resultData = {
       dataitem: [],
       pointInfo: {}
@@ -122,8 +118,10 @@ Page({
         title: pointName,
       });
       common.setStorage("PointName", pointName);
-      common.setStorage('selectedPollutants', "");
-      common.setStorage('selectedDate', moment().format('YYYY-MM-DD HH:mm'));
+      wx.setNavigationBarTitle({
+        title: pointName,
+      });
+      
       wx.hideNavigationBarLoading();
     })
   },

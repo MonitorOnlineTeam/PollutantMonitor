@@ -14,7 +14,30 @@ App({
   /**
    * 小程序启动，或从后台进入前台显示时
    */
-  onShow: function() {},
+  onShow: function() {
+    const updateManager = wx.getUpdateManager()
+    updateManager.onCheckForUpdate(function (res) {
+      // 请求完新版本信息的回调
+      console.log(res.hasUpdate)
+    })
+
+    updateManager.onUpdateReady(function () {
+      wx.showModal({
+        title: '更新提示',
+        content: '新版本已经准备好，即将更新',
+        showCancel: false,
+        success: function (res) {
+          if (res.confirm) {
+            // 新的版本已经下载好，调用 applyUpdate 应用新版本并重启
+            updateManager.applyUpdate()
+          }
+        }
+      })
+    })
+    updateManager.onUpdateFailed(function () {
+      // 新版本下载失败
+    })
+  },
   /**
    * 小程序从前台进入后台时
    */
@@ -23,6 +46,29 @@ App({
    * 小程序初始化完成时（全局只触发一次）
    */
   onLaunch: function() {
+    const updateManager = wx.getUpdateManager()
+    updateManager.onCheckForUpdate(function(res) {
+      // 请求完新版本信息的回调
+      console.log(res.hasUpdate)
+    })
+
+    updateManager.onUpdateReady(function() {
+      wx.showModal({
+        title: '更新提示',
+        content: '新版本已经准备好，即将更新',
+        showCancel: false,
+        success: function(res) {
+          if (res.confirm) {
+            // 新的版本已经下载好，调用 applyUpdate 应用新版本并重启
+            updateManager.applyUpdate()
+          }
+        }
+      })
+    })
+    updateManager.onUpdateFailed(function() {
+      // 新版本下载失败
+    })
+
     // common.setStorage('DGIMN', '62262431qlsp02')
     // common.setStorage("PointName", '10号脱硫出口');
     wx.getSystemInfo({
@@ -40,7 +86,7 @@ App({
       url: url
     })
   },
-  wxLogin:function(){
+  wxLogin: function() {
     // 微信登录
     wx.login({
       success: res => {
@@ -56,6 +102,9 @@ App({
           // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
           wx.getUserInfo({
             success: res => {
+              wx.showLoading({
+                title: '正在加载中',
+              })
               // 可以将 res 发送给后台解码出 unionId
               this.globalData.userInfo = res.userInfo
               if (common.getStorage('DGIMN')) {

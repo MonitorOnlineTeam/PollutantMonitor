@@ -120,18 +120,7 @@ Page({
       selectedDate: selectedDate,
     });
     common.setStorage('selectedDate', selectedDate);
-    // if (!selectedPollutants)
-    // {
-
-    //   let tipsData=[];
-    //   selectedPollutants.map(function(item){
-    //     tipsData.push({
-
-    //     });
-    //   });
-    // }
-
-    //this.getData();
+    
   },
   initChart: function() {
     let that = this;
@@ -284,6 +273,24 @@ Page({
     selectedPollutants.map(function(item) {
       pollutantCodes.push(item.code);
     });
+    if (!common.getStorage('selectedPollutants')) {
+      wx.showModal({
+        title: '提示',
+        content: '请先选择污染物',
+        showCancel: false,
+        success(res) {
+          if (res.confirm) {
+            // wx.navigateTo({
+            //   url: '../selectPollutant/selectPollutant'
+            // })
+          } else if (res.cancel) {
+            console.log('用户点击取消')
+          }
+        }
+      })
+      wx.hideNavigationBarLoading();
+      return false;
+    }
     //debugger;
     comApi.getMonitorDatas(pollutantCodes.join(','), dataType, selectedDate).then(res => {
       console.log('getMonitorDatas', res);
@@ -306,7 +313,7 @@ Page({
               }
             }
             let value = itemD[itemP.code];
-            if (value) {
+            if (value != null || value != undefined) {
               value = (+itemD[itemP.code].toFixed(2));
             } else {
               value = null;
@@ -348,23 +355,7 @@ Page({
       selectedDate: moment(common.getStorage('selectedDate')).format(selectTimeFormat[this.data.dataType].showFormat),
       selectedPollutants: common.getStorage('selectedPollutants') || []
     });
-    if (!common.getStorage('selectedPollutants')) {
-      wx.showModal({
-        title: '提示',
-        content: '请先选择污染物',
-        showCancel: false,
-        success(res) {
-          if (res.confirm) {
-            wx.navigateTo({
-              url: '../selectPollutant/selectPollutant'
-            })
-          } else if (res.cancel) {
-            console.log('用户点击取消')
-          }
-        }
-      })
-      return false;
-    }
+    
     this.getData();
   },
 

@@ -96,6 +96,7 @@ Page({
       selectedDate: selectedDate
     });
     common.setStorage('selectedDate', selectedDate);
+    
     this.onPullDownRefresh();
   },
 
@@ -117,29 +118,8 @@ Page({
         title: pointName,
       })
     }
-    if (!common.getStorage('selectedPollutants')) {
-      this.setData({
-        chartDatas: []
-      });
-      wx.showModal({
-        title: '提示',
-        content: '请先选择污染物',
-        showCancel: false,
-        success(res) {
-          if (res.confirm) {
-            wx.navigateTo({
-              url: '../selectPollutant/selectPollutant'
-            })
-          } else if (res.cancel) {
-            console.log('用户点击取消')
-          }
-        }
-      })
-      return false;
-    }
-
-    
     let selectedDate = moment(common.getStorage('selectedDate')).format(selectTimeFormat[this.data.dataType].showFormat);
+    //debugger;
     let selectedPollutants = common.getStorage('selectedPollutants') || [];
     if (this.data.selectedDate != selectedDate || JSON.stringify(this.data.selectedPollutants) != JSON.stringify(selectedPollutants) || this.data.DGIMN !== common.getStorage('DGIMN')) {
       this.setData({
@@ -149,10 +129,6 @@ Page({
       });
       this.onPullDownRefresh();
     }
-   
-    
-
-    
   },
 
   /**
@@ -234,6 +210,27 @@ Page({
         tipsData: tipsData
       });
     }
+    if (selectedPollutants.length==0) {
+      this.setData({
+        chartDatas: []
+      });
+      wx.showModal({
+        title: '提示',
+        content: '请先选择污染物',
+        showCancel: false,
+        success(res) {
+          if (res.confirm) {
+            // wx.navigateTo({
+            //   url: '../selectPollutant/selectPollutant'
+            // })
+          } else if (res.cancel) {
+            console.log('用户点击取消')
+          }
+        }
+      })
+      wx.hideNavigationBarLoading();
+      return false;
+    }
     //debugger;
     let chartDatas = [];
     comApi.getMonitorDatas(pollutantCodes.join(','), dataType, selectedDate).then(res => {
@@ -257,7 +254,7 @@ Page({
             }
             //debugger;
             let value = itemD[itemP.code];
-            if (value)
+            if (value!=null||value!=undefined)
             {
               value = (+itemD[itemP.code].toFixed(2)); 
             }else
@@ -280,7 +277,7 @@ Page({
       this.setData({
         chartDatas: chartDatas
       });
-      //console.log(chartDatas);
+      console.log(chartDatas);
       this.chartComponent = this.selectComponent('#line-dom');
       chartDatas.length>0&&this.initChart();
       
