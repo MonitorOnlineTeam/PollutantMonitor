@@ -56,12 +56,19 @@ Page({
     this.getData();
   },
   onChangeDate(e) {
+     
     wx.navigateTo({
       url: '../selectDateTime/selectDateTime?dataType=' + this.data.dataType
     })
   },
   navigateBack() {
-    wx.navigateBack()
+    //wx.navigateBack()
+    wx.switchTab({
+      url: '../home/home'
+    })
+    // wx.navigateTo({
+    //   url: '../home/home'
+    // })
   },
   isLoading(e) {
     this.setData({
@@ -351,6 +358,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+    app.isLogin();
     this.setData({
       selectedDate: moment(common.getStorage('selectedDate')).format(selectTimeFormat[this.data.dataType].showFormat),
       selectedPollutants: common.getStorage('selectedPollutants') || []
@@ -391,6 +399,8 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function() {
-
+    return {
+      path: `/pages/historyData/historyDataTransverse/historyDataTransverse?DGIMN=${common.getStorage("DGIMN")}` // 路径，传递参数到指定页面。
+    }
   }
 })

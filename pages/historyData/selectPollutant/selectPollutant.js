@@ -145,7 +145,9 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {},
+  onShow: function() {
+    app.isLogin();
+  },
 
   /**
    * 生命周期函数--监听页面隐藏
@@ -179,6 +181,8 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function() {
-
+    return {
+      path: `/pages/historyData/selectPollutant/selectPollutant?DGIMN=${common.getStorage("DGIMN")}` // 路径，传递参数到指定页面。
+    }
   }
 })

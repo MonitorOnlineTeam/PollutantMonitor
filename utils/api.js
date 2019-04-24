@@ -3,6 +3,7 @@
   //const URL = 'http://api.chsdl.cn/WxWryApi/rest/PollutantSourceApi'
   //http://api.chsdl.cn/wxwryapi?flag=sdl&mn=62262431qlsp099
   const URL = 'https://api.chsdl.net/wxwryapi/rest/PollutantSourceApi'
+  //const URL = 'http://172.16.30.108/wxwryapi/rest/PollutantSourceApi'
   const fetch = require('./fetch')
   const common = require('./common.js')
   const moment = require('../utils/moment.min.js')

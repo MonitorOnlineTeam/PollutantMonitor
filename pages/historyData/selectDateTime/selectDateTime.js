@@ -140,7 +140,7 @@ Page({
    */
   onShow: function() {
     //console.log("onShow");
-
+    app.isLogin();
   },
 
   /**
@@ -175,6 +175,8 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function() {
-
+    return {
+      path: `/pages/historyData/selectDateTime/selectDateTime?DGIMN=${common.getStorage("DGIMN")}` // 路径，传递参数到指定页面。
+    }
   }
 })

@@ -81,6 +81,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    app.isLogin();
     const self = this;
     this.chartComponent = this.selectComponent('#line-dom');
     let selectedDate = common.getStorage('selectedDate');
@@ -111,7 +112,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    
+    app.isLogin();
     var pointName = common.getStorage("PointName");
     if (pointName != "") {
       wx.setNavigationBarTitle({
@@ -165,7 +166,9 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function() {
-
+    return {
+      path: `/pages/historyData/home/home?DGIMN=${common.getStorage("DGIMN")}` // 路径，传递参数到指定页面。
+    }
   },
   formatPollutantNames: function() {
     let {
@@ -179,7 +182,7 @@ Page({
   },
   //获取监控数据
   getData: function() {
-
+    app.isLogin();
     let {
       selectedPollutant,
       dataType,

@@ -14,7 +14,49 @@ App({
   /**
    * 小程序启动，或从后台进入前台显示时
    */
-  onShow: function() {
+  onShow: function(options) {
+
+    //处理分享页面
+    if (options && options.scene===1007)
+    {
+      if (!common.getStorage('OpenId') || !common.getStorage("PhoneCode"))
+      {
+        wx.navigateTo({
+          url: '/pages/login/login',
+        });
+        common.setStorage("IsShare", true);
+        return;
+      }
+
+      if (options.query&&options.query.DGIMN)
+      {
+        
+        comApi.verifyDGIMN(options.query.DGIMN).then(res => {
+          if (res && res.IsSuccess) {
+            common.setStorage("DGIMN", options.query.DGIMN);
+           
+          } else {
+            //common.setStorage("DGIMN", mn);
+          
+            wx.showModal({
+              title: '提示',
+              content: res.Message,
+              showCancel: false,
+              success(res) { 
+                wx.navigateTo({
+                  url: '/pages/login/login',
+                });
+              }
+            })
+          }
+        })
+      }
+    }else
+    {
+      common.setStorage("IsShare", false);
+    }
+    
+
     const updateManager = wx.getUpdateManager()
     updateManager.onCheckForUpdate(function (res) {
       // 请求完新版本信息的回调
@@ -106,7 +148,12 @@ App({
                 title: '正在加载中',
               })
               // 可以将 res 发送给后台解码出 unionId
-              this.globalData.userInfo = res.userInfo
+              this.globalData.userInfo = res.userInfo;
+
+              if (common.getStorage("IsShare"))
+              {
+                wx.navigateBack();
+              }
               if (common.getStorage('DGIMN')) {
                 wx.switchTab({
                   url: '/pages/realTimeData/home/home'
@@ -122,9 +169,11 @@ App({
               if (this.userInfoReadyCallback) {
                 this.userInfoReadyCallback(res)
               }
+              wx.hideLoading();
             }
           })
         } else {
+
           wx.redirectTo({
             url: '/pages/authPage/authPage'
           })
@@ -134,10 +183,23 @@ App({
   },
   verifyPointIsNull: function() {
     if (!common.getStorage('DGIMN')) {
+      if (common.getStorage("IsShare")) {
+        wx.navigateBack();
+      }
       wx.redirectTo({
         url: '/pages/others/others'
       })
       return false;
+    }
+  },
+  isLogin:function(){
+
+    if (!common.getStorage('OpenId') || !common.getStorage("PhoneCode")) {
+      wx.navigateTo({
+        url: '/pages/login/login',
+      });
+      
+      return;
     }
   },
   globalData: {

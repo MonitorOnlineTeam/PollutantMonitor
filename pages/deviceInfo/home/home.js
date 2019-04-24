@@ -49,6 +49,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+    app.isLogin();
     //扫描二维码后改缓存变为true
     // if (!common.getStorage('IsHaveHistory')) {
     //   wx.showModal({
@@ -110,10 +111,13 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function() {
-
+    return {
+      path: `/pages/deviceInfo/home/home?DGIMN=${common.getStorage("DGIMN")}` // 路径，传递参数到指定页面。
+    }
   },
   //获取数据
   getData: function() {
+    let that=this;
     var pointName = common.getStorage("PointName");
     if (pointName != "") {
       wx.setNavigationBarTitle({
@@ -138,28 +142,16 @@ Page({
             y: yy, //经度
             x: xx, //纬度
           })
-        } else {
-          wx.showModal({
-            title: '提示',
-            content: '暂无数据，请重试',
-            showCancel: false,
-            success(res) {
-              if (res.confirm) {
-                console.log('用户点击确定')
-              } else if (res.cancel) {
-                console.log('用户点击取消')
-              }
-            }
-          })
         }
       } else {
         wx.showModal({
           title: '提示',
-          content: '网络错误，请重试',
-          showCancel: false,
+          content: '网络错误，请下拉刷新重试',
+          confirmText:"重试",
+          // showCancel: false,
           success(res) {
             if (res.confirm) {
-              console.log('用户点击确定')
+              // that.onPullDownRefresh();
             } else if (res.cancel) {
               console.log('用户点击取消')
             }

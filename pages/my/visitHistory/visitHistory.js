@@ -31,6 +31,7 @@ Page({
    */
   onShow: function() {
     //this.onPullDownRefresh();
+    app.isLogin();
   },
 
   /**
@@ -67,7 +68,9 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function() {
-
+    return {
+      path: `/pages/my/visitHistory/visitHistory?DGIMN=${common.getStorage("DGIMN")}` // 路径，传递参数到指定页面。
+    }
   },
 
   //获取历史数据

@@ -31,6 +31,7 @@ Page({
   login: function() {
     const phone = this.data.phoneCode;
     if (phone && phone.length == 11) {
+      app.wxLogin();
       comApi.verifyPhone(phone).then(res => {
         if (res && res.IsSuccess) {
           if (res.Data) {
@@ -60,6 +61,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+   
     //console.log(decodeURIComponent(options.q));
     this.ValidateDGIMN();
     
@@ -75,8 +77,8 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
-
+  onShow: function(aaa) {
+    
   },
 
   /**
@@ -111,7 +113,9 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function() {
-
+    return {
+      path: `/pages/lgoin/lgoin?DGIMN=${common.getStorage("DGIMN")}` // 路径，传递参数到指定页面。
+    }
   },
   /**
    * 验证是否为扫码进入系统

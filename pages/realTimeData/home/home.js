@@ -42,6 +42,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+    app.isLogin();
     if (this.data.DGIMN !== common.getStorage('DGIMN')) {
       common.setStorage('selectedPollutants', "");
       common.setStorage('selectedDate', moment().format('YYYY-MM-DD HH:mm'));
@@ -86,7 +87,9 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function() {
-
+    return {
+      path: `/pages/realTimeData/home/home?DGIMN=${common.getStorage("DGIMN")}` // 路径，传递参数到指定页面。
+    }
   },
   //点击页面横屏
   horizontalScreen: function() {

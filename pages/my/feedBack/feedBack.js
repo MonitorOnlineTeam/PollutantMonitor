@@ -50,7 +50,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    app.isLogin();
   },
 
   /**
@@ -85,7 +85,9 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function() {
-
+    return {
+      path: `/pages/my/feedBack/feedBack?DGIMN=${common.getStorage("DGIMN")}` // 路径，传递参数到指定页面。
+    }
   },
   //提交
   loginBtnClick() {
