@@ -21,7 +21,7 @@ App({
     {
       if (!common.getStorage('OpenId') || !common.getStorage("PhoneCode"))
       {
-        wx.navigateTo({
+        wx.redirectTo({
           url: '/pages/login/login',
         });
         common.setStorage("IsShare", true);
@@ -30,8 +30,8 @@ App({
 
       if (options.query&&options.query.DGIMN)
       {
-        
-        comApi.verifyDGIMN(options.query.DGIMN).then(res => {
+        common.setStorage("DGIMN", options.query.DGIMN);
+        api.qRCodeVerifyDGIMN(options.query.DGIMN).then(res => {
           if (res && res.IsSuccess) {
             common.setStorage("DGIMN", options.query.DGIMN);
            
@@ -43,13 +43,18 @@ App({
               content: res.Message,
               showCancel: false,
               success(res) { 
-                wx.navigateTo({
+                common.setStorage("IsShare", false);
+                wx.redirectTo({
                   url: '/pages/login/login',
                 });
               }
             })
           }
         })
+      }else{
+        wx.redirectTo({
+          url: '/pages/login/login',
+        });
       }
     }else
     {
@@ -198,8 +203,11 @@ App({
       wx.navigateTo({
         url: '/pages/login/login',
       });
-      
+      common.setStorage("IsShare",true);
       return;
+    }else
+    {
+      common.setStorage("IsShare", false);
     }
   },
   globalData: {

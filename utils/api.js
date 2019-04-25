@@ -3,6 +3,7 @@
   //const URL = 'http://api.chsdl.cn/WxWryApi/rest/PollutantSourceApi'
   //http://api.chsdl.cn/wxwryapi?flag=sdl&mn=62262431qlsp099
   const URL = 'https://api.chsdl.net/wxwryapi/rest/PollutantSourceApi'
+  //const URL = 'http://localhost:52198/rest/PollutantSourceApi'
   //const URL = 'http://172.16.30.108/wxwryapi/rest/PollutantSourceApi'
   const fetch = require('./fetch')
   const common = require('./common.js')
@@ -40,9 +41,19 @@
    * @return {Promise}       包含抓取任务的Promise
    */
   function fetchApi(type, params, method) {
+    // wx.showModal({
+    //   title: '提示fetchApi',
+    //   content: JSON.stringify(params), //'网络错误，请重试',
+    //   showCancel: false,
+    //   success(res) {
+        
+    //   }
+    // })
+    console.log("params", params);
+
     wx.showLoading({
       title: '正在加载中',
-    })
+    });
     return fetch(URL, type, params, method).then(res => {
       wx.hideLoading()
       return res;
@@ -96,7 +107,8 @@
     //    console.log('getUserInfo', res)
     //  })
     return fetchApi(pageUrl.getUserInfo, {
-        AuthorCode: common.getStorage('OpenId')
+        AuthorCode: common.getStorage('OpenId'),
+      DGIMN: common.getStorage('DGIMN')
       }, 'get')
       .then(res => res.data)
   }
@@ -110,6 +122,7 @@
     //   console.log('getPointInfo', res)
     // })
     return fetchApi(pageUrl.getPointInfo, {
+      OpenId: common.getStorage('OpenId'),
       DGIMN: common.getStorage('DGIMN')
     }, 'post').then(res => res.data)
   }
@@ -123,6 +136,7 @@
     //   console.log('getDeviceInfo', res)
     // })
     return fetchApi(pageUrl.getDeviceInfo, {
+      OpenId: common.getStorage('OpenId'),
       DGIMN: common.getStorage('DGIMN')
     }, 'post').then(res => res.data)
   }
@@ -134,6 +148,7 @@
   function getPollutantList(DGIMNs) {
     console.log(common.getStorage('DGIMN'));
     return fetchApi(pageUrl.getPollutant, {
+      OpenId: common.getStorage('OpenId'),
       DGIMN: common.getStorage('DGIMN')
     }, 'post').then(res => res.data)
   }
@@ -144,6 +159,7 @@
    */
   function getProcessFlowChartStatus() {
     return fetchApi(pageUrl.getProcessFlowChartStatus, {
+      OpenId: common.getStorage('OpenId'),
       DGIMN: common.getStorage('DGIMN')
     }, 'post').then(res => res.data)
   }
@@ -154,6 +170,7 @@
    */
   function getRealTimeDataForPoint() {
     return fetchApi(pageUrl.getRealTimeDataForPoint, {
+      OpenId: common.getStorage('OpenId'),
       DGIMN: common.getStorage('DGIMN')
     }, 'post').then(res => res.data)
   }
@@ -182,6 +199,7 @@
       endTime = moment(endTime).add(1, 'months').add(-1, 'seconds').format('YYYY-MM-DD 23:59:59');
     }
     let body = {
+      OpenId: common.getStorage('OpenId'),
       DGIMNs: common.getStorage('DGIMN'),
       pollutantCodes: pollutantCodes,
       datatype: dataTypeObj[datatype],

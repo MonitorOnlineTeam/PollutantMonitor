@@ -223,9 +223,9 @@ Page({
         showCancel: false,
         success(res) {
           if (res.confirm) {
-            // wx.navigateTo({
-            //   url: '../selectPollutant/selectPollutant'
-            // })
+            wx.navigateTo({
+              url: '../selectPollutant/selectPollutant'
+            })
           } else if (res.cancel) {
             console.log('用户点击取消')
           }
