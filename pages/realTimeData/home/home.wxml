@@ -35,7 +35,7 @@
     <view class="table">
       <view class="tr bg-w">
         <view class="th">污染物</view>
-        <view class="th">检测值</view>
+        <view class="th">监测值</view>
         <view class="th ">单位</view>
         <view class="th">状态</view>
       </view>
@@ -51,6 +51,7 @@
           <view class="td Exception" wx:elif="{{item.identificationCode == '-1'}}">
             异常
           </view>
+          <view class="td" wx:elif="{{item.identificationCode=='-'}}">暂未上传</view>
           <view class="td" wx:else>正常</view>
         </view>
       </block>
