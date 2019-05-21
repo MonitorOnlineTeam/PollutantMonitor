@@ -40,4 +40,7 @@
       </view>
     </view>
   </view>
+  <button bindtap="clearCache" class='cu-btn block bg-blue margin-tb-sm' style='margin-left:10rpx;margin-right:10rpx;'>
+    <text class='{{isLoading?"icon-loading2 iconfont-spin":""}} '></text> 清除缓存({{currentSize}}kb)</button>
+ 
 </view>

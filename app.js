@@ -133,11 +133,13 @@ App({
       url: url
     })
   },
-  wxLogin: function() {
+  wxLogin: function(callback) {
     // 微信登录
     wx.login({
       success: res => {
         common.setStorage("WxCode", res.code);
+        
+        callback&&callback();
       }
     })
   },

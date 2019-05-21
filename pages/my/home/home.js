@@ -7,7 +7,9 @@ Page({
    * 页面的初始数据
    */
   data: {
-    userInfo: app.globalData.userInfo
+    userInfo: app.globalData.userInfo,
+    isLoading:false,
+    currentSize:0
   },
 
   /**
@@ -26,11 +28,36 @@ Page({
   onReady: function() {
 
   },
-
+  clearCache:function(){
+    let that=this;
+    that.setData({
+      isLoading:true
+    });
+    wx.showModal({
+      title: '提示',
+      content: '确定要清除缓存数据吗？',
+      success(res) {
+        that.setData({
+          isLoading: false
+        });
+        if (res.confirm) {
+          wx.clearStorageSync();
+          that.updateCurrentSize();
+          wx.redirectTo({
+            url: '/pages/login/login',
+          });
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
+      }
+    })
+    
+  },
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+    
     app.isLogin();
 
     var pointName = common.getStorage("PointName");
@@ -39,8 +66,22 @@ Page({
         title: pointName,
       })
     }
+    this.updateCurrentSize();
   },
+  updateCurrentSize:function(){
 
+    let that = this;
+    wx.getStorageInfo({
+      success(res) {
+        // console.log(res.keys)
+        console.log(res.currentSize);
+        that.setData({
+          currentSize: res.currentSize
+        });
+        // console.log(res.limitSize)
+      }
+    })
+  },
   /**
    * 生命周期函数--监听页面隐藏
    */

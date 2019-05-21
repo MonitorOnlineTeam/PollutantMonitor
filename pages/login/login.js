@@ -31,30 +31,35 @@ Page({
   login: function() {
     const phone = this.data.phoneCode;
     if (phone && phone.length == 11) {
-      app.wxLogin();
-      comApi.verifyPhone(phone).then(res => {
-        if (res && res.IsSuccess) {
-          if (res.Data) {
-            common.setStorage("OpenId", res.Data);
-            common.setStorage("PhoneCode", phone);
-            app.getUserInfo();
+      wx.showLoading({
+        title: '正在加载中',
+      });
+      app.wxLogin(function(){
+        wx.hideLoading();
+        comApi.verifyPhone(phone).then(res => {
+          if (res && res.IsSuccess) {
+            if (res.Data) {
+              common.setStorage("OpenId", res.Data);
+              common.setStorage("PhoneCode", phone);
+              app.getUserInfo();
+            }
+          } else {
+            wx.showModal({
+              title: '提示',
+              content: res.Message,
+              showCancel: false,
+              success(res) { }
+            })
           }
-        } else {
+        }).catch(res => {
           wx.showModal({
             title: '提示',
             content: res.Message,
             showCancel: false,
-            success(res) {}
+            success(res) { }
           })
-        }
-      }).catch(res => {
-        wx.showModal({
-          title: '提示',
-          content: res.Message,
-          showCancel: false,
-          success(res) {}
         })
-      })
+      });
     }
   },
   /**
