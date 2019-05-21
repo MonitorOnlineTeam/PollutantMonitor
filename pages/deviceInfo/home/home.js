@@ -144,19 +144,19 @@ Page({
           })
         }
       } else {
-        wx.showModal({
-          title: '提示',
-          content: '网络错误，请下拉刷新重试',
-          confirmText:"重试",
-          // showCancel: false,
-          success(res) {
-            if (res.confirm) {
-              // that.onPullDownRefresh();
-            } else if (res.cancel) {
-              console.log('用户点击取消')
-            }
-          }
-        })
+        // wx.showModal({
+        //   title: '提示',
+        //   content: '网络错误，请下拉刷新重试',
+        //   confirmText:"重试",
+        //   // showCancel: false,
+        //   success(res) {
+        //     if (res.confirm) {
+        //       // that.onPullDownRefresh();
+        //     } else if (res.cancel) {
+        //       console.log('用户点击取消')
+        //     }
+        //   }
+        // })
       }
       wx.hideNavigationBarLoading();
     })

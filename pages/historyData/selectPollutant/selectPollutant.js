@@ -77,50 +77,129 @@ Page({
   //获取污染物
   getPollutantList: function(callback) {
     let cookiePollutant = common.getStorage('Pollutants');
-    if (!cookiePollutant) {
-      comApi.getPollutantList().then(res => {
-        console.log('污染物', res);
 
-        if (res && res.IsSuccess && res.Data) {
-          let thisData = res.Data;
-          let selectedPollutant = {};
-          let pollutantNames = [];
-          let pollutantNamesObject = [];
+    comApi.getPollutantList().then(res => {
+      console.log('污染物', res);
 
-          let pollutantList = [];
+      if (res && res.IsSuccess && res.Data) {
+        let thisData = res.Data;
+        let selectedPollutant = {};
+        let pollutantNames = [];
+        let pollutantNamesObject = [];
 
-          thisData.map(function(item, index) {
-            pollutantList.push({
-              code: item.pollutantCode,
-              name: item.pollutantName,
-              unit: item.unit,
-              checked: false,
-              color:'',
-              value:'-'
-            });
-          })
-          this.setData({
-            items: pollutantList
+        let pollutantList = [];
+
+        thisData.map(function (item, index) {
+          pollutantList.push({
+            code: item.pollutantCode,
+            name: item.pollutantName,
+            unit: item.unit,
+            checked: false,
+            color: '',
+            value: '-'
           });
-          common.setStorage('Pollutants', pollutantList);
-        }
-      });
-    } else {
-      let selectedPollutants = common.getStorage('selectedPollutants');
-      let newData = [];
-      cookiePollutant.map(function(item, index) {
-        if (selectedPollutants) {
-          let that = selectedPollutants.filter(m => m.code == item.code);
-          if (that.length > 0) {
-            item.checked = true;
+        })
+
+        common.setStorage('Pollutants', pollutantList);
+        let selectedPollutants = common.getStorage('selectedPollutants');
+        let newData = [];
+        pollutantList.map(function (item, index) {
+          if (selectedPollutants) {
+            let that = selectedPollutants.filter(m => m.code == item.code);
+            if (that.length > 0) {
+              item.checked = true;
+            }
           }
-        }
-        newData.push(item);
-      });
-      this.setData({
-        items: newData
-      })
-    }
+          newData.push(item);
+        });
+        this.setData({
+          items: pollutantList
+        });
+      }
+    });
+    // if (!cookiePollutant) {
+    //   comApi.getPollutantList().then(res => {
+    //     console.log('污染物', res);
+
+    //     if (res && res.IsSuccess && res.Data) {
+    //       let thisData = res.Data;
+    //       let selectedPollutant = {};
+    //       let pollutantNames = [];
+    //       let pollutantNamesObject = [];
+
+    //       let pollutantList = [];
+
+    //       thisData.map(function(item, index) {
+    //         pollutantList.push({
+    //           code: item.pollutantCode,
+    //           name: item.pollutantName,
+    //           unit: item.unit,
+    //           checked: false,
+    //           color:'',
+    //           value:'-'
+    //         });
+    //       })
+    //       this.setData({
+    //         items: pollutantList
+    //       });
+    //       common.setStorage('Pollutants', pollutantList);
+    //     }
+    //   });
+    // } else {
+    //   comApi.getPollutantList().then(res => {
+    //     console.log('污染物', res);
+
+    //     if (res && res.IsSuccess && res.Data) {
+    //       let thisData = res.Data;
+    //       let selectedPollutant = {};
+    //       let pollutantNames = [];
+    //       let pollutantNamesObject = [];
+
+    //       let pollutantList = [];
+
+    //       thisData.map(function (item, index) {
+    //         pollutantList.push({
+    //           code: item.pollutantCode,
+    //           name: item.pollutantName,
+    //           unit: item.unit,
+    //           checked: false,
+    //           color: '',
+    //           value: '-'
+    //         });
+    //       })
+          
+    //       common.setStorage('Pollutants', pollutantList);
+    //       let selectedPollutants = common.getStorage('selectedPollutants');
+    //       let newData = [];
+    //       pollutantList.map(function (item, index) {
+    //         if (selectedPollutants) {
+    //           let that = selectedPollutants.filter(m => m.code == item.code);
+    //           if (that.length > 0) {
+    //             item.checked = true;
+    //           }
+    //         }
+    //         newData.push(item);
+    //       });
+    //       this.setData({
+    //         items: pollutantList
+    //       });
+    //     }
+    //   });
+    //   // let selectedPollutants = common.getStorage('selectedPollutants');
+    //   // let newData = [];
+    //   // cookiePollutant.map(function(item, index) {
+    //   //   if (selectedPollutants) {
+    //   //     let that = selectedPollutants.filter(m => m.code == item.code);
+    //   //     if (that.length > 0) {
+    //   //       item.checked = true;
+    //   //     }
+    //   //   }
+    //   //   newData.push(item);
+    //   // });
+    //   // this.setData({
+    //   //   items: newData
+    //   // })
+    // }
   },
   /**
    * 生命周期函数--监听页面加载

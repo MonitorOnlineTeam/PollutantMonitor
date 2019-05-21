@@ -56,6 +56,21 @@
     });
     return fetch(URL, type, params, method).then(res => {
       wx.hideLoading()
+     
+      if (res.data.StatusCode==500){
+        wx.showModal({
+          title: '提示',
+          content: res.data.Message, //'网络错误，请重试',
+          showCancel: false,
+          success(res) {
+            if (res.confirm) {
+              console.log('用户点击确定')
+            } else if (res.cancel) {
+              console.log('用户点击取消')
+            }
+          }
+        })
+      }
       return res;
     }).catch(res => {
       wx.showModal({
