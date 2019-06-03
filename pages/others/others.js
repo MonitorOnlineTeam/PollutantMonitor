@@ -14,67 +14,71 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-
+  onLoad: function(options) {
+    if (common.getStorage("DGIMN")) {
+      wx.switchTab({
+        url: '/pages/realTimeData/home/home'
+      })
+    }
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
     app.isLogin();
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
     return {
       path: `/pages/others/others?DGIMN=${common.getStorage("DGIMN")}` // 路径，传递参数到指定页面。
     }
 
   },
-  redrictHistory: function () {
+  redrictHistory: function() {
     wx.navigateTo({
       url: '/pages/my/visitHistory/visitHistory'
     })
   },
-  redrictScan: function () {
+  redrictScan: function() {
     let that = this;
     wx.scanCode({
       success(res) {
@@ -86,7 +90,7 @@ Page({
             let url = decodeURIComponent(scene);
             let substr = url.substr(url.lastIndexOf('/') + 1, url.length);
             console.log('substr', substr);
-            if (substr && substr.indexOf('flag=sdl,mn=') >-1) {
+            if (substr && substr.indexOf('flag=sdl,mn=') > -1) {
               let mn = substr.split(',')[1].split('=')[1];
               if (mn) {
                 comApi.qRCodeVerifyDGIMN(mn).then(res => {
@@ -100,7 +104,7 @@ Page({
                       title: '提示',
                       content: res.Message,
                       showCancel: false,
-                      success(res) { }
+                      success(res) {}
                     })
                   }
                 })

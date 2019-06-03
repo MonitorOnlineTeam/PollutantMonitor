@@ -66,7 +66,7 @@
       <view>
         <image style='position:absolute;width:20px;height:20px;background-size:100% 100%;' src='/images/003.png'></image>
       </view>
-      <view style='padding-left:50rpx;' class='lable-text'>测试组分</view>
+      <view style='padding-left:50rpx;' class='lable-text'>监测组分</view>
       <view class='lable-value'>
         <view class='pollutantItemsClass'>
           {{resultData.TestComponent==""?"暂无组分":resultData.TestComponent}}
