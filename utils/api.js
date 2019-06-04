@@ -1,5 +1,5 @@
   //const URL = 'http://172.16.9.13:8019/api/rest/PollutantSourceApi/'
-  //const URL = 'http://localhost:52198/rest/PollutantSourceApi/'
+  //const URL = 'http://172.16.9.13:52199/rest/PollutantSourceApi'
   //const URL = 'http://api.chsdl.cn/WxWryApi/rest/PollutantSourceApi'
   //http://api.chsdl.cn/wxwryapi?flag=sdl&mn=62262431qlsp099
   const URL = 'https://api.chsdl.net/wxwryapi/rest/PollutantSourceApi'
@@ -255,6 +255,7 @@
    * @param  {String}} phone 手机号
    */
   function verifyDGIMN(DGIMN) {
+    console.log("DGIMN", DGIMN)
     return fetchApi(pageUrl.verifyDGIMN, {
       DGIMN: DGIMN
     }, 'post').then(res => res.data)

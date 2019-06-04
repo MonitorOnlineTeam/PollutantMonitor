@@ -34,7 +34,7 @@ Page({
       wx.showLoading({
         title: '正在加载中',
       });
-      app.wxLogin(function(){
+      app.wxLogin(function() {
         wx.hideLoading();
         comApi.verifyPhone(phone).then(res => {
           if (res && res.IsSuccess) {
@@ -48,7 +48,7 @@ Page({
               title: '提示',
               content: res.Message,
               showCancel: false,
-              success(res) { }
+              success(res) {}
             })
           }
         }).catch(res => {
@@ -56,7 +56,7 @@ Page({
             title: '提示',
             content: res.Message,
             showCancel: false,
-            success(res) { }
+            success(res) {}
           })
         })
       });
@@ -66,10 +66,14 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-   
+    if (common.getStorage("PhoneCode")) {
+      this.setData({
+        phoneCode: common.getStorage("PhoneCode")
+      });
+    }
     //console.log(decodeURIComponent(options.q));
-    this.ValidateDGIMN();
-    
+    this.ValidateDGIMN(options);
+
   },
 
   /**
@@ -83,7 +87,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function(aaa) {
-    
+
   },
 
   /**
@@ -126,41 +130,52 @@ Page({
    * 验证是否为扫码进入系统
    */
   ValidateDGIMN: function(options) {
+    let that=this;
+    console.log("进入扫码", options);
     if (options && options.q) {
       let url = decodeURIComponent(options.q);
+      console.log("url", url);
       let substr = url.substr(url.lastIndexOf('/') + 1, url.length);
+      console.log("substr", substr);
       if (substr && substr.indexOf('flag=sdl,mn=') >= 0) {
         let mn = substr.split(',')[1].split('=')[1];
+        console.log("mn", mn);
         if (mn) {
-          comApi.verifyDGIMN(mn).then(res => {
-            if (res && res.IsSuccess) {
-              common.setStorage("DGIMN", mn);
-              if (common.getStorage("PhoneCode")) {
-                this.setData({
-                  phoneCode: common.getStorage("PhoneCode")
-                });
-                app.wxLogin();
-                this.btnLogin();
+          app.wxLogin(function() {
+            comApi.qRCodeVerifyDGIMN(mn).then(res => {
+              console.log("res", res);
+              if (res && res.IsSuccess) {
+                console.log("=====1", common.getStorage("DGIMN"));
+                common.setStorage("DGIMN", mn);
+                console.log("=====2", common.getStorage("DGIMN"));
+                if (common.getStorage("PhoneCode")) {
+                  that.setData({
+                    phoneCode: common.getStorage("PhoneCode")
+                  });
+
+                  that.btnLogin();
+                }
+              } else {
+                //common.setStorage("DGIMN", mn);
+                wx.showModal({
+                  title: '提示',
+                  content: res.Message,
+                  showCancel: false,
+                  success(res) {}
+                })
               }
-            } else {
-              //common.setStorage("DGIMN", mn);
-              wx.showModal({
-                title: '提示',
-                content: res.Message,
-                showCancel: false,
-                success(res) {}
-              })
-            }
-          })
+            })
+          });
+
         }
       }
-    }else
-    {
+    } else {
+      console.log("进入扫码?", options);
       if (common.getStorage("PhoneCode")) {
-        this.setData({
+        that.setData({
           phoneCode: common.getStorage("PhoneCode")
         });
-        this.btnLogin();
+        that.btnLogin();
       }
     }
   }
