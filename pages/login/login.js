@@ -16,7 +16,7 @@ Page({
     });
   },
   btnLogin: function() {
-    console.log(this.data.phoneCode)
+    // console.log(this.data.phoneCode)
     if (this.data.phoneCode.length != 11) {
       wx.showModal({
         title: '提示',
@@ -51,13 +51,6 @@ Page({
               success(res) {}
             })
           }
-        }).catch(res => {
-          wx.showModal({
-            title: '提示',
-            content: res.Message,
-            showCancel: false,
-            success(res) {}
-          })
         })
       });
     }
@@ -131,23 +124,17 @@ Page({
    */
   ValidateDGIMN: function(options) {
     let that=this;
-    console.log("进入扫码", options);
     if (options && options.q) {
       let url = decodeURIComponent(options.q);
-      console.log("url", url);
       let substr = url.substr(url.lastIndexOf('/') + 1, url.length);
-      console.log("substr", substr);
       if (substr && substr.indexOf('flag=sdl,mn=') >= 0) {
         let mn = substr.split(',')[1].split('=')[1];
-        console.log("mn", mn);
         if (mn) {
           app.wxLogin(function() {
             comApi.qRCodeVerifyDGIMN(mn).then(res => {
               console.log("res", res);
               if (res && res.IsSuccess) {
-                console.log("=====1", common.getStorage("DGIMN"));
                 common.setStorage("DGIMN", mn);
-                console.log("=====2", common.getStorage("DGIMN"));
                 if (common.getStorage("PhoneCode")) {
                   that.setData({
                     phoneCode: common.getStorage("PhoneCode")
@@ -170,7 +157,6 @@ Page({
         }
       }
     } else {
-      console.log("进入扫码?", options);
       if (common.getStorage("PhoneCode")) {
         that.setData({
           phoneCode: common.getStorage("PhoneCode")

@@ -7,6 +7,7 @@ const common = require('./utils/common.js')
 //app.js
 
 App({
+  message:"网络请求失败，请重试",
   api: api,
   common: common,
   onLoad: function() {},

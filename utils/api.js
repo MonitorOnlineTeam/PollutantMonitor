@@ -1,5 +1,5 @@
   //const URL = 'http://172.16.9.13:8019/api/rest/PollutantSourceApi/'
-  //const URL = 'http://172.16.9.13:52199/rest/PollutantSourceApi'
+  //const URL = 'http://localhost:52199/rest/PollutantSourceApi'
   //const URL = 'http://api.chsdl.cn/WxWryApi/rest/PollutantSourceApi'
   //http://api.chsdl.cn/wxwryapi?flag=sdl&mn=62262431qlsp099
   const URL = 'https://api.chsdl.net/wxwryapi/rest/PollutantSourceApi'
@@ -46,36 +46,36 @@
     //   content: JSON.stringify(params), //'网络错误，请重试',
     //   showCancel: false,
     //   success(res) {
-        
+
     //   }
     // })
     console.log("params", params);
-
+    
     wx.showLoading({
       title: '正在加载中',
     });
     return fetch(URL, type, params, method).then(res => {
       wx.hideLoading()
-     
-      if (res.data.StatusCode==500){
-        wx.showModal({
-          title: '提示',
-          content: res.data.Message, //'网络错误，请重试',
-          showCancel: false,
-          success(res) {
-            if (res.confirm) {
-              console.log('用户点击确定')
-            } else if (res.cancel) {
-              console.log('用户点击取消')
-            }
-          }
-        })
-      }
+
+      // if (res.data.StatusCode == 500) {
+      //   wx.showModal({
+      //     title: '提示',
+      //     content: res.data.Message, //'网络错误，请重试',
+      //     showCancel: false,
+      //     success(res) {
+      //       if (res.confirm) {
+      //         console.log('用户点击确定')
+      //       } else if (res.cancel) {
+      //         console.log('用户点击取消')
+      //       }
+      //     }
+      //   })
+      // }
       return res;
     }).catch(res => {
       wx.showModal({
         title: '提示',
-        content: JSON.stringify(res), //'网络错误，请重试',
+        content: '网络错误，请重试', //'网络错误，请重试',JSON.stringify(res)
         showCancel: false,
         success(res) {
           if (res.confirm) {
@@ -123,7 +123,7 @@
     //  })
     return fetchApi(pageUrl.getUserInfo, {
         AuthorCode: common.getStorage('OpenId'),
-      DGIMN: common.getStorage('DGIMN')
+        DGIMN: common.getStorage('DGIMN')
       }, 'get')
       .then(res => res.data)
   }
@@ -261,16 +261,24 @@
     }, 'post').then(res => res.data)
   }
 
-/**
+  /**
    * 根据扫码获取访问权限
    * @param  {String}} phone 手机号
    */
-function qRCodeVerifyDGIMN(DGIMN) {
-  return fetchApi(pageUrl.qRCodeVerifyDGIMN, {
-    DGIMN: DGIMN,
-    OpenId: common.getStorage('OpenId')
-  }, 'post').then(res => res.data)
-}
+  function qRCodeVerifyDGIMN(DGIMN) {
+    if (!common.getStorage('OpenId')) {
+      wx.showToast({
+        title: '登录超时，请重试',
+        icon: 'none',
+        mask: true
+      })
+      return false;
+    }
+    return fetchApi(pageUrl.qRCodeVerifyDGIMN, {
+      DGIMN: DGIMN,
+      OpenId: common.getStorage('OpenId')
+    }, 'post').then(res => res.data)
+  }
 
   /**
    * 添加意见反馈

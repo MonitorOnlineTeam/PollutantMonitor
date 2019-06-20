@@ -123,6 +123,13 @@ Page({
     //debugger;
     let selectedPollutants = common.getStorage('selectedPollutants') || [];
     if (this.data.selectedDate != selectedDate || JSON.stringify(this.data.selectedPollutants) != JSON.stringify(selectedPollutants) || this.data.DGIMN !== common.getStorage('DGIMN')) {
+
+      if(this.data.DGIMN!== common.getStorage('DGIMN'))
+      {
+        selectedDate = moment().format(selectTimeFormat[this.data.dataType].showFormat);
+        //moment().format(selectTimeFormat[this.data.dataType].showFormat)
+      }
+
       this.setData({
         DGIMN: common.getStorage('DGIMN'),
         selectedDate: selectedDate,
