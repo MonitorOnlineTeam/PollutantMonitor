@@ -132,8 +132,9 @@ Page({
         let mn = substr.split(',')[1].split('=')[1];
         if (mn) {
           app.wxLogin(function() {
-            if (mn == "0102030405060708090A0B0C0D0E0F10") {
-              common.setStorage("DGIMN", "0102030405060708090A0B0C0D0E0F10");
+            if (mn == "0102030405060708090A0B0C0D0E0F10" || mn =="0202030405060708090A0B0C0D0E0F10" ||
+              mn =="0302030405060708090A0B0C0D0E0F10" ) {
+              common.setStorage("DGIMN", mn);
               common.setStorage("OpenId", "13800138000"); //13800138000
               common.setStorage("PhoneCode", "13800138000"); //13800138000
               app.getUserInfo();
