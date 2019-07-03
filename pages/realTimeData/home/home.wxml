@@ -58,6 +58,8 @@
     </view>
   </view>
 
+
+
 <view class="cu-modal bottom-modal {{modalName=='ChooseModal'?'show':''}}" bindtap='hideModal'>
   <view class="cu-dialog" catchtap>
     <view>

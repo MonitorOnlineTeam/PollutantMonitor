@@ -18,7 +18,8 @@ Page({
     pointInfo: null,
     isShowContent:false,
     isShowInfo: false,
-    DGIMN:''
+    DGIMN:'',
+    dataInfo:null,
   },
 
   /**
@@ -101,10 +102,21 @@ Page({
   getData: function() {
     var resultData = {
       dataitem: [],
-      pointInfo: {}
+      pointInfo: {},
+     
     };
+
+    comApi.getProcessFlowChartStatus().then(res=>{
+      if (res && res.IsSuccess && res.Data)
+       {
+        console.log(res.Data.paramsInfo)
+            this.setData({
+              dataInfo: res.Data.paramsInfo
+            })
+       }
+    })
+
     comApi.getRealTimeDataForPoint().then(res => {
-      console.log(res)
       if (res && res.IsSuccess) {
         if (res.Data) {
           let data = res.Data;

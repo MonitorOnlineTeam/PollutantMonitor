@@ -21,21 +21,81 @@ Page({
       scaleHeight: null
     },
     scale: 0.5,
-    tantouwendu: '暂未上传',
-    guanxianwendu: '暂未上传',
-    zhilengwendu: '暂未上传',
+    // tantouwendu: '暂未上传',
+    // guanxianwendu: '暂未上传',
+    // zhilengwendu: '暂未上传',
 
-    lvxinxiacigenghuanshijian: '暂未上传',
-    lingqilvxinggenghuanshijian: '暂未上传',
-    quyangbenggenghuanshijian: '暂未上传',
-    rudongbenggenghuanshijian: '暂未上传',
-    guolvqigenghuanshijian: '暂未上传',
+    // lvxinxiacigenghuanshijian: '暂未上传',
+    // lingqilvxinggenghuanshijian: '暂未上传',
+    // quyangbenggenghuanshijian: '暂未上传',
+    // rudongbenggenghuanshijian: '暂未上传',
+    // guolvqigenghuanshijian: '暂未上传',
 
-    pituoguan: '暂未上传',
-    gognzuozhuangtai: '暂未上传',
-    cemsstauts: '暂未上传',
-    yeweizhi: '暂未上传',
-    jiezhifazhuangtai: '暂未上传',
+    // pituoguan: '暂未上传',
+    // gognzuozhuangtai: '暂未上传',
+    // cemsstauts: '暂未上传',
+    // yeweizhi: '暂未上传',
+    // jiezhifazhuangtai: '暂未上传',
+
+
+    //钢气瓶压力
+    gangqiping:null,
+    //系统采样探头温度
+    tantouwendu:null,
+    //采样泵使用时间
+    caiyangbengshijian:null,
+    //标定组分标气测量值
+    biaodingbiaoqizhi:null,
+    //大气压
+    daqiya:null,
+    //制冷器温度
+    zhilengqiwendu:null,
+    //蠕动泵使用时间
+    rudongbengshijian:null,
+    //采样流量
+    caiyangliuliang:null,
+    //氧通道
+    yangtongdao:null,
+    //室内温度
+    shineiwendu:null,
+    //校准偏差值
+    jiaozhunpiancha:null,
+    //电磁阀累计使用次数
+    diancifashijian:null,
+    //标气浓度
+    biaoqinongdu:null,
+    //采样管线温度
+    caiyanggaunxianwendu:null,
+
+    //采样管线状态
+    caiyangguanxianstate:null,
+    //探头吹扫状态
+    tantouchuisaostate:null,
+    //废液桶状态
+    feiyetongstate:null,
+    //制冷器状态
+    zhilengqistate:null,
+    //蠕动泵状态
+    rudongbengstate:null,
+    //校准类别
+    jiaozhunstate:null,
+    //湿度报警
+    shidustate:null,
+    //温度，压力，流量（速）
+    wylparam:[],
+    //探头管线信息
+    tantouguanxian: [],
+    //颗粒物分析仪
+    keliwuparam: [],
+    //湿度仪
+    shiduyi: [],
+    //气态分析仪
+    qitaiparam: [],
+    //侧边显示
+    modalVisite:'none',
+    showmodalstate:[],
+    showmodalparam:[],
+    showmodaldata:[],
     PointName:''
   },
   navigateBack() {
@@ -49,7 +109,8 @@ Page({
     this.setData({
       PointName: common.getStorage('PointName')
     });
-    this.getData();
+   // this.getData();
+    this.getParamData();
   },
 
   /**
@@ -102,6 +163,175 @@ Page({
       path: `/pages/realTimeData/flowChart/flowChart?DGIMN=${common.getStorage("DGIMN")}` // 路径，传递参数到指定页面。
     }
   },
+  hiddenModal:function(){
+     this.setData({
+       modalVisite: 'none'
+     })
+  },
+  showModal:function(e){  
+    var info = e.currentTarget.dataset.obj;
+    if(info)
+    {
+      this.setData({
+        showmodalstate: info.state ? info.state:[],
+        showmodalparam: info.param ? info.param:[],
+        showmodaldata: info.data ? info.data:[],
+        modalVisite:'display'
+      })
+    }
+  }, 
+  getParamData:function(){
+    var pointName = common.getStorage("PointName");
+    if (pointName) {
+      wx.setNavigationBarTitle({
+        title: pointName,
+      })
+    }
+    var resultData = null;
+    comApi.getProcessFlowChartStatus().then(res=>{
+      if(res && res.IsSuccess)
+      { 
+        if(res.Data)
+        {
+          var paramstatusInfo = res.Data.paramstatusInfo;
+          var tantouparam,tantoustate,shiduyistate;
+          if (paramstatusInfo)
+          {
+            var gangqipingInfo = paramstatusInfo.find(val=>{
+              return val.statecode == "i33011";
+            })
+            var tantouwenduInfo = paramstatusInfo.find(val => {
+              return val.statecode == "i33003";
+            })
+            var caiyangbengshijianInfo = paramstatusInfo.find(val => {
+              return val.statecode == "i33007";
+            })
+            var biaodingbiaoqizhiInfo = paramstatusInfo.find(val => {
+              return val.statecode == "i33039";
+            })
+            var daqiyaInfo = paramstatusInfo.find(val => {
+              return val.statecode == "i33013";
+            })
+            var zhilengqiwenduInfo = paramstatusInfo.find(val => {
+              return val.statecode == "i33008";
+            })
+            var rudongbengshijianInfo = paramstatusInfo.find(val => {
+              return val.statecode == "i33010";
+            })
+            var caiyangliuliangInfo = paramstatusInfo.find(val => {
+              return val.statecode == "i33021";
+            }) 
+            var yangtongdaoInfo = paramstatusInfo.find(val => {
+              return val.statecode == "i33036";
+            }) 
+            var shineiwenduInfo = paramstatusInfo.find(val => {
+              return val.statecode == "i33012";
+            }) 
+            var jiaozhunpianchaInfo = paramstatusInfo.find(val => {
+              return val.statecode == "i33040";
+            }) 
+            var diancifashijianInfo = paramstatusInfo.find(val => {
+              return val.statecode == "i33014";
+            }) 
+            var biaoqinongduInfo = paramstatusInfo.find(val => {
+              return val.statecode == "i33038";
+            }) 
+            var caiyanggaunxianwenduInfo = paramstatusInfo.find(val => {
+              return val.statecode == "i33038";
+            }) 
+            
+            tantouparam = paramstatusInfo.filter(a => a.statecode == "i33003" || a.statecode =="i33001");
+            this.setData({
+              gangqiping: gangqipingInfo ? gangqipingInfo.value:null,
+              tantouwendu: tantouwenduInfo ? tantouwenduInfo.value:null,
+              caiyangbengshijian: caiyangbengshijianInfo ? caiyangbengshijianInfo.value:null,
+              biaodingbiaoqizhi: biaodingbiaoqizhiInfo ? biaodingbiaoqizhiInfo.value:null,
+              daqiya: daqiyaInfo ? daqiyaInfo.value:null,
+              zhilengqiwendu: zhilengqiwenduInfo? zhilengqiwenduInfo.value:null,
+              rudongbengshijian: rudongbengshijianInfo ? rudongbengshijianInfo.value:null,
+              caiyangliuliang: caiyangliuliangInfo ? caiyangliuliangInfo.value:null,
+              yangtongdao: yangtongdaoInfo ? yangtongdaoInfo.value:null,
+              shineiwendu: shineiwenduInfo ? shineiwenduInfo.value:null,
+              jiaozhunpiancha: jiaozhunpianchaInfo ? jiaozhunpianchaInfo.value:null,
+              diancifashijian: diancifashijianInfo ? diancifashijianInfo.value:null,
+              biaoqinongdu: biaoqinongduInfo ? biaoqinongduInfo.value:null,
+              caiyanggaunxianwendu: caiyanggaunxianwenduInfo ? caiyanggaunxianwenduInfo.value:null
+            })
+          }
+          var stateInfo = res.Data.stateInfo;
+          if (stateInfo)
+          {
+            var caiyangguanxianstateInfo = stateInfo.find(val=>{
+               return val.code=="i12110";
+            })
+            var tantouchuisaostateInfo = stateInfo.find(val => {
+              return val.code == "i12105";
+            })
+            var feiyetongstateInfo = stateInfo.find(val => {
+              return val.code == "i12115";
+            })
+            var zhilengqistateInfo = stateInfo.find(val => {
+              return val.code == "i12109";
+            })
+            var rudongbengstateInfo = stateInfo.find(val => {
+              return val.code == "i12116";
+            })
+            var jiaozhunstateInfo = stateInfo.find(val => {
+              return val.code == "i12117";
+            })
+            var shidustateInfo = stateInfo.find(val => {
+              return val.code == "i12102";
+            })
+            tantoustate = stateInfo.filter(a => a.code == "i12110" || a.code =="i12105");
+            shiduyistate= stateInfo.filter(a => a.code == "i12102");
+            this.setData({
+              caiyangguanxianstate: caiyangguanxianstateInfo ? caiyangguanxianstateInfo.statename:null,
+              tantouchuisaostate: tantouchuisaostateInfo ? tantouchuisaostateInfo.statename:null,
+              feiyetongstate: feiyetongstateInfo ? feiyetongstateInfo.statename:null,
+              zhilengqistate: zhilengqistateInfo ? zhilengqistateInfo.statename:null,
+              rudongbengstate: rudongbengstateInfo ? rudongbengstateInfo.statename:null,
+              jiaozhunstate: jiaozhunstateInfo ? jiaozhunstateInfo.statename:null,
+              shidustate: shidustateInfo ? shidustateInfo.statename:null
+            })
+          }
+          var paramsInfo = res.Data.paramsInfo;
+          if (paramsInfo)
+          {
+            var wylparam = paramsInfo.filter(a => a.pollutantCode == "s02" || a.pollutantCode == "s07" 
+              || a.pollutantCode == "s08" || a.pollutantCode == "b02");
+
+            var wyl={
+              data: wylparam
+            }
+            var tantouguanxian={
+              param: tantouparam,
+              state: tantoustate,
+            }
+            var keliwuparam = paramsInfo.filter(a => a.pollutantCode=="01");
+            var keliwu={
+              data: keliwuparam
+            }
+            var shiduyiparam = paramsInfo.filter(a => a.pollutantCode=="s05");
+            var shiduyi={
+              data: shiduyiparam,
+              state: shiduyistate,
+            }
+            var qitaiparam = paramsInfo.filter(a => a.pollutantCode == "02" ||   a.pollutantCode == "03");
+            var qitai={
+              data: qitaiparam
+            }
+            this.setData({
+              wylparam: wyl,
+              tantouguanxian: tantouguanxian,
+              keliwuparam: keliwu,
+              shiduyi: shiduyi,
+              qitaiparam: qitai
+            })
+          }
+        }
+      }
+    })
+  },
   //获取数据
   getData: function() {
     // var pointName = common.getStorage("PointName");
@@ -117,6 +347,10 @@ Page({
       })
     }
     var resultData = null;
+    
+
+
+    
     comApi.getProcessFlowChartStatus().then(res => {
       console.log('getProcessFlowChartStatus', res)
       if (res && res.IsSuccess) {

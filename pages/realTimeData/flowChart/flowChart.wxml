@@ -1,11 +1,73 @@
 <!--pages/realTimeData/flowChart/flowChart.wxml-->
 
 <movable-area scale-area>
-        <movable-view direction="all" inertia  touch-out-of-bounds bindchange="onChange"  scale  scale-value="{{scale}}"><image src='/images/point.png' mode='aspectFit'></image>
-        <text class='imgContent cemsstauts' style='color:{{cemsstautscolor}};'>CEMS运行状态:{{cemsstauts}}</text></movable-view>
-        
+        <movable-view direction="all" inertia  touch-out-of-bounds bindchange="onChange"  scale  scale-value="{{scale}}"><image src='/images/point_wps.png' class="images" mode='aspectFit'>
+        </image>
+          <text class='imgContent tantouwendu' style='color:{{cemsstautscolor}};'>探头温度:{{tantouwendu}}</text>
+          <text class='imgContent tantoustate' style='color:{{cemsstautscolor}};'>探头状态:{{tantouwendu}}</text>
+          <text class='imgContent caiyanggaunxianwendu' style='color:{{cemsstautscolor}};'>管线温度:{{caiyanggaunxianwendu}}</text>
+          <text class='imgContent tantouchuisaostate' style='color:{{cemsstautscolor}};'>探头吹扫状态:{{tantouchuisaostate}}</text>
+          <text class='imgContent shidustate' style='color:{{cemsstautscolor}};'>湿度状态:{{shidustate}}</text>
+          <text class='imgContent rudongbengshijian' style='color:{{cemsstautscolor}};'>蠕动泵使用时间:{{rudongbengshijian}}</text>
+          <text class='imgContent rudongbengstate' style='color:{{cemsstautscolor}};'>蠕动泵状态:{{rudongbengstate}}</text>
+          <text class='imgContent zhilengqiwendu' style='color:{{cemsstautscolor}};'>制冷器温度:{{zhilengqiwendu}}</text>
+          <text class='imgContent zhilengqistate' style='color:{{cemsstautscolor}};'>制冷器状态:{{zhilengqistate}}</text>
+          <text class='imgContent diancifashijian' style='color:{{cemsstautscolor}};'>电磁阀的使用次数:{{diancifashijian}}</text>
+          <text class='imgContent feiyetongstate' style='color:{{cemsstautscolor}};'>废液桶状态:{{feiyetongstate}}</text>
+          <text bindtap="showModal" data-obj="{{wylparam}}"  data-target="DrawerModalR" class='imgContent gangqiping' style='color:{{cemsstautscolor}};'>钢气瓶压力:{{gangqiping}}</text>
+
+          <text bindtap="showModal" data-obj="{{wylparam}}" class="infoClick wylInfo"></text> 
+          <text bindtap="showModal" data-obj="{{keliwuparam}}" class="infoClick klwInfo"></text>
+          <text bindtap="showModal" data-obj="{{tantouguanxian}}" class="infoClick tantouInfo"></text>
+          <text bindtap="showModal" data-obj="{{shiduyi}}" class="infoClick shiduyiInfo"></text>
+          <text bindtap="showModal" data-obj="{{qitaiparam}}" class="infoClick qitaiInfo"></text>
+        </movable-view>
       </movable-area>
 
+<view>
+<view style='display:{{modalVisite}}' class="modalPosition">
+<image  bindtap="hiddenModal" class="closeimg" src="/images/close.png"></image>
+<view class="modalText">
+ <view class="modalView" wx:if="{{showmodalstate.length > 0}}"> 
+   <block wx:for="{{showmodalstate}}" wx:key="{{code}}">
+      <span wx:if="{{item.state==1}}">
+          <image class="stateimg" src="/images/exceptionstate.png"></image> {{item.name}}:{{item.statename}}
+      </span>
+        <span  wx:else>
+          <image class="stateimg" src="/images/normal.png"></image> {{item.name}}:{{item.statename}}
+      </span>
+   </block>
+ </view>
+ <view class="modalView" wx:if="{{showmodalparam.length > 0}}">
+    <block wx:for="{{showmodalparam}}" wx:key="{{statecode}}">
+      <span>
+         {{item.statename}}:{{item.value}}
+      </span>
+   </block>
+ </view>
+ <view class="modalView" wx:if="{{showmodaldata.length > 0}}">
+    <block wx:for="{{showmodaldata}}" wx:key="{{pollutantCode}}">
+      <view class="modaldata">
+         {{item.pollutantName}}:{{item.value?item.value:"-"}}
+        <span wx:for="{{item.pollutantParamInfo}}" wx:key="{{statename}}">
+          <span>
+            <image class="stateimg" src="/images/yuan.png"></image>   {{item.statename}}:{{item.value}}
+          </span>
+      </span>
+      </view>
+   </block>
+ </view>
+
+</view>
+
+</view>
+</view>
+
+<!-- <view class="cu-modal drawer-modal justify-end {{modalName=='DrawerModalR'?'show':''}}" bindtap='hideModal'>
+  <view class="cu-dialog basis-lg" catchtap style="top:{{CustomBar}}px;">
+     <view>treter</view>
+  </view>
+</view> -->
 <!-- <movable-area scale-area>
   <movable-view direction="all" bindchange="onChange" bindscale="onScale" scale scale-min="0.5" scale-max="4" scale-value="{{scale}}">
     <image src='/images/point.png' mode='aspectFit'></image>
