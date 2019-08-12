@@ -1,6 +1,6 @@
 //const URL = 'http://172.16.9.13:8019/api/rest/PollutantSourceApi/'
  // const URL = 'http://localhost:52199/rest/PollutantSourceApi'
- const URL = 'http://api.chsdl.net/WxWryApi/rest/PollutantSourceApi'
+ const URL = 'https://api.chsdl.net/WxWryApi/rest/PollutantSourceApi'
 //http://api.chsdl.cn/wxwryapi?flag=sdl&mn=62262431qlsp099
 //const URL = 'http://localhost:52199/'
 //const URL = 'http://localhost:52198/rest/PollutantSourceApi'
