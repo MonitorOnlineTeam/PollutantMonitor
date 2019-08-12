@@ -21,6 +21,7 @@ Page({
   confirm(event) {
     //console.log(moment(event.detail).format("YYYY-MM-DD HH:mm:00"));
     common.setStorage('selectedDate', moment(event.detail).format("YYYY-MM-DD HH:mm:00"));
+    common.setStorage('alarmselectedDate', moment(event.detail).format("YYYY-MM-DD HH:00:00"));
     // wx.switchTab({
     //   url: '/pages/historyData/home/home'
     // })

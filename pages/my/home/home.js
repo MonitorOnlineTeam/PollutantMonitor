@@ -9,13 +9,16 @@ Page({
   data: {
     userInfo: app.globalData.userInfo,
     isLoading:false,
-    currentSize:0
+    currentSize:0,
+    alarmSwitch:false
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+ 
+
     this.setData({
       userInfo: app.globalData.userInfo
     });
@@ -27,6 +30,31 @@ Page({
    */
   onReady: function() {
 
+  },
+  /**
+   * 报警开关
+   */
+  switchSex:function(e){
+    if (e.detail.value)
+    {
+      wx.navigateTo({
+        url: '../authorization/authorization'
+      })
+    }
+    else
+    {
+      comApi.cancelAuthorization().then({
+
+      })
+    }
+  },
+  /**
+   * 报警列表
+   */
+  alarmData:function(){
+    wx.navigateTo({
+       url:'../alarmDataList/alarmDataList'
+     })
   },
   clearCache:function(){
     let that=this;
@@ -57,7 +85,23 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    
+    comApi.getAuthorizationState().then(res => {
+      if (res && res.IsSuccess) {
+         
+        if (res.Data) {
+           this.setData({
+             alarmSwitch:true
+           })
+        }
+        else{
+          this.setData({
+            alarmSwitch: false
+          })
+        }
+      }
+    })
+
+
     app.isLogin();
 
     var pointName = common.getStorage("PointName");

@@ -37,11 +37,14 @@ Page({
     // yeweizhi: '暂未上传',
     // jiezhifazhuangtai: '暂未上传',
 
-
+    //图片路径
+    imgageSrc: null,
     //钢气瓶压力
     gangqiping:null,
     //系统采样探头温度
     tantouwendu:null,
+    //采样探头状态
+    tamtoustate:null,
     //采样泵使用时间
     caiyangbengshijian:null,
     //标定组分标气测量值
@@ -96,7 +99,13 @@ Page({
     showmodalstate:[],
     showmodalparam:[],
     showmodaldata:[],
-    PointName:''
+    PointName:'',
+    //站点类型
+    pointType:1,
+    //voc分析仪
+    vocparam: [],
+    //汞分析仪
+    hgparam: []
   },
   navigateBack() {
     wx.navigateBack()
@@ -172,11 +181,16 @@ Page({
     var info = e.currentTarget.dataset.obj;
     if(info)
     {
+      var modalVisite ='none';
+      if ((info.state && info.state.length>0) || (info.param && info.param.length>0) || (info.data && info.data.length>0))
+      {
+          modalVisite = 'display'; 
+      }
       this.setData({
         showmodalstate: info.state ? info.state:[],
         showmodalparam: info.param ? info.param:[],
         showmodaldata: info.data ? info.data:[],
-        modalVisite:'display'
+        modalVisite:modalVisite
       })
     }
   }, 
@@ -193,6 +207,27 @@ Page({
       { 
         if(res.Data)
         {
+         
+          var pointType = res.Data.dataInfo ? res.Data.dataInfo.equipmentType:1;
+          var imgageSrc ="/images/point_wps.png";
+          if (pointType==1)
+          {
+            imgageSrc = "/images/point_wps.png";
+
+          }
+          else if (pointType == 2)
+          {
+            imgageSrc = "/images/vocpoint_wps.png";
+          }
+          else if (pointType == 3)
+          {
+            imgageSrc = "/images/hgpoint_wps.png";
+          }
+          this.setData({
+            imgageSrc: imgageSrc,
+            pointType: pointType ? pointType:3
+          })
+           
           var paramstatusInfo = res.Data.paramstatusInfo;
           var tantouparam,tantoustate,shiduyistate;
           if (paramstatusInfo)
@@ -261,6 +296,9 @@ Page({
           var stateInfo = res.Data.stateInfo;
           if (stateInfo)
           {
+            var tamtoustateInfo=stateInfo.find(val=>{
+              return val.code =="i12111";
+            })
             var caiyangguanxianstateInfo = stateInfo.find(val=>{
                return val.code=="i12110";
             })
@@ -285,6 +323,7 @@ Page({
             tantoustate = stateInfo.filter(a => a.code == "i12110" || a.code =="i12105");
             shiduyistate= stateInfo.filter(a => a.code == "i12102");
             this.setData({
+              tamtoustate: tamtoustateInfo ? tamtoustateInfo.statename:null,
               caiyangguanxianstate: caiyangguanxianstateInfo ? caiyangguanxianstateInfo.statename:null,
               tantouchuisaostate: tantouchuisaostateInfo ? tantouchuisaostateInfo.statename:null,
               feiyetongstate: feiyetongstateInfo ? feiyetongstateInfo.statename:null,
@@ -320,12 +359,22 @@ Page({
             var qitai={
               data: qitaiparam
             }
+            var vocparam = paramsInfo.filter(a => a.pollutantCode == "a24088" || a.pollutantCode == "m005");
+            var voc={
+               data: vocparam
+            }
+            var hgparam = paramsInfo.filter(a => a.pollutantCode == "a20057");
+            var hg={
+              data:hgparam
+            }
             this.setData({
               wylparam: wyl,
               tantouguanxian: tantouguanxian,
               keliwuparam: keliwu,
               shiduyi: shiduyi,
-              qitaiparam: qitai
+              qitaiparam: qitai,
+              vocparam: voc,
+              hgparam:hg
             })
           }
         }

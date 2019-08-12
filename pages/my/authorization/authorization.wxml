@@ -1,0 +1,8 @@
+
+
+
+<web-view src="https://api.chsdl.net/WxWryApiTokenTest/wx/index.html?authorCode={{openID}}">
+</web-view>
+
+
+ 

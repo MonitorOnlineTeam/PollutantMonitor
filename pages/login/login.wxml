@@ -1,5 +1,6 @@
 <!--pages/login/login.wxml-->
 <!-- <text>pages/login/login.wxml</text> -->
+ 
 <view class="warp">
   <image src="../../images/login_bg.jpg" class='imageClass'></image>
 

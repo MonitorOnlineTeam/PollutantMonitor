@@ -16,16 +16,17 @@ Page({
     overMultiple: '', //超标倍数
     standValue: '',
     pointInfo: null,
-    isShowContent:false,
+    isShowContent: false,
     isShowInfo: false,
-    DGIMN:'',
-    dataInfo:null,
+    DGIMN: '',
+    dataInfo: null,
+    imageSrc:null,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
+  onLoad: function (options) {
     this.setData({
       DGIMN: common.getStorage('DGIMN')
     });
@@ -35,14 +36,14 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
-    
+  onReady: function () {
+
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
+  onShow: function () {
     app.isLogin();
     if (this.data.DGIMN !== common.getStorage('DGIMN')) {
       common.setStorage('selectedPollutants', "");
@@ -57,21 +58,21 @@ Page({
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function() {
+  onHide: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function() {
+  onUnload: function () {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {
+  onPullDownRefresh: function () {
     wx.showNavigationBarLoading();
     wx.stopPullDownRefresh();
     this.getData();
@@ -80,40 +81,53 @@ Page({
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
+  onReachBottom: function () {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
+  onShareAppMessage: function () {
     return {
       path: `/pages/realTimeData/home/home?DGIMN=${common.getStorage("DGIMN")}` // 路径，传递参数到指定页面。
     }
   },
   //点击页面横屏
-  horizontalScreen: function() {
+  horizontalScreen: function () {
     wx.navigateTo({
       url: '../flowChart/flowChart'
     })
   },
   //获取数据
-  getData: function() {
+  getData: function () {
     var resultData = {
       dataitem: [],
       pointInfo: {},
-     
+
     };
 
-    comApi.getProcessFlowChartStatus().then(res=>{
-      if (res && res.IsSuccess && res.Data)
-       {
+    comApi.getProcessFlowChartStatus().then(res => {
+      if (res && res.IsSuccess && res.Data) {
         console.log(res.Data.paramsInfo)
-            this.setData({
-              dataInfo: res.Data.paramsInfo
-            })
-       }
+
+        var pointType = res.Data.dataInfo ? res.Data.dataInfo.equipmentType : 1;
+        var imageSrc = "/images/point.png";
+        if (pointType == 1) {
+          imageSrc = "/images/point.png";
+
+        }
+        else if (pointType == 2) {
+          imageSrc = "/images/vocpoint.png";
+        }
+        else if (pointType == 3) {
+          imageSrc = "/images/hgpoint.png";
+        }
+        this.setData({
+          dataInfo: res.Data.paramsInfo,
+          imageSrc: imageSrc,
+        })
+      }
     })
 
     comApi.getRealTimeDataForPoint().then(res => {
@@ -136,7 +150,7 @@ Page({
       wx.setNavigationBarTitle({
         title: pointName,
       });
-      
+
       wx.hideNavigationBarLoading();
     })
   },

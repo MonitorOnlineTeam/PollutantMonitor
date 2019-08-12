@@ -1,0 +1,12 @@
+radio{ transform:scale(.7)  }
+.lable{
+  margin-left: 40rpx;
+  font-size: 15px;
+  display: block;
+}
+.lableimg{
+  margin-right: 10rpx;
+}
+.text{
+  margin-top: 20rpx;
+}

@@ -15,7 +15,7 @@ Page({
       phoneCode: val.detail.value
     });
   },
-  btnLogin: function() {
+  btnLogin: function (options) {
     // console.log(this.data.phoneCode)
     if (this.data.phoneCode.length != 11) {
       wx.showModal({
@@ -26,9 +26,9 @@ Page({
       })
       return false;
     }
-    this.login();
+    this.login(options);
   },
-  login: function() {
+  login: function (options) {
     const phone = this.data.phoneCode;
     if (phone && phone.length == 11) {
       wx.showLoading({
@@ -41,7 +41,7 @@ Page({
             if (res.Data) {
               common.setStorage("OpenId", res.Data); //13800138000
               common.setStorage("PhoneCode", phone); //13800138000
-              app.getUserInfo();
+              app.getUserInfo(options);
             }
           } else {
             wx.showModal({
@@ -59,7 +59,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
+  
     if (common.getStorage("PhoneCode")) {
       this.setData({
         phoneCode: common.getStorage("PhoneCode")
@@ -80,8 +80,8 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function(aaa) {
-
+  onShow: function (options) {
+    
   },
 
   /**
@@ -137,7 +137,7 @@ Page({
               common.setStorage("DGIMN", mn);
               common.setStorage("OpenId", "13800138000"); //13800138000
               common.setStorage("PhoneCode", "13800138000"); //13800138000
-              app.getUserInfo();
+              app.getUserInfo(options);
               return;
             }
             comApi.qRCodeVerifyDGIMN(mn).then(res => {
@@ -170,7 +170,7 @@ Page({
         that.setData({
           phoneCode: common.getStorage("PhoneCode")
         });
-        that.btnLogin();
+        that.btnLogin(options);
       }
     }
   }

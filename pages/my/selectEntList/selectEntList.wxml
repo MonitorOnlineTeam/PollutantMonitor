@@ -1,0 +1,12 @@
+<!--pages/my/selectEntList/selectEntList.wxml-->
+  
+<radio-group class="radio-group text" bindchange="checkboxChange">
+ 
+ <label  class="radio lable" wx:for-items="{{items}}">
+   <view><radio class="lableimg" value="{{item.value}}" checked="{{item.checked}}"/>{{item.name}}</view> 
+ </label>
+  
+</radio-group>
+
+
+ 

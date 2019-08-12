@@ -49,13 +49,15 @@ movable-view {
 }
 
 .modalText{
+ 
   transform:rotate(270deg);
   -ms-transform:rotate(270deg); /* Internet Explorer 9*/
   -moz-transform:rotate(270deg); /* Firefox */
   -webkit-transform:rotate(270deg); /* Safari 和 Chrome */
   -o-transform:rotate(270deg); /* Opera */
   filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=1);
-  margin-top: 900rpx;
+  margin-top: calc((100vh/1.2));
+  text-align: left;
 }
 .modalPosition{
    position: absolute;
@@ -74,20 +76,39 @@ movable-view {
 }
 
 .modalView{
-  width: 1100rpx;
+   /* flex-direction: column; */
+  font-size: 12px;
+  width: calc((100vh));
   margin-top: 10rpx;
 }
  .modalView span{
+   font-size: 12px;
    margin-left: 20rpx;
  }
 .modaldata{
+  font-size: 12px;
    margin-top: 10rpx;
+}
+
+.vocInfo
+{
+    top: 15%;
+    left: 52%;
+    width: 9%;
+    height: 9%;
+}
+.hgInfo{
+    top: 15%;
+    left: 52%;
+    width: 9%;
+    height: 9%;
 }
 
 .stateimg{
   width: 16rpx;
   height: 16rpx;
   z-index: 100;
+  margin-right: 3px;
 }
 
 .wylInfo{

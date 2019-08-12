@@ -1,12 +1,13 @@
 //const URL = 'http://172.16.9.13:8019/api/rest/PollutantSourceApi/'
-//  const URL = 'http://localhost:52199/rest/PollutantSourceApi'
-//const URL = 'http://api.chsdl.cn/WxWryApi/rest/PollutantSourceApi'
+ // const URL = 'http://localhost:52199/rest/PollutantSourceApi'
+ const URL = 'http://api.chsdl.net/WxWryApi/rest/PollutantSourceApi'
 //http://api.chsdl.cn/wxwryapi?flag=sdl&mn=62262431qlsp099
 //const URL = 'http://localhost:52199/'
 //const URL = 'http://localhost:52198/rest/PollutantSourceApi'
-//const URL = 'http://172.16.30.108/wxwryapi/rest/PollutantSourceApi'
-const URL = 'https://api.chsdl.net/wxwryapi/rest/PollutantSourceApi'
+// const URL = 'http://172.16.30.108/wxwryapi/rest/PollutantSourceApi'
+ //const URL = 'https://api.chsdl.net/WxWryApiTokenTest/rest/PollutantSourceApi'
 //const URL = 'http://172.16.12.152:8044/rest/PollutantSourceApi'
+
 const fetch = require('./fetch')
 const common = require('./common.js')
 const moment = require('../utils/moment.min.js')
@@ -18,21 +19,25 @@ const dataTypeObj = {
   3: 'day'
 }
 const pageUrl = {
-  getOpenId: `/UserInfoApi/PostLogin?authorCode=${authorCode}`,
-  validateFirstLogin: '/UserInfoApi/ValidateFirstLogin',
-  updateUserInfo: '/UserInfoApi/UpdateUserInfo',
-  getUserInfo: '/UserInfoApi/GetUserInfo',
-  getPointInfo: `/UserInfoApi/GetPointInfo?authorCode=${authorCode}`,
-  getDeviceInfo: `/UserInfoApi/GetAnalyzerList?authorCode=${authorCode}`,
-  getPollutant: `/UserInfoApi/GetPollutantList?authorCode=${authorCode}`,
-  getMonitorData: `/UserInfoApi/GetMonitorDatas?authorCode=${authorCode}`,
-  getProcessFlowChartStatus: `/UserInfoApi/GetProcessFlowChartStatus?authorCode=${authorCode}`,
-  verifyDevicePwd: `/UserInfoApi/VerifyDevicePwd?authorCode=${authorCode}`,
-  verifyPhone: `/UserInfoApi/VerifyPhone?authorCode=${authorCode}`,
-  qRCodeVerifyDGIMN: `/UserInfoApi/QRCodeVerifyDGIMN?authorCode=${authorCode}`,
-  verifyDGIMN: `/UserInfoApi/VerifyDGIMN?authorCode=${authorCode}`,
-  getRealTimeDataForPoint: `/UserInfoApi/GetRealTimeDataForPoint?authorCode=${authorCode}`,
-  addFeedback: `/UserInfoApi/AddFeedback?authorCode=${authorCode}`,
+  getOpenId: `/WxServer/PostLogin?authorCode=${authorCode}`,
+  validateFirstLogin: '/WxServer/ValidateFirstLogin',
+  updateUserInfo: '/WxServer/UpdateUserInfo',
+  getUserInfo: '/WxServer/GetUserInfo',
+  getPointInfo: `/WxServer/GetPointInfo?authorCode=${authorCode}`,
+  getDeviceInfo: `/WxServer/GetAnalyzerList?authorCode=${authorCode}`,
+  getPollutant: `/WxServer/GetPollutantList?authorCode=${authorCode}`,
+  getMonitorData: `/WxServer/GetMonitorDatas?authorCode=${authorCode}`,
+  getProcessFlowChartStatus: `/WxServer/GetProcessFlowChartStatus?authorCode=${authorCode}`,
+  verifyDevicePwd: `/WxServer/VerifyDevicePwd?authorCode=${authorCode}`,
+  verifyPhone: `/WxServer/VerifyPhone?authorCode=${authorCode}`,
+  qRCodeVerifyDGIMN: `/WxServer/QRCodeVerifyDGIMN?authorCode=${authorCode}`,
+  verifyDGIMN: `/WxServer/VerifyDGIMN?authorCode=${authorCode}`,
+  getRealTimeDataForPoint: `/WxServer/GetRealTimeDataForPoint?authorCode=${authorCode}`,
+  addFeedback: `/WxServer/AddFeedback?authorCode=${authorCode}`,
+  getDataAlarmData:`/WxServer/GetAlarmDataList?authorCode=${authorCode}`,
+  getAuthorizationState: `/WxServer/getAuthorizationState?authorCode=${authorCode}`,
+  cancelAuthorization: `/WxServer/cancelAuthorization?authorCode=${authorCode}`,
+  getUserEntInfo: `WxServer/GetUserEntInfo?authorCode=${authorCode}`
 }
 
 /**
@@ -42,7 +47,7 @@ const pageUrl = {
  * @param  {String} method HTTP 请求方法【get、post】
  * @return {Promise}       包含抓取任务的Promise
  */
-function fetchApi(type, params, method) {
+function fetchApi(type, params, method,noUrl) {
   // wx.showModal({
   //   title: '提示fetchApi',
   //   content: JSON.stringify(params), //'网络错误，请重试',
@@ -56,9 +61,15 @@ function fetchApi(type, params, method) {
   wx.showLoading({
     title: '正在加载中',
   });
-  return fetch(URL, type, params, method).then(res => {
-    wx.hideLoading()
+  let prefix = URL;
+  if (noUrl)
+  {
+    prefix = type;
+    type="";
+  }
 
+  return fetch(prefix, type, params, method).then(res => {
+    wx.hideLoading()
     // if (res.data.StatusCode == 500) {
     //   wx.showModal({
     //     title: '提示',
@@ -104,6 +115,16 @@ function validateFirstLogin(code) {
 }
 
 /**
+ * 首次打开微信小程序调用
+ */
+function getUserEntInfo(code) {
+  return fetchApi(pageUrl.getUserEntInfo, {
+    OpenId: common.getStorage('OpenId'),
+  }, 'post')
+   .then(res => res.data)
+}
+
+/**
  * 更新用户信息
  * @param  {String}} userPhone  用户手机号
  */
@@ -115,6 +136,9 @@ function updateUserInfo(userPhone) {
     }, 'post')
     .then(res => res.data)
 }
+
+ 
+
 
 /**
  * 获取用户信息及访问排口历史记录
@@ -156,6 +180,23 @@ function getDeviceInfo(DGIMNs) {
     OpenId: common.getStorage('OpenId'),
     DGIMN: common.getStorage('DGIMN')
   }, 'post').then(res => res.data)
+}
+
+/**
+ * 获取授权状态
+ */
+function getAuthorizationState(){
+  return fetchApi(pageUrl.getAuthorizationState, {
+    openID: common.getStorage('OpenId'),
+  }, 'get').then(res => res.data)
+}
+/**
+ * 取消授权状态
+ */ 
+function cancelAuthorization() {
+  return fetchApi(pageUrl.cancelAuthorization, {
+    openID: common.getStorage('OpenId'),
+  }, 'get').then(res => res.data)
 }
 
 /**
@@ -219,7 +260,7 @@ function getMonitorDatas(pollutantCodes, datatype, endTime = null) {
     OpenId: common.getStorage('OpenId'),
     DGIMNs: common.getStorage('DGIMN'),
     pollutantCodes: pollutantCodes,
-    datatype: dataTypeObj[datatype],
+    dataType: dataTypeObj[datatype],
     pageIndex: 1,
     pageSize: 100,
     isAsc: true,
@@ -228,6 +269,26 @@ function getMonitorDatas(pollutantCodes, datatype, endTime = null) {
   };
   console.log(body);
   return fetchApi(pageUrl.getMonitorData, body, 'post').then(res => res.data)
+}
+/**
+ * 获取报警数据
+ * @param {DateTime} beginTime
+ * @param {DateTime} endTime
+ * @param {String} pollutantCodes
+ * @param {String} dataType
+ */
+function getAlarmDataList(beginTime,endTime, pollutantCodes, dataType)
+{
+  return fetchApi(pageUrl.getDataAlarmData, {
+       beginTime: beginTime,
+       endTime: endTime,
+       pollutantCode: pollutantCodes,
+       dataType: dataType,
+       pageSize:10000,
+       pageIndex:1,
+       entCode: common.getStorage('selectedEnt'),
+       OpenId: common.getStorage('OpenId')
+  }, 'post').then(res => res.data)
 }
 /**
  * 验证设备访问密码
@@ -309,5 +370,9 @@ module.exports = {
   qRCodeVerifyDGIMN,
   verifyDGIMN,
   getRealTimeDataForPoint,
-  addFeedback
+  addFeedback,
+  getAlarmDataList,
+  getAuthorizationState,
+  cancelAuthorization,
+  getUserEntInfo
 }

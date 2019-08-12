@@ -1,0 +1,8 @@
+{
+  "usingComponents": {},
+  "navigationBarBackgroundColor": "#cce6ff",
+  "navigationBarTextStyle": "black",
+  "navigationBarTitleText": "选择企业",
+  "backgroundColor": "#fff",
+  "backgroundTextStyle": "light"
+}

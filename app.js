@@ -144,7 +144,7 @@ App({
       }
     })
   },
-  getUserInfo: function() {
+  getUserInfo: function (options) {
     // 获取用户信息
     wx.getSetting({
       success: res => {
@@ -163,6 +163,22 @@ App({
                 wx.navigateBack();
               }
               if (common.getStorage('DGIMN')) {
+                if (options && options.authorization)
+                {
+                  
+                  wx.switchTab({
+                    url: '/pages/my/home/home',
+                  })
+                  return;
+                }
+                if (options && options.alarmdatatime)
+                {
+                  wx.navigateTo({
+                    url: '/pages/my/alarmDataList/alarmDataList?monitorTime=' + options.alarmdatatime,
+                  })
+                  return;
+                }
+
                 wx.switchTab({
                   url: '/pages/realTimeData/home/home'
                 })

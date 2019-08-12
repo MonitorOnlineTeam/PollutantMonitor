@@ -14,7 +14,8 @@
     "pages/my/feedBack/feedBack",
     "pages/authPage/authPage",
     "pages/historyData/selectDateTime/selectDateTime",
-    "pages/others/others"
+    "pages/others/others",
+    "pages/my/alarmDataList/alarmDataList"
   ],
   "window": {
     "navigationBarBackgroundColor": "#56A6FF",

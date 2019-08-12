@@ -41,7 +41,8 @@ Page({
     selectedDate: '',
     tabList: ['分钟', '小时', '日', '月'],
     legendHeight: 8,
-    tipsData: []
+    tipsData: [],
+    alarmSwitch:false
   },
   tabSelect(e) {
     // console.log(e);

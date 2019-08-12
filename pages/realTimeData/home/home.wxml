@@ -1,6 +1,5 @@
 <!--pages/realTimeData/home/home.wxml-->
 <!--  第一部分  -->
-
   <view class='top'>
     <view class='top-content'>
       <view class='top-content-left'>
@@ -28,7 +27,7 @@
 
     <!-- 第二部分（工艺流程图） -->
     <view bindtap="horizontalScreen" class='tu'>
-      <image class='imgClass' src='/images/point.png' style='background-color:#fff;padding:16rpx;'></image>
+      <image class='imgClass' src="{{imageSrc}}" style='background-color:#fff;padding:16rpx;'></image>
       <image class='fangda' src='/images/fangda.png'></image>
     </view>
     <!-- 第三部分（列表） -->

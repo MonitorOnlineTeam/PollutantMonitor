@@ -9,6 +9,31 @@
 
 <view class='QRcodeClass'>
   <view class="cu-list menu">
+    <view class="cu-item">
+      <view>
+        <image src='/images/QRicons.png' class='imageClass'></image>
+      </view>
+      <view class='content'>
+         报警开关
+      </view>
+      <view class="action">
+        <switch checked="{{alarmSwitch}}" class="switch" bindchange="switchSex"></switch>
+      </view>
+    </view>
+  </view>
+
+   <view class="cu-list menu">
+    <view class="cu-item {{'arrow'}}" bindtap='alarmData'>
+      <view>
+        <image src='/images/QRicons.png' class='imageClass'></image>
+      </view>
+      <view class='content'>
+        <text>报警数据</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="cu-list menu">
     <view class="cu-item {{'arrow'}}" bindtap='clickScan'>
       <view>
         <image src='/images/QRicons.png' class='imageClass'></image>
