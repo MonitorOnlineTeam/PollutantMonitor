@@ -25,7 +25,7 @@
 	"compileType": "miniprogram",
 	"libVersion": "2.5.1",
 	"appid": "wx9a771e92f79bf08d",
-	"projectname": "PollutantMonitor",
+	"projectname": "saomacha",
 	"debugOptions": {
 		"hidedInDevtools": []
 	},
