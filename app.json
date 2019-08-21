@@ -18,14 +18,14 @@
     "pages/my/alarmDataList/alarmDataList"
   ],
   "window": {
-    "navigationBarBackgroundColor": "#56A6FF",
-    "navigationBarTitleText": "Color UI",
-    "navigationBarTextStyle": "white"
+    "navigationBarBackgroundColor": "#cce6ff",
+    "navigationBarTitleText": "",
+    "navigationBarTextStyle": "black"
   },
   "usingComponents": {},
   "tabBar": {
     "custom": false,
-    "color": "#9C9C9C",
+    "color": "#9C 9C9C",
     "selectedColor": "#56A6FF",
     "borderStyle": "black",
     "backgroundColor": "#ffffff",
