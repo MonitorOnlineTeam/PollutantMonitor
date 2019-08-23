@@ -114,7 +114,7 @@ Page({
     comApi.getAlarmDataList(this.data.selectedDate, this.data.selectedDate,
     this.data.pollutantCodes, this.data.dataType).then(res=>{
       let alarmData=[];
-      if (res && res.IsSuccess)
+      if (res && res.IsSuccess && res.Data)
       {
         var thisData=res.Data;
         thisData.map(item => {

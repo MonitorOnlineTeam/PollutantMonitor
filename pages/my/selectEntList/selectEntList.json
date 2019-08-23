@@ -2,7 +2,7 @@
   "usingComponents": {},
   "navigationBarBackgroundColor": "#cce6ff",
   "navigationBarTextStyle": "black",
-  "navigationBarTitleText": "选择企业",
+  "navigationBarTitleText": "报警信息",
   "backgroundColor": "#fff",
   "backgroundTextStyle": "light"
 }

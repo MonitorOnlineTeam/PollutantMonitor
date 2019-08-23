@@ -11,7 +11,7 @@
   <view class="cu-list menu">
     <view class="cu-item">
       <view>
-        <image src='/images/QRicons.png' class='imageClass'></image>
+        <image src='/images/alarmswitch.png' class='imageClass'></image>
       </view>
       <view class='content'>
          报警开关
@@ -25,7 +25,7 @@
    <view class="cu-list menu">
     <view class="cu-item {{'arrow'}}" bindtap='alarmData'>
       <view>
-        <image src='/images/QRicons.png' class='imageClass'></image>
+        <image src='/images/alarmlist.png' class='imageClass'></image>
       </view>
       <view class='content'>
         <text>报警数据</text>
