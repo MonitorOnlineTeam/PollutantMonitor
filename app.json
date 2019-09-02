@@ -1,6 +1,8 @@
 {
   "pages": [
     "pages/login/login",
+    "pages/my/alarmDataList/alarmDataList",
+    
     "pages/historyData/home/home",
     "pages/historyData/selectPollutant/selectPollutant",
     "pages/historyData/historyDataTransverse/historyDataTransverse",
@@ -15,8 +17,13 @@
     "pages/authPage/authPage",
     "pages/historyData/selectDateTime/selectDateTime",
     "pages/others/others",
-    "pages/my/alarmDataList/alarmDataList"
+    "pages/my/alarmDataDetails/alarmDataDetails"
   ],
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于小程序位置接口的效果展示"
+    }
+  },
   "window": {
     "navigationBarBackgroundColor": "#cce6ff",
     "navigationBarTitleText": "",

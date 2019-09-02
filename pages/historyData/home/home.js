@@ -42,7 +42,7 @@ Page({
     tabList: ['分钟', '小时', '日', '月'],
     legendHeight: 8,
     tipsData: [],
-    alarmSwitch:false
+    alarmSwitch: false
   },
   tabSelect(e) {
     // console.log(e);
@@ -53,20 +53,64 @@ Page({
     this.getData();
   },
   transverse() {
-    wx.navigateTo({
-      url: '../historyDataTransverse/historyDataTransverse'
-    })
+
+
+    let _this = this;
+    const sdlMN = app.globalData.sdlMN.filter(m => m === this.data.DGIMN);
+    if (sdlMN.length > 0) {
+      app.getUserLocation(function(r) {
+        if (r) {
+          wx.navigateTo({
+            url: '../historyDataTransverse/historyDataTransverse'
+          })
+        }
+      })
+    } else {
+      wx.navigateTo({
+        url: '../historyDataTransverse/historyDataTransverse'
+      })
+    }
+
   },
   onChangePollutant(e) {
 
-    wx.navigateTo({
-      url: '../selectPollutant/selectPollutant'
-    })
+    let _this = this;
+    const sdlMN = app.globalData.sdlMN.filter(m => m === this.data.DGIMN);
+    if (sdlMN.length > 0) {
+      app.getUserLocation(function(r) {
+        if (r) {
+          wx.navigateTo({
+            url: '../selectPollutant/selectPollutant'
+          })
+        }
+      })
+    } else {
+      wx.navigateTo({
+        url: '../selectPollutant/selectPollutant'
+      })
+    }
+
+
+
   },
   onChangeDate(e) {
-    wx.navigateTo({
-      url: '../selectDateTime/selectDateTime?dataType=' + this.data.dataType
-    })
+
+    let _this = this;
+    const sdlMN = app.globalData.sdlMN.filter(m => m === this.data.DGIMN);
+    if (sdlMN.length > 0) {
+      app.getUserLocation(function(r) {
+        if (r) {
+          wx.navigateTo({
+            url: '../selectDateTime/selectDateTime?dataType=' + this.data.dataType
+          })
+        }
+      })
+    } else {
+      wx.navigateTo({
+        url: '../selectDateTime/selectDateTime?dataType=' + this.data.dataType
+      })
+    }
+
   },
   hideModal(e) {
     this.setData({
@@ -74,9 +118,24 @@ Page({
     })
   },
   horizontalScreen: function() {
-    wx.navigateTo({
-      url: '../historyDataTransverse/historyDataTransverse'
-    })
+    let _this = this;
+    const sdlMN = app.globalData.sdlMN.filter(m => m === this.data.DGIMN);
+    if (sdlMN.length > 0) {
+      app.getUserLocation(function(r) {
+        if (r) {
+          wx.navigateTo({
+            url: '../historyDataTransverse/historyDataTransverse'
+          })
+        }
+      })
+    } else {
+      wx.navigateTo({
+        url: '../historyDataTransverse/historyDataTransverse'
+      })
+    }
+
+
+
   },
   /**
    * 生命周期函数--监听页面加载
@@ -98,7 +157,7 @@ Page({
       selectedDate: selectedDate
     });
     common.setStorage('selectedDate', selectedDate);
-    
+
     this.onPullDownRefresh();
   },
 
@@ -114,19 +173,13 @@ Page({
    */
   onShow: function() {
     app.isLogin();
-    var pointName = common.getStorage("PointName");
-    if (pointName != "") {
-      wx.setNavigationBarTitle({
-        title: pointName,
-      })
-    }
+    
     let selectedDate = moment(common.getStorage('selectedDate')).format(selectTimeFormat[this.data.dataType].showFormat);
     //debugger;
     let selectedPollutants = common.getStorage('selectedPollutants') || [];
     if (this.data.selectedDate != selectedDate || JSON.stringify(this.data.selectedPollutants) != JSON.stringify(selectedPollutants) || this.data.DGIMN !== common.getStorage('DGIMN')) {
 
-      if(this.data.DGIMN!== common.getStorage('DGIMN'))
-      {
+      if (this.data.DGIMN !== common.getStorage('DGIMN')) {
         selectedDate = moment().format(selectTimeFormat[this.data.dataType].showFormat);
         //moment().format(selectTimeFormat[this.data.dataType].showFormat)
       }
@@ -221,78 +274,172 @@ Page({
         tipsData: tipsData
       });
     }
-    if (selectedPollutants.length==0) {
-      this.setData({
-        chartDatas: []
-      });
-      wx.showModal({
-        title: '提示',
-        content: '请先选择污染物',
-        showCancel: false,
-        success(res) {
-          if (res.confirm) {
-            wx.navigateTo({
-              url: '../selectPollutant/selectPollutant'
-            })
-          } else if (res.cancel) {
-            console.log('用户点击取消')
-          }
-        }
-      })
-      wx.hideNavigationBarLoading();
-      return false;
-    }
+
     //debugger;
     let chartDatas = [];
-    comApi.getMonitorDatas(pollutantCodes.join(','), dataType, selectedDate).then(res => {
-      console.log('getMonitorDatas', res);
-      console.log('selectedPollutants', selectedPollutants);
-      if (res && res.IsSuccess && res.Data) {
-        let thisData = res.Data;
-        
-        thisData.map(function(itemD, index) {
-          let row = itemD;
-          selectedPollutants.map(function(itemP) {
-            let statusFlag = row[`${itemP.code}_params`];
-            let status = 0;
-            if (statusFlag) {
-              let flagArray = statusFlag.split('§');
-              if (flagArray[0] === 'IsOver') {
-                status = 1;
-              } else if (flagArray[0] === 'IsException') {
-                status = -1;
+
+    let _this = this;
+    const sdlMN = app.globalData.sdlMN.filter(m => m === this.data.DGIMN);
+    if (sdlMN.length > 0) {
+      app.getUserLocation(function(r) {
+        if (r) {
+          var pointName = common.getStorage("PointName");
+          if (pointName != "") {
+            wx.setNavigationBarTitle({
+              title: pointName,
+            })
+          }
+          if (selectedPollutants.length == 0) {
+            _this.setData({
+              chartDatas: []
+            });
+            wx.showModal({
+              title: '提示',
+              content: '请先选择污染物',
+              showCancel: false,
+              success(res) {
+                if (res.confirm) {
+                  wx.navigateTo({
+                    url: '../selectPollutant/selectPollutant'
+                  })
+                } else if (res.cancel) {
+                  console.log('用户点击取消')
+                }
               }
+            })
+            wx.hideNavigationBarLoading();
+            return false;
+          }
+          comApi.getMonitorDatas(pollutantCodes.join(','), dataType, selectedDate).then(res => {
+            console.log('getMonitorDatas', res);
+            console.log('selectedPollutants', selectedPollutants);
+            if (res && res.IsSuccess && res.Data) {
+              let thisData = res.Data;
+
+              thisData.map(function(itemD, index) {
+                let row = itemD;
+                selectedPollutants.map(function(itemP) {
+                  let statusFlag = row[`${itemP.code}_params`];
+                  let status = 0;
+                  if (statusFlag) {
+                    let flagArray = statusFlag.split('§');
+                    if (flagArray[0] === 'IsOver') {
+                      status = 1;
+                    } else if (flagArray[0] === 'IsException') {
+                      status = -1;
+                    }
+                  }
+                  //debugger;
+                  let value = itemD[itemP.code];
+                  if (value != null || value != undefined) {
+                    value = (+itemD[itemP.code].toFixed(2));
+                  } else {
+                    value = null;
+                  }
+                  chartDatas.push({
+                    PollutantName: `${itemP.name}`,
+                    Value: value,
+                    MonitorTime: itemD.MonitorTime,
+                    Status: status,
+                    PollutantCode: itemP.code,
+                    Unit: itemP.unit
+                  });
+                });
+              });
+
+            };
+            wx.hideNavigationBarLoading();
+            this.setData({
+              chartDatas: chartDatas
+            });
+            console.log(chartDatas);
+            this.chartComponent = this.selectComponent('#line-dom');
+            chartDatas.length > 0 && this.initChart();
+
+          })
+        }
+        wx.hideNavigationBarLoading();
+      })
+    } else {
+      if (selectedPollutants.length == 0) {
+        _this.setData({
+          chartDatas: []
+        });
+        wx.showModal({
+          title: '提示',
+          content: '请先选择污染物',
+          showCancel: false,
+          success(res) {
+            if (res.confirm) {
+              wx.navigateTo({
+                url: '../selectPollutant/selectPollutant'
+              })
+            } else if (res.cancel) {
+              console.log('用户点击取消')
             }
-            //debugger;
-            let value = itemD[itemP.code];
-            if (value!=null||value!=undefined)
-            {
-              value = (+itemD[itemP.code].toFixed(2)); 
-            }else
-            {
-              value=null;
-            }
-            chartDatas.push({
-              PollutantName: `${itemP.name}`,
-              Value: value,
-              MonitorTime: itemD.MonitorTime,
-              Status: status,
-              PollutantCode: itemP.code,
-              Unit: itemP.unit
+          }
+        })
+        wx.hideNavigationBarLoading();
+        return false;
+      }
+      var pointName = common.getStorage("PointName");
+      if (pointName != "") {
+        wx.setNavigationBarTitle({
+          title: pointName,
+        })
+      }
+      comApi.getMonitorDatas(pollutantCodes.join(','), dataType, selectedDate).then(res => {
+        console.log('getMonitorDatas', res);
+        console.log('selectedPollutants', selectedPollutants);
+        if (res && res.IsSuccess && res.Data) {
+          let thisData = res.Data;
+
+          thisData.map(function(itemD, index) {
+            let row = itemD;
+            selectedPollutants.map(function(itemP) {
+              let statusFlag = row[`${itemP.code}_params`];
+              let status = 0;
+              if (statusFlag) {
+                let flagArray = statusFlag.split('§');
+                if (flagArray[0] === 'IsOver') {
+                  status = 1;
+                } else if (flagArray[0] === 'IsException') {
+                  status = -1;
+                }
+              }
+              //debugger;
+              let value = itemD[itemP.code];
+              if (value != null || value != undefined) {
+                value = (+itemD[itemP.code].toFixed(2));
+              } else {
+                value = null;
+              }
+              chartDatas.push({
+                PollutantName: `${itemP.name}`,
+                Value: value,
+                MonitorTime: itemD.MonitorTime,
+                Status: status,
+                PollutantCode: itemP.code,
+                Unit: itemP.unit
+              });
             });
           });
+
+        };
+        wx.hideNavigationBarLoading();
+        this.setData({
+          chartDatas: chartDatas
         });
-        
-      };
-      wx.hideNavigationBarLoading();
-      this.setData({
-        chartDatas: chartDatas
-      });
-      console.log(chartDatas);
-      this.chartComponent = this.selectComponent('#line-dom');
-      chartDatas.length>0&&this.initChart();
-      
-    })
+        console.log(chartDatas);
+        this.chartComponent = this.selectComponent('#line-dom');
+        chartDatas.length > 0 && this.initChart();
+
+      })
+    }
+
+    wx.hideNavigationBarLoading();
+
+
   },
   initChart: function() {
     let that = this;
@@ -326,7 +473,7 @@ Page({
       //chart.legend(false);
       chart.legend('PollutantName', {
         position: 'top',
-        offsetY: selectedPollutants.length>= 4 ? 33 : 15,
+        offsetY: selectedPollutants.length >= 4 ? 33 : 15,
         align: 'center',
         nameStyle: {
           fontSize: '14', // 文本大小
@@ -347,13 +494,13 @@ Page({
           };
           if (index === 0) {
             cfg.textAlign = 'left';
-            if (dataType!=3)
-            cfg.text = moment(text).format(selectTimeFormat[dataType].chartFormat) + `\n${moment(text).format('MM-DD')}`; 
+            if (dataType != 3)
+              cfg.text = moment(text).format(selectTimeFormat[dataType].chartFormat) + `\n${moment(text).format('MM-DD')}`;
           }
           if (index > 0 && index === total - 1) {
             cfg.textAlign = 'right';
             if (dataType != 3)
-            cfg.text = moment(text).format(selectTimeFormat[dataType].chartFormat) + `\n${moment(text).format('MM-DD')}`; 
+              cfg.text = moment(text).format(selectTimeFormat[dataType].chartFormat) + `\n${moment(text).format('MM-DD')}`;
           }
           return cfg;
         }
@@ -377,15 +524,14 @@ Page({
           }
         }, // tooltip 显示时的回调函数
         onHide(obj) {
-          
+
         }, // tooltip 隐藏时的回调函数
       });
       //chart.area().position('MonitorTime*Value').color('PollutantName', ['#feac36', '#8de9c0', '#c79ef4', '#fd8593', '#9aabf7', '#97e3f1', '#f4a387']);
       chart.line().position('MonitorTime*Value').color('PollutantName', ['#feac36', '#8de9c0', '#c79ef4', '#fd8593', '#9aabf7', '#97e3f1', '#f4a387']);
       chart.render();
       // 默认展示 tooltip
-      if (arr.length>0)
-      {
+      if (arr.length > 0) {
         var point = chart.getPosition(arr[arr.length - 1]); // 获取该数据的画布坐标
         chart.showTooltip(point); // 展示该点的 tooltip
       }

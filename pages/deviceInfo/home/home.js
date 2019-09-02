@@ -34,7 +34,9 @@ Page({
     //   });
     //   this.onPullDownRefresh();
     // }
-
+    this.setData({
+      dgimn: common.getStorage('DGIMN')
+    });
     this.onPullDownRefresh();
   },
 
@@ -117,49 +119,75 @@ Page({
   },
   //获取数据
   getData: function() {
-    let that=this;
+    let that = this;
     var pointName = common.getStorage("PointName");
-    if (pointName != "") {
-      wx.setNavigationBarTitle({
-        title: pointName,
-      })
-    }
-    comApi.getPointInfo().then(res => {
-      if (res && res.IsSuccess) {
-        if (res.Data) {
-          let data = res.Data;
-          //将数组中的某个字段拼接出来
-          var lo = "markers[" + 0 + "].longitude";
-          var la = "markers[" + 0 + "].latitude";
 
-          var yy = (data.Longitude).toString();
-          var xx = (data.Latitude).toString();
 
-          this.setData({
-            resultData: data,
-            [lo]: data.Longitude, //markers中的经度
-            [la]: data.Latitude, //markers中的纬度
-            y: yy, //经度
-            x: xx, //纬度
+    const sdlMN = app.globalData.sdlMN.filter(m => m === common.getStorage('DGIMN'));
+    if (sdlMN.length > 0) {
+      app.getUserLocation(function(r) {
+        if (r) {
+          if (pointName != "") {
+            wx.setNavigationBarTitle({
+              title: pointName,
+            })
+          }
+          comApi.getPointInfo().then(res => {
+            if (res && res.IsSuccess) {
+              if (res.Data) {
+                let data = res.Data;
+                //将数组中的某个字段拼接出来
+                var lo = "markers[" + 0 + "].longitude";
+                var la = "markers[" + 0 + "].latitude";
+
+                var yy = (data.Longitude).toString();
+                var xx = (data.Latitude).toString();
+
+                that.setData({
+                  resultData: data,
+                  [lo]: data.Longitude, //markers中的经度
+                  [la]: data.Latitude, //markers中的纬度
+                  y: yy, //经度
+                  x: xx, //纬度
+                })
+              }
+            }
+            wx.hideNavigationBarLoading();
           })
         }
-      } else {
-        // wx.showModal({
-        //   title: '提示',
-        //   content: '网络错误，请下拉刷新重试',
-        //   confirmText:"重试",
-        //   // showCancel: false,
-        //   success(res) {
-        //     if (res.confirm) {
-        //       // that.onPullDownRefresh();
-        //     } else if (res.cancel) {
-        //       console.log('用户点击取消')
-        //     }
-        //   }
-        // })
+        wx.hideNavigationBarLoading();
+      })
+    } else {
+      if (pointName != "") {
+        wx.setNavigationBarTitle({
+          title: pointName,
+        })
       }
-      wx.hideNavigationBarLoading();
-    })
+      comApi.getPointInfo().then(res => {
+        if (res && res.IsSuccess) {
+          if (res.Data) {
+            let data = res.Data;
+            //将数组中的某个字段拼接出来
+            var lo = "markers[" + 0 + "].longitude";
+            var la = "markers[" + 0 + "].latitude";
+
+            var yy = (data.Longitude).toString();
+            var xx = (data.Latitude).toString();
+
+            that.setData({
+              resultData: data,
+              [lo]: data.Longitude, //markers中的经度
+              [la]: data.Latitude, //markers中的纬度
+              y: yy, //经度
+              x: xx, //纬度
+            })
+          }
+        }
+        wx.hideNavigationBarLoading();
+      })
+    }
+
+
   },
   //拨打电话(环保专工)
   CallHBFZ(e) {
@@ -175,7 +203,7 @@ Page({
       phoneNumber: phone,
     })
   },
-  lookAddress:function(){
+  lookAddress: function() {
     wx.openLocation({
       longitude: Number(this.data.y),
       latitude: Number(this.data.x),

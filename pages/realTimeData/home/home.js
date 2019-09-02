@@ -20,30 +20,33 @@ Page({
     isShowInfo: false,
     DGIMN: '',
     dataInfo: null,
-    imageSrc:null,
+    imageSrc: null,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     this.setData({
       DGIMN: common.getStorage('DGIMN')
     });
+
     this.onPullDownRefresh();
+
+
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
     app.isLogin();
     if (this.data.DGIMN !== common.getStorage('DGIMN')) {
       common.setStorage('selectedPollutants', "");
@@ -51,28 +54,31 @@ Page({
       this.setData({
         DGIMN: common.getStorage('DGIMN')
       });
+
+
       this.onPullDownRefresh();
+
     }
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
     wx.showNavigationBarLoading();
     wx.stopPullDownRefresh();
     this.getData();
@@ -81,78 +87,147 @@ Page({
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
     return {
       path: `/pages/realTimeData/home/home?DGIMN=${common.getStorage("DGIMN")}` // 路径，传递参数到指定页面。
     }
   },
   //点击页面横屏
-  horizontalScreen: function () {
-    wx.navigateTo({
-      url: '../flowChart/flowChart'
-    })
+  horizontalScreen: function() {
+
+    let _this = this;
+    const sdlMN = app.globalData.sdlMN.filter(m => m === this.data.DGIMN);
+    if (sdlMN.length > 0) {
+      app.getUserLocation(function(r) {
+        if (r) {
+          wx.navigateTo({
+            url: '../flowChart/flowChart'
+          })
+        }
+      })
+    } else {
+      wx.navigateTo({
+        url: '../flowChart/flowChart'
+      })
+    }
+
+
   },
   //获取数据
-  getData: function () {
+  getData: function() {
     var resultData = {
       dataitem: [],
       pointInfo: {},
 
     };
+    let _this = this;
+    const sdlMN = app.globalData.sdlMN.filter(m => m === this.data.DGIMN);
+    if (sdlMN.length > 0) {
+      app.getUserLocation(function(r) {
+        if (r) {
+          comApi.getProcessFlowChartStatus().then(res => {
+            if (res && res.IsSuccess && res.Data) {
+              console.log(res.Data.paramsInfo)
 
-    comApi.getProcessFlowChartStatus().then(res => {
-      if (res && res.IsSuccess && res.Data) {
-        console.log(res.Data.paramsInfo)
+              var pointType = res.Data.dataInfo ? res.Data.dataInfo.equipmentType : 1;
+              var imageSrc = "/images/point.png";
+              if (pointType == 1) {
+                imageSrc = "/images/point.png";
 
-        var pointType = res.Data.dataInfo ? res.Data.dataInfo.equipmentType : 1;
-        var imageSrc = "/images/point.png";
-        if (pointType == 1) {
-          imageSrc = "/images/point.png";
+              } else if (pointType == 2) {
+                imageSrc = "/images/vocpoint.png";
+              } else if (pointType == 3) {
+                imageSrc = "/images/hgpoint.png";
+              }
+              _this.setData({
+                dataInfo: res.Data.paramsInfo,
+                imageSrc: imageSrc,
+              })
+            }
+          })
 
-        }
-        else if (pointType == 2) {
-          imageSrc = "/images/vocpoint.png";
-        }
-        else if (pointType == 3) {
-          imageSrc = "/images/hgpoint.png";
-        }
-        this.setData({
-          dataInfo: res.Data.paramsInfo,
-          imageSrc: imageSrc,
-        })
-      }
-    })
+          comApi.getRealTimeDataForPoint().then(res => {
+            if (res && res.IsSuccess) {
+              if (res.Data) {
+                let data = res.Data;
+                resultData.dataitem = data.dataitem || [];
+                resultData.pointInfo = data.pointInfo;
+              }
+            }
+            _this.setData({
+              dataitem: resultData.dataitem,
+              pointInfo: resultData.pointInfo,
+            })
+            let pointName = resultData.pointInfo && resultData.pointInfo.pointName;
+            pointName && wx.setNavigationBarTitle({
+              title: pointName,
+            });
+            common.setStorage("PointName", pointName);
+            pointName && wx.setNavigationBarTitle({
+              title: pointName,
+            });
 
-    comApi.getRealTimeDataForPoint().then(res => {
-      if (res && res.IsSuccess) {
-        if (res.Data) {
-          let data = res.Data;
-          resultData.dataitem = data.dataitem || [];
-          resultData.pointInfo = data.pointInfo;
+            wx.hideNavigationBarLoading();
+          })
+        } else {
+
+          wx.hideNavigationBarLoading();
         }
-      }
-      this.setData({
-        dataitem: resultData.dataitem,
-        pointInfo: resultData.pointInfo,
       })
-      let pointName = resultData.pointInfo && resultData.pointInfo.pointName;
-      wx.setNavigationBarTitle({
-        title: pointName,
-      });
-      common.setStorage("PointName", pointName);
-      wx.setNavigationBarTitle({
-        title: pointName,
-      });
+    } else {
+      comApi.getProcessFlowChartStatus().then(res => {
+        if (res && res.IsSuccess && res.Data) {
+          console.log(res.Data.paramsInfo)
 
-      wx.hideNavigationBarLoading();
-    })
+          var pointType = res.Data.dataInfo ? res.Data.dataInfo.equipmentType : 1;
+          var imageSrc = "/images/point.png";
+          if (pointType == 1) {
+            imageSrc = "/images/point.png";
+
+          } else if (pointType == 2) {
+            imageSrc = "/images/vocpoint.png";
+          } else if (pointType == 3) {
+            imageSrc = "/images/hgpoint.png";
+          }
+          _this.setData({
+            dataInfo: res.Data.paramsInfo,
+            imageSrc: imageSrc,
+          })
+        }
+      })
+
+      comApi.getRealTimeDataForPoint().then(res => {
+        if (res && res.IsSuccess) {
+          if (res.Data) {
+            let data = res.Data;
+            resultData.dataitem = data.dataitem || [];
+            resultData.pointInfo = data.pointInfo;
+          }
+        }
+        _this.setData({
+          dataitem: resultData.dataitem,
+          pointInfo: resultData.pointInfo,
+        })
+        let pointName = resultData.pointInfo && resultData.pointInfo.pointName;
+        pointName && wx.setNavigationBarTitle({
+          title: pointName,
+        });
+        common.setStorage("PointName", pointName);
+        pointName && wx.setNavigationBarTitle({
+          title: pointName,
+        });
+
+        wx.hideNavigationBarLoading();
+      })
+    }
+
   },
   //超标异常时弹出窗口
   showModal(e) {

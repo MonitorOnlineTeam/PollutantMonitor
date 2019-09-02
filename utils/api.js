@@ -1,17 +1,19 @@
 //const URL = 'http://172.16.9.13:8019/api/rest/PollutantSourceApi/'
- // const URL = 'http://localhost:52199/rest/PollutantSourceApi'
- const URL = 'https://api.chsdl.net/WxWryApi/rest/PollutantSourceApi'
+//const URL = 'http://localhost:52199/rest/PollutantSourceApi'
+const URL = 'https://api.chsdl.net/WxWryApi/rest/PollutantSourceApi'
 //http://api.chsdl.cn/wxwryapi?flag=sdl&mn=62262431qlsp099
 //const URL = 'http://localhost:52199/'
 //const URL = 'http://localhost:52198/rest/PollutantSourceApi'
 // const URL = 'http://172.16.30.108/wxwryapi/rest/PollutantSourceApi'
- //const URL = 'https://api.chsdl.net/WxWryApiTokenTest/rest/PollutantSourceApi'
+//const URL = 'https://api.chsdl.net/WxWryApiTokenTest/rest/PollutantSourceApi'
 //const URL = 'http://172.16.12.152:8044/rest/PollutantSourceApi'
 
 const fetch = require('./fetch')
 const common = require('./common.js')
+const util = require('./util.js')
 const moment = require('../utils/moment.min.js')
-const authorCode = '48f3889c-af8d-401f-ada2-c383031af92d'
+const authorCode = '48f3889c-af8d-401f-ada2-c383031af92d';
+const sdlMN = ['0102030405060708090A0B0C0D0E0F10', '0202030405060708090A0B0C0D0E0F10', '0302030405060708090A0B0C0D0E0F10'];
 const dataTypeObj = {
   0: 'realtime',
   1: 'minute',
@@ -34,10 +36,10 @@ const pageUrl = {
   verifyDGIMN: `/WxServer/VerifyDGIMN?authorCode=${authorCode}`,
   getRealTimeDataForPoint: `/WxServer/GetRealTimeDataForPoint?authorCode=${authorCode}`,
   addFeedback: `/WxServer/AddFeedback?authorCode=${authorCode}`,
-  getDataAlarmData:`/WxServer/GetAlarmDataList?authorCode=${authorCode}`,
+  getDataAlarmData: `/WxServer/GetAlarmDatas?authorCode=${authorCode}`,
   getAuthorizationState: `/WxServer/getAuthorizationState?authorCode=${authorCode}`,
   cancelAuthorization: `/WxServer/cancelAuthorization?authorCode=${authorCode}`,
-  getUserEntInfo: `WxServer/GetUserEntInfo?authorCode=${authorCode}`
+  getUserEntInfo: `/WxServer/GetUserEntInfo?authorCode=${authorCode}`
 }
 
 /**
@@ -47,43 +49,54 @@ const pageUrl = {
  * @param  {String} method HTTP 请求方法【get、post】
  * @return {Promise}       包含抓取任务的Promise
  */
-function fetchApi(type, params, method,noUrl) {
-  // wx.showModal({
-  //   title: '提示fetchApi',
-  //   content: JSON.stringify(params), //'网络错误，请重试',
-  //   showCancel: false,
-  //   success(res) {
+function fetchApi(type, params, method, noUrl) {
 
-  //   }
-  // })
   console.log("params", params);
-
   wx.showLoading({
     title: '正在加载中',
   });
   let prefix = URL;
-  if (noUrl)
-  {
+  if (noUrl) {
     prefix = type;
-    type="";
+    type = "";
   }
+  // if (params && params.DGIMN) {
+  //   const flags = sdlMN.filter(m => m === params.DGIMN);
+  //   if (flags.length > 0) {
 
+  //     isSdlDevice(function(f) {
+  //       if (!f) {
+  //         params.DGIMN = "XXX";
+  //         params.DGIMNs = "XXX";
+
+  //       }
+  //       return fetch(prefix, type, params, method).then(res => {
+  //         wx.hideLoading()
+  //         res.IsSuccess = false;
+  //         res.Message = "请在指定范围内查看设备数据";
+  //         return res;
+  //       }).catch(res => {
+  //         wx.showModal({
+  //           title: '提示',
+  //           content: '网络错误，请重试', //'网络错误，请重试',JSON.stringify(res)
+  //           showCancel: false,
+  //           success(res) {
+  //             if (res.confirm) {
+  //               console.log('用户点击确定')
+  //             } else if (res.cancel) {
+  //               console.log('用户点击取消')
+  //             }
+  //           }
+  //         })
+  //         wx.hideLoading()
+  //         return res;
+  //       })
+  //     })
+  //   }
+  // }  
   return fetch(prefix, type, params, method).then(res => {
     wx.hideLoading()
-    // if (res.data.StatusCode == 500) {
-    //   wx.showModal({
-    //     title: '提示',
-    //     content: res.data.Message, //'网络错误，请重试',
-    //     showCancel: false,
-    //     success(res) {
-    //       if (res.confirm) {
-    //         console.log('用户点击确定')
-    //       } else if (res.cancel) {
-    //         console.log('用户点击取消')
-    //       }
-    //     }
-    //   })
-    // }
+
     return res;
   }).catch(res => {
     wx.showModal({
@@ -101,6 +114,13 @@ function fetchApi(type, params, method,noUrl) {
     wx.hideLoading()
     return res;
   })
+
+
+
+
+
+
+
 }
 
 /**
@@ -119,9 +139,9 @@ function validateFirstLogin(code) {
  */
 function getUserEntInfo(code) {
   return fetchApi(pageUrl.getUserEntInfo, {
-    OpenId: common.getStorage('OpenId'),
-  }, 'post')
-   .then(res => res.data)
+      OpenId: common.getStorage('OpenId'),
+    }, 'post')
+    .then(res => res.data)
 }
 
 /**
@@ -137,7 +157,7 @@ function updateUserInfo(userPhone) {
     .then(res => res.data)
 }
 
- 
+
 
 
 /**
@@ -185,14 +205,14 @@ function getDeviceInfo(DGIMNs) {
 /**
  * 获取授权状态
  */
-function getAuthorizationState(){
+function getAuthorizationState() {
   return fetchApi(pageUrl.getAuthorizationState, {
     openID: common.getStorage('OpenId'),
   }, 'get').then(res => res.data)
 }
 /**
  * 取消授权状态
- */ 
+ */
 function cancelAuthorization() {
   return fetchApi(pageUrl.cancelAuthorization, {
     openID: common.getStorage('OpenId'),
@@ -270,6 +290,7 @@ function getMonitorDatas(pollutantCodes, datatype, endTime = null) {
   console.log(body);
   return fetchApi(pageUrl.getMonitorData, body, 'post').then(res => res.data)
 }
+
 /**
  * 获取报警数据
  * @param {DateTime} beginTime
@@ -277,19 +298,18 @@ function getMonitorDatas(pollutantCodes, datatype, endTime = null) {
  * @param {String} pollutantCodes
  * @param {String} dataType
  */
-function getAlarmDataList(beginTime,endTime, pollutantCodes, dataType)
-{
+function getAlarmDataList(beginTime, endTime, entCode, pageIndex = 1, pageSize = 10, DGIMN = "") {
   return fetchApi(pageUrl.getDataAlarmData, {
-       beginTime: beginTime,
-       endTime: endTime,
-       pollutantCode: pollutantCodes,
-       dataType: dataType,
-       pageSize:10000,
-       pageIndex:1,
-       entCode: common.getStorage('selectedEnt'),
-       OpenId: common.getStorage('OpenId')
+    BeginTime: beginTime,
+    EndTime: endTime,
+    EntCode: entCode,
+    DGIMN: DGIMN,
+    PageSize: pageSize,
+    PageIndex: pageIndex,
+    OpenId: common.getStorage('OpenId')
   }, 'post').then(res => res.data)
 }
+
 /**
  * 验证设备访问密码
  * @param  {String}} pwd 设备密码
@@ -354,6 +374,91 @@ function addFeedback(Name, EmailAddress, Details) {
     EmailAddress: EmailAddress,
     Details: Details
   }, 'post').then(res => res.data)
+}
+
+function geo(callback) {
+  var _this = this;
+  wx.getLocation({
+    type: 'gcj02',
+    success: function(res) {
+      var latitude = res.latitude;
+      var longitude = res.longitude;
+      console.log("latitude=", res.latitude);
+      console.log("longitude=", res.longitude);
+      const distance = util.VerifyCoordinate((latitude).toFixed(6), (longitude).toFixed(6));
+      console.log(distance);
+      return distance < 500;
+    },
+    fail: function() {
+      wx.showToast({
+        title: '定位信息获取失败',
+        icon: 'none',
+        duration: 1000,
+        mask: true
+      })
+      return false;
+    }
+  })
+}
+
+function isSdlDevice(callback) {
+  var _this = this;
+  wx.getSetting({
+    success: (res) => {
+      // res.authSetting['scope.userLocation'] == undefined    表示 初始化进入该页面
+      // res.authSetting['scope.userLocation'] == false    表示 非初始化进入该页面,且未授权
+      // res.authSetting['scope.userLocation'] == true    表示 地理位置授权
+      if (res.authSetting['scope.userLocation'] != undefined && res.authSetting['scope.userLocation'] != true) {
+        //未授权
+        wx.showModal({
+          title: '请求授权当前位置',
+          content: '需要获取您的地理位置，请确认授权，否则无法获取您所需数据',
+          success: function(res) {
+            if (res.cancel) {
+              //取消授权
+              wx.showToast({
+                title: '拒绝授权',
+                icon: 'none',
+                duration: 1000
+              })
+              callback && callback(false);
+              //return false;
+            } else if (res.confirm) {
+              //确定授权，通过wx.openSetting发起授权请求
+              wx.openSetting({
+                success: function(res) {
+                  if (res.authSetting["scope.userLocation"] == true) {
+                    //再次授权，调用wx.getLocation的API
+                    geo(function(f) {
+                      callback && callback(f);
+                    });
+                  } else {
+                    wx.showToast({
+                      title: '授权失败',
+                      icon: 'none',
+                      duration: 1000
+                    })
+                    callback && callback(false);
+                  }
+                }
+              })
+            }
+          }
+        })
+      } else if (res.authSetting['scope.userLocation'] == undefined) {
+        //用户首次进入页面,调用wx.getLocation的API
+        geo(function(f) {
+          callback && callback(f);
+        });
+      } else {
+        console.log('授权成功')
+        //调用wx.getLocation的API
+        geo(function(f) {
+          callback && callback(f);
+        });
+      }
+    }
+  })
 }
 
 module.exports = {

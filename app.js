@@ -4,10 +4,11 @@
  */
 const api = require('./utils/api.js')
 const common = require('./utils/common.js')
+const util = require('./utils/util.js')
 //app.js
 
 App({
-  message:"网络请求失败，请重试",
+  message: "网络请求失败，请重试",
   api: api,
   common: common,
   onLoad: function() {},
@@ -18,10 +19,8 @@ App({
   onShow: function(options) {
 
     //处理分享页面
-    if (options && options.scene===1007)
-    {
-      if (!common.getStorage('OpenId') || !common.getStorage("PhoneCode"))
-      {
+    if (options && options.scene === 1007) {
+      if (!common.getStorage('OpenId') || !common.getStorage("PhoneCode")) {
         wx.redirectTo({
           url: '/pages/login/login',
         });
@@ -29,21 +28,20 @@ App({
         return;
       }
 
-      if (options.query&&options.query.DGIMN)
-      {
+      if (options.query && options.query.DGIMN) {
         common.setStorage("DGIMN", options.query.DGIMN);
         api.qRCodeVerifyDGIMN(options.query.DGIMN).then(res => {
           if (res && res.IsSuccess) {
             common.setStorage("DGIMN", options.query.DGIMN);
-           
+
           } else {
             //common.setStorage("DGIMN", mn);
-          
+
             wx.showModal({
               title: '提示',
               content: res.Message,
               showCancel: false,
-              success(res) { 
+              success(res) {
                 common.setStorage("IsShare", false);
                 wx.redirectTo({
                   url: '/pages/login/login',
@@ -52,29 +50,28 @@ App({
             })
           }
         })
-      }else{
+      } else {
         wx.redirectTo({
           url: '/pages/login/login',
         });
       }
-    }else
-    {
+    } else {
       common.setStorage("IsShare", false);
     }
-    
+
 
     const updateManager = wx.getUpdateManager()
-    updateManager.onCheckForUpdate(function (res) {
+    updateManager.onCheckForUpdate(function(res) {
       // 请求完新版本信息的回调
       console.log(res.hasUpdate)
     })
 
-    updateManager.onUpdateReady(function () {
+    updateManager.onUpdateReady(function() {
       wx.showModal({
         title: '更新提示',
         content: '新版本已经准备好，即将更新',
         showCancel: false,
-        success: function (res) {
+        success: function(res) {
           if (res.confirm) {
             // 新的版本已经下载好，调用 applyUpdate 应用新版本并重启
             updateManager.applyUpdate()
@@ -82,7 +79,7 @@ App({
         }
       })
     })
-    updateManager.onUpdateFailed(function () {
+    updateManager.onUpdateFailed(function() {
       // 新版本下载失败
     })
   },
@@ -139,12 +136,12 @@ App({
     wx.login({
       success: res => {
         common.setStorage("WxCode", res.code);
-        
-        callback&&callback();
+
+        callback && callback();
       }
     })
   },
-  getUserInfo: function (options) {
+  getUserInfo: function(options) {
     // 获取用户信息
     wx.getSetting({
       success: res => {
@@ -158,21 +155,18 @@ App({
               // 可以将 res 发送给后台解码出 unionId
               this.globalData.userInfo = res.userInfo;
 
-              if (common.getStorage("IsShare"))
-              {
+              if (common.getStorage("IsShare")) {
                 wx.navigateBack();
               }
               if (common.getStorage('DGIMN')) {
-                if (options && options.authorization)
-                {
-                  
+                if (options && options.authorization) {
+
                   wx.switchTab({
                     url: '/pages/my/home/home',
                   })
                   return;
                 }
-                if (options && options.alarmdatatime)
-                {
+                if (options && options.alarmdatatime) {
                   wx.navigateTo({
                     url: '/pages/my/alarmDataList/alarmDataList?monitorTime=' + options.alarmdatatime,
                   })
@@ -216,23 +210,139 @@ App({
       return false;
     }
   },
-  isLogin:function(){
+  isLogin: function() {
 
     if (!common.getStorage('OpenId') || !common.getStorage("PhoneCode")) {
       wx.navigateTo({
         url: '/pages/login/login',
       });
-      common.setStorage("IsShare",true);
+      common.setStorage("IsShare", true);
       return;
-    }else
-    {
+    } else {
       common.setStorage("IsShare", false);
     }
+  },
+  geo: function(callback) {
+    var _this = this;
+    wx.getLocation({
+      type: 'gcj02',
+      success: function(res) {
+        var latitude = res.latitude;
+        var longitude = res.longitude;
+        console.log("latitude=", res.latitude);
+        console.log("longitude=", res.longitude);
+        const distance = util.VerifyCoordinate((latitude).toFixed(6), (longitude).toFixed(6));
+        console.log(distance);
+        if (distance > 500) {
+          //common.setStorage("DGIMN", "SDL***XXX");
+          wx.showModal({
+            title: '提示',
+            content: '无法访问该设备数据，请在指定区域范围内查看设备数据', //'网络错误，请重试',JSON.stringify(res)
+            showCancel: false,
+            success(res) {
+              if (res.confirm) {
+                wx.navigateTo({
+                  url: '/pages/my/visitHistory/visitHistory'
+                })
+              } else if (res.cancel) {
+                console.log('用户点击取消')
+              }
+            }
+          })
+          callback && callback(false);
+
+        } else {
+          callback && callback(distance < 500);
+        }
+        //return distance < 500000;
+      },
+      fail: function() {
+        wx.showToast({
+          title: '定位信息获取失败',
+          icon: 'none',
+          duration: 1000,
+          mask: true
+        })
+        callback && callback(false);
+        //return false;
+      }
+    })
+
+  },
+  getUserLocation: function(callback) {
+    var _this = this;
+    wx.showLoading({
+      title: '正在获取位置',
+    });
+    wx.getSetting({
+      success: (res) => {
+        // res.authSetting['scope.userLocation'] == undefined    表示 初始化进入该页面
+        // res.authSetting['scope.userLocation'] == false    表示 非初始化进入该页面,且未授权
+        // res.authSetting['scope.userLocation'] == true    表示 地理位置授权
+        if (res.authSetting['scope.userLocation'] != undefined && res.authSetting['scope.userLocation'] != true) {
+          //未授权
+          wx.showModal({
+            title: '请求授权当前位置',
+            content: '需要获取您的地理位置，请确认授权，否则无法获取您所需数据',
+            success: function(res) {
+              if (res.cancel) {
+                //取消授权
+                wx.showToast({
+                  title: '拒绝授权',
+                  icon: 'none',
+                  duration: 1000
+                })
+                callback && callback(false);
+                //return false;
+              } else if (res.confirm) {
+                //确定授权，通过wx.openSetting发起授权请求
+                wx.openSetting({
+                  success: function(res) {
+                    if (res.authSetting["scope.userLocation"] == true) {
+                      //再次授权，调用wx.getLocation的API
+                      _this.geo(function(f) {
+                        wx.hideLoading()
+                        callback && callback(f);
+                      })
+
+
+                    } else {
+                      wx.showToast({
+                        title: '授权失败',
+                        icon: 'none',
+                        duration: 1000
+                      })
+                      wx.hideLoading()
+                      callback && callback(false);
+                    }
+                  }
+                })
+              }
+            }
+          })
+        } else if (res.authSetting['scope.userLocation'] == undefined) {
+          //用户首次进入页面,调用wx.getLocation的API
+          _this.geo(function(f) {
+            wx.hideLoading()
+            callback && callback(f);
+          })
+        } else {
+          console.log('授权成功')
+          //调用wx.getLocation的API
+          _this.geo(function(f) {
+            wx.hideLoading()
+            callback && callback(f);
+          })
+        }
+      }
+    })
   },
   globalData: {
     userInfo: null,
     DGIMN: null,
     isShowContent: false,
-    isShowInfo: false
+    isShowInfo: false,
+    isSdlDevice: false,
+    sdlMN: ['0102030405060708090A0B0C0D0E0F10', '0202030405060708090A0B0C0D0E0F10', '0302030405060708090A0B0C0D0E0F10']
   }
 })

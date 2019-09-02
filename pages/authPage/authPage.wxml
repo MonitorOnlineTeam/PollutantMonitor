@@ -12,4 +12,8 @@
     <button class='cu-btn block bg-blue margin-tb-sm lg' open-type="getUserInfo" bindgetuserinfo="getUserInfo">
       确定授权</button>
   </view>
+  <view class='buttonClass'>
+    <button class='cu-btn block bg-blue margin-tb-sm lg' open-type="getLocation" bindgetuserinfo="getUserInfo">
+      确定授权</button>
+  </view>
 </view>

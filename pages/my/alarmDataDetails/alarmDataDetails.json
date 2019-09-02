@@ -2,7 +2,7 @@
   "usingComponents": {},
   "navigationBarBackgroundColor": "#cce6ff",
   "navigationBarTextStyle": "black",
-  "navigationBarTitleText": "报警信息",
+  "navigationBarTitleText": "报警详情",
   "backgroundColor": "#fff",
   "backgroundTextStyle": "light",
   "enablePullDownRefresh": true,

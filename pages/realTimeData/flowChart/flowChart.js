@@ -389,6 +389,7 @@ Page({
     //     title: pointName,
     //   })
     // }
+    
     var pointName = common.getStorage("PointName");
     if (pointName) {
       wx.setNavigationBarTitle({

@@ -14,6 +14,7 @@
   align-items: center;
   border-bottom: 1px solid #f3f3f3;
 }
+
 .th {
   width: 40%;
   justify-content: center;
@@ -22,6 +23,7 @@
   align-items: center;
   color: #333;
 }
+
 .td {
   width: 40%;
   justify-content: center;
@@ -30,13 +32,9 @@
   color: #666;
 }
 
-
-
 .txtClass {
   vertical-align: middle;
 }
-
-
 
 .imgClass {
   /* position: absolute; */
@@ -52,7 +50,6 @@
   top: 160rpx;
   right: 15rpx;
 }
-
 
 .grid.col-3>view {
   width: 100%;
@@ -95,7 +92,6 @@
   background-color: #fcf0bc;
 }
 
-
 .OffLine {
   color: #999;
 }
@@ -105,7 +101,7 @@
 }
 
 .Over {
-  color:red;
+  color: red;
 }
 
 .Exception {
@@ -153,7 +149,6 @@
   background-color: #fff;
   margin-top: 10rpx;
   /* position: relative; */
- 
 }
 
 ff-canvas {
@@ -236,4 +231,37 @@ button {
   background: #fff;
 }
 
- 
+.imageClass {
+  width: 20px;
+  height: 20px;
+  background-color: white;
+}
+
+.switch-sex::after {
+  content: "\e716";
+}
+
+.switch-sex::before {
+  content: "\e7a9";
+}
+
+.switch-music::after {
+  content: "\e66a";
+}
+
+.switch-music::before {
+  content: "\e6db";
+}
+
+.tag-active {
+  position: relative;
+}
+
+.tag-active .active {
+  width: 8rpx;
+  height: 8rpx;
+  position: absolute;
+  background-color: #0081ff;
+  bottom: -9px;
+  border-radius: 50%;
+}

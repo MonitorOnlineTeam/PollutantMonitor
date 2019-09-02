@@ -15,7 +15,7 @@ Page({
       phoneCode: val.detail.value
     });
   },
-  btnLogin: function (options) {
+  btnLogin: function(options) {
     // console.log(this.data.phoneCode)
     if (this.data.phoneCode.length != 11) {
       wx.showModal({
@@ -28,7 +28,7 @@ Page({
     }
     this.login(options);
   },
-  login: function (options) {
+  login: function(options) {
     const phone = this.data.phoneCode;
     if (phone && phone.length == 11) {
       wx.showLoading({
@@ -59,7 +59,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-  
+
     if (common.getStorage("PhoneCode")) {
       this.setData({
         phoneCode: common.getStorage("PhoneCode")
@@ -80,8 +80,8 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function (options) {
-    
+  onShow: function(options) {
+
   },
 
   /**
@@ -132,8 +132,8 @@ Page({
         let mn = substr.split(',')[1].split('=')[1];
         if (mn) {
           app.wxLogin(function() {
-            if (mn == "0102030405060708090A0B0C0D0E0F10" || mn =="0202030405060708090A0B0C0D0E0F10" ||
-              mn =="0302030405060708090A0B0C0D0E0F10" ) {
+            if (mn == "0102030405060708090A0B0C0D0E0F10" || mn == "0202030405060708090A0B0C0D0E0F10" ||
+              mn == "0302030405060708090A0B0C0D0E0F10") {
               common.setStorage("DGIMN", mn);
               common.setStorage("OpenId", "13800138000"); //13800138000
               common.setStorage("PhoneCode", "13800138000"); //13800138000
