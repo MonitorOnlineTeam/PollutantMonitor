@@ -222,7 +222,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    alarmDate: "2019-07-25", //moment().format('YYYY-MM-DD'),
+    alarmDate: moment().format('YYYY-MM-DD'),
     selectedEntName: "",
     selectedEntCode: "",
     pageIndex: 1,
@@ -265,7 +265,7 @@ Page({
       endTime: this.data.alarmDate + " 23:59:59"
     });
     this.getEntList();
-    this.onPullDownRefresh();
+
   },
 
   /**
@@ -389,6 +389,7 @@ Page({
           entArray: entArray,
           objectEntArray: objectEntArray
         });
+        that.onPullDownRefresh();
       }
     });
   },
