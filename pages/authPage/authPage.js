@@ -12,7 +12,6 @@ Page({
   },
   getUserInfo: function(e) {
     if (e.detail.rawData) {
-      debugger;
       wx.showLoading({
         title: '正在跳转…',
       })

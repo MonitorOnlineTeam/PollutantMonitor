@@ -35,15 +35,64 @@ Page({
    * 报警开关
    */
   switchSex: function(e) {
-    if (e.detail.value) {
-      wx.navigateTo({
-        url: '../authorization/authorization'
-      })
-    } else {
-      comApi.cancelAuthorization().then({
 
+    // if (e.detail.value) {
+    //   wx.navigateTo({
+    //     url: '../authorization/authorization'
+    //   })
+    // } else {
+    //   comApi.cancelAuthorization().then({
+
+    //   })
+    // }
+
+    let that = this;
+    if (e.detail.value) {
+      wx.showModal({
+        title: '提示',
+        content: '确定要开启报警推送开关吗？开启后将通过微信公众号接受报警通知。',
+        success(res) {
+          if (res.confirm) {
+            wx.redirectTo({
+              url: '../authorization/authorization'
+            })
+            // wx.navigateTo({
+            //   url: '../../authorization/authorization'
+            // })
+          } else if (res.cancel) {
+            that.setData({
+              alarmSwitch: false
+            })
+            console.log('用户点击取消')
+          }
+        }
       })
+
+    } else {
+      wx.showModal({
+        title: '提示',
+        content: '确定要关闭报警推送开关吗？关闭后将无法接收微信公众号报警通知。',
+        success(res) {
+          if (res.confirm) {
+            comApi.cancelAuthorization().then({
+
+            })
+            that.setData({
+              alarmSwitch: false
+            })
+          } else if (res.cancel) {
+            that.setData({
+              alarmSwitch: true
+            })
+            console.log('用户点击取消')
+          }
+        }
+      })
+
     }
+
+
+    
   },
   /**
    * 报警列表
