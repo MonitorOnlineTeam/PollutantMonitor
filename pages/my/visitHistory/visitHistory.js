@@ -8,7 +8,7 @@ Page({
    */
   data: {
     historyRecord: [],
-    DGIMN:""
+    DGIMN: ""
   },
 
   /**
@@ -31,6 +31,10 @@ Page({
    */
   onShow: function() {
     //this.onPullDownRefresh();
+    console.log(common.getStorage("DGIMN_Old"));
+    this.setData({
+      DGIMN: common.getStorage("DGIMN")
+    })
     app.isLogin();
   },
 
@@ -102,9 +106,26 @@ Page({
     var dgimn = e.currentTarget.id;
     var pointname = e.currentTarget.dataset.pointname;
     common.setStorage("PointName", pointname);
-    common.setStorage("DGIMN", dgimn);
-    wx.switchTab({
-      url: '/pages/realTimeData/home/home',
-    })
+
+    //common.setStorage("DGIMN_Old", dgimn);
+    let _this = this;
+    const sdlMN = app.globalData.sdlMN.filter(m => m === dgimn);
+    if (sdlMN.length > 0) {
+      app.getUserLocation(function(r) {
+        if (r) {
+          common.setStorage("DGIMN", dgimn);
+          common.setStorage("OpenId_SDL", "");
+          wx.switchTab({
+            url: '/pages/realTimeData/home/home',
+          })
+        }
+      }, 'history')
+    } else {
+      common.setStorage("DGIMN", dgimn);
+      common.setStorage("OpenId_SDL", "");
+      wx.switchTab({
+        url: '/pages/realTimeData/home/home',
+      })
+    }
   }
 })

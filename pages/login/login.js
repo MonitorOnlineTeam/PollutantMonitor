@@ -126,45 +126,26 @@ Page({
   ValidateDGIMN: function(options) {
     let that = this;
     if (options && options.q) {
-      let url = decodeURIComponent(options.q);
-      let substr = url.substr(url.lastIndexOf('/') + 1, url.length);
-      if (substr && substr.indexOf('flag=sdl,mn=') >= 0) {
-        let mn = substr.split(',')[1].split('=')[1];
-        if (mn) {
-          app.wxLogin(function() {
-            if (mn == "0102030405060708090A0B0C0D0E0F10" || mn == "0202030405060708090A0B0C0D0E0F10" ||
-              mn == "0302030405060708090A0B0C0D0E0F10") {
-              common.setStorage("DGIMN", mn);
+      app.wxLogin(function() {
+        app.isValidateSdlUrl(options.q, function(res) {
+          if (res) {
+            //单独给雪迪龙展厅设备指定openId
+            if (common.getStorage("OpenId_SDL")) {
               common.setStorage("OpenId", "13800138000"); //13800138000
               common.setStorage("PhoneCode", "13800138000"); //13800138000
               app.getUserInfo(options);
               return;
-            }
-            comApi.qRCodeVerifyDGIMN(mn).then(res => {
-              console.log("res", res);
-              if (res && res.IsSuccess) {
-                common.setStorage("DGIMN", mn);
-                if (common.getStorage("PhoneCode")) {
-                  that.setData({
-                    phoneCode: common.getStorage("PhoneCode")
-                  });
-
-                  that.btnLogin();
-                }
-              } else {
-                //common.setStorage("DGIMN", mn);
-                wx.showModal({
-                  title: '提示',
-                  content: res.Message,
-                  showCancel: false,
-                  success(res) {}
-                })
+            } else {
+              if (common.getStorage("PhoneCode")) {
+                that.setData({
+                  phoneCode: common.getStorage("PhoneCode")
+                });
+                that.btnLogin();
               }
-            })
-          });
-
-        }
-      }
+            }
+          }
+        });
+      });
     } else {
       if (common.getStorage("PhoneCode")) {
         that.setData({

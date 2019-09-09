@@ -4,7 +4,7 @@ const URL = 'https://api.chsdl.net/WxWryApi/rest/PollutantSourceApi'
 //http://api.chsdl.cn/wxwryapi?flag=sdl&mn=62262431qlsp099
 //const URL = 'http://localhost:52199/'
 //const URL = 'http://localhost:52198/rest/PollutantSourceApi'
-// const URL = 'http://172.16.30.108/wxwryapi/rest/PollutantSourceApi'
+//const URL = 'http://172.16.30.108/wxwryapi/rest/PollutantSourceApi'
 //const URL = 'https://api.chsdl.net/WxWryApiTokenTest/rest/PollutantSourceApi'
 //const URL = 'http://172.16.12.152:8044/rest/PollutantSourceApi'
 
@@ -21,25 +21,25 @@ const dataTypeObj = {
   3: 'day'
 }
 const pageUrl = {
-  getOpenId: `/WxServer/PostLogin?authorCode=${authorCode}`,
-  validateFirstLogin: '/WxServer/ValidateFirstLogin',
-  updateUserInfo: '/WxServer/UpdateUserInfo',
-  getUserInfo: '/WxServer/GetUserInfo',
-  getPointInfo: `/WxServer/GetPointInfo?authorCode=${authorCode}`,
-  getDeviceInfo: `/WxServer/GetAnalyzerList?authorCode=${authorCode}`,
-  getPollutant: `/WxServer/GetPollutantList?authorCode=${authorCode}`,
-  getMonitorData: `/WxServer/GetMonitorDatas?authorCode=${authorCode}`,
-  getProcessFlowChartStatus: `/WxServer/GetProcessFlowChartStatus?authorCode=${authorCode}`,
-  verifyDevicePwd: `/WxServer/VerifyDevicePwd?authorCode=${authorCode}`,
-  verifyPhone: `/WxServer/VerifyPhone?authorCode=${authorCode}`,
+  getOpenId: `WxServer/PostLogin?authorCode=${authorCode}`,
+  validateFirstLogin: 'WxServer/ValidateFirstLogin',
+  updateUserInfo: 'WxServer/UpdateUserInfo',
+  getUserInfo: 'WxServer/GetUserInfo',
+  getPointInfo: `WxServer/GetPointInfo?authorCode=${authorCode}`,
+  getDeviceInfo: `WxServer/GetAnalyzerList?authorCode=${authorCode}`,
+  getPollutant: `WxServer/GetPollutantList?authorCode=${authorCode}`,
+  getMonitorData: `WxServer/GetMonitorDatas?authorCode=${authorCode}`,
+  getProcessFlowChartStatus: `WxServer/GetProcessFlowChartStatus?authorCode=${authorCode}`,
+  verifyDevicePwd: `WxServer/VerifyDevicePwd?authorCode=${authorCode}`,
+  verifyPhone: `WxServer/VerifyPhone?authorCode=${authorCode}`,
   qRCodeVerifyDGIMN: `/WxServer/QRCodeVerifyDGIMN?authorCode=${authorCode}`,
-  verifyDGIMN: `/WxServer/VerifyDGIMN?authorCode=${authorCode}`,
+  verifyDGIMN: `WxServer/VerifyDGIMN?authorCode=${authorCode}`,
   getRealTimeDataForPoint: `/WxServer/GetRealTimeDataForPoint?authorCode=${authorCode}`,
-  addFeedback: `/WxServer/AddFeedback?authorCode=${authorCode}`,
-  getDataAlarmData: `/WxServer/GetAlarmDatas?authorCode=${authorCode}`,
-  getAuthorizationState: `/WxServer/getAuthorizationState?authorCode=${authorCode}`,
-  cancelAuthorization: `/WxServer/cancelAuthorization?authorCode=${authorCode}`,
-  getUserEntInfo: `/WxServer/GetUserEntInfo?authorCode=${authorCode}`
+  addFeedback: `WxServer/AddFeedback?authorCode=${authorCode}`,
+  getDataAlarmData: `WxServer/GetAlarmDatas?authorCode=${authorCode}`,
+  getAuthorizationState: `WxServer/getAuthorizationState?authorCode=${authorCode}`,
+  cancelAuthorization: `WxServer/cancelAuthorization?authorCode=${authorCode}`,
+  getUserEntInfo: `WxServer/GetUserEntInfo?authorCode=${authorCode}`
 }
 
 /**
@@ -167,8 +167,12 @@ function getUserInfo() {
   //  api.getUserInfo().then(res => {
   //    console.log('getUserInfo', res)
   //  })
+  console.log("OpenId_SDL=", common.getStorage('OpenId_SDL'));
+  console.log("OpenId=", common.getStorage('OpenId'));
+  console.log("AuthorCode=", common.getStorage('OpenId_SDL') || common.getStorage('OpenId'));
+
   return fetchApi(pageUrl.getUserInfo, {
-      AuthorCode: common.getStorage('OpenId'),
+      AuthorCode: common.getStorage('OpenId_SDL') || common.getStorage('OpenId'),
       DGIMN: common.getStorage('DGIMN')
     }, 'get')
     .then(res => res.data)

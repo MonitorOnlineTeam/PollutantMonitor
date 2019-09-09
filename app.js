@@ -222,7 +222,7 @@ App({
       common.setStorage("IsShare", false);
     }
   },
-  geo: function(callback) {
+  geo: function(callback, flagR) {
     var _this = this;
     wx.getLocation({
       type: 'gcj02',
@@ -241,10 +241,16 @@ App({
             showCancel: false,
             success(res) {
               if (res.confirm) {
-                wx.navigateTo({
-                  url: '/pages/my/visitHistory/visitHistory'
-                })
+
+                if (flagR !== 'history') {
+                  common.setStorage("DGIMN", common.getStorage("DGIMN_Old"));
+                  wx.navigateTo({
+                    url: '/pages/my/visitHistory/visitHistory'
+                  })
+                }
+
               } else if (res.cancel) {
+                common.setStorage("DGIMN", common.getStorage("DGIMN_Old"));
                 console.log('用户点击取消')
               }
             }
@@ -269,7 +275,7 @@ App({
     })
 
   },
-  getUserLocation: function(callback) {
+  getUserLocation: function(callback, flagR) {
     var _this = this;
     wx.showLoading({
       title: '正在获取位置',
@@ -303,7 +309,7 @@ App({
                       _this.geo(function(f) {
                         wx.hideLoading()
                         callback && callback(f);
-                      })
+                      }, flagR)
 
 
                     } else {
@@ -325,17 +331,90 @@ App({
           _this.geo(function(f) {
             wx.hideLoading()
             callback && callback(f);
-          })
+          }, flagR)
         } else {
           console.log('授权成功')
           //调用wx.getLocation的API
           _this.geo(function(f) {
             wx.hideLoading()
             callback && callback(f);
-          })
+          }, flagR)
         }
       }
     })
+  },
+  isValidateSdlUrl: function(urlParam, callback) {
+    let _this = this;
+
+    try {
+      let url = decodeURIComponent(urlParam);
+      let substr = url.substr(url.lastIndexOf('/') + 1, url.length);
+      console.log('substr', substr);
+      if (substr && substr.indexOf('flag=sdl,mn=') >= 0) {
+        let mn = substr.split(',')[1].split('=')[1];
+        if (mn) {
+          api.qRCodeVerifyDGIMN(mn).then(res => {
+            if (res && res.IsSuccess) {
+              const sdlMN = _this.globalData.sdlMN.filter(m => m === mn);
+
+              if (sdlMN.length > 0) {
+                common.setStorage("OpenId_SDL", "13800138000"); //13800138000
+              } else {
+                common.setStorage("OpenId_SDL", "");
+              }
+              if (common.getStorage("DGIMN"))
+                common.setStorage("DGIMN_Old", common.getStorage("DGIMN"));
+              else {
+                common.setStorage("DGIMN_Old", mn);
+              }
+              common.setStorage("DGIMN", mn);
+
+              callback && callback(true);
+            } else {
+              //common.setStorage("DGIMN", mn);
+              wx.showModal({
+                title: '提示',
+                content: res.Message,
+                showCancel: false,
+                success(res) {}
+              })
+            }
+          })
+        } else {
+          wx.showModal({
+            title: '提示',
+            content: '无法识别，请重试',
+            showCancel: false,
+            success(res) {
+              if (res.confirm) {
+                console.log('用户点击确定')
+              } else if (res.cancel) {
+                console.log('用户点击取消')
+              }
+            }
+          })
+        }
+      } else {
+        wx.showModal({
+          title: '提示',
+          content: '无法识别，请重试',
+          showCancel: false,
+          success(res) {
+            if (res.confirm) {
+              console.log('用户点击确定')
+            } else if (res.cancel) {
+              console.log('用户点击取消')
+            }
+          }
+        })
+      }
+    } catch (e) {
+      wx.showToast({
+        icon: 'none',
+        title: '无法识别二维码'
+      })
+    }
+    callback && callback(false);
   },
   globalData: {
     userInfo: null,
