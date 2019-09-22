@@ -111,7 +111,11 @@ Page({
   onReachBottom: function() {
 
   },
-
+  btnNoLogin:function(){
+    wx.redirectTo({
+      url: '/pages/welcome/welcome',
+    })
+  },
   /**
    * 用户点击右上角分享
    */
