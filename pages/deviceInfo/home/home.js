@@ -19,27 +19,24 @@ Page({
       longitude: 116.460000,
       width: 18,
       height: 35,
-    }]
+    }],
+    isAuthor: false
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    // console.log(common.getStorage('IsHaveHistory'));
-    // debugger;
-    // if (common.getStorage('IsHaveHistory')) {
-    //   this.setData({
-    //     DGIMN: common.getStorage('DGIMN')
-    //   });
-    //   this.onPullDownRefresh();
-    // }
-    this.setData({
-      dgimn: common.getStorage('DGIMN')
-    });
-    this.onPullDownRefresh();
-  },
 
+    this.setData({
+      dgimn: common.getStorage('DGIMN'),
+      isAuthor: app.isAuthor()
+    });
+    this.data.isAuthor && this.onPullDownRefresh();
+  },
+  goLogin: function() {
+    app.goLogin();
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -51,7 +48,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    app.isLogin();
+    //app.isLogin();
     //扫描二维码后改缓存变为true
     // if (!common.getStorage('IsHaveHistory')) {
     //   wx.showModal({
@@ -70,6 +67,11 @@ Page({
     //   })
     //   return false;
     // }
+
+    this.data.isAuthor && app.isLogin();
+    this.setData({
+      isAuthor: app.isAuthor()
+    });
     //登陆（或者扫描二维码）时已经把MN号码赋上，  ----目前时登陆赋上
     if (this.data.dgimn !== common.getStorage('DGIMN')) {
       this.setData({

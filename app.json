@@ -1,5 +1,7 @@
 {
   "pages": [
+    "pages/realTimeData/home/home",
+    "pages/my/home/home",
     "pages/welcome/welcome",
     "pages/login/login",
     "pages/authPage/authPage",
@@ -8,11 +10,11 @@
     "pages/historyData/selectPollutant/selectPollutant",
     "pages/historyData/historyDataTransverse/historyDataTransverse",
     "pages/logs/logs",
-    "pages/realTimeData/home/home",
+    
     "pages/realTimeData/flowChart/flowChart",
     "pages/deviceInfo/home/home",
     "pages/deviceInfo/address/address",
-    "pages/my/home/home",
+    
     "pages/my/visitHistory/visitHistory",
     "pages/my/feedBack/feedBack",
     "pages/historyData/selectDateTime/selectDateTime",

@@ -42,10 +42,15 @@ Page({
     tabList: ['分钟', '小时', '日', '月'],
     legendHeight: 8,
     tipsData: [],
-    alarmSwitch: false
+    alarmSwitch: false,
+    isAuthor: false
   },
   tabSelect(e) {
     // console.log(e);
+    if (!this.data.isAuthor) {
+      this.goLogin();
+      return false;
+    }
     this.setData({
       dataType: e.currentTarget.dataset.id,
       selectedDate: moment(common.getStorage('selectedDate')).format(selectTimeFormat[e.currentTarget.dataset.id].showFormat),
@@ -56,7 +61,7 @@ Page({
 
 
     let _this = this;
-    const sdlMN = app.globalData.sdlMN.filter(m => m === this.data.DGIMN);
+    const sdlMN = app.globalData.sdlMN.filter(m => m === _this.data.DGIMN);
     if (sdlMN.length > 0) {
       app.getUserLocation(function(r) {
         if (r) {
@@ -72,10 +77,16 @@ Page({
     }
 
   },
+  goLogin: function() {
+    app.goLogin();
+  },
   onChangePollutant(e) {
-
+    if (!this.data.isAuthor) {
+      this.goLogin();
+      return false;
+    }
     let _this = this;
-    const sdlMN = app.globalData.sdlMN.filter(m => m === this.data.DGIMN);
+    const sdlMN = app.globalData.sdlMN.filter(m => m === _this.data.DGIMN);
     if (sdlMN.length > 0) {
       app.getUserLocation(function(r) {
         if (r) {
@@ -94,20 +105,23 @@ Page({
 
   },
   onChangeDate(e) {
-
+    if (!this.data.isAuthor) {
+      this.goLogin();
+      return false;
+    }
     let _this = this;
-    const sdlMN = app.globalData.sdlMN.filter(m => m === this.data.DGIMN);
+    const sdlMN = app.globalData.sdlMN.filter(m => m === _this.data.DGIMN);
     if (sdlMN.length > 0) {
       app.getUserLocation(function(r) {
         if (r) {
           wx.navigateTo({
-            url: '../selectDateTime/selectDateTime?dataType=' + this.data.dataType
+            url: '../selectDateTime/selectDateTime?dataType=' + _this.data.dataType
           })
         }
       })
     } else {
       wx.navigateTo({
-        url: '../selectDateTime/selectDateTime?dataType=' + this.data.dataType
+        url: '../selectDateTime/selectDateTime?dataType=' + _this.data.dataType
       })
     }
 
@@ -118,6 +132,11 @@ Page({
     })
   },
   horizontalScreen: function() {
+
+    if (!this.data.isAuthor) {
+      this.goLogin();
+      return false;
+    }
     let _this = this;
     const sdlMN = app.globalData.sdlMN.filter(m => m === this.data.DGIMN);
     if (sdlMN.length > 0) {
@@ -141,7 +160,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    app.isLogin();
+    //app.isLogin();
     const self = this;
     this.chartComponent = this.selectComponent('#line-dom');
     let selectedDate = common.getStorage('selectedDate');
@@ -154,11 +173,12 @@ Page({
     this.setData({
       DGIMN: common.getStorage('DGIMN'),
       selectedPollutants: common.getStorage('selectedPollutants') || [],
-      selectedDate: selectedDate
+      selectedDate: selectedDate,
+      isAuthor: app.isAuthor()
     });
     common.setStorage('selectedDate', selectedDate);
 
-    this.onPullDownRefresh();
+    this.data.isAuthor && this.onPullDownRefresh();
   },
 
   /**
@@ -172,8 +192,12 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    app.isLogin();
-    
+    //app.isLogin();
+    this.data.isAuthor && app.isLogin();
+    this.setData({
+      isAuthor: app.isAuthor()
+    });
+
     let selectedDate = moment(common.getStorage('selectedDate')).format(selectTimeFormat[this.data.dataType].showFormat);
     //debugger;
     let selectedPollutants = common.getStorage('selectedPollutants') || [];
@@ -279,7 +303,7 @@ Page({
     let chartDatas = [];
 
     let _this = this;
-    const sdlMN = app.globalData.sdlMN.filter(m => m === this.data.DGIMN);
+    const sdlMN = app.globalData.sdlMN.filter(m => m === _this.data.DGIMN);
     if (sdlMN.length > 0) {
       app.getUserLocation(function(r) {
         if (r) {
@@ -349,12 +373,12 @@ Page({
 
             };
             wx.hideNavigationBarLoading();
-            this.setData({
+            _this.setData({
               chartDatas: chartDatas
             });
             console.log(chartDatas);
-            this.chartComponent = this.selectComponent('#line-dom');
-            chartDatas.length > 0 && this.initChart();
+            _this.chartComponent = _this.selectComponent('#line-dom');
+            chartDatas.length > 0 && _this.initChart();
 
           })
         }
@@ -427,12 +451,12 @@ Page({
 
         };
         wx.hideNavigationBarLoading();
-        this.setData({
+        _this.setData({
           chartDatas: chartDatas
         });
         console.log(chartDatas);
-        this.chartComponent = this.selectComponent('#line-dom');
-        chartDatas.length > 0 && this.initChart();
+        _this.chartComponent = _this.selectComponent('#line-dom');
+        chartDatas.length > 0 && _this.initChart();
 
       })
     }
@@ -448,7 +472,7 @@ Page({
       dataType
     } = this.data;
     this.chartComponent.init((canvas, width, height, F2) => {
-      const arr = this.data.chartDatas;
+      const arr = that.data.chartDatas;
       const chart = new F2.Chart({
         el: canvas,
         width,

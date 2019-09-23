@@ -1,10 +1,14 @@
 <!--pages/my/home/home.wxml-->
 <!-- <text>pages/my/home/home.wxml</text> -->
 <view class='UCenter-bg'>
-  <image src='{{userInfo.avatarUrl}}' class='png'></image>
-  <view class='margin-top-sm'>
-    <text>{{userInfo.nickName}}</text>
+  <view wx:if="{{isAuthor==false}}" style="" class="cu-btn round bg-blue" bindtap="goLogin">登录</view>
+  <view wx:else>
+    <image src='{{userInfo.avatarUrl}}' class='png'></image>
+    <view class='margin-top-sm' style="text-align:center">
+      <text>{{userInfo.nickName}}</text>
+    </view>
   </view>
+
 </view>
 
 <view class='QRcodeClass'>
@@ -14,7 +18,7 @@
         <image src='/images/alarmswitch.png' class='imageClass'></image>
       </view>
       <view class='content'>
-         报警开关
+        报警开关
       </view>
       <view class="action">
         <switch checked="{{alarmSwitch}}" class="switch" bindchange="switchSex"></switch>
@@ -22,7 +26,7 @@
     </view>
   </view>
 
-   <view class="cu-list menu">
+  <view class="cu-list menu">
     <view class="cu-item {{'arrow'}}" bindtap='alarmData'>
       <view>
         <image src='/images/alarmlist.png' class='imageClass'></image>
@@ -67,5 +71,5 @@
   </view>
   <button bindtap="clearCache" class='cu-btn block bg-blue margin-tb-sm' style='margin-left:10rpx;margin-right:10rpx;'>
     <text class='{{isLoading?"icon-loading2 iconfont-spin":""}} '></text> 清除缓存({{currentSize}}kb)</button>
- 
+
 </view>

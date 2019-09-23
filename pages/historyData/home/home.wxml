@@ -19,26 +19,33 @@
     <cover-image style='' bindtap="horizontalScreen" src='/images/fangda.png' class='fangda'></cover-image>
   </view>
 </view>
-<view style='position:relative;'>
-  <view wx:if="{{chartDatas.length>0}}" class='container' style=''>
-    <ff-canvas id="line-dom" canvas-id="line" opts="{{ opts }}"></ff-canvas>
-  </view>
-  <view wx:if="{{chartDatas.length==0}}" class='container' style='height:82vh;text-align:center;padding-top:30%;color:#ccc;'>
-    <text>暂无数据</text>
-  </view>
 
-  <view wx:if="{{chartDatas.length>0}}" class="bg-white  margin-top" style='position: absolute;top:69%;width:100%'>
-    <scroll-view class='list-view' scroll-y="true">
-      <view class='grid col-3' style='padding-left:15rpx;padding-right:15rpx;'>
-        <view class='padding-sm' style='padding:9rpx;' wx:for="{{tipsData}}" wx:key>
-          <view class='bg-blue light radius text-left shadow-blur' style='padding-left:12rpx;padding-top:20rpx;padding-bottom:20rpx;'>
-            <image wx:if="{{item.Status=='-1'}}" class='data-tag' src='/images/exception.png'></image>
-            <image wx:elif="{{item.Status=='1'}}" class='data-tag' src='/images/overdata.png'></image>
-            <view class="text-black" style='font-size:30rpx;'>{{item.PollutantName}}</view>
-            <view class='margin-top-sm  text-black'>{{item.Value}} {{item.Unit}}</view>
+<view wx:if="{{isAuthor==false}}" style="text-align:center;margin-top:50%;">
+  <view style="" class="cu-btn round bg-blue" bindtap="goLogin">登录</view>
+</view>
+
+<view wx:else>
+  <view style='position:relative;'>
+    <view wx:if="{{chartDatas.length>0}}" class='container' style=''>
+      <ff-canvas id="line-dom" canvas-id="line" opts="{{ opts }}"></ff-canvas>
+    </view>
+    <view wx:if="{{chartDatas.length==0}}" class='container' style='height:82vh;text-align:center;padding-top:30%;color:#ccc;'>
+      <text>暂无数据</text>
+    </view>
+
+    <view wx:if="{{chartDatas.length>0}}" class="bg-white  margin-top" style='position: absolute;top:69%;width:100%'>
+      <scroll-view class='list-view' scroll-y="true">
+        <view class='grid col-3' style='padding-left:15rpx;padding-right:15rpx;'>
+          <view class='padding-sm' style='padding:9rpx;' wx:for="{{tipsData}}" wx:key>
+            <view class='bg-blue light radius text-left shadow-blur' style='padding-left:12rpx;padding-top:20rpx;padding-bottom:20rpx;'>
+              <image wx:if="{{item.Status=='-1'}}" class='data-tag' src='/images/exception.png'></image>
+              <image wx:elif="{{item.Status=='1'}}" class='data-tag' src='/images/overdata.png'></image>
+              <view class="text-black" style='font-size:30rpx;'>{{item.PollutantName}}</view>
+              <view class='margin-top-sm  text-black'>{{item.Value}} {{item.Unit}}</view>
+            </view>
           </view>
         </view>
-      </view>
-    </scroll-view>
+      </scroll-view>
+    </view>
   </view>
 </view>

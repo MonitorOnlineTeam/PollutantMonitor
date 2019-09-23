@@ -10,7 +10,8 @@ Page({
     userInfo: app.globalData.userInfo,
     isLoading: false,
     currentSize: 0,
-    alarmSwitch: false
+    alarmSwitch: false,
+    isAuthor: false
   },
 
   /**
@@ -20,7 +21,8 @@ Page({
 
 
     this.setData({
-      userInfo: app.globalData.userInfo
+      userInfo: app.globalData.userInfo,
+      isAuthor: app.isAuthor()
     });
     console.log(this.data.userInfo);
   },
@@ -35,6 +37,13 @@ Page({
    * 报警开关
    */
   switchSex: function(e) {
+    if (!this.data.isAuthor) {
+      this.setData({
+        alarmSwitch: false
+      })
+      this.goLogin();
+      return false;
+    }
     let that = this;
     if (e.detail.value) {
       wx.showModal({
@@ -80,7 +89,10 @@ Page({
    * 报警列表
    */
   alarmData: function() {
-
+    if (!this.data.isAuthor) {
+      this.goLogin();
+      return false;
+    }
     wx.navigateTo({
       url: '../alarmDataList/alarmDataList'
     })
@@ -100,7 +112,7 @@ Page({
         if (res.confirm) {
           wx.clearStorageSync();
           that.updateCurrentSize();
-          wx.redirectTo({
+          wx.navigateTo({
             url: '/pages/login/login',
           });
         } else if (res.cancel) {
@@ -110,11 +122,64 @@ Page({
     })
 
   },
+  goLogin: function() {
+    app.goLogin();
+  },
+  getUserInfo: function(e) {
+    if (e.detail.rawData) {
+      const data = e.detail.rawData;
+      app.globalData.userInfo = e.detail.userInfo;
+      this.setData({
+        userInfo: app.globalData.userInfo,
+      });
+    }
+  },
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    comApi.getAuthorizationState().then(res => {
+    let that = this;
+    !that.data.userInfo && wx.getSetting({
+      success: res => {
+        wx.showLoading({
+          title: '正在加载中',
+        })
+        if (res.authSetting['scope.userInfo']) {
+          // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
+          wx.getUserInfo({
+            success: res => {
+              wx.showLoading({
+                title: '正在加载中',
+              })
+              // 可以将 res 发送给后台解码出 unionId
+              app.globalData.userInfo = res.userInfo;
+              that.setData({
+                userInfo: app.globalData.userInfo
+              });
+
+              // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
+              // 所以此处加入 callback 以防止这种情况
+              if (this.userInfoReadyCallback) {
+                this.userInfoReadyCallback(res)
+              }
+              wx.hideLoading();
+            }
+          })
+        }else
+        {
+          wx.hideLoading();
+        }
+      }
+    })
+
+    this.data.isAuthor && app.isLogin();
+    console.log("globalData=", app.globalData);
+    this.setData({
+      userInfo: app.globalData.userInfo,
+      isAuthor: app.isAuthor()
+    });
+
+    this.data.isAuthor && comApi.getAuthorizationState().then(res => {
       if (res && res.IsSuccess) {
 
         if (res.Data) {
@@ -128,9 +193,7 @@ Page({
         }
       }
     })
-
-
-    app.isLogin();
+    //app.isLogin();
 
     // var pointName = common.getStorage("PointName");
     // if (pointName != "") {
@@ -194,17 +257,31 @@ Page({
 
   //意见反馈
   showModal(e) {
+    if (!this.data.isAuthor) {
+      this.goLogin();
+      return false;
+    }
     wx.navigateTo({
       url: '../feedBack/feedBack'
     })
   },
   //访问历史
   showHistory() {
+    if (!this.data.isAuthor) {
+      this.goLogin();
+      return false;
+    }
     wx.navigateTo({
       url: '../visitHistory/visitHistory'
     })
   },
   clickScan: function() {
+
+    if (!this.data.isAuthor) {
+      this.goLogin();
+      return false;
+    }
+
     //http://api.chsdl.cn/wxwryapi?flag=sdl,mn=62262431qlsp01
     wx.scanCode({
       success(res) {

@@ -1,96 +1,102 @@
 <!--pages/deviceInfo/home/home.wxml-->
-<view class="cu-list menu menu-avatar">
-  <view class="cu-item">
-
-    <view class="cu-avatar round lg" id="{{resultData.HBFZRPhone}}" bindtap="CallHBFZ">
-      <image src='/images/p2.png' class='iconPhoneClass'></image>
-    </view>
-    <view class='content flex-sub' style='flex:0.5' id="{{resultData.HBFZRPhone}}" bindtap="CallHBFZ">
-      <view style='font-size:30rpx;'>{{resultData.HBFZRName=='-'?'暂无负责人':resultData.HBFZRName}}</view>
-      <view class='text-gray text-sm flex justify-between' style='font-size:24rpx;'>
-        环保负责人
-      </view>
-    </view>
-    <view class="cu-avatar round lg" style="left:55%;" id="{{resultData.OperationPhone}}" bindtap="CallOperation">
-      <image src='/images/p1.png' class='iconPhoneClass'></image>
-    </view>
-    <view class='content flex-sub' style='flex:0.5;padding-left:35%;' id="{{resultData.OperationPhone}}" bindtap="CallOperation">
-      <view style='font-size:30rpx;'>{{resultData.OperationName=='-'?'暂无负责人':resultData.OperationName}}</view>
-      <view class='text-gray text-sm flex justify-between' style='font-size:24rpx;'>
-        排口运维人
-      </view>
-    </view>
-  </view>
+<view wx:if="{{isAuthor==false}}" style="text-align:center;margin-top:60%;">
+  <view style="" class="cu-btn round bg-blue" bindtap="goLogin">登录</view>
 </view>
+<view wx:else>
+  <view class="cu-list menu menu-avatar">
+    <view class="cu-item">
 
-<view class="cu-list menu sm-border margin-top">
-  <view class="cu-item">
-    <view class='content'>
-      <text class='lable-text'>设备编号</text>
-    </view>
-    <view class='action'>
-      <text class='lable-value'>{{resultData.DGIMN}}</text>
-    </view>
-  </view>
-  <view class="cu-item">
-    <view class='content'>
-      <text class='lable-text' style='font-size:28rpx;color:#333'>排口状态</text>
-    </view>
-    <view class='action'>
-      <text class='statesTextOffLine' wx:if="{{resultData.PointStatus==0}}">{{resultData.PointStatusText}}</text>
-      <text class='statesTextOnLine' wx:elif="{{resultData.PointStatus==1}}">{{resultData.PointStatusText}}</text>
-      <text class='statesTextOver' wx:elif="{{resultData.PointStatus==2}}">{{resultData.PointStatusText}}</text>
-      <text class='statesTextException' wx:else>{{resultData.PointStatusText}}</text>
-    </view>
-  </view>
-  <view class="cu-item">
-    <view class='content'>
-      <text class='lable-text' style='font-size:28rpx;color:#333'>排口直径</text>
-    </view>
-    <view class='action'>
-      <text class='lable-value' style='font-size:28rpx;color:#666'>{{resultData.OutputDiameter||'-'}}M</text>
-    </view>
-  </view>
-  <view class="cu-item">
-    <view class='content'>
-      <text class='lable-text' style='font-size:28rpx;color:#333'>排口高度</text>
-    </view>
-    <view class='action'>
-      <text class='lable-value' style='font-size:28rpx;color:#666'>{{resultData.OutputHigh||'-'}}M</text>
-    </view>
-  </view>
-</view>
-<view class="cu-list menu margin-top">
-  <view class="cu-item">
-    <view class='content padding-tb-sm'>
-      <view>
-        <image style='position:absolute;width:20px;height:20px;background-size:100% 100%;' src='/images/003.png'></image>
+      <view class="cu-avatar round lg" id="{{resultData.HBFZRPhone}}" bindtap="CallHBFZ">
+        <image src='/images/p2.png' class='iconPhoneClass'></image>
       </view>
-      <view style='padding-left:50rpx;' class='lable-text'>监测组分</view>
-      <view class='lable-value'>
-        <view class='pollutantItemsClass'>
-          {{resultData.TestComponent==""?"暂无组分":resultData.TestComponent}}
+      <view class='content flex-sub' style='flex:0.5' id="{{resultData.HBFZRPhone}}" bindtap="CallHBFZ">
+        <view style='font-size:30rpx;'>{{resultData.HBFZRName=='-'?'暂无负责人':resultData.HBFZRName}}</view>
+        <view class='text-gray text-sm flex justify-between' style='font-size:24rpx;'>
+          环保负责人
         </view>
       </view>
-    </view>
-  </view>
-</view>
-<view class="cu-list menu margin-top" bindtap='lookAddress'>
-  <view class="cu-item arrow">
-    <view class='content padding-tb-sm'>
-      <view>
-        <image style='position:absolute;width:20px;height:20px;background-size:100% 100%;' src='/images/address.png'></image>
+      <view class="cu-avatar round lg" style="left:55%;" id="{{resultData.OperationPhone}}" bindtap="CallOperation">
+        <image src='/images/p1.png' class='iconPhoneClass'></image>
       </view>
-      <view style='padding-left:50rpx;' class='lable-text'>地址</view>
-      <view class='lable-value'>
-        <view class='pollutantItemsClass'>
-          {{resultData.PointAddress||'-'}}
+      <view class='content flex-sub' style='flex:0.5;padding-left:35%;' id="{{resultData.OperationPhone}}" bindtap="CallOperation">
+        <view style='font-size:30rpx;'>{{resultData.OperationName=='-'?'暂无负责人':resultData.OperationName}}</view>
+        <view class='text-gray text-sm flex justify-between' style='font-size:24rpx;'>
+          排口运维人
         </view>
       </view>
     </view>
   </view>
 
+  <view class="cu-list menu sm-border margin-top">
+    <view class="cu-item">
+      <view class='content'>
+        <text class='lable-text'>设备编号</text>
+      </view>
+      <view class='action'>
+        <text class='lable-value'>{{resultData.DGIMN}}</text>
+      </view>
+    </view>
+    <view class="cu-item">
+      <view class='content'>
+        <text class='lable-text' style='font-size:28rpx;color:#333'>排口状态</text>
+      </view>
+      <view class='action'>
+        <text class='statesTextOffLine' wx:if="{{resultData.PointStatus==0}}">{{resultData.PointStatusText}}</text>
+        <text class='statesTextOnLine' wx:elif="{{resultData.PointStatus==1}}">{{resultData.PointStatusText}}</text>
+        <text class='statesTextOver' wx:elif="{{resultData.PointStatus==2}}">{{resultData.PointStatusText}}</text>
+        <text class='statesTextException' wx:else>{{resultData.PointStatusText}}</text>
+      </view>
+    </view>
+    <view class="cu-item">
+      <view class='content'>
+        <text class='lable-text' style='font-size:28rpx;color:#333'>排口直径</text>
+      </view>
+      <view class='action'>
+        <text class='lable-value' style='font-size:28rpx;color:#666'>{{resultData.OutputDiameter||'-'}}M</text>
+      </view>
+    </view>
+    <view class="cu-item">
+      <view class='content'>
+        <text class='lable-text' style='font-size:28rpx;color:#333'>排口高度</text>
+      </view>
+      <view class='action'>
+        <text class='lable-value' style='font-size:28rpx;color:#666'>{{resultData.OutputHigh||'-'}}M</text>
+      </view>
+    </view>
+  </view>
+  <view class="cu-list menu margin-top">
+    <view class="cu-item">
+      <view class='content padding-tb-sm'>
+        <view>
+          <image style='position:absolute;width:20px;height:20px;background-size:100% 100%;' src='/images/003.png'></image>
+        </view>
+        <view style='padding-left:50rpx;' class='lable-text'>监测组分</view>
+        <view class='lable-value'>
+          <view class='pollutantItemsClass'>
+            {{resultData.TestComponent==""?"暂无组分":resultData.TestComponent}}
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="cu-list menu margin-top" bindtap='lookAddress'>
+    <view class="cu-item arrow">
+      <view class='content padding-tb-sm'>
+        <view>
+          <image style='position:absolute;width:20px;height:20px;background-size:100% 100%;' src='/images/address.png'></image>
+        </view>
+        <view style='padding-left:50rpx;' class='lable-text'>地址</view>
+        <view class='lable-value'>
+          <view class='pollutantItemsClass'>
+            {{resultData.PointAddress||'-'}}
+          </view>
+        </view>
+      </view>
+    </view>
+
+  </view>
 </view>
+
 <!-- <view class="cu-list menu margin-top">
   <view class="cu-item">
     <view class='content padding-tb-sm'>

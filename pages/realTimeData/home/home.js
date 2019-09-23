@@ -21,6 +21,7 @@ Page({
     DGIMN: '',
     dataInfo: null,
     imageSrc: null,
+    isAuthor: false
   },
 
   /**
@@ -28,14 +29,17 @@ Page({
    */
   onLoad: function(options) {
     this.setData({
-      DGIMN: common.getStorage('DGIMN')
+      DGIMN: common.getStorage('DGIMN'),
+      isAuthor: app.isAuthor()
     });
-
-    this.onPullDownRefresh();
+    console.log(this.data.isAuthor);
+    this.data.isAuthor && this.onPullDownRefresh();
 
 
   },
-
+  goLogin: function() {
+    app.goLogin();
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -47,7 +51,10 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    app.isLogin();
+    this.data.isAuthor && app.isLogin();
+    this.setData({
+      isAuthor: app.isAuthor()
+    });
     if (this.data.DGIMN !== common.getStorage('DGIMN')) {
       common.setStorage('selectedPollutants', "");
       common.setStorage('selectedDate', moment().format('YYYY-MM-DD HH:mm'));
