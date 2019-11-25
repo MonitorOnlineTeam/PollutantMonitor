@@ -10,16 +10,16 @@
     "pages/historyData/selectPollutant/selectPollutant",
     "pages/historyData/historyDataTransverse/historyDataTransverse",
     "pages/logs/logs",
-    
     "pages/realTimeData/flowChart/flowChart",
     "pages/deviceInfo/home/home",
     "pages/deviceInfo/address/address",
-    
     "pages/my/visitHistory/visitHistory",
     "pages/my/feedBack/feedBack",
     "pages/historyData/selectDateTime/selectDateTime",
     "pages/others/others",
-    "pages/my/alarmDataDetails/alarmDataDetails"
+    "pages/my/alarmDataDetails/alarmDataDetails",
+    "pages/qca/opendoor/opendoor",
+    "pages/qca/scan/scan"
   ],
   "permission": {
     "scope.userLocation": {

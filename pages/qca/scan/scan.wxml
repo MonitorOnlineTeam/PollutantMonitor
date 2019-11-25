@@ -1,0 +1,4 @@
+<!--pages/qca/scan/scan.wxml-->
+<view class="contanis">
+  <button class="cu-btn block bg-blue margin-tb-sm lg" disabled type="">扫一扫</button>
+</view>

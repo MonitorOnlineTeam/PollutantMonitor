@@ -1,0 +1,31 @@
+/* pages/qca/opendoor/opendoor.wxss */
+
+.cu-form-group .title {
+  min-width: calc(4em + 30rpx);
+  padding-right: 15rpx;
+}
+
+.cu-form-group picker::after {
+  top: -27rpx;
+}
+
+.cu-form-group textarea, .cu-form-group textarea textarea {
+  height: 11.8em;
+}
+
+.valC {
+  margin-left: 7rpx;
+  color: red;
+}
+
+.remark {
+  text-align: center;
+  color: rgb(231, 105, 105);
+}
+
+.bottomS {
+  margin-top: 20rpx;
+  text-decoration-style: dashed;
+  color: blue;
+  text-align: center;
+}
