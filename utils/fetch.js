@@ -1,3 +1,5 @@
+const common = require('./common.js')
+
 /**
  * 统一请求方法
  * https://XXXX
@@ -11,11 +13,13 @@ module.exports = function(api, path, params, method) {
   //console.log(`${api}/${path}`, `${JSON.stringify(params)}${method}`);
   return new Promise((resolve, reject) => {
     wx.request({
-      url: `${api}/${path}`,
+      url: `${api}${path}`,
       data: Object.assign({}, params),
       method: method || 'get',
       header: {
-        'Content-Type': method == 'get' ? 'json' : 'application/json'//application/x-www-form-urlencoded
+        Accept: 'application/json',
+        'Content-Type': method == 'get' ? 'json' : 'application/json', //application/x-www-form-urlencoded
+        'Authorization': `Bearer ${common.getStorage('AuthorCodeRSA')}`
       },
       success: resolve,
       fail: reject

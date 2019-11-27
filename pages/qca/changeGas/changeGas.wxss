@@ -1,0 +1,34 @@
+/* pages/qca/changeGas/changeGas.wxss */
+
+.margin-top {
+  margin-top: 15rpx;
+}
+
+.cu-list.menu>.cu-item .content {
+  font-size: 24rpx;
+}
+
+.cu-dialog .cu-list.menu>.cu-item .content {
+  flex: none;
+}
+.cu-form-group .title{
+  font-size: 24rpx;
+}
+.cu-list+.cu-list {
+  margin-top: 16rpx;
+}
+
+.cu-tag:empty:not([class*="icon"]) {
+  top: 0rpx;
+  right: 0rpx;
+}
+
+.editInput {
+  border: 1px solid red;
+}
+
+.btnfooter {
+  text-align: center;
+  margin-left: 10%;
+  margin-right: 10%;
+}

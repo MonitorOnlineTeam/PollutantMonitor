@@ -1,7 +1,10 @@
 {
   "pages": [
-    "pages/qca/opendoor/opendoor",
     "pages/qca/scan/scan",
+    "pages/qca/opendoor/opendoor",
+    "pages/qca/changeGas/changeGas",
+    "pages/qca/validatePhone/validatePhone",
+    "pages/qca/authorCode/authorCode",
     "pages/realTimeData/home/home",
     "pages/my/home/home",
     "pages/welcome/welcome",
@@ -28,7 +31,7 @@
   },
   "window": {
     "navigationBarBackgroundColor": "#cce6ff",
-    "navigationBarTitleText": "报警授权",
+    "navigationBarTitleText": "",
     "navigationBarTextStyle": "black"
   },
   "usingComponents": {},
@@ -42,26 +45,14 @@
       {
         "selectedIconPath": "images/SSGY_Select.png",
         "iconPath": "images/SSGY.png",
-        "pagePath": "pages/realTimeData/home/home",
-        "text": "实时工艺"
+        "pagePath": "pages/qca/scan/scan",
+        "text": "扫一扫"
       },
       {
         "selectedIconPath": "images/SJJK_Select.png",
         "iconPath": "images/SJJK.png",
-        "pagePath": "pages/historyData/home/home",
-        "text": "历史数据"
-      },
-      {
-        "selectedIconPath": "images/SBXQ_Select.png",
-        "iconPath": "images/SBXQ.png",
-        "pagePath": "pages/deviceInfo/home/home",
-        "text": "设备信息"
-      },
-      {
-        "selectedIconPath": "images/WD_Select.png",
-        "iconPath": "images/WD.png",
-        "pagePath": "pages/my/home/home",
-        "text": "我的"
+        "pagePath": "pages/qca/opendoor/opendoor",
+        "text": "操作"
       }
     ]
   },

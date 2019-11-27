@@ -1,33 +1,41 @@
 <form>
+
   <view class="cu-form-group margin-top">
-    <view class="title" style="text-align:right">手机号
-      <span class="valC">*</span>
-    </view>
-    <input placeholder="请输入手机号" value="13800138000"></input>
-    <view class="action">
-      <view class="cu-tag round bg-blue light">更换</view>
-    </view>
-  </view>
-  <view class="cu-form-group">
-    <view class="title">更换类型
-      <span class="valC">*</span>
-    </view>
-    <picker bindchange="bindPickerChange" range="{{array}}">
-      <input placeholder="请输入手机号" value="{{array[index]}}" disabled></input>
-    </picker>
-  </view>
-  <view class="cu-form-group align-start">
-    <view class="title" style="margin-top:20rpx">更换原因
-      <span class="valC">*</span>
-    </view>
-    <textarea maxlength="-1" disabled="{{modalName!=null}}" bindinput="textareaBInput" placeholder="请输入更换原因"></textarea>
+    <view class="title" wx:if='{{userName}}'>{{userName}}，您好</view>
+    <view class="title" wx:if='{{!userName}}' style="color: rgb(106, 186, 233);" bindtap="login">请先授权登录，再执行操作</view>
+    <view class="title" wx:elif='{{userName&&!QCAMN}}' style="color: rgb(106, 186, 233);font-size: 28rpx;" bindtap="login">请先扫描设备二维码，再执行操作</view>
   </view>
 
-  <button class="cu-btn block bg-blue margin-tb-sm lg" disabled type="">开门</button>
+  <!-- <view class="cu-form-group margin-top">
+    <view class="title">质控仪
+      <span class="valC"></span>
+    </view>
+  </view> -->
+  <view class="cu-form-group margin-top">
+    <view class="title">维护原因
+      <span class="valC">*</span>
+    </view>
+    <picker bindchange="bindPickerChange" value="{{index}}" range="{{picker}}">
+      <view class="picker text-gray" style="text-align: left;">
+        {{picker[index]}}
+      </view>
+    </picker>
+  </view>
+
+
+  <!-- !!!!! placeholder 在ios表现有偏移 建议使用 第一种样式 -->
+  <!-- <view class="cu-form-group margin-top">
+		<textarea maxlength="-1" disabled="{{modalName!=null}}" bindinput="textareaAInput" placeholder="请输入维护原因"></textarea>
+	</view> -->
+  <view class="cu-form-group align-start">
+    <view class="title" style="margin-top: 16rpx;padding-left: 60rpx;">备注
+      <span class="valC">*</span>
+    </view>
+    <textarea value="{{textareaBValue}}" class=" text-gray" maxlength="-1" bindinput="textareaBInput" placeholder="请输入" style="margin-top:15rpx;"></textarea>
+  </view>
+
+  <button class="cu-btn block bg-blue margin-tb-sm lg" type="button" bindtap='openlock' style="width: 90%;margin-left: 5%;margin-right: 5%;">开 锁</button>
   <view class="remark">
     <span>* 开门后将全程录像</span>
   </view>
 </form>
-<view class="bottomS">
-  <span>扫一扫</span>
-</view>

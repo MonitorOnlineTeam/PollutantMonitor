@@ -4,7 +4,7 @@
 		"ignore": []
 	},
 	"setting": {
-		"urlCheck": false,
+		"urlCheck": true,
 		"es6": true,
 		"postcss": true,
 		"minified": true,
@@ -24,7 +24,7 @@
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.5.1",
-	"appid": "wx9a771e92f79bf08d",
+	"appid": "wx2f30ca66fd6cb1ba",
 	"projectname": "saomacha",
 	"debugOptions": {
 		"hidedInDevtools": []

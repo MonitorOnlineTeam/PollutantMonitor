@@ -18,21 +18,22 @@ App({
    */
   onShow: function(options) {
 
+
     //处理分享页面
     if (options && options.scene === 1007) {
       if (!common.getStorage('OpenId') || !common.getStorage("PhoneCode")) {
-        wx.redirectTo({
-          url: '/pages/login/login',
-        });
+        wx.switchTab({
+          url: '/pages/qca/scan/scan'
+        })
         common.setStorage("IsShare", true);
         return;
       }
 
       if (options.query && options.query.DGIMN) {
-        common.setStorage("DGIMN", options.query.DGIMN);
+        common.setStorage("QCAMN", options.query.DGIMN);
         api.qRCodeVerifyDGIMN(options.query.DGIMN).then(res => {
           if (res && res.IsSuccess) {
-            common.setStorage("DGIMN", options.query.DGIMN);
+            common.setStorage("QCAMN", options.query.DGIMN);
 
           } else {
             //common.setStorage("DGIMN", mn);
@@ -43,17 +44,17 @@ App({
               showCancel: false,
               success(res) {
                 common.setStorage("IsShare", false);
-                wx.redirectTo({
-                  url: '/pages/login/login',
-                });
+                wx.switchTab({
+                  url: '/pages/qca/scan/scan'
+                })
               }
             })
           }
         })
       } else {
-        wx.redirectTo({
-          url: '/pages/login/login',
-        });
+        wx.switchTab({
+          url: '/pages/qca/scan/scan'
+        })
       }
     } else {
       common.setStorage("IsShare", false);
@@ -82,11 +83,19 @@ App({
     updateManager.onUpdateFailed(function() {
       // 新版本下载失败
     })
+
+
   },
   /**
    * 小程序从前台进入后台时
    */
-  onHide: function() {},
+  onHide: function() {
+
+    common.setStorage("QCAMN", "");
+    wx.switchTab({
+      url: '/pages/qca/scan/scan'
+    })
+  },
   /**
    * 小程序初始化完成时（全局只触发一次）
    */
@@ -136,7 +145,7 @@ App({
     wx.login({
       success: res => {
         common.setStorage("WxCode", res.code);
-
+        console.log('WxCode=', res.code);
         callback && callback();
       }
     })
@@ -416,19 +425,18 @@ App({
     }
     callback && callback(false);
   },
-  isAuthor:function(){
+  isAuthor: function() {
     if (!common.getStorage('OpenId') || !common.getStorage("PhoneCode")) {
       return false;
-    }else
-    {
+    } else {
       return true;
     }
   },
-  goLogin:function(){
+  goLogin: function() {
     wx.showModal({
       title: '提示',
       content: '登录后查看更多信息',
-      success: function (res) {
+      success: function(res) {
         if (res.confirm) {
           wx.navigateTo({
             url: '/pages/login/login',
@@ -439,7 +447,7 @@ App({
       }
     })
   },
-  getMyPhoto:function(){
+  getMyPhoto: function() {
     wx.getSetting({
       success: res => {
         debugger
@@ -450,18 +458,54 @@ App({
               debugger
               // 可以将 res 发送给后台解码出 unionId
               this.globalData.userInfo = res.userInfo;
-              
+
               // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
               // 所以此处加入 callback 以防止这种情况
               if (this.userInfoReadyCallback) {
                 this.userInfoReadyCallback(res)
               }
-             
+
             }
           })
         }
       }
     })
+  },
+  Islogin: function(callback) {
+    if (!common.getStorage("IsAuthor")) {
+      wx.showModal({
+        title: '提示',
+        content: '请先授权后，再执行操作',
+        showCancel: true,
+        success(res) {
+          console.log(res);
+          if (res.confirm) {
+            wx.navigateTo({
+              url: '/pages/qca/authorCode/authorCode'
+            })
+          }
+        }
+      })
+      return;
+    }
+
+    if (!common.getStorage("IsLogin")) {
+      wx.showModal({
+        title: '提示',
+        content: '请先登录后，再执行操作',
+        showCancel: true,
+        success(res) {
+          console.log(res);
+          if (res.confirm) {
+            wx.navigateTo({
+              url: '/pages/qca/validatePhone/validatePhone'
+            })
+          }
+        }
+      })
+      return;
+    }
+    callback();
   },
   globalData: {
     userInfo: null,
