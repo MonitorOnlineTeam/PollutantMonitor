@@ -1,0 +1,45 @@
+<!--pages/qca/analyzerList/analyzerList.wxml-->
+<view class="cu-bar bg-white solid-bottom">
+  <view class="action">
+    <text class="cuIcon-list text-blue "></text> 质控仪器列表
+  </view>
+  <view class="action">
+    <!-- <view class="cu-tag round bg-blue light">{{total}}</view> -->
+    <text class='cuIcon-scan lg text-orange' style='margin-right:15rpx;' bindtap="openScan"></text>
+  </view>
+</view>
+<view wx:if="{{userName}}" class="cu-chat">
+  <view class="cu-info">
+    <text class="cuIcon-info text-light"></text> 共查询到 <span>{{total}}</span> 台设备，请扫描二维码执行操作
+  </view>
+</view>
+<view wx:if='{{list&&list.length>0}}' class="cu-list menu {{menuBorder?'sm-border':''}} {{menuCard?'card-menu margin-top':''}}">
+  <block wx:for="{{list}}" wx:key="{{QCAMN}}">
+    <view class="cu-item">
+      <view class="content padding-tb-sm">
+        <view>
+          <text class="cuIcon-shake text-blue margin-right-xs"></text> {{item.QCAName}}</view>
+        <view class="text-gray text-sm">
+          <text class="cuIcon-locationfill margin-right-xs"></text> {{item.Address||'-'}}</view>
+      </view>
+      <view class="action">
+      </view>
+    </view>
+  </block>
+</view>
+
+
+<view wx:if="{{!userName}}" class="cu-list menu card-menu margin-top" style="margin-bottom: 15rpx;text-align:center">
+  <view class="cu-item"  bindtap="login">
+    <view class="content">
+      <text class="text-grey text-sm"><text class="cuIcon-info text-green"></text> 请先授权登录后，即可执行操作</text>
+    </view>
+  </view>
+</view>
+<!-- <view wx:elif="{{list==null||list.length==0}}" class="cu-list menu card-menu margin-top" style="margin-bottom: 15rpx;text-align:center">
+  <view class="cu-item">
+    <view class="content">
+      <text class="text-grey text-sm">暂无数据</text>
+    </view>
+  </view>
+</view> -->

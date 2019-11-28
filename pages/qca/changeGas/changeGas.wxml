@@ -9,11 +9,10 @@
 </view>
 
 <block wx:for="{{gasDatas}}" wx:key="{{StandardGasCode}}">
-
   <view class="cu-list menu card-menu margin-top" style="margin-bottom: 15rpx;">
     <view class="cu-item">
       <view class="content">
-        <view class="cu-tag round bg-orange" style="margin-right:4rpx"></view> {{item.StandardGasName}}
+        <text class="cuIcon-title text-orange "></text> {{item.StandardGasName}}
       </view>
       <view class="action">
         <view class="cu-tag round bg-blue light" bindtap="showChangeModal" data-rowdata='{{item}}'>更换</view>
@@ -51,13 +50,13 @@
 
 </block>
 
-<view class="cu-modal {{changeModalVisible?'show':''}}">
+<view class="cu-modal {{changeModalVisible?'show':''}}" bindtap="hideChangeModal">
 
   <view class="cu-dialog" catchtap>
     <view class="cu-bar bg-white justify-end">
       <view class="content" style="">实测SO2</view>
       <view class="action" bindtap="hideModal">
-        <text class="cuIcon-close text-red" bindtap="hideChangeModal">x</text>
+        <text class="cuIcon-close text-red" bindtap="hideChangeModal"></text>
       </view>
     </view>
     <view class="cu-list menu margin-top">

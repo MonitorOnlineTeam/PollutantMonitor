@@ -9,7 +9,7 @@
         <view class='padding'>请 [ 扫一扫 ] 设备二维码执行操作</view>
         <view class="padding-xl">
           <button class='cu-btn block line-orange lg' bindtap='redrictScan'>
-            <text class='icon-scan' style='margin-right:15rpx;'></text> 扫一扫</button>
+            <text class='cuIcon-scan lg text-orange' style='margin-right:15rpx;'></text> 扫一扫</button>
           <!-- <button class='cu-btn block line-blue margin-tb-sm lg' bindtap='redrictHistory'>
             <text class='icon-list' style='margin-right:15rpx;'></text> 访问历史</button> -->
         </view>

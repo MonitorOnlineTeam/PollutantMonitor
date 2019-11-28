@@ -68,6 +68,8 @@ Page({
     this.setData({
       userName: common.getStorage("UserName"),
       QCAMN: common.getStorage("QCAMN"),
+      QCAAddress: common.getStorage("QCAAddress"),
+      QCAName:common.getStorage("QCAName"),
       textareaBValue: ''
     });
   },
@@ -151,32 +153,27 @@ Page({
       var typeRe = that.data.index;
 
       var remark = that.data.textareaBValue;
-      if (remark) {
-        comApi.qcaOpenDoor(remark).then(res => {
-          console.log('res=', res);
-          if (res && res.IsSuccess) {
-            //common.setStorage("QCAMN", scene); //13800138000
-            wx.navigateTo({
-              url: '/pages/qca/changeGas/changeGas'
-            })
-          } else {
-            wx.showModal({
-              title: '提示',
-              content: (res && res.Message) || '网络错误',
-              showCancel: false,
-              success(res) {}
-            })
-            // wx.navigateTo({
-            //   url: '/pages/qca/changeGas/changeGas'
-            // })
-          }
-        });
-      } else {
-        // wx.showToast({
-        //   icon: 'none',
-        //   title: '''
-        // })
-      }
+
+      comApi.qcaOpenDoor(remark).then(res => {
+        console.log('res=', res);
+        if (res && res.IsSuccess) {
+          //common.setStorage("QCAMN", scene); //13800138000
+          wx.navigateTo({
+            url: '/pages/qca/changeGas/changeGas'
+          })
+        } else {
+          wx.showModal({
+            title: '提示',
+            content: (res && res.Message) || '网络错误',
+            showCancel: false,
+            success(res) {}
+          })
+          // wx.navigateTo({
+          //   url: '/pages/qca/changeGas/changeGas'
+          // })
+        }
+      });
+
     });
   },
   login: function() {

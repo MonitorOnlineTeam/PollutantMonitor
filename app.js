@@ -52,9 +52,9 @@ App({
           }
         })
       } else {
-        wx.switchTab({
-          url: '/pages/qca/scan/scan'
-        })
+        // wx.switchTab({
+        //   url: '/pages/qca/scan/scan'
+        // })
       }
     } else {
       common.setStorage("IsShare", false);
@@ -91,10 +91,10 @@ App({
    */
   onHide: function() {
 
-    common.setStorage("QCAMN", "");
-    wx.switchTab({
-      url: '/pages/qca/scan/scan'
-    })
+    // common.setStorage("QCAMN", "");
+    // wx.switchTab({
+    //   url: '/pages/qca/scan/scan'
+    // })
   },
   /**
    * 小程序初始化完成时（全局只触发一次）

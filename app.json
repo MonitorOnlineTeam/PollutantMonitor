@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/qca/analyzerList/analyzerList",
     "pages/qca/scan/scan",
     "pages/qca/opendoor/opendoor",
     "pages/qca/changeGas/changeGas",
@@ -45,13 +46,13 @@
       {
         "selectedIconPath": "images/SSGY_Select.png",
         "iconPath": "images/SSGY.png",
-        "pagePath": "pages/qca/scan/scan",
+        "pagePath": "pages/historyData/selectDateTime/selectDateTime",
         "text": "扫一扫"
       },
       {
         "selectedIconPath": "images/SJJK_Select.png",
         "iconPath": "images/SJJK.png",
-        "pagePath": "pages/qca/opendoor/opendoor",
+        "pagePath": "pages/my/alarmDataDetails/alarmDataDetails",
         "text": "操作"
       }
     ]

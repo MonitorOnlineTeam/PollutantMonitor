@@ -1,4 +1,4 @@
-// pages/qca/scan/scan.js
+// pages/qca/analyzerList/analyzerList.js
 const app = getApp()
 const comApi = app.api;
 const common = app.common;
@@ -8,16 +8,29 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    list: [],
+    pageIndex: 1,
+    pageSize: 15,
+    total: 0
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    comApi.qcaGetAnalyzerInfoPage().then(res => {
-      console.log('res=', res);
-    });
+
+    // wx.connectSocket({
+    //   url: 'ws://172.16.12.165:50080',
+    //   header: {
+    //     'content-type': 'application/json'
+    //   },
+    //   protocols: []
+    // })
+
+    // wx.onSocketOpen(function(e) {
+    //   console.log(e);
+    // })
+    this.onPullDownRefresh();
   },
 
   /**
@@ -31,7 +44,14 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    this.setData({
+      userName: common.getStorage("UserName"),
+      QCAMN: common.getStorage("QCAMN"),
+      textareaBValue: ''
+    });
+    if (common.getStorage("UserName")) {
+      this.getData();
+    }
   },
 
   /**
@@ -52,14 +72,24 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function() {
-
+    wx.showNavigationBarLoading();
+    wx.stopPullDownRefresh();
+    this.setData({
+      pageIndex: 1
+    });
+    this.getData();
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function() {
-
+    if (!this.data.isLast) {
+      this.setData({
+        pageIndex: ++this.data.pageIndex
+      });
+      this.getData();
+    }
   },
 
   /**
@@ -68,7 +98,41 @@ Page({
   onShareAppMessage: function() {
 
   },
-  redrictScan: function() {
+  getData: function() {
+    if (!this.data.userName) {
+      wx.hideNavigationBarLoading();
+      return;
+    }
+    var that = this;
+    let pageIndex = this.data.pageIndex;
+    let pageSize = this.data.pageSize;
+    comApi.qcaGetAnalyzerInfoPage(pageIndex, pageSize).then(res => {
+      console.log('res=', res);
+      if (res && res.IsSuccess) {
+        var thisData = res.Datas;
+
+        if (thisData.length < 10 || !thisData) {
+          this.setData({
+            isLast: true
+          })
+        }
+        this.setData({
+          list:  pageIndex > 1 ? that.data.list.concat(thisData) : thisData,
+          total: res.Total
+        })
+
+      } else {
+        wx.showModal({
+          title: '提示',
+          content: (res && res.Message) || '网络错误',
+          showCancel: false,
+          success(res) {}
+        })
+      }
+      wx.hideNavigationBarLoading();
+    });
+  },
+  openScan: function() {
     let that = this;
     app.Islogin(function() {
       wx.scanCode({
@@ -92,7 +156,9 @@ Page({
                       console.log('res=', res);
                       if (res && res.IsSuccess) {
                         common.setStorage("QCAMN", mn); //13800138000
-                        wx.switchTab({
+                        common.setStorage("QCAAddress", res.Datas.Address);
+                        common.setStorage("QCAName", res.Datas.QCAName);
+                        wx.navigateTo({
                           url: '/pages/qca/opendoor/opendoor'
                         })
                       } else {
@@ -124,5 +190,11 @@ Page({
       icon: 'none',
       title: '二维码识别无效'
     })
+  },
+  login: function() {
+    app.Islogin(function() {
+
+
+    });
   }
 })
