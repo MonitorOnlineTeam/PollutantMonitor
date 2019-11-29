@@ -20,38 +20,7 @@ Page({
    */
   onLoad: function(options) {
     console.log('options=', options);
-    let that = this;
-    if (options && options.q) {
-      app.wxLogin(function() {
-        let url = decodeURIComponent(options.q);
-        let substr = url.substr(url.lastIndexOf('/') + 1, url.length);
-        console.log('substr', substr);
-        if (substr && substr.indexOf('mn=') >= 0) {
-          let mn = substr.split('=')[1];
-          if (mn) {
-            app.Islogin(function() {
-              comApi.qcaValidataQCAMN(mn).then(res => {
-                console.log('res=', res);
-                if (res && res.IsSuccess) {
-                  common.setStorage("QCAMN", mn); //13800138000
-                  //app.Islogin();
-                } else {
-                  wx.showToast({
-                    icon: 'none',
-                    title: '二维码识别无效'
-                  })
-                }
-              });
-            });
-          } else {
-            wx.showToast({
-              icon: 'none',
-              title: '二维码识别无效'
-            })
-          }
-        }
-      });
-    }
+    
   },
 
   /**
@@ -116,15 +85,15 @@ Page({
   bindPickerChange: function(e) {
     console.log('picker发送选择改变，携带值为', e.detail.value)
 
-    if (e.detail.value != 0) {
-      wx.showModal({
-        title: '提示',
-        content: '功能暂未开放',
-        showCancel: false,
-        success(res) {}
-      })
-      return;
-    }
+    // if (e.detail.value != 0) {
+    //   wx.showModal({
+    //     title: '提示',
+    //     content: '功能暂未开放',
+    //     showCancel: false,
+    //     success(res) {}
+    //   })
+    //   return;
+    // }
     this.setData({
       index: e.detail.value
     })

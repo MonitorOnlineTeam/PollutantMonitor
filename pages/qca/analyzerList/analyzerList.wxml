@@ -14,8 +14,8 @@
   </view>
 </view>
 <view wx:if='{{list&&list.length>0}}' class="cu-list menu {{menuBorder?'sm-border':''}} {{menuCard?'card-menu margin-top':''}}">
-  <block wx:for="{{list}}" wx:key="{{QCAMN}}">
-    <view class="cu-item">
+  <block wx:for="{{list}}" wx:key="{{item.QCAMN}}">
+    <view class="cu-item arrow" bindtap="openDoor" data-QCAMN="{{item.QCAMN}}">
       <view class="content padding-tb-sm">
         <view>
           <text class="cuIcon-shake text-blue margin-right-xs"></text> {{item.QCAName}}</view>

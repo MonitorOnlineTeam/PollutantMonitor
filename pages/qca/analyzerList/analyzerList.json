@@ -6,5 +6,5 @@
   "backgroundColor": "#fff",
   "backgroundTextStyle": "light",
   "enablePullDownRefresh": true,
-  "onPullDownRefresh": true
+  "onPullDownRefresh": false
 }

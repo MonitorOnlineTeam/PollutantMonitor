@@ -30,7 +30,50 @@ Page({
     // wx.onSocketOpen(function(e) {
     //   console.log(e);
     // })
-    this.onPullDownRefresh();
+
+    let that = this;
+    if (options && options.q) {
+      app.wxLogin(function() {
+        let url = decodeURIComponent(options.q);
+        let substr = url.substr(url.lastIndexOf('/') + 1, url.length);
+        console.log('substr', substr);
+        if (substr && substr.indexOf('mn=') >= 0) {
+          let mn = substr.split('=')[1];
+          if (mn) {
+            app.Islogin(function() {
+              comApi.qcaValidataQCAMN(mn).then(res => {
+                console.log('res=', res);
+                if (res && res.IsSuccess) {
+                  common.setStorage("QCAMN", mn); //13800138000
+                  common.setStorage("QCAAddress", res.Datas.Address);
+                  common.setStorage("QCAName", res.Datas.QCAName);
+                  wx.navigateTo({
+                    url: '/pages/qca/opendoor/opendoor'
+                  })
+                  //app.Islogin();
+                } else {
+                  wx.showToast({
+                    icon: 'none',
+                    title: '二维码识别无效'
+                  })
+                }
+              });
+            });
+          } else {
+            wx.showToast({
+              icon: 'none',
+              title: '二维码识别无效'
+            })
+          }
+        } else {
+          wx.showToast({
+            icon: 'none',
+            title: '二维码识别无效'
+          })
+        }
+      });
+    }
+    //this.onPullDownRefresh();
   },
 
   /**
@@ -50,7 +93,8 @@ Page({
       textareaBValue: ''
     });
     if (common.getStorage("UserName")) {
-      this.getData();
+      if (this.data.list.length == 0)
+        this.getData();
     }
   },
 
@@ -75,7 +119,8 @@ Page({
     wx.showNavigationBarLoading();
     wx.stopPullDownRefresh();
     this.setData({
-      pageIndex: 1
+      pageIndex: 1,
+      isLast: false
     });
     this.getData();
   },
@@ -111,13 +156,13 @@ Page({
       if (res && res.IsSuccess) {
         var thisData = res.Datas;
 
-        if (thisData.length < 10 || !thisData) {
+        if (thisData.length < 15 || !thisData) {
           this.setData({
             isLast: true
           })
         }
         this.setData({
-          list:  pageIndex > 1 ? that.data.list.concat(thisData) : thisData,
+          list: pageIndex > 1 ? that.data.list.concat(thisData) : thisData,
           total: res.Total
         })
 
@@ -195,6 +240,21 @@ Page({
     app.Islogin(function() {
 
 
+    });
+  },
+  openDoor: function(e) {
+    console.log(e);
+    let mn = e.currentTarget.dataset.qcamn;
+    comApi.qcaValidataQCAMN(mn).then(res => {
+      console.log('res=', res);
+      if (res && res.IsSuccess) {
+        common.setStorage("QCAMN", mn); //13800138000
+        common.setStorage("QCAAddress", res.Datas.Address);
+        common.setStorage("QCAName", res.Datas.QCAName);
+        wx.navigateTo({
+          url: '/pages/qca/opendoor/opendoor'
+        })
+      }
     });
   }
 })
