@@ -20,7 +20,7 @@ Page({
    */
   onLoad: function(options) {
     console.log('options=', options);
-    
+
   },
 
   /**
@@ -38,7 +38,7 @@ Page({
       userName: common.getStorage("UserName"),
       QCAMN: common.getStorage("QCAMN"),
       QCAAddress: common.getStorage("QCAAddress"),
-      QCAName:common.getStorage("QCAName"),
+      QCAName: common.getStorage("QCAName"),
       textareaBValue: ''
     });
   },
@@ -54,7 +54,7 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function() {
-
+    common.setStorage("QCAMN", "");
   },
 
   /**
@@ -84,16 +84,6 @@ Page({
   },
   bindPickerChange: function(e) {
     console.log('picker发送选择改变，携带值为', e.detail.value)
-
-    // if (e.detail.value != 0) {
-    //   wx.showModal({
-    //     title: '提示',
-    //     content: '功能暂未开放',
-    //     showCancel: false,
-    //     success(res) {}
-    //   })
-    //   return;
-    // }
     this.setData({
       index: e.detail.value
     })
@@ -105,12 +95,12 @@ Page({
         wx.showModal({
           title: '提示',
           content: '请先扫描设备二维码，再执行操作',
-          showCancel: true,
+          showCancel: false,
           success(res) {
             console.log(res);
             if (res.confirm) {
-              wx.switchTab({
-                url: '/pages/qca/scan/scan',
+              wx.redirectTo({
+                url: '/pages/qca/analyzerList/analyzerList',
               })
             }
           }
@@ -122,47 +112,55 @@ Page({
       var typeRe = that.data.index;
 
       var remark = that.data.textareaBValue;
-
+      var exception = false;
       comApi.qcaOpenDoor(remark).then(res => {
         console.log('res=', res);
+        wx.showLoading({
+          title: '门一打开……',
+        })
         if (res && res.IsSuccess) {
-          //common.setStorage("QCAMN", scene); //13800138000
-          wx.navigateTo({
-            url: '/pages/qca/changeGas/changeGas'
-          })
+
         } else {
           wx.showModal({
             title: '提示',
             content: (res && res.Message) || '网络错误',
             showCancel: false,
             success(res) {}
-          })
-          // wx.navigateTo({
-          //   url: '/pages/qca/changeGas/changeGas'
-          // })
+          });
+          exception = true;
         }
       });
+      wx.showLoading({
+        title: '门一打开……',
+      })
 
-    });
-  },
-  login: function() {
-    app.Islogin(function() {
-      if (!common.getStorage("QCAMN")) {
-        wx.showModal({
-          title: '提示',
-          content: '请先扫描设备二维码，再执行操作',
-          showCancel: true,
-          success(res) {
-            console.log(res);
-            if (res.confirm) {
-              wx.switchTab({
-                url: '/pages/qca/scan/scan',
+      //显示开门动态gif
+      setTimeout(function() {
+        wx.hideLoading();
+        //判断开门是否异常
+        if (!exception) {
+          comApi.qcaGetDoorState().then(res => {
+            if (res && res.IsSuccess) {
+              wx.navigateTo({
+                url: '/pages/qca/changeGas/changeGas'
               })
+            } else {
+              wx.showModal({
+                title: '提示',
+                content: '门已关闭，请重新扫码开门',
+                showCancel: false,
+                success(res) {
+                  if (res.confirm) {
+                    wx.redirectTo({
+                      url: '/pages/qca/analyzerList/analyzerList',
+                    })
+                  }
+                }
+              });
             }
-          }
-        })
-        return;
-      }
+          });
+        }
+      }, 5000)
     });
   }
 })

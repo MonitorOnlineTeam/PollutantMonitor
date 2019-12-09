@@ -51,6 +51,6 @@
 
   <button class="cu-btn block bg-blue margin-tb-sm lg" type="button" bindtap='openlock' style="width: 90%;margin-left: 5%;margin-right: 5%;">开 锁</button>
   <view class="remark">
-    <span>* 开门后将全程录像</span>
+    <span>开门后将全程录像</span>
   </view>
 </form>

@@ -243,6 +243,7 @@ Page({
     });
   },
   openDoor: function(e) {
+    return;
     console.log(e);
     let mn = e.currentTarget.dataset.qcamn;
     comApi.qcaValidataQCAMN(mn).then(res => {

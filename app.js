@@ -23,7 +23,7 @@ App({
     if (options && options.scene === 1007) {
       if (!common.getStorage('OpenId') || !common.getStorage("PhoneCode")) {
         wx.switchTab({
-          url: '/pages/qca/scan/scan'
+          url: '/pages/qca/analyzerList/analyzerList'
         })
         common.setStorage("IsShare", true);
         return;
@@ -45,7 +45,7 @@ App({
               success(res) {
                 common.setStorage("IsShare", false);
                 wx.switchTab({
-                  url: '/pages/qca/scan/scan'
+                  url: '/pages/qca/analyzerList/analyzerList'
                 })
               }
             })

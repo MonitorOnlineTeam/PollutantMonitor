@@ -41,7 +41,8 @@ const pageUrl = {
   qcaGetStandardGasList: `/QualityControlWxApi/QCAGetStandardGasList`,
   qcaUpdateStandardGasList: `/QualityControlWxApi/QCAUpdateStandardGasList`,
   validateAuthorCode: `/LoginApi/ValidateAuthorCode`, //代理授权码验证
-  qcaGetAnalyzerInfoPage: `/QualityControlWxApi/QCAGetAnalyzerInfoPage`
+  qcaGetAnalyzerInfoPage: `/QualityControlWxApi/QCAGetAnalyzerInfoPage`,
+  qcaGetDoorState: `/QualityControlWxApi/QCAGetDoorState`,
 }
 
 /**
@@ -511,6 +512,12 @@ function qcaGetAnalyzerInfoPage(pageIndex, pageSize) {
     PageIndex: pageIndex || 1,
     PageSize: pageSize || 15
   }, 'post').then(res => res.data)
+}//
+
+function qcaGetDoorState() {
+  return fetchApi(pageUrl.qcaGetDoorState, {
+    qcaMN: common.getStorage('QCAMN'),
+  }, 'get').then(res => res.data)
 }
 
 module.exports = {
@@ -538,5 +545,6 @@ module.exports = {
   qcaGetStandardGasList,
   qcaUpdateStandardGasList,
   validateAuthorCode,
-  qcaGetAnalyzerInfoPage
+  qcaGetAnalyzerInfoPage,
+  qcaGetDoorState
 }

@@ -49,7 +49,10 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function() {
-    common.setStorage("QCAMN", "")
+    common.setStorage("QCAMN", "");
+    wx.redirectTo({
+      url: '/pages/qca/analyzerList/analyzerList',
+    })
   },
 
   /**
