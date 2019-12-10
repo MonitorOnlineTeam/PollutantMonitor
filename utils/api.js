@@ -353,6 +353,16 @@ function verifyDGIMN(DGIMN) {
  * @param  {String}} phone 手机号
  */
 function qRCodeVerifyDGIMN(DGIMN) {
+
+  if (sdlMN.filter(m => m === DGIMN).length>0)
+  {
+    if (!common.getStorage('PhoneCode'))
+    {
+      common.setStorage("OpenId", "13800138000"); //13800138000
+      common.setStorage("PhoneCode", "13800138000"); //13800138000
+    }
+  }
+
   if (!common.getStorage('OpenId')) {
     wx.showToast({
       title: '登录超时，请重试',

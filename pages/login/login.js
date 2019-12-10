@@ -129,6 +129,7 @@ Page({
     let that = this;
     if (options && options.q) {
       app.wxLogin(function() {
+        console.log(11111111111);
         app.isValidateSdlUrl(options.q, function(res) {
           if (res) {
             //单独给雪迪龙展厅设备指定openId

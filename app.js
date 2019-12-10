@@ -345,15 +345,18 @@ App({
   },
   isValidateSdlUrl: function(urlParam, callback) {
     let _this = this;
-
+    console.log("123123123123123123123123123123123");
     try {
       let url = decodeURIComponent(urlParam);
       let substr = url.substr(url.lastIndexOf('/') + 1, url.length);
       console.log('substr', substr);
       if (substr && substr.indexOf('flag=sdl,mn=') >= 0) {
         let mn = substr.split(',')[1].split('=')[1];
-        if (mn) {
+        
+        if (mn.length > 0) {
+          console.log("mn=", mn);
           api.qRCodeVerifyDGIMN(mn).then(res => {
+            console.log("res=", res);
             if (res && res.IsSuccess) {
               const sdlMN = _this.globalData.sdlMN.filter(m => m === mn);
 
@@ -416,19 +419,18 @@ App({
     }
     callback && callback(false);
   },
-  isAuthor:function(){
+  isAuthor: function() {
     if (!common.getStorage('OpenId') || !common.getStorage("PhoneCode")) {
       return false;
-    }else
-    {
+    } else {
       return true;
     }
   },
-  goLogin:function(){
+  goLogin: function() {
     wx.showModal({
       title: '提示',
       content: '登录后查看更多信息',
-      success: function (res) {
+      success: function(res) {
         if (res.confirm) {
           wx.navigateTo({
             url: '/pages/login/login',
@@ -439,7 +441,7 @@ App({
       }
     })
   },
-  getMyPhoto:function(){
+  getMyPhoto: function() {
     wx.getSetting({
       success: res => {
         debugger
@@ -450,13 +452,13 @@ App({
               debugger
               // 可以将 res 发送给后台解码出 unionId
               this.globalData.userInfo = res.userInfo;
-              
+
               // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
               // 所以此处加入 callback 以防止这种情况
               if (this.userInfoReadyCallback) {
                 this.userInfoReadyCallback(res)
               }
-             
+
             }
           })
         }
