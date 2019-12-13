@@ -76,6 +76,14 @@
     </view>
   </view>
 </view>
-<view wx:else style="text-align:center;margin-top:50%">
-  <view class="cu-btn round bg-blue" bindtap="goLogin">登录</view>
+<view wx:else>
+
+  <view class="cu-list menu card-menu margin-top" style="margin-bottom: 15rpx;text-align:center">
+    <view class="cu-item" bindtap="login">
+      <view class="content">
+        <text class="text-grey text-sm"><text class="cuIcon-info text-green"></text> 请先点击授权登录后，即可执行操作</text>
+      </view>
+    </view>
+  </view>
+  <!-- <view class="cu-btn round bg-blue" bindtap="goLogin">登录</view> -->
 </view>

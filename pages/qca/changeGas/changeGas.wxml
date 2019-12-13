@@ -1,0 +1,90 @@
+<!--pages/qca/changeGas/changeGas.wxml-->
+
+<view wx:if="{{gasDatas==null||gasDatas.length==0}}" class="cu-list menu card-menu margin-top" style="margin-bottom: 15rpx;text-align:center">
+  <view class="cu-item">
+    <view class="content">
+      <text class="text-grey text-sm">暂无数据</text>
+    </view>
+  </view>
+</view>
+
+<block wx:for="{{gasDatas}}" wx:key="{{StandardGasCode}}">
+  <view class="cu-list menu card-menu margin-top" style="margin-bottom: 15rpx;">
+    <view class="cu-item">
+      <view class="content">
+        <text class="cuIcon-title text-orange "></text> {{item.StandardGasName}}
+      </view>
+      <view class="action">
+        <view class="cu-tag round bg-blue light" bindtap="showChangeModal" data-rowdata='{{item}}'>更换</view>
+        <view class="cu-tag round bg-orange light" wx:if="{{item.IsExpire}}">已过期</view>
+      </view>
+    </view>
+    <view class="cu-item">
+      <view class="content">
+        <text class="cuIcon-warn text-green"></text>
+        <text class="text-grey">气瓶标气浓度</text>
+      </view>
+      <view class="action">
+        <text class="text-grey text-sm">{{item.Concentration}} mg/m3</text>
+      </view>
+    </view>
+    <view class="cu-item">
+      <view class="content">
+        <text class="cuIcon-warn text-green"></text>
+        <text class="text-grey">标气初始压力</text>
+      </view>
+      <view class="action">
+        <text class="text-grey text-sm">{{item.GasInitPower}} mpa</text>
+      </view>
+    </view>
+    <view class="cu-item">
+      <view class="content">
+        <text class="cuIcon-warn text-green"></text>
+        <text class="text-grey">过期时间</text>
+      </view>
+      <view class="action">
+        <text class="text-grey text-sm">{{item.ExpirationDate}}</text>
+      </view>
+    </view>
+  </view>
+
+</block>
+
+<view class="cu-modal {{changeModalVisible?'show':''}}" bindtap="hideChangeModal">
+
+  <view class="cu-dialog" catchtap>
+    <view class="cu-bar bg-white justify-end">
+      <view class="content" style="">实测SO2</view>
+      <view class="action" bindtap="hideModal">
+        <text class="cuIcon-close text-red" bindtap="hideChangeModal"></text>
+      </view>
+    </view>
+    <view class="cu-list menu margin-top">
+
+      <view class="cu-form-group">
+        <view class="title text-{{concentrationRequire?'red':grey}}">气瓶标气浓度</view>
+        <input type='number' placeholder="输入气瓶标气浓度" value="{{clickData.Concentration}}" data-name="Concentration" bindinput='bindInput'></input>
+        <text class="text-grey text-sm">mg/m3</text>
+
+      </view>
+      <view class="cu-form-group">
+        <view class="title text-{{gasInitPowerRequire?'red':grey}}">标气初始压力</view>
+        <input type='number' placeholder="输入标气初始压力" value="{{clickData.GasInitPower}}" data-name="GasInitPower" bindinput='bindInput'></input>
+        <text class="text-grey text-sm">mpa</text>
+
+      </view>
+      <view class="cu-form-group">
+        <view class="title">过期时间</view>
+        <picker mode="date" bindchange="bindDateChange" value="{{clickData.ExpirationDate}}" data-name="ExpirationDate" start="{{starDate}}">
+          <view class="picker" style="text-align: center;">
+            {{clickData.ExpirationDate}}
+          </view>
+        </picker>
+      </view>
+
+      <view class="btnfooter">
+        <button class="cu-btn block bg-blue margin-tb-sm shadow" bindtap="btnSave">保存</button>
+      </view>
+    </view>
+  </view>
+</view>

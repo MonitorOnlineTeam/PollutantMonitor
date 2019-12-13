@@ -1,0 +1,24 @@
+<!--pages/qca/authorCode/authorCode.wxml-->
+
+
+<view class="warp">
+  <image src="/images/background_blue.png" class='imageClass blue'></image>
+  <image src="/images/background_grey.png" class='imageClass gray'></image>
+
+  <view class="warp-container">
+    <view class="warp-title">
+      <text>请输入授权码</text>
+    </view>
+
+    <view class="warp-input">
+      <input type='number' maxlength="5" name='input' bindinput='authorCode' value='{{authorCode}}' placeholder="请输入5位数的授权码"></input>
+      <view class="warp-validateMessage">
+        <text style="color:{{messageFlag?'blue':''}}">{{message}}</text>
+      </view>
+    </view>
+    <view class="warp-button">
+      <button bindtap="validateAuthorCode">验证</button>
+    </view>
+  </view>
+
+</view>

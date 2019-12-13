@@ -5,6 +5,6 @@
   "navigationBarTitleText": "在线质控",
   "backgroundColor": "#fff",
   "backgroundTextStyle": "light",
-  "enablePullDownRefresh": true,
-  "onPullDownRefresh": true
+  "enablePullDownRefresh": false,
+  "onPullDownRefresh": false
 }

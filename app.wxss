@@ -14,8 +14,8 @@ width: 100%；
   padding: 200rpx 0;
   box-sizing: border-box;
 }  */
-@import "icon.wxss";
-@import "colorui.wxss";
+@import "/colorui/icon.wxss";
+@import "/colorui/main.wxss";
 
 .cu-modal.show {
   z-index: 99999;

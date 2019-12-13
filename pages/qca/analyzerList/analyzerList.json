@@ -2,9 +2,9 @@
   "usingComponents": {},
   "navigationBarBackgroundColor": "#cce6ff",
   "navigationBarTextStyle": "black",
-  "navigationBarTitleText": "在线质控",
+  "navigationBarTitleText": "首页",
   "backgroundColor": "#fff",
   "backgroundTextStyle": "light",
-  "enablePullDownRefresh": false,
+  "enablePullDownRefresh": true,
   "onPullDownRefresh": false
 }

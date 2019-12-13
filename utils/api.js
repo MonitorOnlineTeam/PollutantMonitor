@@ -1,12 +1,7 @@
 //const URL = 'http://172.16.9.13:8019/api/rest/PollutantSourceApi/'
-const URL = 'http://localhost:52198/rest/PollutantSourceApi'
-//const URL = 'https://api.chsdl.net/WxWryApi/rest/PollutantSourceApi'
-//http://api.chsdl.cn/wxwryapi?flag=sdl&mn=62262431qlsp099
-//const URL = 'http://localhost:52199/'
 //const URL = 'http://localhost:52198/rest/PollutantSourceApi'
-//const URL = 'http://172.16.30.108/wxwryapi/rest/PollutantSourceApi'
-//const URL = 'https://api.chsdl.net/WxWryApiTokenTest/rest/PollutantSourceApi'
-//const URL = 'http://172.16.12.152:8044/rest/PollutantSourceApi'
+//const URL = 'https://api.chsdl.net/NewWryWebProxy/rest/PollutantSourceApi'
+const URL ='http://localhost:54818/rest/PollutantSourceApi'
 
 const fetch = require('./fetch')
 const common = require('./common.js')
@@ -42,6 +37,7 @@ const pageUrl = {
   cancelAuthorization: `/SMCManagerApi/cancelAuthorization`,
   getUserEntInfo: `/SMCManagerApi/GetUserEntInfo`,
   getPointVisitHistorys: `/SMCManagerApi/GetPointVisitHistorys`,
+  validateAuthorCode: `/LoginApi/ValidateAuthorCode`, //代理授权码验证
 }
 
 /**
@@ -123,6 +119,12 @@ function fetchApi(type, params, method, noUrl) {
 
 
 
+}
+
+function validateAuthorCode() {
+  return fetchApi(pageUrl.validateAuthorCode, {
+    Datas: '',
+  }, 'post').then(res => res.data)
 }
 
 /**
@@ -506,5 +508,6 @@ module.exports = {
   getAuthorizationState,
   cancelAuthorization,
   getUserEntInfo,
-  getPointVisitHistorys
+  getPointVisitHistorys,
+  validateAuthorCode,
 }

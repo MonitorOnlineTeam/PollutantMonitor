@@ -1,9 +1,11 @@
 {
   "pages": [
     "pages/realTimeData/home/home",
+    "pages/login/login",
+    "pages/qca/analyzerList/analyzerList",
+    "pages/qca/authorCode/authorCode",
     "pages/my/home/home",
     "pages/welcome/welcome",
-    "pages/login/login",
     "pages/authPage/authPage",
     "pages/my/alarmDataList/alarmDataList",
     "pages/historyData/home/home",

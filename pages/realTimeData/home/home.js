@@ -37,6 +37,12 @@ Page({
 
 
   },
+  login: function () {
+    app.Islogin(function () {
+
+
+    });
+  },
   goLogin: function() {
     app.goLogin();
   },

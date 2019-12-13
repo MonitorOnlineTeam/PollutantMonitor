@@ -6,7 +6,7 @@
 }
 
 .cu-form-group picker::after {
-  top: -27rpx;
+  /* top: -27rpx; */
 }
 
 .cu-form-group textarea, .cu-form-group textarea textarea {
@@ -14,13 +14,13 @@
 }
 
 .valC {
-  margin-left: 7rpx;
+  margin-left: 0rpx;
   color: red;
 }
 
 .remark {
   text-align: center;
-  color: rgb(231, 105, 105);
+  color: rgb(106, 186, 233);
 }
 
 .bottomS {
@@ -28,4 +28,15 @@
   text-decoration-style: dashed;
   color: blue;
   text-align: center;
+}
+
+.contanis{
+   
+}
+.contanis-body{
+  width: 85%;
+  height: 1050rpx;
+  margin: 60rpx;
+  border-radius: 20rpx;
+  background: #ffffff;
 }

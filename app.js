@@ -466,6 +466,42 @@ App({
       }
     })
   },
+  Islogin: function(callback) {
+    if (!common.getStorage("IsAuthor")) {
+      wx.showModal({
+        title: '提示',
+        content: '请先授权后，再执行操作',
+        showCancel: true,
+        success(res) {
+          console.log(res);
+          if (res.confirm) {
+            wx.navigateTo({
+              url: '/pages/qca/authorCode/authorCode'
+            })
+          }
+        }
+      })
+      return;
+    }
+
+    if (!common.getStorage("IsLogin")) {
+      wx.showModal({
+        title: '提示',
+        content: '请先登录后，再执行操作',
+        showCancel: true,
+        success(res) {
+          console.log(res);
+          if (res.confirm) {
+            wx.navigateTo({
+              url: '/pages/login/login'
+            })
+          }
+        }
+      })
+      return;
+    }
+    callback();
+  },
   globalData: {
     userInfo: null,
     DGIMN: null,
