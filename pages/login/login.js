@@ -38,8 +38,8 @@ Page({
         wx.hideLoading();
         comApi.verifyPhone(phone).then(res => {
           if (res && res.IsSuccess) {
-            if (res.Data) {
-              common.setStorage("OpenId", res.Data); //13800138000
+            if (res.Datas) {
+              common.setStorage("OpenId", res.Datas); //13800138000
               common.setStorage("PhoneCode", phone); //13800138000
               app.getUserInfo(options);
             }

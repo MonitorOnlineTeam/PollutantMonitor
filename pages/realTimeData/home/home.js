@@ -140,10 +140,10 @@ Page({
       app.getUserLocation(function(r) {
         if (r) {
           comApi.getProcessFlowChartStatus().then(res => {
-            if (res && res.IsSuccess && res.Data) {
-              console.log(res.Data.paramsInfo)
+            if (res && res.IsSuccess && res.Datas) {
+              console.log(res.Datas.paramsInfo)
 
-              var pointType = res.Data.dataInfo ? res.Data.dataInfo.equipmentType : 1;
+              var pointType = res.Datas.dataInfo ? res.Datas.dataInfo.equipmentType : 1;
               var imageSrc = "/images/point.png";
               if (pointType == 1) {
                 imageSrc = "/images/point.png";
@@ -154,7 +154,7 @@ Page({
                 imageSrc = "/images/hgpoint.png";
               }
               _this.setData({
-                dataInfo: res.Data.paramsInfo,
+                dataInfo: res.Datas.paramsInfo,
                 imageSrc: imageSrc,
               })
             }
@@ -162,8 +162,8 @@ Page({
 
           comApi.getRealTimeDataForPoint().then(res => {
             if (res && res.IsSuccess) {
-              if (res.Data) {
-                let data = res.Data;
+              if (res.Datas) {
+                let data = res.Datas;
                 resultData.dataitem = data.dataitem || [];
                 resultData.pointInfo = data.pointInfo;
               }
@@ -190,10 +190,10 @@ Page({
       })
     } else {
       comApi.getProcessFlowChartStatus().then(res => {
-        if (res && res.IsSuccess && res.Data) {
-          console.log(res.Data.paramsInfo)
+        if (res && res.IsSuccess && res.Datas) {
+          console.log(res.Datas.paramsInfo)
 
-          var pointType = res.Data.dataInfo ? res.Data.dataInfo.equipmentType : 1;
+          var pointType = res.Datas.dataInfo ? res.Datas.dataInfo.equipmentType : 1;
           var imageSrc = "/images/point.png";
           if (pointType == 1) {
             imageSrc = "/images/point.png";
@@ -204,7 +204,7 @@ Page({
             imageSrc = "/images/hgpoint.png";
           }
           _this.setData({
-            dataInfo: res.Data.paramsInfo,
+            dataInfo: res.Datas.paramsInfo,
             imageSrc: imageSrc,
           })
         }
@@ -212,8 +212,8 @@ Page({
 
       comApi.getRealTimeDataForPoint().then(res => {
         if (res && res.IsSuccess) {
-          if (res.Data) {
-            let data = res.Data;
+          if (res.Datas) {
+            let data = res.Datas;
             resultData.dataitem = data.dataitem || [];
             resultData.pointInfo = data.pointInfo;
           }

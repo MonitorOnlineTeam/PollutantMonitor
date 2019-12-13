@@ -81,8 +81,8 @@ Page({
     comApi.getPollutantList().then(res => {
       console.log('污染物', res);
 
-      if (res && res.IsSuccess && res.Data) {
-        let thisData = res.Data;
+      if (res && res.IsSuccess && res.Datas) {
+        let thisData = res.Datas;
         let selectedPollutant = {};
         let pollutantNames = [];
         let pollutantNamesObject = [];

@@ -1,6 +1,6 @@
 //const URL = 'http://172.16.9.13:8019/api/rest/PollutantSourceApi/'
-//const URL = 'http://localhost:52199/rest/PollutantSourceApi'
-const URL = 'https://api.chsdl.net/WxWryApi/rest/PollutantSourceApi'
+const URL = 'http://localhost:52198/rest/PollutantSourceApi'
+//const URL = 'https://api.chsdl.net/WxWryApi/rest/PollutantSourceApi'
 //http://api.chsdl.cn/wxwryapi?flag=sdl&mn=62262431qlsp099
 //const URL = 'http://localhost:52199/'
 //const URL = 'http://localhost:52198/rest/PollutantSourceApi'
@@ -25,21 +25,23 @@ const pageUrl = {
   validateFirstLogin: 'WxServer/ValidateFirstLogin',
   updateUserInfo: 'WxServer/UpdateUserInfo',
   getUserInfo: 'WxServer/GetUserInfo',
-  getPointInfo: `WxServer/GetPointInfo?authorCode=${authorCode}`,
   getDeviceInfo: `WxServer/GetAnalyzerList?authorCode=${authorCode}`,
-  getPollutant: `WxServer/GetPollutantList?authorCode=${authorCode}`,
-  getMonitorData: `WxServer/GetMonitorDatas?authorCode=${authorCode}`,
-  getProcessFlowChartStatus: `WxServer/GetProcessFlowChartStatus?authorCode=${authorCode}`,
   verifyDevicePwd: `WxServer/VerifyDevicePwd?authorCode=${authorCode}`,
-  verifyPhone: `WxServer/VerifyPhone?authorCode=${authorCode}`,
-  qRCodeVerifyDGIMN: `/WxServer/QRCodeVerifyDGIMN?authorCode=${authorCode}`,
   verifyDGIMN: `WxServer/VerifyDGIMN?authorCode=${authorCode}`,
-  getRealTimeDataForPoint: `/WxServer/GetRealTimeDataForPoint?authorCode=${authorCode}`,
-  addFeedback: `WxServer/AddFeedback?authorCode=${authorCode}`,
-  getDataAlarmData: `WxServer/GetAlarmDatas?authorCode=${authorCode}`,
-  getAuthorizationState: `WxServer/getAuthorizationState?authorCode=${authorCode}`,
-  cancelAuthorization: `WxServer/cancelAuthorization?authorCode=${authorCode}`,
-  getUserEntInfo: `WxServer/GetUserEntInfo?authorCode=${authorCode}`
+
+  getPollutant: `/SMCManagerApi/GetPollutantList`,
+  getMonitorData: `/SMCManagerApi/GetMonitorDatas`,
+  getProcessFlowChartStatus: `/SMCManagerApi/GetProcessFlowChartStatus`,
+  verifyPhone: `/SMCManagerApi/VerifyPhone`,
+  qRCodeVerifyDGIMN: `/SMCManagerApi/QRCodeVerifyDGIMN`,
+  getPointInfo: `/SMCManagerApi/GetPointInfo`,
+  getRealTimeDataForPoint: `/SMCManagerApi/GetRealTimeDataForPoint`,
+  addFeedback: `/SMCManagerApi/AddFeedback`,
+  getDataAlarmData: `/SMCManagerApi/GetAlarmDatas`,
+  getAuthorizationState: `/SMCManagerApi/getAuthorizationState`,
+  cancelAuthorization: `/SMCManagerApi/cancelAuthorization`,
+  getUserEntInfo: `/SMCManagerApi/GetUserEntInfo`,
+  getPointVisitHistorys: `/SMCManagerApi/GetPointVisitHistorys`,
 }
 
 /**
@@ -347,6 +349,16 @@ function verifyDGIMN(DGIMN) {
     DGIMN: DGIMN
   }, 'post').then(res => res.data)
 }
+/**
+ * 获取访问历史
+ * @param  {String}} phone 手机号
+ */
+function getPointVisitHistorys() {
+  return fetchApi(pageUrl.getPointVisitHistorys, {
+    OpenId: common.getStorage('OpenId'),
+  }, 'get').then(res => res.data)
+}
+
 
 /**
  * 根据扫码获取访问权限
@@ -493,5 +505,6 @@ module.exports = {
   getAlarmDataList,
   getAuthorizationState,
   cancelAuthorization,
-  getUserEntInfo
+  getUserEntInfo,
+  getPointVisitHistorys
 }

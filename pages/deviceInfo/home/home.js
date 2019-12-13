@@ -136,8 +136,8 @@ Page({
           }
           comApi.getPointInfo().then(res => {
             if (res && res.IsSuccess) {
-              if (res.Data) {
-                let data = res.Data;
+              if (res.Datas) {
+                let data = res.Datas;
                 //将数组中的某个字段拼接出来
                 var lo = "markers[" + 0 + "].longitude";
                 var la = "markers[" + 0 + "].latitude";
@@ -167,8 +167,8 @@ Page({
       }
       comApi.getPointInfo().then(res => {
         if (res && res.IsSuccess) {
-          if (res.Data) {
-            let data = res.Data;
+          if (res.Datas) {
+            let data = res.Datas;
             //将数组中的某个字段拼接出来
             var lo = "markers[" + 0 + "].longitude";
             var la = "markers[" + 0 + "].latitude";

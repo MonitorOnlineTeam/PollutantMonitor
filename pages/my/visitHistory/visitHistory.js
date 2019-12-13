@@ -80,12 +80,12 @@ Page({
   //获取历史数据
   getData: function() {
     let historyRecord = [];
-    comApi.getUserInfo().then(res => {
+    comApi.getPointVisitHistorys().then(res => {
       console.log(res)
       if (res && res.IsSuccess) {
-        if (res.Data) {
-          var thisData = res.Data;
-          thisData.PointVisitHistorys.map(function(items) {
+        if (res.Datas) {
+          var thisData = res.Datas;
+          thisData.map(function(items) {
             historyRecord.push({
               EnterpriseName: items.EnterpriseName,
               PointName: items.PointName,

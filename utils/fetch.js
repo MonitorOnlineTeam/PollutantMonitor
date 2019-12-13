@@ -11,7 +11,7 @@ module.exports = function(api, path, params, method) {
   //console.log(`${api}/${path}`, `${JSON.stringify(params)}${method}`);
   return new Promise((resolve, reject) => {
     wx.request({
-      url: `${api}/${path}`,
+      url: `${api}${path}`,
       data: Object.assign({}, params),
       method: method || 'get',
       header: {

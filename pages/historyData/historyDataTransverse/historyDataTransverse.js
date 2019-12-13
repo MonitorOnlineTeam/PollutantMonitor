@@ -302,8 +302,8 @@ Page({
     comApi.getMonitorDatas(pollutantCodes.join(','), dataType, selectedDate).then(res => {
       console.log('getMonitorDatas', res);
       console.log('selectedPollutants', selectedPollutants);
-      if (res && res.IsSuccess && res.Data) {
-        let thisData = res.Data;
+      if (res && res.IsSuccess && res.Datas) {
+        let thisData = res.Datas;
         let chartDatas = [];
         thisData.map(function(itemD) {
           let row = itemD;

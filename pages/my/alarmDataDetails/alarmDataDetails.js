@@ -94,7 +94,7 @@ Page({
       let alarmData = [];
       if (res && res.IsSuccess) {
 
-        var thisData = res.Data;
+        var thisData = res.Datas;
 
         thisData.map(item => {
           alarmData.push(item)
@@ -104,6 +104,7 @@ Page({
           alarmData: alarmData
         })
       }
+      
       wx.hideNavigationBarLoading();
     })
   }

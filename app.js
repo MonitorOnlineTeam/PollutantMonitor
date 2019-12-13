@@ -233,6 +233,8 @@ App({
         console.log("longitude=", res.longitude);
         const distance = util.VerifyCoordinate((latitude).toFixed(6), (longitude).toFixed(6));
         console.log(distance);
+        callback(true);
+        return;
         if (distance > 500) {
           //common.setStorage("DGIMN", "SDL***XXX");
           wx.showModal({
@@ -345,14 +347,13 @@ App({
   },
   isValidateSdlUrl: function(urlParam, callback) {
     let _this = this;
-    console.log("123123123123123123123123123123123");
     try {
       let url = decodeURIComponent(urlParam);
       let substr = url.substr(url.lastIndexOf('/') + 1, url.length);
       console.log('substr', substr);
       if (substr && substr.indexOf('flag=sdl,mn=') >= 0) {
         let mn = substr.split(',')[1].split('=')[1];
-        
+
         if (mn.length > 0) {
           console.log("mn=", mn);
           api.qRCodeVerifyDGIMN(mn).then(res => {
