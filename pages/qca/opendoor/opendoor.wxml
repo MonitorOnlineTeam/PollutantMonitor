@@ -46,7 +46,7 @@
     <view class="title" style="">备注
       <span class="valC"></span>
     </view>
-    <textarea value="{{textareaBValue}}" class=" text-gray" maxlength="-1" bindinput="textareaBInput" placeholder="请输入" style="margin-top:18rpx;"></textarea>
+    <textarea disabled="{{isOpening}}" value="{{isOpening?'':textareaBValue}}" class=" text-gray" maxlength="-1" bindinput="textareaBInput" placeholder="{{isOpening?'':'请输入'}}" style="margin-top:18rpx;"></textarea>
   </view>
 
   <button class="cu-btn block bg-blue margin-tb-sm lg" type="button" bindtap='openlock' style="width: 90%;margin-left: 5%;margin-right: 5%;">开 锁</button>
@@ -57,8 +57,8 @@
 
 
 <view class="cu-modal {{isOpening?'show':''}} " bindtap="hideChangeModal">
-  <!-- <view class="cu-modal show" bindtap="hideChangeModal"> -->
-  <view class="cu-dialog" catchtap>
+<!-- <view class="cu-modal show" bindtap="hideChangeModal"> -->
+  <view class="cu-dialog" catchtap style="z-index:9999">
     <view class="cu-bar bg-white justify-end">
       <view class="content" style="">{{QCAName}}</view>
       <!-- <view class="action" bindtap="hideModal">
