@@ -1,77 +1,12 @@
-<!-- pages/my/alarmDataList/alarmDataList.wxml
 
-<view class="cu-bar bg-grey light search">
-  <view class="search-form radius">
-    <text class="icon-search"></text>
-    <input type="text" placeholder="搜索企业关键字" confirm-type="search" bindconfirm="doSearch" value="{{searchValue}}" bindinput="entValueBind"></input>
-    <text wx:if="{{searchValue!==''}}" class="icon-close" bindtap="clearValue"></text>
-  </view>
-</view>
-<view class="cu-list menu {{menuBorder?'sm-border':''}} {{menuCard?'card-menu margin-top':''}}">
-  <view class="cu-item {{menuArrow?'arrow':''}}">
-    <view class="content">
-      <view class="cu-tag round bg-orange light tag-active" bindtap="onTapDateChange" data-name="实时">实时
-        <view class="{{selectedClass==='实时'?'active':''}}" style="background-color:#f37b1d"></view>
-      </view>
-      <view class="cu-tag round bg-olive light tag-active" bindtap="onTapDateChange" data-name="当天">当天
-        <view class="{{selectedClass==='当天'?'active':''}}" style="background-color:#8dc63f"></view>
-      </view>
-      <view class="cu-tag round bg-blue light tag-active" bindtap="onTapDateChange" data-name="近七天">近七天
-        <view class="{{selectedClass==='近七天'?'active':''}}"></view>
-      </view>
-      <view class="cu-tag round bg-blue light tag-active" bindtap="onTapDateChange" data-name="本月">本月
-        <view class="{{selectedClass==='本月'?'active':''}}"></view>
-      </view>
-      <view class="cu-tag round bg-blue light tag-active" bindtap="onTapDateChange" data-name="上月">上月
-        <view class="{{selectedClass==='上月'?'active':''}}"></view>
-      </view>
-      <view class="cu-tag round bg-blue light tag-active" bindtap="onTapDateChange" data-name="近三月">近三月
-        <view class="{{selectedClass==='近三月'?'active':''}}"></view>
-      </view>
-
-    </view>
-  </view>
-
-</view>
-
-<view class="cu-list menu" style="margin-top:20rpx;">
-
-  <view class="text-center" style="margin-bottom:15rpx;color:#8799a3;font-size: 24rpx;">{{timeStr}}</view>
-  <view wx:if="{{alarmData.length==0}}" class='tr' style='color:#ccc'>
-    暂无数据
-  </view>
-
-
-  <block wx:for="{{alarmData}}" wx:key="{{pollutantName}}">
-    <view class="cu-item">
-      <view class="content padding-tb-sm">
-        <view>
-          <text class="cuIcon-clothesfill text-blue margin-right-xs"></text>{{item.pointName}}
-          <text class="cu-tag round  bg-orange sm">{{item.pollutantName}}</text>
-        </view>
-        <view class="cu-tag round">{{item.entName}}</view>
-        <view class="text-gray text-sm">
-          <text class="cuIcon-infofill margin-right-xs"></text> 监测值：{{item.monitorValue}}
-          <text class="cuIcon-infofill margin-right-xs"></text> 标准值：{{item.standardValue}}</view>
-      </view>
-      <view class="action">
-        <view class="text-grey text-xs">{{item.monitorTime}}</view>
-      </view>
-    </view>
-
-  </block>
-  <view wx:if="{{isLast==true&&alarmData.length!=0}}" class='tr' style='color:#ccc'>
-    已经到最后了
-  </view>
-</view> -->
 
 
 <view class="cu-bar bg-white solid-bottom">
   <view class="action">
-    <text class="cuIcon-title text-orange"></text>报警时间： {{alarmDate}}
+    <text class=""></text>报警时间： {{alarmDate}}
   </view>
   <view class="action">
-    <picker mode="date" value="{{alarmDate}}" bindchange="bindDateChange">
+    <picker mode="date" value="{{alarmDate}}"  bindchange="bindDateChange">
       <view class="picker">
         <button class="cu-btn round sm">选择时间</button>
       </view>
@@ -81,11 +16,11 @@
 </view>
 
 <view class="cu-bar bg-white solid-bottom">
-  <view class="action" bindtap="test">
-    <text class="cuIcon-title text-orange"></text>{{selectedEntName}}
+  <view class="action">
+    <text class=""></text>{{selectedEntName}}
   </view>
   <view class="action">
-    <picker value="{{index}}" bindchange="bindEntChange" range="{{entArray}}">
+    <picker value="{{index}}" bindchange="bindEntChange"  range="{{entArray}}">
       <view class="picker">
         <button class="cu-btn round sm">切换企业</button>
       </view>
@@ -102,10 +37,11 @@
     <view class="cu-item arrow">
       <view class="content padding-tb-sm">
         <view>
-          <text class="cuIcon-clothesfill text-blue margin-right-xs"></text> {{item.PointName}}
+        {{item.PointName}}
+          <!-- <text class="cuIcon-clothesfill text-blue margin-right-xs"></text>  -->
         </view>
         <view class="text-gray text-sm">
-          <text class="cuIcon-infofill margin-right-xs"></text>
+          <!-- <text class="cuIcon-infofill margin-right-xs"></text> -->
         </view>
         <block wx:for="{{item.AlarmTypText}}">
           <view class="cu-tag round {{typeColor[index]}} light">{{item}}</view>

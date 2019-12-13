@@ -1,9 +1,0 @@
-/* pages/qca/analyzerList/analyzerList.wxss */
-.cu-chat .cu-info{
-  max-width: none;
-  width: auto;
-}
-
-.cu-chat .cu-info span{
-  font-weight: bold;
-}

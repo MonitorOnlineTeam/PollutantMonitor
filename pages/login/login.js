@@ -41,6 +41,7 @@ Page({
             if (res.Datas) {
               common.setStorage("OpenId", res.Datas); //13800138000
               common.setStorage("PhoneCode", phone); //13800138000
+              common.setStorage("IsLogin", true);
               app.getUserInfo(options);
             }
           } else {

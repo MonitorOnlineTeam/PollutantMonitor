@@ -1,7 +1,7 @@
 //const URL = 'http://172.16.9.13:8019/api/rest/PollutantSourceApi/'
 //const URL = 'http://localhost:52198/rest/PollutantSourceApi'
-//const URL = 'https://api.chsdl.net/NewWryWebProxy/rest/PollutantSourceApi'
-const URL ='http://localhost:54818/rest/PollutantSourceApi'
+const URL = 'https://api.chsdl.net/NewWryWebProxy/rest/PollutantSourceApi';
+//const URL ='http://localhost:54818/rest/PollutantSourceApi'
 
 const fetch = require('./fetch')
 const common = require('./common.js')
@@ -368,10 +368,8 @@ function getPointVisitHistorys() {
  */
 function qRCodeVerifyDGIMN(DGIMN) {
 
-  if (sdlMN.filter(m => m === DGIMN).length>0)
-  {
-    if (!common.getStorage('PhoneCode'))
-    {
+  if (sdlMN.filter(m => m === DGIMN).length > 0) {
+    if (!common.getStorage('PhoneCode')) {
       common.setStorage("OpenId", "13800138000"); //13800138000
       common.setStorage("PhoneCode", "13800138000"); //13800138000
     }

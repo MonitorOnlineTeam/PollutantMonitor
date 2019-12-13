@@ -41,7 +41,7 @@ Page({
       this.setData({
         alarmSwitch: false
       })
-      this.goLogin();
+      app.Islogin(function() {});
       return false;
     }
     let that = this;
@@ -90,7 +90,7 @@ Page({
    */
   alarmData: function() {
     if (!this.data.isAuthor) {
-      this.goLogin();
+      app.Islogin(function() {});
       return false;
     }
     wx.navigateTo({
@@ -111,10 +111,13 @@ Page({
         });
         if (res.confirm) {
           wx.clearStorageSync();
-          that.updateCurrentSize();
-          wx.navigateTo({
-            url: '/pages/login/login',
-          });
+          that.updateCurrentSize(0);
+          wx.showToast({
+            title: '清除成功',
+          })
+          // wx.navigateTo({
+          //   url: '/pages/qca/authorCode/authorCode',
+          // });
         } else if (res.cancel) {
           console.log('用户点击取消')
         }
@@ -123,7 +126,7 @@ Page({
 
   },
   goLogin: function() {
-    app.goLogin();
+    app.Islogin(function() {});
   },
   getUserInfo: function(e) {
     if (e.detail.rawData) {
@@ -165,8 +168,7 @@ Page({
               wx.hideLoading();
             }
           })
-        }else
-        {
+        } else {
           wx.hideLoading();
         }
       }
@@ -203,7 +205,7 @@ Page({
     // }
     this.updateCurrentSize();
   },
-  updateCurrentSize: function() {
+  updateCurrentSize: function(size) {
 
     let that = this;
     wx.getStorageInfo({
@@ -211,7 +213,7 @@ Page({
         // console.log(res.keys)
         console.log(res.currentSize);
         that.setData({
-          currentSize: res.currentSize
+          currentSize: size != 0 ? res.currentSize : size
         });
         // console.log(res.limitSize)
       }
@@ -258,7 +260,7 @@ Page({
   //意见反馈
   showModal(e) {
     if (!this.data.isAuthor) {
-      this.goLogin();
+      app.Islogin(function() {});
       return false;
     }
     wx.navigateTo({
@@ -268,7 +270,7 @@ Page({
   //访问历史
   showHistory() {
     if (!this.data.isAuthor) {
-      this.goLogin();
+      app.Islogin(function() {});
       return false;
     }
     wx.navigateTo({
@@ -278,7 +280,7 @@ Page({
   clickScan: function() {
 
     if (!this.data.isAuthor) {
-      this.goLogin();
+      app.Islogin(function() {});
       return false;
     }
 

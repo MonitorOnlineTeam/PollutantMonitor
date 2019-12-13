@@ -32,16 +32,37 @@ Page({
       DGIMN: common.getStorage('DGIMN'),
       isAuthor: app.isAuthor()
     });
-    console.log(this.data.isAuthor);
-    this.data.isAuthor && this.onPullDownRefresh();
-
+    this.ValidateDGIMN(options);
 
   },
-  login: function () {
-    app.Islogin(function () {
-
-
-    });
+  /**
+   * 验证是否为扫码进入系统
+   */
+  ValidateDGIMN: function(options) {
+    let that = this;
+    if (options && options.q) {
+      app.wxLogin(function() {
+        console.log(11111111111);
+        app.isValidateSdlUrl(options.q, function(res) {
+          if (res) {
+            //单独给雪迪龙展厅设备指定openId
+            if (common.getStorage("OpenId_SDL")) {
+              common.setStorage("OpenId", "13800138000"); //13800138000
+              common.setStorage("PhoneCode", "13800138000"); //13800138000
+              app.getUserInfo(options);
+              return;
+            } else {
+              that.data.isAuthor && that.onPullDownRefresh();
+            }
+          }
+        });
+      });
+    } else {
+      that.data.isAuthor && that.onPullDownRefresh();
+    }
+  },
+  login: function() {
+    app.Islogin(function() {});
   },
   goLogin: function() {
     app.goLogin();
@@ -49,29 +70,48 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
-
-  },
+  onReady: function() {},
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    this.data.isAuthor && app.isLogin();
-    this.setData({
+    let that = this;
+    that.setData({
       isAuthor: app.isAuthor()
     });
-    if (this.data.DGIMN !== common.getStorage('DGIMN')) {
-      common.setStorage('selectedPollutants', "");
-      common.setStorage('selectedDate', moment().format('YYYY-MM-DD HH:mm'));
-      this.setData({
-        DGIMN: common.getStorage('DGIMN')
+    if (!that.data.isAuthor) {
+      wx.setNavigationBarTitle({
+        title: '实时工艺'
       });
-
-
-      this.onPullDownRefresh();
-
+      that.setData({
+        dataitem: [],
+        pointInfo: {},
+      })
+      return;
     }
+
+    app.isLogin(function(res) {
+      if (!res) {
+        wx.setNavigationBarTitle({
+          title: '实时工艺'
+        });
+        that.setData({
+          dataitem: [],
+          pointInfo: {},
+        })
+      } else {
+        if (that.data.DGIMN !== common.getStorage('DGIMN')) {
+          common.setStorage('selectedPollutants', "");
+          common.setStorage('selectedDate', moment().format('YYYY-MM-DD HH:mm'));
+          that.setData({
+            DGIMN: common.getStorage('DGIMN')
+          });
+          that.onPullDownRefresh();
+        }
+      }
+
+    });
   },
 
   /**
@@ -92,9 +132,26 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function() {
+    let that = this;
+    this.setData({
+      isAuthor: app.isAuthor()
+    });
+
+    if (!that.data.isAuthor) {
+      wx.setNavigationBarTitle({
+        title: '实时工艺',
+      })
+      that.setData({
+        dataitem: [],
+        pointInfo: {},
+      })
+      wx.hideNavigationBarLoading();
+      wx.stopPullDownRefresh();
+      return;
+    }
     wx.showNavigationBarLoading();
     wx.stopPullDownRefresh();
-    this.getData();
+    that.getData();
   },
 
   /**
@@ -147,17 +204,15 @@ Page({
         if (r) {
           comApi.getProcessFlowChartStatus().then(res => {
             if (res && res.IsSuccess && res.Datas) {
-              console.log(res.Datas.paramsInfo)
-
               var pointType = res.Datas.dataInfo ? res.Datas.dataInfo.equipmentType : 1;
-              var imageSrc = "/images/point.png";
+              var imageSrc = "https://api.chsdl.net/NewWryWebProxy/images/smc/point.png";
               if (pointType == 1) {
-                imageSrc = "/images/point.png";
+                imageSrc = "https://api.chsdl.net/NewWryWebProxy/images/smc/point.png";
 
               } else if (pointType == 2) {
-                imageSrc = "/images/vocpoint.png";
+                imageSrc = "https://api.chsdl.net/NewWryWebProxy/images/smc/vocpoint.png";
               } else if (pointType == 3) {
-                imageSrc = "/images/hgpoint.png";
+                imageSrc = "https://api.chsdl.net/NewWryWebProxy/images/smc/hgpoint.png";
               }
               _this.setData({
                 dataInfo: res.Datas.paramsInfo,
@@ -197,17 +252,16 @@ Page({
     } else {
       comApi.getProcessFlowChartStatus().then(res => {
         if (res && res.IsSuccess && res.Datas) {
-          console.log(res.Datas.paramsInfo)
 
           var pointType = res.Datas.dataInfo ? res.Datas.dataInfo.equipmentType : 1;
-          var imageSrc = "/images/point.png";
+          var imageSrc = "https://api.chsdl.net/NewWryWebProxy/images/smc/point.png";
           if (pointType == 1) {
-            imageSrc = "/images/point.png";
+            imageSrc = "https://api.chsdl.net/NewWryWebProxy/images/smc/point.png";
 
           } else if (pointType == 2) {
-            imageSrc = "/images/vocpoint.png";
+            imageSrc = "https://api.chsdl.net/NewWryWebProxy/images/smc/vocpoint.png";
           } else if (pointType == 3) {
-            imageSrc = "/images/hgpoint.png";
+            imageSrc = "https://api.chsdl.net/NewWryWebProxy/images/smc/hgpoint.png";
           }
           _this.setData({
             dataInfo: res.Datas.paramsInfo,

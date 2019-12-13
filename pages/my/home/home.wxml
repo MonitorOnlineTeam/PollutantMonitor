@@ -12,7 +12,7 @@
 </view>
 
 <view class='QRcodeClass'>
-  <view class="cu-list menu">
+  <!-- <view class="cu-list menu">
     <view class="cu-item">
       <view>
         <image src='/images/alarmswitch.png' class='imageClass'></image>
@@ -24,7 +24,7 @@
         <switch checked="{{alarmSwitch}}" class="switch" bindchange="switchSex"></switch>
       </view>
     </view>
-  </view>
+  </view> -->
 
   <view class="cu-list menu">
     <view class="cu-item {{'arrow'}}" bindtap='alarmData'>

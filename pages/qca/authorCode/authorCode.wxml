@@ -2,8 +2,8 @@
 
 
 <view class="warp">
-  <image src="/images/background_blue.png" class='imageClass blue'></image>
-  <image src="/images/background_grey.png" class='imageClass gray'></image>
+  <image src="https://api.chsdl.net/NewWryWebProxy/images/smc/background_blue.png" class='imageClass blue'></image>
+  <image src="https://api.chsdl.net/NewWryWebProxy/images/smc/background_grey.png" class='imageClass gray'></image>
 
   <view class="warp-container">
     <view class="warp-title">

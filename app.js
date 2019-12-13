@@ -210,16 +210,18 @@ App({
       return false;
     }
   },
-  isLogin: function() {
+  isLogin: function(callback) {
 
-    if (!common.getStorage('OpenId') || !common.getStorage("PhoneCode")) {
-      wx.navigateTo({
-        url: '/pages/login/login',
-      });
+    if (!common.getStorage('OpenId') || !common.getStorage("PhoneCode") || !common.getStorage("IsLogin")) {
+      // wx.navigateTo({
+      //   url: '/pages/login/login',
+      // });
       common.setStorage("IsShare", true);
+      callback && callback(false);
       return;
     } else {
       common.setStorage("IsShare", false);
+      callback && callback(true);
     }
   },
   geo: function(callback, flagR) {
@@ -356,6 +358,7 @@ App({
 
         if (mn.length > 0) {
           console.log("mn=", mn);
+          _this.Islogin(function () { });
           api.qRCodeVerifyDGIMN(mn).then(res => {
             console.log("res=", res);
             if (res && res.IsSuccess) {
@@ -481,6 +484,7 @@ App({
           }
         }
       })
+      callback && callback(false);
       return;
     }
 
@@ -498,9 +502,10 @@ App({
           }
         }
       })
+      callback && callback(false);
       return;
     }
-    callback();
+    callback && callback(true);
   },
   globalData: {
     userInfo: null,

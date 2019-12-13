@@ -205,30 +205,31 @@ Page({
     comApi.getProcessFlowChartStatus().then(res=>{
       if(res && res.IsSuccess)
       { 
-        if(res.Data)
+        if(res.Datas)
         {
          
-          var pointType = res.Data.dataInfo ? res.Data.dataInfo.equipmentType:1;
-          var imgageSrc ="/images/point_wps.png";
+          var pointType = res.Datas.dataInfo ? res.Datas.dataInfo.equipmentType:1;
+          var imgageSrc ="https://api.chsdl.net/NewWryWebProxy/images/smc/point_wps.png";
           if (pointType==1)
           {
-            imgageSrc = "/images/point_wps.png";
+            imgageSrc = "https://api.chsdl.net/NewWryWebProxy/images/smc/point_wps.png";
 
           }
           else if (pointType == 2)
           {
-            imgageSrc = "/images/vocpoint_wps.png";
+            imgageSrc = "https://api.chsdl.net/NewWryWebProxy/images/smc/vocpoint_wps.png";
           }
           else if (pointType == 3)
           {
-            imgageSrc = "/images/hgpoint_wps.png";
+            imgageSrc = "https://api.chsdl.net/NewWryWebProxy/images/smc/hgpoint_wps.png";
           }
+          console.log(imgageSrc);
           this.setData({
             imgageSrc: imgageSrc,
             pointType: pointType ? pointType:3
           })
            
-          var paramstatusInfo = res.Data.paramstatusInfo;
+          var paramstatusInfo = res.Datas.paramstatusInfo;
           var tantouparam,tantoustate,shiduyistate;
           if (paramstatusInfo)
           {
@@ -293,7 +294,7 @@ Page({
               caiyanggaunxianwendu: caiyanggaunxianwenduInfo ? caiyanggaunxianwenduInfo.value:null
             })
           }
-          var stateInfo = res.Data.stateInfo;
+          var stateInfo = res.Datas.stateInfo;
           if (stateInfo)
           {
             var tamtoustateInfo=stateInfo.find(val=>{
@@ -333,7 +334,7 @@ Page({
               shidustate: shidustateInfo ? shidustateInfo.statename:null
             })
           }
-          var paramsInfo = res.Data.paramsInfo;
+          var paramsInfo = res.Datas.paramsInfo;
           if (paramsInfo)
           {
             var wylparam = paramsInfo.filter(a => a.pollutantCode == "s02" || a.pollutantCode == "s07" 
@@ -404,8 +405,8 @@ Page({
     comApi.getProcessFlowChartStatus().then(res => {
       console.log('getProcessFlowChartStatus', res)
       if (res && res.IsSuccess) {
-        if (res.Data) {
-          var $thisData = res.Data;
+        if (res.Datas) {
+          var $thisData = res.Datas;
 
           var stateNameInfo = $thisData.stateNameInfo;
           var operationInfo = $thisData.operationInfo;

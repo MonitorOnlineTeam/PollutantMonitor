@@ -2,7 +2,6 @@
   "pages": [
     "pages/realTimeData/home/home",
     "pages/login/login",
-    "pages/qca/analyzerList/analyzerList",
     "pages/qca/authorCode/authorCode",
     "pages/my/home/home",
     "pages/welcome/welcome",
@@ -19,9 +18,7 @@
     "pages/my/feedBack/feedBack",
     "pages/historyData/selectDateTime/selectDateTime",
     "pages/others/others",
-    "pages/my/alarmDataDetails/alarmDataDetails",
-    "pages/qca/opendoor/opendoor",
-    "pages/qca/scan/scan"
+    "pages/my/alarmDataDetails/alarmDataDetails"
   ],
   "permission": {
     "scope.userLocation": {

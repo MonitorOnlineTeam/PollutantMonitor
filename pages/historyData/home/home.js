@@ -47,8 +47,8 @@ Page({
   },
   tabSelect(e) {
     // console.log(e);
+    app.Islogin(function() {});
     if (!this.data.isAuthor) {
-      this.goLogin();
       return false;
     }
     this.setData({
@@ -77,12 +77,16 @@ Page({
     }
 
   },
+  login: function() {
+    app.Islogin(function() {});
+  },
   goLogin: function() {
     app.goLogin();
   },
   onChangePollutant(e) {
+    app.Islogin(function() {});
     if (!this.data.isAuthor) {
-      this.goLogin();
+
       return false;
     }
     let _this = this;
@@ -105,8 +109,9 @@ Page({
 
   },
   onChangeDate(e) {
+    app.Islogin(function() {});
     if (!this.data.isAuthor) {
-      this.goLogin();
+
       return false;
     }
     let _this = this;
@@ -132,9 +137,9 @@ Page({
     })
   },
   horizontalScreen: function() {
-
+    app.Islogin(function() {});
     if (!this.data.isAuthor) {
-      this.goLogin();
+
       return false;
     }
     let _this = this;
@@ -193,28 +198,53 @@ Page({
    */
   onShow: function() {
     //app.isLogin();
-    this.data.isAuthor && app.isLogin();
+    let that = this;
     this.setData({
       isAuthor: app.isAuthor()
     });
 
-    let selectedDate = moment(common.getStorage('selectedDate')).format(selectTimeFormat[this.data.dataType].showFormat);
-    //debugger;
-    let selectedPollutants = common.getStorage('selectedPollutants') || [];
-    if (this.data.selectedDate != selectedDate || JSON.stringify(this.data.selectedPollutants) != JSON.stringify(selectedPollutants) || this.data.DGIMN !== common.getStorage('DGIMN')) {
-
-      if (this.data.DGIMN !== common.getStorage('DGIMN')) {
-        selectedDate = moment().format(selectTimeFormat[this.data.dataType].showFormat);
-        //moment().format(selectTimeFormat[this.data.dataType].showFormat)
-      }
-
-      this.setData({
-        DGIMN: common.getStorage('DGIMN'),
-        selectedDate: selectedDate,
-        selectedPollutants: selectedPollutants
+    if (!that.data.isAuthor) {
+      wx.setNavigationBarTitle({
+        title: '历史数据',
+      })
+      that.setData({
+        chartDatas: []
       });
-      this.onPullDownRefresh();
+      return;
     }
+    
+    app.isLogin(function(res) {
+      if (!res) {
+        wx.setNavigationBarTitle({
+          title: '历史数据',
+        })
+        that.setData({
+          chartDatas: []
+        });
+        return;
+      } else {
+        let selectedDate = moment(common.getStorage('selectedDate')).format(selectTimeFormat[that.data.dataType].showFormat);
+        //debugger;
+        let selectedPollutants = common.getStorage('selectedPollutants') || [];
+        if (that.data.selectedDate != selectedDate || JSON.stringify(that.data.selectedPollutants) != JSON.stringify(selectedPollutants) || that.data.DGIMN !== common.getStorage('DGIMN')) {
+
+          if (that.data.DGIMN !== common.getStorage('DGIMN')) {
+            selectedDate = moment().format(selectTimeFormat[that.data.dataType].showFormat);
+            //moment().format(selectTimeFormat[this.data.dataType].showFormat)
+          }
+
+          that.setData({
+            DGIMN: common.getStorage('DGIMN'),
+            selectedDate: selectedDate,
+            selectedPollutants: selectedPollutants
+          });
+          that.onPullDownRefresh();
+        }
+      }
+    });
+
+
+
   },
 
   /**
@@ -235,9 +265,25 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function() {
+    let that = this;
+    this.setData({
+      isAuthor: app.isAuthor()
+    });
+
+    if (!that.data.isAuthor) {
+      wx.setNavigationBarTitle({
+        title: '历史数据',
+      })
+      that.setData({
+        chartDatas: [],
+      })
+      wx.hideNavigationBarLoading();
+      wx.stopPullDownRefresh();
+      return;
+    }
     wx.showNavigationBarLoading();
     wx.stopPullDownRefresh();
-    this.getData();
+    that.getData();
   },
 
   /**
@@ -267,7 +313,7 @@ Page({
   },
   //获取监控数据
   getData: function() {
-    app.isLogin();
+    app.Islogin(function() {});
     let {
       selectedPollutant,
       dataType,

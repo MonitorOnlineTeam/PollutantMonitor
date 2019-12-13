@@ -22,7 +22,9 @@ Page({
     }],
     isAuthor: false
   },
-
+  login: function() {
+    app.Islogin(function() {});
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -68,17 +70,39 @@ Page({
     //   return false;
     // }
 
-    this.data.isAuthor && app.isLogin();
+    let that = this;
     this.setData({
       isAuthor: app.isAuthor()
     });
-    //登陆（或者扫描二维码）时已经把MN号码赋上，  ----目前时登陆赋上
-    if (this.data.dgimn !== common.getStorage('DGIMN')) {
-      this.setData({
-        dgimn: common.getStorage('DGIMN')
+
+    if (!that.data.isAuthor) {
+      wx.setNavigationBarTitle({
+        title: '设备信息',
+      })
+      that.setData({
+        resultData: {}
       });
-      this.onPullDownRefresh();
+      return;
     }
+    app.isLogin(function(res) {
+      if (!res) {
+        wx.setNavigationBarTitle({
+          title: '设备信息',
+        })
+        that.setData({
+          resultData: {}
+        });
+        return;
+      } else {
+        //登陆（或者扫描二维码）时已经把MN号码赋上，  ----目前时登陆赋上
+        if (that.data.dgimn !== common.getStorage('DGIMN')) {
+          that.setData({
+            dgimn: common.getStorage('DGIMN')
+          });
+          that.onPullDownRefresh();
+        }
+      }
+    })
   },
 
   /**
@@ -99,6 +123,22 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function() {
+    let that = this;
+    this.setData({
+      isAuthor: app.isAuthor()
+    });
+
+    if (!that.data.isAuthor) {
+      wx.setNavigationBarTitle({
+        title: '设备信息',
+      })
+      that.setData({
+        resultData: {}
+      });
+      wx.hideNavigationBarLoading();
+      wx.stopPullDownRefresh();
+      return;
+    }
     wx.showNavigationBarLoading();
     wx.stopPullDownRefresh();
     this.getData();

@@ -4,7 +4,8 @@
     <view class="cu-item">
       <view class="content padding-tb-sm">
         <view>
-          <text class="cuIcon-clothesfill text-blue margin-right-xs"></text> {{item.Abbreviation}}
+          <!-- <text class="cuIcon-clothesfill text-blue margin-right-xs"></text>  -->
+          {{item.Abbreviation}}
         </view>
         <view class="text-gray text-sm">
           <text class="cuIcon-infofill margin-right-xs"></text> {{item.PointName}}
@@ -25,11 +26,12 @@
       <view class="cu-item">
         <view class="content padding-tb-sm">
           <view>
-            <text class="cuIcon-clothesfill text-blue margin-right-xs"></text> {{item.AlarmTime}}
+            <!-- <text class="cuIcon-clothesfill text-blue margin-right-xs"></text>  -->
+            {{item.AlarmTime}}
             <text class="cu-tag round bg-blue light">{{item.AlarmTypText}}</text>
           </view>
           <view class="text-gray text-sm">
-            <text class="cuIcon-infofill margin-right-xs"></text>{{item.AlarmMsg}}
+            <text class="cuIcon-infofill margin-right-xs"></text>  {{item.AlarmMsg}}
           </view>
         </view>
       </view>

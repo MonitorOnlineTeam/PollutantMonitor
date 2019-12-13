@@ -186,9 +186,14 @@
 .statesTextException {
   color: #e7983a;
 }
-.pollutantItemsClass{
+
+.pollutantItemsClass {
   margin-top: 5px;
   width: 100%;
   height: 100%;
   font-size: 13px;
+}
+
+.cu-list.menu>.cu-item .content>view:first-child {
+  align-items: inherit !important;
 }
