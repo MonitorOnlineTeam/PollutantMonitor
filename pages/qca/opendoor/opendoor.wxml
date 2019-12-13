@@ -54,3 +54,23 @@
     <span>开门后将全程录像</span>
   </view>
 </form>
+
+
+<view class="cu-modal {{isOpening?'show':''}} " bindtap="hideChangeModal">
+  <!-- <view class="cu-modal show" bindtap="hideChangeModal"> -->
+  <view class="cu-dialog" catchtap>
+    <view class="cu-bar bg-white justify-end">
+      <view class="content" style="">{{QCAName}}</view>
+      <!-- <view class="action" bindtap="hideModal">
+        <text class="cuIcon-close text-red" bindtap="hideChangeModal"></text>
+      </view> -->
+    </view>
+    <view class="opendoorgif" style="height:600rpx;">
+      <image src="https://api.chsdl.net/NewWryWebProxy/images/qca/opendoor.gif" style="width:300rpx;height:100%"></image>
+    </view>
+
+    <view class="btnfooter">
+      <button class="block bg-blue margin-tb-sm shadow">请在五秒内拉开门锁！</button>
+    </view>
+  </view>
+</view>

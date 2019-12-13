@@ -12,7 +12,8 @@ Page({
     picker: ['更换标气', '维护备件', '设备维修', '设备巡检'],
     index: 0,
     userName: '',
-    QCAMN: ''
+    QCAMN: '',
+    isOpening: false
   },
 
   /**
@@ -115,11 +116,43 @@ Page({
       var exception = false;
       comApi.qcaOpenDoor(remark).then(res => {
         console.log('res=', res);
-        wx.showLoading({
-          title: '门一打开……',
-        })
+        // wx.showLoading({
+        //   title: '正在开锁',
+        // })
         if (res && res.IsSuccess) {
+          that.setData({
+            isOpening: true
+          });
 
+          //显示开门动态gif
+          setTimeout(function() {
+            wx.hideLoading();
+            //判断开门是否异常
+            comApi.qcaOpenDoor(remark, 1).then(res => {
+              wx.hideLoading();
+              if (res && res.IsSuccess) {
+                wx.navigateTo({
+                  url: '/pages/qca/changeGas/changeGas'
+                })
+              } else {
+                that.setData({
+                  isOpening: false
+                });
+                wx.showModal({
+                  title: '提示',
+                  content: '门已关闭，请重新扫码开门',
+                  showCancel: false,
+                  success(res) {
+                    if (res.confirm) {
+                      wx.redirectTo({
+                        url: '/pages/qca/analyzerList/analyzerList',
+                      })
+                    }
+                  }
+                });
+              }
+            });
+          }, 5000)
         } else {
           wx.showModal({
             title: '提示',
@@ -130,37 +163,7 @@ Page({
           exception = true;
         }
       });
-      wx.showLoading({
-        title: '门一打开……',
-      })
 
-      //显示开门动态gif
-      setTimeout(function() {
-        wx.hideLoading();
-        //判断开门是否异常
-        if (!exception) {
-          comApi.qcaGetDoorState().then(res => {
-            if (res && res.IsSuccess) {
-              wx.navigateTo({
-                url: '/pages/qca/changeGas/changeGas'
-              })
-            } else {
-              wx.showModal({
-                title: '提示',
-                content: '门已关闭，请重新扫码开门',
-                showCancel: false,
-                success(res) {
-                  if (res.confirm) {
-                    wx.redirectTo({
-                      url: '/pages/qca/analyzerList/analyzerList',
-                    })
-                  }
-                }
-              });
-            }
-          });
-        }
-      }, 5000)
     });
   }
 })

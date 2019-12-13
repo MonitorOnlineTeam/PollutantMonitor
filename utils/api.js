@@ -481,11 +481,12 @@ function qcaValidataQCAMN(qcamn) {
   }, 'get').then(res => res.data)
 }
 
-function qcaOpenDoor(remark) {
+function qcaOpenDoor(remark, isQueryStatus) {
   return fetchApi(pageUrl.qcaOpenDoor, {
     Phone: common.getStorage('PhoneCode'),
     MN: common.getStorage('QCAMN'),
-    ChangeReason: remark
+    ChangeReason: remark,
+    IsQueryStatus: isQueryStatus == 1 ? true : false
   }, 'post').then(res => res.data)
 }
 
@@ -512,7 +513,7 @@ function qcaGetAnalyzerInfoPage(pageIndex, pageSize) {
     PageIndex: pageIndex || 1,
     PageSize: pageSize || 15
   }, 'post').then(res => res.data)
-}//
+} //
 
 function qcaGetDoorState() {
   return fetchApi(pageUrl.qcaGetDoorState, {
