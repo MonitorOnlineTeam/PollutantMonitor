@@ -21,7 +21,9 @@ Page({
     DGIMN: '',
     dataInfo: null,
     imageSrc: null,
-    isAuthor: false
+    isAuthor: false,
+    dataitem: [],
+    qr: false
   },
 
   /**
@@ -42,14 +44,20 @@ Page({
     let that = this;
     if (options && options.q) {
       app.wxLogin(function() {
-        console.log(11111111111);
+
+
+
         app.isValidateSdlUrl(options.q, function(res) {
+          that.setData({
+            qr: true
+          });
           if (res) {
             //单独给雪迪龙展厅设备指定openId
             if (common.getStorage("OpenId_SDL")) {
               common.setStorage("OpenId", "13800138000"); //13800138000
               common.setStorage("PhoneCode", "13800138000"); //13800138000
               app.getUserInfo(options);
+              that.onPullDownRefresh();
               return;
             } else {
               that.data.isAuthor && that.onPullDownRefresh();
@@ -101,11 +109,12 @@ Page({
           pointInfo: {},
         })
       } else {
-        if (that.data.DGIMN !== common.getStorage('DGIMN')) {
+        if (that.data.DGIMN !== common.getStorage('DGIMN') || that.data.qr) {
           common.setStorage('selectedPollutants', "");
           common.setStorage('selectedDate', moment().format('YYYY-MM-DD HH:mm'));
           that.setData({
-            DGIMN: common.getStorage('DGIMN')
+            DGIMN: common.getStorage('DGIMN'),
+            qr: false
           });
           that.onPullDownRefresh();
         }

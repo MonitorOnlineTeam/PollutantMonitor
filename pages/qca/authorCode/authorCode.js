@@ -25,7 +25,7 @@ Page({
       authorCode: common.getStorage("AuthorCode")
     })
 
-    //this.validateAuthorCode();
+    options.AuthorCode&& this.validateAuthorCode();
   },
 
   /**
@@ -84,7 +84,7 @@ Page({
   validateAuthorCode: function() {
     var that = this;
 
-    var authorcode = that.data.authorCode;
+    var authorcode = that.data.authorCode || common.getStorage("AuthorCode");
 
     if (authorcode.length != 5) {
       that.setData({

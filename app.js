@@ -172,7 +172,6 @@ App({
                   })
                   return;
                 }
-
                 wx.switchTab({
                   url: '/pages/realTimeData/home/home'
                 })
@@ -358,35 +357,63 @@ App({
 
         if (mn.length > 0) {
           console.log("mn=", mn);
-          _this.Islogin(function () { });
-          api.qRCodeVerifyDGIMN(mn).then(res => {
-            console.log("res=", res);
-            if (res && res.IsSuccess) {
-              const sdlMN = _this.globalData.sdlMN.filter(m => m === mn);
 
-              if (sdlMN.length > 0) {
-                common.setStorage("OpenId_SDL", "13800138000"); //13800138000
-              } else {
-                common.setStorage("OpenId_SDL", "");
-              }
-              if (common.getStorage("DGIMN"))
-                common.setStorage("DGIMN_Old", common.getStorage("DGIMN"));
-              else {
-                common.setStorage("DGIMN_Old", mn);
-              }
+          if (!common.getStorage("IsAuthor") || !common.getStorage("IsLogin")) {
+            var sldmnYS = _this.globalData.sdlMN.filter(m => m === mn);
+            if (sldmnYS.length > 0) {
+              common.setStorage("AuthorCode", "33333"); //13800138000
+              common.setStorage("PhoneCode", "13800138000");
               common.setStorage("DGIMN", mn);
-
-              callback && callback(true);
-            } else {
-              //common.setStorage("DGIMN", mn);
-              wx.showModal({
-                title: '提示',
-                content: res.Message,
-                showCancel: false,
-                success(res) {}
+              wx.redirectTo({
+                url: '/pages/qca/authorCode/authorCode?AuthorCode=33333'
               })
+              return;
             }
-          })
+          } else {
+            var sldmnYS = _this.globalData.sdlMN.filter(m => m === mn);
+            if (sldmnYS.length > 0) {
+              //common.setStorage("AuthorCode", "99999"); //13800138000
+              common.setStorage("PhoneCode", "13800138000");
+              common.setStorage("DGIMN", mn);
+            }
+          }
+
+          _this.Islogin(function(res) {
+
+            if (res) {
+              api.qRCodeVerifyDGIMN(mn).then(res => {
+                console.log("res=", res);
+                if (res && res.IsSuccess) {
+                  const sdlMN = _this.globalData.sdlMN.filter(m => m === mn);
+
+                  if (sdlMN.length > 0) {
+                    common.setStorage("OpenId_SDL", "13800138000"); //13800138000
+                  } else {
+                    common.setStorage("OpenId_SDL", "");
+                  }
+                  if (common.getStorage("DGIMN"))
+                    common.setStorage("DGIMN_Old", common.getStorage("DGIMN"));
+                  else {
+                    common.setStorage("DGIMN_Old", mn);
+                  }
+                  common.setStorage("DGIMN", mn);
+
+                  callback && callback(true);
+                } else {
+                  //common.setStorage("DGIMN", mn);
+                  wx.showModal({
+                    title: '提示',
+                    content: res.Message,
+                    showCancel: false,
+                    success(res) {}
+                  })
+                }
+              })
+            } else {
+              callback && callback(true);
+            }
+          });
+
         } else {
           wx.showModal({
             title: '提示',
