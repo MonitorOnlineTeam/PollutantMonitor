@@ -70,7 +70,7 @@
     </view>
 
     <view class="btnfooter">
-      <button class="block bg-blue margin-tb-sm shadow">请在五秒内拉开门锁！</button>
+      <button class="block bg-blue margin-tb-sm shadow">请在8秒内拉开门锁！</button>
     </view>
   </view>
 </view>

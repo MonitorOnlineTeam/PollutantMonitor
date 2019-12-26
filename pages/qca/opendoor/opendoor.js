@@ -152,7 +152,7 @@ Page({
                 });
               }
             });
-          }, 5000)
+          }, 8000)
         } else {
           wx.showModal({
             title: '提示',
