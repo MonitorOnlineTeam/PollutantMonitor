@@ -19,13 +19,13 @@
         <view class="cu-tag round bg-orange light" wx:if="{{item.IsExpire}}">已过期</view>
       </view>
     </view>
-    <view class="cu-item">
+    <view class="cu-item" wx:if="{{item.StandardGasCode!='065'}}">
       <view class="content">
         <text class="cuIcon-warn text-green"></text>
         <text class="text-grey">气瓶标气浓度</text>
       </view>
       <view class="action">
-        <text class="text-grey text-sm">{{item.Concentration}} mg/m3</text>
+        <text class="text-grey text-sm">{{item.Concentration+(item.StandardGasCode=='s01'?'%':'mg/m3')}}</text>
       </view>
     </view>
     <view class="cu-item">
@@ -54,22 +54,22 @@
 
   <view class="cu-dialog" catchtap>
     <view class="cu-bar bg-white justify-end">
-      <view class="content" style="">实测SO2</view>
+      <view class="content" style="">{{standardGasName}}</view>
       <view class="action" bindtap="hideModal">
         <text class="cuIcon-close text-red" bindtap="hideChangeModal"></text>
       </view>
     </view>
     <view class="cu-list menu margin-top">
 
-      <view class="cu-form-group">
+      <view class="cu-form-group" wx:if="{{clickData.StandardGasCode!='065'}}">
         <view class="title text-{{concentrationRequire?'red':grey}}">气瓶标气浓度</view>
-        <input type='number' placeholder="输入气瓶标气浓度" value="{{clickData.Concentration}}" data-name="Concentration" bindinput='bindInput'></input>
-        <text class="text-grey text-sm">mg/m3</text>
+        <input type='digit' maxlength='{{maxlength}}' placeholder="输入气瓶标气浓度" value="{{clickData.Concentration}}" data-name="Concentration" bindinput='bindInput'></input>
+        <text class="text-grey text-sm">{{clickData.StandardGasCode=='s01'?'%':'mg/m3'}}</text>
 
       </view>
       <view class="cu-form-group">
         <view class="title text-{{gasInitPowerRequire?'red':grey}}">标气初始压力</view>
-        <input type='number' placeholder="输入标气初始压力" value="{{clickData.GasInitPower}}" data-name="GasInitPower" bindinput='bindInput'></input>
+        <input type='digit' maxlength='{{maxlength}}' placeholder="输入标气初始压力" value="{{clickData.GasInitPower}}" data-name="GasInitPower" bindinput='bindInput'></input>
         <text class="text-grey text-sm">mpa</text>
 
       </view>

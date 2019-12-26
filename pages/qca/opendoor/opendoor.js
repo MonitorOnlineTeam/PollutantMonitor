@@ -55,7 +55,7 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function() {
-    common.setStorage("QCAMN", "");
+    // common.setStorage("QCAMN", "");
   },
 
   /**
@@ -131,7 +131,7 @@ Page({
             comApi.qcaOpenDoor(remark, 1).then(res => {
               wx.hideLoading();
               if (res && res.IsSuccess) {
-                wx.navigateTo({
+                wx.redirectTo({
                   url: '/pages/qca/changeGas/changeGas'
                 })
               } else {
@@ -144,9 +144,10 @@ Page({
                   showCancel: false,
                   success(res) {
                     if (res.confirm) {
-                      wx.redirectTo({
-                        url: '/pages/qca/analyzerList/analyzerList',
-                      })
+                      // wx.redirectTo({
+                      //   url: '/pages/qca/analyzerList/analyzerList',
+                      // })
+                      wx.navigateBack({delta:1})
                     }
                   }
                 });
