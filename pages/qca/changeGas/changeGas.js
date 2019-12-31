@@ -135,18 +135,18 @@ Page({
   //input输入框事件
   bindInput: function(e) {
     console.log("e=", e);
-    let price = e.detail.value;
-    let maxlength = price.indexOf('.') + 3;
-    //为什么是2呢？没有小数点的时候indexOf('.')返回-1，-1+3=2，
-    //所以没有小数点的时候限制长度为50位，
-    //有小数点的话直接设置maxlength为 整数部分+小数点一位+两位小数,indexOf返回的是从0开始计算的索引，所以加3就是保留两位小数
-    if (maxlength == 2) {
-      maxlength = 10;
-    }
-    this.setData({
-      maxlength,
-      price
-    })
+    // let price = e.detail.value;
+    // let maxlength = price.indexOf('.') + 3;
+    // //为什么是2呢？没有小数点的时候indexOf('.')返回-1，-1+3=2，
+    // //所以没有小数点的时候限制长度为50位，
+    // //有小数点的话直接设置maxlength为 整数部分+小数点一位+两位小数,indexOf返回的是从0开始计算的索引，所以加3就是保留两位小数
+    // if (maxlength == 2) {
+    //   maxlength = 10;
+    // }
+    // this.setData({
+    //   maxlength,
+    //   price
+    // })
     var clickData = this.data.clickData;
     clickData[e.target.dataset.name] = e.detail.value;
 
@@ -169,9 +169,9 @@ Page({
       gasInitPowerRequire: !data.GasInitPower
     });
 
-    if (!data.Concentration || !data.GasInitPower) {
-      return;
-    }
+    // if (!data.Concentration || !data.GasInitPower) {
+    //   return;
+    // }
 
     data.ExpirationDate = data.ExpirationDate + ' 23:59:59';
     comApi.qcaUpdateStandardGasList([data]).then(res => {
