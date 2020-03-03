@@ -1,0 +1,7 @@
+{
+  "component": true,
+  "usingComponents": {
+    "van-datetime-picker": "/dist/datetime-picker/index",
+    "ff-canvas": "../../../miniprogram_npm/@antv/f2-canvas"
+  }
+}

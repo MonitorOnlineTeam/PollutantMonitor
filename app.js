@@ -451,9 +451,13 @@ App({
     callback && callback(false);
   },
   isAuthor: function() {
+    console.log("isAuthor1=", common.getStorage('OpenId'));
+    console.log("isAuthor2=", common.getStorage('PhoneCode'));
     if (!common.getStorage('OpenId') || !common.getStorage("PhoneCode")) {
+      console.log(123);
       return false;
     } else {
+      console.log(456);
       return true;
     }
   },

@@ -1,0 +1,12 @@
+<!--pages/historyData/selectPollutant/selectPollutant.wxml-->
+<scroll-view scroll-y style='height:85vh;'>
+  <view class="cu-form-group" bindtap='checkboxChange' wx:for="{{items}}" data-obj="{{item}}" wx:key="{{index}}">
+    <view class='title'>{{item.name}}({{item.unit}})</view>
+    <checkbox value="{{item.code}}" checked="{{item.checked}}"></checkbox>
+  </view>
+</scroll-view>
+
+
+<view class="padding flex flex-direction">
+  <button class='cu-btn bg-blue margin-tb-sm lg' bindtap='reloadData'>确定</button>
+</view>

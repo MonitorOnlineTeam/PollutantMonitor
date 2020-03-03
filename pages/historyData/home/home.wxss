@@ -1,4 +1,6 @@
 /* pages/historyData/home/home.wxss */
+@import "/colorui/icon.wxss";
+@import "/colorui/main.wxss";
 
 .legend-container {
   background-color: #fff;

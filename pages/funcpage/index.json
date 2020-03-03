@@ -1,0 +1,10 @@
+{
+  "component": true,
+  "usingComponents": {
+    "realtimedata": "/pages/monitor/realtimedata/index",
+    "historydata": "/pages/monitor/historydata/index",
+    "deviceinfo": "/pages/monitor/deviceinfo/index",
+    "optworkorder": "/pages/opreation/workorder/index",
+    "ventilationrecord": "/pages/qca/ventilationrecord/index"
+  }
+}

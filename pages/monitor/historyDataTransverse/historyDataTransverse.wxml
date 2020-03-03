@@ -1,0 +1,68 @@
+<!--pages/historyData/historyDataTransverse/historyDataTransverse.wxml-->
+<view class="main">
+  <!-- <view class='left'>
+    <view class='left-content'>
+      <view class='left-item'>
+        <view>SO2</view>
+        <view class='value'>139mg/L</view>
+      </view>
+      <view class='left-item'>
+        <view>SO2</view>
+        <view class='value'>139mg/L</view>
+      </view>
+      <view class='left-item'>
+        <view>SO2</view>
+        <view class='value'>139mg/L</view>
+      </view>
+      <view class='left-item'>
+        <view>SO2</view>
+        <view class='value'>139mg/L</view>
+      </view>
+      <view class='left-item'>
+        <view>SO2</view>
+        <view class='value'>139mg/L</view>
+      </view>
+      <view class='left-item'>
+        <view>SO2</view>
+        <view class='value'>139mg/L</view>
+      </view>
+    </view>
+
+  </view> -->
+  <view class="center">
+    <view class='container'>
+      <ff-canvas id="line-dom" canvas-id="line" opts="{{ opts }}"></ff-canvas>
+    </view>
+  </view>
+  <view class='legend'>
+    <view class='legend-content'>
+      <view class='legend-item'>
+        <block wx:for="{{tipsData}}" wx:key="{{index}}">
+          <text class='icon-title' style='color:{{item.color}};font-size:32rpx;'></text>{{item.name}}/{{item.unit}}:
+          <text wx:if="{{item.status==0}}">{{item.value}}</text>
+          <text wx:elif="{{item.status==1}}" style="color:rgb(255, 0, 0)">{{item.value}}</text>
+          <text wx:elif="{{item.status==-1}}" style="color:#efac36">{{item.value}}</text>
+        </block>
+      </view>
+    </view>
+  </view>
+  <view class="right">
+    <view class="right-top">
+      <view class="right-top-item {{dataType==index?'active':''}}" bindtap='tabSelect' data-id="{{index}}" wx:for="{{tabList}}" wx:key="{{index}}">
+        <view></view>
+        {{item}}
+      </view>
+    </view>
+
+    <view class='right-center'>
+      <view class="right-center-center" bindtap="onChangeDate">
+        <text>{{selectedDate}}<text class='icon-triangledownfill lg'></text></text>
+      </view>
+    </view>
+    <view class='right-bottom'>
+      <view class="right-bottom-top" bindtap='navigateBack'>
+        <text class='icon-close text-gary' style='font-size:60rpx;'></text>
+      </view>
+    </view>
+  </view>
+</view>
