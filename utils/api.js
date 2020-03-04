@@ -33,6 +33,7 @@ const pageUrl = {
   getRealTimeDataForPoint: `/SMCManagerApi/GetRealTimeDataForPoint`,
   addFeedback: `/SMCManagerApi/AddFeedback`,
   getDataAlarmData: `/SMCManagerApi/GetAlarmDatas`,
+  getOperationLogList: `/SMCManagerApi/GetOperationLogList`,
   getAuthorizationState: `/SMCManagerApi/getAuthorizationState`,
   cancelAuthorization: `/SMCManagerApi/cancelAuthorization`,
   getUserEntInfo: `/SMCManagerApi/GetUserEntInfo`,
@@ -319,6 +320,20 @@ function getAlarmDataList(beginTime, endTime, entCode, pageIndex = 1, pageSize =
 }
 
 /**
+ * 获取运维数据
+ * @param {DateTime} beginTime
+ * @param {DateTime} endTime
+ * @param {String} pollutantCodes
+ * @param {String} dataType
+ */
+function getOperationLogList(DGIMN, beginTime) {
+  return fetchApi(pageUrl.getOperationLogList, {
+    beginTime: beginTime,
+    DGIMN: DGIMN,
+  }, 'post').then(res => res.data)
+}
+
+/**
  * 验证设备访问密码
  * @param  {String}} pwd 设备密码
  */
@@ -503,6 +518,7 @@ module.exports = {
   getRealTimeDataForPoint,
   addFeedback,
   getAlarmDataList,
+  getOperationLogList,
   getAuthorizationState,
   cancelAuthorization,
   getUserEntInfo,

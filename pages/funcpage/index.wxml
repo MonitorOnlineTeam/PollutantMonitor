@@ -12,8 +12,8 @@
 
 <historydata wx:if="{{TabCur==1}}"></historydata>
 
-<optworkorder wx:if="{{TabCur==2}}"></optworkorder>
+<ventilationrecord wx:if="{{TabCur==2}}"></ventilationrecord>
 
-<ventilationrecord wx:if="{{TabCur==3}}"></ventilationrecord>
+<optworkorder wx:if="{{TabCur==3}}"></optworkorder>
 
 <deviceinfo wx:if="{{TabCur==4}}"></deviceinfo>

@@ -1,2 +1,82 @@
-<!--pages/opreation/workorder/index.wxml-->
-<text>pages/opreation/workorder/index.wxml</text>
+<view class='wraper'>
+  <view class="header solid-bottom margin-top margin-bottom ">
+    <view class="cu-bar bg-white solid-bottom">
+      <view class='action'>
+        <text class='icon-title text-orange '></text>
+        <text>{{convertToCapitalization}}</text>
+        <text class='icon-infofill text-red'></text>
+        <image class="imageClass" src='/images/gantanhao.png' mode='aspectFit' bindtap="showModal" data-target="Modal"></image>
+      </view>
+      <view class='action datePickerClass'>
+        <picker mode="date" fields="month" start="2015-01-01" end="2030-12-01" bindchange="dateChange">
+          <view class="picker">
+            {{month}}
+          </view>
+        </picker>
+        <view class='arrow' />
+      </view>
+    </view>
+    <view class="cu-list grid col-5 {{gridBorder?'':'no-border'}} ">
+      <view class="cu-item" wx:for="{{resultData.operationStatesCount}}" wx:key wx:if="{{index<5}}">
+        <view class="cu-item">
+          <text>{{item.Text}}</text>
+        </view>
+        <text>{{item.Total}}</text>
+      </view>
+    </view>
+  </view>
+  <view class='main'>
+    <scroll-view class='main-scroll' scroll-y style="height: 100%,width:100%">
+      <view class='main-list'>
+        <view class=' bg-white'>
+
+          <view wx:if="{{resultData.FormList.length==0}}" class='container' style='height:82vh;text-align:center;padding-top:50%;color:#ccc;'>
+            <text>暂无数据</text>
+          </view>
+          <view wx:else>
+            <block wx:for="{{resultData.FormList}}" wx:key="*this">
+              <view class="cu-timeline parentclass">
+                <view class="cu-time">{{item.CreateDate}}</view>
+                <block wx:for="{{item.Nodes}}" wx:for-item="cell" wx:key="index">
+                  <view class='cu-item cur '>
+                    <view class="content bg-white ">
+                      <view class="childOne">
+                        <text class="text-black"> {{cell.Abbreviation}}</text>
+                      </view>
+                      <view class="childTwo">
+                        运维人：
+                        <text space="emsp">{{cell.CreateUser==""?"- 执行时间：":cell.CreateUser+" 执行时间："}}</text> 
+                        <text>{{cell.CreateTimes}}</text>
+                         <text class='logClass' bindtap="navigateForm" data-taskID="{{cell.TaskID}}" data-typeID="{{cell.TypeID}}">更多</text>
+                      </view>
+                    </view>
+                  </view>
+                </block>
+              </view>
+            </block>
+          </view>
+
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+</view>
+
+
+<view class="cu-modal  {{modalName=='Modal'?'show':''}}" bindtap='hideModal'>
+  <view class="cu-dialog" catchtap>
+    <view class="cu-bar bg-white justify-end">
+      <view class='content'>说明</view>
+      <view class='action' bindtap='hideModal'>
+        <text class='icon-close text-red'></text>
+      </view>
+    </view>
+    <view class='cu-list menu text-left'>
+      <view class='cu-item' wx:for="{{info}}" wx:key>
+        <label class='flex justify-between align-center flex-sub'>
+          <view class='flex-sub'> {{item}} </view>
+        </label>
+      </view>
+    </view>
+  </view>
+</view>

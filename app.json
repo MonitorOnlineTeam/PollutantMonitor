@@ -23,7 +23,8 @@
     "pages/my/alarmDataDetails/alarmDataDetails",
     "pages/monitor/realtimedata/index",
     "pages/monitor/flowchart/index",
-    "pages/qca/deviceqcadetails/index"
+    "pages/qca/deviceqcadetails/index",
+    "pages/opreation/operationform/operationform"
   ],
   "permission": {
     "scope.userLocation": {
