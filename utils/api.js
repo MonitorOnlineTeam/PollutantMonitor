@@ -34,6 +34,7 @@ const pageUrl = {
   addFeedback: `/SMCManagerApi/AddFeedback`,
   getDataAlarmData: `/SMCManagerApi/GetAlarmDatas`,
   getOperationLogList: `/SMCManagerApi/GetOperationLogList`,
+  getVentilationOperationRecord: `/SMCManagerApi/GetVentilationOperationRecord`,
   getAuthorizationState: `/SMCManagerApi/getAuthorizationState`,
   cancelAuthorization: `/SMCManagerApi/cancelAuthorization`,
   getUserEntInfo: `/SMCManagerApi/GetUserEntInfo`,
@@ -334,6 +335,21 @@ function getOperationLogList(DGIMN, beginTime) {
 }
 
 /**
+ * 获取通气操作记录
+ * @param {DateTime} beginTime
+ * @param {DateTime} endTime
+ * @param {String} pollutantCodes
+ * @param {String} dataType
+ */
+function getVentilationOperationRecord(pageindex, pagesize, conditionwhere) {
+  return fetchApi(pageUrl.getVentilationOperationRecord, {
+    PageIndex: pageindex,
+    PageSize: pagesize,
+    ConditionWhere: conditionwhere
+  }, 'post').then(res => res.data)
+}
+
+/**
  * 验证设备访问密码
  * @param  {String}} pwd 设备密码
  */
@@ -519,6 +535,7 @@ module.exports = {
   addFeedback,
   getAlarmDataList,
   getOperationLogList,
+  getVentilationOperationRecord,
   getAuthorizationState,
   cancelAuthorization,
   getUserEntInfo,
