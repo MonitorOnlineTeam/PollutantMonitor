@@ -38,8 +38,9 @@ Page({
         wx.hideLoading();
         comApi.verifyPhone(phone).then(res => {
           if (res && res.IsSuccess) {
-            if (res.Datas) {
-              common.setStorage("OpenId", res.Datas); //13800138000
+            if (res.Datas.Phone) {
+              common.setStorage("Ticket", res.Datas.Ticket); //13800138000
+              common.setStorage("OpenId", res.Datas.Phone); //13800138000
               common.setStorage("PhoneCode", phone); //13800138000
               common.setStorage("IsLogin", true);
               app.getUserInfo(options);
@@ -137,7 +138,11 @@ Page({
             if (common.getStorage("OpenId_SDL")) {
               common.setStorage("OpenId", "13800138000"); //13800138000
               common.setStorage("PhoneCode", "13800138000"); //13800138000
-              app.getUserInfo(options);
+              that.setData({
+                phoneCode: common.getStorage("PhoneCode")
+              });
+              that.btnLogin(options);
+              //app.getUserInfo(options);
               return;
             } else {
               if (common.getStorage("PhoneCode")) {

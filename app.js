@@ -159,25 +159,33 @@ App({
                 wx.navigateBack();
               }
               if (common.getStorage('DGIMN')) {
-                if (options && options.authorization) {
+                // if (options && options.authorization) {
 
-                  wx.switchTab({
-                    url: '/pages/my/home/home',
-                  })
-                  return;
-                }
-                if (options && options.alarmdatatime) {
-                  wx.navigateTo({
-                    url: '/pages/my/alarmDataList/alarmDataList?monitorTime=' + options.alarmdatatime,
-                  })
-                  return;
-                }
-                wx.switchTab({
-                  url: '/pages/realTimeData/home/home'
+                //   wx.switchTab({
+                //     url: '/pages/my/home/home',
+                //   })
+                //   return;
+                // }
+                // if (options && options.alarmdatatime) {
+                //   wx.navigateTo({
+                //     url: '/pages/my/alarmDataList/alarmDataList?monitorTime=' + options.alarmdatatime,
+                //   })
+                //   return;
+                // }
+
+                wx.redirectTo({
+                  url: '/pages/home/index',
                 })
+
+                // wx.switchTab({
+                //   url: '/pages/realTimeData/home/home'
+                // })
               } else {
-                wx.navigateTo({
-                  url: '/pages/others/others'
+                // wx.navigateTo({
+                //   url: '/pages/others/others'
+                // })
+                wx.redirectTo({
+                  url: '/pages/home/index',
                 })
                 //this.redirectTo('/pages/my/home/home');
               }
