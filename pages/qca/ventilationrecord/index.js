@@ -1,5 +1,16 @@
 // pages/qca/ventilationrecord/index.js
+const app = getApp()
+const comApi = app.api;
+const common = app.common;
+
 Component({
+  /**
+   * 组件的属性列表
+   */
+  options: {
+    addGlobalClass: true,
+    multipleSlots: true,
+  },
   /**
    * 组件的属性列表
    */
@@ -11,13 +22,24 @@ Component({
    * 组件的初始数据
    */
   data: {
-
+    pageindex: 1,
+    pagesize: 10,
+    resultData: [],
+    conditionWhere: {
+      Rel: "$and",
+      Group: [{
+        Key: "dbo.T_Bas_QCAnalyzerControlCommand.DGIMN",
+        Value: "",
+        Where: "$="
+      }]
+    }
   },
 
   /**
    * 组件的方法列表
    */
   methods: {
+
 
   },
 
@@ -27,7 +49,7 @@ Component({
       console.log("在组件实例刚刚被创建时执行")
     },
     attached() {
-      console.log("在组件实例进入页面节点树时执行")
+     this.onPullDownRefresh();
     },
     ready() {
       console.log("在组件在视图层布局完成后执行")
@@ -43,20 +65,38 @@ Component({
     },
     /*组件所在页面的生命周期 */
     pageLifetimes: {
-      show: function () {
+      show: function() {
         // 页面被展示
         console.log("页面被展示")
       },
-      hide: function () {
+      hide: function() {
         // 页面被隐藏
         console.log("页面被隐藏")
       },
-      resize: function (size) {
+      resize: function(size) {
         // 页面尺寸变化
         console.log("页面尺寸变化")
       }
+    },
+    /**
+ * 页面相关事件处理函数--监听用户下拉动作
+ */
+    onPullDownRefresh: function () {
+      this.data.conditionWhere.Group[0].Value = common.getStorage("DGIMN")
+      var conditionWhere = JSON.stringify(this.data.conditionWhere);
+      //获取通气操作记录数据
+      comApi.getVentilationOperationRecord(this.data.pageindex, this.data.pagesize, conditionWhere).then(res => {
+        if (res && res.IsSuccess) {
+          if (res.Datas) {
+            this.setData({
+              resultData: res.Datas.DataSource
+            })
+          }
+        }
+      });
     }
 
   }
+  
 
 })

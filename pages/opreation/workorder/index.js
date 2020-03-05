@@ -86,7 +86,6 @@ Component({
       });
     },
     showModal(e) {
-      debugger
       this.setData({
         modalName: e.currentTarget.dataset.target
       })
@@ -97,8 +96,6 @@ Component({
       })
     },
     navigateForm(e) {
-      debugger;
-      console.log(e);
       wx.navigateTo({
         url: '/pages/opreation/operationform/operationform?taskid=' + e.currentTarget.dataset.taskid + "&typeid=" + e.currentTarget.dataset.typeid
       })

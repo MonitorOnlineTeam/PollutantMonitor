@@ -1,2 +1,17 @@
-<!--pages/qca/ventilationrecord/index.wxml-->
-<text>pages/qca/ventilationrecord/index.wxml</text>
+<view class="cu-list menu">
+
+  <view class="cu-item arrow itemClass" wx:for="{{resultData}}" wx:key>
+    <view class="cu-avatar round lg" wx:if='{{item["dbo.T_Bas_QCAnalyzerControlCommand.StandardPollutantCode"]=="02"}}'style="background-image:url(/images/so2.png);"></view>
+       <view class="cu-avatar round lg" wx:if='{{item["dbo.T_Bas_QCAnalyzerControlCommand.StandardPollutantCode"]=="03"}}'style="background-image:url(/images/nox.png);"></view>
+          <view class="cu-avatar round lg" wx:if='{{item["dbo.T_Bas_QCAnalyzerControlCommand.StandardPollutantCode"]=="s01"}}'style="background-image:url(/images/o.png);"></view>
+    <view class='content textClass'>
+      <view class='text-grey'>{{item["dbo.T_Bas_QCAnalyzerControlCommand.StandardPollutantName"]}}质控</view>
+      <view class='text-gray text-sm'>
+        <text class='icon-infofill text-red'></text> {{item["dbo.T_Bas_CommonPoint.PointName"]}}的{{item["dbo.T_Bas_QCAnalyzerInfo.QCAName"]}}在{{item["dbo.T_Bas_QCAnalyzerControlCommand.QCTime"]}}到{{item["dbo.T_Bas_QCAnalyzerControlCommand.StopTime"]}}进行了{{item["dbo.T_Bas_QCAnalyzerControlCommand.StandardPollutantName"]}}的{{item["dbo.T_Bas_QCAnalyzerControlCommand.QCExecuType_Name"]}}质控
+      </view>
+    </view>
+    <image wx:if="{{item['dbo.T_Bas_QCAControlResult.QCResult']==1}}" mode='widthFix' src="/images/hege.png" class="renqi"></image>
+    <image wx:if="{{item['dbo.T_Bas_QCAControlResult.QCResult']==2}}" mode='widthFix' src="/images/buhege.png" class="renqi"></image>
+
+  </view>
+</view>
