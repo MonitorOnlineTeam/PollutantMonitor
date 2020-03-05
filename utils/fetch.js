@@ -16,8 +16,8 @@ module.exports = function(api, path, params, method) {
       data: Object.assign({}, params),
       method: method || 'get',
       header: {
-        'Content-Type': method == 'get' ? 'json' : 'application/json',//application/x-www-form-urlencoded
-        'Authorization': `Bearer ${common.getStorage('AuthorCodeRSA')}`
+        'Content-Type': method == 'get' ? 'json' : 'application/json', //application/x-www-form-urlencoded
+        'Authorization': `Bearer ${common.getStorage('AuthorCodeRSA')}$${common.getStorage("Ticket")}`
       },
       success: resolve,
       fail: reject

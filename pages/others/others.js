@@ -15,10 +15,13 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-     
+
     if (common.getStorage("DGIMN")) {
-      wx.switchTab({
-        url: '/pages/realTimeData/home/home'
+      // wx.switchTab({
+      //   url: '/pages/realTimeData/home/home'
+      // })
+      wx.redirectTo({
+        url: '/pages/home/index',
       })
     }
   },
@@ -75,8 +78,11 @@ Page({
 
   },
   redrictHistory: function() {
-    wx.navigateTo({
-      url: '/pages/my/visitHistory/visitHistory'
+    // wx.navigateTo({
+    //   url: '/pages/my/visitHistory/visitHistory'
+    // })
+    wx.redirectTo({
+      url: '/pages/home/index',
     })
   },
   redrictScan: function() {
@@ -88,7 +94,7 @@ Page({
           try {
             //var scene = decodeURIComponent(options.scene);
             var scene = res.result;
-            app.isValidateSdlUrl(scene, function (res) {
+            app.isValidateSdlUrl(scene, function(res) {
               if (res) {
                 wx.switchTab({
                   url: '/pages/realTimeData/home/home'
