@@ -40,7 +40,29 @@ Component({
    */
   methods: {
 
-
+    /**
+     * 页面相关事件处理函数--监听用户下拉动作
+     */
+    onPullDownRefresh: function () {
+      this.data.conditionWhere.Group[0].Value = common.getStorage("DGIMN")
+      var conditionWhere = JSON.stringify(this.data.conditionWhere);
+      //获取通气操作记录数据
+      comApi.getVentilationOperationRecord(this.data.pageindex, this.data.pagesize, conditionWhere).then(res => {
+        if (res && res.IsSuccess) {
+          if (res.Datas) {
+            this.setData({
+              resultData: res.Datas.DataSource
+            })
+          }
+        }
+      });
+    },
+    navigateChart(e) {
+      debugger;
+      wx.navigateTo({
+        url: '/pages/qca/deviceqcadetails/index?dgimn=' + e.currentTarget.dataset.dgimn + "&pointname=" + e.currentTarget.dataset.pointname + "&qcacontrolresultid=" + e.currentTarget.dataset.qcacontrolresultid + "&qcamn=" + e.currentTarget.dataset.qcamn + "&qcanalyzercontrolcommandid=" + e.currentTarget.dataset.qcanalyzercontrolcommandid + "&qcanalyzerinfoid=" + e.currentTarget.dataset.qcanalyzerinfoid + "&qcaname=" + e.currentTarget.dataset.qcaname + "&qcexecutype=" + e.currentTarget.dataset.qcexecutype + "&qcexecutypename=" + e.currentTarget.dataset.qcexecutypename + "&qcresult=" + e.currentTarget.dataset.qcresult + "&qcresultname=" + e.currentTarget.dataset.qcresultname + "&qctime=" + e.currentTarget.dataset.qctime + "&qctype=" + e.currentTarget.dataset.qctype + "&qctypename=" + e.currentTarget.dataset.qctypename + "&standardpollutantcode=" + e.currentTarget.dataset.standardpollutantcode + "&standardpollutantname=" + e.currentTarget.dataset.standardpollutantname + "&stoptime=" + e.currentTarget.dataset.stoptime
+      })
+    },
   },
 
   /*组件生命周期*/
@@ -77,26 +99,8 @@ Component({
         // 页面尺寸变化
         console.log("页面尺寸变化")
       }
-    },
-    /**
- * 页面相关事件处理函数--监听用户下拉动作
- */
-    onPullDownRefresh: function () {
-      this.data.conditionWhere.Group[0].Value = common.getStorage("DGIMN")
-      var conditionWhere = JSON.stringify(this.data.conditionWhere);
-      //获取通气操作记录数据
-      comApi.getVentilationOperationRecord(this.data.pageindex, this.data.pagesize, conditionWhere).then(res => {
-        if (res && res.IsSuccess) {
-          if (res.Datas) {
-            this.setData({
-              resultData: res.Datas.DataSource
-            })
-          }
-        }
-      });
     }
 
   }
-  
 
 })
