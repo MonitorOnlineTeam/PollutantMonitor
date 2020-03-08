@@ -115,8 +115,9 @@ Page({
   showDetail(e) {
     var dgimn = e.currentTarget.id;
     var pointname = e.currentTarget.dataset.pointname;
+    var targetname = e.currentTarget.dataset.targetname;
     common.setStorage("PointName", pointname);
-
+    common.setStorage("TargetName", targetname);
     //common.setStorage("DGIMN_Old", dgimn);
     let _this = this;
     const sdlMN = app.globalData.sdlMN.filter(m => m === dgimn);
@@ -280,9 +281,13 @@ Page({
             var scene = res.result;
             app.isValidateSdlUrl(scene, function(res) {
               if (res) {
-                wx.switchTab({
-                  url: '/pages/realTimeData/home/home'
-                })
+
+                var data = {};
+                data.currentTarget = {};
+                data.currentTarget.id = mn;
+                data.currentTarget.pointname = mn;
+                data.currentTarget.targetname = mn;
+                this.showDetail(data);
               }
             });
           } catch (e) {

@@ -100,6 +100,9 @@ Component({
         url: '/pages/opreation/operationform/operationform?taskid=' + e.currentTarget.dataset.taskid + "&typeid=" + e.currentTarget.dataset.typeid
       })
     },
+    onPullDownRefresh: function() {
+      this.getData();
+    }
   },
 
   /*组件生命周期*/

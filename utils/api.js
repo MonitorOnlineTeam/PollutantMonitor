@@ -40,6 +40,8 @@ const pageUrl = {
   getUserEntInfo: `/SMCManagerApi/GetUserEntInfo`,
   getPointVisitHistorys: `/SMCManagerApi/GetPointVisitHistorys`,
   validateAuthorCode: `/LoginApi/ValidateAuthorCode`, //代理授权码验证
+  qCAResultCheckByDGIMN: `/SMCManagerApi/QCAResultCheckByDGIMN`,
+  getStabilizationTime: `/SMCManagerApi/GetStabilizationTime`
 }
 
 /**
@@ -349,6 +351,25 @@ function getVentilationOperationRecord(pageindex, pagesize, conditionwhere) {
   }, 'post').then(res => res.data)
 }
 
+//质控-获取稳定时间
+function qCAResultCheckByDGIMN(DGIMN, QCAMN, StandardGasCode, ID) {
+  return fetchApi(pageUrl.qCAResultCheckByDGIMN, {
+    "DGIMN": DGIMN,
+    "QCAMN": QCAMN,
+    "PollutantCode": StandardGasCode,
+    "ID": ID
+  }, 'post').then(res => res.data)
+}
+//质控-获取稳定时间
+function getStabilizationTime(DGIMN, QCAMN, StandardGasCode, Type = "History") {
+  return fetchApi(pageUrl.getStabilizationTime, {
+    "DGIMN": DGIMN,
+    "QCAMN": QCAMN,
+    "StandardGasCode": StandardGasCode,
+    "Type": Type
+  }, 'post').then(res => res.data)
+}
+
 /**
  * 验证设备访问密码
  * @param  {String}} pwd 设备密码
@@ -541,4 +562,6 @@ module.exports = {
   getUserEntInfo,
   getPointVisitHistorys,
   validateAuthorCode,
+  qCAResultCheckByDGIMN,
+  getStabilizationTime
 }

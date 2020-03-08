@@ -2,7 +2,7 @@
 <view style="display:{{selectedTab===0?'block':'none'}}">
   <scroll-view scroll-y class="scrollPage">
     <block wx:for="{{historyRecord}}" wx:key="{{DGIMN}}">
-      <view class="cu-list menu" id="{{item.DGIMN}}" data-pointname="{{item.PointName}}" bindtap="showDetail">
+      <view class="cu-list menu" id="{{item.DGIMN}}" data-pointname="{{item.PointName}}" data-targetname="{{item.EnterpriseName}}" bindtap="showDetail">
         <view class="cu-item {{'arrow'}}" style=''>
           <view class='content padding-tb-sm'>
             <view class='entNameClass'>

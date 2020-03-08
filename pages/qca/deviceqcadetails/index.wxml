@@ -9,10 +9,10 @@
     <view class='legend-content'>
       <view class='legend-item'>
         <block wx:for="{{tipsData}}" wx:key="{{index}}">
-          <text class='icon-title' style='color:{{item.color}};font-size:32rpx;'></text>{{item.name}}/{{item.unit}}:
-          <text wx:if="{{item.status==0}}">{{item.value}}</text>
+          <text class='icon-title' style='color:{{item.color}};font-size:32rpx;'></text>{{item.name}}
+          <!-- <text wx:if="{{item.status==0}}">{{item.value}}</text>
           <text wx:elif="{{item.status==1}}" style="color:rgb(255, 0, 0)">{{item.value}}</text>
-          <text wx:elif="{{item.status==-1}}" style="color:#efac36">{{item.value}}</text>
+          <text wx:elif="{{item.status==-1}}" style="color:#efac36">{{item.value}}</text> -->
         </block>
       </view>
     </view>

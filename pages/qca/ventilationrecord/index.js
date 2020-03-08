@@ -43,7 +43,12 @@ Component({
     /**
      * 页面相关事件处理函数--监听用户下拉动作
      */
-    onPullDownRefresh: function () {
+    onPullDownRefresh: function() {
+      wx.showNavigationBarLoading();
+      wx.stopPullDownRefresh();
+      this.getData();
+    },
+    getData: function() {
       this.data.conditionWhere.Group[0].Value = common.getStorage("DGIMN")
       var conditionWhere = JSON.stringify(this.data.conditionWhere);
       //获取通气操作记录数据
@@ -55,10 +60,12 @@ Component({
             })
           }
         }
+        wx.hideNavigationBarLoading();
       });
     },
     navigateChart(e) {
-      debugger;
+
+      // debugger;
       wx.navigateTo({
         url: '/pages/qca/deviceqcadetails/index?dgimn=' + e.currentTarget.dataset.dgimn + "&pointname=" + e.currentTarget.dataset.pointname + "&qcacontrolresultid=" + e.currentTarget.dataset.qcacontrolresultid + "&qcamn=" + e.currentTarget.dataset.qcamn + "&qcanalyzercontrolcommandid=" + e.currentTarget.dataset.qcanalyzercontrolcommandid + "&qcanalyzerinfoid=" + e.currentTarget.dataset.qcanalyzerinfoid + "&qcaname=" + e.currentTarget.dataset.qcaname + "&qcexecutype=" + e.currentTarget.dataset.qcexecutype + "&qcexecutypename=" + e.currentTarget.dataset.qcexecutypename + "&qcresult=" + e.currentTarget.dataset.qcresult + "&qcresultname=" + e.currentTarget.dataset.qcresultname + "&qctime=" + e.currentTarget.dataset.qctime + "&qctype=" + e.currentTarget.dataset.qctype + "&qctypename=" + e.currentTarget.dataset.qctypename + "&standardpollutantcode=" + e.currentTarget.dataset.standardpollutantcode + "&standardpollutantname=" + e.currentTarget.dataset.standardpollutantname + "&stoptime=" + e.currentTarget.dataset.stoptime
       })
@@ -71,7 +78,7 @@ Component({
       console.log("在组件实例刚刚被创建时执行")
     },
     attached() {
-     this.onPullDownRefresh();
+      this.onPullDownRefresh();
     },
     ready() {
       console.log("在组件在视图层布局完成后执行")

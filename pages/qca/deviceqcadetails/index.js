@@ -2,6 +2,9 @@
 // import F2 from '../../../../miniprogram_npm/@antv/f2-canvas/lib/f2-all.min.js';
 import F2 from '../../../miniprogram_npm/@antv/f2-canvas/lib/f2-all.min.js';
 const moment = require('../../../utils/moment.min.js');
+const app = getApp();
+const comApi = app.api;
+const common = app.common;
 let chart = null;
 const selectTimeFormat = {
   0: {
@@ -77,13 +80,24 @@ Page({
         value: 123,
         unit: 'm3'
       }
-    ]
+    ],
+    row: {}
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    console.log(options);
+    if (options) {
+      var row = options;
+      this.setData({
+        row: row,
+        title: `${common.getStorage("TargetName")} - ${row.pointname}，在${row.qctime} - ${row.stoptime}时间段，进行${row.standardpollutantname}周期质控，正负误差为-3.45%，质控结果为${row.qcresult==2?'不合格':'合格'}`
+      });
+    }
+    this.getData();
+
     this.chartComponent = this.selectComponent('#line-dom');
   },
 
@@ -287,29 +301,30 @@ Page({
           fill: 'rgba(0, 0, 0, 0.65)',
           padding: [20, 1]
         },
-        custom: false, // 自定义 tooltip 内容框
-        // onChange(obj) {
-        //   console.log(obj)
-        //   const tooltipItems = obj.items;
-        //   const map = {};
-        //   let thisTip = [];
-        //   that.data.selectedPollutants.map(function(item, index) {
-        //     let thisData = tooltipItems.filter(m => m.name == item.name);
-        //     if (thisData && thisData.length > 0) {
-        //       let {
-        //         origin
-        //       } = thisData[0];
-        //       item.name = `${item.name}`;
-        //       item.color = thisData[0].color;
-        //       item.value = thisData[0].value;
-        //       item.status = origin.Status;
-        //     }
-        //     thisTip.push(item);
-        //   })
-        //   that.setData({
-        //     tipsData: thisTip
-        //   });
-        // }
+        custom: true, // 自定义 tooltip 内容框
+        onChange(obj) {
+          console.log(obj)
+          return obj;
+          // const tooltipItems = obj.items;
+          // const map = {};
+          // let thisTip = [];
+          // that.data.selectedPollutants.map(function(item, index) {
+          //   let thisData = tooltipItems.filter(m => m.name == item.name);
+          //   if (thisData && thisData.length > 0) {
+          //     let {
+          //       origin
+          //     } = thisData[0];
+          //     item.name = `${item.name}`;
+          //     item.color = thisData[0].color;
+          //     item.value = thisData[0].value;
+          //     item.status = origin.Status;
+          //   }
+          //   thisTip.push(item);
+          // })
+          // that.setData({
+          //   tipsData: thisTip
+          // });
+        }
       });
       chart.line().position('MonitorTime*Value').color('PollutantName', ['#feac36', '#8de9c0', '#c79ef4', '#fd8593', '#9aabf7', '#97e3f1', '#f4a387']);
       // chart.area().position('country*population');
@@ -334,5 +349,28 @@ Page({
 
       return chart;
     })
+  },
+  getData: function() {
+    var row = this.data.row;
+
+    var DGIMN = row.dgimn;
+    var QCAMN = row.qcamn;
+    var StandardGasCode = row.standardpollutantcode;
+    var ID = row.qcanalyzercontrolcommandid;
+    var Type = 'History';
+    //获取稳定时间
+    comApi.getStabilizationTime(DGIMN, QCAMN, StandardGasCode, Type).then(res => {
+      if (res && res.IsSuccess) {
+        comApi.qCAResultCheckByDGIMN(DGIMN, QCAMN, StandardGasCode, ID).then(res => {
+          if (res && res.IsSuccess) {
+            debugger;
+          }
+          wx.hideNavigationBarLoading();
+        });
+      }
+      wx.hideNavigationBarLoading();
+    });
   }
+
+
 })

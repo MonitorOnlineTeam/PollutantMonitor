@@ -1,6 +1,5 @@
 {
   "pages": [
-    "pages/qca/deviceqcadetails/index",
     "pages/home/index",
     "pages/funcpage/index",
     "pages/realTimeData/home/home",
@@ -24,7 +23,8 @@
     "pages/my/alarmDataDetails/alarmDataDetails",
     "pages/monitor/realtimedata/index",
     "pages/monitor/flowchart/index",
-    "pages/opreation/operationform/operationform"
+    "pages/opreation/operationform/operationform",
+    "pages/qca/deviceqcadetails/index"
   ],
   "permission": {
     "scope.userLocation": {
