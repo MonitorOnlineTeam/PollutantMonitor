@@ -391,7 +391,7 @@ Component({
       });
     },
     onChangeDate(e) {
-      app.Islogin(function () { });
+      app.Islogin(function() {});
       if (!this.data.isAuthor) {
 
         return false;
@@ -399,7 +399,7 @@ Component({
       let _this = this;
       const sdlMN = app.globalData.sdlMN.filter(m => m === _this.data.DGIMN);
       if (sdlMN.length > 0) {
-        app.getUserLocation(function (r) {
+        app.getUserLocation(function(r) {
           if (r) {
             wx.navigateTo({
               url: '/pages/monitor/selectDateTime/selectDateTime?dataType=' + _this.data.dataType
@@ -418,8 +418,8 @@ Component({
         modalName: null
       })
     },
-    horizontalScreen: function () {
-      app.Islogin(function () { });
+    horizontalScreen: function() {
+      app.Islogin(function() {});
       if (!this.data.isAuthor) {
 
         return false;
@@ -427,7 +427,7 @@ Component({
       let _this = this;
       const sdlMN = app.globalData.sdlMN.filter(m => m === this.data.DGIMN);
       if (sdlMN.length > 0) {
-        app.getUserLocation(function (r) {
+        app.getUserLocation(function(r) {
           if (r) {
             wx.navigateTo({
               url: '/pages/monitor/historyDataTransverse/historyDataTransverse'
@@ -445,7 +445,7 @@ Component({
     },
     tabSelect(e) {
       // console.log(e);
-      app.Islogin(function () { });
+      app.Islogin(function() {});
       if (!this.data.isAuthor) {
         return false;
       }
@@ -461,7 +461,7 @@ Component({
       let _this = this;
       const sdlMN = app.globalData.sdlMN.filter(m => m === _this.data.DGIMN);
       if (sdlMN.length > 0) {
-        app.getUserLocation(function (r) {
+        app.getUserLocation(function(r) {
           if (r) {
             wx.navigateTo({
               url: '/pages/monitor/historyDataTransverse/historyDataTransverse'
@@ -475,14 +475,14 @@ Component({
       }
 
     },
-    login: function () {
-      app.Islogin(function () { });
+    login: function() {
+      app.Islogin(function() {});
     },
-    goLogin: function () {
+    goLogin: function() {
       app.goLogin();
     },
     onChangePollutant(e) {
-      app.Islogin(function () { });
+      app.Islogin(function() {});
       if (!this.data.isAuthor) {
 
         return false;
@@ -490,7 +490,7 @@ Component({
       let _this = this;
       const sdlMN = app.globalData.sdlMN.filter(m => m === _this.data.DGIMN);
       if (sdlMN.length > 0) {
-        app.getUserLocation(function (r) {
+        app.getUserLocation(function(r) {
           if (r) {
             wx.navigateTo({
               url: '/pages/monitor/selectPollutant/selectPollutant'
@@ -502,8 +502,54 @@ Component({
           url: '/pages/monitor/selectPollutant/selectPollutant'
         })
       }
-    }
+    },
+    onShow: function() {
+      //app.isLogin();
+      let that = this;
+      this.setData({
+        isAuthor: app.isAuthor()
+      });
 
+      if (!that.data.isAuthor) {
+        wx.setNavigationBarTitle({
+          title: '历史数据',
+        })
+        that.setData({
+          chartDatas: []
+        });
+        return;
+      }
+
+      app.isLogin(function(res) {
+        if (!res) {
+          wx.setNavigationBarTitle({
+            title: '历史数据',
+          })
+          that.setData({
+            chartDatas: []
+          });
+          return;
+        } else {
+          let selectedDate = moment(common.getStorage('selectedDate')).format(selectTimeFormat[that.data.dataType].showFormat);
+          //debugger;
+          let selectedPollutants = common.getStorage('selectedPollutants') || [];
+          if (that.data.selectedDate != selectedDate || JSON.stringify(that.data.selectedPollutants) != JSON.stringify(selectedPollutants) || that.data.DGIMN !== common.getStorage('DGIMN')) {
+
+            if (that.data.DGIMN !== common.getStorage('DGIMN')) {
+              selectedDate = moment().format(selectTimeFormat[that.data.dataType].showFormat);
+              //moment().format(selectTimeFormat[this.data.dataType].showFormat)
+            }
+
+            that.setData({
+              DGIMN: common.getStorage('DGIMN'),
+              selectedDate: selectedDate,
+              selectedPollutants: selectedPollutants
+            });
+            that.onPullDownRefresh();
+          }
+        }
+      });
+    }
   },
 
   /*组件生命周期*/
@@ -548,7 +594,8 @@ Component({
     pageLifetimes: {
       show: function() {
         // 页面被展示
-        console.log("页面被展示")
+        console.log("页面被展示");
+
       },
       hide: function() {
         // 页面被隐藏

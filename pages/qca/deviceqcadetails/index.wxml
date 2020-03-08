@@ -1,2 +1,28 @@
-<!--pages/qca/deviceqcadetails/index.wxml-->
-<text>pages/qca/deviceqcadetails/index.wxml</text>
+<!--pages/historyData/historyDataTransverse/historyDataTransverse.wxml-->
+<view class="main">
+  <view class="center">
+    <view class='container'>
+      <ff-canvas id="line-dom" canvas-id="line" opts="{{ opts }}"></ff-canvas>
+    </view>
+  </view>
+  <view class='legend'>
+    <view class='legend-content'>
+      <view class='legend-item'>
+        <block wx:for="{{tipsData}}" wx:key="{{index}}">
+          <text class='icon-title' style='color:{{item.color}};font-size:32rpx;'></text>{{item.name}}/{{item.unit}}:
+          <text wx:if="{{item.status==0}}">{{item.value}}</text>
+          <text wx:elif="{{item.status==1}}" style="color:rgb(255, 0, 0)">{{item.value}}</text>
+          <text wx:elif="{{item.status==-1}}" style="color:#efac36">{{item.value}}</text>
+        </block>
+      </view>
+    </view>
+  </view>
+
+  <view class='right'>
+    <view class='right-content'>
+      <view class='right-item'>
+        {{title}}
+      </view>
+    </view>
+  </view>
+</view>

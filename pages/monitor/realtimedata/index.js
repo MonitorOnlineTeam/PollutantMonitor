@@ -250,6 +250,39 @@ Component({
           url: '/pages/monitor/flowchart/index'
         })
       }
+    },
+    onShow: function () {
+      let that = this;
+      that.setData({
+        isAuthor: app.isAuthor()
+      });
+      if (!that.data.isAuthor) {
+        that.setData({
+          dataitem: [],
+          pointInfo: {},
+        })
+        return;
+      }
+
+      app.isLogin(function (res) {
+        if (!res) {
+          that.setData({
+            dataitem: [],
+            pointInfo: {},
+          })
+        } else {
+          if (that.data.DGIMN !== common.getStorage('DGIMN') || that.data.qr) {
+            common.setStorage('selectedPollutants', "");
+            common.setStorage('selectedDate', moment().format('YYYY-MM-DD HH:mm'));
+            that.setData({
+              DGIMN: common.getStorage('DGIMN'),
+              qr: false
+            });
+            that.onPullDownRefresh();
+          }
+        }
+
+      });
     }
   },
 

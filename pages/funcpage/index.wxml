@@ -8,12 +8,12 @@
   </view>
 </scroll-view>
 
-<realtimedata wx:if="{{TabCur==0}}"></realtimedata>
+<realtimedata id="myComponent_0" wx:if="{{TabCur==0}}"></realtimedata>
 
-<historydata wx:if="{{TabCur==1}}"></historydata>
+<historydata id="myComponent_1" wx:if="{{TabCur==1}}"></historydata>
 
-<ventilationrecord wx:if="{{TabCur==2}}"></ventilationrecord>
+<ventilationrecord id="myComponent_2" wx:if="{{TabCur==2}}"></ventilationrecord>
 
-<optworkorder wx:if="{{TabCur==3}}"></optworkorder>
+<optworkorder id="myComponent_3" wx:if="{{TabCur==3}}"></optworkorder>
 
-<deviceinfo wx:if="{{TabCur==4}}"></deviceinfo>
+<deviceinfo id="myComponent_4" wx:if="{{TabCur==4}}"></deviceinfo>

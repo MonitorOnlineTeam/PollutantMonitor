@@ -10,70 +10,97 @@ Page({
   data: {
     TabCur: 0,
     scrollLeft: 0,
-    tabData:['实时数据','历史数据','质控','运维','设备信息']
+    tabData: ['实时数据', '历史数据', '质控', '运维', '设备信息'],
+    frist: true //是否首次
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-
+  onLoad: function(options) {
+    this.myComponent = this.selectComponent('#myComponent_0');
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
     wx.setNavigationBarTitle({
       title: common.getStorage("PointName")
     });
+    var data = this.data;
+    if (data.frist)
+      return;
+
+    let myComponent = this.myComponent;
+
+    switch (data.TabCur) {
+      case 0:
+        myComponent.onShow();
+        break;
+      case 1:
+        myComponent.onShow();
+        break;
+      case 2:
+        break;
+      case 3:
+        break;
+      case 4:
+        myComponent.onShow();
+        break;
+    }
+    console.log(1);
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
-
+  onPullDownRefresh: function() {
+    var data = this.data;
+    let myComponent = this.myComponent;
+    myComponent.onPullDownRefresh();
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   },
   tabSelect(e) {
     this.setData({
       TabCur: e.currentTarget.dataset.id,
-      scrollLeft: (e.currentTarget.dataset.id - 1) * 60
-    })
+      scrollLeft: (e.currentTarget.dataset.id - 1) * 60,
+      frist: false
+    });
+    this.myComponent = this.selectComponent('#myComponent_' + e.currentTarget.dataset.id + '');
   }
 })

@@ -6,5 +6,7 @@
     "deviceinfo": "/pages/monitor/deviceinfo/index",
     "optworkorder": "/pages/opreation/workorder/index",
     "ventilationrecord": "/pages/qca/ventilationrecord/index"
-  }
+  },
+  "enablePullDownRefresh": true,
+  "onPullDownRefresh": true
 }

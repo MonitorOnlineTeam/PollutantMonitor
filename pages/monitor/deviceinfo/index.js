@@ -154,6 +154,35 @@ Component({
         name: this.data.resultData && common.getStorage("PointName"),
         address: this.data.resultData && this.data.resultData.PointAddress
       })
+    },
+    onShow: function() {
+      let that = this;
+      this.setData({
+        isAuthor: app.isAuthor()
+      });
+
+      if (!that.data.isAuthor) {
+        that.setData({
+          resultData: {}
+        });
+        return;
+      }
+      app.isLogin(function(res) {
+        if (!res) {
+          that.setData({
+            resultData: {}
+          });
+          return;
+        } else {
+          //登陆（或者扫描二维码）时已经把MN号码赋上，  ----目前时登陆赋上
+          if (that.data.dgimn !== common.getStorage('DGIMN')) {
+            that.setData({
+              dgimn: common.getStorage('DGIMN')
+            });
+            that.onPullDownRefresh();
+          }
+        }
+      })
     }
   },
 
