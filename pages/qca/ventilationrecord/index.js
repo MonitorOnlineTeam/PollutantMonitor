@@ -47,20 +47,31 @@ Component({
     onPullDownRefresh: function() {
       wx.showNavigationBarLoading();
       wx.stopPullDownRefresh();
+      this.setData({
+        pageindex: 1,
+        pagesize: 10,
+      });
       this.getData();
     },
     /**
      * 页面上拉触底事件的处理函数
      */
     onReachBottom: function(e) {
-      debugger
       if (!this.data.isLast) {
         this.setData({
           pageindex: ++this.data.pageindex
         });
         this.getData();
       } else {
-        console.log("已经到最后了");
+        if (this.data.pageindex !== 1) {
+          wx.showToast({
+            title: '已经到最后了！',
+            icon: 'none',
+            duration: 1500
+          })
+        }
+
+        // console.log("已经到最后了");
       }
 
     },
@@ -77,9 +88,14 @@ Component({
                 isLast: true
               })
             }
+            else {
+              this.setData({
+                isLast: false
+              })
+            }
             //叠加数据
             this.setData({
-              resultData:this.data.pageindex > 1 ? res.Datas.DataSource.concat(this.data.resultData) : res.Datas.DataSource
+              resultData: this.data.pageindex > 1 ? this.data.resultData.concat(res.Datas.DataSource) : res.Datas.DataSource
             })
           }
         }
@@ -87,8 +103,6 @@ Component({
       });
     },
     navigateChart(e) {
-
-      // debugger;
       wx.navigateTo({
         url: '/pages/qca/deviceqcadetails/index?dgimn=' + e.currentTarget.dataset.dgimn + "&pointname=" + e.currentTarget.dataset.pointname + "&qcacontrolresultid=" + e.currentTarget.dataset.qcacontrolresultid + "&qcamn=" + e.currentTarget.dataset.qcamn + "&qcanalyzercontrolcommandid=" + e.currentTarget.dataset.qcanalyzercontrolcommandid + "&qcanalyzerinfoid=" + e.currentTarget.dataset.qcanalyzerinfoid + "&qcaname=" + e.currentTarget.dataset.qcaname + "&qcexecutype=" + e.currentTarget.dataset.qcexecutype + "&qcexecutypename=" + e.currentTarget.dataset.qcexecutypename + "&qcresult=" + e.currentTarget.dataset.qcresult + "&qcresultname=" + e.currentTarget.dataset.qcresultname + "&qctime=" + e.currentTarget.dataset.qctime + "&qctype=" + e.currentTarget.dataset.qctype + "&qctypename=" + e.currentTarget.dataset.qctypename + "&standardpollutantcode=" + e.currentTarget.dataset.standardpollutantcode + "&standardpollutantname=" + e.currentTarget.dataset.standardpollutantname + "&stoptime=" + e.currentTarget.dataset.stoptime
       })
