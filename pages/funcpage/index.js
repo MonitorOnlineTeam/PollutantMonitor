@@ -86,7 +86,24 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function() {
+    var data = this.data;
 
+    let myComponent = this.myComponent;
+
+    switch (data.TabCur) {
+      case 0:
+        break;
+      case 1:
+        break;
+      case 2:
+        myComponent.onReachBottom();
+        break;
+      case 3:
+        myComponent.onReachBottom();
+        break;
+      case 4:
+        break;
+    }
   },
 
   /**
