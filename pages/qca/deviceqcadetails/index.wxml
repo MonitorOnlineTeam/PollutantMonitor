@@ -8,11 +8,12 @@
   <view class='legend'>
     <view class='legend-content'>
       <view class='legend-item'>
+        <text class='icon-title' style='font-size:32rpx;margin-left:-315px;'>{{tipsTime}}</text>
         <block wx:for="{{tipsData}}" wx:key="{{index}}">
           <text class='icon-title' style='color:{{item.color}};font-size:32rpx;'></text>{{item.name}}
-          <!-- <text wx:if="{{item.status==0}}">{{item.value}}</text>
-          <text wx:elif="{{item.status==1}}" style="color:rgb(255, 0, 0)">{{item.value}}</text>
-          <text wx:elif="{{item.status==-1}}" style="color:#efac36">{{item.value}}</text> -->
+          <text wx:if="{{item.status==0}}">:{{item.value}}</text>
+          <text wx:elif="{{item.status==1}}" style="color:rgb(255, 0, 0)">:{{item.value}}</text>
+          <text wx:elif="{{item.status==-1}}" style="color:#efac36">:{{item.value}}</text>
         </block>
       </view>
     </view>
@@ -21,7 +22,7 @@
   <view class='right'>
     <view class='right-content'>
       <view class='right-item'>
-        {{title}}
+        {{title}}正负误差为{{qcaResultOffset}}，质控结果为{{errorStr}}
       </view>
     </view>
   </view>

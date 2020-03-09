@@ -36,52 +36,56 @@ Page({
     chartDatas: [{
         "MonitorTime": "2018-09-01",
         "Value": 35,
-        "PollutantName": "1"
+        "Type": "测量温度"
+      },
+      {
+        "MonitorTime": "2018-09-01",
+        "Value": 36,
+        "Type": "配比标气浓度"
       },
       {
         "MonitorTime": "2018-09-02",
-        "Value": 36,
-        "PollutantName": "2"
-      },
-      {
-        "MonitorTime": "2018-09-03",
         "Value": 45,
-        "PollutantName": "1"
+        "Type": "测量温度"
       },
       {
         "MonitorTime": "2018-09-04",
         "Value": 35,
-        "PollutantName": "2"
+        "Type": "配比标气浓度"
       },
       {
         "MonitorTime": "2018-09-05",
         "Value": 36,
-        "PollutantName": "1"
+        "Type": "测量温度"
       },
       {
         "MonitorTime": "2018-09-06",
         "Value": 45,
-        "PollutantName": "2"
+        "Type": "配比标气浓度"
       }
     ],
     selectedPollutants: [],
-    title: '广东瑞明电力股份有限公司 - 测试质控比对排口，在2020-01-10 19:24:44 - 2020-01-10 19:32:50时间段，进行实测SO2周期质控，正负误差为-3.45%，质控结果为不合格',
+    title: '',
     tipsData: [{
         color: 'red',
-        status: 1,
-        name: '测量温度',
-        value: 123,
-        unit: 'm3'
+        status: 0,
+        name: '测量浓度',
+        value: 0,
+        unit: 'm3',
+        time: ''
       },
       {
         color: 'blue',
-        status: 1,
+        status: 0,
         name: '配比标气浓度',
-        value: 123,
-        unit: 'm3'
+        value: 0,
+        unit: 'm3',
+        time: ''
       }
     ],
-    row: {}
+    row: {},
+    qcaResultOffset:'',
+    errorStr:''
   },
 
   /**
@@ -93,7 +97,7 @@ Page({
       var row = options;
       this.setData({
         row: row,
-        title: `${common.getStorage("TargetName")} - ${row.pointname}，在${row.qctime} - ${row.stoptime}时间段，进行${row.standardpollutantname}周期质控，正负误差为-3.45%，质控结果为${row.qcresult==2?'不合格':'合格'}`
+        title: `${common.getStorage("TargetName")} - ${row.pointname}，在${row.qctime} - ${row.stoptime}时间段，进行${row.standardpollutantname}周期质控`
       });
     }
     this.getData();
@@ -148,60 +152,6 @@ Page({
    */
   onShareAppMessage: function() {
 
-  },
-  testChart: function() {
-    var data = [];
-    var step = Math.PI / 4;
-    for (var x = 0; x < 100; x += step) {
-      data.push({
-        x: x,
-        y: Math.sin(x)
-      });
-    }
-    this.chartComponent.init((canvas, width, height, F2) => {
-      chart = new F2.Chart({
-        el: canvas,
-        width,
-        height,
-        //padding: [50, 20, 'auto', 50]
-      });
-      var Global = F2.Global;
-      chart.source(data);
-      chart.axis('x', {
-        grid: function grid(text) {
-          if (text == 0) {
-            return {
-              lineDash: null
-            };
-          }
-        }
-      });
-      chart.axis('y', {
-        grid: function grid(text) {
-          if (text == 0) {
-            return {
-              lineDash: null
-            };
-          }
-        }
-      });
-      //chart.legend(true);
-      // chart.tooltip(false);
-      // chart.interaction('pan', {
-      //   limitRange: {
-      //     x: {
-      //       min: 0,
-      //       max: 100
-      //     }
-      //   }
-      // });
-      // chart.interaction('pinch', {
-      //   maxScale: 5,
-      //   minScale: 1
-      // });
-      chart.line().position('x*y').shape('smooth');
-      chart.render();
-    });
   },
   initChart: function() {
     let that = this;
@@ -286,7 +236,7 @@ Page({
       });
       chart.tooltip({
         //showXTip: true,
-        showYTip: true,
+        showYTip: false,
         showCrosshairs: true,
         crosshairsType: 'x',
         yTip: function yTip(val) {
@@ -299,43 +249,68 @@ Page({
         yTipBackground: {
           radius: 1,
           fill: 'rgba(0, 0, 0, 0.65)',
-          padding: [20, 1]
+          padding: [40, 1]
         },
         custom: true, // 自定义 tooltip 内容框
         onChange(obj) {
-          console.log(obj)
-          return obj;
-          // const tooltipItems = obj.items;
-          // const map = {};
-          // let thisTip = [];
-          // that.data.selectedPollutants.map(function(item, index) {
-          //   let thisData = tooltipItems.filter(m => m.name == item.name);
-          //   if (thisData && thisData.length > 0) {
-          //     let {
-          //       origin
-          //     } = thisData[0];
-          //     item.name = `${item.name}`;
-          //     item.color = thisData[0].color;
-          //     item.value = thisData[0].value;
-          //     item.status = origin.Status;
-          //   }
-          //   thisTip.push(item);
-          // })
-          // that.setData({
-          //   tipsData: thisTip
-          // });
+          // console.log(obj)
+          // return obj;
+          //debugger;
+          const tooltipItems = obj.items;
+          const map = {};
+          let thisTip = [];
+          let tipsTime = '';
+          that.data.tipsData.map(function(item, index) {
+            let thisData = tooltipItems.filter(m => m.name == item.name);
+            if (thisData && thisData.length > 0) {
+              let {
+                origin
+              } = thisData[0];
+              item.name = `${item.name}`;
+              item.color = thisData[0].color;
+              item.value = thisData[0].value;
+              item.status = 0; //origin.Status;
+              //item.time = thisData[0].title;
+              tipsTime = thisData[0].title;
+            }
+            thisTip.push(item);
+          })
+          that.setData({
+            tipsData: thisTip,
+            tipsTime: tipsTime
+          });
         }
       });
-      chart.line().position('MonitorTime*Value').color('PollutantName', ['#feac36', '#8de9c0', '#c79ef4', '#fd8593', '#9aabf7', '#97e3f1', '#f4a387']);
+      // chart.guide().line({
+      //   start: ['min', 25],
+      //   end: ['max', 25],
+      //   style: {
+      //     stroke: '#d0502d',
+      //     lineWidth: 2,
+      //     lineCap: 'round'
+      //   }
+      // });
+      // chart.guide().text({ // 绘制辅助文本
+      //   position: ['max', 20],
+      //   content: '预警值： 95',
+      //   offsetY: -5,
+      //   rotate: 1.59,
+      //   style: {
+      //     fill: '#FF4D4F',
+      //     textAlign: 'end',
+      //     textBaseline: 'bottom'
+      //   }
+      // });
+      chart.line().position('MonitorTime*Value').color('Type', ['#feac36', '#8de9c0', '#c79ef4', '#fd8593', '#9aabf7', '#97e3f1', '#f4a387']);
       // chart.area().position('country*population');
-      chart.interaction('pan', {
-        limitRange: {
-          x: {
-            min: -100,
-            max: 100
-          }
-        }
-      });
+      // chart.interaction('pan', {
+      //   limitRange: {
+      //     x: {
+      //       min: -100,
+      //       max: 100
+      //     }
+      //   }
+      // });
       // chart.interaction('pinch', {
       //   maxScale: 5,
       //   minScale: 1
@@ -359,18 +334,45 @@ Page({
     var ID = row.qcanalyzercontrolcommandid;
     var Type = 'History';
     //获取稳定时间
-    comApi.getStabilizationTime(DGIMN, QCAMN, StandardGasCode, Type).then(res => {
-      if (res && res.IsSuccess) {
-        comApi.qCAResultCheckByDGIMN(DGIMN, QCAMN, StandardGasCode, ID).then(res => {
-          if (res && res.IsSuccess) {
-            debugger;
-          }
-          wx.hideNavigationBarLoading();
-        });
-      }
-      wx.hideNavigationBarLoading();
+    // comApi.getStabilizationTime(DGIMN, QCAMN, StandardGasCode, Type).then(res => {
+    //   if (res && res.IsSuccess) {
+    //     comApi.qCAResultCheckByDGIMN(DGIMN, QCAMN, StandardGasCode, ID).then(res => {
+    //       if (res && res.IsSuccess) {
+    //         debugger;
+    //       }
+    //       wx.hideNavigationBarLoading();
+    //     });
+    //   }
+    //   wx.hideNavigationBarLoading();
+    // });
+
+
+    var timeList = ["2020-03-09 13:26:00", "2020-03-09 14:26:00", "2020-03-09 15:26:00", "2020-03-09 16:26:00", "2020-03-09 17:26:00"];
+    var valueList = [13, 16, 20, 15, 21];
+
+    var standValue = [20, 25, 25, 25, 25];
+
+    var errorStr = "不合格";
+    var qcaResultOffset = "-4.08%";
+
+    var data = [];
+
+    timeList.map(function(item, index) {
+      data.push({
+        MonitorTime: item,
+        Value: valueList[index],
+        Type: '测量浓度',
+      }, {
+        MonitorTime: item,
+        Value: standValue[index],
+        Type: '配比标气浓度',
+      });
+    });
+
+    this.setData({
+      chartDatas: data,
+      qcaResultOffset: qcaResultOffset,
+      errorStr: errorStr
     });
   }
-
-
 })

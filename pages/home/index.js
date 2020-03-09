@@ -261,7 +261,7 @@ Page({
       return false;
     }
     wx.navigateTo({
-      url: '../feedBack/feedBack'
+      url: '/pages/my/feedBack/feedBack'
     })
   },
   clickScan: function() {
