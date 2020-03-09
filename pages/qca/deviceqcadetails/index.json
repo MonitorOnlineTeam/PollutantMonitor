@@ -1,5 +1,10 @@
 {
   "usingComponents": {
     "ff-canvas": "../../..//miniprogram_npm/@antv/f2-canvas"
-  }
+  },
+  "navigationBarBackgroundColor": "#cce6ff",
+  "navigationBarTextStyle": "black",
+  "navigationBarTitleText": "质控详情",
+  "backgroundColor": "#fff",
+  "backgroundTextStyle": "light"
 }
