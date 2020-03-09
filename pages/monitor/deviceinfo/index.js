@@ -47,9 +47,6 @@ Component({
       });
 
       if (!that.data.isAuthor) {
-        wx.setNavigationBarTitle({
-          title: '设备信息',
-        })
         that.setData({
           resultData: {}
         });
