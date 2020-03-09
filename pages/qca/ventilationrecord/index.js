@@ -25,6 +25,7 @@ Component({
     pageindex: 1,
     pagesize: 10,
     resultData: [],
+    isLast: false,
     conditionWhere: {
       Rel: "$and",
       Group: [{
@@ -48,6 +49,21 @@ Component({
       wx.stopPullDownRefresh();
       this.getData();
     },
+    /**
+     * 页面上拉触底事件的处理函数
+     */
+    onReachBottom: function(e) {
+      debugger
+      if (!this.data.isLast) {
+        this.setData({
+          pageindex: ++this.data.pageindex
+        });
+        this.getData();
+      } else {
+        console.log("已经到最后了");
+      }
+
+    },
     getData: function() {
       this.data.conditionWhere.Group[0].Value = common.getStorage("DGIMN")
       var conditionWhere = JSON.stringify(this.data.conditionWhere);
@@ -55,8 +71,15 @@ Component({
       comApi.getVentilationOperationRecord(this.data.pageindex, this.data.pagesize, conditionWhere).then(res => {
         if (res && res.IsSuccess) {
           if (res.Datas) {
+            //如果返回的条数小于每页显示的个数或者无返回数据则下拉不刷新
+            if (res.Datas.DataSource.length < this.data.pagesize || !res.Datas.DataSource) {
+              this.setData({
+                isLast: true
+              })
+            }
+            //叠加数据
             this.setData({
-              resultData: res.Datas.DataSource
+              resultData:this.data.pageindex > 1 ? res.Datas.DataSource.concat(this.data.resultData) : res.Datas.DataSource
             })
           }
         }

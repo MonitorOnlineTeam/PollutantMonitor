@@ -329,10 +329,12 @@ function getAlarmDataList(beginTime, endTime, entCode, pageIndex = 1, pageSize =
  * @param {String} pollutantCodes
  * @param {String} dataType
  */
-function getOperationLogList(DGIMN, beginTime) {
+function getOperationLogList(DGIMN, beginTime, pageindex, pagesize) {
   return fetchApi(pageUrl.getOperationLogList, {
     beginTime: beginTime,
     DGIMN: DGIMN,
+    pageIndex: pageindex,
+    pageSize: pagesize,
   }, 'post').then(res => res.data)
 }
 

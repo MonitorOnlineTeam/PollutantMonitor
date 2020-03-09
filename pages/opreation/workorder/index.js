@@ -16,6 +16,9 @@ Component({
    * 组件的初始数据
    */
   data: {
+    pageindex: 1,
+    pagesize: 10,
+    isLast: false,
     month: "", //选中月份
     time: null, //选中时间字符串
     resultData: [], //返回数据
@@ -35,6 +38,40 @@ Component({
    * 组件的方法列表
    */
   methods: {
+    /**
+     * 页面相关事件处理函数--监听用户下拉动作
+     */
+    onPullDownRefresh: function() {
+      wx.showNavigationBarLoading();
+      wx.stopPullDownRefresh();
+      this.setData({
+        pageindex: 1,
+        pagesize: 10,
+      })
+      //获取运维数据
+      this.getData();
+    },
+    /**
+     * 页面上拉触底事件的处理函数
+     */
+    onReachBottom: function(e) {
+      if (!this.data.isLast) {
+        this.setData({
+          pageindex: ++this.data.pageindex
+        });
+        this.getData();
+      } else {
+        if (this.data.pageindex !== 1) {
+          wx.showToast({
+            title: '已经到最后了！',
+            icon: 'none',
+            duration: 1500
+          })
+        }
+        // console.log("已经到最后了");
+      }
+
+    },
     dateChange: function(e) {
       var date = new Date(e.detail.value + "-01 00:00:00");
       var time = util.formatTimeGang(date);
@@ -75,9 +112,25 @@ Component({
     //获取运维数据
     getData: function() {
       //获取运维数据
-      comApi.getOperationLogList(common.getStorage("DGIMN"), this.data.time).then(res => {
+      comApi.getOperationLogList(common.getStorage("DGIMN"), this.data.time, this.data.pageindex, this.data.pagesize).then(res => {
         if (res && res.IsSuccess) {
           if (res.Datas) {
+            //如果返回的条数小于每页显示的个数或者无返回数据则下拉不刷新
+            if (res.Datas.FormList.length < this.data.pagesize || !res.Datas.FormList) {
+              this.setData({
+                isLast: true
+              })
+            }
+            else
+            {
+              this.setData({
+                isLast: false
+              })
+            }
+            if (this.data.pageindex > 1) {
+              res.Datas.FormList = this.data.resultData.FormList.concat(res.Datas.FormList)
+            }
+            //叠加数据
             this.setData({
               resultData: res.Datas
             })
@@ -100,9 +153,6 @@ Component({
         url: '/pages/opreation/operationform/operationform?taskid=' + e.currentTarget.dataset.taskid + "&typeid=" + e.currentTarget.dataset.typeid
       })
     },
-    onPullDownRefresh: function() {
-      this.getData();
-    }
   },
 
   /*组件生命周期*/
@@ -125,8 +175,8 @@ Component({
         time,
         convertToCapitalization: convertToCapitalization
       });
-      //获取运维数据
-      this.getData();
+      //请求数据
+      this.onPullDownRefresh();
 
 
     },
