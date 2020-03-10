@@ -1,18 +1,22 @@
 // pages/opreation/operationform/operationform.js
+const app = getApp()
+const comApi = app.api;
+const common = app.common;
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    srcPath:"",
+    srcPath: "",
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    let page="";
+    let page = "";
     switch (options.typeid) {
       case "1":
         page = "apprepairrecord";
@@ -54,21 +58,19 @@ Page({
         break;
     };
     this.setData({
-      srcPath: "http://172.16.12.135:50203/appoperation/" + page + "/" + options.taskid + "/" + options.typeid+"/"
+      srcPath: "" + common.getStorage("ReactUrl") + "/appoperation/" + page + "/" + options.taskid + "/" + options.typeid + "/"
     });
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
-  },
+  onReady: function() {},
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
-  },
+  onShow: function() {},
 
   /**
    * 生命周期函数--监听页面隐藏

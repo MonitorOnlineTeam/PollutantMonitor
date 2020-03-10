@@ -47,6 +47,14 @@ Page({
       DGIMN: common.getStorage("DGIMN")
     })
     app.isLogin();
+
+    // if (!this.data.isAuthor) {
+    //   this.setData({
+    //     historyRecord: []
+    //   })
+    //   this.tapMy();
+    // }
+
   },
 
   /**
@@ -69,6 +77,11 @@ Page({
   onPullDownRefresh: function() {
     wx.showNavigationBarLoading();
     wx.stopPullDownRefresh();
+    // const selectedTap = this.data.selectedTab;
+    // if (selectedTap === 1) {
+    //   wx.hideNavigationBarLoading();
+    //   return;
+    // }
     this.getData();
   },
 
@@ -141,8 +154,24 @@ Page({
   },
   tapHistory: function() {
     const selectedTap = this.data.selectedTab;
-    if (selectedTap === 0)
+    if (selectedTap === 0 && this.data.isAuthor) {
       return;
+    }
+
+    if (!this.data.isAuthor) {
+      this.setData({
+        historyRecord: [],
+        selectedTab: 0
+      })
+      wx.setNavigationBarTitle({
+        title: '足迹'
+      });
+      return;
+    }
+
+    if (this.data.historyRecord.length == 0)
+      this.getData();
+
 
     this.setData({
       selectedTab: 0
@@ -157,7 +186,7 @@ Page({
     console.log(2);
 
     const selectedTap = this.data.selectedTab;
-    if (selectedTap === 1)
+    if (selectedTap === 1 && this.data.isAuthor)
       return;
     let that = this;
     !that.data.userInfo && wx.getSetting({
@@ -217,6 +246,12 @@ Page({
           that.updateCurrentSize(0);
           wx.showToast({
             title: '清除成功',
+          });
+          that.setData({
+            DGIMN: "",
+            userInfo: null,
+            isAuthor: false,
+            historyRecord: []
           })
           // wx.navigateTo({
           //   url: '/pages/qca/authorCode/authorCode',

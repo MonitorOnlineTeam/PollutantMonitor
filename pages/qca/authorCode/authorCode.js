@@ -111,7 +111,7 @@ Page({
           messageFlag:true
         });
         common.setStorage("IsAuthor", true); //13800138000
-       
+        common.setStorage("ReactUrl", res.Datas.ReactUrl);
         setTimeout(function() {
           wx.redirectTo({
             url: '/pages/login/login'

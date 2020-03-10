@@ -136,6 +136,7 @@ Component({
             })
           }
         }
+        wx.hideNavigationBarLoading();
       });
     },
     showModal(e) {

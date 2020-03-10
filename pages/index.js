@@ -11,7 +11,7 @@ App({
           wx.getUserInfo({
             success: res => {
               console.log(res)
-              this.setUserInfoAndNext(res)
+              this.setUserInfoAndNext(res);
             },
             fail: res => {
               console.log(res)
