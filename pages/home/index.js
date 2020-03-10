@@ -48,7 +48,7 @@ Page({
     })
     app.isLogin();
 
-    if (this.data.isAuthor) {
+    if (this.data.isAuthor && this.data.selectedTab === 1) {
       this.tapMy();
     }
   },
@@ -182,7 +182,7 @@ Page({
     console.log(2);
 
     const selectedTap = this.data.selectedTab;
-    if (selectedTap === 1 && this.data.isAuthor && this.data.userInfo)
+    if (selectedTap === 1 && this.data.isAuthor && this.data.userInfo != null)
       return;
     let that = this;
     !that.data.userInfo && wx.getSetting({
