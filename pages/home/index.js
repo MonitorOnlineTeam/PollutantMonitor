@@ -48,13 +48,9 @@ Page({
     })
     app.isLogin();
 
-    // if (!this.data.isAuthor) {
-    //   this.setData({
-    //     historyRecord: []
-    //   })
-    //   this.tapMy();
-    // }
-
+    if (this.data.isAuthor) {
+      this.tapMy();
+    }
   },
 
   /**
@@ -186,7 +182,7 @@ Page({
     console.log(2);
 
     const selectedTap = this.data.selectedTab;
-    if (selectedTap === 1 && this.data.isAuthor)
+    if (selectedTap === 1 && this.data.isAuthor && this.data.userInfo)
       return;
     let that = this;
     !that.data.userInfo && wx.getSetting({
