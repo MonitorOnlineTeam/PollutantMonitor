@@ -24,7 +24,8 @@
     "pages/my/alarmDataDetails/alarmDataDetails",
     "pages/monitor/realtimedata/index",
     "pages/monitor/flowchart/index",
-    "pages/opreation/operationform/operationform"
+    "pages/opreation/operationform/operationform",
+    "pages/register/register"
   ],
   "permission": {
     "scope.userLocation": {

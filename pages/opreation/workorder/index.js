@@ -151,7 +151,7 @@ Component({
     },
     navigateForm(e) {
       wx.navigateTo({
-        url: '/pages/opreation/operationform/operationform?taskid=' + e.currentTarget.dataset.taskid + "&typeid=" + e.currentTarget.dataset.typeid
+        url: '/pages/opreation/operationdetail/operationdetail?taskid=' + e.currentTarget.dataset.taskid + "&typeid=" + e.currentTarget.dataset.typeid
       })
     },
   },

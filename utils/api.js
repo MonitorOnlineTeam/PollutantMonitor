@@ -33,6 +33,7 @@ const pageUrl = {
   getRealTimeDataForPoint: `/SMCManagerApi/GetRealTimeDataForPoint`,
   addFeedback: `/SMCManagerApi/AddFeedback`,
   getDataAlarmData: `/SMCManagerApi/GetAlarmDatas`,
+  register: `/SMCManagerApi/Register`,
   getOperationLogList: `/SMCManagerApi/GetOperationLogList`,
   getVentilationOperationRecord: `/SMCManagerApi/GetVentilationOperationRecord`,
   getAuthorizationState: `/SMCManagerApi/getAuthorizationState`,
@@ -323,6 +324,46 @@ function getAlarmDataList(beginTime, endTime, entCode, pageIndex = 1, pageSize =
 }
 
 /**
+ * 注册信息
+ * @param {DateTime} beginTime
+ * @param {DateTime} endTime
+ * @param {String} pollutantCodes
+ * @param {String} dataType
+ */
+function register(
+  Abbreviation,
+  DGIMN,
+  EntAddress,
+  EntLatitude,
+  EntLongitude,
+  EntName,
+  EnvironmentPrincipal,
+  MobilePhone,
+  OutputDiameter,
+  OutputHigh,
+  PointLatitude,
+  PointLongitude,
+  PointName,
+) {
+  debugger
+  return fetchApi(pageUrl.register, {
+    Abbreviation: Abbreviation,
+    DGIMN: DGIMN,
+    EntAddress: EntAddress,
+    EntLatitude: EntLatitude,
+    EntLongitude: EntLongitude,
+    EntName: EntName,
+    EnvironmentPrincipal: EnvironmentPrincipal,
+    MobilePhone: MobilePhone,
+    OutputDiameter: OutputDiameter,
+    OutputHigh: OutputHigh,
+    PointLatitude: PointLatitude,
+    PointLongitude: PointLongitude,
+    PointName: PointName,
+  }, 'post').then(res => res.data)
+}
+
+/**
  * 获取运维数据
  * @param {DateTime} beginTime
  * @param {DateTime} endTime
@@ -549,6 +590,7 @@ module.exports = {
   getDeviceInfo,
   getPollutantList,
   getProcessFlowChartStatus,
+  register,
   getMonitorDatas,
   verifyDevicePwd,
   verifyPhone,
