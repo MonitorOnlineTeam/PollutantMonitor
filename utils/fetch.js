@@ -10,6 +10,9 @@ const common = require('./common.js')
  */
 module.exports = function(api, path, params, method) {
   //console.log(`${api}/${path}`, `${JSON.stringify(params)}${method}`);
+
+  var AuthorCodeRSA = common.getStorage('AuthorCodeRSA_' + common.getStorage('ApiType'));
+  console.log("AuthorCodeRSA=", AuthorCodeRSA);
   return new Promise((resolve, reject) => {
     wx.request({
       url: `${api}${path}`,
@@ -17,7 +20,7 @@ module.exports = function(api, path, params, method) {
       method: method || 'get',
       header: {
         'Content-Type': method == 'get' ? 'json' : 'application/json', //application/x-www-form-urlencoded
-        'Authorization': `Bearer ${common.getStorage('AuthorCodeRSA')}$${common.getStorage("Ticket")}`
+        'Authorization': `Bearer ${AuthorCodeRSA}$${common.getStorage("Ticket")}`
       },
       success: resolve,
       fail: reject

@@ -23,12 +23,21 @@ Page({
    */
   onLoad: function(options) {
     console.log('app.globalData.userInfo=', app.globalData.userInfo);
+    //that.isLogin();
     this.setData({
-      DGIMN: common.getStorage("DGIMN"),
       userInfo: app.globalData.userInfo,
-      isAuthor: app.isAuthor()
+      isAuthor: common.getStorage("IsLogin")
     })
-    this.onPullDownRefresh();
+    // this.onPullDownRefresh();
+
+    !common.getStorage("IsLogin")&&comApi.rsaEncrypt(1, 12345, function(res) {
+      if (res) {
+        wx.showToast({
+          title: '登录成功',
+        })
+        return;
+      }
+    })
   },
 
   /**
@@ -42,15 +51,12 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    console.log(common.getStorage("DGIMN_Old"));
-    this.setData({
-      DGIMN: common.getStorage("DGIMN")
-    })
-    app.isLogin();
+    var that = this;
+    //that.isLogin();
 
-    if (this.data.isAuthor && this.data.selectedTab === 1) {
-      this.tapMy();
-    }
+    // if (that.data.isAuthor && that.data.selectedTab === 1) {
+    //   that.tapMy();
+    // }
   },
 
   /**
@@ -73,11 +79,7 @@ Page({
   onPullDownRefresh: function() {
     wx.showNavigationBarLoading();
     wx.stopPullDownRefresh();
-    // const selectedTap = this.data.selectedTab;
-    // if (selectedTap === 1) {
-    //   wx.hideNavigationBarLoading();
-    //   return;
-    // }
+
     this.getData();
   },
 
@@ -185,39 +187,16 @@ Page({
     if (selectedTap === 1 && this.data.isAuthor && this.data.userInfo != null)
       return;
     let that = this;
-    !that.data.userInfo && wx.getSetting({
-      success: res => {
-        wx.showLoading({
-          title: '正在加载中',
+    !that.data.userInfo && app.IsLoginNew(function(res) {
+      if (res) {
+        that.setData({
+          userInfo: app.globalData.userInfo,
+          isAuthor: common.getStorage("IsLogin")
         })
-        if (res.authSetting['scope.userInfo']) {
-          // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
-          wx.getUserInfo({
-            success: res => {
-              wx.showLoading({
-                title: '正在加载中',
-              })
-              // 可以将 res 发送给后台解码出 unionId
-              app.globalData.userInfo = res.userInfo;
-              that.setData({
-                userInfo: app.globalData.userInfo
-              });
-
-              // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-              // 所以此处加入 callback 以防止这种情况
-              if (this.userInfoReadyCallback) {
-                this.userInfoReadyCallback(res)
-              }
-              wx.hideLoading();
-            }
-          })
-        } else {
-          wx.hideLoading();
-        }
       }
-    })
+    });
 
-    this.setData({
+    that.setData({
       selectedTab: 1
     });
     wx.setNavigationBarTitle({
@@ -262,13 +241,25 @@ Page({
   goLogin: function() {
     app.Islogin(function() {});
   },
-  getUserInfo: function(e) {
+  getUserInfo: function(e, callback) {
+    var that = this;
     if (e.detail.rawData) {
       const data = e.detail.rawData;
       app.globalData.userInfo = e.detail.userInfo;
-      this.setData({
-        userInfo: app.globalData.userInfo,
+      wx.showLoading({
+        title: '',
+      })
+      app.IsLoginNew(function(res) {
+        if (res) {
+          that.setData({
+            userInfo: app.globalData.userInfo,
+            isAuthor: common.getStorage("IsLogin")
+          })
+          callback && callback();
+        }
       });
+      wx.hideLoading();
+
     }
   },
   updateCurrentSize: function(size) {
@@ -296,12 +287,11 @@ Page({
     })
   },
   clickScan: function() {
-
-    if (!this.data.isAuthor) {
-      app.Islogin(function() {});
-      return false;
-    }
-
+    var that = this;
+    that.isLogin() && that.openQRCode();;
+  },
+  openQRCode: function() {
+    var that = this;
     //http://api.chsdl.cn/wxwryapi?flag=sdl,mn=62262431qlsp01
     wx.scanCode({
       success(res) {
@@ -318,7 +308,7 @@ Page({
                 data.currentTarget.id = mn;
                 data.currentTarget.pointname = mn;
                 data.currentTarget.targetname = mn;
-                this.showDetail(data);
+                that.showDetail(data);
               }
             });
           } catch (e) {
@@ -338,6 +328,16 @@ Page({
         // })
       }
     })
+  },
+  isLogin: function() {
+    if (!this.data.isAuthor) {
+      wx.showToast({
+        title: '请先授权登录',
+        icon: 'none'
+      })
+      return false
+    }
+    return true;
   }
 
 })
