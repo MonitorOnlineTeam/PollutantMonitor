@@ -15,17 +15,20 @@ Page({
     ],
     taskid: '',
     resultData:[],
+    attachment:'',
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    debugger;
+    let attachment = common.getStorage('AuthorCodeRSA_2');
     this.setData({
       taskid:options.taskid,
+      attachment
     })
     this.getData();
+
   },
 
   /**
@@ -79,9 +82,7 @@ Page({
   //获取运维详情数据
   getData: function() {
     comApi.getTaskDitails(this.data.taskid).then(res => {
-      debugger
       if (res && res.requstresult === "1") {
-        debugger
         if (res.data) {
           this.setData({
             resultData: res.data.optData
@@ -92,12 +93,10 @@ Page({
   },
   //预览图片，放大预览
   preview(event) {
-    console.log(event.currentTarget.dataset.src)
     let currentUrl = event.currentTarget.dataset.src
     wx.previewImage({
       current: currentUrl, // 当前显示图片的http链接
-      urls: this.data.imgList // 需要预览的图片http链接列表
+      urls: this.data.resultData.Attachments.ImgList, // 需要预览的图片http链接列表
     })
   },
-
 })

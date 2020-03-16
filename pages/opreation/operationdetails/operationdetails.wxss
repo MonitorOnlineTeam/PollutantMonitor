@@ -1,1 +1,16 @@
-/* pages/opreation/operationdetails/operationdetails.wxss */
+.topClass { 
+  margin-top: 1vh; 
+  margin-bottom: 1vh; 
+} 
+ 
+.bottomClass { 
+  margin-top: 1vh; 
+  margin-bottom: 1vh; 
+} 
+.tagClass{ 
+  width: 8px;       
+  height: 8px;       
+  background: #0081FF;    
+  border-radius: 100px;     
+  margin-right: 2vw;   
+} 
