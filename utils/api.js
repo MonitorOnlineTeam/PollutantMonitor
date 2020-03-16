@@ -34,7 +34,8 @@ const pageUrl = {
   addFeedback: `/SMCManagerApi/AddFeedback`,
   getDataAlarmData: `/SMCManagerApi/GetAlarmDatas`,
   register: `/SMCManagerApi/Register`,
-  getOperationLogList: `/SMCManagerApi/GetOperationLogList`,
+  getOperationLogList: `/SMCManagerApi/GetOperationLogList?authorCode=${authorCode}`,
+  getTaskDitails: `/SMCManagerApi/GetTaskDitails?authorCode=${authorCode}`,
   getVentilationOperationRecord: `/SMCManagerApi/GetVentilationOperationRecord`,
   getAuthorizationState: `/SMCManagerApi/getAuthorizationState`,
   cancelAuthorization: `/SMCManagerApi/cancelAuthorization`,
@@ -56,11 +57,10 @@ function rsaEncrypt(apiType, authorcode, callback) {
   //1:监控标识
   //2.运维
   //3.质控
-
   if (apiType === 1) {
-    authorcode = '12345'; //监控接口授权码
+    authorcode = '90000'; //监控接口授权码
   } else if (apiType === 2) {
-    authorcode = '50206'; //运维接口授权码
+    authorcode = '80000'; //运维接口授权码
   } else {
     wx.showToast({
       title: `授权码验证失败(无效api类型：${apiType})`,
@@ -85,27 +85,30 @@ function rsaEncrypt(apiType, authorcode, callback) {
       common.setStorage("IsAuthor", true);
       common.setStorage("ReactUrl", res.Datas.ReactUrl);
       var phone = 13800138000
-      verifyPhone(phone).then(res => {
-        if (res && res.IsSuccess) {
-          if (res.Datas.Phone) {
-            common.setStorage("Ticket", res.Datas.Ticket); //13800138000
-            common.setStorage("OpenId", res.Datas.Phone); //13800138000
-            common.setStorage("PhoneCode", phone); //13800138000
-            common.setStorage("IsLogin", true);
-            wx.redirectTo({
-              url: '/pages/home/index',
+      if (apiType === 2) {
+        common.setStorage("OpenId", 13800138000); //13800138000
+        common.setStorage("PhoneCode", 13800138000); //13800138000
+        common.setStorage("IsLogin", true);
+       
+      } else {
+        verifyPhone(phone).then(res => {
+          if (res && res.IsSuccess) {
+            if (res.Datas.Phone) {
+              common.setStorage("Ticket", res.Datas.Ticket); //13800138000
+              common.setStorage("OpenId", res.Datas.Phone); //13800138000
+              common.setStorage("PhoneCode", phone); //13800138000
+              common.setStorage("IsLogin", true);
+            }
+          } else {
+            wx.showModal({
+              title: '提示',
+              content: res.Message,
+              showCancel: false,
+              success(res) { }
             })
           }
-        } else {
-          wx.showModal({
-            title: '提示',
-            content: res.Message,
-            showCancel: false,
-            success(res) {}
-          })
-        }
-      })
-
+        })
+      }
       callback && callback(true);
     } else {
       wx.showToast({
@@ -453,6 +456,19 @@ function getOperationLogList(DGIMN, beginTime, pageindex, pagesize) {
 }
 
 /**
+ * 获取运维数据
+ * @param {DateTime} beginTime
+ * @param {DateTime} endTime
+ * @param {String} pollutantCodes
+ * @param {String} dataType
+ */
+function getTaskDitails(taskid) {
+  return fetchApi(pageUrl.getTaskDitails, {
+    TaskID:taskid
+  }, 'post').then(res => res.data)
+}
+
+/**
  * 获取通气操作记录
  * @param {DateTime} beginTime
  * @param {DateTime} endTime
@@ -673,6 +689,7 @@ module.exports = {
   addFeedback,
   getAlarmDataList,
   getOperationLogList,
+  getTaskDitails,
   getVentilationOperationRecord,
   getAuthorizationState,
   cancelAuthorization,

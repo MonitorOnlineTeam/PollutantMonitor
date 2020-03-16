@@ -113,26 +113,24 @@ Component({
     getData: function() {
       //获取运维数据
       comApi.getOperationLogList(common.getStorage("DGIMN"), this.data.time, this.data.pageindex, this.data.pagesize).then(res => {
-        if (res && res.IsSuccess) {
-          if (res.Datas) {
+        if (res && res.requstresult==="1") {
+          if (res.data.optData) {
             //如果返回的条数小于每页显示的个数或者无返回数据则下拉不刷新
-            if (res.Datas.FormList.length < this.data.pagesize || !res.Datas.FormList) {
+            if (res.data.optData.FormList.length < this.data.pagesize || !res.data.optData.FormList) {
               this.setData({
                 isLast: true
               })
-            }
-            else
-            {
+            } else {
               this.setData({
                 isLast: false
               })
             }
             if (this.data.pageindex > 1) {
-              res.Datas.FormList = this.data.resultData.FormList.concat(res.Datas.FormList)
+              res.data.optData.FormList = this.data.resultData.FormList.concat(res.data.optData.FormList)
             }
             //叠加数据
             this.setData({
-              resultData: res.Datas
+              resultData: res.data.optData
             })
           }
         }
@@ -151,7 +149,7 @@ Component({
     },
     navigateForm(e) {
       wx.navigateTo({
-        url: '/pages/opreation/operationdetail/operationdetail?taskid=' + e.currentTarget.dataset.taskid + "&typeid=" + e.currentTarget.dataset.typeid
+        url: '/pages/opreation/operationdetails/operationdetails?taskid=' + e.currentTarget.dataset.taskid
       })
     },
   },
@@ -162,6 +160,16 @@ Component({
       console.log("在组件实例刚刚被创建时执行")
     },
     attached() {
+      var rsa2 = common.getStorage(`AuthorCodeRSA_2`);
+      if (!rsa2) {
+        comApi.rsaEncrypt(2, 80000, function (res) {
+          if (res) {
+            wx.showToast({
+              title: '请求成功',
+            })
+          }
+        })
+      }
       //获取当前月份
       var timestamp = Date.parse(new Date());
       var date = new Date(timestamp);

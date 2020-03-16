@@ -41,13 +41,13 @@
                   <view class='cu-item cur '>
                     <view class="content bg-white ">
                       <view class="childOne">
-                        <text class="text-black"> {{cell.Abbreviation}}</text>
+                        <text class="text-black"> {{cell.ContentTypeName}}</text>
                       </view>
                       <view class="childTwo">
                         运维人：
-                        <text space="emsp">{{cell.CreateUser==""?"- 执行时间：":cell.CreateUser+" 执行时间："}}</text> 
-                        <text>{{cell.CreateTimes}}</text>
-                         <text class='logClass' bindtap="navigateForm" data-taskID="{{cell.TaskID}}" data-typeID="{{cell.TypeID}}">更多</text>
+                        <text space="emsp">{{cell.User_Name==""?"- 执行时间：":cell.User_Name+" 执行时间："}}</text> 
+                        <text>{{cell.CreateTime}}</text>
+                         <text class='logClass' bindtap="navigateForm" data-taskID="{{cell.ID}}">更多</text>
                       </view>
                     </view>
                   </view>

@@ -29,15 +29,20 @@ Page({
       isAuthor: common.getStorage("IsLogin")
     })
     // this.onPullDownRefresh();
-
-    !common.getStorage("IsLogin")&&comApi.rsaEncrypt(1, 12345, function(res) {
-      if (res) {
-        wx.showToast({
-          title: '登录成功',
-        })
-        return;
-      }
-    })
+    var that = this;
+    var rsa = common.getStorage(`AuthorCodeRSA_1`);
+    if (!rsa) {
+      comApi.rsaEncrypt(1, 90000, function(res) {
+        if (res) {
+          wx.showToast({
+            title: '登录成功',
+          })
+          that.onPullDownRefresh();
+        }
+      })
+    } else {
+      that.onPullDownRefresh();
+    }
   },
 
   /**
