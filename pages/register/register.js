@@ -147,14 +147,17 @@ Page({
               title: '注册成功!',
               duration: 1500
             });
-            var pages = getCurrentPages();
-            var beforePage = pages[pages.length - 2];
-            // 调用列表页的获取数据函数
-            beforePage.getData();
-            // 跳转
-            wx.redirectTo({
-              url: '/pages/home/index',
-            });
+            setTimeout(function () {
+              var pages = getCurrentPages();
+              var beforePage = pages[pages.length - 2];
+              // 调用列表页的获取数据函数
+              beforePage.getData();
+              // 跳转
+              wx.redirectTo({
+                url: '/pages/home/index',
+              });
+            }, 1500) //延迟时间 这里是1秒
+         
           }
         } else {
           wx.showToast({
