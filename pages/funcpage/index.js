@@ -118,6 +118,7 @@ Page({
       scrollLeft: (e.currentTarget.dataset.id - 1) * 60,
       frist: false
     });
+    common.setStorage("ApiType", 1);
     this.myComponent = this.selectComponent('#myComponent_' + e.currentTarget.dataset.id + '');
   }
 })

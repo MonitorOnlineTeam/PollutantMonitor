@@ -420,8 +420,8 @@ function register(
   PointLatitude,
   PointLongitude,
   PointName,
+  OpenId,
 ) {
-  debugger
   return fetchApi(pageUrl.register, {
     Abbreviation: Abbreviation,
     DGIMN: DGIMN,
@@ -436,6 +436,7 @@ function register(
     PointLatitude: PointLatitude,
     PointLongitude: PointLongitude,
     PointName: PointName,
+    openId: OpenId
   }, 'post').then(res => res.data)
 }
 

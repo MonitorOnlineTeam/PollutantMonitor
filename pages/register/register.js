@@ -10,13 +10,18 @@ Page({
   data: {
     latitude: '',
     longitude: '',
-    ajxtrue:false,//手机号验证标识
+    ajxtrue: false, //手机号验证标识
+    DGIMN: '',
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    this.setData({
+      DGIMN: !common.getStorage("DGIMN") ? "" : common.getStorage("DGIMN"),
+      openid: common.getStorage("OpenId")
+    })
     this.getLocation();
   },
 
@@ -88,12 +93,12 @@ Page({
 
     })
   },
-    /**
+  /**
    * 表单提交
    */
-  formSubmit: function (e) {
+  formSubmit: function(e) {
     if (
-      e.detail.value.Abbreviation.length==0||
+      e.detail.value.Abbreviation.length == 0 ||
       e.detail.value.DGIMN.length == 0 ||
       e.detail.value.EntAddress.length == 0 ||
       e.detail.value.EntLatitude.length == 0 ||
@@ -105,26 +110,21 @@ Page({
       e.detail.value.OutputHigh.length == 0 ||
       e.detail.value.PointLatitude.length == 0 ||
       e.detail.value.PointLongitude.length == 0 ||
-      e.detail.value.PointName.length == 0 
-    
-    )
-    {
+      e.detail.value.PointName.length == 0 ||
+      !this.data.openid
+    ) {
       wx.showToast({
         title: '填写信息不能为空!',
         icon: 'none',
         duration: 1500
       })
-    }
-    else if (!this.data.ajxtrue )
-    {
+    } else if (!this.data.ajxtrue) {
       wx.showToast({
         title: '请检查手机号!',
         icon: 'none',
         duration: 1500
       })
-    }
-    else
-    {
+    } else {
       comApi.register(
         e.detail.value.Abbreviation,
         e.detail.value.DGIMN,
@@ -139,23 +139,29 @@ Page({
         e.detail.value.PointLatitude,
         e.detail.value.PointLongitude,
         e.detail.value.PointName,
-        ).then(res => {
+        this.data.openid
+      ).then(res => {
         if (res && res.IsSuccess) {
-          debugger
           if (res.Datas) {
             wx.showToast({
               title: '注册成功!',
               duration: 1500
-            })
+            });
+            var pages = getCurrentPages();
+            var beforePage = pages[pages.length - 2];
+            // 调用列表页的获取数据函数
+            beforePage.getData();
+            // 跳转
+            wx.redirectTo({
+              url: '/pages/home/index',
+            });
           }
-        }
-        else
-        {
+        } else {
           wx.showToast({
             title: res.Message,
             duration: 1500
           })
-          
+
         }
         wx.hideNavigationBarLoading();
       });
@@ -176,7 +182,7 @@ Page({
     })
   },
   //纬度验证
-    moneyInputlatitude(e) {
+  moneyInputlatitude(e) {
     var money;
     if (/^(\d?)+(\.\d{0,5})?$/.test(e.detail.value)) { //正则验证，提现金额小数点后不能大于五位数字
       money = e.detail.value;
@@ -212,7 +218,7 @@ Page({
     })
   },
   // 手机号验证
-  blurPhone: function (e) {
+  blurPhone: function(e) {
     var MobilePhone = e.detail.value;
     let that = this
     if (!(/^1[34578]\d{9}$/.test(MobilePhone))) {

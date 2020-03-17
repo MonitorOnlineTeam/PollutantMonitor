@@ -41,6 +41,7 @@ Page({
         }
       })
     } else {
+      common.setStorage("ApiType", 1);
       that.onPullDownRefresh();
     }
   },
@@ -57,6 +58,7 @@ Page({
    */
   onShow: function() {
     var that = this;
+    //common.setStorage("ApiType", 1);
     //that.isLogin();
 
     // if (that.data.isAuthor && that.data.selectedTab === 1) {
@@ -292,8 +294,11 @@ Page({
     })
   },
   clickScan: function() {
-    var that = this;
-    that.isLogin() && that.openQRCode();;
+    wx.navigateTo({
+      url: '/pages/register/register'
+    })
+    // var that = this;
+    // that.isLogin() && that.openQRCode();
   },
   openQRCode: function() {
     var that = this;

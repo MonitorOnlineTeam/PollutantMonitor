@@ -113,7 +113,7 @@ Component({
     getData: function() {
       //获取运维数据
       comApi.getOperationLogList(common.getStorage("DGIMN"), this.data.time, this.data.pageindex, this.data.pagesize).then(res => {
-        if (res && res.requstresult==="1") {
+        if (res && res.requstresult === "1") {
           if (res.data.optData) {
             //如果返回的条数小于每页显示的个数或者无返回数据则下拉不刷新
             if (res.data.optData.FormList.length < this.data.pagesize || !res.data.optData.FormList) {
@@ -162,7 +162,7 @@ Component({
     attached() {
       var rsa2 = common.getStorage(`AuthorCodeRSA_2`);
       if (!rsa2) {
-        comApi.rsaEncrypt(2, 80000, function (res) {
+        comApi.rsaEncrypt(2, 80000, function(res) {
           // if (res) {
           //   wx.showToast({
           //     title: '请求成功',
@@ -170,6 +170,8 @@ Component({
           // }
         })
       }
+
+      common.setStorage("ApiType", 2);
       //获取当前月份
       var timestamp = Date.parse(new Date());
       var date = new Date(timestamp);
