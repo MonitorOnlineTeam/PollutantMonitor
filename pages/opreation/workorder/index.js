@@ -163,11 +163,11 @@ Component({
       var rsa2 = common.getStorage(`AuthorCodeRSA_2`);
       if (!rsa2) {
         comApi.rsaEncrypt(2, 80000, function (res) {
-          if (res) {
-            wx.showToast({
-              title: '请求成功',
-            })
-          }
+          // if (res) {
+          //   wx.showToast({
+          //     title: '请求成功',
+          //   })
+          // }
         })
       }
       //获取当前月份
