@@ -70,10 +70,21 @@ Page({
    */
   onPullDownRefresh: function() {
     var that = this;
-    wx.showNavigationBarLoading();
-    wx.stopPullDownRefresh();
 
-    that.getData();
+    if (!common.getStorage("OpenId")) {
+      app.wxLogin(function() {
+        wx.showNavigationBarLoading();
+        wx.stopPullDownRefresh();
+
+        that.getData();
+      })
+
+    } else {
+      wx.showNavigationBarLoading();
+      wx.stopPullDownRefresh();
+
+      that.getData();
+    }
     // this.isLogin() && app.IsRegister(function(res) {
     //   if (res) {
     //     wx.showNavigationBarLoading();

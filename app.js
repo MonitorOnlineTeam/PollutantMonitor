@@ -145,16 +145,18 @@ App({
               common.setStorage("OpenId", data.OpenId); //13800138000
               common.setStorage("PhoneCode", data.Phone); //13800138000
               common.setStorage("IsLogin", true);
+              callback && callback(true);
             } else {
               common.setStorage("Ticket", ""); //13800138000
               common.setStorage("OpenId", data.OpenId); //13800138000
               common.setStorage("IsLogin", false);
               common.setStorage("PhoneCode", ""); //13800138000
+              callback && callback(false);
             }
           });
         });
 
-        callback && callback();
+
       }
     })
   },
@@ -424,10 +426,18 @@ App({
                   }
 
                 } else {
-                  wx.showToast({
-                    title: vres.Message,
-                    icon: 'none',
-                  })
+                  if (vres.Message =="暂未注册!")
+                  {
+                    wx.navigateTo({
+                      url: '/pages/register/register',
+                    })
+                  }else
+                  {
+                    wx.showToast({
+                      title: vres.Message,
+                      icon: 'none',
+                    })
+                  }
                 }
               });
             } else {

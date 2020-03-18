@@ -618,14 +618,14 @@ function qRCodeVerifyDGIMN(DGIMN) {
     }
   }
 
-  if (!common.getStorage('PhoneCode')) {
-    wx.showToast({
-      title: '登录超时，请重试',
-      icon: 'none',
-      mask: true
-    })
-    return false;
-  }
+  // if (!common.getStorage('PhoneCode')) {
+  //   wx.showToast({
+  //     title: '登录超时，请重试',
+  //     icon: 'none',
+  //     mask: true
+  //   })
+  //   return false;
+  // }
   return fetchApi(pageUrl.qRCodeVerifyDGIMN, {
     DGIMN: DGIMN,
     OpenId: common.getStorage('OpenId')
