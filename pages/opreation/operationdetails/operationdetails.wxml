@@ -60,7 +60,14 @@
 <!-- <view wx:if="{{resultData.Attachments.length===0}}" class='container' style='height:5vh;text-align:center;padding-top:5%;color:#ccc;'>
   <text>暂无图片</text>
 </view> -->
-<view>
+
+<swiper class="screen-swiper round-dot" indicator-dots="true" circular="true" autoplay="true" interval="5000" duration="500">
+  <swiper-item wx:for="{{resultData.Attachments.ImgList}}" wx:key="index">
+    <image src="http://api.chsdl.net/NewWryWebProxy/upload/{{item}}/Attachment?code={{attachment}}" mode='aspectFill'></image>
+  </swiper-item>
+</swiper>
+
+<!-- <view>
   <view class="bg-white padding">
     <view class="grid col-4 grid-square">
       <view class="bg-img" wx:for="{{resultData.Attachments.ImgList}}" wx:key="index">
@@ -68,4 +75,4 @@
       </view>
     </view>
   </view>
-</view>
+</view> -->
