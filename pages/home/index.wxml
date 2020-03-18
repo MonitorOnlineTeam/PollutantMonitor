@@ -25,7 +25,7 @@
 <view style="display:{{selectedTab===1?'block':'none'}}">
 
   <view class='UCenter-bg'>
-    <button wx:if="{{isAuthor==false}}" style="" class="cu-btn round bg-blue" open-type="getUserInfo" bindgetuserinfo="getUserInfo">登录</button>
+    <button wx:if="{{isAuthor==false}}" style="" class="cu-btn round bg-blue" open-type="getUserInfo" bindgetuserinfo="getUserInfo">授权</button>
     <view wx:else>
       <image src='{{userInfo.avatarUrl}}' class='png'></image>
       <view class='margin-top-sm' style="text-align:center">

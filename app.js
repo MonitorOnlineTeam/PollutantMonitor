@@ -136,6 +136,23 @@ App({
     wx.login({
       success: res => {
         common.setStorage("WxCode", res.code);
+        api.initTicket(function() {
+          //debugger;
+          api.SDLSMCIsRegister().then(res => {
+            var data = res.Datas;
+            if (res.IsSuccess) {
+              common.setStorage("Ticket", data.Ticket); //13800138000
+              common.setStorage("OpenId", data.OpenId); //13800138000
+              common.setStorage("PhoneCode", data.Phone); //13800138000
+              common.setStorage("IsLogin", true);
+            } else {
+              common.setStorage("Ticket", ""); //13800138000
+              common.setStorage("OpenId", data.OpenId); //13800138000
+              common.setStorage("IsLogin", false);
+              common.setStorage("PhoneCode", ""); //13800138000
+            }
+          });
+        });
 
         callback && callback();
       }
@@ -367,57 +384,52 @@ App({
         if (mn.length > 0) {
           console.log("mn=", mn);
 
-          if (!common.getStorage("IsAuthor") || !common.getStorage("IsLogin")) {
-            var sldmnYS = _this.globalData.sdlMN.filter(m => m === mn);
-            if (sldmnYS.length > 0) {
-              common.setStorage("AuthorCode", "33333"); //13800138000
-              common.setStorage("PhoneCode", "13800138000");
-              common.setStorage("DGIMN", mn);
-              wx.redirectTo({
-                url: '/pages/qca/authorCode/authorCode?AuthorCode=33333'
-              })
-              return;
-            }
-          } else {
-            var sldmnYS = _this.globalData.sdlMN.filter(m => m === mn);
-            if (sldmnYS.length > 0) {
-              //common.setStorage("AuthorCode", "99999"); //13800138000
-              common.setStorage("PhoneCode", "13800138000");
-              common.setStorage("DGIMN", mn);
-            }
-          }
-
           _this.Islogin(function(res) {
 
             if (res) {
-              api.qRCodeVerifyDGIMN(mn).then(res => {
-                console.log("res=", res);
-                if (res && res.IsSuccess) {
-                  const sdlMN = _this.globalData.sdlMN.filter(m => m === mn);
-
-                  if (sdlMN.length > 0) {
-                    common.setStorage("OpenId_SDL", "13800138000"); //13800138000
+              //验证是否先注册
+              api.ValidateDGIMN(mn).then(vres => {
+                //debugger;
+                if (vres && vres.StatusCode == 200) {
+                  if (!vres.IsSuccess) {
+                    wx.showModal({
+                      title: '提示',
+                      content: '信息不存在，请先添加',
+                      showCancel: true,
+                      success(res) {
+                        if (res.confirm) {
+                          common.setStorage("DGIMN", mn);
+                          wx.navigateTo({
+                            url: '/pages/addpoint/index',
+                          })
+                        }
+                      }
+                    })
                   } else {
-                    common.setStorage("OpenId_SDL", "");
+                    api.qRCodeVerifyDGIMN(mn).then(res => {
+                      console.log("res=", res);
+                      if (res && res.IsSuccess) {
+                        common.setStorage("DGIMN", mn);
+                        callback && callback(true);
+                      } else {
+                        //common.setStorage("DGIMN", mn);
+                        wx.showModal({
+                          title: '提示',
+                          content: res.Message,
+                          showCancel: false,
+                          success(res) {}
+                        })
+                      }
+                    })
                   }
-                  if (common.getStorage("DGIMN"))
-                    common.setStorage("DGIMN_Old", common.getStorage("DGIMN"));
-                  else {
-                    common.setStorage("DGIMN_Old", mn);
-                  }
-                  common.setStorage("DGIMN", mn);
 
-                  callback && callback(true);
                 } else {
-                  //common.setStorage("DGIMN", mn);
-                  wx.showModal({
-                    title: '提示',
-                    content: res.Message,
-                    showCancel: false,
-                    success(res) {}
+                  wx.showToast({
+                    title: vres.Message,
+                    icon: 'none',
                   })
                 }
-              })
+              });
             } else {
               callback && callback(true);
             }
@@ -548,7 +560,7 @@ App({
     callback && callback(true);
   },
 
-  IsLoginNew: function (callback){
+  IsLoginNew: function(callback) {
     // 获取用户信息
     wx.getSetting({
       success: res => {
@@ -562,7 +574,7 @@ App({
               common.setStorage('IsLogin', true);
               // 可以将 res 发送给后台解码出 unionId
               this.globalData.userInfo = res.userInfo;
-              
+
               // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
               // 所以此处加入 callback 以防止这种情况
               if (this.userInfoReadyCallback) {
@@ -575,6 +587,27 @@ App({
         }
       }
     })
+  },
+  IsRegister: function(callback) {
+    if (!common.getStorage("IsLogin")) {
+
+      wx.showModal({
+        title: '提示',
+        content: '请注册后，再执行操作',
+        showCancel: true,
+        success(res) {
+          console.log(res);
+          if (res.confirm) {
+            wx.navigateTo({
+              url: '/pages/register/register'
+            })
+          }
+        }
+      })
+      callback && callback(false);
+      return;
+    }
+    callback && callback(true);
   },
   globalData: {
     userInfo: null,

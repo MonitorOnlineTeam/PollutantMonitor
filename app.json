@@ -26,7 +26,8 @@
     "pages/monitor/flowchart/index",
     "pages/opreation/operationform/operationform",
     "pages/register/register",
-    "pages/opreation/operationdetails/operationdetails"
+    "pages/opreation/operationdetails/operationdetails",
+    "pages/addpoint/index"
   ],
   "permission": {
     "scope.userLocation": {
@@ -35,7 +36,7 @@
   },
   "window": {
     "navigationBarBackgroundColor": "#cce6ff",
-    "navigationBarTitleText": "报警授权",
+    "navigationBarTitleText": "",
     "navigationBarTextStyle": "black"
   },
   "usingComponents": {},
