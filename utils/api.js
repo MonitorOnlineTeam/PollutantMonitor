@@ -43,7 +43,10 @@ const pageUrl = {
   getPointVisitHistorys: `/SMCManagerApi/GetPointVisitHistorys`,
   validateAuthorCode: `/LoginApi/ValidateAuthorCode`, //代理授权码验证
   qCAResultCheckByDGIMN: `/SMCManagerApi/QCAResultCheckByDGIMN`,
-  getStabilizationTime: `/SMCManagerApi/GetStabilizationTime`
+  getStabilizationTime: `/SMCManagerApi/GetStabilizationTime`,
+  SDLSMCIsRegister: `/SMCManagerApi/SDLSMCIsRegister`,
+  AddUser: `/SMCManagerApi/AddUser`,
+  ValidateDGIMN: `/SMCManagerApi/ValidateDGIMN`
 }
 
 
@@ -58,7 +61,7 @@ function rsaEncrypt(apiType, authorcode, callback) {
   //2.运维
   //3.质控
   if (apiType === 1) {
-    authorcode = '90000'; //监控接口授权码
+    authorcode = '12345'; //监控接口授权码
   } else if (apiType === 2) {
     authorcode = '80000'; //运维接口授权码
   } else {
@@ -89,7 +92,7 @@ function rsaEncrypt(apiType, authorcode, callback) {
         common.setStorage("OpenId", 13800138000); //13800138000
         common.setStorage("PhoneCode", 13800138000); //13800138000
         common.setStorage("IsLogin", true);
-       
+
       } else {
         verifyPhone(phone).then(res => {
           if (res && res.IsSuccess) {
@@ -104,7 +107,7 @@ function rsaEncrypt(apiType, authorcode, callback) {
               title: '提示',
               content: res.Message,
               showCancel: false,
-              success(res) { }
+              success(res) {}
             })
           }
         })
@@ -119,7 +122,62 @@ function rsaEncrypt(apiType, authorcode, callback) {
   })
 };
 
+//验证用户是否注册
+function SDLSMCIsRegister() {
+  return fetchApi(pageUrl.SDLSMCIsRegister, {
+    wxcode: common.getStorage('WxCode')
+  }, 'get').then(res => res.data);
+}
+//注册用户
+function AddUser(phone) {
+  return fetchApi(pageUrl.AddUser, {
+    OpenId: common.getStorage('OpenId'),
+    Phone: phone
+  }, 'post').then(res => res.data)
+}
+//初始化监控与运维票据
+function initTicket(callback) {
+  var that = this;
+  var authorcodeMo = "12345"; //监控
+  var authorcodeOpt = "80000"; //运维
+  let encrypt_rsa = new RSA.RSAKey();
+  encrypt_rsa = RSA.KEYUTIL.getKey(publicKey);
+  encStr = encrypt_rsa.encrypt(authorcodeMo)
+  encStr = RSA.hex2b64(encStr);
+  common.setStorage(`AuthorCodeRSA_1`, encStr);
+  common.setStorage("ApiType", 1);
 
+  that.validateAuthorCode().then(res => {
+    if (res && res.IsSuccess) {
+      common.setStorage(`AuthorCodeRSA_1`, encStr);
+      common.setStorage("IsAuthor", true);
+      //运维授权
+      encStr = encrypt_rsa.encrypt(authorcodeOpt)
+      encStr = RSA.hex2b64(encStr);
+      common.setStorage(`AuthorCodeRSA_2`, encStr);
+      //common.setStorage("ApiType", 2);
+
+      that.validateAuthorCode().then(res => {
+        if (res && res.IsSuccess) {
+          common.setStorage(`AuthorCodeRSA_2`, encStr);
+          common.setStorage("IsAuthor", true);
+          wx.showToast({
+            title: '授权成功',
+            icon: 'none'
+          });
+          callback && callback(true);
+        }
+      })
+    }
+  })
+}
+
+function ValidateDGIMN(mn) {
+  return fetchApi(pageUrl.ValidateDGIMN, {
+    DGIMN: mn,
+    OpenId: common.getStorage("OpenId")
+  }, 'post').then(res => res.data);
+}
 
 /**
  * API
@@ -224,7 +282,7 @@ function validateFirstLogin(code) {
  */
 function getUserEntInfo(code) {
   return fetchApi(pageUrl.getUserEntInfo, {
-      OpenId: common.getStorage('OpenId'),
+      OpenId: common.getStorage('PhoneCode'),
     }, 'post')
     .then(res => res.data)
 }
@@ -253,11 +311,11 @@ function getUserInfo() {
   //    console.log('getUserInfo', res)
   //  })
   console.log("OpenId_SDL=", common.getStorage('OpenId_SDL'));
-  console.log("OpenId=", common.getStorage('OpenId'));
-  console.log("AuthorCode=", common.getStorage('OpenId_SDL') || common.getStorage('OpenId'));
+  console.log("OpenId=", common.getStorage('PhoneCode'));
+  console.log("AuthorCode=", common.getStorage('OpenId_SDL') || common.getStorage('PhoneCode'));
 
   return fetchApi(pageUrl.getUserInfo, {
-      AuthorCode: common.getStorage('OpenId_SDL') || common.getStorage('OpenId'),
+      AuthorCode: common.getStorage('OpenId_SDL') || common.getStorage('PhoneCode'),
       DGIMN: common.getStorage('DGIMN')
     }, 'get')
     .then(res => res.data)
@@ -272,7 +330,7 @@ function getPointInfo(DGIMNs) {
   //   console.log('getPointInfo', res)
   // })
   return fetchApi(pageUrl.getPointInfo, {
-    OpenId: common.getStorage('OpenId'),
+    OpenId: common.getStorage('PhoneCode'),
     DGIMN: common.getStorage('DGIMN')
   }, 'post').then(res => res.data)
 }
@@ -286,7 +344,7 @@ function getDeviceInfo(DGIMNs) {
   //   console.log('getDeviceInfo', res)
   // })
   return fetchApi(pageUrl.getDeviceInfo, {
-    OpenId: common.getStorage('OpenId'),
+    OpenId: common.getStorage('PhoneCode'),
     DGIMN: common.getStorage('DGIMN')
   }, 'post').then(res => res.data)
 }
@@ -296,7 +354,7 @@ function getDeviceInfo(DGIMNs) {
  */
 function getAuthorizationState() {
   return fetchApi(pageUrl.getAuthorizationState, {
-    openID: common.getStorage('OpenId'),
+    openID: common.getStorage('PhoneCode'),
   }, 'get').then(res => res.data)
 }
 /**
@@ -304,7 +362,7 @@ function getAuthorizationState() {
  */
 function cancelAuthorization() {
   return fetchApi(pageUrl.cancelAuthorization, {
-    openID: common.getStorage('OpenId'),
+    openID: common.getStorage('PhoneCode'),
   }, 'get').then(res => res.data)
 }
 
@@ -315,7 +373,7 @@ function cancelAuthorization() {
 function getPollutantList(DGIMNs) {
   console.log(common.getStorage('DGIMN'));
   return fetchApi(pageUrl.getPollutant, {
-    OpenId: common.getStorage('OpenId'),
+    OpenId: common.getStorage('PhoneCode'),
     DGIMN: common.getStorage('DGIMN')
   }, 'post').then(res => res.data)
 }
@@ -326,7 +384,7 @@ function getPollutantList(DGIMNs) {
  */
 function getProcessFlowChartStatus() {
   return fetchApi(pageUrl.getProcessFlowChartStatus, {
-    OpenId: common.getStorage('OpenId'),
+    OpenId: common.getStorage('PhoneCode'),
     DGIMN: common.getStorage('DGIMN')
   }, 'post').then(res => res.data)
 }
@@ -337,7 +395,7 @@ function getProcessFlowChartStatus() {
  */
 function getRealTimeDataForPoint() {
   return fetchApi(pageUrl.getRealTimeDataForPoint, {
-    OpenId: common.getStorage('OpenId'),
+    OpenId: common.getStorage('PhoneCode'),
     DGIMN: common.getStorage('DGIMN')
   }, 'post').then(res => res.data)
 }
@@ -366,7 +424,7 @@ function getMonitorDatas(pollutantCodes, datatype, endTime = null) {
     endTime = moment(endTime).add(1, 'months').add(-1, 'seconds').format('YYYY-MM-DD 23:59:59');
   }
   let body = {
-    OpenId: common.getStorage('OpenId'),
+    OpenId: common.getStorage('PhoneCode'),
     DGIMNs: common.getStorage('DGIMN'),
     pollutantCodes: pollutantCodes,
     dataType: dataTypeObj[datatype],
@@ -395,7 +453,7 @@ function getAlarmDataList(beginTime, endTime, entCode, pageIndex = 1, pageSize =
     DGIMN: DGIMN,
     PageSize: pageSize,
     PageIndex: pageIndex,
-    OpenId: common.getStorage('OpenId')
+    OpenId: common.getStorage('PhoneCode')
   }, 'post').then(res => res.data)
 }
 
@@ -465,7 +523,7 @@ function getOperationLogList(DGIMN, beginTime, pageindex, pagesize) {
  */
 function getTaskDitails(taskid) {
   return fetchApi(pageUrl.getTaskDitails, {
-    TaskID:taskid
+    TaskID: taskid
   }, 'post').then(res => res.data)
 }
 
@@ -509,7 +567,7 @@ function getStabilizationTime(DGIMN, QCAMN, StandardGasCode, Type = "History") {
  */
 function verifyDevicePwd(pwd) {
   return fetchApi(pageUrl.verifyDevicePwd, {
-    OpenId: common.getStorage('OpenId'),
+    OpenId: common.getStorage('PhoneCode'),
     DGIMN: common.getStorage('DGIMN'),
     DevicePwd: common.getStorage('DevicePwd')
   }, 'post').then(res => res.data)
@@ -560,7 +618,7 @@ function qRCodeVerifyDGIMN(DGIMN) {
     }
   }
 
-  if (!common.getStorage('OpenId')) {
+  if (!common.getStorage('PhoneCode')) {
     wx.showToast({
       title: '登录超时，请重试',
       icon: 'none',
@@ -580,7 +638,7 @@ function qRCodeVerifyDGIMN(DGIMN) {
  */
 function addFeedback(Name, EmailAddress, Details) {
   return fetchApi(pageUrl.addFeedback, {
-    CreateUserID: common.getStorage('OpenId'), //不是用户id
+    CreateUserID: common.getStorage('PhoneCode'), //不是用户id
     Name: Name,
     EmailAddress: EmailAddress,
     Details: Details
@@ -699,5 +757,9 @@ module.exports = {
   validateAuthorCode,
   qCAResultCheckByDGIMN,
   getStabilizationTime,
-  rsaEncrypt
+  rsaEncrypt,
+  SDLSMCIsRegister,
+  AddUser,
+  initTicket,
+  ValidateDGIMN
 }

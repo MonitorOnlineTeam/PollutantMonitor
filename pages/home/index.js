@@ -22,28 +22,13 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    console.log('app.globalData.userInfo=', app.globalData.userInfo);
-    //that.isLogin();
+
     this.setData({
       userInfo: app.globalData.userInfo,
       isAuthor: common.getStorage("IsLogin")
-    })
-    // this.onPullDownRefresh();
-    var that = this;
-    var rsa = common.getStorage(`AuthorCodeRSA_1`);
-    if (!rsa) {
-      comApi.rsaEncrypt(1, 90000, function(res) {
-        if (res) {
-          wx.showToast({
-            title: '登录成功',
-          })
-          that.onPullDownRefresh();
-        }
-      })
-    } else {
-      common.setStorage("ApiType", 1);
-      that.onPullDownRefresh();
-    }
+    });
+    this.onPullDownRefresh();
+
   },
 
   /**
@@ -84,10 +69,20 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function() {
+    var that = this;
     wx.showNavigationBarLoading();
     wx.stopPullDownRefresh();
 
-    this.getData();
+    that.getData();
+    // this.isLogin() && app.IsRegister(function(res) {
+    //   if (res) {
+    //     wx.showNavigationBarLoading();
+    //     wx.stopPullDownRefresh();
+
+    //     that.getData();
+    //   }
+    // });
+    // !this.isLogin() && wx.hideNavigationBarLoading();
   },
 
   /**
@@ -294,14 +289,15 @@ Page({
     })
   },
   clickScan: function() {
-    wx.navigateTo({
-      url: '/pages/register/register'
-    })
-    // var that = this;
-    // that.isLogin() && that.openQRCode();
+
+    var that = this;
+    that.isLogin() && that.openQRCode();
   },
   openQRCode: function() {
     var that = this;
+
+
+
     //http://api.chsdl.cn/wxwryapi?flag=sdl,mn=62262431qlsp01
     wx.scanCode({
       success(res) {
@@ -311,13 +307,14 @@ Page({
             //var scene = decodeURIComponent(options.scene);
             var scene = res.result;
             app.isValidateSdlUrl(scene, function(res) {
+              var mn = common.getStorage("DGIMN");
               if (res) {
-
                 var data = {};
                 data.currentTarget = {};
                 data.currentTarget.id = mn;
-                data.currentTarget.pointname = mn;
-                data.currentTarget.targetname = mn;
+                data.currentTarget.dataset = {};
+                data.currentTarget.dataset.pointname = mn;
+                data.currentTarget.dataset.targetname = mn;
                 that.showDetail(data);
               }
             });
@@ -340,7 +337,7 @@ Page({
     })
   },
   isLogin: function() {
-    if (!this.data.isAuthor) {
+    if (!common.getStorage("IsLogin")) {
       wx.showToast({
         title: '请先授权登录',
         icon: 'none'

@@ -8,21 +8,14 @@ Page({
    * 页面的初始数据
    */
   data: {
-    latitude: '',
-    longitude: '',
     ajxtrue: false, //手机号验证标识
-    DGIMN: '',
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    this.setData({
-      DGIMN: !common.getStorage("DGIMN") ? "" : common.getStorage("DGIMN"),
-      openid: common.getStorage("OpenId")
-    })
-    this.getLocation();
+
   },
 
   /**
@@ -74,44 +67,11 @@ Page({
 
   },
   /**
-   * 获取经纬度
-   */
-  getLocation: function() {
-    //获取当前经纬度
-    wx.getLocation({
-      type: 'wgs84',
-      success: (res) => {
-        var latitude = res.latitude
-        var longitude = res.longitude
-        var speed = res.speed
-        var accuracy = res.accuracy
-        this.setData({
-          latitude: latitude,
-          longitude: longitude
-        })
-      }
-
-    })
-  },
-  /**
    * 表单提交
    */
   formSubmit: function(e) {
     if (
-      e.detail.value.Abbreviation.length == 0 ||
-      e.detail.value.DGIMN.length == 0 ||
-      e.detail.value.EntAddress.length == 0 ||
-      e.detail.value.EntLatitude.length == 0 ||
-      e.detail.value.EntLongitude.length == 0 ||
-      e.detail.value.EntName.length == 0 ||
-      e.detail.value.EnvironmentPrincipal.length == 0 ||
-      e.detail.value.MobilePhone.length == 0 ||
-      e.detail.value.OutputDiameter.length == 0 ||
-      e.detail.value.OutputHigh.length == 0 ||
-      e.detail.value.PointLatitude.length == 0 ||
-      e.detail.value.PointLongitude.length == 0 ||
-      e.detail.value.PointName.length == 0 ||
-      !this.data.openid
+      e.detail.value.MobilePhone.length == 0
     ) {
       wx.showToast({
         title: '填写信息不能为空!',
@@ -125,40 +85,13 @@ Page({
         duration: 1500
       })
     } else {
-      comApi.register(
-        e.detail.value.Abbreviation,
-        e.detail.value.DGIMN,
-        e.detail.value.EntAddress,
-        e.detail.value.EntLatitude,
-        e.detail.value.EntLongitude,
-        e.detail.value.EntName,
-        e.detail.value.EnvironmentPrincipal,
-        e.detail.value.MobilePhone,
-        e.detail.value.OutputDiameter,
-        e.detail.value.OutputHigh,
-        e.detail.value.PointLatitude,
-        e.detail.value.PointLongitude,
-        e.detail.value.PointName,
-        this.data.openid
-      ).then(res => {
+      comApi.AddUser(e.detail.value.MobilePhone).then(res => {
         if (res && res.IsSuccess) {
-          if (res.Datas) {
-            wx.showToast({
-              title: '注册成功!',
-              duration: 1500
-            });
-            setTimeout(function () {
-              var pages = getCurrentPages();
-              var beforePage = pages[pages.length - 2];
-              // 调用列表页的获取数据函数
-              beforePage.getData();
-              // 跳转
-              wx.redirectTo({
-                url: '/pages/home/index',
-              });
-            }, 1500) //延迟时间 这里是1秒
-         
-          }
+          wx.showToast({
+            title: '注册成功!',
+            duration: 1500
+          });
+          wx.navigateBack();
         } else {
           wx.showToast({
             title: res.Message,
@@ -166,59 +99,9 @@ Page({
           })
 
         }
-        wx.hideNavigationBarLoading();
       });
-
     }
 
-  },
-  //经度验证
-  moneyInputlongitude(e) {
-    var money;
-    if (/^(\d?)+(\.\d{0,5})?$/.test(e.detail.value)) { //正则验证，提现金额小数点后不能大于五位数字
-      money = e.detail.value;
-    } else {
-      money = e.detail.value.substring(0, e.detail.value.length - 1);
-    }
-    this.setData({
-      longitude: money,
-    })
-  },
-  //纬度验证
-  moneyInputlatitude(e) {
-    var money;
-    if (/^(\d?)+(\.\d{0,5})?$/.test(e.detail.value)) { //正则验证，提现金额小数点后不能大于五位数字
-      money = e.detail.value;
-    } else {
-      money = e.detail.value.substring(0, e.detail.value.length - 1);
-    }
-    this.setData({
-      latitude: money,
-    })
-  },
-  //直径验证
-  moneyInputOutputDiameter(e) {
-    var money;
-    if (/^(\d?)+(\.\d{0,2})?$/.test(e.detail.value)) { //正则验证，提现金额小数点后不能大于两位数字
-      money = e.detail.value;
-    } else {
-      money = e.detail.value.substring(0, e.detail.value.length - 1);
-    }
-    this.setData({
-      OutputDiameter: money,
-    })
-  },
-  //高度验证
-  moneyInputOutputHigh(e) {
-    var money;
-    if (/^(\d?)+(\.\d{0,2})?$/.test(e.detail.value)) { //正则验证，提现金额小数点后不能大于两位数字
-      money = e.detail.value;
-    } else {
-      money = e.detail.value.substring(0, e.detail.value.length - 1);
-    }
-    this.setData({
-      OutputHigh: money,
-    })
   },
   // 手机号验证
   blurPhone: function(e) {
