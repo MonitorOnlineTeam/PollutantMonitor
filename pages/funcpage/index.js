@@ -10,15 +10,18 @@ Page({
   data: {
     TabCur: 0,
     scrollLeft: 0,
-    tabData: ['实时数据', '历史数据', '质控', '运维', '设备信息'],
-    frist: true //是否首次
+    //tabData: ['实时数据', '历史数据', '质控', '运维', '设备信息'],
+    tabData: ['实时数据', '历史数据', '运维', '设备信息'],
+    frist: true, //是否首次
+    isOpt: true,
+    isQCA: false
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    this.myComponent = this.selectComponent('#myComponent_0');
+    this.myComponent = this.selectComponent('#myComponent');
   },
 
   /**
@@ -96,10 +99,10 @@ Page({
       case 1:
         break;
       case 2:
-        myComponent.onReachBottom();
+        data.tabData.length > 3 && myComponent.onReachBottom();
         break;
       case 3:
-        myComponent.onReachBottom();
+        data.tabData.length > 3 && myComponent.onReachBottom();
         break;
       case 4:
         break;
@@ -113,12 +116,12 @@ Page({
 
   },
   tabSelect(e) {
+    var id = e.currentTarget.dataset.id;
     this.setData({
-      TabCur: e.currentTarget.dataset.id,
-      scrollLeft: (e.currentTarget.dataset.id - 1) * 60,
+      TabCur: id,
+      scrollLeft: (id - 1) * 60,
       frist: false
     });
-    common.setStorage("ApiType", 1);
-    this.myComponent = this.selectComponent('#myComponent_' + e.currentTarget.dataset.id + '');
+    this.myComponent = this.selectComponent('#myComponent');
   }
 })
