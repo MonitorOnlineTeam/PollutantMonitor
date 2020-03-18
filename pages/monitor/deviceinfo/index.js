@@ -43,7 +43,7 @@ Component({
     onPullDownRefresh: function() {
       let that = this;
       this.setData({
-        isAuthor: app.isAuthor()
+        isAuthor: common.getStorage("IsLogin")
       });
 
       if (!that.data.isAuthor) {
@@ -155,7 +155,7 @@ Component({
     onShow: function() {
       let that = this;
       this.setData({
-        isAuthor: app.isAuthor()
+        isAuthor: common.getStorage("IsLogin")
       });
 
       if (!that.data.isAuthor) {
@@ -192,7 +192,7 @@ Component({
       console.log("在组件实例进入页面节点树时执行")
       this.setData({
         dgimn: common.getStorage('DGIMN'),
-        isAuthor: app.isAuthor()
+        isAuthor: common.getStorage("IsLogin")
       });
       this.data.isAuthor && this.onPullDownRefresh();
     },

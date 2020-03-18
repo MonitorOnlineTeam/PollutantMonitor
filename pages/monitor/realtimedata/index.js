@@ -76,7 +76,7 @@ Component({
     onPullDownRefresh: function() {
       let that = this;
       this.setData({
-        isAuthor: app.isAuthor()
+        isAuthor: common.getStorage("IsLogin")
       });
 
       if (!that.data.isAuthor) {
@@ -251,10 +251,10 @@ Component({
         })
       }
     },
-    onShow: function () {
+    onShow: function() {
       let that = this;
       that.setData({
-        isAuthor: app.isAuthor()
+        isAuthor: common.getStorage("IsLogin")
       });
       if (!that.data.isAuthor) {
         that.setData({
@@ -264,7 +264,7 @@ Component({
         return;
       }
 
-      app.isLogin(function (res) {
+      app.isLogin(function(res) {
         if (!res) {
           that.setData({
             dataitem: [],
@@ -297,7 +297,7 @@ Component({
     attached() {
       this.setData({
         DGIMN: common.getStorage('DGIMN'),
-        isAuthor: app.isAuthor()
+        isAuthor: common.getStorage("IsLogin")
       });
       console.log("在组件实例进入页面节点树时执行")
     },

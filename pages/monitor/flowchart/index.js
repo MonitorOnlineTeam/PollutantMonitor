@@ -114,7 +114,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     this.setData({
       PointName: common.getStorage('PointName')
     });
@@ -125,59 +125,59 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
-    app.isLogin();
+  onShow: function() {
+    //app.isLogin();
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
     return {
       path: `/pages/realTimeData/flowChart/flowChart?DGIMN=${common.getStorage("DGIMN")}` // 路径，传递参数到指定页面。
     }
   },
-  hiddenModal: function () {
+  hiddenModal: function() {
     this.setData({
       modalVisite: 'none'
     })
   },
-  showModal: function (e) {
+  showModal: function(e) {
     var info = e.currentTarget.dataset.obj;
     if (info) {
       var modalVisite = 'none';
@@ -192,7 +192,7 @@ Page({
       })
     }
   },
-  getParamData: function () {
+  getParamData: function() {
     var pointName = common.getStorage("PointName");
     if (pointName) {
       wx.setNavigationBarTitle({
@@ -209,11 +209,9 @@ Page({
           if (pointType == 1) {
             imgageSrc = "https://api.chsdl.net/NewWryWebProxy/images/smc/point_wps.png";
 
-          }
-          else if (pointType == 2) {
+          } else if (pointType == 2) {
             imgageSrc = "https://api.chsdl.net/NewWryWebProxy/images/smc/vocpoint_wps.png";
-          }
-          else if (pointType == 3) {
+          } else if (pointType == 3) {
             imgageSrc = "https://api.chsdl.net/NewWryWebProxy/images/smc/hgpoint_wps.png";
           }
           console.log(imgageSrc);
@@ -327,8 +325,8 @@ Page({
           }
           var paramsInfo = res.Datas.paramsInfo;
           if (paramsInfo) {
-            var wylparam = paramsInfo.filter(a => a.pollutantCode == "s02" || a.pollutantCode == "s07"
-              || a.pollutantCode == "s08" || a.pollutantCode == "b02");
+            var wylparam = paramsInfo.filter(a => a.pollutantCode == "s02" || a.pollutantCode == "s07" ||
+              a.pollutantCode == "s08" || a.pollutantCode == "b02");
 
             var wyl = {
               data: wylparam
@@ -373,7 +371,7 @@ Page({
     })
   },
   //获取数据
-  getData: function () {
+  getData: function() {
     // var pointName = common.getStorage("PointName");
     // if (pointName != "") {
     //   wx.setNavigationBarTitle({
@@ -429,7 +427,7 @@ Page({
       wx.hideNavigationBarLoading();
     })
   },
-  getValue: function (data, obj) {
+  getValue: function(data, obj) {
     //debugger
     if (!data[obj])
       return [undefined, undefined];

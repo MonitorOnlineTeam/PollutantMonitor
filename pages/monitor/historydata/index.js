@@ -65,7 +65,7 @@ Component({
     onPullDownRefresh: function() {
       let that = this;
       this.setData({
-        isAuthor: app.isAuthor()
+        isAuthor: common.getStorage("IsLogin")
       });
 
       if (!that.data.isAuthor) {
@@ -507,7 +507,7 @@ Component({
       //app.isLogin();
       let that = this;
       this.setData({
-        isAuthor: app.isAuthor()
+        isAuthor: common.getStorage("IsLogin")
       });
 
       if (!that.data.isAuthor) {
@@ -572,7 +572,7 @@ Component({
         DGIMN: common.getStorage('DGIMN'),
         selectedPollutants: common.getStorage('selectedPollutants') || [],
         selectedDate: selectedDate,
-        isAuthor: app.isAuthor()
+        isAuthor: common.getStorage("IsLogin")
       });
       common.setStorage('selectedDate', selectedDate);
 
