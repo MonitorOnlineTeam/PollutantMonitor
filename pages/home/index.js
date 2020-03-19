@@ -196,6 +196,13 @@ Page({
 
     const selectedTap = this.data.selectedTab;
     let that = this;
+    if (!this.data.userInfo) {
+      that.setData({
+        isAuthor: false
+      });
+    }
+
+    console.log("userInfo=", this.data.userInfo);
     !that.data.userInfo && app.GetUserInfoNew(function(res) {
       if (res) {
         that.setData({
