@@ -178,7 +178,7 @@ function fetchApi(type, params, method, noUrl) {
   }).catch(res => {
     wx.showModal({
       title: '提示',
-      content: '网络错误，请重试', //'网络错误，请重试',JSON.stringify(res)
+      content: JSON.stringify(res) + type + common.getStorage("ApiType"), //'网络错误，请重试', //'网络错误，请重试',JSON.stringify(res)
       showCancel: false,
       success(res) {
         if (res.confirm) {

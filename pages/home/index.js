@@ -81,7 +81,7 @@ Page({
    */
   onShow: function() {
     var that = this;
-
+    common.setStorage("ApiType", 1);
     if (that.data.selectedTab == 0 && common.getStorage("IsLogin")) {
       that.onPullDownRefresh();
     }
@@ -258,8 +258,8 @@ Page({
           isLoading: false
         });
         if (res.confirm) {
-          wx.clearStorageSync();
-          that.updateCurrentSize(0);
+          //wx.clearStorageSync();
+          //that.updateCurrentSize(0);
           wx.showToast({
             title: '清除成功',
           });
@@ -338,7 +338,7 @@ Page({
   },
   openQRCode: function() {
     var that = this;
-
+    common.setStorage("ApiType", 1);
 
 
     //http://api.chsdl.cn/wxwryapi?flag=sdl,mn=62262431qlsp01

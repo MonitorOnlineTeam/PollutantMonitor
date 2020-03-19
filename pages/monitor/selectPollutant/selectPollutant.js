@@ -69,7 +69,10 @@ Page({
       return false;
     }
     common.setStorage('selectedPollutants', length);
-    wx.navigateBack();
+    setTimeout(function() {
+      wx.navigateBack();
+    }, 500)
+
     // wx.switchTab({
     //   url: '/pages/historyData/home/home'
     // })

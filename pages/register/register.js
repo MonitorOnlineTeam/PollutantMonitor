@@ -126,4 +126,10 @@ Page({
       })
     }
   },
+  lookAgreement: function() {
+    debugger;
+    wx.navigateTo({
+      url: '/pages/lookagreement/index',
+    })
+  }
 })

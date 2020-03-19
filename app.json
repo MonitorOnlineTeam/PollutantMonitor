@@ -25,9 +25,10 @@
     "pages/monitor/realtimedata/index",
     "pages/monitor/flowchart/index",
     "pages/opreation/operationform/operationform",
-    "pages/register/register",
     "pages/opreation/operationdetails/operationdetails",
-    "pages/addpoint/index"
+    "pages/addpoint/index",
+    "pages/lookagreement/index",
+    "pages/register/register"
   ],
   "permission": {
     "scope.userLocation": {
