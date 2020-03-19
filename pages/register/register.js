@@ -87,6 +87,7 @@ Page({
     } else {
       comApi.AddUser(e.detail.value.MobilePhone).then(res => {
         if (res && res.IsSuccess) {
+          common.setStorage("IsLogin", true);
           wx.showToast({
             title: '注册成功!',
             duration: 1500

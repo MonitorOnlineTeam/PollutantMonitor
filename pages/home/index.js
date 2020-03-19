@@ -22,12 +22,49 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    var that = this;
+    app.wxLogin(function() {
+      comApi.initTicket(function() {
+        //debugger;
+        comApi.SDLSMCIsRegister().then(res => {
+          var data = res.Datas;
+          common.setStorage("OpenId", data.OpenId); //13800138000
+          if (res.StatusCode == 10001) {
+            common.setStorage("IsLogin", false);
+            that.setData({
+              userInfo: app.globalData.userInfo,
+              isAuthor: false
+            });
+            app.IsRegister();
+            return;
+          }
 
-    this.setData({
-      userInfo: app.globalData.userInfo,
-      isAuthor: common.getStorage("IsLogin")
-    });
-    this.onPullDownRefresh();
+          if (res.IsSuccess) {
+            common.setStorage("Ticket", data.Ticket); //13800138000
+
+            common.setStorage("PhoneCode", data.Phone); //13800138000
+            common.setStorage("IsLogin", true);
+            that.setData({
+              userInfo: app.globalData.userInfo,
+              //isAuthor: true
+            });
+            that.onPullDownRefresh();
+          } else {
+            common.setStorage("Ticket", ""); //13800138000
+            common.setStorage("IsLogin", false);
+            common.setStorage("PhoneCode", ""); //13800138000
+            that.setData({
+              userInfo: app.globalData.userInfo,
+              //isAuthor: true
+            });
+            wx.showToast({
+              title: res.Message,
+              icon: 'none'
+            })
+          }
+        });
+      });
+    })
 
   },
 
@@ -43,12 +80,10 @@ Page({
    */
   onShow: function() {
     var that = this;
-    //common.setStorage("ApiType", 1);
-    //that.isLogin();
 
-    // if (that.data.isAuthor && that.data.selectedTab === 1) {
-    //   that.tapMy();
-    // }
+    if (that.data.selectedTab == 0 && common.getStorage("IsLogin")) {
+      that.onPullDownRefresh();
+    }
   },
 
   /**
@@ -70,32 +105,25 @@ Page({
    */
   onPullDownRefresh: function() {
     var that = this;
+    if (this.data.selectedTab == 1) {
+      wx.stopPullDownRefresh();
+      wx.hideNavigationBarLoading();
+      return;
+    }
+    app.IsRegister(function(res) {
+      if (res) {
 
-    if (!common.getStorage("OpenId")) {
-      app.wxLogin(function() {
         wx.showNavigationBarLoading();
         wx.stopPullDownRefresh();
 
         that.getData();
-      })
+      } else {
+        wx.stopPullDownRefresh();
+        wx.hideNavigationBarLoading();
+      }
+    });
 
-    } else {
-      wx.showNavigationBarLoading();
-      wx.stopPullDownRefresh();
-
-      that.getData();
-    }
-    // this.isLogin() && app.IsRegister(function(res) {
-    //   if (res) {
-    //     wx.showNavigationBarLoading();
-    //     wx.stopPullDownRefresh();
-
-    //     that.getData();
-    //   }
-    // });
-    // !this.isLogin() && wx.hideNavigationBarLoading();
   },
-
   /**
    * 页面上拉触底事件的处理函数
    */
@@ -165,11 +193,12 @@ Page({
   },
   tapHistory: function() {
     const selectedTap = this.data.selectedTab;
-    if (selectedTap === 0 && this.data.isAuthor) {
+    var isLogin = common.getStorage("IsLogin");
+    if (selectedTap === 0 && !isLogin) {
       return;
     }
 
-    if (!this.data.isAuthor) {
+    if (!isLogin) {
       this.setData({
         historyRecord: [],
         selectedTab: 0
@@ -197,14 +226,12 @@ Page({
     console.log(2);
 
     const selectedTap = this.data.selectedTab;
-    if (selectedTap === 1 && this.data.isAuthor && this.data.userInfo != null)
-      return;
     let that = this;
-    !that.data.userInfo && app.IsLoginNew(function(res) {
+    !that.data.userInfo && app.GetUserInfoNew(function(res) {
       if (res) {
         that.setData({
           userInfo: app.globalData.userInfo,
-          isAuthor: common.getStorage("IsLogin")
+          isAuthor: true
         })
       }
     });
@@ -262,11 +289,11 @@ Page({
       wx.showLoading({
         title: '',
       })
-      app.IsLoginNew(function(res) {
+      app.GetUserInfoNew(function(res) {
         if (res) {
           that.setData({
             userInfo: app.globalData.userInfo,
-            isAuthor: common.getStorage("IsLogin")
+            isAuthor: true
           })
           callback && callback();
         }
@@ -291,18 +318,22 @@ Page({
   },
   //意见反馈
   showModal(e) {
-    if (!this.data.isAuthor) {
-      app.Islogin(function() {});
-      return false;
-    }
-    wx.navigateTo({
-      url: '/pages/my/feedBack/feedBack'
-    })
+    app.IsRegister(function(res) {
+      if (res) {
+        wx.navigateTo({
+          url: '/pages/my/feedBack/feedBack'
+        })
+      }
+    });
   },
   clickScan: function() {
 
     var that = this;
-    that.isLogin() && that.openQRCode();
+    app.IsRegister(function(res) {
+      if (res) {
+        that.openQRCode();
+      }
+    });
   },
   openQRCode: function() {
     var that = this;

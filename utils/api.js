@@ -54,74 +54,6 @@ var RSA = require('./wx_rsa.js');
 const publicKey = '-----BEGIN PUBLIC KEY-----MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCxsx1/cEpUmSwUwwPU0SciWcVKmDORBGwSBjJg8SL2GrCMC1 + Rwz81IsBSkhog7O + BiXEOk / 5frE8ryZOpOm / 3PmdWimEORkTdS94MilEsk + 6Ozd9GnAz6Txyk07yDDwCEmA3DoFY2hfKg5vPoskKA0QBC894cUqq1aH9h44SwyQIDAQAB-----END PUBLIC KEY-----';
 var encStr = "";
 
-//验证授权码
-function rsaEncrypt(apiType, authorcode, callback) {
-  //apiType
-  //1:监控标识
-  //2.运维
-  //3.质控
-  if (apiType === 1) {
-    authorcode = '12345'; //监控接口授权码
-  } else if (apiType === 2) {
-    authorcode = '80000'; //运维接口授权码
-  } else {
-    wx.showToast({
-      title: `授权码验证失败(无效api类型：${apiType})`,
-    })
-    callback && callback(false);
-  }
-
-  let encrypt_rsa = new RSA.RSAKey();
-  encrypt_rsa = RSA.KEYUTIL.getKey(publicKey);
-  // console.log('加密RSA:')
-  console.log(`${apiType}=`, encrypt_rsa)
-  encStr = encrypt_rsa.encrypt(authorcode)
-  encStr = RSA.hex2b64(encStr);
-  common.setStorage(`AuthorCodeRSA_${apiType}`, encStr);
-  common.setStorage("ApiType", apiType);
-  console.log('AuthorCodeRSA_${apiType}', common.getStorage(`AuthorCodeRSA_${apiType}`));
-  this.validateAuthorCode().then(res => {
-    if (res && res.IsSuccess) {
-      common.setStorage("ApiType", apiType);
-      common.setStorage("AuthorCode", authorcode);
-      common.setStorage(`AuthorCodeRSA_${apiType}`, encStr);
-      common.setStorage("IsAuthor", true);
-      common.setStorage("ReactUrl", res.Datas.ReactUrl);
-      var phone = 13800138000
-      if (apiType === 2) {
-        common.setStorage("OpenId", 13800138000); //13800138000
-        common.setStorage("PhoneCode", 13800138000); //13800138000
-        common.setStorage("IsLogin", true);
-
-      } else {
-        verifyPhone(phone).then(res => {
-          if (res && res.IsSuccess) {
-            if (res.Datas.Phone) {
-              common.setStorage("Ticket", res.Datas.Ticket); //13800138000
-              common.setStorage("OpenId", res.Datas.Phone); //13800138000
-              common.setStorage("PhoneCode", phone); //13800138000
-              common.setStorage("IsLogin", true);
-            }
-          } else {
-            wx.showModal({
-              title: '提示',
-              content: res.Message,
-              showCancel: false,
-              success(res) {}
-            })
-          }
-        })
-      }
-      callback && callback(true);
-    } else {
-      wx.showToast({
-        title: `授权码验证失败(${apiType}:${authorcode})`,
-      })
-      callback && callback(false);
-    }
-  })
-};
-
 //验证用户是否注册
 function SDLSMCIsRegister() {
   return fetchApi(pageUrl.SDLSMCIsRegister, {
@@ -137,6 +69,14 @@ function AddUser(phone) {
 }
 //初始化监控与运维票据
 function initTicket(callback) {
+
+  if (common.getStorage("AuthorCodeRSA_1") && common.getStorage("AuthorCodeRSA_2")) {
+    common.setStorage("ApiType", 1);
+    common.setStorage("IsAuthor", true);
+    callback && callback(true);
+    return;
+  }
+
   var that = this;
   var authorcodeMo = "12345"; //监控
   var authorcodeOpt = "80000"; //运维
@@ -757,7 +697,6 @@ module.exports = {
   validateAuthorCode,
   qCAResultCheckByDGIMN,
   getStabilizationTime,
-  rsaEncrypt,
   SDLSMCIsRegister,
   AddUser,
   initTicket,

@@ -122,6 +122,7 @@ Page({
       scrollLeft: (id - 1) * 60,
       frist: false
     });
+    common.setStorage("ApiType", 1);
     this.myComponent = this.selectComponent('#myComponent');
   }
 })
