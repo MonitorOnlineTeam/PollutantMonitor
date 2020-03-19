@@ -31,6 +31,7 @@
     "pages/addpoint/enterprisesearch/enterprisesearch",
     "pages/addpoint/addenterprise/addenterprise",
     "pages/lookagreement/index"
+
   ],
   "permission": {
     "scope.userLocation": {

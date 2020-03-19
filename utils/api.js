@@ -147,7 +147,8 @@ function initTicket(callback) {
   }
 
   var that = this;
-  var authorcodeMo = "90000"; //监控
+
+  var authorcodeMo = "90909"; //监控
   var authorcodeOpt = "80000"; //运维
   let encrypt_rsa = new RSA.RSAKey();
   encrypt_rsa = RSA.KEYUTIL.getKey(publicKey);
