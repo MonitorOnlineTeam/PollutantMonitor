@@ -358,7 +358,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    app.isLogin();
+    // app.isLogin();
     this.setData({
       selectedDate: moment(common.getStorage('selectedDate')).format(selectTimeFormat[this.data.dataType].showFormat),
       selectedPollutants: common.getStorage('selectedPollutants') || []

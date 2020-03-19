@@ -14,9 +14,9 @@
   </view>
   <radio-group class="block">
     <view class="margin-top;margin-left:10px">
-      <radio checked></radio>
+      <radio class="blue" checked></radio>
       <span style="margin-left:10px">我已阅读并同意</span>
-      <span style="color:blue;margin-left:10px;" bindtap="lookAgreement">《XXX协议》</span>
+      <span style="color:blue;margin-left:10px;" bindtap="lookAgreement">《用户监测数据许可协议》</span>
 
     </view>
   </radio-group>

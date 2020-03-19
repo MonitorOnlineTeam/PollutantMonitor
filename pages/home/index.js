@@ -24,48 +24,16 @@ Page({
   onLoad: function(options) {
     common.setStorage("ApiType", 1);
     var that = this;
-    app.wxLogin(function() {
-      comApi.initTicket(function() {
-        //debugger;
-        comApi.SDLSMCIsRegister().then(res => {
-          var data = res.Datas;
-          common.setStorage("OpenId", data.OpenId); //13800138000
-          if (res.StatusCode == 10001) {
-            common.setStorage("IsLogin", false);
-            that.setData({
-              userInfo: app.globalData.userInfo,
-              isAuthor: false
-            });
-            app.IsRegister();
-            return;
-          }
 
-          if (res.IsSuccess) {
-            common.setStorage("Ticket", data.Ticket); //13800138000
-
-            common.setStorage("PhoneCode", data.Phone); //13800138000
-            common.setStorage("IsLogin", true);
-            that.setData({
-              userInfo: app.globalData.userInfo,
-              //isAuthor: true
-            });
-            that.onPullDownRefresh();
-          } else {
-            common.setStorage("Ticket", ""); //13800138000
-            common.setStorage("IsLogin", false);
-            common.setStorage("PhoneCode", ""); //13800138000
-            that.setData({
-              userInfo: app.globalData.userInfo,
-              //isAuthor: true
-            });
-            wx.showToast({
-              title: res.Message,
-              icon: 'none'
-            })
-          }
-        });
+    app.reloadRequest(function(res) {
+      that.setData({
+        userInfo: app.globalData.userInfo,
+        isAuthor: res
       });
-    })
+      if (res) {
+        that.onPullDownRefresh();
+      }
+    });
 
   },
 

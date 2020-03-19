@@ -597,6 +597,42 @@ App({
     }
     callback && callback(true);
   },
+  reloadRequest: function(callback) {
+    var that = this;
+    that.wxLogin(function() {
+      api.initTicket(function() {
+        //debugger;
+        api.SDLSMCIsRegister().then(res => {
+          var data = res.Datas;
+          common.setStorage("OpenId", data.OpenId); //13800138000
+          if (res.StatusCode == 10001) {
+            common.setStorage("IsLogin", false);
+            that.IsRegister();
+            callback && callback(false)
+            return;
+          }
+
+          if (res.IsSuccess) {
+            common.setStorage("Ticket", data.Ticket); //13800138000
+
+            common.setStorage("PhoneCode", data.Phone); //13800138000
+            common.setStorage("IsLogin", true);
+            callback && callback(true);
+
+          } else {
+            common.setStorage("Ticket", ""); //13800138000
+            common.setStorage("IsLogin", false);
+            common.setStorage("PhoneCode", ""); //13800138000
+            wx.showToast({
+              title: res.Message,
+              icon: 'none'
+            });
+            callback && callback(false);
+          }
+        });
+      });
+    })
+  },
   globalData: {
     userInfo: null,
     DGIMN: null,
