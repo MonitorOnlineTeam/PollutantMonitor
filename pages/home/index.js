@@ -25,15 +25,40 @@ Page({
     common.setStorage("ApiType", 1);
     var that = this;
 
-    app.reloadRequest(function(res) {
-      that.setData({
-        userInfo: app.globalData.userInfo,
-        isAuthor: res
+    if (options && options.q) {
+      app.reloadRequest(function(res) {
+        that.setData({
+          userInfo: app.globalData.userInfo,
+          isAuthor: res
+        });
+        if (res) {
+          app.isValidateSdlUrl(options.q, function(res) {
+            var mn = common.getStorage("DGIMN");
+            if (res) {
+              var data = {};
+              data.currentTarget = {};
+              data.currentTarget.id = mn;
+              data.currentTarget.dataset = {};
+              data.currentTarget.dataset.pointname = mn;
+              data.currentTarget.dataset.targetname = mn;
+              that.showDetail(data);
+            }
+          });
+        }
       });
-      if (res) {
-        that.onPullDownRefresh();
-      }
-    });
+    } else {
+      app.reloadRequest(function(res) {
+        if (res) {
+          that.setData({
+            userInfo: app.globalData.userInfo,
+            isAuthor: res
+          });
+          that.onPullDownRefresh();
+        }
+      });
+    }
+
+
 
   },
 

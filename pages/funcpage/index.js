@@ -23,7 +23,7 @@ Page({
   onLoad: function(options) {
     common.setStorage("ApiType", 1);
     this.myComponent = this.selectComponent('#myComponent');
-    this.onPullDownRefresh();
+    //this.onPullDownRefresh();
   },
 
   /**

@@ -366,7 +366,7 @@ App({
         if (mn.length > 0) {
           console.log("mn=", mn);
 
-          _this.Islogin(function(res) {
+          _this.IsRegister(function(res) {
 
             if (res) {
               //验证是否先注册
