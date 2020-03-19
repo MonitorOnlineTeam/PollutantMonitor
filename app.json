@@ -27,7 +27,10 @@
     "pages/opreation/operationform/operationform",
     "pages/register/register",
     "pages/opreation/operationdetails/operationdetails",
-    "pages/addpoint/index"
+    "pages/register/register/register",
+    "pages/addpoint/addpoint/addpoint",
+    "pages/addpoint/enterprisesearch/enterprisesearch",
+    "pages/addpoint/addenterprise/addenterprise"
   ],
   "permission": {
     "scope.userLocation": {

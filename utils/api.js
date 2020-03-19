@@ -34,6 +34,7 @@ const pageUrl = {
   addFeedback: `/SMCManagerApi/AddFeedback`,
   getDataAlarmData: `/SMCManagerApi/GetAlarmDatas`,
   register: `/SMCManagerApi/Register`,
+  getEnterpriseList: `/SMCManagerApi/GetEnterpriseList`,
   getOperationLogList: `/SMCManagerApi/GetOperationLogList?authorCode=${authorCode}`,
   getTaskDitails: `/SMCManagerApi/GetTaskDitails?authorCode=${authorCode}`,
   getVentilationOperationRecord: `/SMCManagerApi/GetVentilationOperationRecord`,
@@ -61,7 +62,7 @@ function rsaEncrypt(apiType, authorcode, callback) {
   //2.运维
   //3.质控
   if (apiType === 1) {
-    authorcode = '12345'; //监控接口授权码
+    authorcode = '90000'; //监控接口授权码
   } else if (apiType === 2) {
     authorcode = '80000'; //运维接口授权码
   } else {
@@ -138,7 +139,7 @@ function AddUser(phone) {
 //初始化监控与运维票据
 function initTicket(callback) {
   var that = this;
-  var authorcodeMo = "12345"; //监控
+  var authorcodeMo = "90000"; //监控
   var authorcodeOpt = "80000"; //运维
   let encrypt_rsa = new RSA.RSAKey();
   encrypt_rsa = RSA.KEYUTIL.getKey(publicKey);
@@ -479,6 +480,7 @@ function register(
   PointLongitude,
   PointName,
   OpenId,
+  EntCode
 ) {
   return fetchApi(pageUrl.register, {
     Abbreviation: Abbreviation,
@@ -494,7 +496,20 @@ function register(
     PointLatitude: PointLatitude,
     PointLongitude: PointLongitude,
     PointName: PointName,
-    openId: OpenId
+    openId: OpenId,
+    EntCode: EntCode,
+  }, 'post').then(res => res.data)
+}
+
+/**
+ * 获取所有企业信息
+ * @param {DateTime} beginTime
+ * @param {DateTime} endTime
+ * @param {String} pollutantCodes
+ * @param {String} dataType
+ */
+function getEnterpriseList() {
+  return fetchApi(pageUrl.getEnterpriseList, {
   }, 'post').then(res => res.data)
 }
 
@@ -739,6 +754,7 @@ module.exports = {
   getPollutantList,
   getProcessFlowChartStatus,
   register,
+  getEnterpriseList,
   getMonitorDatas,
   verifyDevicePwd,
   verifyPhone,

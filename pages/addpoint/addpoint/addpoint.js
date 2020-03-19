@@ -1,4 +1,5 @@
 // pages/register/register.js
+var util = require('../../../utils/util.js');
 const app = getApp()
 const comApi = app.api;
 const common = app.common;
@@ -10,27 +11,43 @@ Page({
   data: {
     latitude: '',
     longitude: '',
-    ajxtrue: false, //手机号验证标识
     DGIMN: '',
+    Abbreviation: '',
+    EntAddress: '',
+    EntName: '',
+    EnvironmentPrincipal: '',
+    MobilePhone: '',
+    IfExistsFlag: true,
+    EntCode: '',
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    if (JSON.stringify(options) != "{}") {
+      this.setData({
+        Abbreviation: options.Abbreviation,
+        EntAddress: options.EntAddress,
+        EntName: options.EntName,
+        EnvironmentPrincipal: options.EnvironmentPrincipal,
+        MobilePhone: options.MobilePhone,
+        latitude: options.Latitude,
+        longitude: options.Longitude,
+        entCode: options.EntCode ? options.EntCode : "",
+      })
+    }
     this.setData({
       DGIMN: !common.getStorage("DGIMN") ? "" : common.getStorage("DGIMN"),
       openid: common.getStorage("OpenId")
     })
-    this.getLocation();
+
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
-
-  },
+  onReady: function() {},
 
   /**
    * 生命周期函数--监听页面显示
@@ -74,26 +91,6 @@ Page({
 
   },
   /**
-   * 获取经纬度
-   */
-  getLocation: function() {
-    //获取当前经纬度
-    wx.getLocation({
-      type: 'wgs84',
-      success: (res) => {
-        var latitude = res.latitude
-        var longitude = res.longitude
-        var speed = res.speed
-        var accuracy = res.accuracy
-        this.setData({
-          latitude: latitude,
-          longitude: longitude
-        })
-      }
-
-    })
-  },
-  /**
    * 表单提交
    */
   formSubmit: function(e) {
@@ -118,7 +115,7 @@ Page({
         icon: 'none',
         duration: 1500
       })
-    } else if (!this.data.ajxtrue) {
+    } else if ((!common.getStorage("FormMobilePhone") && !this.data.ajxtrue && !this.data.entCode) || (this.data.entCode && this.data.MobilePhone.length!=11 && !this.data.ajxtrue)) {
       wx.showToast({
         title: '请检查手机号!',
         icon: 'none',
@@ -139,24 +136,30 @@ Page({
         e.detail.value.PointLatitude,
         e.detail.value.PointLongitude,
         e.detail.value.PointName,
-        this.data.openid
+        this.data.openid,
+        this.data.entCode
       ).then(res => {
         if (res && res.IsSuccess) {
           if (res.Datas) {
+            //将添加企业是缓存的数据清空
+            common.setStorage("FormEntName", '');
+            common.setStorage("FormAbbreviation", '');
+            common.setStorage("FormEntAddress", '');
+            common.setStorage("FormEnvironmentPrincipal", '');
+            common.setStorage("FormMobilePhone", '');
+            common.setStorage("FormEntLongitude", '');
+            common.setStorage("FormEntLatitude", '');
+
             wx.showToast({
               title: '保存成功!',
               duration: 1500
             });
             setTimeout(function() {
-              var pages = getCurrentPages();
-              var beforePage = pages[pages.length - 2];
-              // 调用列表页的获取数据函数
-              beforePage.getData();
               // 跳转
               wx.redirectTo({
                 url: '/pages/home/index',
               });
-            }, 1500) //延迟时间 这里是1秒
+            }, 1000) //延迟时间 这里是1秒
 
           }
         } else {
@@ -172,30 +175,7 @@ Page({
     }
 
   },
-  //经度验证
-  moneyInputlongitude(e) {
-    var money;
-    if (/^(\d?)+(\.\d{0,5})?$/.test(e.detail.value)) { //正则验证，提现金额小数点后不能大于五位数字
-      money = e.detail.value;
-    } else {
-      money = e.detail.value.substring(0, e.detail.value.length - 1);
-    }
-    this.setData({
-      longitude: money,
-    })
-  },
-  //纬度验证
-  moneyInputlatitude(e) {
-    var money;
-    if (/^(\d?)+(\.\d{0,5})?$/.test(e.detail.value)) { //正则验证，提现金额小数点后不能大于五位数字
-      money = e.detail.value;
-    } else {
-      money = e.detail.value.substring(0, e.detail.value.length - 1);
-    }
-    this.setData({
-      latitude: money,
-    })
-  },
+
   //直径验证
   moneyInputOutputDiameter(e) {
     var money;
@@ -220,8 +200,15 @@ Page({
       OutputHigh: money,
     })
   },
+
+  //跳转企业列表
+  searchoraddenterprise: util.throttle(function(e) {
+    wx.navigateTo({
+      url: '/pages/addpoint/enterprisesearch/enterprisesearch?'
+    })
+  }, 1000),
   // 手机号验证
-  blurPhone: function(e) {
+  blurPhone: function (e) {
     var MobilePhone = e.detail.value;
     let that = this
     if (!(/^1[34578]\d{9}$/.test(MobilePhone))) {
@@ -241,5 +228,29 @@ Page({
         ajxtrue: true
       })
     }
+  },
+  //经度验证
+  moneyInputlongitude(e) {
+    var money;
+    if (/^(\d?)+(\.\d{0,5})?$/.test(e.detail.value)) { //正则验证，提现金额小数点后不能大于五位数字
+      money = e.detail.value;
+    } else {
+      money = e.detail.value.substring(0, e.detail.value.length - 1);
+    }
+    this.setData({
+      longitude: money,
+    })
+  },
+  //纬度验证
+  moneyInputlatitude(e) {
+    var money;
+    if (/^(\d?)+(\.\d{0,5})?$/.test(e.detail.value)) { //正则验证，提现金额小数点后不能大于五位数字
+      money = e.detail.value;
+    } else {
+      money = e.detail.value.substring(0, e.detail.value.length - 1);
+    }
+    this.setData({
+      latitude: money,
+    })
   },
 })

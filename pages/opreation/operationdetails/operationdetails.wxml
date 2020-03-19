@@ -63,9 +63,10 @@
 
 <swiper class="screen-swiper round-dot" indicator-dots="true" circular="true" autoplay="true" interval="5000" duration="500">
   <swiper-item wx:for="{{resultData.Attachments.ImgList}}" wx:key="index">
-    <image src="http://api.chsdl.net/NewWryWebProxy/upload/{{item}}/Attachment?code={{attachment}}" mode='aspectFill'></image>
+    <image src="http://api.chsdl.net/NewWryWebProxy/upload/img/{{item}}/Attachment?code={{attachment}}" mode='aspectFill'></image>
   </swiper-item>
 </swiper>
+
 
 <!-- <view>
   <view class="bg-white padding">
