@@ -136,27 +136,7 @@ App({
     wx.login({
       success: res => {
         common.setStorage("WxCode", res.code);
-        api.initTicket(function() {
-          //debugger;
-          api.SDLSMCIsRegister().then(res => {
-            var data = res.Datas;
-            if (res.IsSuccess) {
-              common.setStorage("Ticket", data.Ticket); //13800138000
-              common.setStorage("OpenId", data.OpenId); //13800138000
-              common.setStorage("PhoneCode", data.Phone); //13800138000
-              common.setStorage("IsLogin", true);
-              callback && callback(true);
-            } else {
-              common.setStorage("Ticket", ""); //13800138000
-              common.setStorage("OpenId", data.OpenId); //13800138000
-              common.setStorage("IsLogin", false);
-              common.setStorage("PhoneCode", ""); //13800138000
-              callback && callback(false);
-            }
-          });
-        });
-
-
+        callback && callback();
       }
     })
   },
@@ -386,7 +366,7 @@ App({
         if (mn.length > 0) {
           console.log("mn=", mn);
 
-          _this.Islogin(function(res) {
+          _this.IsRegister(function(res) {
 
             if (res) {
               //验证是否先注册
@@ -426,13 +406,11 @@ App({
                   }
 
                 } else {
-                  if (vres.Message =="暂未注册!")
-                  {
+                  if (vres.Message == "暂未注册!") {
                     wx.navigateTo({
                       url: '/pages/register/register',
                     })
-                  }else
-                  {
+                  } else {
                     wx.showToast({
                       title: vres.Message,
                       icon: 'none',
@@ -570,7 +548,7 @@ App({
     callback && callback(true);
   },
 
-  IsLoginNew: function(callback) {
+  GetUserInfoNew: function(callback) {
     // 获取用户信息
     wx.getSetting({
       success: res => {
@@ -581,7 +559,7 @@ App({
               wx.showLoading({
                 title: '正在加载中',
               })
-              common.setStorage('IsLogin', true);
+              //common.setStorage('IsLogin', true);
               // 可以将 res 发送给后台解码出 unionId
               this.globalData.userInfo = res.userInfo;
 
@@ -618,6 +596,42 @@ App({
       return;
     }
     callback && callback(true);
+  },
+  reloadRequest: function(callback) {
+    var that = this;
+    that.wxLogin(function() {
+      api.initTicket(function() {
+        //debugger;
+        api.SDLSMCIsRegister().then(res => {
+          var data = res.Datas;
+          common.setStorage("OpenId", data.OpenId); //13800138000
+          if (res.StatusCode == 10001) {
+            common.setStorage("IsLogin", false);
+            that.IsRegister();
+            callback && callback(false)
+            return;
+          }
+
+          if (res.IsSuccess) {
+            common.setStorage("Ticket", data.Ticket); //13800138000
+
+            common.setStorage("PhoneCode", data.Phone); //13800138000
+            common.setStorage("IsLogin", true);
+            callback && callback(true);
+
+          } else {
+            common.setStorage("Ticket", ""); //13800138000
+            common.setStorage("IsLogin", false);
+            common.setStorage("PhoneCode", ""); //13800138000
+            wx.showToast({
+              title: res.Message,
+              icon: 'none'
+            });
+            callback && callback(false);
+          }
+        });
+      });
+    })
   },
   globalData: {
     userInfo: null,

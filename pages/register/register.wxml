@@ -1,5 +1,5 @@
 <form bindsubmit="formSubmit">
-  
+
   <view class="cu-form-group">
     <view class='title'>手机号</view>
     <input bindinput='blurPhone' type='number' placeholder="请输入手机号" class='radius' name='MobilePhone'></input>
@@ -12,6 +12,15 @@
       </view>
     </view>
   </view>
+  <radio-group class="block">
+    <view class="margin-top;margin-left:10px">
+      <radio class="blue" checked></radio>
+      <span style="margin-left:10px">我已阅读并同意</span>
+      <span style="color:blue;margin-left:10px;" bindtap="lookAgreement">《用户监测数据许可协议》</span>
+
+    </view>
+  </radio-group>
+
 
   <view class="padding flex flex-direction ">
     <button class='cu-btn bg-blue margin-tb-sm lg' formType="submit">注册</button>

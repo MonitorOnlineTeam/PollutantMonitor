@@ -8,12 +8,30 @@
   </view>
 </scroll-view>
 
-<realtimedata id="myComponent_0" wx:if="{{TabCur==0}}"></realtimedata>
 
-<historydata id="myComponent_1" wx:if="{{TabCur==1}}"></historydata>
 
-<ventilationrecord id="myComponent_2" wx:if="{{TabCur==2}}"></ventilationrecord>
 
-<optworkorder id="myComponent_3" wx:if="{{TabCur==3}}"></optworkorder>
+<realtimedata id="myComponent" wx:if="{{TabCur==0}}"></realtimedata>
+<historydata id="myComponent" wx:if="{{TabCur==1}}"></historydata>
 
-<deviceinfo id="myComponent_4" wx:if="{{TabCur==4}}"></deviceinfo>
+<view wx:if="{{tabData.length==3}}">
+
+  <deviceinfo id="myComponent" wx:if="{{TabCur==2 }}"></deviceinfo>
+
+</view>
+
+
+<view wx:if="{{tabData.length==4}}">
+
+  <ventilationrecord id="myComponent" wx:if="{{TabCur==2 && isQCA}}"></ventilationrecord>
+  <optworkorder id="myComponent" wx:if="{{TabCur==2&&isOpt}}"></optworkorder>
+  <deviceinfo id="myComponent" wx:if="{{TabCur==3 }}"></deviceinfo>
+</view>
+
+
+<view wx:if="{{tabData.length==5}}">
+  <ventilationrecord id="myComponent" wx:if="{{TabCur==2}}"></ventilationrecord>
+  <optworkorder id="myComponent" wx:if="{{TabCur==3}}"></optworkorder>
+  <deviceinfo id="myComponent" wx:if="{{TabCur==4 }}"></deviceinfo>
+
+</view>

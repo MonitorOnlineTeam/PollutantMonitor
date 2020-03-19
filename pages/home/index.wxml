@@ -1,72 +1,72 @@
 <!--足迹-->
-<view style="display:{{selectedTab===0?'block':'none'}}">
-  <scroll-view scroll-y class="scrollPage">
-    <block wx:for="{{historyRecord}}" wx:key="{{DGIMN}}">
-      <view class="cu-list menu" id="{{item.DGIMN}}" data-pointname="{{item.PointName}}" data-targetname="{{item.EnterpriseName}}" bindtap="showDetail">
-        <view class="cu-item {{'arrow'}}" style=''>
-          <view class='content padding-tb-sm'>
-            <view class='entNameClass'>
-              <text class='icon-roundcheck {{DGIMN==item.DGIMN?"text-blue":""}}'></text> {{item.EnterpriseName}}
-            </view>
-            <view class='text-gray text-sm'>
-              <text class='textOneClass'>排口：{{item.PointName}}</text>
-              <text class='textTwoClass'>上次使用：{{item.VisitTime}}</text>
+  <view style="display:{{selectedTab===0?'block':'none'}}">
+    <scroll-view scroll-y class="scrollPage">
+      <block wx:for="{{historyRecord}}" wx:key="{{DGIMN}}">
+        <view class="cu-list menu" id="{{item.DGIMN}}" data-pointname="{{item.PointName}}" data-targetname="{{item.EnterpriseName}}" bindtap="showDetail">
+          <view class="cu-item {{'arrow'}}" style=''>
+            <view class='content padding-tb-sm'>
+              <view class='entNameClass'>
+                <text class='icon-roundcheck {{DGIMN==item.DGIMN?"text-blue":""}}'></text> {{item.EnterpriseName}}
+              </view>
+              <view class='text-gray text-sm'>
+                <text class='textOneClass'>排口：{{item.PointName}}</text>
+                <text class='textTwoClass'>上次使用：{{item.VisitTime}}</text>
+              </view>
             </view>
           </view>
         </view>
+      </block>
+      <view class='infoBlock' style='display:{{historyRecord.length>0?"none":"block"}}'>
+        暂无数据
       </view>
-    </block>
-    <view class='infoBlock' style='display:{{historyRecord.length>0?"none":"block"}}'>
-      暂无数据
-    </view>
-  </scroll-view>
-</view>
-<!--我的-->
-<view style="display:{{selectedTab===1?'block':'none'}}">
-
-  <view class='UCenter-bg'>
-    <button wx:if="{{isAuthor==false}}" style="" class="cu-btn round bg-blue" open-type="getUserInfo" bindgetuserinfo="getUserInfo">授权</button>
-    <view wx:else>
-      <image src='{{userInfo.avatarUrl}}' class='png'></image>
-      <view class='margin-top-sm' style="text-align:center">
-        <text>{{userInfo.nickName}}</text>
-      </view>
-    </view>
-
+    </scroll-view>
   </view>
+  <!--我的-->
+  <view style="display:{{selectedTab===1?'block':'none'}}">
 
-  <view class='QRcodeClass'>
-    <view class="cu-list menu" bindtap="showModal">
-      <view class="cu-item {{'arrow'}}">
-        <view>
-          <image src='/images/fankui.png' class='imageClass'></image>
-        </view>
-        <view class='content'>
-          <text>意见反馈</text>
+    <view class='UCenter-bg'>
+      <button wx:if="{{isAuthor==false}}" style="" class="cu-btn round bg-blue" open-type="getUserInfo" bindgetuserinfo="getUserInfo">获取头像</button>
+      <view wx:else>
+        <image src='{{userInfo.avatarUrl}}' class='png'></image>
+        <view class='margin-top-sm' style="text-align:center">
+          <text>{{userInfo.nickName}}</text>
         </view>
       </view>
+
     </view>
-    <button bindtap="clearCache" class='cu-btn block bg-blue margin-tb-sm' style='margin-left:10rpx;margin-right:10rpx;'>
-      <text class='{{isLoading?"icon-loading2 iconfont-spin":""}} '></text> 清除缓存({{currentSize}}kb)</button>
 
-  </view>
-
-</view>
-
-
-<view class="box">
-  <view class="cu-bar tabbar bg-white foot">
-    <view class="action text-{{selectedTab==0?'blue':'gray'}}" bindtap="tapHistory">
-      <view class="cuIcon-homefill"></view> 足迹
-    </view>
-    <view class="action text-gray add-action" bindtap="clickScan">
-      <button class="cu-btn cuIcon-scan shadow"></button>
-      扫一扫
-    </view>
-    <view class="action text-{{selectedTab==1?'blue':'gray'}}" bindtap="tapMy">
-      <view class="cuIcon-my">
+    <view class='QRcodeClass'>
+      <view class="cu-list menu" bindtap="showModal">
+        <view class="cu-item {{'arrow'}}">
+          <view>
+            <image src='/images/fankui.png' class='imageClass'></image>
+          </view>
+          <view class='content'>
+            <text>意见反馈</text>
+          </view>
+        </view>
       </view>
-      我的
+      <button bindtap="clearCache" class='cu-btn block bg-blue margin-tb-sm' style='margin-left:10rpx;margin-right:10rpx;'>
+        <text class='{{isLoading?"icon-loading2 iconfont-spin":""}} '></text> 清除缓存</button>
+
+    </view>
+
+  </view>
+
+
+  <view class="box">
+    <view class="cu-bar tabbar bg-white foot">
+      <view class="action text-{{selectedTab==0?'blue':'gray'}}" bindtap="tapHistory">
+        <view class="cuIcon-homefill"></view> 足迹
+      </view>
+      <view class="action text-gray add-action" bindtap="clickScan">
+        <button class="cu-btn cuIcon-scan shadow"></button>
+        扫一扫
+      </view>
+      <view class="action text-{{selectedTab==1?'blue':'gray'}}" bindtap="tapMy">
+        <view class="cuIcon-my">
+        </view>
+        我的
+      </view>
     </view>
   </view>
-</view>

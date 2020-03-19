@@ -22,12 +22,43 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    common.setStorage("ApiType", 1);
+    var that = this;
 
-    this.setData({
-      userInfo: app.globalData.userInfo,
-      isAuthor: common.getStorage("IsLogin")
-    });
-    this.onPullDownRefresh();
+    if (options && options.q) {
+      app.reloadRequest(function(res) {
+        that.setData({
+          userInfo: app.globalData.userInfo,
+          isAuthor: res
+        });
+        if (res) {
+          app.isValidateSdlUrl(options.q, function(res) {
+            var mn = common.getStorage("DGIMN");
+            if (res) {
+              var data = {};
+              data.currentTarget = {};
+              data.currentTarget.id = mn;
+              data.currentTarget.dataset = {};
+              data.currentTarget.dataset.pointname = mn;
+              data.currentTarget.dataset.targetname = mn;
+              that.showDetail(data);
+            }
+          });
+        }
+      });
+    } else {
+      app.reloadRequest(function(res) {
+        if (res) {
+          that.setData({
+            userInfo: app.globalData.userInfo,
+            isAuthor: res
+          });
+          that.onPullDownRefresh();
+        }
+      });
+    }
+
+
 
   },
 
@@ -43,12 +74,10 @@ Page({
    */
   onShow: function() {
     var that = this;
-    //common.setStorage("ApiType", 1);
-    //that.isLogin();
-
-    // if (that.data.isAuthor && that.data.selectedTab === 1) {
-    //   that.tapMy();
-    // }
+    common.setStorage("ApiType", 1);
+    if (that.data.selectedTab == 0 && common.getStorage("IsLogin")) {
+      that.onPullDownRefresh();
+    }
   },
 
   /**
@@ -70,32 +99,25 @@ Page({
    */
   onPullDownRefresh: function() {
     var that = this;
+    if (this.data.selectedTab == 1) {
+      wx.stopPullDownRefresh();
+      wx.hideNavigationBarLoading();
+      return;
+    }
+    app.IsRegister(function(res) {
+      if (res) {
 
-    if (!common.getStorage("OpenId")) {
-      app.wxLogin(function() {
         wx.showNavigationBarLoading();
         wx.stopPullDownRefresh();
 
         that.getData();
-      })
+      } else {
+        wx.stopPullDownRefresh();
+        wx.hideNavigationBarLoading();
+      }
+    });
 
-    } else {
-      wx.showNavigationBarLoading();
-      wx.stopPullDownRefresh();
-
-      that.getData();
-    }
-    // this.isLogin() && app.IsRegister(function(res) {
-    //   if (res) {
-    //     wx.showNavigationBarLoading();
-    //     wx.stopPullDownRefresh();
-
-    //     that.getData();
-    //   }
-    // });
-    // !this.isLogin() && wx.hideNavigationBarLoading();
   },
-
   /**
    * 页面上拉触底事件的处理函数
    */
@@ -165,11 +187,12 @@ Page({
   },
   tapHistory: function() {
     const selectedTap = this.data.selectedTab;
-    if (selectedTap === 0 && this.data.isAuthor) {
+    var isLogin = common.getStorage("IsLogin");
+    if (selectedTap === 0 && !isLogin) {
       return;
     }
 
-    if (!this.data.isAuthor) {
+    if (!isLogin) {
       this.setData({
         historyRecord: [],
         selectedTab: 0
@@ -197,14 +220,19 @@ Page({
     console.log(2);
 
     const selectedTap = this.data.selectedTab;
-    if (selectedTap === 1 && this.data.isAuthor && this.data.userInfo != null)
-      return;
     let that = this;
-    !that.data.userInfo && app.IsLoginNew(function(res) {
+    if (!this.data.userInfo) {
+      that.setData({
+        isAuthor: false
+      });
+    }
+
+    console.log("userInfo=", this.data.userInfo);
+    !that.data.userInfo && app.GetUserInfoNew(function(res) {
       if (res) {
         that.setData({
           userInfo: app.globalData.userInfo,
-          isAuthor: common.getStorage("IsLogin")
+          isAuthor: true
         })
       }
     });
@@ -230,8 +258,8 @@ Page({
           isLoading: false
         });
         if (res.confirm) {
-          wx.clearStorageSync();
-          that.updateCurrentSize(0);
+          //wx.clearStorageSync();
+          //that.updateCurrentSize(0);
           wx.showToast({
             title: '清除成功',
           });
@@ -262,11 +290,11 @@ Page({
       wx.showLoading({
         title: '',
       })
-      app.IsLoginNew(function(res) {
+      app.GetUserInfoNew(function(res) {
         if (res) {
           that.setData({
             userInfo: app.globalData.userInfo,
-            isAuthor: common.getStorage("IsLogin")
+            isAuthor: true
           })
           callback && callback();
         }
@@ -291,22 +319,26 @@ Page({
   },
   //意见反馈
   showModal(e) {
-    if (!this.data.isAuthor) {
-      app.Islogin(function() {});
-      return false;
-    }
-    wx.navigateTo({
-      url: '/pages/my/feedBack/feedBack'
-    })
+    app.IsRegister(function(res) {
+      if (res) {
+        wx.navigateTo({
+          url: '/pages/my/feedBack/feedBack'
+        })
+      }
+    });
   },
   clickScan: function() {
 
     var that = this;
-    that.isLogin() && that.openQRCode();
+    app.IsRegister(function(res) {
+      if (res) {
+        that.openQRCode();
+      }
+    });
   },
   openQRCode: function() {
     var that = this;
-
+    common.setStorage("ApiType", 1);
 
 
     //http://api.chsdl.cn/wxwryapi?flag=sdl,mn=62262431qlsp01

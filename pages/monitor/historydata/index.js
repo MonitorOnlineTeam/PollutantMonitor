@@ -95,7 +95,6 @@ Component({
     },
     //获取监控数据
     getData: function() {
-      app.Islogin(function() {});
       let {
         selectedPollutant,
         dataType,
@@ -391,11 +390,7 @@ Component({
       });
     },
     onChangeDate(e) {
-      app.Islogin(function() {});
-      if (!this.data.isAuthor) {
 
-        return false;
-      }
       let _this = this;
       const sdlMN = app.globalData.sdlMN.filter(m => m === _this.data.DGIMN);
       if (sdlMN.length > 0) {
@@ -419,11 +414,7 @@ Component({
       })
     },
     horizontalScreen: function() {
-      app.Islogin(function() {});
-      if (!this.data.isAuthor) {
-
-        return false;
-      }
+     
       let _this = this;
       const sdlMN = app.globalData.sdlMN.filter(m => m === this.data.DGIMN);
       if (sdlMN.length > 0) {
@@ -445,10 +436,6 @@ Component({
     },
     tabSelect(e) {
       // console.log(e);
-      app.Islogin(function() {});
-      if (!this.data.isAuthor) {
-        return false;
-      }
       this.setData({
         dataType: e.currentTarget.dataset.id,
         selectedDate: moment(common.getStorage('selectedDate')).format(selectTimeFormat[e.currentTarget.dataset.id].showFormat),
@@ -475,18 +462,7 @@ Component({
       }
 
     },
-    login: function() {
-      app.Islogin(function() {});
-    },
-    goLogin: function() {
-      app.goLogin();
-    },
     onChangePollutant(e) {
-      app.Islogin(function() {});
-      if (!this.data.isAuthor) {
-
-        return false;
-      }
       let _this = this;
       const sdlMN = app.globalData.sdlMN.filter(m => m === _this.data.DGIMN);
       if (sdlMN.length > 0) {
@@ -504,51 +480,24 @@ Component({
       }
     },
     onShow: function() {
-      //app.isLogin();
       let that = this;
-      this.setData({
-        isAuthor: common.getStorage("IsLogin")
-      });
+      let selectedDate = moment(common.getStorage('selectedDate')).format(selectTimeFormat[that.data.dataType].showFormat);
+      //debugger;
+      let selectedPollutants = common.getStorage('selectedPollutants') || [];
+      if (that.data.selectedDate != selectedDate || JSON.stringify(that.data.selectedPollutants) != JSON.stringify(selectedPollutants) || that.data.DGIMN !== common.getStorage('DGIMN')) {
 
-      if (!that.data.isAuthor) {
-        wx.setNavigationBarTitle({
-          title: '历史数据',
-        })
-        that.setData({
-          chartDatas: []
-        });
-        return;
-      }
-
-      app.isLogin(function(res) {
-        if (!res) {
-          wx.setNavigationBarTitle({
-            title: '历史数据',
-          })
-          that.setData({
-            chartDatas: []
-          });
-          return;
-        } else {
-          let selectedDate = moment(common.getStorage('selectedDate')).format(selectTimeFormat[that.data.dataType].showFormat);
-          //debugger;
-          let selectedPollutants = common.getStorage('selectedPollutants') || [];
-          if (that.data.selectedDate != selectedDate || JSON.stringify(that.data.selectedPollutants) != JSON.stringify(selectedPollutants) || that.data.DGIMN !== common.getStorage('DGIMN')) {
-
-            if (that.data.DGIMN !== common.getStorage('DGIMN')) {
-              selectedDate = moment().format(selectTimeFormat[that.data.dataType].showFormat);
-              //moment().format(selectTimeFormat[this.data.dataType].showFormat)
-            }
-
-            that.setData({
-              DGIMN: common.getStorage('DGIMN'),
-              selectedDate: selectedDate,
-              selectedPollutants: selectedPollutants
-            });
-            that.onPullDownRefresh();
-          }
+        if (that.data.DGIMN !== common.getStorage('DGIMN')) {
+          selectedDate = moment().format(selectTimeFormat[that.data.dataType].showFormat);
+          //moment().format(selectTimeFormat[this.data.dataType].showFormat)
         }
-      });
+
+        that.setData({
+          DGIMN: common.getStorage('DGIMN'),
+          selectedDate: selectedDate,
+          selectedPollutants: selectedPollutants
+        });
+        that.onPullDownRefresh();
+      }
     }
   },
 

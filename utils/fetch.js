@@ -10,7 +10,18 @@ const common = require('./common.js')
  */
 module.exports = function(api, path, params, method) {
   //console.log(`${api}/${path}`, `${JSON.stringify(params)}${method}`);
-
+  // wx.showModal({
+  //   title: '提示',
+  //   content: `${JSON.stringify(params)}${method}${api}${path}`, //'网络错误，请重试', //'网络错误，请重试',JSON.stringify(res)
+  //   showCancel: false,
+  //   success(res) {
+  //     if (res.confirm) {
+  //       console.log('用户点击确定')
+  //     } else if (res.cancel) {
+  //       console.log('用户点击取消')
+  //     }
+  //   }
+  // })
   var AuthorCodeRSA = common.getStorage('AuthorCodeRSA_' + common.getStorage('ApiType'));
   console.log("AuthorCodeRSA=", AuthorCodeRSA);
   return new Promise((resolve, reject) => {

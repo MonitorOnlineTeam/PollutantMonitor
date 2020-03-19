@@ -138,6 +138,14 @@ function AddUser(phone) {
 }
 //初始化监控与运维票据
 function initTicket(callback) {
+
+  if (common.getStorage("AuthorCodeRSA_1") && common.getStorage("AuthorCodeRSA_2")) {
+    common.setStorage("ApiType", 1);
+    common.setStorage("IsAuthor", true);
+    callback && callback(true);
+    return;
+  }
+
   var that = this;
   var authorcodeMo = "90000"; //监控
   var authorcodeOpt = "80000"; //运维
@@ -239,7 +247,7 @@ function fetchApi(type, params, method, noUrl) {
   }).catch(res => {
     wx.showModal({
       title: '提示',
-      content: '网络错误，请重试', //'网络错误，请重试',JSON.stringify(res)
+      content: JSON.stringify(res) + type + common.getStorage("ApiType"), //'网络错误，请重试', //'网络错误，请重试',JSON.stringify(res)
       showCancel: false,
       success(res) {
         if (res.confirm) {
@@ -773,7 +781,6 @@ module.exports = {
   validateAuthorCode,
   qCAResultCheckByDGIMN,
   getStabilizationTime,
-  rsaEncrypt,
   SDLSMCIsRegister,
   AddUser,
   initTicket,
