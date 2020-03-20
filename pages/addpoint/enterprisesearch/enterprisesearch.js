@@ -108,7 +108,7 @@ Page({
   }, 
   //跳转到添加企业界面
   addenterprise: util.throttle(function (e) {
-    wx.redirectTo({
+    wx.navigateTo({
       url: '/pages/addpoint/addenterprise/addenterprise'
     })
   }, 1000),
