@@ -55,7 +55,6 @@ var RSA = require('./wx_rsa.js');
 const publicKey = '-----BEGIN PUBLIC KEY-----MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCxsx1/cEpUmSwUwwPU0SciWcVKmDORBGwSBjJg8SL2GrCMC1 + Rwz81IsBSkhog7O + BiXEOk / 5frE8ryZOpOm / 3PmdWimEORkTdS94MilEsk + 6Ozd9GnAz6Txyk07yDDwCEmA3DoFY2hfKg5vPoskKA0QBC894cUqq1aH9h44SwyQIDAQAB-----END PUBLIC KEY-----';
 var encStr = "";
 
-
 //验证用户是否注册
 function SDLSMCIsRegister() {
   return fetchApi(pageUrl.SDLSMCIsRegister, {

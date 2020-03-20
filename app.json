@@ -26,8 +26,6 @@
     "pages/monitor/flowchart/index",
     "pages/opreation/operationform/operationform",
     "pages/opreation/operationdetails/operationdetails",
-
-
     "pages/addpoint/addpoint/addpoint",
     "pages/addpoint/enterprisesearch/enterprisesearch",
     "pages/addpoint/addenterprise/addenterprise",
