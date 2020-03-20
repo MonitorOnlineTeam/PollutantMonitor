@@ -30,10 +30,7 @@
     "pages/addpoint/enterprisesearch/enterprisesearch",
     "pages/addpoint/addenterprise/addenterprise",
     "pages/lookagreement/index",
-    "pages/register/register",
-    "pages/addpoint/addpoint/addpoint",
-    "pages/addpoint/enterprisesearch/enterprisesearch",
-    "pages/addpoint/addenterprise/addenterprise",
+    "pages/register/register"
   ],
   "permission": {
     "scope.userLocation": {
