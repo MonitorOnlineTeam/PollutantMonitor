@@ -212,10 +212,10 @@ Page({
 
   //跳转企业列表
   searchoraddenterprise: util.throttle(function(e) {
-    wx.navigateTo({
+    wx.redirectTo({
       url: '/pages/addpoint/enterprisesearch/enterprisesearch?'
     })
-  }, 1000),
+  }, 500),
   // 手机号验证
   blurPhone: function(e) {
     var MobilePhone = e.detail.value;

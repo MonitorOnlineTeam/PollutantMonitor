@@ -15,7 +15,8 @@ Page({
     isLoading: false,
     currentSize: 0,
     alarmSwitch: false,
-    isAuthor: false
+    isAuthor: false,
+    hidden: true
   },
 
   /**
@@ -165,8 +166,18 @@ Page({
       wx.hideNavigationBarLoading();
     })
   },
+  showLoading: function() {
+    wx.showToast({
+      title: '正在加载中',
+      icon: 'loading'
+    });
+  },
+  cancelLoading: function() {
+    wx.hideToast();
+  },
   //详情跳转到实时工艺页面
   showDetail(e) {
+    this.showLoading();
     var dgimn = e.currentTarget.id;
     var pointname = e.currentTarget.dataset.pointname;
     var targetname = e.currentTarget.dataset.targetname;
@@ -192,6 +203,7 @@ Page({
         url: '/pages/funcpage/index' //'/pages/realTimeData/home/home',
       })
     }
+    this.cancelLoading();
   },
   tapHistory: function() {
     const selectedTap = this.data.selectedTab;

@@ -12,7 +12,7 @@
 <view class="cu-list menu contentClass">
   <view class="cu-item" wx:for="{{resultData}}" wx:key="index" wx:if="{{item.isShow}}" bindtap="redirectEnterprise" data-entname='{{item["EntName"]}}' data-abbreviation='{{item["Abbreviation"]}}' data-entaddress='{{item["EntAddress"]}}' data-environmentprincipal='{{item["EnvironmentPrincipal"]}}'  data-mobilephone='{{item["MobilePhone"]}}' data-longitude='{{item["Longitude"]}}' data-latitude='{{item["Latitude"]}}' data-entcode='{{item["EntCode"]}}'>
     <view class='content'>
-      <image src='/images/enterprise.png' class='png' mode='aspectFit'></image>
+      <image src='/images/Enterprise.png' class='imageClass'></image>
       <text class='text-grey'>{{item.EntName}}</text>
     </view>
   </view>
