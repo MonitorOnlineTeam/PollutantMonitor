@@ -22,7 +22,7 @@ Component({
     month: "", //选中月份
     time: null, //选中时间字符串
     resultData: [], //返回数据
-    convertToCapitalization: "", //月份对应的大写格式
+    // convertToCapitalization: "", //月份对应的大写格式
     modalName: '', //弹出信息窗口
     mengShow: false, //蒙层的显示与否
     aniStyle: true, //动画效果，默认slideup  
@@ -75,40 +75,40 @@ Component({
     dateChange: function(e) {
       var date = new Date(e.detail.value + "-01 00:00:00");
       var time = util.formatTimeGang(date);
-      var convertToCapitalization = this.getMonths(date);
+      // var convertToCapitalization = this.getMonths(date);
       this.setData({
         month: e.detail.value,
         time,
-        convertToCapitalization: convertToCapitalization
+        // convertToCapitalization: convertToCapitalization
       });
       //获取运维数据
       this.getData();
     },
-    //获取月份对应的大写格式
-    getMonths: function(date) {
-      var chinese = ['0', '一', '二', '三', '四', '五', '六', '七', '八', '九'];
-      // var y = date.getFullYear().toString();
-      var m = (date.getMonth() + 1).toString();
-      // var d = date.getDate().toString();
-      var result = "";
-      // for (var i = 0; i < y.length; i++) {
-      //   result += chinese[y.charAt(i)];
-      // }
-      // result += "年";
-      if (m.length == 2) {
-        if (m.charAt(0) == "1") {
-          result += ("十" + chinese[m.charAt(1)] + "月份工单情况");
-        }
-      } else {
-        result += (chinese[m.charAt(0)] + "月份工单情况");
-      }
-      // if (d.length == 2) {
-      //   result += (chinese[d.charAt(0)] + "十" + chinese[m.charAt(1)] + "日");
-      // } else {
-      //   result += (chinese[d.charAt(0)] + "日");
-      // }
-      return result;
-    },
+    // //获取月份对应的大写格式
+    // getMonths: function(date) {
+    //   var chinese = ['0', '一', '二', '三', '四', '五', '六', '七', '八', '九'];
+    //   // var y = date.getFullYear().toString();
+    //   var m = (date.getMonth() + 1).toString();
+    //   // var d = date.getDate().toString();
+    //   var result = "";
+    //   // for (var i = 0; i < y.length; i++) {
+    //   //   result += chinese[y.charAt(i)];
+    //   // }
+    //   // result += "年";
+    //   if (m.length == 2) {
+    //     if (m.charAt(0) == "1") {
+    //       result += ("十" + chinese[m.charAt(1)] + "月份工单情况");
+    //     }
+    //   } else {
+    //     result += (chinese[m.charAt(0)] + "月份工单情况");
+    //   }
+    //   // if (d.length == 2) {
+    //   //   result += (chinese[d.charAt(0)] + "十" + chinese[m.charAt(1)] + "日");
+    //   // } else {
+    //   //   result += (chinese[d.charAt(0)] + "日");
+    //   // }
+    //   return result;
+    // },
     //获取运维数据
     getData: function() {
       //获取运维数据
@@ -160,23 +160,13 @@ Component({
       console.log("在组件实例刚刚被创建时执行")
     },
     attached() {
-      var rsa2 = common.getStorage(`AuthorCodeRSA_2`);
-      if (!rsa2) {
-        comApi.rsaEncrypt(2, 80000, function(res) {
-          // if (res) {
-          //   wx.showToast({
-          //     title: '请求成功',
-          //   })
-          // }
-        })
-      }
 
       common.setStorage("ApiType", 2);
       //获取当前月份
       var timestamp = Date.parse(new Date());
       var date = new Date(timestamp);
       var time = util.formatTimeGang(new Date());
-      var convertToCapitalization = this.getMonths(date);
+      // var convertToCapitalization = this.getMonths(date);
       //获取年份  
       var Y = date.getFullYear();
       //获取月份  
@@ -184,7 +174,7 @@ Component({
       this.setData({
         month: Y + "-" + M,
         time,
-        convertToCapitalization: convertToCapitalization
+        // convertToCapitalization: convertToCapitalization
       });
       //请求数据
       this.onPullDownRefresh();

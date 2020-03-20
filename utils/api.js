@@ -34,6 +34,7 @@ const pageUrl = {
   addFeedback: `/SMCManagerApi/AddFeedback`,
   getDataAlarmData: `/SMCManagerApi/GetAlarmDatas`,
   register: `/SMCManagerApi/Register`,
+  getEnterpriseList: `/SMCManagerApi/GetEnterpriseList`,
   getOperationLogList: `/SMCManagerApi/GetOperationLogList?authorCode=${authorCode}`,
   getTaskDitails: `/SMCManagerApi/GetTaskDitails?authorCode=${authorCode}`,
   getVentilationOperationRecord: `/SMCManagerApi/GetVentilationOperationRecord`,
@@ -419,6 +420,7 @@ function register(
   PointLongitude,
   PointName,
   OpenId,
+  EntCode
 ) {
   return fetchApi(pageUrl.register, {
     Abbreviation: Abbreviation,
@@ -434,7 +436,20 @@ function register(
     PointLatitude: PointLatitude,
     PointLongitude: PointLongitude,
     PointName: PointName,
-    openId: OpenId
+    openId: OpenId,
+    EntCode: EntCode,
+  }, 'post').then(res => res.data)
+}
+
+/**
+ * 获取所有企业信息
+ * @param {DateTime} beginTime
+ * @param {DateTime} endTime
+ * @param {String} pollutantCodes
+ * @param {String} dataType
+ */
+function getEnterpriseList() {
+  return fetchApi(pageUrl.getEnterpriseList, {
   }, 'post').then(res => res.data)
 }
 
@@ -679,6 +694,7 @@ module.exports = {
   getPollutantList,
   getProcessFlowChartStatus,
   register,
+  getEnterpriseList,
   getMonitorDatas,
   verifyDevicePwd,
   verifyPhone,

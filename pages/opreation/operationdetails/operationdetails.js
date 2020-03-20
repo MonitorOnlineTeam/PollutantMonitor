@@ -22,6 +22,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    common.setStorage("ApiType", 2);
     let attachment = common.getStorage('AuthorCodeRSA_2');
     this.setData({
       taskid:options.taskid,
@@ -35,7 +36,6 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-
   },
 
   /**
@@ -93,6 +93,7 @@ Page({
   },
   //预览图片，放大预览
   preview(event) {
+    debugger
     let currentUrl = event.currentTarget.dataset.src
     wx.previewImage({
       current: currentUrl, // 当前显示图片的http链接
