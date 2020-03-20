@@ -67,7 +67,11 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function() {
-
+    let pages = getCurrentPages().length - 1;
+    console.log('需要销毁的页面：' + pages);
+    wx.navigateBack({
+      delta: pages
+    })
   },
 
   /**
@@ -115,7 +119,7 @@ Page({
         icon: 'none',
         duration: 1500
       })
-    } else if ((!common.getStorage("FormMobilePhone") && !this.data.ajxtrue && !this.data.entCode) || (this.data.entCode && this.data.MobilePhone.length!=11 && !this.data.ajxtrue)) {
+    } else if ((!common.getStorage("FormMobilePhone") && !this.data.ajxtrue && !this.data.entCode) || (this.data.entCode && this.data.MobilePhone.length != 11 && !this.data.ajxtrue)) {
       wx.showToast({
         title: '请检查手机号!',
         icon: 'none',
@@ -155,10 +159,15 @@ Page({
               duration: 1500
             });
             setTimeout(function() {
+              //app.IsEntryDetails();
+              common.setStorage("IsEntryDetails", true);
               // 跳转
-              wx.redirectTo({
-                url: '/pages/home/index',
+              wx.navigateBack({
+                delta: 1
               });
+              // wx.redirectTo({
+              //   url: '/pages/home/index',
+              // });
             }, 1000) //延迟时间 这里是1秒
 
           }
@@ -208,7 +217,7 @@ Page({
     })
   }, 1000),
   // 手机号验证
-  blurPhone: function (e) {
+  blurPhone: function(e) {
     var MobilePhone = e.detail.value;
     let that = this
     if (!(/^1[34578]\d{9}$/.test(MobilePhone))) {

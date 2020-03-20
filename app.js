@@ -633,6 +633,17 @@ App({
       });
     })
   },
+  IsEntryDetails: function() {
+    if (common.getStorage("DGIMN")) {
+      common.setStorage("IsEntryDetails", true);
+      wx.redirectTo({
+        url: '/pages/home/index',
+      })
+    } else {
+      common.setStorage("IsEntryDetails", false);
+      wx.navigateBack();
+    }
+  },
   globalData: {
     userInfo: null,
     DGIMN: null,

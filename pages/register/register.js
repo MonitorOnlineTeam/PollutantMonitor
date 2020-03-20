@@ -92,7 +92,8 @@ Page({
             title: '注册成功!',
             duration: 1500
           });
-          wx.navigateBack();
+          app.IsEntryDetails();
+          
         } else {
           wx.showToast({
             title: res.Message,
@@ -127,7 +128,6 @@ Page({
     }
   },
   lookAgreement: function() {
-    debugger;
     wx.navigateTo({
       url: '/pages/lookagreement/index',
     })

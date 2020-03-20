@@ -23,6 +23,7 @@ Page({
    */
   onLoad: function(options) {
     common.setStorage("ApiType", 1);
+    //common.setStorage("DGIMN", "");
     var that = this;
 
     if (options && options.q) {
@@ -75,6 +76,13 @@ Page({
   onShow: function() {
     var that = this;
     common.setStorage("ApiType", 1);
+    if (common.getStorage("IsEntryDetails")) {
+      common.setStorage("IsEntryDetails", false);
+      wx.redirectTo({
+        url: '/pages/funcpage/index',
+      });
+      return;
+    }
     if (that.data.selectedTab == 0 && common.getStorage("IsLogin")) {
       that.onPullDownRefresh();
     }
