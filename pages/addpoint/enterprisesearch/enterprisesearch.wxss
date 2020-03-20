@@ -1,0 +1,10 @@
+/* pages/addpoint/enterprisesearch/enterprisesearch.wxss */
+.cu-bar .search-form input{
+  padding-left: 5vw;
+}
+.searchClass{
+  height: 8vh;
+}
+.contentClass{
+  margin-top: 8vh;
+}

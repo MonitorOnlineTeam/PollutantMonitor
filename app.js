@@ -382,7 +382,7 @@ App({
                         if (res.confirm) {
                           common.setStorage("DGIMN", mn);
                           wx.navigateTo({
-                            url: '/pages/addpoint/index',
+                            url: '/pages/addpoint/addpoint/addpoint',
                           })
                         }
                       }
