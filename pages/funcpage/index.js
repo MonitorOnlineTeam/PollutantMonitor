@@ -21,9 +21,16 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    console.log('options=', options);
     common.setStorage("ApiType", 1);
     this.myComponent = this.selectComponent('#myComponent');
+    this.setData({
+      isOpt: options.isOpt == 'false' ? false : true,
+      tabData: options.isOpt == 'false' ? ['实时数据', '历史数据', '设备信息'] : ['实时数据', '历史数据', '运维', '设备信息']
+    })
     //this.onPullDownRefresh();
+
+
   },
 
   /**

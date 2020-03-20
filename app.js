@@ -365,7 +365,7 @@ App({
 
         if (mn.length > 0) {
           console.log("mn=", mn);
-
+          common.setStorage("DGIMN", mn);
           _this.IsRegister(function(res) {
 
             if (res) {
@@ -374,6 +374,7 @@ App({
                 //debugger;
                 if (vres && vres.StatusCode == 200) {
                   if (!vres.IsSuccess) {
+
                     wx.showModal({
                       title: '提示',
                       content: '信息不存在，请先添加',
@@ -387,6 +388,7 @@ App({
                         }
                       }
                     })
+                    callback && callback(false);
                   } else {
                     api.qRCodeVerifyDGIMN(mn).then(res => {
                       console.log("res=", res);
@@ -643,6 +645,23 @@ App({
       common.setStorage("IsEntryDetails", false);
       wx.navigateBack();
     }
+  },
+  RedirectToDetails: function() {
+    common.setStorage("ApiType", 2);
+    api.IfExistsDGIMN().then(res => {
+      common.setStorage("ApiType", 1);
+      console.log('res=', res);
+      if (res && res.requstresult == '0') {
+        wx.navigateTo({
+          url: '/pages/funcpage/index?isOpt=false',
+        })
+      } else {
+        wx.navigateTo({
+          url: '/pages/funcpage/index?isOpt=true',
+        })
+      }
+    })
+
   },
   globalData: {
     userInfo: null,

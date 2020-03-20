@@ -1,5 +1,5 @@
 // pages/register/register.js
-const app = getApp()
+const app = getApp();
 const comApi = app.api;
 const common = app.common;
 Page({
@@ -92,8 +92,11 @@ Page({
             title: '注册成功!',
             duration: 1500
           });
-          app.IsEntryDetails();
-          
+          // common.setStorage("IsEntryDetails",true)
+          wx.redirectTo({
+            url: '/pages/home/index',
+          })
+
         } else {
           wx.showToast({
             title: res.Message,

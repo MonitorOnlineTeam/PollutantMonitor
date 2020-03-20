@@ -67,11 +67,11 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function() {
-    let pages = getCurrentPages().length - 1;
-    console.log('需要销毁的页面：' + pages);
-    wx.navigateBack({
-      delta: pages
-    })
+    // let pages = getCurrentPages().length - 1;
+    // console.log('需要销毁的页面：' + pages);
+    // wx.navigateBack({
+    //   delta: pages
+    // })
   },
 
   /**
@@ -161,9 +161,10 @@ Page({
             setTimeout(function() {
               //app.IsEntryDetails();
               common.setStorage("IsEntryDetails", true);
+              let pages = getCurrentPages().length - 1;
               // 跳转
               wx.navigateBack({
-                delta: 1
+                delta: pages
               });
               // wx.redirectTo({
               //   url: '/pages/home/index',

@@ -44,6 +44,8 @@ Page({
               data.currentTarget.dataset.pointname = mn;
               data.currentTarget.dataset.targetname = mn;
               that.showDetail(data);
+            } else {
+              that.onPullDownRefresh();
             }
           });
         }
@@ -79,14 +81,14 @@ Page({
     common.setStorage("ApiType", 1);
     if (common.getStorage("IsEntryDetails")) {
       common.setStorage("IsEntryDetails", false);
-      wx.redirectTo({
-        url: '/pages/funcpage/index',
-      });
+      app.RedirectToDetails();
       return;
+    } else {
+      if (that.data.selectedTab == 0 && common.getStorage("IsLogin")) {
+        that.onPullDownRefresh();
+      }
     }
-    if (that.data.selectedTab == 0 && common.getStorage("IsLogin")) {
-      that.onPullDownRefresh();
-    }
+
   },
 
   /**
@@ -145,6 +147,7 @@ Page({
   //获取历史数据
   getData: function() {
     let historyRecord = [];
+
     comApi.getPointVisitHistorys().then(res => {
       console.log(res)
       if (res && res.IsSuccess) {
@@ -186,23 +189,26 @@ Page({
     //common.setStorage("DGIMN_Old", dgimn);
     let _this = this;
     const sdlMN = app.globalData.sdlMN.filter(m => m === dgimn);
-    if (sdlMN.length > 0) {
-      app.getUserLocation(function(r) {
-        if (r) {
-          common.setStorage("DGIMN", dgimn);
-          common.setStorage("OpenId_SDL", "");
-          wx.navigateTo({
-            url: '/pages/funcpage/index' //'/pages/realTimeData/home/home',
-          })
-        }
-      }, 'history')
-    } else {
-      common.setStorage("DGIMN", dgimn);
-      common.setStorage("OpenId_SDL", "");
-      wx.navigateTo({
-        url: '/pages/funcpage/index' //'/pages/realTimeData/home/home',
-      })
-    }
+    // if (sdlMN.length > 0) {
+    //   app.getUserLocation(function(r) {
+    //     if (r) {
+    //       common.setStorage("DGIMN", dgimn);
+    //       common.setStorage("OpenId_SDL", "");
+    //       wx.navigateTo({
+    //         url: '/pages/funcpage/index' //'/pages/realTimeData/home/home',
+    //       })
+    //     }
+    //   }, 'history')
+    // } else {
+    //   common.setStorage("DGIMN", dgimn);
+    //   common.setStorage("OpenId_SDL", "");
+    //   wx.navigateTo({
+    //     url: '/pages/funcpage/index' //'/pages/realTimeData/home/home',
+    //   })
+    // }
+    common.setStorage("DGIMN", dgimn);
+    app.RedirectToDetails();
+
     this.cancelLoading();
   },
   tapHistory: function() {

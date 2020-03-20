@@ -47,7 +47,8 @@ const pageUrl = {
   getStabilizationTime: `/SMCManagerApi/GetStabilizationTime`,
   SDLSMCIsRegister: `/SMCManagerApi/SDLSMCIsRegister`,
   AddUser: `/SMCManagerApi/AddUser`,
-  ValidateDGIMN: `/SMCManagerApi/ValidateDGIMN`
+  ValidateDGIMN: `/SMCManagerApi/ValidateDGIMN`,
+  IfExistsDGIMN: `/SMCManagerApi/IfExistsDGIMN?authorCode=${authorCode}`
 }
 
 
@@ -113,10 +114,17 @@ function initTicket(callback) {
   })
 }
 
+//验证MN号在监控库里是否存在
 function ValidateDGIMN(mn) {
   return fetchApi(pageUrl.ValidateDGIMN, {
     DGIMN: mn,
     OpenId: common.getStorage("OpenId")
+  }, 'post').then(res => res.data);
+}
+//验证MN号在运维库是否存在
+function IfExistsDGIMN() {
+  return fetchApi(pageUrl.IfExistsDGIMN, {
+    DGIMN: common.getStorage("DGIMN"),
   }, 'post').then(res => res.data);
 }
 
@@ -449,8 +457,7 @@ function register(
  * @param {String} dataType
  */
 function getEnterpriseList() {
-  return fetchApi(pageUrl.getEnterpriseList, {
-  }, 'post').then(res => res.data)
+  return fetchApi(pageUrl.getEnterpriseList, {}, 'post').then(res => res.data)
 }
 
 /**
@@ -716,5 +723,7 @@ module.exports = {
   SDLSMCIsRegister,
   AddUser,
   initTicket,
-  ValidateDGIMN
+  ValidateDGIMN,
+  IfExistsDGIMN
+
 }
