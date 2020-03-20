@@ -26,13 +26,9 @@
     "pages/monitor/flowchart/index",
     "pages/opreation/operationform/operationform",
     "pages/opreation/operationdetails/operationdetails",
-<<<<<<< HEAD
     "pages/addpoint/addpoint/addpoint",
     "pages/addpoint/enterprisesearch/enterprisesearch",
     "pages/addpoint/addenterprise/addenterprise",
-=======
-    "pages/addpoint/index",
->>>>>>> PollutantMonitor
     "pages/lookagreement/index",
     "pages/register/register"
   ],
