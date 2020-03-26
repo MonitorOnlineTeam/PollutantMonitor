@@ -17,48 +17,30 @@ App({
    * 小程序启动，或从后台进入前台显示时
    */
   onShow: function(options) {
-
+    // wx.showModal({
+    //   title: '1',
+    //   content: JSON.stringify(options),
+    // })
     //处理分享页面
     if (options && options.scene === 1007) {
-      if (!common.getStorage('OpenId') || !common.getStorage("PhoneCode")) {
-        wx.redirectTo({
-          url: '/pages/login/login',
-        });
-        common.setStorage("IsShare", true);
-        return;
-      }
+      common.setStorage("IsShare", true);
+      common.setStorage("SharePath", `/${options.path}`);
 
-      if (options.query && options.query.DGIMN) {
-        common.setStorage("DGIMN", options.query.DGIMN);
-        api.qRCodeVerifyDGIMN(options.query.DGIMN).then(res => {
-          if (res && res.IsSuccess) {
-            common.setStorage("DGIMN", options.query.DGIMN);
+      if (options.query && options.query.queryJson) {
+        var queryJson = JSON.parse(options.query.queryJson);
 
-          } else {
-            //common.setStorage("DGIMN", mn);
-
-            wx.showModal({
-              title: '提示',
-              content: res.Message,
-              showCancel: false,
-              success(res) {
-                common.setStorage("IsShare", false);
-                wx.redirectTo({
-                  url: '/pages/login/login',
-                });
-              }
-            })
-          }
-        })
-      } else {
-        wx.redirectTo({
-          url: '/pages/login/login',
-        });
+        common.setStorage("DGIMN", queryJson.DGIMN);
+        common.setStorage("isOpt", queryJson.isOpt);
+        common.setStorage("ShareTabCur", queryJson.TabCur);
+        common.setStorage('selectedPollutants', queryJson.selectedPollutants);
+        common.setStorage('selectedDate', queryJson.selectedDate);
+        common.setStorage('dataType', queryJson.dataType);
       }
     } else {
       common.setStorage("IsShare", false);
+      common.setStorage("SharePath", null);
+      common.setStorage('dataType', "");
     }
-
 
     const updateManager = wx.getUpdateManager()
     updateManager.onCheckForUpdate(function(res) {
@@ -124,6 +106,7 @@ App({
         this.globalData.CustomBar = custom.bottom + custom.top - e.statusBarHeight;
       }
     })
+
     this.wxLogin();
   },
   redirectTo: function(url) {
@@ -136,7 +119,27 @@ App({
     wx.login({
       success: res => {
         common.setStorage("WxCode", res.code);
-        callback && callback();
+        if (!common.getStorage("OpenId")) {
+          api.SDLSMCIsRegister().then(res => {
+            var data = res.Datas;
+            common.setStorage("OpenId", data.OpenId); //13800138000
+            if (res.StatusCode == 10001) {
+              common.setStorage("IsLogin", false);
+            }
+
+            if (res.IsSuccess) {
+              common.setStorage("Ticket", data.Ticket);
+              common.setStorage("PhoneCode", data.Phone);
+              common.setStorage("IsLogin", true);
+            } else {
+              common.setStorage("Ticket", "");
+              common.setStorage("IsLogin", false);
+              common.setStorage("PhoneCode", "");
+            }
+            
+          });
+        }
+        callback && callback(true);
       }
     })
   },
@@ -287,6 +290,8 @@ App({
 
   },
   getUserLocation: function(callback, flagR) {
+    callback && callback(true);
+    return;
     var _this = this;
     wx.showLoading({
       title: '正在获取位置',
@@ -461,32 +466,6 @@ App({
     }
     callback && callback(false);
   },
-  isAuthor: function() {
-    console.log("isAuthor1=", common.getStorage('OpenId'));
-    console.log("isAuthor2=", common.getStorage('PhoneCode'));
-    if (!common.getStorage('OpenId') || !common.getStorage("PhoneCode")) {
-      console.log(123);
-      return false;
-    } else {
-      console.log(456);
-      return true;
-    }
-  },
-  goLogin: function() {
-    wx.showModal({
-      title: '提示',
-      content: '登录后查看更多信息',
-      success: function(res) {
-        if (res.confirm) {
-          wx.navigateTo({
-            url: '/pages/login/login',
-          })
-        } else if (res.cancel) {
-          console.log('用户点击取消')
-        }
-      }
-    })
-  },
   getMyPhoto: function() {
     wx.getSetting({
       success: res => {
@@ -511,45 +490,6 @@ App({
       }
     })
   },
-  Islogin: function(callback) {
-    if (!common.getStorage("IsAuthor")) {
-      wx.showModal({
-        title: '提示',
-        content: '请先授权后，再执行操作',
-        showCancel: true,
-        success(res) {
-          console.log(res);
-          if (res.confirm) {
-            wx.navigateTo({
-              url: '/pages/qca/authorCode/authorCode'
-            })
-          }
-        }
-      })
-      callback && callback(false);
-      return;
-    }
-
-    if (!common.getStorage("IsLogin")) {
-      wx.showModal({
-        title: '提示',
-        content: '请先登录后，再执行操作',
-        showCancel: true,
-        success(res) {
-          console.log(res);
-          if (res.confirm) {
-            wx.navigateTo({
-              url: '/pages/login/login'
-            })
-          }
-        }
-      })
-      callback && callback(false);
-      return;
-    }
-    callback && callback(true);
-  },
-
   GetUserInfoNew: function(callback) {
     // 获取用户信息
     wx.getSetting({
@@ -579,25 +519,84 @@ App({
     })
   },
   IsRegister: function(callback) {
-    if (!common.getStorage("IsLogin")) {
-
-      wx.showModal({
-        title: '提示',
-        content: '请注册后，再执行操作',
-        showCancel: true,
-        success(res) {
-          console.log(res);
-          if (res.confirm) {
-            wx.navigateTo({
-              url: '/pages/register/register'
-            })
-          }
+    if (!common.getStorage("OpenId")) {
+      api.SDLSMCIsRegister().then(res => {
+        var data = res.Datas;
+        common.setStorage("OpenId", data.OpenId); //13800138000
+        if (res.StatusCode == 10001) {
+          common.setStorage("IsLogin", false);
+          wx.showModal({
+            title: '提示',
+            content: '请注册授权后，再执行操作',
+            showCancel: true,
+            success(res) {
+              console.log(res);
+              if (res.confirm) {
+                wx.navigateTo({
+                  url: '/pages/register/register'
+                })
+              }
+            }
+          })
+          callback && callback(false)
+          return;
         }
-      })
-      callback && callback(false);
-      return;
+
+        if (res.IsSuccess) {
+          common.setStorage("Ticket", data.Ticket);
+
+          common.setStorage("PhoneCode", data.Phone);
+          common.setStorage("IsLogin", true);
+          callback && callback(true);
+
+        } else {
+          common.setStorage("Ticket", "");
+          common.setStorage("IsLogin", false);
+          common.setStorage("PhoneCode", "");
+          // wx.showToast({
+          //   title: res.Message,
+          //   icon: 'none'
+          // });
+          wx.showModal({
+            title: '提示',
+            content: '请注册授权后，再执行操作',
+            showCancel: true,
+            success(res) {
+              console.log(res);
+              if (res.confirm) {
+                wx.navigateTo({
+                  url: '/pages/register/register'
+                })
+              }
+            }
+          })
+          callback && callback(false);
+          return;
+        }
+      });
+    } else {
+      if (!common.getStorage("IsLogin")) {
+
+        wx.showModal({
+          title: '提示',
+          content: '请注册授权后，再执行操作',
+          showCancel: true,
+          success(res) {
+            console.log(res);
+            if (res.confirm) {
+              wx.navigateTo({
+                url: '/pages/register/register'
+              })
+            }
+          }
+        })
+        callback && callback(false);
+        return;
+      }
+      callback && callback(true);
     }
-    callback && callback(true);
+
+
   },
   reloadRequest: function(callback) {
     var that = this;
@@ -651,16 +650,73 @@ App({
     api.IfExistsDGIMN().then(res => {
       common.setStorage("ApiType", 1);
       console.log('res=', res);
+      common.setStorage("dataType", "");
+      common.setStorage("IsShare", false);
       if (res && res.requstresult == '0') {
         wx.navigateTo({
           url: '/pages/funcpage/index?isOpt=false',
         })
       } else {
-        wx.navigateTo({
-          url: '/pages/funcpage/index?isOpt=true',
-        })
+        if (res && res.IsSuccess) {
+          wx.navigateTo({
+            url: '/pages/funcpage/index?isOpt=true',
+          })
+        } else {
+          wx.navigateTo({
+            url: '/pages/funcpage/index?isOpt=false',
+          })
+        }
       }
     })
+
+  },
+  InitStorage: function(callback) {
+    var that = this;
+    that.wxLogin(function() {
+      api.initTicket(function() {
+        //debugger;
+        api.SDLSMCIsRegister().then(res => {
+          var data = res.Datas;
+          common.setStorage("OpenId", data.OpenId); //13800138000
+          if (res.StatusCode == 10001) {
+            common.setStorage("IsLogin", false);
+            that.IsRegister();
+            callback && callback(false)
+            return;
+          }
+
+          if (res.IsSuccess) {
+            common.setStorage("Ticket", data.Ticket); //13800138000
+
+            common.setStorage("PhoneCode", data.Phone); //13800138000
+            common.setStorage("IsLogin", true);
+            callback && callback(true);
+
+          } else {
+            common.setStorage("Ticket", ""); //13800138000
+            common.setStorage("IsLogin", false);
+            common.setStorage("PhoneCode", ""); //13800138000
+            // wx.showToast({
+            //   title: res.Message,
+            //   icon: 'none'
+            // });
+            callback && callback(false);
+          }
+        });
+      });
+    })
+  },
+  onShareApp: function(callback) {
+    var that = this;
+    //1.判断是否为分享进来
+    //2.如果为分享进来，请求接口返回票据，跳转到对应的路径页面 
+    if (!common.getStorage("IsShare")) {
+      callback && callback(false);
+    } else {
+      that.InitStorage(function(res) {
+        callback && callback(res);
+      });
+    }
 
   },
   globalData: {

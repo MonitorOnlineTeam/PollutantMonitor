@@ -71,7 +71,10 @@ function AddUser(phone) {
 }
 //初始化监控与运维票据
 function initTicket(callback) {
-
+  //授权码加密默认已经生成，写死在fetch.js中，如果授权码修改，则需替换变量
+  common.setStorage("ApiType", 1);
+  callback && callback(true);
+  return;
   if (common.getStorage("AuthorCodeRSA_1") && common.getStorage("AuthorCodeRSA_2")) {
     common.setStorage("ApiType", 1);
     common.setStorage("IsAuthor", true);
@@ -81,12 +84,13 @@ function initTicket(callback) {
 
   var that = this;
   var authorcodeMo = "12345"; //监控
-  var authorcodeOpt = "80000"; //运维
+  var authorcodeOpt = "80808"; //运维
   let encrypt_rsa = new RSA.RSAKey();
   encrypt_rsa = RSA.KEYUTIL.getKey(publicKey);
   encStr = encrypt_rsa.encrypt(authorcodeMo)
   encStr = RSA.hex2b64(encStr);
   common.setStorage(`AuthorCodeRSA_1`, encStr);
+  console.log('AuthorCodeRSA_1=', encStr);
   common.setStorage("ApiType", 1);
 
   that.validateAuthorCode().then(res => {
@@ -98,7 +102,7 @@ function initTicket(callback) {
       encStr = RSA.hex2b64(encStr);
       common.setStorage(`AuthorCodeRSA_2`, encStr);
       //common.setStorage("ApiType", 2);
-
+      console.log('AuthorCodeRSA_2=', encStr);
       that.validateAuthorCode().then(res => {
         if (res && res.IsSuccess) {
           common.setStorage(`AuthorCodeRSA_2`, encStr);
@@ -108,8 +112,12 @@ function initTicket(callback) {
             icon: 'none'
           });
           callback && callback(true);
+        } else {
+          common.setStorage(`AuthorCodeRSA_2`, null);
         }
       })
+    } else {
+      common.setStorage(`AuthorCodeRSA_1`, null);
     }
   })
 }
@@ -185,18 +193,18 @@ function fetchApi(type, params, method, noUrl) {
 
     return res;
   }).catch(res => {
-    wx.showModal({
-      title: '提示',
-      content: JSON.stringify(res) + type + common.getStorage("ApiType"), //'网络错误，请重试', //'网络错误，请重试',JSON.stringify(res)
-      showCancel: false,
-      success(res) {
-        if (res.confirm) {
-          console.log('用户点击确定')
-        } else if (res.cancel) {
-          console.log('用户点击取消')
-        }
-      }
-    })
+    // wx.showModal({
+    //   title: '提示',
+    //   content: '网络错误，请重试', //'网络错误，请重试',JSON.stringify(res)
+    //   showCancel: false,
+    //   success(res) {
+    //     if (res.confirm) {
+    //       console.log('用户点击确定')
+    //     } else if (res.cancel) {
+    //       console.log('用户点击取消')
+    //     }
+    //   }
+    // })
     wx.hideLoading()
     return res;
   })
@@ -279,7 +287,7 @@ function getPointInfo(DGIMNs) {
   //   console.log('getPointInfo', res)
   // })
   return fetchApi(pageUrl.getPointInfo, {
-    OpenId: common.getStorage('PhoneCode'),
+    OpenId: common.getStorage('OpenId'),
     DGIMN: common.getStorage('DGIMN')
   }, 'post').then(res => res.data)
 }
@@ -333,7 +341,7 @@ function getPollutantList(DGIMNs) {
  */
 function getProcessFlowChartStatus() {
   return fetchApi(pageUrl.getProcessFlowChartStatus, {
-    OpenId: common.getStorage('PhoneCode'),
+    OpenId: common.getStorage('OpenId'),
     DGIMN: common.getStorage('DGIMN')
   }, 'post').then(res => res.data)
 }
@@ -344,7 +352,7 @@ function getProcessFlowChartStatus() {
  */
 function getRealTimeDataForPoint() {
   return fetchApi(pageUrl.getRealTimeDataForPoint, {
-    OpenId: common.getStorage('PhoneCode'),
+    OpenId: common.getStorage('OpenId'),
     DGIMN: common.getStorage('DGIMN')
   }, 'post').then(res => res.data)
 }
@@ -373,7 +381,7 @@ function getMonitorDatas(pollutantCodes, datatype, endTime = null) {
     endTime = moment(endTime).add(1, 'months').add(-1, 'seconds').format('YYYY-MM-DD 23:59:59');
   }
   let body = {
-    OpenId: common.getStorage('PhoneCode'),
+    OpenId: common.getStorage('OpenId'),
     DGIMNs: common.getStorage('DGIMN'),
     pollutantCodes: pollutantCodes,
     dataType: dataTypeObj[datatype],
@@ -402,7 +410,7 @@ function getAlarmDataList(beginTime, endTime, entCode, pageIndex = 1, pageSize =
     DGIMN: DGIMN,
     PageSize: pageSize,
     PageIndex: pageIndex,
-    OpenId: common.getStorage('PhoneCode')
+    OpenId: common.getStorage('OpenId')
   }, 'post').then(res => res.data)
 }
 
@@ -600,7 +608,7 @@ function qRCodeVerifyDGIMN(DGIMN) {
  */
 function addFeedback(Name, EmailAddress, Details) {
   return fetchApi(pageUrl.addFeedback, {
-    CreateUserID: common.getStorage('PhoneCode'), //不是用户id
+    CreateUserID: common.getStorage('OpenId'), //不是用户id
     Name: Name,
     EmailAddress: EmailAddress,
     Details: Details

@@ -95,16 +95,24 @@ Page({
     var name = this.data.name;
     var email = this.data.email;
     var details = this.data.details;
+
+    if (details.length < 5) {
+      wx.showToast({
+        title: '内容字数不能少于5个字符',
+        icon: 'none'
+      })
+      return;
+    }
     //邮箱验证
     var reg = new RegExp('^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$');
-    var phoneVar = reg.test(email); // 得到的值为布尔型
+    var phoneVar = true; //reg.test(email); // 得到的值为布尔型
     if (phoneVar) {
       //调用接口
       comApi.addFeedback(name, email, details).then(res => {
         if (res && res.IsSuccess) {
           wx.showModal({
             title: '提示',
-            content: '添加成功！',
+            content: '反馈成功！',
             showCancel: false,
             success(res) {
               if (res.confirm) {

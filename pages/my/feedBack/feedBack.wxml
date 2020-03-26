@@ -4,16 +4,16 @@
 
 <view class="cu-card case {{isCard?'no-card':''}}">
   <view wx:for="{{1}}" wx:key class="cu-item shadow">
-    <view class="cu-form-group" style='height:20px'>
+    <!-- <view class="cu-form-group" style='height:20px'>
       <view class='title'>姓名：</view>
       <input class='radius' placeholder='请输入姓名' name='input' bindinput="name"></input>
     </view>
     <view class="cu-form-group">
       <view class='title'>邮箱：</view>
       <input class='radius' placeholder='请输入邮箱' name='input' bindinput="email"></input>
-    </view>
+    </view> -->
     <view class="cu-form-group margin-top" wx:hide="{{modalName==null}}">
-     <textarea maxlength="-1" placeholder='请输入意见' disabled="{{modalName!=null}}" placeholder-class='placeholder' bindinput="details"></textarea>
+     <textarea maxlength="-1" placeholder='请输入反馈内容……' disabled="{{modalName!=null}}" placeholder-class='placeholder' bindinput="details"></textarea>
     </view>
   </view>
 </view>

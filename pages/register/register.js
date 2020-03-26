@@ -15,7 +15,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    app.wxLogin(function() {
 
+    });
   },
 
   /**
@@ -64,7 +66,9 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function() {
-
+    return {
+      path: `/pages/home11/index1` // 路径，传递参数到指定页面。
+    }
   },
   /**
    * 表单提交
@@ -92,9 +96,8 @@ Page({
             title: '注册成功!',
             duration: 1500
           });
-          // common.setStorage("IsEntryDetails",true)
-          wx.redirectTo({
-            url: '/pages/home/index',
+          wx.navigateBack({
+            delta: 1
           })
 
         } else {

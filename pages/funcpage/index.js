@@ -11,9 +11,9 @@ Page({
     TabCur: 0,
     scrollLeft: 0,
     //tabData: ['实时数据', '历史数据', '质控', '运维', '设备信息'],
-    tabData: ['实时数据', '历史数据', '运维', '设备信息'],
+    tabData: ['实时数据', '历史数据', '设备信息'],
     frist: true, //是否首次
-    isOpt: true,
+    isOpt: false,
     isQCA: false
   },
 
@@ -21,16 +21,41 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    var that = this;
     console.log('options=', options);
-    common.setStorage("ApiType", 1);
-    this.myComponent = this.selectComponent('#myComponent');
-    this.setData({
-      isOpt: options.isOpt == 'false' ? false : true,
-      tabData: options.isOpt == 'false' ? ['实时数据', '历史数据', '设备信息'] : ['实时数据', '历史数据', '运维', '设备信息']
-    })
+
+      if (!common.getStorage('DGIMN')) {
+        wx.redirectTo({
+          url: '/pages/home/index',
+        })
+      }
+      common.setStorage("ApiType", 1);
+
+      if (common.getStorage('IsShare')) {
+        app.IsRegister(function(res) {
+          if (!res) {
+            that.setData({
+              TabCur: -1
+            });
+          } else {
+
+            that.setData({
+              TabCur: +common.getStorage('ShareTabCur'),
+              isOpt: common.getStorage('isOpt'),
+              tabData: !common.getStorage('isOpt') ? ['实时数据', '历史数据', '设备信息'] : ['实时数据', '历史数据', '运维', '设备信息']
+            });
+          }
+        });
+      }
+
+      that.myComponent = that.selectComponent('#myComponent');
+      if (options && options.isOpt) {
+        that.setData({
+          isOpt: options.isOpt == 'false' ? false : true,
+          tabData: options.isOpt == 'false' ? ['实时数据', '历史数据', '设备信息'] : ['实时数据', '历史数据', '运维', '设备信息']
+        })
+      }
     //this.onPullDownRefresh();
-
-
   },
 
   /**
@@ -39,16 +64,42 @@ Page({
   onReady: function() {
 
   },
-
+  btnRegister: function() {
+    wx.showModal({
+      title: '提示',
+      content: '请注册授权后，再执行操作',
+      showCancel: true,
+      success(res) {
+        console.log(res);
+        if (res.confirm) {
+          wx.navigateTo({
+            url: '/pages/register/register'
+          })
+        }
+      }
+    })
+  },
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+    if (!common.getStorage('DGIMN')) {
+      wx.redirectTo({
+        url: '/pages/home/index',
+      })
+    }
     wx.setNavigationBarTitle({
       title: common.getStorage("PointName")
     });
+
+    if (this.data.TabCur == -1 && common.getStorage('IsLogin')) {
+      this.setData({
+        TabCur: common.getStorage('ShareTabCur')
+      });
+    }
+
     var data = this.data;
-    if (data.frist)
+    if (data.frist && !common.getStorage('IsShare'))
       return;
 
     let myComponent = this.myComponent;
@@ -68,7 +119,6 @@ Page({
         myComponent.onShow();
         break;
     }
-    console.log(1);
   },
 
   /**
@@ -89,9 +139,29 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function() {
+
+
     var data = this.data;
-    let myComponent = this.myComponent;
-    myComponent.onPullDownRefresh();
+    if (data.TabCur == -1) {
+      wx.stopPullDownRefresh();
+      wx.hideNavigationBarLoading();
+      wx.showModal({
+        title: '提示',
+        content: '请注册授权后，再执行操作',
+        showCancel: true,
+        success(res) {
+          console.log(res);
+          if (res.confirm) {
+            wx.navigateTo({
+              url: '/pages/register/register'
+            })
+          }
+        }
+      })
+    } else {
+      let myComponent = this.myComponent;
+      myComponent.onPullDownRefresh();
+    }
   },
 
   /**
@@ -122,16 +192,40 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function() {
+    let selectedPollutants = common.getStorage('selectedPollutants');
 
+    // if (typeof selectedPollutants == 'object') {
+    //   selectedPollutants = JSON.stringify(selectedPollutants);
+    // }
+    var queryJson = {
+      DGIMN: common.getStorage('DGIMN'),
+      TabCur: this.data.TabCur,
+      isOpt: this.data.isOpt,
+      selectedPollutants: selectedPollutants || [],
+      selectedDate: common.getStorage('selectedDate'),
+      dataType: common.getStorage('dataType')
+    };
+    // wx.showModal({
+    //   title: 'queryJson',
+    //   content: JSON.stringify(queryJson),
+    // })
+    return {
+      path: `/pages/funcpage/index?queryJson=${JSON.stringify(queryJson)}` // 路径，F传递参数到指定页面。
+    }
   },
   tabSelect(e) {
-    var id = e.currentTarget.dataset.id;
-    this.setData({
-      TabCur: id,
-      scrollLeft: (id - 1) * 60,
-      frist: false
-    });
-    common.setStorage("ApiType", 1);
-    this.myComponent = this.selectComponent('#myComponent');
+    var that = this;
+    app.IsRegister(function(res) {
+      if (res) {
+        var id = e.currentTarget.dataset.id;
+        that.setData({
+          TabCur: id,
+          scrollLeft: (id - 1) * 60,
+          frist: false
+        });
+        common.setStorage("ApiType", 1);
+        that.myComponent = that.selectComponent('#myComponent');
+      }
+    })
   }
 })

@@ -8,7 +8,13 @@
   </view>
 </scroll-view>
 
-
+<view wx:if="{{TabCur==-1}}" class="cu-list menu card-menu margin-top" style="margin-bottom: 15rpx;text-align:center">
+  <view class="cu-item" bindtap="btnRegister">
+    <view class="content">
+      <text class="text-grey text-sm"><text class="cuIcon-info text-green"></text> 请先点击注册授权后，即可执行操作</text>
+    </view>
+  </view>
+</view>
 
 
 <realtimedata id="myComponent" wx:if="{{TabCur==0}}"></realtimedata>

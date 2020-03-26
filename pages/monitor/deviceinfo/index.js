@@ -164,22 +164,23 @@ Component({
         });
         return;
       }
-      app.isLogin(function(res) {
-        if (!res) {
-          that.setData({
-            resultData: {}
-          });
-          return;
-        } else {
-          //登陆（或者扫描二维码）时已经把MN号码赋上，  ----目前时登陆赋上
-          if (that.data.dgimn !== common.getStorage('DGIMN')) {
-            that.setData({
-              dgimn: common.getStorage('DGIMN')
-            });
-            that.onPullDownRefresh();
-          }
-        }
-      })
+      if (that.data.dgimn !== common.getStorage('DGIMN')) {
+        that.setData({
+          dgimn: common.getStorage('DGIMN')
+        });
+        that.onPullDownRefresh();
+      }
+      // app.isLogin(function(res) {
+      //   if (!res) {
+      //     that.setData({
+      //       resultData: {}
+      //     });
+      //     return;
+      //   } else {
+      //     //登陆（或者扫描二维码）时已经把MN号码赋上，  ----目前时登陆赋上
+          
+      //   }
+      // })
     }
   },
 

@@ -23,66 +23,53 @@
   </view>
 </view>
 
-<view wx:if="{{isAuthor==true}}">
-  <!-- 第二部分（工艺流程图） -->
-  <view bindtap="horizontalScreen" class='tu'>
-    <image class='imgClass' src="{{imageSrc}}" style='background-color:#fff;padding:16rpx;'></image>
-    <image class='fangda' src='/images/fangda.png'></image>
-  </view>
-  <!-- 第三部分（列表） -->
-  <view class="table">
-    <view class="tr bg-w">
-      <view class="th">污染物</view>
-      <view class="th">监测值</view>
-      <view class="th ">单位</view>
-      <view class="th">状态</view>
-    </view>
-    <view wx:if="{{dataitem.length==0}}" class='tr' style='color:#ccc'>
-      暂无数据
-    </view>
-    <block wx:for="{{dataitem}}" wx:key="{{pollutantCode}}">
-      <view class="tr {{item.pollutantName==selectedRow? 'tab-text-color active': 'tab-text-color'}} " bindtap="showModal" data-obj="{{item}}" data-target="ChooseModal">
-        <view class="td {{item.identificationCode == '1'?'Over': item.identificationCode=='-1'?'Exception':''}}">{{item.pollutantName||'-'}}</view>
-        <view class="td {{item.identificationCode == '1'?'Over': item.identificationCode=='-1'?'Exception':''}}">{{item.value}}</view>
-        <view class="td {{item.identificationCode == '1'?'Over': item.identificationCode=='-1'?'Exception':''}}">{{item.unit||'-'}}</view>
-        <view class="td Over" wx:if="{{item.identificationCode == '1'}}">超标</view>
-        <view class="td Exception" wx:elif="{{item.identificationCode == '-1'}}">
-          异常
-        </view>
-        <view class="td" wx:elif="{{item.identificationCode=='-'}}">暂未上传</view>
-        <view class="td" wx:else>正常</view>
-      </view>
-    </block>
-  </view>
-
-  <view class="cu-modal bottom-modal {{modalName=='ChooseModal'?'show':''}}" bindtap='hideModal'>
-    <view class="cu-dialog" catchtap>
-      <view>
-
-        <view class='descriptionClass' wx:if="{{identificationCode==1}}">
-          超标倍数：
-          <text class='Over'>{{overMultiple}} 倍</text>
-        </view>
-        <view class='descriptionClass' wx:if="{{identificationCode==1}}">
-          监测标准：
-          <text class=''>{{standValue||'-'}}</text>
-        </view>
-        <view class='descriptionClass' wx:else>
-          异常情况：
-          <text class='Exception'>{{identificationName}}</text>
-        </view>
-      </view>
-    </view>
-  </view>
+<!-- 第二部分（工艺流程图） -->
+<view bindtap="horizontalScreen" class='tu'>
+  <image class='imgClass' src="{{imageSrc}}" style='background-color:#fff;padding:16rpx;'></image>
+  <image class='fangda' src='/images/fangda.png'></image>
 </view>
-<view wx:else>
+<!-- 第三部分（列表） -->
+<view class="table">
+  <view class="tr bg-w">
+    <view class="th">污染物</view>
+    <view class="th">监测值</view>
+    <view class="th ">单位</view>
+    <view class="th">状态</view>
+  </view>
+  <view wx:if="{{dataitem.length==0}}" class='tr' style='color:#ccc'>
+    暂无数据
+  </view>
+  <block wx:for="{{dataitem}}" wx:key="{{pollutantCode}}">
+    <view class="tr {{item.pollutantName==selectedRow? 'tab-text-color active': 'tab-text-color'}} " bindtap="showModal" data-obj="{{item}}" data-target="ChooseModal">
+      <view class="td {{item.identificationCode == '1'?'Over': item.identificationCode=='-1'?'Exception':''}}">{{item.pollutantName||'-'}}</view>
+      <view class="td {{item.identificationCode == '1'?'Over': item.identificationCode=='-1'?'Exception':''}}">{{item.value}}</view>
+      <view class="td {{item.identificationCode == '1'?'Over': item.identificationCode=='-1'?'Exception':''}}">{{item.unit||'-'}}</view>
+      <view class="td Over" wx:if="{{item.identificationCode == '1'}}">超标</view>
+      <view class="td Exception" wx:elif="{{item.identificationCode == '-1'}}">
+        异常
+      </view>
+      <view class="td" wx:elif="{{item.identificationCode=='-'}}">暂未上传</view>
+      <view class="td" wx:else>正常</view>
+    </view>
+  </block>
+</view>
 
-  <view class="cu-list menu card-menu margin-top" style="margin-bottom: 15rpx;text-align:center">
-    <view class="cu-item" bindtap="login">
-      <view class="content">
-        <text class="text-grey text-sm"><text class="cuIcon-info text-green"></text> 请先点击授权登录后，即可执行操作</text>
+<view class="cu-modal bottom-modal {{modalName=='ChooseModal'?'show':''}}" bindtap='hideModal'>
+  <view class="cu-dialog" catchtap>
+    <view>
+
+      <view class='descriptionClass' wx:if="{{identificationCode==1}}">
+        超标倍数：
+        <text class='Over'>{{overMultiple}} 倍</text>
+      </view>
+      <view class='descriptionClass' wx:if="{{identificationCode==1}}">
+        监测标准：
+        <text class=''>{{standValue||'-'}}</text>
+      </view>
+      <view class='descriptionClass' wx:else>
+        异常情况：
+        <text class='Exception'>{{identificationName}}</text>
       </view>
     </view>
   </view>
-  <!-- <view class="cu-btn round bg-blue" bindtap="goLogin">登录</view> -->
 </view>

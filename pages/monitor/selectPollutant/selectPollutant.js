@@ -52,6 +52,10 @@ Page({
   },
   reloadData() {
     const items = this.data.items;
+    wx.showModal({
+      title: '123',
+      content: '123',
+    })
     let length = items.filter(m => m.checked == true);
     if (length.length == 0) {
       wx.showModal({
@@ -68,10 +72,17 @@ Page({
       })
       return false;
     }
+    wx.showModal({
+      title: 'length',
+      content: JSON.stringify(length),
+    })
     common.setStorage('selectedPollutants', length);
-    setTimeout(function() {
-      wx.navigateBack();
-    }, 500)
+    wx.navigateBack({
+      delta: 1
+    });
+    // setTimeout(function() {
+    //   wx.navigateBack();
+    // }, 500)
 
     // wx.switchTab({
     //   url: '/pages/historyData/home/home'
@@ -180,8 +191,8 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function() {
-    return {
-      path: `/pages/historyData/selectPollutant/selectPollutant?DGIMN=${common.getStorage("DGIMN")}` // 路径，传递参数到指定页面。
-    }
+    // return {
+    //   path: `/pages/historyData/selectPollutant/selectPollutant?DGIMN=${common.getStorage("DGIMN")}` // 路径，传递参数到指定页面。
+    // }
   }
 })

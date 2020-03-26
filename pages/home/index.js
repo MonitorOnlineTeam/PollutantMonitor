@@ -26,44 +26,40 @@ Page({
     common.setStorage("ApiType", 1);
     //common.setStorage("DGIMN", "");
     var that = this;
-
-    if (options && options.q) {
-      app.reloadRequest(function(res) {
-        that.setData({
-          userInfo: app.globalData.userInfo,
-          isAuthor: res
-        });
-        if (res) {
-          app.isValidateSdlUrl(options.q, function(res) {
-            var mn = common.getStorage("DGIMN");
-            if (res) {
-              var data = {};
-              data.currentTarget = {};
-              data.currentTarget.id = mn;
-              data.currentTarget.dataset = {};
-              data.currentTarget.dataset.pointname = mn;
-              data.currentTarget.dataset.targetname = mn;
-              that.showDetail(data);
-            } else {
-              that.onPullDownRefresh();
-            }
-          });
-        }
-      });
-    } else {
-      app.reloadRequest(function(res) {
-        if (res) {
+      if (options && options.q) {
+        app.reloadRequest(function(res) {
           that.setData({
             userInfo: app.globalData.userInfo,
             isAuthor: res
           });
-          that.onPullDownRefresh();
-        }
-      });
-    }
-
-
-
+          if (res) {
+            app.isValidateSdlUrl(options.q, function(res) {
+              var mn = common.getStorage("DGIMN");
+              if (res) {
+                var data = {};
+                data.currentTarget = {};
+                data.currentTarget.id = mn;
+                data.currentTarget.dataset = {};
+                data.currentTarget.dataset.pointname = mn;
+                data.currentTarget.dataset.targetname = mn;
+                that.showDetail(data);
+              } else {
+                that.onPullDownRefresh();
+              }
+            });
+          }
+        });
+      } else {
+        app.reloadRequest(function(res) {
+          if (res) {
+            that.setData({
+              userInfo: app.globalData.userInfo,
+              isAuthor: res
+            });
+            that.onPullDownRefresh();
+          }
+        });
+      }
   },
 
   /**
@@ -141,7 +137,7 @@ Page({
    */
   onShareAppMessage: function() {
     return {
-      path: `/pages/my/visitHistory/visitHistory?DGIMN=${common.getStorage("DGIMN")}` // 路径，传递参数到指定页面。
+      path: `/pages/home/index` // 路径，传递参数到指定页面。
     }
   },
   //获取历史数据
@@ -180,7 +176,7 @@ Page({
   },
   //详情跳转到实时工艺页面
   showDetail(e) {
-    this.showLoading();
+    //this.showLoading();
     var dgimn = e.currentTarget.id;
     var pointname = e.currentTarget.dataset.pointname;
     var targetname = e.currentTarget.dataset.targetname;
@@ -206,10 +202,11 @@ Page({
     //     url: '/pages/funcpage/index' //'/pages/realTimeData/home/home',
     //   })
     // }
+
     common.setStorage("DGIMN", dgimn);
     app.RedirectToDetails();
 
-    this.cancelLoading();
+    //this.cancelLoading();
   },
   tapHistory: function() {
     const selectedTap = this.data.selectedTab;
@@ -284,7 +281,8 @@ Page({
           isLoading: false
         });
         if (res.confirm) {
-          //wx.clearStorageSync();
+          wx.clearStorageSync();
+          app.InitStorage();
           //that.updateCurrentSize(0);
           wx.showToast({
             title: '清除成功',
@@ -295,9 +293,6 @@ Page({
             isAuthor: false,
             historyRecord: []
           })
-          // wx.navigateTo({
-          //   url: '/pages/qca/authorCode/authorCode',
-          // });
         } else if (res.cancel) {
           console.log('用户点击取消')
         }

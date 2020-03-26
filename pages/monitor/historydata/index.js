@@ -69,9 +69,6 @@ Component({
       });
 
       if (!that.data.isAuthor) {
-        wx.setNavigationBarTitle({
-          title: '历史数据',
-        })
         that.setData({
           chartDatas: [],
         })
@@ -104,7 +101,9 @@ Component({
 
       let pollutantCodes = [];
       let tipsData = [];
+
       selectedPollutants.map(function(item) {
+
         pollutantCodes.push(item.code);
         tipsData.push({
           name: `${item.name}`,
@@ -114,6 +113,7 @@ Component({
           unit: item.unit
         });
       });
+
       if (selectedPollutants.length >= 3) {
         this.setData({
           legendHeight: 12,
@@ -125,7 +125,6 @@ Component({
           tipsData: tipsData
         });
       }
-
       //debugger;
       let chartDatas = [];
 
@@ -414,7 +413,7 @@ Component({
       })
     },
     horizontalScreen: function() {
-     
+
       let _this = this;
       const sdlMN = app.globalData.sdlMN.filter(m => m === this.data.DGIMN);
       if (sdlMN.length > 0) {
@@ -440,50 +439,30 @@ Component({
         dataType: e.currentTarget.dataset.id,
         selectedDate: moment(common.getStorage('selectedDate')).format(selectTimeFormat[e.currentTarget.dataset.id].showFormat),
       })
+      common.setStorage('dataType', e.currentTarget.dataset.id);
       this.getData();
     },
     transverse() {
-
-
       let _this = this;
-      const sdlMN = app.globalData.sdlMN.filter(m => m === _this.data.DGIMN);
-      if (sdlMN.length > 0) {
-        app.getUserLocation(function(r) {
-          if (r) {
-            wx.navigateTo({
-              url: '/pages/monitor/historyDataTransverse/historyDataTransverse'
-            })
-          }
-        })
-      } else {
-        wx.navigateTo({
-          url: '/pages/monitor/historyDataTransverse/historyDataTransverse'
-        })
-      }
-
+      wx.navigateTo({
+        url: '/pages/monitor/historyDataTransverse/historyDataTransverse'
+      })
     },
     onChangePollutant(e) {
       let _this = this;
-      const sdlMN = app.globalData.sdlMN.filter(m => m === _this.data.DGIMN);
-      if (sdlMN.length > 0) {
-        app.getUserLocation(function(r) {
-          if (r) {
-            wx.navigateTo({
-              url: '/pages/monitor/selectPollutant/selectPollutant'
-            })
-          }
-        })
-      } else {
-        wx.navigateTo({
-          url: '/pages/monitor/selectPollutant/selectPollutant'
-        })
-      }
+      wx.navigateTo({
+        url: '/pages/monitor/selectPollutant/selectPollutant'
+      })
     },
     onShow: function() {
       let that = this;
+
       let selectedDate = moment(common.getStorage('selectedDate')).format(selectTimeFormat[that.data.dataType].showFormat);
       //debugger;
+
       let selectedPollutants = common.getStorage('selectedPollutants') || [];
+
+
       if (that.data.selectedDate != selectedDate || JSON.stringify(that.data.selectedPollutants) != JSON.stringify(selectedPollutants) || that.data.DGIMN !== common.getStorage('DGIMN')) {
 
         if (that.data.DGIMN !== common.getStorage('DGIMN')) {
@@ -496,6 +475,7 @@ Component({
           selectedDate: selectedDate,
           selectedPollutants: selectedPollutants
         });
+        
         that.onPullDownRefresh();
       }
     }
@@ -511,6 +491,13 @@ Component({
       const self = this;
       this.chartComponent = this.selectComponent('#line-dom');
       let selectedDate = common.getStorage('selectedDate');
+
+      if (common.getStorage('dataType') != "") {
+        this.setData({
+          dataType: common.getStorage('dataType')
+        });
+      }
+
       //debugger
       if (!selectedDate) {
         selectedDate = moment().format(selectTimeFormat[this.data.dataType].showFormat);
@@ -544,7 +531,6 @@ Component({
       show: function() {
         // 页面被展示
         console.log("页面被展示");
-
       },
       hide: function() {
         // 页面被隐藏
