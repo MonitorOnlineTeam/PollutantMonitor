@@ -63,70 +63,35 @@ Component({
       let that = this;
       var pointName = common.getStorage("PointName");
 
+      if (pointName != "") {
+        wx.setNavigationBarTitle({
+          title: pointName,
+        })
+      };
+      !app.globalData.loading && app.showLoading();
+      comApi.getPointInfo().then(res => {
+        app.hideLoading();
+        if (res && res.IsSuccess) {
+          if (res.Datas) {
+            let data = res.Datas;
+            //将数组中的某个字段拼接出来
+            var lo = "markers[" + 0 + "].longitude";
+            var la = "markers[" + 0 + "].latitude";
 
-      const sdlMN = app.globalData.sdlMN.filter(m => m === common.getStorage('DGIMN'));
-      if (sdlMN.length > 0) {
-        app.getUserLocation(function(r) {
-          if (r) {
-            if (pointName != "") {
-              wx.setNavigationBarTitle({
-                title: pointName,
-              })
-            }
-            comApi.getPointInfo().then(res => {
-              if (res && res.IsSuccess) {
-                if (res.Datas) {
-                  let data = res.Datas;
-                  //将数组中的某个字段拼接出来
-                  var lo = "markers[" + 0 + "].longitude";
-                  var la = "markers[" + 0 + "].latitude";
+            var yy = (data.Longitude).toString();
+            var xx = (data.Latitude).toString();
 
-                  var yy = (data.Longitude).toString();
-                  var xx = (data.Latitude).toString();
-
-                  that.setData({
-                    resultData: data,
-                    [lo]: data.Longitude, //markers中的经度
-                    [la]: data.Latitude, //markers中的纬度
-                    y: yy, //经度
-                    x: xx, //纬度
-                  })
-                }
-              }
-              wx.hideNavigationBarLoading();
+            that.setData({
+              resultData: data,
+              [lo]: data.Longitude, //markers中的经度
+              [la]: data.Latitude, //markers中的纬度
+              y: yy, //经度
+              x: xx, //纬度
             })
           }
-          wx.hideNavigationBarLoading();
-        })
-      } else {
-        if (pointName != "") {
-          wx.setNavigationBarTitle({
-            title: pointName,
-          })
         }
-        comApi.getPointInfo().then(res => {
-          if (res && res.IsSuccess) {
-            if (res.Datas) {
-              let data = res.Datas;
-              //将数组中的某个字段拼接出来
-              var lo = "markers[" + 0 + "].longitude";
-              var la = "markers[" + 0 + "].latitude";
-
-              var yy = (data.Longitude).toString();
-              var xx = (data.Latitude).toString();
-
-              that.setData({
-                resultData: data,
-                [lo]: data.Longitude, //markers中的经度
-                [la]: data.Latitude, //markers中的纬度
-                y: yy, //经度
-                x: xx, //纬度
-              })
-            }
-          }
-          wx.hideNavigationBarLoading();
-        })
-      }
+        wx.hideNavigationBarLoading();
+      })
 
 
     },
@@ -170,17 +135,6 @@ Component({
         });
         that.onPullDownRefresh();
       }
-      // app.isLogin(function(res) {
-      //   if (!res) {
-      //     that.setData({
-      //       resultData: {}
-      //     });
-      //     return;
-      //   } else {
-      //     //登陆（或者扫描二维码）时已经把MN号码赋上，  ----目前时登陆赋上
-          
-      //   }
-      // })
     }
   },
 

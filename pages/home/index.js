@@ -16,50 +16,56 @@ Page({
     currentSize: 0,
     alarmSwitch: false,
     isAuthor: false,
-    hidden: true
+    hidden: true,
+    isFrist: true
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    app.showLoading();
     common.setStorage("ApiType", 1);
     //common.setStorage("DGIMN", "");
     var that = this;
-      if (options && options.q) {
-        app.reloadRequest(function(res) {
-          that.setData({
-            userInfo: app.globalData.userInfo,
-            isAuthor: res
+    if (options && options.q) {
+      app.reloadRequest(function(res) {
+        that.setData({
+          userInfo: app.globalData.userInfo,
+          isAuthor: res,
+          isFrist: false
+        });
+        if (res) {
+          app.isValidateSdlUrl(options.q, function(res) {
+            var mn = common.getStorage("DGIMN");
+            if (res) {
+              var data = {};
+              data.currentTarget = {};
+              data.currentTarget.id = mn;
+              data.currentTarget.dataset = {};
+              data.currentTarget.dataset.pointname = mn;
+              data.currentTarget.dataset.targetname = mn;
+              that.showDetail(data);
+            } else {
+              that.onPullDownRefresh();
+            }
           });
-          if (res) {
-            app.isValidateSdlUrl(options.q, function(res) {
-              var mn = common.getStorage("DGIMN");
-              if (res) {
-                var data = {};
-                data.currentTarget = {};
-                data.currentTarget.id = mn;
-                data.currentTarget.dataset = {};
-                data.currentTarget.dataset.pointname = mn;
-                data.currentTarget.dataset.targetname = mn;
-                that.showDetail(data);
-              } else {
-                that.onPullDownRefresh();
-              }
-            });
-          }
+        } else {
+          app.hideLoading();
+        }
+      });
+    } else {
+      app.reloadRequest(function(res) {
+        that.setData({
+          userInfo: app.globalData.userInfo,
+          isAuthor: res,
+          isFrist: false
         });
-      } else {
-        app.reloadRequest(function(res) {
-          if (res) {
-            that.setData({
-              userInfo: app.globalData.userInfo,
-              isAuthor: res
-            });
-            that.onPullDownRefresh();
-          }
-        });
-      }
+        res ? that.onPullDownRefresh() : app.hideLoading();
+
+      });
+    }
+
   },
 
   /**
@@ -73,6 +79,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+    console.log("IsFrist show=", this.data.isFrist)
     var that = this;
     common.setStorage("ApiType", 1);
     if (common.getStorage("IsEntryDetails")) {
@@ -80,11 +87,13 @@ Page({
       app.RedirectToDetails();
       return;
     } else {
-      if (that.data.selectedTab == 0 && common.getStorage("IsLogin")) {
+      if (that.data.selectedTab == 0 && common.getStorage("IsLogin") && !that.data.isFrist) {
         that.onPullDownRefresh();
       }
     }
-
+    that.setData({
+      isFrist: false
+    });
   },
 
   /**
@@ -105,11 +114,15 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function() {
+
     var that = this;
     if (this.data.selectedTab == 1) {
       wx.stopPullDownRefresh();
       wx.hideNavigationBarLoading();
       return;
+    }
+    if (!app.globalData.loading) {
+      app.showLoading();
     }
     app.IsRegister(function(res) {
       if (res) {
@@ -121,6 +134,7 @@ Page({
       } else {
         wx.stopPullDownRefresh();
         wx.hideNavigationBarLoading();
+        app.hideLoading();
       }
     });
 
@@ -163,6 +177,7 @@ Page({
         }
       }
       wx.hideNavigationBarLoading();
+      app.hideLoading();
     })
   },
   showLoading: function() {

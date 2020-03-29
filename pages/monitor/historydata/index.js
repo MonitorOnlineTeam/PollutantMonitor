@@ -75,7 +75,8 @@ Component({
         wx.hideNavigationBarLoading();
         wx.stopPullDownRefresh();
         return;
-      }
+      };
+
       wx.showNavigationBarLoading();
       wx.stopPullDownRefresh();
       that.getData();
@@ -129,167 +130,83 @@ Component({
       let chartDatas = [];
 
       let _this = this;
-      const sdlMN = app.globalData.sdlMN.filter(m => m === _this.data.DGIMN);
-      if (sdlMN.length > 0) {
-        app.getUserLocation(function(r) {
-          if (r) {
-            var pointName = common.getStorage("PointName");
-            if (pointName != "") {
-              wx.setNavigationBarTitle({
-                title: pointName,
+
+      if (selectedPollutants.length == 0) {
+        _this.setData({
+          chartDatas: []
+        });
+        wx.showModal({
+          title: '提示',
+          content: '请先选择污染物',
+          showCancel: false,
+          success(res) {
+            if (res.confirm) {
+              wx.navigateTo({
+                url: '/pages/monitor/selectPollutant/selectPollutant'
               })
+            } else if (res.cancel) {
+              console.log('用户点击取消')
             }
-            if (selectedPollutants.length == 0) {
-              _this.setData({
-                chartDatas: []
-              });
-              wx.showModal({
-                title: '提示',
-                content: '请先选择污染物',
-                showCancel: false,
-                success(res) {
-                  if (res.confirm) {
-                    wx.navigateTo({
-                      url: '/pages/monitor/selectPollutant/selectPollutant'
-                    })
-                  } else if (res.cancel) {
-                    console.log('用户点击取消')
-                  }
-                }
-              })
-              wx.hideNavigationBarLoading();
-              return false;
-            }
-            comApi.getMonitorDatas(pollutantCodes.join(','), dataType, selectedDate).then(res => {
-              console.log('getMonitorDatas', res);
-              console.log('selectedPollutants', selectedPollutants);
-              if (res && res.IsSuccess && res.Datas) {
-                let thisData = res.Datas;
-
-                thisData.map(function(itemD, index) {
-                  let row = itemD;
-                  selectedPollutants.map(function(itemP) {
-                    let statusFlag = row[`${itemP.code}_params`];
-                    let status = 0;
-                    if (statusFlag) {
-                      let flagArray = statusFlag.split('§');
-                      if (flagArray[0] === 'IsOver') {
-                        status = 1;
-                      } else if (flagArray[0] === 'IsException') {
-                        status = -1;
-                      }
-                    }
-                    //debugger;
-                    let value = itemD[itemP.code];
-                    if (value != null || value != undefined) {
-                      value = (+itemD[itemP.code].toFixed(2));
-                    } else {
-                      value = null;
-                    }
-                    chartDatas.push({
-                      PollutantName: `${itemP.name}`,
-                      Value: value,
-                      MonitorTime: itemD.MonitorTime,
-                      Status: status,
-                      PollutantCode: itemP.code,
-                      Unit: itemP.unit
-                    });
-                  });
-                });
-
-              };
-              wx.hideNavigationBarLoading();
-              _this.setData({
-                chartDatas: chartDatas
-              });
-              console.log(chartDatas);
-              _this.chartComponent = _this.selectComponent('#line-dom');
-              chartDatas.length > 0 && _this.initChart();
-
-            })
           }
-          wx.hideNavigationBarLoading();
         })
-      } else {
-        if (selectedPollutants.length == 0) {
-          _this.setData({
-            chartDatas: []
-          });
-          wx.showModal({
-            title: '提示',
-            content: '请先选择污染物',
-            showCancel: false,
-            success(res) {
-              if (res.confirm) {
-                wx.navigateTo({
-                  url: '/pages/monitor/selectPollutant/selectPollutant'
-                })
-              } else if (res.cancel) {
-                console.log('用户点击取消')
-              }
-            }
-          })
-          wx.hideNavigationBarLoading();
-          return false;
-        }
-        var pointName = common.getStorage("PointName");
-        if (pointName != "") {
-          wx.setNavigationBarTitle({
-            title: pointName,
-          })
-        }
-        comApi.getMonitorDatas(pollutantCodes.join(','), dataType, selectedDate).then(res => {
-          console.log('getMonitorDatas', res);
-          console.log('selectedPollutants', selectedPollutants);
-          if (res && res.IsSuccess && res.Datas) {
-            let thisData = res.Datas;
+        wx.hideNavigationBarLoading();
+        return false;
+      }
+      var pointName = common.getStorage("PointName");
+      if (pointName != "") {
+        wx.setNavigationBarTitle({
+          title: pointName,
+        })
+      };
+      !app.globalData.loading && app.showLoading();
+      comApi.getMonitorDatas(pollutantCodes.join(','), dataType, selectedDate).then(res => {
+        console.log('getMonitorDatas', res);
+        console.log('selectedPollutants', selectedPollutants);
+        if (res && res.IsSuccess && res.Datas) {
+          let thisData = res.Datas;
 
-            thisData.map(function(itemD, index) {
-              let row = itemD;
-              selectedPollutants.map(function(itemP) {
-                let statusFlag = row[`${itemP.code}_params`];
-                let status = 0;
-                if (statusFlag) {
-                  let flagArray = statusFlag.split('§');
-                  if (flagArray[0] === 'IsOver') {
-                    status = 1;
-                  } else if (flagArray[0] === 'IsException') {
-                    status = -1;
-                  }
+          thisData.map(function(itemD, index) {
+            let row = itemD;
+            selectedPollutants.map(function(itemP) {
+              let statusFlag = row[`${itemP.code}_params`];
+              let status = 0;
+              if (statusFlag) {
+                let flagArray = statusFlag.split('§');
+                if (flagArray[0] === 'IsOver') {
+                  status = 1;
+                } else if (flagArray[0] === 'IsException') {
+                  status = -1;
                 }
-                //debugger;
-                let value = itemD[itemP.code];
-                if (value != null || value != undefined) {
-                  value = (+itemD[itemP.code].toFixed(2));
-                } else {
-                  value = null;
-                }
-                chartDatas.push({
-                  PollutantName: `${itemP.name}`,
-                  Value: value,
-                  MonitorTime: itemD.MonitorTime,
-                  Status: status,
-                  PollutantCode: itemP.code,
-                  Unit: itemP.unit
-                });
+              }
+              //debugger;
+              let value = itemD[itemP.code];
+              if (value) {
+                value = value == '-' ? null : (+itemD[itemP.code].toFixed(2));
+              } else {
+                value = null;
+              }
+              chartDatas.push({
+                PollutantName: `${itemP.name}`,
+                Value: value,
+                MonitorTime: itemD.MonitorTime,
+                Status: status,
+                PollutantCode: itemP.code,
+                Unit: itemP.unit
               });
             });
-
-          };
-          wx.hideNavigationBarLoading();
-          _this.setData({
-            chartDatas: chartDatas
           });
-          console.log(chartDatas);
-          _this.chartComponent = _this.selectComponent('#line-dom');
-          chartDatas.length > 0 && _this.initChart();
 
-        })
-      }
+        };
 
-      wx.hideNavigationBarLoading();
-
-
+        _this.setData({
+          chartDatas: chartDatas
+        });
+        console.log(chartDatas);
+        _this.chartComponent = _this.selectComponent('#line-dom');
+        chartDatas.length > 0 && _this.initChart();
+        app.hideLoading();
+        wx.hideNavigationBarLoading();
+      })
     },
     initChart: function() {
       let that = this;
@@ -475,7 +392,7 @@ Component({
           selectedDate: selectedDate,
           selectedPollutants: selectedPollutants
         });
-        
+
         that.onPullDownRefresh();
       }
     }
@@ -487,10 +404,11 @@ Component({
       console.log("在组件实例刚刚被创建时执行")
     },
     attached() {
+
       console.log("在组件实例进入页面节点树时执行");
       const self = this;
       this.chartComponent = this.selectComponent('#line-dom');
-      let selectedDate = common.getStorage('selectedDate');
+      let selectedDate = common.getStorage("IsShare") ? common.getStorage('selectedDate') : '';
 
       if (common.getStorage('dataType') != "") {
         this.setData({

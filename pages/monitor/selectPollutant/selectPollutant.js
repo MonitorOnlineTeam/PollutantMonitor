@@ -52,10 +52,6 @@ Page({
   },
   reloadData() {
     const items = this.data.items;
-    wx.showModal({
-      title: '123',
-      content: '123',
-    })
     let length = items.filter(m => m.checked == true);
     if (length.length == 0) {
       wx.showModal({
@@ -72,10 +68,7 @@ Page({
       })
       return false;
     }
-    wx.showModal({
-      title: 'length',
-      content: JSON.stringify(length),
-    })
+
     common.setStorage('selectedPollutants', length);
     wx.navigateBack({
       delta: 1
@@ -91,10 +84,10 @@ Page({
   //获取污染物
   getPollutantList: function(callback) {
     let cookiePollutant = common.getStorage('Pollutants');
-
+    !app.globalData.loading && app.showLoading();
     comApi.getPollutantList().then(res => {
       console.log('污染物', res);
-
+      app.hideLoading();
       if (res && res.IsSuccess && res.Datas) {
         let thisData = res.Datas;
         let selectedPollutant = {};
@@ -156,7 +149,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    app.isLogin();
+    //app.isLogin();
   },
 
   /**

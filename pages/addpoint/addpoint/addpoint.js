@@ -126,6 +126,7 @@ Page({
         duration: 1500
       })
     } else {
+      !app.globalData.loading && app.showLoading();
       comApi.register(
         e.detail.value.Abbreviation,
         e.detail.value.DGIMN,
@@ -143,6 +144,7 @@ Page({
         this.data.openid,
         this.data.entCode
       ).then(res => {
+        app.hideLoading();
         if (res && res.IsSuccess) {
           if (res.Datas) {
             //将添加企业是缓存的数据清空

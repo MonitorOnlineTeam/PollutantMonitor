@@ -15,9 +15,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    app.wxLogin(function() {
 
-    });
   },
 
   /**
@@ -89,27 +87,84 @@ Page({
         duration: 1500
       })
     } else {
-      comApi.AddUser(e.detail.value.MobilePhone).then(res => {
-        if (res && res.IsSuccess) {
-          common.setStorage("IsLogin", true);
-          wx.showToast({
-            title: '注册成功!',
-            duration: 1500
-          });
-          wx.navigateBack({
-            delta: 1
+      !app.globalData.loading && app.showLoading();
+      app.wxLogin(function() {
+        if (!common.getStorage('OpenId')) {
+
+          wx.showModal({
+            title: '提示',
+            content: '请先获取授权码',
+            showCancel: false,
+            success(res) {
+              console.log(res);
+              if (res.confirm) {
+                comApi.SDLSMCIsRegister().then(res => {
+                  var data = res.Datas;
+                  common.setStorage("OpenId", data.OpenId); //13800138000
+
+                  if (res.IsSuccess) {
+                    common.setStorage("Ticket", data.Ticket);
+
+                    common.setStorage("PhoneCode", data.Phone);
+                    common.setStorage("IsLogin", true);
+
+                  } else {
+                    common.setStorage("Ticket", "");
+                    common.setStorage("IsLogin", false);
+                    common.setStorage("PhoneCode", "");
+
+                  }
+
+                  comApi.AddUser(e.detail.value.MobilePhone).then(res => {
+                    app.hideLoading();
+                    if (res && res.IsSuccess) {
+                      common.setStorage("IsLogin", true);
+                      wx.showToast({
+                        title: '注册成功!',
+                        duration: 1500
+                      });
+                      wx.navigateBack({
+                        delta: 1
+                      })
+
+                    } else {
+                      wx.showToast({
+                        title: res.Message,
+                        duration: 1500
+                      })
+
+                    }
+                  });
+                })
+              }
+            }
           })
 
         } else {
-          wx.showToast({
-            title: res.Message,
-            duration: 1500
-          })
+          comApi.AddUser(e.detail.value.MobilePhone).then(res => {
+            app.hideLoading();
+            if (res && res.IsSuccess) {
+              common.setStorage("IsLogin", true);
+              wx.showToast({
+                title: '注册成功!',
+                duration: 1500
+              });
+              wx.navigateBack({
+                delta: 1
+              })
 
+            } else {
+              wx.showToast({
+                title: res.Message,
+                duration: 1500
+              })
+
+            }
+          });
         }
+
       });
     }
-
   },
   // 手机号验证
   blurPhone: function(e) {

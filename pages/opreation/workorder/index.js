@@ -111,8 +111,10 @@ Component({
     // },
     //获取运维数据
     getData: function() {
+      !app.globalData.loading && app.showLoading();
       //获取运维数据
       comApi.getOperationLogList(common.getStorage("DGIMN"), this.data.time, this.data.pageindex, this.data.pagesize).then(res => {
+        app.hideLoading();
         if (res && res.requstresult === "1") {
           if (res.data.optData) {
             //如果返回的条数小于每页显示的个数或者无返回数据则下拉不刷新

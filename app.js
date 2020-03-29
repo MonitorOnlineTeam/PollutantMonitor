@@ -119,26 +119,26 @@ App({
     wx.login({
       success: res => {
         common.setStorage("WxCode", res.code);
-        if (!common.getStorage("OpenId")) {
-          api.SDLSMCIsRegister().then(res => {
-            var data = res.Datas;
-            common.setStorage("OpenId", data.OpenId); //13800138000
-            if (res.StatusCode == 10001) {
-              common.setStorage("IsLogin", false);
-            }
+        // if (!common.getStorage("OpenId")) {
+        //   api.SDLSMCIsRegister().then(res => {
+        //     var data = res.Datas;
+        //     common.setStorage("OpenId", data.OpenId); //13800138000
+        //     if (res.StatusCode == 10001) {
+        //       common.setStorage("IsLogin", false);
+        //     }
 
-            if (res.IsSuccess) {
-              common.setStorage("Ticket", data.Ticket);
-              common.setStorage("PhoneCode", data.Phone);
-              common.setStorage("IsLogin", true);
-            } else {
-              common.setStorage("Ticket", "");
-              common.setStorage("IsLogin", false);
-              common.setStorage("PhoneCode", "");
-            }
-            
-          });
-        }
+        //     if (res.IsSuccess) {
+        //       common.setStorage("Ticket", data.Ticket);
+        //       common.setStorage("PhoneCode", data.Phone);
+        //       common.setStorage("IsLogin", true);
+        //     } else {
+        //       common.setStorage("Ticket", "");
+        //       common.setStorage("IsLogin", false);
+        //       common.setStorage("PhoneCode", "");
+        //     }
+
+        //   });
+        // }
         callback && callback(true);
       }
     })
@@ -154,44 +154,12 @@ App({
               wx.showLoading({
                 title: '正在加载中',
               })
-              common.setStorage('IsAuthor', true);
               // 可以将 res 发送给后台解码出 unionId
               this.globalData.userInfo = res.userInfo;
-
-              if (common.getStorage("IsShare")) {
-                wx.navigateBack();
-              }
-              if (common.getStorage('DGIMN')) {
-                // if (options && options.authorization) {
-
-                //   wx.switchTab({
-                //     url: '/pages/my/home/home',
-                //   })
-                //   return;
-                // }
-                // if (options && options.alarmdatatime) {
-                //   wx.navigateTo({
-                //     url: '/pages/my/alarmDataList/alarmDataList?monitorTime=' + options.alarmdatatime,
-                //   })
-                //   return;
-                // }
-
-                wx.redirectTo({
-                  url: '/pages/home/index',
-                })
-
-                // wx.switchTab({
-                //   url: '/pages/realTimeData/home/home'
-                // })
-              } else {
-                // wx.navigateTo({
-                //   url: '/pages/others/others'
-                // })
-                wx.redirectTo({
-                  url: '/pages/home/index',
-                })
-                //this.redirectTo('/pages/my/home/home');
-              }
+             
+              wx.redirectTo({
+                url: '/pages/home/index',
+              })
               // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
               // 所以此处加入 callback 以防止这种情况
               if (this.userInfoReadyCallback) {
@@ -200,25 +168,9 @@ App({
               wx.hideLoading();
             }
           })
-        } else {
-
-          wx.navigateTo({
-            url: '/pages/authPage/authPage'
-          })
         }
       }
     })
-  },
-  verifyPointIsNull: function() {
-    if (!common.getStorage('DGIMN')) {
-      if (common.getStorage("IsShare")) {
-        wx.navigateBack();
-      }
-      wx.redirectTo({
-        url: '/pages/others/others'
-      })
-      return false;
-    }
   },
   isLogin: function(callback) {
 
@@ -292,72 +244,6 @@ App({
   getUserLocation: function(callback, flagR) {
     callback && callback(true);
     return;
-    var _this = this;
-    wx.showLoading({
-      title: '正在获取位置',
-    });
-    wx.getSetting({
-      success: (res) => {
-        // res.authSetting['scope.userLocation'] == undefined    表示 初始化进入该页面
-        // res.authSetting['scope.userLocation'] == false    表示 非初始化进入该页面,且未授权
-        // res.authSetting['scope.userLocation'] == true    表示 地理位置授权
-        if (res.authSetting['scope.userLocation'] != undefined && res.authSetting['scope.userLocation'] != true) {
-          //未授权
-          wx.showModal({
-            title: '请求授权当前位置',
-            content: '需要获取您的地理位置，请确认授权，否则无法获取您所需数据',
-            success: function(res) {
-              if (res.cancel) {
-                //取消授权
-                wx.showToast({
-                  title: '拒绝授权',
-                  icon: 'none',
-                  duration: 1000
-                })
-                callback && callback(false);
-                //return false;
-              } else if (res.confirm) {
-                //确定授权，通过wx.openSetting发起授权请求
-                wx.openSetting({
-                  success: function(res) {
-                    if (res.authSetting["scope.userLocation"] == true) {
-                      //再次授权，调用wx.getLocation的API
-                      _this.geo(function(f) {
-                        wx.hideLoading()
-                        callback && callback(f);
-                      }, flagR)
-
-
-                    } else {
-                      wx.showToast({
-                        title: '授权失败',
-                        icon: 'none',
-                        duration: 1000
-                      })
-                      wx.hideLoading()
-                      callback && callback(false);
-                    }
-                  }
-                })
-              }
-            }
-          })
-        } else if (res.authSetting['scope.userLocation'] == undefined) {
-          //用户首次进入页面,调用wx.getLocation的API
-          _this.geo(function(f) {
-            wx.hideLoading()
-            callback && callback(f);
-          }, flagR)
-        } else {
-          console.log('授权成功')
-          //调用wx.getLocation的API
-          _this.geo(function(f) {
-            wx.hideLoading()
-            callback && callback(f);
-          }, flagR)
-        }
-      }
-    })
   },
   isValidateSdlUrl: function(urlParam, callback) {
     let _this = this;
@@ -519,7 +405,7 @@ App({
     })
   },
   IsRegister: function(callback) {
-    if (!common.getStorage("OpenId")) {
+    if (!common.getStorage("OpenId") || !common.getStorage("IsLogin")) {
       api.SDLSMCIsRegister().then(res => {
         var data = res.Datas;
         common.setStorage("OpenId", data.OpenId); //13800138000
@@ -574,29 +460,10 @@ App({
           return;
         }
       });
-    } else {
-      if (!common.getStorage("IsLogin")) {
-
-        wx.showModal({
-          title: '提示',
-          content: '请注册授权后，再执行操作',
-          showCancel: true,
-          success(res) {
-            console.log(res);
-            if (res.confirm) {
-              wx.navigateTo({
-                url: '/pages/register/register'
-              })
-            }
-          }
-        })
-        callback && callback(false);
-        return;
-      }
+    }else
+    {
       callback && callback(true);
-    }
-
-
+    } 
   },
   reloadRequest: function(callback) {
     var that = this;
@@ -646,8 +513,11 @@ App({
     }
   },
   RedirectToDetails: function() {
+    var that = this;
+    !that.globalData.loading && that.showLoading();
     common.setStorage("ApiType", 2);
     api.IfExistsDGIMN().then(res => {
+      that.hideLoading();
       common.setStorage("ApiType", 1);
       console.log('res=', res);
       common.setStorage("dataType", "");
@@ -719,7 +589,19 @@ App({
     }
 
   },
+  showLoading: function() {
+    wx.showLoading({
+      title: '正在加载中',
+      mask: true
+    });
+    this.globalData.loading = true;
+  },
+  hideLoading: function() {
+    wx.hideLoading();
+    this.globalData.loading = false;
+  },
   globalData: {
+    loading: false,
     userInfo: null,
     DGIMN: null,
     isShowContent: false,

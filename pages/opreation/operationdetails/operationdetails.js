@@ -14,8 +14,8 @@ Page({
     //   "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1022109268,3759531978&fm=26&gp=0.jpg"
     // ],
     taskid: '',
-    resultData:[],
-    attachment:'',
+    resultData: [],
+    attachment: '',
   },
 
   /**
@@ -25,7 +25,7 @@ Page({
     common.setStorage("ApiType", 2);
     let attachment = common.getStorage('AuthorCodeRSA_2');
     this.setData({
-      taskid:options.taskid,
+      taskid: options.taskid,
       attachment
     })
     this.getData();
@@ -35,8 +35,7 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
-  },
+  onReady: function() {},
 
   /**
    * 生命周期函数--监听页面显示
@@ -81,7 +80,9 @@ Page({
   },
   //获取运维详情数据
   getData: function() {
+    !app.globalData.loading && app.showLoading();
     comApi.getTaskDitails(this.data.taskid).then(res => {
+      app.hideLoading();
       if (res && res.requstresult === "1") {
         if (res.data) {
           this.setData({
@@ -93,7 +94,6 @@ Page({
   },
   //预览图片，放大预览
   preview(event) {
-    debugger
     let currentUrl = event.currentTarget.dataset.src
     wx.previewImage({
       current: currentUrl, // 当前显示图片的http链接

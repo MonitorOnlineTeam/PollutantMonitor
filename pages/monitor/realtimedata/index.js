@@ -88,7 +88,8 @@ Component({
         wx.hideNavigationBarLoading();
         wx.stopPullDownRefresh();
         return;
-      }
+      };
+      !app.globalData.loading && app.showLoading();
       wx.showNavigationBarLoading();
       wx.stopPullDownRefresh();
       that.getData();
@@ -101,78 +102,24 @@ Component({
 
       };
       let _this = this;
-      const sdlMN = app.globalData.sdlMN.filter(m => m === this.data.DGIMN);
-      if (sdlMN.length > 0) {
-        app.getUserLocation(function(r) {
-          if (r) {
-            comApi.getProcessFlowChartStatus().then(res => {
-              if (res && res.IsSuccess && res.Datas) {
-                var pointType = res.Datas.dataInfo ? res.Datas.dataInfo.equipmentType : 1;
-                var imageSrc = "https://api.chsdl.net/NewWryWebProxy/images/smc/point.png";
-                if (pointType == 1) {
-                  imageSrc = "https://api.chsdl.net/NewWryWebProxy/images/smc/point.png";
+      comApi.getProcessFlowChartStatus().then(res => {
+        if (res && res.IsSuccess && res.Datas) {
 
-                } else if (pointType == 2) {
-                  imageSrc = "https://api.chsdl.net/NewWryWebProxy/images/smc/vocpoint.png";
-                } else if (pointType == 3) {
-                  imageSrc = "https://api.chsdl.net/NewWryWebProxy/images/smc/hgpoint.png";
-                }
-                _this.setData({
-                  dataInfo: res.Datas.paramsInfo,
-                  imageSrc: imageSrc,
-                })
-              }
-            })
+          var pointType = res.Datas.dataInfo ? res.Datas.dataInfo.equipmentType : 1;
+          var imageSrc = "https://api.chsdl.net/NewWryWebProxy/images/smc/point.png";
+          if (pointType == 1) {
+            imageSrc = "https://api.chsdl.net/NewWryWebProxy/images/smc/point.png";
 
-            comApi.getRealTimeDataForPoint().then(res => {
-              if (res && res.IsSuccess) {
-                if (res.Datas) {
-                  let data = res.Datas;
-                  resultData.dataitem = data.dataitem || [];
-                  resultData.pointInfo = data.pointInfo;
-                }
-              }
-              _this.setData({
-                dataitem: resultData.dataitem,
-                pointInfo: resultData.pointInfo,
-              })
-              let pointName = resultData.pointInfo && resultData.pointInfo.pointName;
-              pointName && wx.setNavigationBarTitle({
-                title: pointName,
-              });
-              common.setStorage("PointName", pointName);
-              pointName && wx.setNavigationBarTitle({
-                title: pointName,
-              });
-
-              wx.hideNavigationBarLoading();
-            })
-          } else {
-
-            wx.hideNavigationBarLoading();
+          } else if (pointType == 2) {
+            imageSrc = "https://api.chsdl.net/NewWryWebProxy/images/smc/vocpoint.png";
+          } else if (pointType == 3) {
+            imageSrc = "https://api.chsdl.net/NewWryWebProxy/images/smc/hgpoint.png";
           }
-        })
-      } else {
-        comApi.getProcessFlowChartStatus().then(res => {
-          if (res && res.IsSuccess && res.Datas) {
-
-            var pointType = res.Datas.dataInfo ? res.Datas.dataInfo.equipmentType : 1;
-            var imageSrc = "https://api.chsdl.net/NewWryWebProxy/images/smc/point.png";
-            if (pointType == 1) {
-              imageSrc = "https://api.chsdl.net/NewWryWebProxy/images/smc/point.png";
-
-            } else if (pointType == 2) {
-              imageSrc = "https://api.chsdl.net/NewWryWebProxy/images/smc/vocpoint.png";
-            } else if (pointType == 3) {
-              imageSrc = "https://api.chsdl.net/NewWryWebProxy/images/smc/hgpoint.png";
-            }
-            _this.setData({
-              dataInfo: res.Datas.paramsInfo,
-              imageSrc: imageSrc,
-            })
-          }
-        })
-
+          _this.setData({
+            dataInfo: res.Datas.paramsInfo,
+            imageSrc: imageSrc,
+          })
+        }
         comApi.getRealTimeDataForPoint().then(res => {
           if (res && res.IsSuccess) {
             if (res.Datas) {
@@ -195,8 +142,11 @@ Component({
           });
 
           wx.hideNavigationBarLoading();
+          app.hideLoading();
         })
-      }
+      })
+
+
 
     },
     //超标异常时弹出窗口
@@ -264,25 +214,15 @@ Component({
         return;
       }
 
-      app.isLogin(function(res) {
-        if (!res) {
-          that.setData({
-            dataitem: [],
-            pointInfo: {},
-          })
-        } else {
-          if (that.data.DGIMN !== common.getStorage('DGIMN') || that.data.qr) {
-            common.setStorage('selectedPollutants', "");
-            common.setStorage('selectedDate', moment().format('YYYY-MM-DD HH:mm'));
-            that.setData({
-              DGIMN: common.getStorage('DGIMN'),
-              qr: false
-            });
-            that.onPullDownRefresh();
-          }
-        }
-
-      });
+      if (that.data.DGIMN !== common.getStorage('DGIMN') || that.data.qr) {
+        common.setStorage('selectedPollutants', "");
+        common.setStorage('selectedDate', moment().format('YYYY-MM-DD HH:mm'));
+        that.setData({
+          DGIMN: common.getStorage('DGIMN'),
+          qr: false
+        });
+        that.onPullDownRefresh();
+      }
     }
   },
 
@@ -299,13 +239,15 @@ Component({
         DGIMN: common.getStorage('DGIMN'),
         isAuthor: common.getStorage("IsLogin")
       });
+      this.data.isAuthor && this.onPullDownRefresh();
       console.log("在组件实例进入页面节点树时执行")
     },
     ready() {
 
       console.log("在组件在视图层布局完成后执行")
-      wx.hideLoading();
-      this.ValidateDGIMN({});
+      //wx.hideLoading();
+      
+      // this.ValidateDGIMN({});
     },
     moved() {
       console.log("在组件实例被移动到节点树另一个位置时执行")

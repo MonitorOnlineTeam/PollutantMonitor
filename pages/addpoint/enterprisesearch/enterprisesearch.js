@@ -71,8 +71,10 @@ Page({
   },
   //获取企业信息
   getData: function() {
+    !app.globalData.loading && app.showLoading();
     //获取运维数据
     comApi.getEnterpriseList().then(res => {
+      app.hideLoading();
       if (res && res.IsSuccess) {
         if (res.Datas) {
           this.setData({
@@ -105,9 +107,9 @@ Page({
     wx.redirectTo({
       url: '/pages/addpoint/addpoint/addpoint?EntName=' + e.currentTarget.dataset.entname + "&Abbreviation=" + e.currentTarget.dataset.abbreviation + "&EntAddress=" + e.currentTarget.dataset.entaddress + "&EnvironmentPrincipal=" + e.currentTarget.dataset.environmentprincipal + "&MobilePhone=" + e.currentTarget.dataset.mobilephone + "&Longitude=" + e.currentTarget.dataset.longitude + "&Latitude=" + e.currentTarget.dataset.latitude + "&EntCode=" + e.currentTarget.dataset.entcode
     })
-  }, 
+  },
   //跳转到添加企业界面
-  addenterprise: util.throttle(function (e) {
+  addenterprise: util.throttle(function(e) {
     wx.navigateTo({
       url: '/pages/addpoint/addenterprise/addenterprise'
     })

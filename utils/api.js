@@ -146,50 +146,17 @@ function IfExistsDGIMN() {
 function fetchApi(type, params, method, noUrl) {
 
   console.log("params", params);
-  wx.showLoading({
-    title: '正在加载中',
-  });
+  // wx.showLoading({
+  //   title: '正在加载中',
+  //   mask: true
+  // });
   let prefix = URL;
   if (noUrl) {
     prefix = type;
     type = "";
   }
-  // if (params && params.DGIMN) {
-  //   const flags = sdlMN.filter(m => m === params.DGIMN);
-  //   if (flags.length > 0) {
-
-  //     isSdlDevice(function(f) {
-  //       if (!f) {
-  //         params.DGIMN = "XXX";
-  //         params.DGIMNs = "XXX";
-
-  //       }
-  //       return fetch(prefix, type, params, method).then(res => {
-  //         wx.hideLoading()
-  //         res.IsSuccess = false;
-  //         res.Message = "请在指定范围内查看设备数据";
-  //         return res;
-  //       }).catch(res => {
-  //         wx.showModal({
-  //           title: '提示',
-  //           content: '网络错误，请重试', //'网络错误，请重试',JSON.stringify(res)
-  //           showCancel: false,
-  //           success(res) {
-  //             if (res.confirm) {
-  //               console.log('用户点击确定')
-  //             } else if (res.cancel) {
-  //               console.log('用户点击取消')
-  //             }
-  //           }
-  //         })
-  //         wx.hideLoading()
-  //         return res;
-  //       })
-  //     })
-  //   }
-  // }  
   return fetch(prefix, type, params, method).then(res => {
-    wx.hideLoading()
+    //wx.hideLoading()
 
     return res;
   }).catch(res => {
