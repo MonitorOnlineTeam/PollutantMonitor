@@ -2,7 +2,7 @@ var util = require('../../../utils/util.js');
 const app = getApp()
 const comApi = app.api;
 const common = app.common;
-
+const moment = require('../../../utils/moment.min.js');
 Component({
   /**
    * 组件的属性列表
@@ -74,11 +74,10 @@ Component({
     },
     dateChange: function(e) {
       var date = new Date(e.detail.value + "-01 00:00:00");
-      var time = util.formatTimeGang(date);
       // var convertToCapitalization = this.getMonths(date);
       this.setData({
         month: e.detail.value,
-        time,
+        time: moment(e.detail.value).format("YYYY-MM-DD HH:mm:00"),
         // convertToCapitalization: convertToCapitalization
       });
       //获取运维数据
@@ -111,28 +110,29 @@ Component({
     // },
     //获取运维数据
     getData: function() {
+      var that=this;
       common.setStorage("ApiType", 2);
       !app.globalData.loading && app.showLoading();
       //获取运维数据
-      comApi.getOperationLogList(common.getStorage("DGIMN"), this.data.time, this.data.pageindex, this.data.pagesize).then(res => {
+      comApi.getOperationLogList(common.getStorage("DGIMN"), that.data.time, that.data.pageindex, that.data.pagesize).then(res => {
         app.hideLoading();
         if (res && res.requstresult === "1") {
           if (res.data.optData) {
             //如果返回的条数小于每页显示的个数或者无返回数据则下拉不刷新
-            if (res.data.optData.FormList.length < this.data.pagesize || !res.data.optData.FormList) {
-              this.setData({
+            if (res.data.optData.FormList.length < that.data.pagesize || !res.data.optData.FormList) {
+              that.setData({
                 isLast: true
               })
             } else {
-              this.setData({
+              that.setData({
                 isLast: false
               })
             }
-            if (this.data.pageindex > 1) {
-              res.data.optData.FormList = this.data.resultData.FormList.concat(res.data.optData.FormList)
+            if (that.data.pageindex > 1) {
+              res.data.optData.FormList = that.data.resultData.FormList.concat(res.data.optData.FormList)
             }
             //叠加数据
-            this.setData({
+            that.setData({
               resultData: res.data.optData
             })
           }
@@ -166,7 +166,6 @@ Component({
       //获取当前月份
       var timestamp = Date.parse(new Date());
       var date = new Date(timestamp);
-      var time = util.formatTimeGang(new Date());
       // var convertToCapitalization = this.getMonths(date);
       //获取年份  
       var Y = date.getFullYear();
@@ -174,7 +173,7 @@ Component({
       var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1);
       this.setData({
         month: Y + "-" + M,
-        time,
+        time: moment().format("YYYY-MM-DD HH:mm:00"),
         // convertToCapitalization: convertToCapitalization
       });
       //请求数据
