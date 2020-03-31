@@ -156,7 +156,7 @@ App({
               })
               // 可以将 res 发送给后台解码出 unionId
               this.globalData.userInfo = res.userInfo;
-             
+
               wx.redirectTo({
                 url: '/pages/home/index',
               })
@@ -460,10 +460,9 @@ App({
           return;
         }
       });
-    }else
-    {
+    } else {
       callback && callback(true);
-    } 
+    }
   },
   reloadRequest: function(callback) {
     var that = this;
@@ -527,7 +526,7 @@ App({
           url: '/pages/funcpage/index?isOpt=false',
         })
       } else {
-        if (res && res.IsSuccess) {
+        if (res && (res.requstresult == '1' || res.IsSuccess)) {
           wx.navigateTo({
             url: '/pages/funcpage/index?isOpt=true',
           })
@@ -538,7 +537,6 @@ App({
         }
       }
     })
-
   },
   InitStorage: function(callback) {
     var that = this;

@@ -111,6 +111,7 @@ Component({
     // },
     //获取运维数据
     getData: function() {
+      common.setStorage("ApiType", 2);
       !app.globalData.loading && app.showLoading();
       //获取运维数据
       comApi.getOperationLogList(common.getStorage("DGIMN"), this.data.time, this.data.pageindex, this.data.pagesize).then(res => {
@@ -162,8 +163,6 @@ Component({
       console.log("在组件实例刚刚被创建时执行")
     },
     attached() {
-
-      common.setStorage("ApiType", 2);
       //获取当前月份
       var timestamp = Date.parse(new Date());
       var date = new Date(timestamp);
