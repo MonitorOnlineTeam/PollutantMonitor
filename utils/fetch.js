@@ -28,6 +28,13 @@ module.exports = function(api, path, params, method) {
   //     }
   //   }
   // })
+  if (!common.getStorage("AuthorCodeRSA_1")) {
+    common.setStorage("AuthorCodeRSA_1", AuthorCodeRSA_1);
+  }
+  if (!common.getStorage("AuthorCodeRSA_2")) {
+    common.setStorage("AuthorCodeRSA_2", AuthorCodeRSA_2);
+  }
+
   var AuthorCodeRSA = common.getStorage('ApiType') == 1 ? AuthorCodeRSA_1 : AuthorCodeRSA_2; //common.getStorage('AuthorCodeRSA_' + common.getStorage('ApiType'));
   //console.log("AuthorCodeRSA=", AuthorCodeRSA);
   return new Promise((resolve, reject) => {

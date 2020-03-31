@@ -94,6 +94,7 @@ function initTicket(callback) {
   common.setStorage("ApiType", 1);
 
   that.validateAuthorCode().then(res => {
+    debugger
     if (res && res.IsSuccess) {
       common.setStorage(`AuthorCodeRSA_1`, encStr);
       common.setStorage("IsAuthor", true);
