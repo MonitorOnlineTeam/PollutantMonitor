@@ -30,5 +30,5 @@
     <view class='margin-top-sm'>八、争议解决</view>
     <view class='margin-top-sm'>双方同意本协议的签订地为北京市昌平区，并同意将因本协议引起的或与本协议有关的任何争议提交合同签订地有管辖权的法院诉讼解决（包括与非合同义务有关的任何争议或索赔）。</view>
   </view>
-  <button class="cu-btn block bg-blue margin-tb-sm lg" bindtap="btnsave">{{Agreement?'已同意以上协议内容':'同意以上协议内容'}} </button>
+  <button class="cu-btn block bg-blue margin-tb-sm lg" bindtap="btnsave">同意以上协议内容</button>
 </view>

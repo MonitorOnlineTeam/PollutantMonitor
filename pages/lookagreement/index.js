@@ -13,16 +13,16 @@ Page({
    */
   onLoad: function(options) {
     var that = this;
-    wx.getStorage({
-      key: 'Agreement',
-      success: function(res) {
-        if (res) {
-          that.setData({
-            Agreement: res.data
-          });
-        }
-      },
-    })
+    // wx.getStorage({
+    //   key: 'Agreement',
+    //   success: function(res) {
+    //     if (res) {
+    //       that.setData({
+    //         Agreement: res.data
+    //       });
+    //     }
+    //   },
+    // })
   },
 
   /**
@@ -75,10 +75,10 @@ Page({
   },
   btnsave: function() {
     if (!this.data.Agreement) {
-      wx.setStorage({
-        key: 'Agreement',
-        data: true,
-      })
+      // wx.setStorage({
+      //   key: 'Agreement',
+      //   data: true,
+      // })
       wx.showToast({
         title: '正在跳转',
       })

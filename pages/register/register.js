@@ -43,7 +43,7 @@ Page({
    */
   onShow: function() {
     this.setData({
-      Agreement: common.getStorage('Agreement')
+      Agreement: this.data.checkbox
     });
   },
 
@@ -102,22 +102,23 @@ Page({
         duration: 1500
       })
     } else {
-      if (!common.getStorage('Agreement')) {
-        wx.showModal({
-          title: '提示',
-          content: '请先查看并同意用户监测数据许可协议',
-          showCancel: false,
-          success(res) {
-            console.log(res);
-            if (res.confirm) {
-              wx.navigateTo({
-                url: '/pages/lookagreement/index',
-              })
-              return;
-            }
-          }
-        })
-      }
+      // if (!common.getStorage('Agreement')) {
+      //   wx.showModal({
+      //     title: '提示',
+      //     content: '请先查看并同意用户监测数据许可协议',
+      //     showCancel: false,
+      //     success(res) {
+      //       console.log(res);
+      //       if (res.confirm) {
+      //         wx.navigateTo({
+      //           url: '/pages/lookagreement/index',
+      //         })
+      //         return;
+      //       }
+      //     }
+      //   })
+      //   return;
+      // }
 
       if (!this.data.checkbox) {
         wx.showToast({

@@ -48,13 +48,20 @@ const pageUrl = {
   SDLSMCIsRegister: `/SMCManagerApi/SDLSMCIsRegister`,
   AddUser: `/SMCManagerApi/AddUser`,
   ValidateDGIMN: `/SMCManagerApi/ValidateDGIMN`,
-  IfExistsDGIMN: `/SMCManagerApi/IfExistsDGIMN?authorCode=${authorCode}`
+  IfExistsDGIMN: `/SMCManagerApi/IfExistsDGIMN?authorCode=${authorCode}`,
+  SetAgreement: `/SMCManagerApi/SetAgreement`,
 }
 
 
 var RSA = require('./wx_rsa.js');
 const publicKey = '-----BEGIN PUBLIC KEY-----MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCxsx1/cEpUmSwUwwPU0SciWcVKmDORBGwSBjJg8SL2GrCMC1 + Rwz81IsBSkhog7O + BiXEOk / 5frE8ryZOpOm / 3PmdWimEORkTdS94MilEsk + 6Ozd9GnAz6Txyk07yDDwCEmA3DoFY2hfKg5vPoskKA0QBC894cUqq1aH9h44SwyQIDAQAB-----END PUBLIC KEY-----';
 var encStr = "";
+
+function SetAgreement() {
+  return fetchApi(pageUrl.SetAgreement, {
+    openId: common.getStorage('OpenId')
+  }, 'get').then(res => res.data);
+}
 
 //验证用户是否注册
 function SDLSMCIsRegister() {
@@ -700,6 +707,7 @@ module.exports = {
   AddUser,
   initTicket,
   ValidateDGIMN,
-  IfExistsDGIMN
+  IfExistsDGIMN,
+  SetAgreement
 
 }

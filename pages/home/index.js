@@ -28,6 +28,7 @@ Page({
     common.setStorage("ApiType", 1);
     //common.setStorage("DGIMN", "");
     var that = this;
+
     if (options && options.q) {
       app.reloadRequest(function(res) {
         that.setData({
@@ -65,7 +66,6 @@ Page({
 
       });
     }
-
   },
 
   /**
@@ -81,6 +81,12 @@ Page({
   onShow: function() {
     console.log("IsFrist show=", this.data.isFrist)
     var that = this;
+    if (common.getStorage("IsLogin") && !common.getStorage('Agreement')) {
+      that.setData({
+        agreement: true
+      });
+    }
+
     common.setStorage("ApiType", 1);
     if (common.getStorage("IsEntryDetails")) {
       common.setStorage("IsEntryDetails", false);
@@ -95,7 +101,20 @@ Page({
       isFrist: false
     });
   },
-
+  btnsave: function() {
+    var that = this;
+    comApi.SetAgreement().then(res => {
+      that.setData({
+        agreement: false
+      });
+      common.setStorage('Agreement', true);
+    });
+  },
+  v_hideModal: function() {
+    this.setData({
+      agreement: false
+    });
+  },
   /**
    * 生命周期函数--监听页面隐藏
    */

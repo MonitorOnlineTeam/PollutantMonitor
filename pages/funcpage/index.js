@@ -24,37 +24,37 @@ Page({
     var that = this;
     console.log('options=', options);
 
-      if (!common.getStorage('DGIMN')) {
-        wx.redirectTo({
-          url: '/pages/home/index',
-        })
-      }
-      common.setStorage("ApiType", 1);
+    if (!common.getStorage('DGIMN')) {
+      wx.redirectTo({
+        url: '/pages/home/index',
+      })
+    }
+    common.setStorage("ApiType", 1);
 
-      if (common.getStorage('IsShare')) {
-        app.IsRegister(function(res) {
-          if (!res) {
-            that.setData({
-              TabCur: -1
-            });
-          } else {
+    if (common.getStorage('IsShare')) {
+      app.IsRegister(function(res) {
+        if (!res) {
+          that.setData({
+            TabCur: -1
+          });
+        } else {
 
-            that.setData({
-              TabCur: +common.getStorage('ShareTabCur'),
-              isOpt: common.getStorage('isOpt'),
-              tabData: !common.getStorage('isOpt') ? ['实时数据', '历史数据', '设备信息'] : ['实时数据', '历史数据', '运维', '设备信息']
-            });
-          }
-        });
-      }
+          that.setData({
+            TabCur: +common.getStorage('ShareTabCur'),
+            isOpt: common.getStorage('isOpt'),
+            tabData: !common.getStorage('isOpt') ? ['实时数据', '历史数据', '设备信息'] : ['实时数据', '历史数据', '运维', '设备信息']
+          });
+        }
+      });
+    }
 
-      that.myComponent = that.selectComponent('#myComponent');
-      if (options && options.isOpt) {
-        that.setData({
-          isOpt: options.isOpt == 'false' ? false : true,
-          tabData: options.isOpt == 'false' ? ['实时数据', '历史数据', '设备信息'] : ['实时数据', '历史数据', '运维', '设备信息']
-        })
-      }
+    that.myComponent = that.selectComponent('#myComponent');
+    if (options && options.isOpt) {
+      that.setData({
+        isOpt: options.isOpt == 'false' ? false : true,
+        tabData: options.isOpt == 'false' ? ['实时数据', '历史数据', '设备信息'] : ['实时数据', '历史数据', '运维', '设备信息']
+      })
+    }
     //this.onPullDownRefresh();
   },
 
@@ -97,7 +97,11 @@ Page({
         TabCur: common.getStorage('ShareTabCur')
       });
     }
-
+    if (common.getStorage("IsLogin") && !common.getStorage('Agreement')) {
+      this.setData({
+        agreement: true
+      });
+    }
     var data = this.data;
     if (data.frist && !common.getStorage('IsShare'))
       return;
@@ -119,6 +123,21 @@ Page({
         myComponent.onShow();
         break;
     }
+
+  },
+  btnsave: function() {
+    var that = this;
+    comApi.SetAgreement().then(res => {
+      that.setData({
+        agreement: false
+      });
+      common.setStorage('Agreement', true);
+    });
+  },
+  v_hideModal: function() {
+    this.setData({
+      agreement: false
+    });
   },
 
   /**
