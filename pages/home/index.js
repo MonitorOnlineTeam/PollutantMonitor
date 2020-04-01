@@ -315,9 +315,6 @@ Page({
     })
 
   },
-  goLogin: function() {
-    app.Islogin(function() {});
-  },
   getUserInfo: function(e, callback) {
     var that = this;
     if (e.detail.rawData) {
@@ -414,16 +411,6 @@ Page({
         // })
       }
     })
-  },
-  isLogin: function() {
-    if (!common.getStorage("IsLogin")) {
-      wx.showToast({
-        title: '请先授权登录',
-        icon: 'none'
-      })
-      return false
-    }
-    return true;
   }
 
 })

@@ -9,6 +9,8 @@ Page({
    */
   data: {
     ajxtrue: false, //手机号验证标识
+    Agreement: false,
+    checkbox: false
   },
 
   /**
@@ -16,8 +18,19 @@ Page({
    */
   onLoad: function(options) {
 
+    this.setData({
+      Agreement: common.getStorage('Agreement'),
+      checkbox: common.getStorage('Agreement'),
+    });
   },
+  checkboxChange: function(e) {
+    console.log('checkbox发生change事件，携带value值为：', e.detail.value)
 
+    this.setData({
+      checkbox: e.detail.value.length
+    })
+
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -29,7 +42,9 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    this.setData({
+      Agreement: common.getStorage('Agreement')
+    });
   },
 
   /**
@@ -87,6 +102,33 @@ Page({
         duration: 1500
       })
     } else {
+      if (!common.getStorage('Agreement')) {
+        wx.showModal({
+          title: '提示',
+          content: '请先查看并同意用户监测数据许可协议',
+          showCancel: false,
+          success(res) {
+            console.log(res);
+            if (res.confirm) {
+              wx.navigateTo({
+                url: '/pages/lookagreement/index',
+              })
+              return;
+            }
+          }
+        })
+      }
+
+      if (!this.data.checkbox) {
+        wx.showToast({
+          title: '请先勾选用户协议!',
+          icon: 'none',
+          duration: 1500
+        });
+        return;
+      }
+
+
       !app.globalData.loading && app.showLoading();
       app.wxLogin(function() {
         if (!common.getStorage('OpenId')) {

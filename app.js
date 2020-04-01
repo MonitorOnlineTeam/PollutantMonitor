@@ -405,61 +405,77 @@ App({
     })
   },
   IsRegister: function(callback) {
+
+    var that = this;
     if (!common.getStorage("OpenId") || !common.getStorage("IsLogin")) {
-      api.SDLSMCIsRegister().then(res => {
-        var data = res.Datas;
-        common.setStorage("OpenId", data.OpenId); //13800138000
-        if (res.StatusCode == 10001) {
-          common.setStorage("IsLogin", false);
-          wx.showModal({
-            title: '提示',
-            content: '请注册授权后，再执行操作',
-            showCancel: true,
-            success(res) {
-              console.log(res);
-              if (res.confirm) {
-                wx.navigateTo({
-                  url: '/pages/register/register'
-                })
-              }
+      that.wxLogin(function() {
+        api.SDLSMCIsRegister().then(res => {
+          var data = res.Datas;
+          common.setStorage("OpenId", data.OpenId); //13800138000
+          if (res.StatusCode == 10001) {
+            common.setStorage("IsLogin", false);
+
+            if (!common.getStorage('Agreement')) {
+              common.setStorage("Agreement", false);
+              wx.navigateTo({
+                url: '/pages/lookagreement/index',
+              });
+            } else {
+              wx.showModal({
+                title: '提示',
+                content: '请注册授权后，再执行操作',
+                showCancel: true,
+                success(res) {
+                  console.log(res);
+                  if (res.confirm) {
+                    wx.navigateTo({
+                      url: '/pages/register/register'
+                    })
+                  }
+                }
+              })
             }
-          })
-          callback && callback(false)
-          return;
-        }
 
-        if (res.IsSuccess) {
-          common.setStorage("Ticket", data.Ticket);
+            callback && callback(false)
+            return;
+          }
 
-          common.setStorage("PhoneCode", data.Phone);
-          common.setStorage("IsLogin", true);
-          callback && callback(true);
+          if (res.IsSuccess) {
+            common.setStorage("Ticket", data.Ticket);
 
-        } else {
-          common.setStorage("Ticket", "");
-          common.setStorage("IsLogin", false);
-          common.setStorage("PhoneCode", "");
-          // wx.showToast({
-          //   title: res.Message,
-          //   icon: 'none'
-          // });
-          wx.showModal({
-            title: '提示',
-            content: '请注册授权后，再执行操作',
-            showCancel: true,
-            success(res) {
-              console.log(res);
-              if (res.confirm) {
-                wx.navigateTo({
-                  url: '/pages/register/register'
-                })
+            common.setStorage("PhoneCode", data.Phone);
+            common.setStorage("IsLogin", true);
+            common.setStorage("Agreement", true);
+            callback && callback(true);
+
+          } else {
+            common.setStorage("Ticket", "");
+            common.setStorage("IsLogin", false);
+            common.setStorage("PhoneCode", "");
+            common.setStorage("Agreement", true);
+            // wx.showToast({
+            //   title: res.Message,
+            //   icon: 'none'
+            // });
+            wx.showModal({
+              title: '提示',
+              content: '请注册授权后，再执行操作',
+              showCancel: true,
+              success(res) {
+                console.log(res);
+                if (res.confirm) {
+                  wx.navigateTo({
+                    url: '/pages/register/register'
+                  })
+                }
               }
-            }
-          })
-          callback && callback(false);
-          return;
-        }
-      });
+            })
+            callback && callback(false);
+            return;
+          }
+        });
+      })
+
     } else {
       callback && callback(true);
     }
@@ -473,6 +489,7 @@ App({
           var data = res.Datas;
           common.setStorage("OpenId", data.OpenId); //13800138000
           if (res.StatusCode == 10001) {
+            //common.setStorage("Agreement", false);
             common.setStorage("IsLogin", false);
             that.IsRegister();
             callback && callback(false)
@@ -484,18 +501,21 @@ App({
 
             common.setStorage("PhoneCode", data.Phone); //13800138000
             common.setStorage("IsLogin", true);
+            common.setStorage("Agreement", true);
             callback && callback(true);
 
           } else {
             common.setStorage("Ticket", ""); //13800138000
             common.setStorage("IsLogin", false);
             common.setStorage("PhoneCode", ""); //13800138000
+            common.setStorage("Agreement", true);
             wx.showToast({
               title: res.Message,
               icon: 'none'
             });
             callback && callback(false);
           }
+
         });
       });
     })
