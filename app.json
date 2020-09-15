@@ -6,6 +6,7 @@
     "pages/qca/changeGas/changeGas",
     "pages/qca/validatePhone/validatePhone",
     "pages/qca/authorCode/authorCode",
+    "pages/qca/faceValidate/index",
     "pages/realTimeData/home/home",
     "pages/my/home/home",
     "pages/welcome/welcome",

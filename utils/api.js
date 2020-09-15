@@ -1,6 +1,6 @@
 //const URL = 'http://localhost:52198/rest/PollutantSourceApi'
 
-//const URL = 'http://172.16.9.13:9090/rest/PollutantSourceApi'
+// const URL = 'http://172.16.12.152:60060'
 const URL = 'https://api.chsdl.net/NewWryWebProxy/rest/PollutantSourceApi';
 
 const fetch = require('./fetch')
@@ -37,12 +37,13 @@ const pageUrl = {
   getUserEntInfo: `WxServer/GetUserEntInfo?authorCode=${authorCode}`,
   qcaValidatePhone: `/QualityControlWxApi/QCAValidatePhone`,
   qcaValidataQCAMN: `/QualityControlWxApi/QCAValidataQCAMN`,
-  qcaOpenDoor: `/QualityControlWxApi/QCAOpenDoor`,
+  qcaOpenDoor: `/QualityControlApi/SendOpenCMD?authorCode=${authorCode}`,
   qcaGetStandardGasList: `/QualityControlWxApi/QCAGetStandardGasList`,
   qcaUpdateStandardGasList: `/QualityControlWxApi/QCAUpdateStandardGasList`,
   validateAuthorCode: `/LoginApi/ValidateAuthorCode`, //代理授权码验证
   qcaGetAnalyzerInfoPage: `/QualityControlWxApi/QCAGetAnalyzerInfoPage`,
   qcaGetDoorState: `/QualityControlWxApi/QCAGetDoorState`,
+
 }
 
 /**
@@ -53,7 +54,6 @@ const pageUrl = {
  * @return {Promise}       包含抓取任务的Promise
  */
 function fetchApi(type, params, method, noUrl) {
-
   console.log("params", params);
   wx.showLoading({
     title: '正在加载中',
@@ -483,10 +483,7 @@ function qcaValidataQCAMN(qcamn) {
 
 function qcaOpenDoor(remark, isQueryStatus) {
   return fetchApi(pageUrl.qcaOpenDoor, {
-    Phone: common.getStorage('PhoneCode'),
-    MN: common.getStorage('QCAMN'),
-    ChangeReason: remark,
-    IsQueryStatus: isQueryStatus == 1 ? true : false
+    DGIMN: remark,
   }, 'post').then(res => res.data)
 }
 

@@ -1,0 +1,47 @@
+<view class="page-body">
+  <view class="bg-white padding  margin-top-xs">
+    <view class="cu-steps steps-arrow">
+      <view class="cu-item {{index>basics?'':'text-blue'}}" wx:for="{{basicsList}}" wx:key>
+        <text class="cuIcon-{{item.icon}}"></text> {{item.name}}
+      </view>
+    </view>
+  </view>
+  <view class="cu-bar  ">
+
+    <view class="action">
+      <text class="cuIcon-titles text-blue " bindtap="openScan"></text> 请开始人脸识别，确认运维人身份
+    </view>
+
+  </view>
+  <view class="page-body-wrapper">
+    <camera device-position="front" flash="off" binderror="error" style="width:100%;height:250px;">
+      <cover-view class="id_m">
+
+        <!-- 这是拍照轮廓图 -->
+       
+        <!-- END -->
+
+        <!-- 这是文字提示（不需要删除即可） -->
+        <cover-view class="tips_txt">请将头像面放到框内，并调整好光线</cover-view>
+        <!-- END -->
+
+      </cover-view>
+    </camera>
+
+  
+
+  </view>
+   <view class="cu-bar  ">
+
+      <view class="action">
+        <text class="cuIcon-titles text-blue " bindtap="openScan"></text> 注意
+      </view>
+
+    </view>
+    <view class=" text-sm padding-left">
+      <text class="text-gray">请确认光线良好拍摄清晰，拍摄范围内仅存在一人\n请确认眼镜、鼻子、嘴巴、链家、下巴不被遮挡\n确保本人操作</text>
+    </view>
+    <view class='add_btn'>
+    <button  bindtap="face" class="cu-btn block bg-blue margin-tb-sm lg" type="button" style="width: 90%;margin-left: 5%;margin-right: 5%;">{{trackshow}}</button>
+</view>
+</view>

@@ -11,7 +11,19 @@ Page({
     list: [],
     pageIndex: 1,
     pageSize: 15,
-    total: 0
+    total: 0,
+    basicsList: [{
+      icon: 'scan',
+      name: '扫码质控仪'
+    }, {
+      icon: 'peoplefill',
+      name: '人脸识别'
+    }, {
+      icon: 'unlock',
+      name: '确认开锁'
+    }, ],
+    basics: 0,
+   
   },
 
   /**
@@ -44,9 +56,8 @@ Page({
               comApi.qcaValidataQCAMN(mn).then(res => {
                 console.log('res=', res);
                 if (res && res.IsSuccess) {
-                  common.setStorage("QCAMN", mn); //13800138000
-                  common.setStorage("QCAAddress", res.Datas.Address);
-                  common.setStorage("QCAName", res.Datas.QCAName);
+                  common.setStorage("DGIMN", 'res'); //13800138000
+                 
                   wx.navigateTo({
                     url: '/pages/qca/opendoor/opendoor'
                   })
@@ -93,8 +104,7 @@ Page({
       textareaBValue: ''
     });
     if (common.getStorage("UserName")) {
-      if (this.data.list.length == 0)
-        this.getData();
+      
     }
   },
 
@@ -177,50 +187,28 @@ Page({
       wx.hideNavigationBarLoading();
     });
   },
+  reAuth :function(){
+    common.setStorage("IsAuthor", true); //13800138000
+    wx.navigateTo({
+      url: '/pages/qca/authorCode/authorCode'
+    })
+  },
   openScan: function() {
     let that = this;
-    app.Islogin(function() {
+    app.Islogin(function () {
       wx.scanCode({
         success(res) {
           console.log("res=", res);
           if (res.errMsg == 'scanCode:ok') {
 
-            try {
-              //var scene = decodeURIComponent(options.scene);//qcaValidataQCAMN
-              var scene = res.result;
 
-              app.wxLogin(function() {
-                let url = decodeURIComponent(scene);
-                let substr = url.substr(url.lastIndexOf('/') + 1, url.length);
-                console.log('substr', substr);
-                if (substr && substr.indexOf('mn=') >= 0) {
-                  let mn = substr.split('=')[1];
-                  if (mn) {
-
-                    comApi.qcaValidataQCAMN(mn).then(res => {
-                      console.log('res=', res);
-                      if (res && res.IsSuccess) {
-                        common.setStorage("QCAMN", mn); //13800138000
-                        common.setStorage("QCAAddress", res.Datas.Address);
-                        common.setStorage("QCAName", res.Datas.QCAName);
-                        wx.navigateTo({
-                          url: '/pages/qca/opendoor/opendoor'
-                        })
-                      } else {
-                        that.noQRMessage();
-                      }
-                    });
-                  } else {
-                    that.noQRMessage();
-                  }
-                } else {
-                  that.noQRMessage();
-                }
-              });
-            } catch (e) {
-              that.noQRMessage();
-            }
+            common.setStorage("DGIMN",res.result.split('mn=')[1]); //'62020131jhdp02'
+          
+            wx.navigateTo({
+              url: '/pages/qca/faceValidate/index'
+            })
           }
+
           //console.log(res)
         },
         fail: res => {
@@ -228,7 +216,9 @@ Page({
           //that.noQRMessage();
         }
       })
-    });
+    })
+     
+  
   },
   noQRMessage: function() {
     wx.showToast({

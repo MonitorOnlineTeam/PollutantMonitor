@@ -13,7 +13,18 @@ Page({
     index: 0,
     userName: '',
     QCAMN: '',
-    isOpening: false
+    isOpening: false,
+    basicsList: [{
+      icon: 'scan',
+      name: '扫码质控仪'
+    }, {
+      icon: 'peoplefill',
+      name: '人脸识别'
+    }, {
+      icon: 'unlock',
+      name: '确认开锁'
+    },],
+    basics: 2,
   },
 
   /**
@@ -36,11 +47,11 @@ Page({
    */
   onShow: function() {
     this.setData({
-      userName: common.getStorage("UserName"),
-      QCAMN: common.getStorage("QCAMN"),
-      QCAAddress: common.getStorage("QCAAddress"),
-      QCAName: common.getStorage("QCAName"),
-      textareaBValue: ''
+      UserName: common.getStorage("UserName"),
+      EntName: common.getStorage("EntName"),
+      PointName: common.getStorage("PointName"),
+      OnlineStatus: common.getStorage("OnlineStatus"),
+      QCAStatus: common.getStorage("QCAStatus"),
     });
   },
 
@@ -92,27 +103,12 @@ Page({
   openlock: function() {
     var that = this;
     app.Islogin(function() {
-      if (!common.getStorage("QCAMN")) {
-        wx.showModal({
-          title: '提示',
-          content: '请先扫描设备二维码，再执行操作',
-          showCancel: false,
-          success(res) {
-            console.log(res);
-            if (res.confirm) {
-              wx.redirectTo({
-                url: '/pages/qca/analyzerList/analyzerList',
-              })
-            }
-          }
-        })
-        return;
-      }
+     
 
 
       var typeRe = that.data.index;
 
-      var remark = that.data.textareaBValue;
+      var remark = common.getStorage("DGIMN");
       var exception = false;
       comApi.qcaOpenDoor(remark).then(res => {
         console.log('res=', res);
@@ -130,28 +126,19 @@ Page({
             //判断开门是否异常
             comApi.qcaOpenDoor(remark, 1).then(res => {
               wx.hideLoading();
-              if (res && res.IsSuccess) {
-                wx.redirectTo({
-                  url: '/pages/qca/changeGas/changeGas'
-                })
-              } else {
-                that.setData({
-                  isOpening: false
-                });
-                wx.showModal({
-                  title: '提示',
-                  content: '门已关闭，请重新扫码开门',
-                  showCancel: false,
-                  success(res) {
-                    if (res.confirm) {
-                      // wx.redirectTo({
-                      //   url: '/pages/qca/analyzerList/analyzerList',
-                      // })
-                      wx.navigateBack({delta:1})
-                    }
+              wx.showModal({
+                title: '提示',
+                content: '门已关闭，请重新扫码开门',
+                showCancel: false,
+                success(res) {
+                  if (res.confirm) {
+                    // wx.redirectTo({
+                    //   url: '/pages/qca/analyzerList/analyzerList',
+                    // })
+                    wx.navigateBack({ delta: 1 })
                   }
-                });
-              }
+                }
+              });
             });
           }, 8000)
         } else {

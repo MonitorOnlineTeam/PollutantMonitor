@@ -2,8 +2,23 @@
 .cu-chat .cu-info{
   max-width: none;
   width: auto;
+
 }
 
 .cu-chat .cu-info span{
   font-weight: bold;
+}
+.steps-bottom.cu-steps .cu-item .num::before {
+  content: "\e668";
+  font-family: 'iconfont';
+}
+.add_btn{
+    width: 100%;
+    position: fixed;
+    bottom: 30rpx;
+}
+.add_btn2{
+    width: 100%;
+    position: fixed;
+    bottom: 160rpx;
 }

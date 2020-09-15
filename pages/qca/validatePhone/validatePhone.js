@@ -102,9 +102,7 @@ Page({
             common.setStorage("IsLogin", true); //13800138000
             common.setStorage("PhoneCode", phone); //13800138000
             common.setStorage("UserName", res.Datas);
-            // wx.switchTab({
-            //   url: '/pages/qca/scan/scan'
-            // })
+           
             wx.redirectTo({
               url: '/pages/qca/analyzerList/analyzerList',
             })

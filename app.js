@@ -489,22 +489,7 @@ App({
       return;
     }
 
-    if (!common.getStorage("IsLogin")) {
-      wx.showModal({
-        title: '提示',
-        content: '请先登录后，再执行操作',
-        showCancel: true,
-        success(res) {
-          console.log(res);
-          if (res.confirm) {
-            wx.navigateTo({
-              url: '/pages/qca/validatePhone/validatePhone'
-            })
-          }
-        }
-      })
-      return;
-    }
+   
     callback();
   },
   globalData: {
@@ -513,6 +498,8 @@ App({
     isShowContent: false,
     isShowInfo: false,
     isSdlDevice: false,
+    baiduapikey: "56K7zFtlgXr0MNZnXLPtcs5G",
+    baidusecretkey: "LesGCxRX7qhK1PBbXI4zf54Pak7tBA0D",
     sdlMN: ['0102030405060708090A0B0C0D0E0F10', '0202030405060708090A0B0C0D0E0F10', '0302030405060708090A0B0C0D0E0F10']
   }
 })

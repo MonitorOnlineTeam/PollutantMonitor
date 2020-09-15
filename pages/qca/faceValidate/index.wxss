@@ -1,0 +1,59 @@
+.preview-tips {
+  margin: 50rpx 0  30rpx;  
+}
+
+.video {
+  margin: 20rpx auto;
+  width: 100%;
+  height: 250px;
+}
+
+page {
+  background-color: #F8F8F8;
+  height: 100%;
+  font-size: 32rpx;
+  line-height: 1.6;
+}
+
+.page-body {
+  padding:  0;
+}
+
+.page-body-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.btn-area {
+  margin-top: 40rpx;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0 30rpx;
+}
+.id_m {
+  height: 100%; width: 100%;
+  z-index: 999;
+  background: rgba(0, 0, 0, 0.1);
+  display: flex;
+  position: absolute;
+  justify-content: center;
+}
+.add_btn{
+    width: 100%;
+    position: fixed;
+    bottom: 30rpx;
+}
+.id_m .img {
+ 
+  position: absolute;
+  top: 10rpx;
+    width: 100%;
+  height: 100%;
+}
+.id_m .tips_txt {
+  color: white;
+  display: flex;
+
+}

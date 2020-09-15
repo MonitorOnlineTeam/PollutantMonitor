@@ -113,8 +113,9 @@ Page({
         common.setStorage("IsAuthor", true); //13800138000
        
         setTimeout(function() {
-          wx.redirectTo({
-            url: '/pages/qca/validatePhone/validatePhone'
+        
+          wx.reLaunch({
+            url: '/pages/qca/analyzerList/analyzerList'
           })
         }, 500)
 
