@@ -85,7 +85,10 @@ Page({
     var that = this;
 
     var authorcode = that.data.authorCode;
-
+    that.setData({
+      message: '',
+    
+    });
     if (authorcode.length != 5) {
       that.setData({
         message: '请输入5位授权码'

@@ -53,22 +53,12 @@ Page({
           let mn = substr.split('=')[1];
           if (mn) {
             app.Islogin(function() {
-              comApi.qcaValidataQCAMN(mn).then(res => {
-                console.log('res=', res);
-                if (res && res.IsSuccess) {
-                  common.setStorage("DGIMN", 'res'); //13800138000
-                 
-                  wx.navigateTo({
-                    url: '/pages/qca/opendoor/opendoor'
-                  })
-                  //app.Islogin();
-                } else {
-                  wx.showToast({
-                    icon: 'none',
-                    title: '二维码识别无效'
-                  })
-                }
-              });
+             
+            common.setStorage("DGIMN",mn); //'62020131jhdp02'
+          
+            wx.navigateTo({
+              url: '/pages/qca/faceValidate/index'
+            })
             });
           } else {
             wx.showToast({

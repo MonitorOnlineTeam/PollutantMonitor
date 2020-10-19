@@ -14,6 +14,8 @@ Page({
     userName: '',
     QCAMN: '',
     isOpening: false,
+    onlineLst: ['离线', '正常', '超标', '异常'],
+    qcLst: ['空闲', '运行', '维护', '故障', '断电', '离线'],
     basicsList: [{
       icon: 'scan',
       name: '扫码质控仪'
@@ -23,14 +25,14 @@ Page({
     }, {
       icon: 'unlock',
       name: '确认开锁'
-    },],
+    }, ],
     basics: 2,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
+  onLoad: function (options) {
     console.log('options=', options);
 
   },
@@ -38,14 +40,14 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
+  onReady: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
+  onShow: function () {
     this.setData({
       UserName: common.getStorage("UserName"),
       EntName: common.getStorage("EntName"),
@@ -58,35 +60,35 @@ Page({
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function() {
+  onHide: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function() {
+  onUnload: function () {
     // common.setStorage("QCAMN", "");
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {
+  onPullDownRefresh: function () {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
+  onReachBottom: function () {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
+  onShareAppMessage: function () {
 
   },
   textareaBInput(e) {
@@ -94,16 +96,16 @@ Page({
       textareaBValue: e.detail.value
     })
   },
-  bindPickerChange: function(e) {
+  bindPickerChange: function (e) {
     console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
       index: e.detail.value
     })
   },
-  openlock: function() {
+  openlock: function () {
     var that = this;
-    app.Islogin(function() {
-     
+    app.Islogin(function () {
+
 
 
       var typeRe = that.data.index;
@@ -119,26 +121,32 @@ Page({
           that.setData({
             isOpening: true
           });
+          //建立连接
+          wx.connectSocket({
+            url: wsApi,
+            header: {
+              'content-type': 'application/json'
+            },
+            //method:"GET",
+            protocols: ['protocol1'],
+            success: function () {
+              console.log("客户端连接成功！");
+              wx.onSocketOpen(function () {
+                console.log('webSocket已打开！');
+                socketOpen = true;
+                wx.onSocketMessage(function (msg) {
+                  console.log(msg);
+                })
+              })
+            }
+          })
 
           //显示开门动态gif
-          setTimeout(function() {
+          setTimeout(function () {
             wx.hideLoading();
-            //判断开门是否异常
-            comApi.qcaOpenDoor(remark, 1).then(res => {
-              wx.hideLoading();
-              wx.showModal({
-                title: '提示',
-                content: '门已关闭，请重新扫码开门',
-                showCancel: false,
-                success(res) {
-                  if (res.confirm) {
-                    // wx.redirectTo({
-                    //   url: '/pages/qca/analyzerList/analyzerList',
-                    // })
-                    wx.navigateBack({ delta: 1 })
-                  }
-                }
-              });
+
+            that.setData({
+              isOpening: false
             });
           }, 8000)
         } else {

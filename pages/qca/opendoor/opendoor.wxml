@@ -25,11 +25,11 @@
 
   <view class="cu-form-group margin-top">
     <view class="title">联网状态</view>
-    <input placeholder="{{OnlineStatus}}" disabled="true"></input>
+    <input placeholder="{{onlineLst[OnlineStatus]}}" disabled="true"></input>
   </view>
   <view class="cu-form-group">
     <view class="title">质控仪</view>
-    <input placeholder="{{QCAStatus}}" disabled="true"></input>
+    <input placeholder="{{qcLst[QCAStatus]}}" disabled="true"></input>
   </view>
 
 

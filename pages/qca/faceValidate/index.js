@@ -108,7 +108,17 @@ Page({
     wx.showModal({
       title: '提示',
       content: '未识别到人脸，请重新认证',
-      showCancel: false
+  
+      confirmText:"重新认证",//默认是“确定”
+      cancelText:"取消认证",//默认是“取消”
+      success: function (res) {
+        if (res.cancel) {
+           //点击取消,默认隐藏弹框
+        } else {
+           //点击确定
+          this.face()
+        }
+     },
     })
   },
 
@@ -160,13 +170,30 @@ Page({
             title: '提示',
             content:data.Message,
             duration: 1000,
-            icon: 'error'
+           
+            confirmText:"重新认证",//默认是“确定”
+            cancelText:"取消认证",//默认是“取消”
+            success: function (res) {
+              if (res.cancel) {
+                 //点击取消,默认隐藏弹框
+              } else {
+                 //点击确定
+                this.face()
+              }
+           },
           })
         }
 
 
       },
       fail: (res) => {
+        wx.hideLoading();
+        wx.showModal({
+          title: '提示',
+          content:'网络错误',
+          showCancel:false,
+         
+        })
       }
     })
   },
@@ -243,6 +270,15 @@ Page({
                   })
                 }
               },
+              fail: (res) => {
+                wx.hideLoading();
+                wx.showModal({
+                  title: '提示',
+                  content:'网络错误',
+                  showCancel:false,
+                 
+                })
+              }
             })
 
           }
@@ -251,88 +287,7 @@ Page({
     })
   },
 
-  search() {
-    var that = this
-    that.setData({
-      who: ""
-    })
-    var takephonewidth
-    var takephoneheight
-    that.ctx.takePhoto({
-      quality: 'heigh',
-      success: (res) => {
-        // console.log(res.tempImagePath),
-        // 获取图片真实宽高
-        wx.getImageInfo({
-          src: res.tempImagePath,
-          success: function(res) {
-            takephonewidth = res.width,
-              takephoneheight = res.height
-          }
-        })
-        that.setData({
-            src: res.tempImagePath
-          }),
-          wx.getFileSystemManager().readFile({
-            filePath: that.data.src, //选择图片返回的相对路径
-            encoding: 'base64', //编码格式
-            success: res => {
-              wx.request({
-                url: "https://aip.baidubce.com/rest/2.0/face/v3/multi-search?access_token=" + that.data.access_token,
-                data: {
-                  image: res.data,
-                  image_type: "BASE64",
-                  group_id_list: "camera000001",
-                  max_face_num: 10,
-                  match_threshold: 60,
-
-                },
-                method: 'POST',
-                dataType: "json",
-                header: {
-                  'content-type': 'application/json'
-                },
-                success: function(res) {
-                  console.log(res.data);
-                  var ctx = wx.createContext()
-                  if (res.data.error_code === 0) {
-                    ctx.setStrokeStyle('#31859c')
-                    ctx.setFillStyle('#31859c');
-                    ctx.lineWidth = 3
-                    for (let j = 0; j < res.data.result.face_num; j++) {
-                      var cavansl = res.data.result.face_list[j].location.left / takephonewidth * that.data.windowWidth / 2
-                      var cavanst = res.data.result.face_list[j].location.top / takephoneheight * that.data.windowWidth / 2
-                      var cavansw = res.data.result.face_list[j].location.width / takephonewidth * that.data.windowWidth / 2
-                      var cavansh = res.data.result.face_list[j].location.height / takephoneheight * that.data.windowWidth / 2
-                      var cavanstext = res.data.result.face_list[j].user_list.length > 0 ? res.data.result.face_list[j].user_list[0].user_id + " " + res.data.result.face_list[j].user_list[0].score.toFixed(0) + "%" : "Unknow"
-                      ctx.setFontSize(14);
-                      ctx.fillText(cavanstext, cavansl, cavanst - 2)
-                      ctx.strokeRect(cavansl, cavanst, cavansw, cavansh)
-                    }
-                    wx.drawCanvas({
-                      canvasId: 'canvasresult',
-                      actions: ctx.getActions()
-                    })
-                  } else {
-                    that.setData({
-                      who: res.data.error_msg
-                    })
-                    var ctx = wx.createContext()
-                    ctx.setStrokeStyle('#31859c')
-                    ctx.lineWidth = 3
-                    wx.drawCanvas({
-                      canvasId: 'canvasresult',
-                      actions: ctx.getActions()
-                    })
-                  }
-                },
-              })
-            }
-          })
-      }
-    })
-
-  },
+  
 
   startRecord() {
     this.ctx.startRecord({
