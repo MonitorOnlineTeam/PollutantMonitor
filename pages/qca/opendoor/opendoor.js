@@ -118,6 +118,14 @@ Page({
         //   title: '正在开锁',
         // })
         if (res && res.IsSuccess) {
+           //显示开门动态gif
+           setTimeout(function () {
+            wx.hideLoading();
+
+            that.setData({
+              isOpening: false
+            });
+          }, 8000)
           that.setData({
             isOpening: true
           });
@@ -141,14 +149,7 @@ Page({
             }
           })
 
-          //显示开门动态gif
-          setTimeout(function () {
-            wx.hideLoading();
-
-            that.setData({
-              isOpening: false
-            });
-          }, 8000)
+         
         } else {
           wx.showModal({
             title: '提示',
