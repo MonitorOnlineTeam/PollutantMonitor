@@ -19,6 +19,7 @@ Component({
    */
   data: {
     resultData: null,
+    deviceList:[],
     dgimn: '',
     y: '',
     x: '',
@@ -92,7 +93,21 @@ Component({
         }
         wx.hideNavigationBarLoading();
       })
+      comApi.getDeveiceList().then(res => {
+        if (res && res.IsSuccess) {
+      
+          if (res.Datas) {
+            let data = res.Datas;
+          
 
+            that.setData({
+              deviceList: data,
+        
+            })
+          }
+        }
+       
+      })
 
     },
     //拨打电话(环保专工)

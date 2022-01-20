@@ -30,7 +30,8 @@
     "pages/addpoint/enterprisesearch/enterprisesearch",
     "pages/addpoint/addenterprise/addenterprise",
     "pages/lookagreement/index",
-    "pages/register/register"
+    "pages/register/register",
+    "pages/monitor/selectPollutant/selectPollutant"
   ],
   "permission": {
     "scope.userLocation": {

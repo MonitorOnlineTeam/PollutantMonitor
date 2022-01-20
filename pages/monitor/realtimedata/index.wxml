@@ -24,10 +24,10 @@
 </view>
 
 <!-- 第二部分（工艺流程图） -->
-<view bindtap="horizontalScreen" class='tu'>
+<!-- <view bindtap="horizontalScreen" class='tu'>
   <image class='imgClass' src="{{imageSrc}}" style='background-color:#fff;padding:16rpx;'></image>
   <image class='fangda' src='/images/fangda.png'></image>
-</view>
+</view> -->
 <!-- 第三部分（列表） -->
 <view class="table">
   <view class="tr bg-w">

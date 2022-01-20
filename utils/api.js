@@ -1,7 +1,7 @@
 //const URL = 'http://172.16.9.13:8019/api/rest/PollutantSourceApi/'
 //const URL = 'http://localhost:52198/rest/PollutantSourceApi'
 const URL = 'https://api.chsdl.net/NewWryWebProxy/rest/PollutantSourceApi';
-//const URL ='http://localhost:54818/rest/PollutantSourceApi'
+// const URL ='http://172.16.9.33:8800/rest/PollutantSourceApi'
 
 const fetch = require('./fetch')
 const common = require('./common.js')
@@ -30,6 +30,7 @@ const pageUrl = {
   verifyPhone: `/SMCManagerApi/VerifyPhone`,
   qRCodeVerifyDGIMN: `/SMCManagerApi/QRCodeVerifyDGIMN`,
   getPointInfo: `/SMCManagerApi/GetPointInfo`,
+  getDeveiceList: `/SMCManagerApi/GetAnalyzeList`,
   getRealTimeDataForPoint: `/SMCManagerApi/GetRealTimeDataForPoint`,
   addFeedback: `/SMCManagerApi/AddFeedback`,
   getDataAlarmData: `/SMCManagerApi/GetAlarmDatas`,
@@ -152,7 +153,6 @@ function IfExistsDGIMN() {
  * @return {Promise}       包含抓取任务的Promise
  */
 function fetchApi(type, params, method, noUrl) {
-
   console.log("params", params);
   // wx.showLoading({
   //   title: '正在加载中',
@@ -267,6 +267,17 @@ function getPointInfo(DGIMNs) {
   }, 'post').then(res => res.data)
 }
 
+/**
+ * 仪器信息
+ * @param  {String}} DGIMNs MN
+ */
+function getDeveiceList(DGIMNs) {
+
+  return fetchApi(pageUrl.getDeveiceList, {
+    OpenId: common.getStorage('OpenId'),
+    DGIMN: common.getStorage('DGIMN')
+  }, 'post').then(res => res.data)
+}
 /**
  * 获取分析仪列表
  * @param  {String}} DGIMNs MN
@@ -680,6 +691,7 @@ module.exports = {
   updateUserInfo,
   getUserInfo,
   getPointInfo,
+  getDeveiceList,
   getDeviceInfo,
   getPollutantList,
   getProcessFlowChartStatus,

@@ -102,7 +102,7 @@ Page({
     // console.log("加密结果：" + encStr)
 
     common.setStorage("AuthorCode", authorcode); //13800138000
-    common.setStorage("AuthorCodeRSA", encStr); //13800138000
+    common.setStorage("AuthorCodeRSA_1", encStr); //13800138000
     common.setStorage("IsAuthor", false);
     comApi.validateAuthorCode().then(res => {
       if (res && res.IsSuccess) {
@@ -113,8 +113,8 @@ Page({
         common.setStorage("IsAuthor", true); //13800138000
         common.setStorage("ReactUrl", res.Datas.ReactUrl);
         setTimeout(function() {
-          wx.redirectTo({
-            url: '/pages/login/login'
+          wx.reLaunch({
+            url: '/pages/home/index'
           })
         }, 500)
 

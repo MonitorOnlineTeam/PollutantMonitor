@@ -34,6 +34,8 @@
   </view>
 
   <view class="cu-list menu sm-border margin-top">
+  
+    
     <view class="cu-item">
       <view class='content'>
         <text class='lable-text'>设备编号</text>

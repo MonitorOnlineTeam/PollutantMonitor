@@ -404,6 +404,9 @@ App({
       }
     })
   },
+
+
+
   IsRegister: function(callback) {
 
     var that = this;

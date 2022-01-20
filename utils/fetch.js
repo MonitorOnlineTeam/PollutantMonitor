@@ -3,8 +3,10 @@ const common = require('./common.js');
 //ZE6QNsENUZqQlaJMhQexcy2NGmc5gcG1DpP2lqRCEgVFlJlpbbKo00osI4T8TuyPKjZw+52woMQ1dGaUpFMPfnDfMSf97+GdllnBtE1IQszaT/OfVUio6g7oMBiMXo55TLJnEFcAau3LrEBGBerea1aWUfJBYji57bvJmZ4e7F4=
 //90909
 //b0Ns+cHJZXXOi4gU62VecNIqPt4gcXmZEmSAmpOtujDh5NOj9+dbPiV832pisLDA0Kuktwadouc8IobhMOvAmAjZjmL/h0Jdy9eGujWRT0h8cXwYysdOUdOGW62d0RpTXK4fZQjQTfRjW84QPh3dVu4mWtZr5CoDZxUs6ptA4X0=
-const AuthorCodeRSA_1 = 'b0Ns+cHJZXXOi4gU62VecNIqPt4gcXmZEmSAmpOtujDh5NOj9+dbPiV832pisLDA0Kuktwadouc8IobhMOvAmAjZjmL/h0Jdy9eGujWRT0h8cXwYysdOUdOGW62d0RpTXK4fZQjQTfRjW84QPh3dVu4mWtZr5CoDZxUs6ptA4X0=';
-const AuthorCodeRSA_2 = 'TyjmuG8/mCYWRAU3W0GfYj1Hh2abtlEEHtmpkPV2x9vviN0MbrQ/MYL99Iox76o9Oi/zrnFCEynwCoAtoGxOBaeoeSRJzwIkQjUCRj0tQXiUjDV6O7fxHbRyzvo0pb//eRRHviec9LtkLFWSTcVKse6SiNDzEewMNrt8xSHQYQk=';
+// const AuthorCodeRSA_1 = 'b0Ns+cHJZXXOi4gU62VecNIqPt4gcXmZEmSAmpOtujDh5NOj9+dbPiV832pisLDA0Kuktwadouc8IobhMOvAmAjZjmL/h0Jdy9eGujWRT0h8cXwYysdOUdOGW62d0RpTXK4fZQjQTfRjW84QPh3dVu4mWtZr5CoDZxUs6ptA4X0=';
+// const AuthorCodeRSA_2 = 'TyjmuG8/mCYWRAU3W0GfYj1Hh2abtlEEHtmpkPV2x9vviN0MbrQ/MYL99Iox76o9Oi/zrnFCEynwCoAtoGxOBaeoeSRJzwIkQjUCRj0tQXiUjDV6O7fxHbRyzvo0pb//eRRHviec9LtkLFWSTcVKse6SiNDzEewMNrt8xSHQYQk=';
+var AuthorCodeRSA_1 = '';
+const AuthorCodeRSA_2 = '';
 /**
  * 统一请求方法
  * https://XXXX
@@ -14,7 +16,7 @@ const AuthorCodeRSA_2 = 'TyjmuG8/mCYWRAU3W0GfYj1Hh2abtlEEHtmpkPV2x9vviN0MbrQ/MYL
  * @param  {String} method HTTP 请求方法【get、post】
  * @return {Promise}       包含服务端的Promise
  */
-module.exports = function(api, path, params, method) {
+module.exports = function (api, path, params, method) {
   //console.log(`${api}/${path}`, `${JSON.stringify(params)}${method}`);
   // wx.showModal({
   //   title: '提示',
@@ -29,13 +31,23 @@ module.exports = function(api, path, params, method) {
   //   }
   // })
   if (!common.getStorage("AuthorCodeRSA_1")) {
-    common.setStorage("AuthorCodeRSA_1", AuthorCodeRSA_1);
-  }
-  if (!common.getStorage("AuthorCodeRSA_2")) {
-    common.setStorage("AuthorCodeRSA_2", AuthorCodeRSA_2);
+    wx.navigateTo({
+      url: '/pages/qca/authorCode/authorCode'
+    })
+
+    return
+  } else  {
+    AuthorCodeRSA_1 = common.getStorage("AuthorCodeRSA_1")
   }
 
-  var AuthorCodeRSA = common.getStorage('ApiType') == 1 ? AuthorCodeRSA_1 : AuthorCodeRSA_2; //common.getStorage('AuthorCodeRSA_' + common.getStorage('ApiType'));
+  // if (!common.getStorage("AuthorCodeRSA_1")) {
+  //   common.setStorage("AuthorCodeRSA_1", AuthorCodeRSA_1);
+  // }
+  // if (!common.getStorage("AuthorCodeRSA_2")) {
+  //   common.setStorage("AuthorCodeRSA_2", AuthorCodeRSA_2);
+  // }
+
+  var AuthorCodeRSA = AuthorCodeRSA_1; //common.getStorage('AuthorCodeRSA_' + common.getStorage('ApiType'));
   //console.log("AuthorCodeRSA=", AuthorCodeRSA);
   return new Promise((resolve, reject) => {
     wx.request({

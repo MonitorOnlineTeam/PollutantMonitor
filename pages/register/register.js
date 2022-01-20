@@ -213,7 +213,7 @@ Page({
   blurPhone: function(e) {
     var MobilePhone = e.detail.value;
     let that = this
-    if (!(/^1[34578]\d{9}$/.test(MobilePhone))) {
+    if (!(/^1[3456789]\d{9}$/.test(MobilePhone))) {
 
       this.setData({
         ajxtrue: false

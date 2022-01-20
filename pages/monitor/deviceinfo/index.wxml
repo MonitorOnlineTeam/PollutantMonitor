@@ -35,6 +35,16 @@
 
   <view class="cu-list menu sm-border margin-top">
     <view class="cu-item">
+
+      <image style='position:absolute;width:20px;height:20px;background-size:100% 100%;' src='/images/003.png'></image>
+      <view style='padding-left:50rpx;' class='lable-text'>设备信息</view>
+
+
+    </view>
+
+
+    <view class="cu-item">
+
       <view class='content'>
         <text class='lable-text'>设备编号</text>
       </view>
@@ -69,7 +79,34 @@
         <text class='lable-value' style='font-size:28rpx;color:#666'>{{resultData.OutputHigh||'-'}}M</text>
       </view>
     </view>
+    <view class="cu-item">
+      <scroll-view scroll-y class="scrollPage">
+        <block wx:for="{{deviceList}}" wx:key="{{ID}}">
+          <view class="cu-list menu sm-border margin-top margin-bottom">
+           
+            <view class='text-content'>
+              <text class='textOneClass'>分析仪名称：{{item.Name}}</text>
+            </view>
+            <view class='text-content'>
+              <text class='textOneClass'>型号：{{item.DeviceModel}}</text>
+            </view>
+            <view class='text-content'>
+              <text class='textOneClass'>生产厂家：{{item.Manufacturer}}</text>
+            </view>
+            <view class='text-content'>
+              <text class='textOneClass'>出厂日期：{{item.ManufacturerAbbreviation}}</text>
+            </view>
+          </view>
+
+
+        </block>
+      </scroll-view>
+    </view>
+
+
   </view>
+
+
   <view class="cu-list menu margin-top">
     <view class="cu-item">
       <view class='content padding-tb-sm'>
