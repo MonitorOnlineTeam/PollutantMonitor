@@ -1,0 +1,137 @@
+{
+  "setting": {},
+  "condition": {
+    "plugin": {
+      "list": []
+    },
+    "game": {
+      "list": []
+    },
+    "gamePlugin": {
+      "list": []
+    },
+    "miniprogram": {
+      "list": [
+        {
+          "name": "map",
+          "pathName": "pages/map/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/analysis/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/alarm/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/authorCode/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/workbench/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/register/register",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/workbench/createTask/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/workbench/todoTask/todoTask",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/workbench/taskRecord/taskRecord",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/workbench/taskDetails/taskDetails",
+          "query": "taskID=d802ed52-822b-450b-8fdf-20a573d52cba",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/workbench/qualityControlForm/qualityControlForm",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/workbench/qualityControlForm/pollutantsList",
+          "query": "taskID=d802ed52-822b-450b-8fdf-20a573d52cba&typeID=61",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/test/test",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "创建运维表单",
+          "pathName": "pages/workbench/operationsForm/operationsForm",
+          "query": "taskID=f83df1c0-5e4d-4ede-9c12-a1db6bc65a45&typeID=62",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "待办任务",
+          "pathName": "pages/workbench/todoTask/todoTask",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "任务记录",
+          "pathName": "pages/workbench/taskRecord/taskRecord",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/pointDetails/index",
+          "query": "dgimn=aq140421001&pointName=%E5%8C%97%E5%8F%A3%E7%A9%BA%E6%B0%94%E7%AB%99",
+          "scene": null,
+          "launchMode": "default"
+        }
+      ]
+    }
+  }
+}

@@ -1,4 +1,12 @@
-<form bindsubmit="formSubmit">
+<!-- <view> -->
+<l-input bind:lininput='blurPhone' l-class="bg-white" label="手机号" placeholder="请输入手机号">
+  <l-tag slot="right" l-class="register-tag" size="mini" bg-color="#0081ff">+86</l-tag>
+  <l-tag slot="right" l-class="register-tag-r" plain="{{true}}" size="mini" font-color="#0081ff">中国大陆</l-tag>
+</l-input>
+<!-- </view> -->
+
+
+<!-- <form bindsubmit="formSubmit">
 
   <view class="cu-form-group">
     <view class='title'>手机号</view>
@@ -11,26 +19,26 @@
         中国大陆
       </view>
     </view>
-  </view>
-  <radio-group class="block">
-    <view class="margin-top;margin-left:10px">
-
-      <checkbox-group bindchange="checkboxChange">
-        <label class="checkbox">
-          <checkbox class="blue" value="0" checked="{{Agreement}}" style="margin-right:10px" />我已阅读并同意
-          <span style="color:blue;margin-left:10px;" bindtap="lookAgreement">《用户监测数据许可协议》</span>
-        </label>
-      </checkbox-group>
-      <!-- <radio wx:if="{{Agreement}}" class="blue" checked></radio>
+  </view> -->
+<radio-group class="block">
+  <view style="margin-top: 20rpx;margin-left:10px">
+    <checkbox-group bind:change="checkboxChange">
+      <label class="checkbox">
+        <checkbox class="blue" value="0" checked="{{Agreement}}" style="margin-right:10px" />我已阅读并同意
+        <span style="color:blue;margin-left:10px;" bind:tap="lookAgreement">《用户监测数据许可协议》</span>
+      </label>
+    </checkbox-group>
+    <!-- <radio wx:if="{{Agreement}}" class="blue" checked></radio>
       <radio wx:if="{{!Agreement}}" class="blue"></radio>
       <span style="margin-left:10px">我已阅读并同意</span>
       <span style="color:blue;margin-left:10px;" bindtap="lookAgreement">《用户监测数据许可协议》</span> -->
 
-    </view>
-  </radio-group>
-
-
-  <view class="padding flex flex-direction ">
-    <button class='cu-btn bg-blue margin-tb-sm lg' formType="submit">注册</button>
   </view>
-</form>
+</radio-group>
+
+
+<view class="flex-center" style="padding: 30rpx">
+  <l-button bind:lintap="formSubmit" l-class="btn-lg" bg-color="#0081ff" style="width: 100%">注册</l-button>
+  <!-- <button class='cu-btn bg-blue margin-tb-sm lg' formType="submit">注册</button> -->
+</view>
+<!-- </form> -->

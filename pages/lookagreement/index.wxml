@@ -2,7 +2,7 @@
 
 
 <view class='margin-xl bg-white padding-xl radius shadow-lg'>
-  <view class='text-center margin-bottom text-lg  text-grey'>用户监测数据许可协议</view>
+  <view class='title'>用户监测数据许可协议</view>
   <view class='text-content'>
     <view>根据本协议，甲方同意授予乙方基于智能环境监测设备运行和服务而监测、传输与使用甲方数据信息的权利。现就具体事项约定如下：</view>
     <view class='margin-top-sm'>一、许可对象：监测平台在运行过程中搜集到的用户基本信息、环保实时监测数据与其他周边信息。</view>
@@ -30,5 +30,7 @@
     <view class='margin-top-sm'>八、争议解决</view>
     <view class='margin-top-sm'>双方同意本协议的签订地为北京市昌平区，并同意将因本协议引起的或与本协议有关的任何争议提交合同签订地有管辖权的法院诉讼解决（包括与非合同义务有关的任何争议或索赔）。</view>
   </view>
-  <button class="cu-btn block bg-blue margin-tb-sm lg" bindtap="btnsave">同意以上协议内容</button>
+  <view class="flex-center">
+    <l-button bind:lintap="btnsave" l-class="btn-lg" bg-color="#0081ff" style="margin-top: 60rpx; width: 100%" >同意以上协议内容</l-button>
+  </view>
 </view>

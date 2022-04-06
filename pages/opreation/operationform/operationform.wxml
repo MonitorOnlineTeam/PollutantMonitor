@@ -1,3 +1,0 @@
-<!--pages/opreation/operationform/index.wxml-->
-<web-view src="{{srcPath}}">
-</web-view>

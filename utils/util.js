@@ -8,47 +8,34 @@ const formatTime = date => {
 
   return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
 }
+
 const formatNumber = n => {
   n = n.toString()
   return n[1] ? n : '0' + n
 }
-const VerifyCoordinate = (lat1, lng1, lat2 = 40.110626, lng2 = 116.299240) => {
-  lat1 = lat1 || 0;
-  lng1 = lng1 || 0;
-  lat2 = lat2 || 0;
-  lng2 = lng2 || 0;
 
-  var rad1 = lat1 * Math.PI / 180.0;
-  var rad2 = lat2 * Math.PI / 180.0;
-  var a = rad1 - rad2;
-  var b = lng1 * Math.PI / 180.0 - lng2 * Math.PI / 180.0;
-  var r = 6378137;
-  var distance = r * 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(a / 2), 2) + Math.cos(rad1) * Math.cos(rad2) * Math.pow(Math.sin(b / 2), 2)));
-
-  return distance;
-}
-/**
- 
-*解决连续点击多次冲出触发事件
- 
-*/
-
-function throttle(fn, gapTime) {
-  if (gapTime == null || gapTime == undefined) {
-    gapTime = 1500
-  }
-
-  let _lastTime = null
-  return function () {
-    let _nowTime = + new Date()
-    if (_nowTime - _lastTime > gapTime || !_lastTime) {
-      fn()
-      _lastTime = _nowTime
+const getTabBarSelectedIndex = url => {
+  let tabBarList = wx.getStorageSync('tabBarList');
+  let selectedIndex;
+  tabBarList.filter((item, index) => {
+    if (item.pagePath === url) {
+      selectedIndex = index;
     }
-  }
+  })
+  console.log('selectedIndex=',selectedIndex);
+  return selectedIndex;
 }
+
+// const getDefaultTime = type => {
+//   let beginTime, endTime;
+//   switch (type) {
+//     case 'realttime':
+//       beginTime = moment().subtract('hours', 1);
+//       endTime = moment()
+//   }
+// }
+
 module.exports = {
   formatTime: formatTime,
-  VerifyCoordinate: VerifyCoordinate,
-  throttle: throttle
+  getTabBarSelectedIndex: getTabBarSelectedIndex
 }

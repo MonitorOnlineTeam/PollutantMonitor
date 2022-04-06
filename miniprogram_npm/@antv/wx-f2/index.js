@@ -1,12 +1,17036 @@
-module.exports = (function() {
-var __MODS__ = {};
-var __DEFINE__ = function(modId, func, req) { var m = { exports: {} }; __MODS__[modId] = { status: 0, func: func, req: req, m: m }; };
-var __REQUIRE__ = function(modId, source) { if(!__MODS__[modId]) return require(source); if(!__MODS__[modId].status) { var m = { exports: {} }; __MODS__[modId].status = 1; __MODS__[modId].func(__MODS__[modId].req, m, m.exports); if(typeof m.exports === "object") { Object.keys(m.exports).forEach(function(k) { __MODS__[modId].m.exports[k] = m.exports[k]; }); if(m.exports.__esModule) Object.defineProperty(__MODS__[modId].m.exports, "__esModule", { value: true }); } else { __MODS__[modId].m.exports = m.exports; } } return __MODS__[modId].m.exports; };
-var __REQUIRE_WILDCARD__ = function(obj) { if(obj && obj.__esModule) { return obj; } else { var newObj = {}; if(obj != null) { for(var k in obj) { if (Object.prototype.hasOwnProperty.call(obj, k)) newObj[k] = obj[k]; } } newObj.default = obj; return newObj; } };
-var __REQUIRE_DEFAULT__ = function(obj) { return obj && obj.__esModule ? obj.default : obj; };
-__DEFINE__(1553152447443, function(require, module, exports) {
-!function(t,e){"object"==typeof exports&&"object"==typeof module?module.exports=e():"function"==typeof define&&define.amd?define([],e):"object"==typeof exports?exports.wxF2=e():t.wxF2=e()}("undefined"!=typeof self?self:this,function(){return function(t){function e(n){if(i[n])return i[n].exports;var r=i[n]={i:n,l:!1,exports:{}};return t[n].call(r.exports,r,r.exports,e),r.l=!0,r.exports}var i={};return e.m=t,e.c=i,e.d=function(t,i,n){e.o(t,i)||Object.defineProperty(t,i,{configurable:!1,enumerable:!0,get:n})},e.n=function(t){var i=t&&t.__esModule?function(){return t.default}:function(){return t};return e.d(i,"a",i),i},e.o=function(t,e){return Object.prototype.hasOwnProperty.call(t,e)},e.p="",e(e.s=51)}([function(t,e,i){var n=i(57),r={upperFirst:i(58),lowerFirst:i(59),isString:i(15),isNumber:i(16),isBoolean:i(60),isFunction:i(61),isDate:i(33),isArray:i(13),isNil:i(10),isObject:i(18),isPlainObject:i(34),deepMix:i(63),mix:i(19),each:i(4),isObjectValueEqual:function(t,e){t=Object.assign({},t),e=Object.assign({},e);var i=Object.getOwnPropertyNames(t),n=Object.getOwnPropertyNames(e);if(i.length!==n.length)return!1;for(var r=0,a=i.length;r<a;r++){var s=i[r];if(t[s]!==e[s])return!1}return!0},wrapBehavior:function(t,e){if(t["_wrap_"+e])return t["_wrap_"+e];var i=function(i){t[e](i)};return t["_wrap_"+e]=i,i},getWrapBehavior:function(t,e){return t["_wrap_"+e]},parsePadding:function(t){var e,i,n,a;return r.isNumber(t)||r.isString(t)?e=n=a=i=t:r.isArray(t)&&(e=t[0],i=r.isNil(t[1])?t[0]:t[1],n=r.isNil(t[2])?t[0]:t[2],a=r.isNil(t[3])?i:t[3]),[e,i,n,a]},directionEnabled:function(t,e){return void 0===t||"string"==typeof t&&-1!==t.indexOf(e)}};r.Array={merge:function(t){for(var e=[],i=0,n=t.length;i<n;i++)e=e.concat(t[i]);return e},values:function(t,e){for(var i=[],n={},a=0,s=t.length;a<s;a++){var o=t[a][e];r.isNil(o)||(r.isArray(o)?r.each(o,function(t){n[t]||(i.push(t),n[t]=!0)}):n[o]||(i.push(o),n[o]=!0))}return i},firstValue:function(t,e){for(var i=null,n=0,a=t.length;n<a;n++){var s=t[n][e];if(!r.isNil(s)){i=r.isArray(s)?s[0]:s;break}}return i},group:function(t,e,i){if(void 0===i&&(i={}),!e)return[t];var n=r.Array.groupToMap(t,e),a=[];if(1===e.length&&i[e[0]]){var s=i[e[0]];r.each(s,function(t){t="_"+t,a.push(n[t])})}else for(var o in n)a.push(n[o]);return a},groupToMap:function(t,e){if(!e)return{0:t};for(var i=function(t){for(var i="_",n=0,r=e.length;n<r;n++)i+=t[e[n]]&&t[e[n]].toString();return i},n={},r=0,a=t.length;r<a;r++){var s=t[r],o=i(s);n[o]?n[o].push(s):n[o]=[s]}return n},remove:function(t,e){if(t){var i=t.indexOf(e);-1!==i&&t.splice(i,1)}},getRange:function(t){if(!t.length)return{min:0,max:0};var e=Math.max.apply(null,t);return{min:Math.min.apply(null,t),max:e}}},r.mix(r,n),t.exports=r},function(t,e,i){var n=i(56),r=i(0),a={version:"3.3.3",trackable:!0,scales:{},widthRatio:{column:.5,rose:.999999,multiplePie:.75},lineDash:[4,4]};a.setTheme=function(t){r.deepMix(this,t)},a.setTheme(n),t.exports=a},function(t,e,i){var n=i(0),r=function(t){function e(){return t.apply(this,arguments)||this}!function(t,e){t.prototype=Object.create(e.prototype),t.prototype.constructor=t,t.__proto__=e}(e,t);var i=e.prototype;return i._initProperties=function(){this._attrs={zIndex:0,visible:!0,destroyed:!1,isShape:!0,attrs:{}}},i.getType=function(){return this._attrs.type},i.drawInner=function(t){var e=this.get("attrs");this.createPath(t);var i=t.globalAlpha;if(this.hasFill()){var r=e.fillOpacity;n.isNil(r)||1===r?t.fill():(t.globalAlpha=r,t.fill(),t.globalAlpha=i)}if(this.hasStroke()){if(e.lineWidth>0){var a=e.strokeOpacity;n.isNil(a)||1===a||(t.globalAlpha=a),t.stroke()}}},i.getBBox=function(){var t=this._attrs.bbox;return t||((t=this.calculateBox())&&(t.x=t.minX,t.y=t.minY,t.width=t.maxX-t.minX,t.height=t.maxY-t.minY),this._attrs.bbox=t),t},i.calculateBox=function(){return null},i.createPath=function(){},e}(i(27));t.exports=r},function(t,e,i){var n={Canvas:i(82),Group:i(39),Shape:i(2),Matrix:i(28),Vector2:i(9)};i(84),i(85),i(86),i(87),i(88),i(89),i(90),i(91),i(92),t.exports=n},function(t,e,i){var n=i(18),r=i(13);t.exports=function(t,e){if(t)if(r(t))for(var i=0,a=t.length;i<a&&!1!==e(t[i],i);i++);else if(n(t))for(var s in t)if(t.hasOwnProperty(s)&&!1===e(t[s],s))break}},function(t,e,i){function n(t){return r.isArray(t)?t:r.isString(t)?t.split("*"):[t]}var r=i(0),a=i(35),s=["color","size","shape"],o=i(1),c=i(67),h=i(8),l=i(25),u=function(t){function e(){return t.apply(this,arguments)||this}!function(t,e){t.prototype=Object.create(e.prototype),t.prototype.constructor=t,t.__proto__=e}(e,t);var i=e.prototype;return i.getDefaultCfg=function(){return{type:null,data:null,attrs:{},scales:{},container:null,styleOptions:null,chart:null,shapeType:"",generatePoints:!1,attrOptions:{},sortable:!1,startOnZero:!0,visible:!0,connectNulls:!1}},i.init=function(){this._initAttrs();var t=this._processData();this.get("adjust")&&this._adjustData(t),this.set("dataArray",t)},i._getGroupScales=function(){var t=this,e=[];return r.each(s,function(i){var n=t.getAttr(i);if(n){var a=n.scales;r.each(a,function(t){t&&t.isCategory&&-1===e.indexOf(t)&&e.push(t)})}}),e},i._groupData=function(t){var e=this.get("colDefs"),i=this._getGroupScales();if(i.length){var n={},a=[];return r.each(i,function(t){var i=t.field;a.push(i),e&&e[i]&&e[i].values&&(n[t.field]=e[i].values)}),r.Array.group(t,a,n)}return[t]},i._setAttrOptions=function(t,e){this.get("attrOptions")[t]=e},i._createAttrOption=function(t,e,i,n){var a={};a.field=e,i?r.isFunction(i)?a.callback=i:a.values=i:a.values=n,this._setAttrOptions(t,a)},i._initAttrs=function(){var t=this.get("attrs"),e=this.get("attrOptions"),i=this.get("coord");for(var a in e)if(e.hasOwnProperty(a)){var s=e[a],o=r.upperFirst(a),h=n(s.field);"position"===a&&(s.coord=i);for(var l=[],u=0,f=h.length;u<f;u++){var p=h[u],g=this._createScale(p);l.push(g)}if("position"===a){var d=l[1];"polar"===i.type&&i.transposed&&this.hasAdjust("stack")&&d.values.length&&d.change({nice:!1,min:0,max:Math.max.apply(null,d.values)})}s.scales=l;var v=new c[o](s);t[a]=v}},i._createScale=function(t){var e=this.get("scales"),i=e[t];return i||(i=this.get("chart").createScale(t),e[t]=i),i},i._processData=function(){for(var t=this.get("data"),e=[],i=this._groupData(t),n=0,r=i.length;n<r;n++){var a=i[n],s=this._saveOrigin(a);this.hasAdjust("dodge")&&this._numberic(s),e.push(s)}return e},i._saveOrigin=function(t){for(var e=[],i=0,n=t.length;i<n;i++){var r=t[i],a={};for(var s in r)a[s]=r[s];a._origin=r,e.push(a)}return e},i._numberic=function(t){for(var e=this.getAttr("position").scales,i=0,n=t.length;i<n;i++)for(var r=t[i],a=Math.min(2,e.length),s=0;s<a;s++){var o=e[s];if(o.isCategory){var c=o.field;r[c]=o.translate(r[c])}}},i._adjustData=function(t){var e=this.get("adjust");if(e){var i=r.upperFirst(e.type);if(!l[i])throw new Error("not support such adjust : "+e);var n=this.getXScale(),a=this.getYScale(),s=r.mix({xField:n.field,yField:a.field},e);new l[i](s).processAdjust(t),"Stack"===i&&this._updateStackRange(a.field,a,t)}},i._updateStackRange=function(t,e,i){for(var n=r.Array.merge(i),a=e.min,s=e.max,o=0,c=n.length;o<c;o++){var h=n[o],l=Math.min.apply(null,h[t]),u=Math.max.apply(null,h[t]);l<a&&(a=l),u>s&&(s=u)}(a<e.min||s>e.max)&&e.change({min:a,max:s})},i._sort=function(t){var e=this.getXScale(),i=e.field,n=e.type;"identity"!==n&&e.values.length>1&&r.each(t,function(t){t.sort(function(t,r){return"timeCat"===n?e._toTimeStamp(t._origin[i])-e._toTimeStamp(r._origin[i]):e.translate(t._origin[i])-e.translate(r._origin[i])})}),this.set("hasSorted",!0),this.set("dataArray",t)},i.paint=function(){var t=this.get("dataArray"),e=[],i=this.getShapeFactory();i.setCoord(this.get("coord")),this._beforeMapping(t);for(var n=0,r=t.length;n<r;n++){var a=t[n];a.length&&(a=this._mapping(a),e.push(a),this.draw(a,i))}this.set("dataArray",e)},i.getShapeFactory=function(){var t=this.get("shapeFactory");if(!t){var e=this.get("shapeType");t=h.getShapeFactory(e),this.set("shapeFactory",t)}return t},i._mapping=function(t){for(var e=this.get("attrs"),i=this.getYScale().field,n=[],a=0,s=t.length;a<s;a++){var o=t[a],c={};c._origin=o._origin,c.points=o.points,c._originY=o[i];for(var h in e)if(e.hasOwnProperty(h)){var l=e[h],u=l.names,f=this._getAttrValues(l,o);if(u.length>1)for(var p=0,g=f.length;p<g;p++){var d=f[p];c[u[p]]=r.isArray(d)&&1===d.length?d[0]:d}else c[u[0]]=1===f.length?f[0]:f}n.push(c)}return n},i._getAttrValues=function(t,e){for(var i=t.scales,n=[],r=0,a=i.length;r<a;r++){var s=i[r],o=s.field;"identity"===s.type?n.push(s.value):n.push(e[o])}return t.mapping.apply(t,n)},i.getAttrValue=function(t,e){var i=this.getAttr(t),n=null;if(i){n=this._getAttrValues(i,e)[0]}return n},i._beforeMapping=function(t){var e=this;e.get("sortable")&&e._sort(t),e.get("generatePoints")&&r.each(t,function(t){e._generatePoints(t)})},i.isInCircle=function(){var t=this.get("coord");return t&&t.isPolar},i.getCallbackCfg=function(t,e,i){if(!t)return e;var n={},a=t.map(function(t){return i[t]});return r.each(e,function(t,e){r.isFunction(t)?n[e]=t.apply(null,a):n[e]=t}),n},i.getDrawCfg=function(t){var e=this.isInCircle(),i={origin:t,x:t.x,y:t.y,color:t.color,size:t.size,shape:t.shape,isInCircle:e,opacity:t.opacity},n=this.get("styleOptions");return n&&n.style&&(i.style=this.getCallbackCfg(n.fields,n.style,t._origin)),this.get("generatePoints")&&(i.points=t.points),e&&(i.center=this.get("coord").center),i},i.draw=function(t,e){var i=this,n=i.get("container"),a=i.getYScale();r.each(t,function(t,s){if(!a||!r.isNil(t._origin[a.field])){t.index=s;var o=i.getDrawCfg(t),c=t.shape;i.drawShape(c,t,o,n,e)}})},i.drawShape=function(t,e,i,n,a){var s=a.drawShape(t,i,n);s&&r.each([].concat(s),function(t){t.set("origin",e)})},i._generatePoints=function(t){for(var e=this.getShapeFactory(),i=this.getAttr("shape"),n=0,r=t.length;n<r;n++){var a=t[n],s=this.createShapePointsCfg(a),o=i?this._getAttrValues(i,a):null,c=e.getShapePoints(o,s);a.points=c}},i.createShapePointsCfg=function(t){var e,i=this.getXScale(),n=this.getYScale(),r=this._normalizeValues(t[i.field],i);return e=n?this._normalizeValues(t[n.field],n):t.y?t.y:.1,{x:r,y:e,y0:n?n.scale(this.getYMinValue()):void 0}},i.getYMinValue=function(){var t=this.getYScale(),e=t.min,i=t.max;return this.get("startOnZero")?i<=0&&e<=0?i:e>=0?e:0:e},i._normalizeValues=function(t,e){var i=[];if(r.isArray(t))for(var n=0,a=t.length;n<a;n++){var s=t[n];i.push(e.scale(s))}else i=e.scale(t);return i},i.getAttr=function(t){return this.get("attrs")[t]},i.getXScale=function(){return this.getAttr("position").scales[0]},i.getYScale=function(){return this.getAttr("position").scales[1]},i.hasAdjust=function(t){return this.get("adjust")&&this.get("adjust").type===t},i._getSnap=function(t,e,i){var n,r=0,a=this.getYScale().field;if(this.hasAdjust("stack")&&t.field===a){n=[],i.forEach(function(t){n.push(t._originY)});for(var s=n.length;r<s&&!(n[0][0]>e);r++){if(n[n.length-1][1]<=e){r=n.length-1;break}if(n[r][0]<=e&&n[r][1]>e)break}}else{(n=t.values).sort(function(t,e){return t-e});for(var o=n.length;r<o&&!((n[0]+n[1])/2>e)&&!((n[r-1]+n[r])/2<=e&&(n[r+1]+n[r])/2>e);r++)if((n[n.length-2]+n[n.length-1])/2<=e){r=n.length-1;break}}return n[r]},i.getSnapRecords=function(t){var e=this,i=e.get("coord"),n=e.getXScale(),a=e.getYScale(),s=n.field,o=e.get("dataArray");this.get("hasSorted")||this._sort(o);var c=[],h=i.invertPoint(t),l=h.x;e.isInCircle()&&!i.transposed&&l>(1+n.rangeMax())/2&&(l=n.rangeMin());var u=n.invert(l);n.isCategory||(u=e._getSnap(n,u));var f=[];if(o.forEach(function(t){t.forEach(function(t){var i=r.isNil(t._origin)?t[s]:t._origin[s];e._isEqual(i,u,n)&&f.push(t)})}),this.hasAdjust("stack")&&i.isPolar&&i.transposed&&1===n.values.length){if(l>=0&&l<=1){var p=a.invert(h.y);p=e._getSnap(a,p,f),f.forEach(function(t){(r.isArray(p)?t._originY.toString()===p.toString():t._originY===p)&&c.push(t)})}}else c=f;return c},i._isEqual=function(t,e,i){return"timeCat"===i.type?i._toTimeStamp(t)===e:e===t},i.position=function(t){return this._setAttrOptions("position",{field:t}),this},i.color=function(t,e){return this._createAttrOption("color",t,e,o.colors),this},i.size=function(t,e){return this._createAttrOption("size",t,e,o.sizes),this},i.shape=function(t,e){var i=this.get("type"),n=o.shapes[i]||[];return this._createAttrOption("shape",t,e,n),this},i.style=function(t,e){var i=this.get("styleOptions");i||(i={},this.set("styleOptions",i)),r.isObject(t)&&(e=t,t=null);var a;return t&&(a=n(t)),i.fields=a,i.style=e,this},i.adjust=function(t){return r.isString(t)&&(t={type:t}),this.set("adjust",t),this},i.animate=function(t){return this.set("animateCfg",t),this},i.reset=function(){this.set("attrOptions",{}),this.set("adjust",null),this.clearInner()},i.clearInner=function(){var t=this.get("container");t&&(t.clear(),t.setMatrix([1,0,0,1,0,0])),t&&t.clear(),this.set("attrs",{}),this.set("groupScales",null),this.set("xDistance",null),this.set("_width",null)},i.clear=function(){this.clearInner(),this.set("scales",{})},i.destroy=function(){this.clear(),t.prototype.destroy.call(this)},i._display=function(t){this.set("visible",t);var e=this.get("container"),i=e.get("canvas");e.set("visible",t),i.draw()},i.show=function(){this._display(!0)},i.hide=function(){this._display(!1)},e}(a);t.exports=u},function(t,e,i){var n=i(0),r={min:0,median:.5,max:1},a=function(){function t(t){this._initDefaultCfg(),n.deepMix(this,t)}var e=t.prototype;return e._initDefaultCfg=function(){},e._getNormalizedValue=function(t,e){return n.isNil(r[t])?e.scale(t):r[t]},e.parsePercentPoint=function(t,e){var i=parseFloat(e[0])/100,n=parseFloat(e[1])/100,r=t.start,a=t.end,s=Math.abs(r.x-a.x),o=Math.abs(r.y-a.y);return{x:s*i+Math.min(r.x,a.x),y:o*n+Math.min(r.y,a.y)}},e.parsePoint=function(t,e){var i=this.xScale,r=this.yScales;if(n.isFunction(e)&&(e=e(i,r)),n.isString(e[0])&&-1!==e[0].indexOf("%"))return this.parsePercentPoint(t,e);var a=this._getNormalizedValue(e[0],i),s=this._getNormalizedValue(e[1],r[0]),o=t.convertPoint({x:a,y:s});return this.limitInPlot?a>=0&&a<=1&&s>=0&&s<=1?o:null:o},e.render=function(){},e.repaint=function(){this.remove();var t=this.coord,e=this.container,i=this.canvas;e&&!e.isDestroyed()&&(this.render(t,e),i.draw())},e.remove=function(){var t=this.element;t&&t.remove(!0)},e.changeVisible=function(t){this.visible=t;var e=this.element;e&&(e.set?e.set("visible",t):e.style.display=t?"":"none")},t}();t.exports=a},function(t,e,i){function n(t){if(void 0===t)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return t}function r(t,e){return t-e}var a=i(35),s=i(64),o=i(0),c=i(65),h=i(5),l=i(73),u=i(79),f=i(1),p=i(3).Canvas,g=i(21),d=function(t){function e(e){var i,r=n(n(i=t.call(this,e)||this));return o.each(h,function(t,e){var i=o.lowerFirst(e);r[i]=function(e){var i=new t(e);return r.addGeom(i),i}}),r._init(),i}!function(t,e){t.prototype=Object.create(e.prototype),t.prototype.constructor=t,t.__proto__=e}(e,t),e.initPlugins=function(){return{_plugins:[],_cacheId:0,register:function(t){var e=this._plugins;[].concat(t).forEach(function(t){-1===e.indexOf(t)&&e.push(t)}),this._cacheId++},unregister:function(t){var e=this._plugins;[].concat(t).forEach(function(t){var i=e.indexOf(t);-1!==i&&e.splice(i,1)}),this._cacheId++},clear:function(){this._plugins=[],this._cacheId++},count:function(){return this._plugins.length},getAll:function(){return this._plugins},notify:function(t,e,i){var n,r,a,s,o,c=this.descriptors(t),h=c.length;for(n=0;n<h;++n)if(r=c[n],a=r.plugin,"function"==typeof(o=a[e])&&(s=[t].concat(i||[]),!1===o.apply(a,s)))return!1;return!0},descriptors:function(t){var e=t._plugins||(t._plugins={});if(e.id===this._cacheId)return e.descriptors;var i=[],n=[];return this._plugins.concat(t&&t.get("plugins")||[]).forEach(function(t){-1===i.indexOf(t)&&(i.push(t),n.push({plugin:t}))}),e.descriptors=n,e.id=this._cacheId,n}}};var i=e.prototype;return i.getDefaultCfg=function(){return{id:null,padding:f.padding,data:null,scales:{},geoms:null,colDefs:null,pixelRatio:f.pixelRatio,filters:null,appendPadding:f.appendPadding}},i._syncYScales=function(){var t=this.get("geoms"),e=[],i=[],n=[];o.each(t,function(t){var r=t.getYScale();r.isLinear&&(e.push(r),i.push(r.min),n.push(r.max))}),i=Math.min.apply(null,i),n=Math.max.apply(null,n),o.each(e,function(t){t.change({min:i}),t.change({max:n})})},i._getFieldsForLegend=function(){var t=[],e=this.get("geoms");return o.each(e,function(e){var i=e.get("attrOptions").color;if(i&&i.field&&o.isString(i.field)){var n=i.field.split("*");o.each(n,function(e){-1===t.indexOf(e)&&t.push(e)})}}),t},i._createScale=function(t,e){return this.get("scaleController").createScale(t,e)},i._adjustScale=function(){var t=this.get("coord"),e=this.getXScale(),i=this.getYScales(),n=[];e&&n.push(e),n=n.concat(i);var r=t.isPolar&&function(t){var e=t.startAngle,i=t.endAngle;return!(!o.isNil(e)&&!o.isNil(i)&&i-e<2*Math.PI)}(t),a=this.get("scaleController").defs;o.each(n,function(e){if((e.isCategory||e.isIdentity)&&e.values&&(!a[e.field]||!a[e.field].range)){var i,n=e.values.length;if(1===n)i=[.5,1];else{var s=0;i=r?t.transposed?[(s=1/n*f.widthRatio.multiplePie)/2,1-s/2]:[0,1-1/n]:[s=1/n*1/2,1-s]}e.range=i}});for(var s=this.get("geoms"),c=0;c<s.length;c++){var h=s[c];if("interval"===h.get("type")){var l=h.getYScale(),u=l.field,p=l.min,g=l.max,d=l.type;a[u]&&a[u].min||"time"===d||(p>0?l.change({min:0}):g<=0&&l.change({max:0}))}}},i._removeGeoms=function(){for(var t=this.get("geoms");t.length>0;){t.shift().destroy()}},i._clearGeoms=function(){for(var t=this.get("geoms"),e=0,i=t.length;e<i;e++){t[e].clear()}},i._clearInner=function(){this.set("scales",{}),this.set("legendItems",null),this._clearGeoms(),e.plugins.notify(this,"clearInner"),this.get("axisController")&&this.get("axisController").clear()},i._execFilter=function(t){var e=this.get("filters");return e&&(t=t.filter(function(t){var i=!0;return o.each(e,function(e,n){if(e&&!(i=e(t[n],t)))return!1}),i})),t},i._initGeoms=function(t){for(var e=this.get("coord"),i=this.get("filteredData"),n=this.get("colDefs"),r=0,a=t.length;r<a;r++){var s=t[r];s.set("data",i),s.set("coord",e),s.set("colDefs",n),s.init()}},i._initCoord=function(){var t=this.get("plotRange"),e=o.mix({type:"cartesian"},this.get("coordCfg"),{plot:t}),i=e.type,n=new(0,c[o.upperFirst(i)])(e);this.set("coord",n)},i._initLayout=function(){var t=this.get("_padding");t||(t=this.get("margin")||this.get("padding"),t=o.parsePadding(t));var e="auto"===t[0]?0:t[0],i="auto"===t[1]?0:t[1],n="auto"===t[2]?0:t[2],r="auto"===t[3]?0:t[3],a=this.get("width"),c=this.get("height"),h=new s({start:{x:r,y:e},end:{x:a-i,y:c-n}});this.set("plotRange",h),this.set("plot",h)},i._initCanvas=function(){try{var t=new p({el:this.get("el")||this.get("id"),context:this.get("context"),pixelRatio:this.get("pixelRatio"),width:this.get("width"),height:this.get("height"),fontFamily:f.fontFamily});this.set("canvas",t),this.set("width",t.get("width")),this.set("height",t.get("height"))}catch(t){throw t}e.plugins.notify(this,"afterCanvasInit"),this._initLayout()},i._initLayers=function(){var t=this.get("canvas");this.set("backPlot",t.addGroup()),this.set("middlePlot",t.addGroup({zIndex:10})),this.set("frontPlot",t.addGroup({zIndex:20}))},i._init=function(){this._initCanvas(),this._initLayers(),this.set("geoms",[]),this.set("scaleController",new l),this.set("axisController",new u({frontPlot:this.get("frontPlot").addGroup({className:"axisContainer"}),backPlot:this.get("backPlot").addGroup({className:"axisContainer"}),chart:this})),e.plugins.notify(this,"init")},i.source=function(t,e){return this.set("data",t),e&&this.scale(e),this},i.scale=function(t,e){var i=this.get("colDefs")||{};o.isObject(t)?o.mix(i,t):i[t]=e,this.set("colDefs",i);return this.get("scaleController").defs=i,this},i.axis=function(t,e){var i=this.get("axisController");return t?(i.axisCfg=i.axisCfg||{},i.axisCfg[t]=e):i.axisCfg=null,this},i.coord=function(t,e){var i;return o.isObject(t)?i=t:(i=e||{}).type=t||"cartesian",this.set("coordCfg",i),this},i.filter=function(t,e){var i=this.get("filters")||{};i[t]=e,this.set("filters",i)},i.render=function(){var t=this.get("canvas"),i=this.get("geoms"),n=this.get("data")||[],r=this._execFilter(n);this.set("filteredData",r),this._initCoord(),e.plugins.notify(this,"beforeGeomInit"),this._initGeoms(i),this.get("syncY")&&this._syncYScales(),this._adjustScale(),e.plugins.notify(this,"beforeGeomDraw"),this._renderAxis();var a=this.get("middlePlot");if(this.get("limitInPlot")&&!a.attr("clip")){var s=this.get("coord"),o=g.getClip(s);o.set("canvas",a.get("canvas")),a.attr("clip",o)}for(var c=0,h=i.length;c<h;c++){i[c].paint()}return e.plugins.notify(this,"afterGeomDraw"),t.sort(),this.get("frontPlot").sort(),e.plugins.notify(this,"beforeCanvasDraw"),t.draw(),this},i.clear=function(){e.plugins.notify(this,"clear"),this._removeGeoms(),this._clearInner(),this.set("filters",null),this.set("isUpdate",!1),this.set("_padding",null);return this.get("canvas").draw(),this},i.repaint=function(){this.set("isUpdate",!0),e.plugins.notify(this,"repaint"),this._clearInner(),this.render()},i.changeData=function(t){this.set("data",t),e.plugins.notify(this,"changeData"),this.set("_padding",null),this.repaint()},i.changeSize=function(t,e){t?this.set("width",t):t=this.get("width"),e?this.set("height",e):e=this.get("height");return this.get("canvas").changeSize(t,e),this._initLayout(),this.repaint(),this},i.destroy=function(){this.clear();this.get("canvas").destroy(),e.plugins.notify(this,"afterCanvasDestroyed"),this._interactions&&o.each(this._interactions,function(t){t.destroy()}),t.prototype.destroy.call(this)},i.getPosition=function(t){var e=this.get("coord"),i=this.getXScale(),n=this.getYScales()[0],r=i.field,a=i.scale(t[r]),s=n.field,o=n.scale(t[s]);return e.convertPoint({x:a,y:o})},i.getRecord=function(t){var e=this.get("coord"),i=this.getXScale(),n=this.getYScales()[0],r=e.invertPoint(t),a={};return a[i.field]=i.invert(r.x),a[n.field]=n.invert(r.y),a},i.getSnapRecords=function(t){var e=this.get("geoms")[0],i=[];return e&&(i=e.getSnapRecords(t)),i},i.createScale=function(t){var e=this.get("data"),i=this.get("filteredData");if(i.length){-1===this._getFieldsForLegend().indexOf(t)&&(e=i)}var n=this.get("scales");return n[t]||(n[t]=this._createScale(t,e)),n[t]},i.addGeom=function(t){var e=this.get("geoms"),i=this.get("middlePlot");e.push(t),t.set("chart",this),t.set("container",i.addGroup())},i.getXScale=function(){return this.get("geoms")[0].getXScale()},i.getYScales=function(){var t=this.get("geoms"),e=[];return o.each(t,function(t){var i=t.getYScale();-1===e.indexOf(i)&&e.push(i)}),e},i.getLegendItems=function(){if(this.get("legendItems"))return this.get("legendItems");var t={},e=[],i=this.get("geoms");return o.each(i,function(i){var n=i.getAttr("color");if(n){var a=n.getScale("color");if("identity"!==a.type&&!function(t,e){var i=!1;return o.each(t,function(t){var n=[].concat(t.values),a=[].concat(e.values);t.type!==e.type||t.field!==e.field||n.sort(r).toString()!==a.sort(r).toString()||(i=!0)}),i}(e,a)){e.push(a);var s=a.field,c=a.getTicks(),h=[];o.each(c,function(t){var e=t.text,i=t.value,r=a.invert(i),s={fill:n.mapping(r).join("")||f.defaultColor,radius:3,symbol:"circle",stroke:"#fff"};h.push({name:e,dataValue:r,checked:!0,marker:s})}),t[s]=h}}}),this.set("legendItems",t),t},i.registerPlugins=function(t){var i=this,n=i.get("plugins")||[];o.isArray(n)||(n=[n]),[].concat(t).forEach(function(t){-1===n.indexOf(t)&&(t.init&&t.init(i),n.push(t))}),e.plugins._cacheId++,i.set("plugins",n)},i._renderAxis=function(){var t=this.get("axisController"),i=this.getXScale(),n=this.getYScales(),r=this.get("coord");e.plugins.notify(this,"beforeRenderAxis"),t.createAxis(r,i,n)},i._isAutoPadding=function(){if(this.get("_padding"))return!1;var t=this.get("padding");return o.isArray(t)?-1!==t.indexOf("auto"):"auto"===t},i._updateLayout=function(t){var e=this.get("width"),i=this.get("height"),n={x:t[3],y:t[0]},r={x:e-t[1],y:i-t[2]},a=this.get("plot"),s=this.get("coord");a.reset(n,r),s.reset(a)},e}(a);d.plugins=d.initPlugins(),t.exports=d},function(t,e,i){var n=i(0),r=i(1),a={},s={_coord:null,draw:function(t,e){this.drawShape&&this.drawShape(t,e)},setCoord:function(t){this._coord=t},parsePoint:function(t){var e=this._coord;return e.isPolar&&(1===t.x&&(t.x=.9999999),1===t.y&&(t.y=.9999999)),e.convertPoint(t)},parsePoints:function(t){if(!t)return!1;var e=this,i=[];return t.forEach(function(t){i.push(e.parsePoint(t))}),i}},o={defaultShapeType:null,setCoord:function(t){this._coord=t},getShape:function(t){n.isArray(t)&&(t=t[0]);var e=this[t]||this[this.defaultShapeType];return e._coord=this._coord,e},getShapePoints:function(t,e){var i=this.getShape(t);return(i.getPoints||i.getShapePoints||this.getDefaultPoints)(e)},getDefaultPoints:function(){return[]},drawShape:function(t,e,i){var n=this.getShape(t);return e.color||(e.color=r.colors[0]),n.draw(e,i)}};a.registerFactory=function(t,e){var i=n.upperFirst(t),r=n.mix({},o,e);return a[i]=r,r.name=t,r},a.registerShape=function(t,e,i){var r=n.upperFirst(t),o=a[r],c=n.mix({},s,i);return o[e]=c,c},a.registShape=a.registerShape,a.getShapeFactory=function(t){t=t||"point";return this[n.upperFirst(t)]},t.exports=a},function(t,e){t.exports={create:function(){return[0,0]},length:function(t){var e=t[0],i=t[1];return Math.sqrt(e*e+i*i)},normalize:function(t,e){var i=this.length(e);return 0===i?(t[0]=0,t[1]=0):(t[0]=e[0]/i,t[1]=e[1]/i),t},add:function(t,e,i){return t[0]=e[0]+i[0],t[1]=e[1]+i[1],t},sub:function(t,e,i){return t[0]=e[0]-i[0],t[1]=e[1]-i[1],t},scale:function(t,e,i){return t[0]=e[0]*i,t[1]=e[1]*i,t},dot:function(t,e){return t[0]*e[0]+t[1]*e[1]},direction:function(t,e){return t[0]*e[1]-e[0]*t[1]},angle:function(t,e){var i=this.dot(t,e)/(this.length(t)*this.length(e));return Math.acos(i)},angleTo:function(t,e,i){var n=this.angle(t,e),r=this.direction(t,e)>=0;return i?r?2*Math.PI-n:n:r?n:2*Math.PI-n},zero:function(t){return 0===t[0]&&0===t[1]},distance:function(t,e){var i=e[0]-t[0],n=e[1]-t[1];return Math.sqrt(i*i+n*n)},clone:function(t){return[t[0],t[1]]},min:function(t,e,i){return t[0]=Math.min(e[0],i[0]),t[1]=Math.min(e[1],i[1]),t},max:function(t,e,i){return t[0]=Math.max(e[0],i[0]),t[1]=Math.max(e[1],i[1]),t},transformMat2d:function(t,e,i){var n=e[0],r=e[1];return t[0]=i[0]*n+i[2]*r+i[4],t[1]=i[1]*n+i[3]*r+i[5],t}}},function(t,e){t.exports=function(t){return null===t||void 0===t}},function(t,e){var i={}.toString;t.exports=function(t,e){return i.call(t)==="[object "+e+"]"}},function(t,e,i){var n,r=i(0),a=i(7);r.isWx||r.isMy||(n=i(139));var s=["touchstart","touchmove","touchend"],o=function(){function t(t,e){var i=this.getDefaultCfg();r.deepMix(this,i,t),this.chart=e,this.canvas=e.get("canvas"),this.el=e.get("canvas").get("el"),this._bindEvents()}var e=t.prototype;return e.getDefaultCfg=function(){return{startEvent:s[0],processEvent:s[1],endEvent:s[2],resetEvent:null}},e._start=function(t){this.preStart&&this.preStart(t),this.start(t),this.onStart&&this.onStart(t)},e._process=function(t){this.preProcess&&this.preProcess(t),this.process(t),this.onProcess&&this.onProcess(t)},e._end=function(t){this.preEnd&&this.preEnd(t),this.end(t),this.onEnd&&this.onEnd(t)},e._reset=function(t){this.preReset&&this.preReset(t),this.reset(t),this.onReset&&this.onReset(t)},e.start=function(){},e.process=function(){},e.end=function(){},e.reset=function(){},e._bindEvents=function(){this._clearEvents();var t=this.startEvent,e=this.processEvent,i=this.endEvent,r=this.resetEvent,a=this.el;n&&(this.hammer=new n(a)),this._bindEvent(t,"_start"),this._bindEvent(e,"_process"),this._bindEvent(i,"_end"),this._bindEvent(r,"_reset")},e._clearEvents=function(){var t=this.startEvent,e=this.processEvent,i=this.endEvent,n=this.resetEvent;this.hammer&&(this.hammer.destroy(),this.hammer=null),this._clearTouchEvent(t,"_start"),this._clearTouchEvent(e,"_process"),this._clearTouchEvent(i,"_end"),this._clearTouchEvent(n,"_reset")},e._bindEvent=function(t,e){var i=this.el;t&&(-1!==s.indexOf(t)?r.addEventListener(i,t,r.wrapBehavior(this,e)):this.hammer&&this.hammer.on(t,r.wrapBehavior(this,e)))},e._clearTouchEvent=function(t,e){var i=this.el;t&&-1!==s.indexOf(t)&&r.removeEventListener(i,t,r.getWrapBehavior(this,e))},e.destroy=function(){this._clearEvents()},t}();a._Interactions={},a.registerInteraction=function(t,e){a._Interactions[t]=e},a.getInteraction=function(t){return a._Interactions[t]},a.prototype.interaction=function(t,e){var i=this._interactions||{};i[t]&&i[t].destroy();var n=new(a.getInteraction(t))(e,this);return i[t]=n,this._interactions=i,this},a.prototype.clearInteraction=function(t){var e=this._interactions;if(e)return t?(e[t]&&e[t].destroy(),delete e[t]):r.each(e,function(t,i){t.destroy(),delete e[i]}),this},t.exports=o},function(t,e,i){var n=i(11),r=Array.isArray?Array.isArray:function(t){return n(t,"Array")};t.exports=r},function(t,e,i){function n(t,e,i,n,a){return{x:r(a,t.x,e.x,i.x,n.x),y:r(a,t.y,e.y,i.y,n.y)}}function r(t,e,i,n,r){var a=t*t;return e+(3*-e+t*(3*e-e*t))*t+(3*i+t*(-6*i+3*i*t))*t+(3*n-3*n*t)*a+r*(a*t)}function a(t){for(var e=1/0,i=-1/0,r=1/0,a=-1/0,s={x:t[0],y:t[1]},o={x:t[2],y:t[3]},c={x:t[4],y:t[5]},h={x:t[6],y:t[7]},l=0;l<100;l++){var u=n(s,o,c,h,l/100);u.x<e&&(e=u.x),u.x>i&&(i=u.x),u.y<r&&(r=u.y),u.y>a&&(a=u.y)}return{minX:e,minY:r,maxX:i,maxY:a}}var s=i(9),o=s.create(),c=s.create(),h=s.create();t.exports={getBBoxFromPoints:function(t,e){if(0!==t.length){for(var i=t[0],n=i.x,r=i.x,a=i.y,s=i.y,o=t.length,c=1;c<o;c++)i=t[c],n=Math.min(n,i.x),r=Math.max(r,i.x),a=Math.min(a,i.y),s=Math.max(s,i.y);return e=e/2||0,{minX:n-e,minY:a-e,maxX:r+e,maxY:s+e}}},getBBoxFromLine:function(t,e,i,n,r){return r=r/2||0,{minX:Math.min(t,i)-r,minY:Math.min(e,n)-r,maxX:Math.max(t,i)+r,maxY:Math.max(e,n)+r}},getBBoxFromArc:function(t,e,i,n,r,a){var l=Math.abs(n-r);if(l%Math.PI*2<1e-4&&l>1e-4)return{minX:t-i,minY:e-i,maxX:t+i,maxY:e+i};o[0]=Math.cos(n)*i+t,o[1]=Math.sin(n)*i+e,c[0]=Math.cos(r)*i+t,c[1]=Math.sin(r)*i+e;var u=[0,0],f=[0,0];if(s.min(u,o,c),s.max(f,o,c),(n%=2*Math.PI)<0&&(n+=2*Math.PI),(r%=2*Math.PI)<0&&(r+=2*Math.PI),n>r&&!a?r+=2*Math.PI:n<r&&a&&(n+=2*Math.PI),a){var p=r;r=n,n=p}for(var g=0;g<r;g+=Math.PI/2)g>n&&(h[0]=Math.cos(g)*i+t,h[1]=Math.sin(g)*i+e,s.min(u,h,u),s.max(f,h,f));return{minX:u[0],minY:u[1],maxX:f[0],maxY:f[1]}},getBBoxFromBezierGroup:function(t,e){for(var i=1/0,n=-1/0,r=1/0,s=-1/0,o=0,c=t.length;o<c;o++){var h=a(t[o]);h.minX<i&&(i=h.minX),h.maxX>n&&(n=h.maxX),h.minY<r&&(r=h.minY),h.maxY>s&&(s=h.maxY)}return e=e/2||0,{minX:i-e,minY:r-e,maxX:n+e,maxY:s+e}}}},function(t,e,i){var n=i(11);t.exports=function(t){return n(t,"String")}},function(t,e,i){var n=i(11);t.exports=function(t){return n(t,"Number")}},function(t,e,i){var n=i(19),r=i(4),a=i(18),s=i(10),o=function(){function t(t){this._initDefaultCfg(),n(this,t),this.init()}var e=t.prototype;return e._initDefaultCfg=function(){this.type="base",this.formatter=null,this.range=[0,1],this.ticks=null,this.values=[]},e.init=function(){},e.getTicks=function(){var t=this,e=t.ticks,i=[];return r(e,function(e){var n;n=a(e)?e:{text:t.getText(e),tickValue:e,value:t.scale(e)},i.push(n)}),i},e.getText=function(t,e){var i=this.formatter;return t=i?i(t,e):t,!s(t)&&t.toString||(t=""),t.toString()},e.rangeMin=function(){return this.range[0]},e.rangeMax=function(){var t=this.range;return t[t.length-1]},e.invert=function(t){return t},e.translate=function(t){return t},e.scale=function(t){return t},e.clone=function(){var t=this,e=t.constructor,i={};return r(t,function(e,n){i[n]=t[n]}),new e(i)},e.change=function(t){return this.ticks=null,n(this,t),this.init(),this},t}();t.exports=o},function(t,e){var i="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(t){return typeof t}:function(t){return t&&"function"==typeof Symbol&&t.constructor===Symbol&&t!==Symbol.prototype?"symbol":typeof t};t.exports=function(t){var e=void 0===t?"undefined":i(t);return null!==t&&"object"===e||"function"===e}},function(t,e){function i(t,e){for(var i in e)e.hasOwnProperty(i)&&"constructor"!==i&&void 0!==e[i]&&(t[i]=e[i])}t.exports=function(t,e,n,r){return e&&i(t,e),n&&i(t,n),r&&i(t,r),t}},function(t,e,i){function n(t,e){return r(e)?e:t.invert(t.scale(e))}var r=i(15),a=i(13),s=i(19),o=i(4),c=function(){function t(t){this.type="base",this.name=null,this.method=null,this.values=[],this.scales=[],this.linear=null,s(this,t)}var e=t.prototype;return e._getAttrValue=function(t,e){var i=this.values;if(t.isCategory&&!this.linear){return i[t.translate(e)%i.length]}var n=t.scale(e);return this.getLinearValue(n)},e.getLinearValue=function(t){var e=this.values,i=e.length-1,n=Math.floor(i*t),r=i*t-n,a=e[n];return a+((n===i?a:e[n+1])-a)*r},e.callback=function(t){var e=this.scales[0];return"identity"===e.type?e.value:this._getAttrValue(e,t)},e.getNames=function(){for(var t=this.scales,e=this.names,i=Math.min(t.length,e.length),n=[],r=0;r<i;r++)n.push(e[r]);return n},e.getFields=function(){var t=this.scales,e=[];return o(t,function(t){e.push(t.field)}),e},e.getScale=function(t){return this.scales[this.names.indexOf(t)]},e.mapping=function(){for(var t=this.scales,e=this.callback,i=arguments.length,n=new Array(i),r=0;r<i;r++)n[r]=arguments[r];var a=n;if(e){for(var s=0,o=n.length;s<o;s++)n[s]=this._toOriginParam(n[s],t[s]);a=e.apply(this,n)}return a=[].concat(a)},e._toOriginParam=function(t,e){var i=t;if(!e.isLinear)if(a(t)){i=[];for(var r=0,s=t.length;r<s;r++)i.push(n(e,t[r]))}else i=n(e,t);return i},t}();t.exports=c},function(t,e,i){var n=i(3).Shape;t.exports={getClip:function(t){var e,i=t.start,r=t.end,a=r.x-i.x,s=Math.abs(r.y-i.y);if(t.isPolar){var o=t.circleRadius,c=t.center,h=t.startAngle,l=t.endAngle;e=new n.Sector({attrs:{x:c.x,y:c.y,r:o,r0:0,startAngle:h,endAngle:l}})}else e=new n.Rect({attrs:{x:i.x,y:r.y-10,width:a,height:s+20}});return e.isClip=!0,e},isPointInPlot:function(t,e){var i=t.x,n=t.y,r=e.tl,a=e.tr,s=e.br;return i>=r.x&&i<=a.x&&n>=r.y&&n<=s.y}}},function(t,e,i){var n=i(0),r={splitPoints:function(t){var e=[],i=t.x,r=t.y;return(r=n.isArray(r)?r:[r]).forEach(function(t,r){var a={x:n.isArray(i)?i[r]:i,y:t};e.push(a)}),e},splitArray:function(t,e,i){if(!t.length)return[];var r,a=[],s=[];return n.each(t,function(t){r=t._origin?t._origin[e]:t[e],i?n.isNil(r)||s.push(t):n.isArray(r)&&n.isNil(r[0])||n.isNil(r)?s.length&&(a.push(s),s=[]):s.push(t)}),s.length&&a.push(s),a}};t.exports=r},function(t,e,i){var n=i(29),r=i(0);t.exports={getColDef:function(t,e){var i;return t.get("colDefs")&&t.get("colDefs")[e]&&(i=t.get("colDefs")[e]),i},getFieldRange:function(t,e,i){if(!t)return[0,1];var n=0,r=0;if("linear"===i){var a=e.min,s=e.max;n=(t.min-a)/(s-a),r=(t.max-a)/(s-a)}else{var o=e,c=t.values,h=o.indexOf(c[0]),l=o.indexOf(c[c.length-1]);n=h/(o.length-1),r=l/(o.length-1)}return[n,r]},getLimitRange:function(t,e){var i,a=e.field,s=e.type,o=r.Array.values(t,a);return"linear"===s?(i=r.Array.getRange(o),e.min<i.min&&(i.min=e.min),e.max>i.max&&(i.max=e.max)):"timeCat"===s?(r.each(o,function(t,e){o[e]=n.toTimeStamp(t)}),o.sort(function(t,e){return t-e}),i=o):i=o,i}}},function(t,e,i){var n=i(0),r=function(){function t(t){this._initDefaultCfg(),n.mix(this,t);var e,i;this.plot?(e=this.plot.bl,i=this.plot.tr,this.start=e,this.end=i):(e=this.start,i=this.end),this.init(e,i)}var e=t.prototype;return e._initDefaultCfg=function(){},e.init=function(){},e.convertPoint=function(t){return t},e.invertPoint=function(t){return t},e.reset=function(t){this.plot=t;var e=t.bl,i=t.tr;this.start=e,this.end=i,this.init(e,i)},t}();t.exports=r},function(t,e,i){var n=i(19),r=function(){function t(t){this._initDefaultCfg(),n(this,t)}var e=t.prototype;return e._initDefaultCfg=function(){this.adjustNames=["x","y"]},e.processAdjust=function(){},t}();t.exports=r},function(t,e,i){var n=i(0),r=i(1),a=i(9),s=function(){function t(t){this._initDefaultCfg(),n.mix(this,t),this.draw()}var e=t.prototype;return e._initDefaultCfg=function(){this.ticks=[],this.tickLine={},this.offsetFactor=1,this.frontContainer=null,this.backContainer=null,this.gridPoints=[]},e.draw=function(){var t=this.line,e=this.tickLine,i=this.label,n=this.grid;n&&this.drawGrid(n),e&&this.drawTicks(e),t&&this.drawLine(t),i&&this.drawLabels()},e.drawTicks=function(t){var e=this,i=e.ticks,r=t.length,a=e.getContainer(t.top);n.each(i,function(i){var s=e.getOffsetPoint(i.value),o=e.getSidePoint(s,r);a.addShape("line",{className:"axis-tick",attrs:n.mix({x1:s.x,y1:s.y,x2:o.x,y2:o.y},t)})._id=e._id+"-ticks"})},e.drawLabels=function(){var t=this,e=t.labelOffset,i=t.labels;n.each(i,function(i){var r=t.getContainer(i.get("top")),a=t.getOffsetPoint(i.get("value")),s=t.getSidePoint(a,e),o=s.x,c=s.y;i.attr(n.mix({x:o,y:c},t.getTextAlignInfo(a,e),i.get("textStyle"))),i._id=t._id+"-"+i.attr("text"),r.add(i)})},e.drawLine=function(){},e.drawGrid=function(t){var e=this,i=e.gridPoints,s=e.ticks,o=t,c=i.length;n.each(i,function(i,h){if(n.isFunction(t)){var l=s[h]||{},u=t(l.text,h,c);o=u?n.mix({},r._defaultAxis.grid,u):null}if(o){var f,p=o.type,g=i.points,d=e.getContainer(o.top);if("arc"===p){var v=e.center,y=e.startAngle,m=e.endAngle,x=a.length([g[0].x-v.x,g[0].y-v.y]);f=d.addShape("Arc",{className:"axis-grid",attrs:n.mix({x:v.x,y:v.y,startAngle:y,endAngle:m,r:x},o)})}else f=d.addShape("Polyline",{className:"axis-grid",attrs:n.mix({points:g},o)});f._id=i._id}})},e.getOffsetPoint=function(){},e.getAxisVector=function(){},e.getOffsetVector=function(t,e){var i=this.getAxisVector(t),n=a.normalize([],i),r=this.offsetFactor,s=[-1*n[1]*r,n[0]*r];return a.scale([],s,e)},e.getSidePoint=function(t,e){var i=this.getOffsetVector(t,e);return{x:t.x+i[0],y:t.y+i[1]}},e.getTextAlignInfo=function(t,e){var i,n,r=this.getOffsetVector(t,e);return i=r[0]>0?"left":r[0]<0?"right":"center",n=r[1]>0?"top":r[1]<0?"bottom":"middle",{textAlign:i,textBaseline:n}},e.getContainer=function(t){var e=this.frontContainer,i=this.backContainer;return t?e:i},t}();t.exports=s},function(t,e,i){var n=i(0),r=i(28),a=i(9),s=i(83),o={stroke:"strokeStyle",fill:"fillStyle",opacity:"globalAlpha"},c=["fillStyle","font","globalAlpha","lineCap","lineWidth","lineJoin","miterLimit","shadowBlur","shadowColor","shadowOffsetX","shadowOffsetY","strokeStyle","textAlign","textBaseline","lineDash"],h=["circle","sector","polygon","rect","polyline"],l=function(){function t(t){this._initProperties(),n.mix(this._attrs,t);var e=this._attrs.attrs;e&&this.initAttrs(e),this.initTransform()}var e=t.prototype;return e._initProperties=function(){this._attrs={zIndex:0,visible:!0,destroyed:!1}},e.get=function(t){return this._attrs[t]},e.set=function(t,e){this._attrs[t]=e},e.isGroup=function(){return this.get("isGroup")},e.isShape=function(){return this.get("isShape")},e.initAttrs=function(t){this.attr(n.mix(this.getDefaultAttrs(),t))},e.getDefaultAttrs=function(){return{}},e._setAttr=function(t,e){var i=this._attrs.attrs;if("clip"===t)e=this._setAttrClip(e);else{var n=o[t];n&&(i[n]=e)}i[t]=e},e._getAttr=function(t){return this._attrs.attrs[t]},e._setAttrClip=function(t){return t&&h.indexOf(t._attrs.type)>-1?(null===t.get("canvas")&&(t=Object.assign({},t)),t.set("parent",this.get("parent")),t.set("context",this.get("context")),t):null},e.attr=function(t,e){if(this.get("destroyed"))return null;var i=arguments.length;if(0===i)return this._attrs.attrs;if(n.isObject(t)){this._attrs.bbox=null;for(var r in t)this._setAttr(r,t[r]);return this._afterAttrsSet&&this._afterAttrsSet(),this}return 2===i?(this._attrs.bbox=null,this._setAttr(t,e),this._afterAttrsSet&&this._afterAttrsSet(),this):this._getAttr(t)},e.getParent=function(){return this.get("parent")},e.draw=function(t){this.get("destroyed")||this.get("visible")&&(this.setContext(t),this.drawInner(t),this.restoreContext(t))},e.setContext=function(t){var e=this._attrs.attrs.clip;t.save(),e&&(e.resetTransform(t),e.createPath(t),t.clip()),this.resetContext(t),this.resetTransform(t)},e.restoreContext=function(t){t.restore()},e.resetContext=function(t){var e=this._attrs.attrs;if(!this._attrs.isGroup)for(var i in e)if(c.indexOf(i)>-1){var r=e[i];"fillStyle"!==i&&"strokeStyle"!==i||(r=s.parseStyle(r,this,t)),"lineDash"===i&&t.setLineDash&&n.isArray(r)?t.setLineDash(r):t[i]=r}},e.hasFill=function(){return this.get("canFill")&&this._attrs.attrs.fillStyle},e.hasStroke=function(){return this.get("canStroke")&&this._attrs.attrs.strokeStyle},e.drawInner=function(){},e.show=function(){return this.set("visible",!0),this},e.hide=function(){return this.set("visible",!1),this},e.isVisible=function(){return this.get("visible")},e._removeFromParent=function(){var t=this.get("parent");if(t){var e=t.get("children");n.Array.remove(e,this)}return this},e.remove=function(t){t?this.destroy():this._removeFromParent()},e.destroy=function(){if(this.get("destroyed"))return null;this._removeFromParent(),this._attrs={},this.set("destroyed",!0)},e.getBBox=function(){return{minX:0,maxX:0,minY:0,maxY:0,width:0,height:0}},e.initTransform=function(){var t=this._attrs.attrs||{};t.matrix||(t.matrix=[1,0,0,1,0,0]),this._attrs.attrs=t},e.getMatrix=function(){return this._attrs.attrs.matrix},e.setMatrix=function(t){this._attrs.attrs.matrix=[t[0],t[1],t[2],t[3],t[4],t[5]]},e.transform=function(t){var e=this._attrs.attrs.matrix;return this._attrs.attrs.matrix=r.transform(e,t),this},e.setTransform=function(t){return this._attrs.attrs.matrix=[1,0,0,1,0,0],this.transform(t)},e.translate=function(t,e){var i=this._attrs.attrs.matrix;r.translate(i,i,[t,e])},e.rotate=function(t){var e=this._attrs.attrs.matrix;r.rotate(e,e,t)},e.scale=function(t,e){var i=this._attrs.attrs.matrix;r.scale(i,i,[t,e])},e.moveTo=function(t,e){var i=this._attrs.x||0,n=this._attrs.y||0;this.translate(t-i,e-n),this.set("x",t),this.set("y",e)},e.apply=function(t){var e=this._attrs.attrs.matrix;return a.transformMat2d(t,t,e),this},e.resetTransform=function(t){var e=this._attrs.attrs.matrix;(function(t){return 1===t[0]&&0===t[1]&&0===t[2]&&1===t[3]&&0===t[4]&&0===t[5]})(e)||t.transform(e[0],e[1],e[2],e[3],e[4],e[5])},e.isDestroyed=function(){return this.get("destroyed")},t}();t.exports=l},function(t,e){var i={multiply:function(t,e){return[t[0]*e[0]+t[2]*e[1],t[1]*e[0]+t[3]*e[1],t[0]*e[2]+t[2]*e[3],t[1]*e[2]+t[3]*e[3],t[0]*e[4]+t[2]*e[5]+t[4],t[1]*e[4]+t[3]*e[5]+t[5]]},scale:function(t,e,i){return t[0]=e[0]*i[0],t[1]=e[1]*i[0],t[2]=e[2]*i[1],t[3]=e[3]*i[1],t[4]=e[4],t[5]=e[5],t},rotate:function(t,e,i){var n=Math.cos(i),r=Math.sin(i),a=e[0]*n+e[2]*r,s=e[1]*n+e[3]*r,o=e[0]*-r+e[2]*n,c=e[1]*-r+e[3]*n;return t[0]=a,t[1]=s,t[2]=o,t[3]=c,t[4]=e[4],t[5]=e[5],t},translate:function(t,e,i){return t[0]=e[0],t[1]=e[1],t[2]=e[2],t[3]=e[3],t[4]=e[4]+e[0]*i[0]+e[2]*i[1],t[5]=e[5]+e[1]*i[0]+e[3]*i[1],t},transform:function(t,e){for(var n=[].concat(t),r=0,a=e.length;r<a;r++){var s=e[r];switch(s[0]){case"t":i.translate(n,n,[s[1],s[2]]);break;case"s":i.scale(n,n,[s[1],s[2]]);break;case"r":i.rotate(n,n,s[1])}}return n}};t.exports=i},function(t,e,i){var n=i(15),r=i(33);t.exports={toTimeStamp:function(t){return n(t)&&(t=t.indexOf("T")>0?new Date(t).getTime():new Date(t.replace(/-/gi,"/")).getTime()),r(t)&&(t=t.getTime()),t}}},function(t,e,i){var n=i(0),r=i(29);t.exports={beforeGeomInit:function(t){t.set("limitInPlot",!0);var e=t.get("data"),i=t.get("colDefs");if(!i)return e;var a=t.get("geoms"),s=!1;n.each(a,function(t){if(-1!==["area","line","path"].indexOf(t.get("type")))return s=!0,!1});var o=[];if(n.each(i,function(t,e){!s&&t&&(t.values||t.min||t.max)&&o.push(e)}),0===o.length)return e;var c=[];n.each(e,function(t){var e=!0;n.each(o,function(a){var s=t[a];if(s){var o=i[a];if("timeCat"===o.type){var c=o.values;n.isNumber(c[0])&&(s=r.toTimeStamp(s))}(o.values&&-1===o.values.indexOf(s)||o.min&&s<o.min||o.max&&s>o.max)&&(e=!1)}}),e&&c.push(t)}),t.set("filteredData",c)}}},function(t,e,i){var n=i(23),r=i(0);t.exports={updateLinearScale:function(t,e,i){var a=this.chart,s=n.getColDef(a,t);a.scale(t,r.mix({},s,{min:e,max:i,nice:!1}))},updateCatScale:function(t,e,i,a,s,o){var c=this.chart,h=n.getColDef(c,t);c.scale(t,r.mix({},h,{values:e,ticks:i,scale:function(t){"timeCat"===this.type&&(t=this._toTimeStamp(t));var e,i,n,r=this.rangeMin(),c=this.rangeMax(),h=c-r,l=a.indexOf(t);if(l>=0&&l<s)e=(i=r>0?-.1:r-.1)-h,n=l/s;else if(l>=0&&l>o)i=(e=c<1?1.1:c+.1)+h,n=(l-o-1)/(a.length-1-o);else{var u=this.translate(t);n=1===this.values.length?u:u/(this.values.length-1),e=r,i=c}return e+n*(i-e)},getTicks:function(){var t=this,e=this.ticks,i=[];return r.each(e,function(e){var n;if(r.isObject(e))n=e;else{var a=t.scale(e);a=a>=0&&a<=1?a:NaN,n={text:r.isString(e)?e:t.getText(e),value:a,tickValue:e}}i.push(n)}),i}}))}}},function(t,e,i){var n=i(10);t.exports=function(t){return n(t)?"":t.toString()}},function(t,e,i){var n=i(11);t.exports=function(t){return n(t,"Date")}},function(t,e,i){var n=i(62),r=i(11);t.exports=function(t){if(!n(t)||!r(t,"Object"))return!1;if(null===Object.getPrototypeOf(t))return!0;for(var e=t;null!==Object.getPrototypeOf(e);)e=Object.getPrototypeOf(e);return Object.getPrototypeOf(t)===e}},function(t,e,i){var n=i(0),r=function(){function t(t){var e={},i=this.getDefaultCfg();this._attrs=e,n.mix(e,i,t)}var e=t.prototype;return e.getDefaultCfg=function(){return{}},e.get=function(t){return this._attrs[t]},e.set=function(t,e){this._attrs[t]=e},e.destroy=function(){this._attrs={},this.destroyed=!0},t}();t.exports=r},function(t,e,i){var n=i(17),r=i(37),a=i(4),s=i(16),o=i(15),c=function(t){function e(){return t.apply(this,arguments)||this}!function(t,e){t.prototype=Object.create(e.prototype),t.prototype.constructor=t,t.__proto__=e}(e,t);var i=e.prototype;return i._initDefaultCfg=function(){t.prototype._initDefaultCfg.call(this),this.type="cat",this.isCategory=!0,this.isRounding=!0},i.init=function(){var t=this.values,e=this.tickCount;if(a(t,function(e,i){t[i]=e.toString()}),!this.ticks){var i=t;if(e){i=r({maxCount:e,data:t,isRounding:this.isRounding}).ticks}this.ticks=i}},i.getText=function(e){return-1===this.values.indexOf(e)&&s(e)&&(e=this.values[Math.round(e)]),t.prototype.getText.call(this,e)},i.translate=function(t){var e=this.values.indexOf(t);return-1===e&&s(t)?e=t:-1===e&&(e=NaN),e},i.scale=function(t){var e,i=this.rangeMin(),n=this.rangeMax();return(o(t)||-1!==this.values.indexOf(t))&&(t=this.translate(t)),e=this.values.length>1?t/(this.values.length-1):t,i+e*(n-i)},i.invert=function(t){if(o(t))return t;var e=this.rangeMin(),i=this.rangeMax();t<e&&(t=e),t>i&&(t=i);var n=(t-e)/(i-e),r=Math.round(n*(this.values.length-1))%this.values.length;return r=r||0,this.values[r]},e}(n);n.Cat=c,t.exports=c},function(t,e,i){var n=i(4);t.exports=function(t){var e,i={},r=[],a=t.isRounding,s=function(t){var e=[];return n(t,function(t){e=e.concat(t)}),e}(t.data),o=s.length,c=t.maxCount||8;if(a?2===(e=function(t,e){var i;for(i=e;i>0&&t%i!=0;i--);if(1===i)for(i=e;i>0&&(t-1)%i!=0;i--);return i}(o-1,c-1)+1)?e=c:e<c-4&&(e=c-4):e=c,!a&&o<=e+e/2)r=[].concat(s);else{for(var h=parseInt(o/(e-1),10),l=s.map(function(t,e){return e%h==0?s.slice(e,e+h):null}).filter(function(t){return t}),u=1,f=l.length;u<f&&(a?u*h<o-h:u<e-1);u++)r.push(l[u][0]);if(s.length){r.unshift(s[0]);var p=s[o-1];-1===r.indexOf(p)&&r.push(p)}}return i.categories=s,i.ticks=r,i}},function(t,e,i){var n=i(0),r=i(2),a={},s="_INDEX";t.exports={getGroupClass:function(){},getChildren:function(){return this.get("children")},addShape:function(t,e){void 0===e&&(e={});var i=this.get("canvas"),s=a[t];s||(s=n.upperFirst(t),a[t]=s),e.canvas=i,"Text"===s&&i&&i.get("fontFamily")&&(e.attrs.fontFamily=e.attrs.fontFamily||i.get("fontFamily"));var o=new r[s](e);return this.add(o),o},addGroup:function(t){var e=this.get("canvas"),i=this.getGroupClass();(t=n.mix({},t)).canvas=e,t.parent=this;var r=new i(t);return this.add(r),r},contain:function(t){return this.get("children").indexOf(t)>-1},sort:function(){for(var t=this.get("children"),e=0,i=t.length;e<i;e++){t[e][s]=e}return t.sort(function(t){return function(e,i){var n=t(e,i);return 0===n?e[s]-i[s]:n}}(function(t,e){return t.get("zIndex")-e.get("zIndex")})),this},clear:function(){for(var t=this.get("children");0!==t.length;)t[t.length-1].remove(!0);return this},add:function(t){var e=this.get("children");n.isArray(t)||(t=[t]);for(var i=0,r=t.length;i<r;i++){var a=t[i],s=a.get("parent");if(s){var o=s.get("children");n.Array.remove(o,a)}this._setEvn(a),e.push(a)}return this},_setEvn:function(t){t._attrs.parent=this,t._attrs.context=this._attrs.context,t._attrs.canvas=this._attrs.canvas;var e=t._attrs.attrs.clip;if(e&&(e.set("parent",this),e.set("context",this.get("context"))),t._attrs.isGroup)for(var i=t._attrs.children,n=0,r=i.length;n<r;n++)t._setEvn(i[n])}}},function(t,e,i){var n=i(0),r=i(27),a=i(38),s=i(9),o=function(t){function e(){return t.apply(this,arguments)||this}!function(t,e){t.prototype=Object.create(e.prototype),t.prototype.constructor=t,t.__proto__=e}(e,t);var i=e.prototype;return i._initProperties=function(){this._attrs={zIndex:0,visible:!0,destroyed:!1,isGroup:!0,children:[]}},i.drawInner=function(t){for(var e=this.get("children"),i=0,n=e.length;i<n;i++){e[i].draw(t)}return this},i.getBBox=function(){for(var t=1/0,e=-1/0,i=1/0,n=-1/0,r=this.get("children"),a=0,o=r.length;a<o;a++){var c=r[a];if(c.get("visible")){var h=c.getBBox();if(!h)continue;var l=[h.minX,h.minY],u=[h.minX,h.maxY],f=[h.maxX,h.minY],p=[h.maxX,h.maxY],g=c.attr("matrix");s.transformMat2d(l,l,g),s.transformMat2d(u,u,g),s.transformMat2d(f,f,g),s.transformMat2d(p,p,g),t=Math.min(l[0],u[0],f[0],p[0],t),e=Math.max(l[0],u[0],f[0],p[0],e),i=Math.min(l[1],u[1],f[1],p[1],i),n=Math.max(l[1],u[1],f[1],p[1],n)}}return{minX:t,minY:i,maxX:e,maxY:n,x:t,y:i,width:e-t,height:n-i}},i.destroy=function(){this.get("destroyed")||(this.clear(),t.prototype.destroy.call(this))},e}(r);n.mix(o.prototype,a,{getGroupClass:function(){return o}}),t.exports=o},function(t,e){t.exports={requestAnimationFrame:"object"==typeof window&&window.requestAnimationFrame?window.requestAnimationFrame:function(t){return setTimeout(t,16)}}},function(t,e,i){function n(t){return[t.x,t.y]}var r=i(9);t.exports={smooth:function(t,e,i){for(var a,s,o,c=!!e,h=function(t,e,i,a){var s,o,c,h,l,u,f,p,g=[],d=!!a;if(d){for(c=[1/0,1/0],h=[-1/0,-1/0],p=0,f=t.length;p<f;p++)l=n(t[p]),r.min(c,c,l),r.max(h,h,l);r.min(c,c,a[0]),r.max(h,h,a[1])}for(p=0,u=t.length;p<u;p++){if(l=n(t[p]),i)s=n(t[p?p-1:u-1]),o=n(t[(p+1)%u]);else{if(0===p||p===u-1){g.push([l[0],l[1]]);continue}s=n(t[p-1]),o=n(t[p+1])}var v=r.sub([],o,s);r.scale(v,v,e);var y=r.distance(l,s),m=r.distance(l,o),x=y+m;0!==x&&(y/=x,m/=x);var _=r.scale([],v,-y),S=r.scale([],v,m),b=r.add([],l,_),C=r.add([],l,S);d&&(r.max(b,b,c),r.min(b,b,h),r.max(C,C,c),r.min(C,C,h)),g.push([b[0],b[1]]),g.push([C[0],C[1]])}return i&&g.push(g.shift()),g}(t,.4,c,i),l=t.length,u=[],f=0;f<l-1;f++)a=h[2*f],s=h[2*f+1],o=t[f+1],u.push(["C",a[0],a[1],s[0],s[1],o.x,o.y]);return c&&(a=h[l],s=h[l+1],o=t[0],u.push(["C",a[0],a[1],s[0],s[1],o.x,o.y])),u}}},function(t,e,i){var n=i(5),r=i(22),a=i(0);i(43);var s=function(t){function e(){return t.apply(this,arguments)||this}!function(t,e){t.prototype=Object.create(e.prototype),t.prototype.constructor=t,t.__proto__=e}(e,t);var i=e.prototype;return i.getDefaultCfg=function(){var e=t.prototype.getDefaultCfg.call(this);return e.type="path",e.shapeType="line",e},i.getDrawCfg=function(e){var i=t.prototype.getDrawCfg.call(this,e);return i.isStack=this.hasAdjust("stack"),i},i.draw=function(t,e){var i=this,n=i.get("container"),s=i.getYScale(),o=i.get("connectNulls"),c=r.splitArray(t,s.field,o),h=this.getDrawCfg(t[0]);h.origin=t,a.each(c,function(r,a){h.splitedIndex=a,h.points=r,i.drawShape(h.shape,t[0],h,n,e)})},e}(n);n.Path=s,t.exports=s},function(t,e,i){var n=i(0),r=i(8),a=i(22),s=i(1),o=r.registerFactory("line",{defaultShapeType:"line"});n.each(["line","smooth","dash"],function(t){r.registerShape("line",t,{draw:function(e,i){var r="smooth"===t,o=function(t){var e={strokeStyle:t.color};return t.size>=0&&(e.lineWidth=t.size),n.mix(e,t.style),n.mix({},s.shape.line,e)}(e);return"dash"===t&&(o.lineDash=s.lineDash),function(t,e,i,r){var s=t.points;if(s.length&&n.isArray(s[0].y)){for(var o=[],c=[],h=0,l=s.length;h<l;h++){var u=s[h],f=a.splitPoints(u);c.push(f[0]),o.push(f[1])}return t.isInCircle&&(o.push(o[0]),c.push(c[0])),t.isStack?e.addShape("Polyline",{className:"line",attrs:n.mix({points:o,smooth:r},i)}):[e.addShape("Polyline",{className:"line",attrs:n.mix({points:o,smooth:r},i)}),e.addShape("Polyline",{className:"line",attrs:n.mix({points:c,smooth:r},i)})]}return t.isInCircle&&s.push(s[0]),e.addShape("Polyline",{className:"line",attrs:n.mix({points:s,smooth:r},i)})}(e,i,o,r)}})}),t.exports=o},function(t,e,i){var n=i(1),r=i(0),a={getDefalutSize:function(){var t=this.get("defaultSize");if(!t){var e=this.get("coord"),i=this.getXScale(),r=this.get("dataArray"),a=i.values.length,s=i.range,o=1/a,c=1;e&&e.isPolar?c=e.transposed&&a>1?n.widthRatio.multiplePie:n.widthRatio.rose:(i.isLinear&&(o*=s[1]-s[0]),c=n.widthRatio.column),o*=c,this.hasAdjust("dodge")&&(o/=r.length),t=o,this.set("defaultSize",t)}return t},getDimWidth:function(t){var e=this.get("coord"),i=e.convertPoint({x:0,y:0}),n=e.convertPoint({x:"x"===t?1:0,y:"x"===t?0:1}),r=0;return i&&n&&(r=Math.sqrt(Math.pow(n.x-i.x,2)+Math.pow(n.y-i.y,2))),r},_getWidth:function(){var t=this.get("_width");if(!t){var e=this.get("coord");t=e&&e.isPolar&&!e.transposed?(e.endAngle-e.startAngle)*e.circleRadius:this.getDimWidth("x"),this.set("_width",t)}return t},_toNormalizedSize:function(t){return t/this._getWidth()},_toCoordSize:function(t){return this._getWidth()*t},getNormalizedSize:function(t){var e=this.getAttrValue("size",t);return e=r.isNil(e)?this.getDefalutSize():this._toNormalizedSize(e)},getSize:function(t){var e=this.getAttrValue("size",t);if(r.isNil(e)){var i=this.getDefalutSize();e=this._toCoordSize(i)}return e}};t.exports=a},function(t,e,i){var n=i(0),r={circle:function(t,e,i,n){n.arc(t,e,i,0,2*Math.PI,!1)},square:function(t,e,i,n){n.moveTo(t-i,e-i),n.lineTo(t+i,e-i),n.lineTo(t+i,e+i),n.lineTo(t-i,e+i),n.closePath()}},a=function(t){function e(){return t.apply(this,arguments)||this}!function(t,e){t.prototype=Object.create(e.prototype),t.prototype.constructor=t,t.__proto__=e}(e,t);var i=e.prototype;return i._initProperties=function(){t.prototype._initProperties.call(this),this._attrs.canFill=!0,this._attrs.canStroke=!0,this._attrs.type="marker"},i.getDefaultAttrs=function(){return{x:0,y:0,lineWidth:0}},i.createPath=function(t){var e,i=this.get("attrs"),a=i.x,s=i.y,o=i.radius,c=i.symbol||"circle";e=n.isFunction(c)?c:r[c],t.beginPath(),e(a,s,o,t,this)},i.calculateBox=function(){var t=this.get("attrs"),e=t.x,i=t.y,n=t.radius;return{minX:e-n,minY:i-n,maxX:e+n,maxY:i+n}},e}(i(3).Shape);t.exports=a},function(t,e,i){var n=i(0),r=i(3).Group,a=i(45),s=function(){function t(t){n.deepMix(this,this.getDefaultCfg(),t),this._init(),this._renderTitle(),this._renderItems()}var e=t.prototype;return e.getDefaultCfg=function(){return{showTitle:!1,title:null,items:null,titleGap:12,itemGap:10,itemMarginBottom:12,itemFormatter:null,itemWidth:null,wordSpace:6,x:0,y:0,layout:"horizontal",joinString:": "}},e._init=function(){var t=new r({zIndex:this.zIndex||0});this.container=t;var e=t.addGroup();this.wrapper=e;var i=e.addGroup({className:"itemsGroup"});this.itemsGroup=i,this.parent&&this.parent.add(t)},e._renderTitle=function(t){t=t||this.title;var e=this.titleShape,i=0;if(this.showTitle&&t){if(e&&!e.get("destroyed"))e.attr("text",t);else{var r=this.wrapper,a=this.titleStyle;e=r.addShape("text",{className:"title",attrs:n.mix({x:0,y:0,text:t},a)}),this.titleShape=e}i=e.getBBox().height+this.titleGap}this._titleHeight=i},e._renderItems=function(t){var e=this;(t=t||e.items)&&(e.reversed&&t.reverse(),n.each(t,function(t,i){e._addItem(t,i)}),t.length>1&&this._adjustItems(),this._renderBackground())},e._renderBackground=function(){var t=this.background;if(t){var e=this.container,i=this.wrapper.getBBox(),r=i.minX,a=i.minY,s=i.width,o=i.height,c=t.padding||[0,0,0,0];c=n.parsePadding(c);var h=n.mix({x:r-c[3],y:a-c[0],width:s+c[1]+c[3],height:o+c[0]+c[2]},t),l=this.backShape;l?l.attr(h):l=e.addShape("Rect",{zIndex:-1,attrs:h}),this.backShape=l,e.sort()}},e._addItem=function(t){var e=this.itemsGroup.addGroup({name:t.name,value:t.value,dataValue:t.dataValue,checked:t.checked}),i=this.unCheckStyle,r=this.unCheckColor,s=this.nameStyle,o=this.valueStyle,c=this.wordSpace,h=t.marker,l=t.value,u=0;if(r&&(i.fill=r),h){var f=h.radius||3,p=n.mix({x:f,y:this._titleHeight},h);!1===t.checked&&n.mix(p,i);var g=new a({className:"item-marker",attrs:p});e.add(g),u+=g.getBBox().width+c}var d,v=t.name;if(v){var y=this.joinString||"";v=l?v+y:v,d=e.addShape("text",{className:"name",attrs:n.mix({x:u,y:this._titleHeight,text:this._formatItemValue(v)},s,!1===t.checked?i:null)})}if(l){var m=u;d&&(m+=d.getBBox().width),e.addShape("text",{className:"value",attrs:n.mix({x:m,y:this._titleHeight,text:l},o,!1===t.checked?i:null)})}return e},e._formatItemValue=function(t){var e=this.itemFormatter;return e&&(t=e.call(this,t)),t},e._getMaxItemWidth=function(){var t=this.itemWidth;if(n.isNumber(t)||n.isNil(t))return t;if("auto"===t){for(var e=this.itemsGroup.get("children"),i=e.length,r=0,a=0;a<i;a++){var s=e[a].getBBox().width;r=Math.max(r,s)}var o=this.maxLength,c=this.itemGap,h=(o-c)/2,l=(o-2*c)/3;return 2===i?Math.max(r,h):r<=l?l:r<=h?h:r}},e._adjustHorizontal=function(){for(var t,e,i=this.maxLength,n=this.itemsGroup.get("children"),r=this.itemGap,a=this.itemMarginBottom,s=this._titleHeight,o=0,c=0,h=this._getMaxItemWidth(),l=[],u=0,f=n.length;u<f;u++){var p=n[u],g=p.getBBox(),d=g.height,v=g.width;e=d+a,(t=h||v)-(i-c)>1e-4&&(o++,c=0),p.moveTo(c,o*e),l.push({x:c,y:o*e+s-d/2,width:1.375*v,height:1.375*d}),c+=t+r}this.legendHitBoxes=l},e._adjustVertical=function(){for(var t,e,i=this.maxLength,r=this.itemsGroup,a=this.itemGap,s=this.itemMarginBottom,o=this.itemWidth,c=this._titleHeight,h=r.get("children"),l=0,u=0,f=0,p=[],g=0,d=h.length;g<d;g++){var v=h[g],y=v.getBBox();t=y.width,e=y.height,n.isNumber(o)?u=o+a:t>u&&(u=t+a),i-l<e?(l=0,f+=u,v.moveTo(f,0),p.push({x:f,y:c-e/2,width:1.375*t,height:1.375*e})):(v.moveTo(f,l),p.push({x:f,y:l-e/2+c,width:1.375*t,height:1.375*e})),l+=e+s}this.legendHitBoxes=p},e._adjustItems=function(){"horizontal"===this.layout?this._adjustHorizontal():this._adjustVertical()},e.moveTo=function(t,e){this.x=t,this.y=e;var i=this.container;return i&&i.moveTo(t,e),this},e.setItems=function(t){this.clearItems(),this._renderItems(t)},e.setTitle=function(t){this._renderTitle(t)},e.clearItems=function(){this.itemsGroup.clear()},e.getWidth=function(){return this.container.getBBox().width},e.getHeight=function(){return this.container.getBBox().height},e.show=function(){this.container.show()},e.hide=function(){this.container.hide()},e.clear=function(){var t=this.container;t.clear(),t.remove(!0)},t}();t.exports=s},function(t,e,i){var n=i(0),r={appear:{duration:450,easing:"quadraticOut"},update:{duration:300,easing:"quadraticOut"},enter:{duration:300,easing:"quadraticOut"},leave:{duration:350,easing:"quadraticIn"}},a={defaultCfg:{},Action:{},getAnimation:function(t,e,i){var r=this.defaultCfg[t];if(r){var a=r[i];if(n.isFunction(a))return a(e)}return!1},getAnimateCfg:function(t,e){var i=r[e],a=this.defaultCfg[t];return a&&a.cfg&&a.cfg[e]?n.deepMix({},i,a.cfg[e]):i},registerAnimation:function(t,e){this.Action||(this.Action={}),this.Action[t]=e}};t.exports=a},function(t,e,i){var n=i(3).Matrix,r=i(0),a={getCoordInfo:function(t){var e=t.start,i=t.end;return{start:e,end:i,width:i.x-e.x,height:Math.abs(i.y-e.y)}},getScaledMatrix:function(t,e,i){var r;t.apply(e);var a=e[0],s=e[1];if("x"===i){t.transform([["t",a,s],["s",.01,1],["t",-a,-s]]);var o=t.getMatrix();r=n.transform(o,[["t",a,s],["s",100,1],["t",-a,-s]])}else if("y"===i){t.transform([["t",a,s],["s",1,.01],["t",-a,-s]]);var c=t.getMatrix();r=n.transform(c,[["t",a,s],["s",1,100],["t",-a,-s]])}else if("xy"===i){t.transform([["t",a,s],["s",.01,.01],["t",-a,-s]]);var h=t.getMatrix();r=n.transform(h,[["t",a,s],["s",100,100],["t",-a,-s]])}return r},getAnimateParam:function(t,e,i){var n={};return t.delay&&(n.delay=r.isFunction(t.delay)?t.delay(e,i):t.delay),n.easing=t.easing,n.duration=t.duration,n.delay=t.delay,n},doAnimation:function(t,e,i,n){var r=t._id,s=t.get("index"),o=a.getAnimateParam(i,s,r),c=o.easing,h=o.delay,l=o.duration,u=t.animate().to({attrs:e,duration:l,delay:h,easing:c});n&&u.onEnd(function(){n()})}};t.exports=a},function(t,e,i){var n=i(0),r=i(23),a=["touchstart","touchmove","touchend","touchStart","touchMove","touchEnd"];t.exports={_handleMove:function(t){if("swipe"===t.type&&t.deltaTime>350)return null;var e,i,n=this.currentDeltaX,r=this.currentDeltaY,s=this.lastPoint;if(-1!==a.indexOf(t.type)){var o=t.touches[0];e=o.x-s.x,i=o.y-s.y,this.lastPoint=o}else null!==n&&null!==r&&(e=t.deltaX-n,i=t.deltaY-r,this.currentDeltaX=t.deltaX,this.currentDeltaY=t.deltaY);if(Math.abs(e)>0||Math.abs(i)>0){var c=this._timestamp,h=+new Date;h-c>16&&(this._doMove(e,i),this._timestamp=h)}},_doMove:function(t,e){var i=this,a=i.mode,s=i.chart,o=i.limitRange,c=s.get("coord"),h=c.start,l=c.end,u=s.get("data");if(n.directionEnabled(a,"x")&&0!==t){var f=s.getXScale(),p=f.field;o[p]||(o[p]=r.getLimitRange(u,f));var g=l.x-h.x;f.isCategory?i._handleCatScale(f,t,g):f.isLinear&&i._handleLinearScale(f,t,g,"x");var d=r.getColDef(s,p);i.xRange=r.getFieldRange(d,o[p],f.type)}if(n.directionEnabled(a,"y")&&0!==e){var v=h.y-l.y,y=s.getYScales();n.each(y,function(t){var n=t.field;o[n]||(o[n]=r.getLimitRange(u,t)),t.isLinear&&i._handleLinearScale(t,e,v,"y")});var m=r.getColDef(s,y[0].field);i.yRange=r.getFieldRange(m,o[y[0].field],y[0].type)}s.repaint()},_handleLinearScale:function(t,e,i,r){var a=t.field,s=t.min,o=t.max,c=this.limitRange;if(s!==c[a].min||o!==c[a].max){var h=e/i*(o-s),l="x"===r?o-h:o+h,u="x"===r?s-h:s+h;c[a]&&!n.isNil(c[a].min)&&u<=c[a].min&&(l=o-s+(u=c[a].min)),c[a]&&!n.isNil(c[a].max)&&l>=c[a].max&&(u=(l=c[a].max)-(o-s)),this.updateLinearScale(a,u,l)}},_handleCatScale:function(t,e,i){var n=t.type,r=t.field,a=t.values,s=t.ticks,o=this.limitRange[r],c=o.length-1,h=a.length,l=i/(h*(this.speed||1)),u=o.indexOf(a[0]),f=o.indexOf(a[h-1]),p=u,g=f,d=Math.abs(e/i),v=this.step||Math.max(1,parseInt(d*h));if(this._panCumulativeDelta+=e,p=this._panCumulativeDelta>l?Math.max(0,p-v):this._panCumulativeDelta<-l?Math.min(c-h+1,p+v):p,g=Math.min(c,p+h-1),p===u&&g===f)return null;var y=o.slice(p,g+1),m=null;if("timeCat"===n){var x=s.length>2?s[1]-s[0]:864e5;if(this._panCumulativeDelta>l)for(var _=s[0]-x;_>=y[0];_-=x)s.unshift(_);else if(this._panCumulativeDelta<-l)for(var S=s[s.length-1]+x;S<=y[y.length-1];S+=x)s.push(S);m=s}this.updateCatScale(r,y,m,o,p,g),this._panCumulativeDelta=p!==u?0:this._panCumulativeDelta}}},function(t,e,i){var n=i(0);t.exports={_bindPress:function(){var t=this.chart,e=this.hammer,i=this.el,r=this.pressThreshold,a=this.pressTime,s=t.get("tooltipController");s&&s.enable&&(t.set("_closeTooltip",!0),e?(e.get("press").set({threshold:r,time:a}),e.on("press",n.wrapBehavior(this,"_handlePress"))):n.addEventListener(i,"press",n.wrapBehavior(this,"_handlePress")))},reset:function(){var t=this.chart,e=t.get("tooltipController");e&&(this.pressed=!1,!e.cfg.alwaysShow&&t.hideTooltip(),t.set("_closeTooltip",!0))},_handlePress:function(t){this.pressed=!0;var e=t.center||t.touches[0];this.chart.set("_closeTooltip",!1),this.chart.showTooltip(e)}}},function(t,e,i){var n=i(52),r=i(54);r.Util.measureText=function(t,e,i){if(!i){var n=12;return e&&(n=parseInt(e.split(" ")[3],10)),n/=2,{width:function(t){for(var e=0,i=0;i<t.length;i++)t.charCodeAt(i)>0&&t.charCodeAt(i)<128?e++:e+=2;return e}(t)*n}}return i.font=e||"12px sans-serif",i.measureText(t)},r.Util.addEventListener=function(t,e,i){t.addListener(e,i)},r.Util.removeEventListener=function(t,e,i){t.removeListener(e,i)},r.Util.createEvent=function(t,e){var i=0,n=0,r=t.touches;return r&&r.length>0&&(i=r[0].x,n=r[0].y),{type:t.type,chart:e,x:i,y:n}},r.Renderer=n,t.exports=r},function(t,e,i){function n(t){if(void 0===t)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return t}var r={fontSize:"FontSize",opacity:"GlobalAlpha",lineDash:"LineDash",textAlign:"TextAlign"},a={start:"left",end:"right"},s=function(t){function e(e){var i,r=n(n(i=t.call(this)||this));return r.ctx=e,r.style={},r._initContext(e),i}!function(t,e){t.prototype=Object.create(e.prototype),t.prototype.constructor=t,t.__proto__=e}(e,t);var i=e.prototype;return i.getContext=function(t){if("2d"===t)return this.ctx},i._initContext=function(t){Object.keys(r).map(function(e){return Object.defineProperty(t,e,{set:function(i){"textAlign"===e&&(i=a[i]?a[i]:i);t["set"+r[e]](i)}}),e})},e}(i(53));t.exports=s},function(t,e,i){var n;!function(e){"use strict";function r(){}function a(t,e){for(var i=t.length;i--;)if(t[i].listener===e)return i;return-1}function s(t){return function(){return this[t].apply(this,arguments)}}function o(t){return"function"==typeof t||t instanceof RegExp||!(!t||"object"!=typeof t)&&o(t.listener)}var c=r.prototype,h=e.EventEmitter;c.getListeners=function(t){var e,i,n=this._getEvents();if(t instanceof RegExp){e={};for(i in n)n.hasOwnProperty(i)&&t.test(i)&&(e[i]=n[i])}else e=n[t]||(n[t]=[]);return e},c.flattenListeners=function(t){var e,i=[];for(e=0;e<t.length;e+=1)i.push(t[e].listener);return i},c.getListenersAsObject=function(t){var e,i=this.getListeners(t);return i instanceof Array&&((e={})[t]=i),e||i},c.addListener=function(t,e){if(!o(e))throw new TypeError("listener must be a function");var i,n=this.getListenersAsObject(t),r="object"==typeof e;for(i in n)n.hasOwnProperty(i)&&-1===a(n[i],e)&&n[i].push(r?e:{listener:e,once:!1});return this},c.on=s("addListener"),c.addOnceListener=function(t,e){return this.addListener(t,{listener:e,once:!0})},c.once=s("addOnceListener"),c.defineEvent=function(t){return this.getListeners(t),this},c.defineEvents=function(t){for(var e=0;e<t.length;e+=1)this.defineEvent(t[e]);return this},c.removeListener=function(t,e){var i,n,r=this.getListenersAsObject(t);for(n in r)r.hasOwnProperty(n)&&-1!==(i=a(r[n],e))&&r[n].splice(i,1);return this},c.off=s("removeListener"),c.addListeners=function(t,e){return this.manipulateListeners(!1,t,e)},c.removeListeners=function(t,e){return this.manipulateListeners(!0,t,e)},c.manipulateListeners=function(t,e,i){var n,r,a=t?this.removeListener:this.addListener,s=t?this.removeListeners:this.addListeners;if("object"!=typeof e||e instanceof RegExp)for(n=i.length;n--;)a.call(this,e,i[n]);else for(n in e)e.hasOwnProperty(n)&&(r=e[n])&&("function"==typeof r?a.call(this,n,r):s.call(this,n,r));return this},c.removeEvent=function(t){var e,i=typeof t,n=this._getEvents();if("string"===i)delete n[t];else if(t instanceof RegExp)for(e in n)n.hasOwnProperty(e)&&t.test(e)&&delete n[e];else delete this._events;return this},c.removeAllListeners=s("removeEvent"),c.emitEvent=function(t,e){var i,n,r,a,s=this.getListenersAsObject(t);for(a in s)if(s.hasOwnProperty(a))for(i=s[a].slice(0),r=0;r<i.length;r++)!0===(n=i[r]).once&&this.removeListener(t,n.listener),n.listener.apply(this,e||[])===this._getOnceReturnValue()&&this.removeListener(t,n.listener);return this},c.trigger=s("emitEvent"),c.emit=function(t){var e=Array.prototype.slice.call(arguments,1);return this.emitEvent(t,e)},c.setOnceReturnValue=function(t){return this._onceReturnValue=t,this},c._getOnceReturnValue=function(){return!this.hasOwnProperty("_onceReturnValue")||this._onceReturnValue},c._getEvents=function(){return this._events||(this._events={})},r.noConflict=function(){return e.EventEmitter=h,r},void 0!==(n=function(){return r}.call(e,i,e,t))&&(t.exports=n)}("undefined"!=typeof window?window:this||{})},function(t,e,i){var n=i(55);i(94),i(106),i(111),i(112),i(113),i(116);var r=i(125),a=i(128),s=i(129),o=i(130),c=i(136),h=i(137);n.Animate=i(47),n.Chart.plugins.register([r,s,a,o,c,h]),i(138),n.Interaction=i(12),t.exports=n},function(t,e,i){var n={},r=i(1);n.Global=r,n.version=r.version,n.Chart=i(7),n.Shape=i(8),n.G=i(3),n.Util=i(0),n.track=function(t){r.trackable=t},i(93),t.exports=n},function(t,e,i){var n=i(0),r={label:{fill:"#808080",fontSize:10},line:{stroke:"#E8E8E8",lineWidth:1},grid:{type:"line",stroke:"#E8E8E8",lineWidth:1,lineDash:[2]},tickLine:null,labelOffset:7.5},a={fontFamily:'"Helvetica Neue", "San Francisco", Helvetica, Tahoma, Arial, "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", sans-serif',defaultColor:"#1890FF",pixelRatio:1,padding:"auto",appendPadding:15,colors:["#1890FF","#2FC25B","#FACC14","#223273","#8543E0","#13C2C2","#3436C7","#F04864"],shapes:{line:["line","dash"],point:["circle","hollowCircle"]},sizes:[4,10],axis:{common:r,bottom:n.mix({},r,{grid:null}),left:n.mix({},r,{line:null}),right:n.mix({},r,{line:null}),circle:n.mix({},r,{line:null}),radius:n.mix({},r,{labelOffset:4})},shape:{line:{lineWidth:2,lineJoin:"round",lineCap:"round"},point:{lineWidth:0,size:3},area:{fillOpacity:.1}},_defaultAxis:r};t.exports=a},function(t,e){var i,n=!!function(){var t=!1;try{var e=Object.defineProperty({},"passive",{get:function(){t=!0}});window.addEventListener("e",null,e)}catch(t){}return t}()&&{passive:!0};i={isWx:"object"==typeof wx&&"function"==typeof wx.getSystemInfoSync,isMy:"object"==typeof my&&"function"==typeof my.getSystemInfoSync,isNode:void 0!==t&&void 0!==t.exports,isBrowser:"undefined"!=typeof window&&void 0!==window.document&&void 0!==window.sessionStorage,getPixelRatio:function(){return window&&window.devicePixelRatio||1},getStyle:function(t,e){return t.currentStyle?t.currentStyle[e]:document.defaultView.getComputedStyle(t,null).getPropertyValue(e)},getWidth:function(t){var e=this.getStyle(t,"width");return"auto"===e&&(e=t.offsetWidth),parseFloat(e)},getHeight:function(t){var e=this.getStyle(t,"height");return"auto"===e&&(e=t.offsetHeight),parseFloat(e)},getDomById:function(t){return t?document.getElementById(t):null},getRelativePosition:function(t,e){var i=e.get("el"),n=i.getBoundingClientRect(),r=n.top,a=n.right,s=n.bottom,o=n.left,c=parseFloat(this.getStyle(i,"padding-left")),h=parseFloat(this.getStyle(i,"padding-top")),l=a-o-c-parseFloat(this.getStyle(i,"padding-right")),u=s-r-h-parseFloat(this.getStyle(i,"padding-bottom")),f=e.get("pixelRatio");return{x:(t.x-o-c)/l*i.width/f,y:(t.y-r-h)/u*i.height/f}},addEventListener:function(t,e,r){i.isBrowser&&t.addEventListener(e,r,n)},removeEventListener:function(t,e,r){i.isBrowser&&t.removeEventListener(e,r,n)},createEvent:function(t,e){return function(t,e){var n=t.type,r={},a=t.targetTouches;a&&a.length>0?(r.x=a[0].clientX,r.y=a[0].clientY):(r.x=t.clientX,r.y=t.clientY);var s=e.get("canvas"),o=i.getRelativePosition(r,s);return function(e,i,n,r,a){return{type:e,chart:i,native:t||null,x:void 0!==n?n:null,y:void 0!==r?r:null}}(n,e,o.x,o.y)}(t,e)},measureText:function(t,e,i){return i||(i=document.createElement("canvas").getContext("2d")),i.font=e||"12px sans-serif",i.measureText(t)}},t.exports=i},function(t,e,i){var n=i(32);t.exports=function(t){var e=n(t);return e.charAt(0).toUpperCase()+e.substring(1)}},function(t,e,i){var n=i(32);t.exports=function(t){var e=n(t);return e.charAt(0).toLowerCase()+e.substring(1)}},function(t,e,i){var n=i(11);t.exports=function(t){return n(t,"Boolean")}},function(t,e,i){var n=i(11);t.exports=function(t){return n(t,"Function")}},function(t,e){var i="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(t){return typeof t}:function(t){return t&&"function"==typeof Symbol&&t.constructor===Symbol&&t!==Symbol.prototype?"symbol":typeof t};t.exports=function(t){return"object"===(void 0===t?"undefined":i(t))&&null!==t}},function(t,e,i){function n(t,e,i,o){i=i||0,o=o||s;for(var c in e)if(e.hasOwnProperty(c)){var h=e[c];null!==h&&r(h)?(r(t[c])||(t[c]={}),i<o?n(t[c],h,i+1,o):t[c]=e[c]):a(h)?(t[c]=[],t[c]=t[c].concat(h)):void 0!==h&&(t[c]=h)}}var r=i(34),a=i(13),s=5;t.exports=function(){for(var t=new Array(arguments.length),e=t.length,i=0;i<e;i++)t[i]=arguments[i];for(var r=t[0],a=1;a<e;a++)n(r,t[a]);return r}},function(t,e,i){var n=i(0),r=function(){function t(t){n.mix(this,t),this._init()}var e=t.prototype;return e._init=function(){var t=this.start,e=this.end,i=Math.min(t.x,e.x),n=Math.max(t.x,e.x),r=Math.min(t.y,e.y),a=Math.max(t.y,e.y);this.tl={x:i,y:r},this.tr={x:n,y:r},this.bl={x:i,y:a},this.br={x:n,y:a},this.width=n-i,this.height=a-r},e.reset=function(t,e){this.start=t,this.end=e,this._init()},e.isInRange=function(t,e){n.isObject(t)&&(e=t.y,t=t.x);var i=this.tl,r=this.br;return i.x<=t&&t<=r.x&&i.y<=e&&e<=r.y},t}();t.exports=r},function(t,e,i){var n=i(24);i(66),t.exports=n},function(t,e,i){var n=i(24),r=function(t){function e(){return t.apply(this,arguments)||this}!function(t,e){t.prototype=Object.create(e.prototype),t.prototype.constructor=t,t.__proto__=e}(e,t);var i=e.prototype;return i._initDefaultCfg=function(){this.type="cartesian",this.transposed=!1,this.isRect=!0},i.init=function(t,e){this.x={start:t.x,end:e.x},this.y={start:t.y,end:e.y}},i.convertPoint=function(t){var e=this.transposed,i=e?"y":"x",n=e?"x":"y",r=this.x,a=this.y;return{x:r.start+(r.end-r.start)*t[i],y:a.start+(a.end-a.start)*t[n]}},i.invertPoint=function(t){var e=this.transposed,i=e?"y":"x",n=e?"x":"y",r=this.x,a=this.y,s={};return s[i]=(t.x-r.start)/(r.end-r.start),s[n]=(t.y-a.start)/(a.end-a.start),s},e}(n);n.Cartesian=r,n.Rect=r,t.exports=r},function(t,e,i){t.exports={Position:i(68),Shape:i(69),Size:i(70),Color:i(71)}},function(t,e,i){var n=i(10),r=i(13),a=i(4),s=function(t){function e(e){var i;return i=t.call(this,e)||this,i.names=["x","y"],i.type="position",i}!function(t,e){t.prototype=Object.create(e.prototype),t.prototype.constructor=t,t.__proto__=e}(e,t);return e.prototype.mapping=function(t,e){var i,s,o,c=this.scales,h=this.coord,l=c[0],u=c[1];if(n(t)||n(e))return[];if(r(e)&&r(t)){i=[],s=[];for(var f=0,p=0,g=t.length,d=e.length;f<g&&p<d;f++,p++)o=h.convertPoint({x:l.scale(t[f]),y:u.scale(e[p])}),i.push(o.x),s.push(o.y)}else if(r(e))t=l.scale(t),s=[],a(e,function(e){e=u.scale(e),o=h.convertPoint({x:t,y:e}),i&&i!==o.x?(r(i)||(i=[i]),i.push(o.x)):i=o.x,s.push(o.y)});else if(r(t))e=u.scale(e),i=[],a(t,function(t){t=l.scale(t),o=h.convertPoint({x:t,y:e}),s&&s!==o.y?(r(s)||(s=[s]),s.push(o.y)):s=o.y,i.push(o.x)});else{t=l.scale(t),e=u.scale(e);var v=h.convertPoint({x:t,y:e});i=v.x,s=v.y}return[i,s]},e}(i(20));t.exports=s},function(t,e,i){var n=function(t){function e(e){var i;return i=t.call(this,e)||this,i.names=["shape"],i.type="shape",i.gradient=null,i}!function(t,e){t.prototype=Object.create(e.prototype),t.prototype.constructor=t,t.__proto__=e}(e,t);return e.prototype.getLinearValue=function(t){var e=this.values;return e[Math.round((e.length-1)*t)]},e}(i(20));t.exports=n},function(t,e,i){var n=function(t){function e(e){var i;return i=t.call(this,e)||this,i.names=["size"],i.type="size",i.gradient=null,i}return function(t,e){t.prototype=Object.create(e.prototype),t.prototype.constructor=t,t.__proto__=e}(e,t),e}(i(20));t.exports=n},function(t,e,i){var n=i(0),r=i(72),a=function(t){function e(e){var i;return i=t.call(this,e)||this,i.names=["color"],i.type="color",i.gradient=null,n.isString(i.values)&&(i.linear=!0),i}!function(t,e){t.prototype=Object.create(e.prototype),t.prototype.constructor=t,t.__proto__=e}(e,t);return e.prototype.getLinearValue=function(t){var e=this.gradient;if(!e){var i=this.values;e=r.gradient(i),this.gradient=e}return e(t)},e}(i(20));t.exports=a},function(t,e,i){function n(t,e,i,n){return t[n]+(e[n]-t[n])*i}function r(t){return"#"+a(t[0])+a(t[1])+a(t[2])}function a(t){return t=Math.round(t),1===(t=t.toString(16)).length&&(t="0"+t),t}function s(t){var e=[];return e.push(parseInt(t.substr(1,2),16)),e.push(parseInt(t.substr(3,2),16)),e.push(parseInt(t.substr(5,2),16)),e}var o=i(0),c={black:"#000000",blue:"#0000ff",grey:"#808080",green:"#008000",orange:"#ffa500",pink:"#ffc0cb",purple:"#800080",red:"#ff0000",white:"#ffffff",yellow:"#ffff00"},h={toHex:function(t){if(c[t])return c[t];if("#"===t[0]){if(7===t.length)return t;var e=t.replace(/^#?([a-f\d])([a-f\d])([a-f\d])$/i,function(t,e,i,n){return"#"+e+e+i+i+n+n});return c[t]=e,e}var i=t.match(/^rgba?[\s+]?\([\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?/i);return i.shift(),i=r(i),c[t]=i,i},hex2arr:s,gradient:function(t){var e=[];return o.isString(t)&&(t=t.split("-")),o.each(t,function(t){-1===t.indexOf("#")&&(t=h.toHex(t)),e.push(s(t))}),function(t){return function(t,e){var i=t.length-1,a=Math.floor(i*e),s=i*e-a,o=t[a],c=a===i?o:t[a+1];return r([n(o,c,s,0),n(o,c,s,1),n(o,c,s,2)])}(e,t)}}};t.exports=h},function(t,e,i){var n=i(0),r=i(1),a=i(74),s={linear:"Linear",cat:"Cat",timeCat:"TimeCat",identity:"Identity"},o=function(){function t(t){this.defs={},n.mix(this,t)}var e=t.prototype;return e._getDef=function(t){var e=this.defs,i=null;return(r.scales[t]||e[t])&&(i=n.mix({},r.scales[t]),n.each(e[t],function(t,e){n.isNil(t)?delete i[e]:i[e]=t})),i},e._getDefaultType=function(t,e,i){if(i&&i.type)return i.type;var r="linear",a=n.Array.firstValue(e,t);return n.isArray(a)&&(a=a[0]),n.isString(a)&&(r="cat"),r},e._getScaleCfg=function(t,e,i,r){var a,s={field:e,values:a=r&&r.values?r.values:n.Array.values(i,e)};if(!("cat"===t||"timeCat"===t||r&&r.min&&r.max)){var o=n.Array.getRange(a),c=o.min,h=o.max;s.min=c,s.max=h,s.nice=!0}return"cat"!==t&&"timeCat"!==t||(s.isRounding=!1),s},e.createScale=function(t,e){var i,r=this._getDef(t);if(!e||!e.length)return r&&r.type?(r.field=t,i=new a[s[r.type]](r)):i=new a.Identity({value:t,field:t.toString(),values:[t]}),i;var o=e[0][t];if(null===o&&(o=n.Array.firstValue(e,t)),n.isNumber(t)||n.isNil(o)&&!r)i=new a.Identity({value:t,field:t.toString(),values:[t]});else{var c=this._getDefaultType(t,e,r),h=this._getScaleCfg(c,t,e,r);r&&n.mix(h,r),i=new a[s[c]](h)}return i},t}();t.exports=o},function(t,e,i){var n=i(17);i(75),i(78),i(36),t.exports=n},function(t,e,i){var n=i(10),r=i(4),a=i(17),s=i(76),o=function(t){function e(){return t.apply(this,arguments)||this}!function(t,e){t.prototype=Object.create(e.prototype),t.prototype.constructor=t,t.__proto__=e}(e,t);var i=e.prototype;return i._initDefaultCfg=function(){t.prototype._initDefaultCfg.call(this);this.type="linear",this.isLinear=!0,this.nice=!1,this.min=null,this.minLimit=null,this.max=null,this.maxLimit=null,this.tickCount=null,this.tickInterval=null,this.minTickInterval=null,this.snapArray=null},i.init=function(){if(this.ticks){var t=this.ticks,e=this.translate(t[0]),i=this.translate(t[t.length-1]);(n(this.min)||this.min>e)&&(this.min=e),(n(this.max)||this.max<i)&&(this.max=i)}else this.min=this.translate(this.min),this.max=this.translate(this.max),this.initTicks()},i.calculateTicks=function(){var t=this.min,e=this.max,i=this.minLimit,n=this.maxLimit,r=this.tickCount,a=this.tickInterval,o=this.minTickInterval,c=this.snapArray;if(1===r)throw new Error("linear scale'tickCount should not be 1");if(e<t)throw new Error("max: "+e+" should not be less than min: "+t);return s({min:t,max:e,minLimit:i,maxLimit:n,minCount:r,maxCount:r,interval:a,minTickInterval:o,snapArray:c}).ticks},i.initTicks=function(){var t=this,e=t.calculateTicks();if(t.nice)t.ticks=e,t.min=e[0],t.max=e[e.length-1];else{var i=[];r(e,function(e){e>=t.min&&e<=t.max&&i.push(e)}),i.length||(i.push(t.min),i.push(t.max)),t.ticks=i}},i.scale=function(t){if(n(t))return NaN;var e=this.max,i=this.min;if(e===i)return 0;var r=(t-i)/(e-i),a=this.rangeMin();return a+r*(this.rangeMax()-a)},i.invert=function(t){var e=(t-this.rangeMin())/(this.rangeMax()-this.rangeMin());return this.min+e*(this.max-this.min)},e}(a);a.Linear=o,t.exports=o},function(t,e,i){var n=i(10),r=i(16),a=i(77),s=[0,1,1.2,1.5,1.6,2,2.2,2.4,2.5,3,4,5,6,7.5,8,10],o=[0,1,2,4,5,10];t.exports=function(t){var e=t.min,i=t.max,c=t.interval,h=t.minTickInterval,l=[],u=t.minCount||5,f=t.maxCount||7,p=u===f,g=n(t.minLimit)?-1/0:t.minLimit,d=n(t.maxLimit)?1/0:t.maxLimit,v=(u+f)/2,y=v,m=t.snapArray?t.snapArray:p?s:o;if(e===g&&i===d&&p&&(c=(i-e)/(y-1)),n(e)&&(e=0),n(i)&&(i=0),i===e&&(0===e?i=1:e>0?e=0:i=0,i-e<5&&!c&&i-e>=1&&(c=1)),n(c)){var x=(i-e)/(v-1);c=a.snapFactorTo(x,m,"ceil"),f!==u&&((y=parseInt((i-e)/c,10))>f&&(y=f),y<u&&(y=u),c=a.snapFactorTo((i-e)/(y-1),m,"floor"))}if(r(h)&&c<h&&(c=h),t.interval||f!==u)i=Math.min(a.snapMultiple(i,c,"ceil"),d),e=Math.max(a.snapMultiple(e,c,"floor"),g),y=Math.round((i-e)/c),e=a.fixedBase(e,c),i=a.fixedBase(i,c);else{v=parseInt(v,10);var _,S=(i+e)/2,b=a.snapMultiple(S,c,"ceil"),C=Math.floor((v-2)/2),P=b+C*c;_=v%2==0?b-C*c:b-(C+1)*c,P<i&&(P+=c),_>e&&(_-=c),i=a.fixedBase(P,c),e=a.fixedBase(_,c)}i=Math.min(i,d),e=Math.max(e,g),l.push(e);for(var w=1;w<y;w++){var M=a.fixedBase(c*w+e,c);M<i&&l.push(M)}return l[l.length-1]<i&&l.push(i),{min:e,max:i,interval:c,count:y,ticks:l}}},function(t,e){function i(t,e){var i=t.length;if(0===i)return NaN;var n=t[0];if(e<t[0])return NaN;if(e>=t[i-1])return t[i-1];for(var r=1;r<t.length&&!(e<t[r]);r++)n=t[r];return n}function n(t,e){var i=t.length;if(0===i)return NaN;var n;if(e>t[i-1])return NaN;if(e<t[0])return t[0];for(var r=1;r<t.length;r++)if(e<=t[r]){n=t[r];break}return n}var r=12,a={snapFactorTo:function(t,e,i){if(isNaN(t))return NaN;var n=1;if(0!==t){t<0&&(n=-1);var s=function(t){var e=1;if(t===1/0||t===-1/0)throw new Error("Not support Infinity!");if(t<1){for(var i=0;t<1;)e/=10,t*=10,i++;e.toString().length>r&&(e=parseFloat(e.toFixed(i)))}else for(;t>10;)e*=10,t/=10;return e}(t*=n);n*=s,t/=s}var o=(t="floor"===i?a.snapFloor(e,t):"ceil"===i?a.snapCeiling(e,t):a.snapTo(e,t))*n;if(Math.abs(n)<1&&o.toString().length>r){o=t/parseInt(1/n)*(n>0?1:-1)}return o},snapMultiple:function(t,e,i){return("ceil"===i?Math.ceil(t/e):"floor"===i?Math.floor(t/e):Math.round(t/e))*e},snapTo:function(t,e){var r=i(t,e),a=n(t,e);if(isNaN(r)||isNaN(a)){if(t[0]>=e)return t[0];var s=t[t.length-1];if(s<=e)return s}return Math.abs(e-r)<Math.abs(a-e)?r:a},snapFloor:function(t,e){return i(t,e)},snapCeiling:function(t,e){return n(t,e)},fixedBase:function(t,e){var i=e.toString(),n=i.indexOf(".");if(-1===n)return Math.round(t);var r=i.substr(n+1).length;return r>20&&(r=20),parseFloat(t.toFixed(r))}};t.exports=a},function(t,e,i){var n=i(17),r=i(16),a=function(t){function e(){return t.apply(this,arguments)||this}!function(t,e){t.prototype=Object.create(e.prototype),t.prototype.constructor=t,t.__proto__=e}(e,t);var i=e.prototype;return i._initDefaultCfg=function(){t.prototype._initDefaultCfg.call(this),this.isIdentity=!0,this.type="identity",this.value=null},i.getText=function(){return this.value.toString()},i.scale=function(t){return this.value!==t&&r(t)?t:this.range[0]},i.invert=function(){return this.value},e}(n);n.Identity=a,t.exports=a},function(t,e,i){var n=i(0),r=i(80),a=i(1),s=i(3).Shape,o=function(){function t(t){this.axisCfg={},this.frontPlot=null,this.backPlot=null,this.axes={},n.mix(this,t)}var e=t.prototype;return e._isHide=function(t){var e=this.axisCfg;return!e||!1===e[t]},e._getLinePosition=function(t,e,i,n){var r="",a=t.field,s=this.axisCfg;return s[a]&&s[a].position?r=s[a].position:"x"===e?r=n?"left":"bottom":"y"===e&&(r=i?"right":"left",n&&(r="bottom")),r},e._getLineCfg=function(t,e,i){var n,r,a=1;return"x"===e?(n={x:0,y:0},r={x:1,y:0}):"right"===i?(n={x:1,y:0},r={x:1,y:1}):(n={x:0,y:0},r={x:0,y:1},a=-1),t.transposed&&(a*=-1),{offsetFactor:a,start:t.convertPoint(n),end:t.convertPoint(r)}},e._getCircleCfg=function(t){return{startAngle:t.startAngle,endAngle:t.endAngle,center:t.center,radius:t.circleRadius}},e._getRadiusCfg=function(t){var e,i;return t.transposed?(e={x:0,y:0},i={x:1,y:0}):(e={x:0,y:0},i={x:0,y:1}),{offsetFactor:-1,start:t.convertPoint(e),end:t.convertPoint(i)}},e._getAxisCfg=function(t,e,i,r,o){var c=this,h=this.axisCfg,l=e.getTicks(),u=n.deepMix({ticks:l,frontContainer:this.frontPlot,backContainer:this.backPlot},o,h[e.field]),f=[],p=u.label,g=l.length,d=0,v=0,y=p;return n.each(l,function(t,e){if(n.isFunction(p)){var i=p(t.text,e,g);y=i?n.mix({},a._defaultAxis.label,i):null}if(y){var r={};y.textAlign&&(r.textAlign=y.textAlign),y.textBaseline&&(r.textBaseline=y.textBaseline);var o=new s.Text({className:"axis-label",attrs:n.mix({x:0,y:0,text:t.text,fontFamily:c.chart.get("canvas").get("fontFamily")},y),value:t.value,textStyle:r,top:y.top,context:c.chart.get("canvas").get("context")});f.push(o);var h=o.getBBox(),l=h.width,u=h.height;d=Math.max(d,l),v=Math.max(v,u)}}),u.labels=f,u.maxWidth=d,u.maxHeight=v,u},e._createAxis=function(t,e,i,n,r){void 0===r&&(r="");var s,o,c,h=t.type,l=t.transposed;if("cartesian"===h||"rect"===h){var u=this._getLinePosition(e,n,r,l);(c=a.axis[u]).position=u,s="Line",o=u}else"x"===n&&!l||"y"===n&&l?(c=a.axis.circle,s="Circle",o="circle"):(c=a.axis.radius,s="Line",o="radius");var f=this._getAxisCfg(t,e,i,n,c);f.type=s,f.dimType=n,f.verticalScale=i,f.index=r,this.axes[o]=f},e.createAxis=function(t,e,i){var a=this;e&&!a._isHide(e.field)&&a._createAxis(t,e,i[0],"x"),n.each(i,function(i,n){a._isHide(i.field)||a._createAxis(t,i,e,"y",n)});var s=this.axes,o=a.chart;if(o._isAutoPadding()){var c=n.parsePadding(o.get("padding")),h=n.parsePadding(o.get("appendPadding")),l=o.get("legendRange")||{top:0,right:0,bottom:0,left:0},u=["auto"===c[0]?l.top+2*h[0]:c[0],"auto"===c[1]?l.right+h[1]:c[1],"auto"===c[2]?l.bottom+h[2]:c[2],"auto"===c[3]?l.left+h[3]:c[3]];if(t.isPolar){var f=s.circle;if(f){var p=f.maxHeight,g=f.maxWidth,d=f.labelOffset;u[0]+=p+d,u[1]+=g+d,u[2]+=p+d,u[3]+=g+d}}else{if(s.right&&"auto"===c[1]){var v=s.right,y=v.maxWidth,m=v.labelOffset;u[1]+=y+m}if(s.left&&"auto"===c[3]){var x=s.left,_=x.maxWidth,S=x.labelOffset;u[3]+=_+S}if(s.bottom&&"auto"===c[2]){var b=s.bottom,C=b.maxHeight,P=b.labelOffset;u[2]+=C+P}}o.set("_padding",u),o._updateLayout(u)}n.each(s,function(e){var i,s=e.type,o=e.grid,c=e.verticalScale,h=e.ticks,l=e.dimType,u=e.position,f=e.index;if(t.isPolar?"Line"===s?i=a._getRadiusCfg(t):"Circle"===s&&(i=a._getCircleCfg(t)):i=a._getLineCfg(t,l,u),o&&c){var p=[],g=function(t){var e=t.slice(0);if(e.length>0){var i=e[0],n=e[e.length-1];0!==i.value&&e.unshift({value:0}),1!==n.value&&e.push({value:1})}return e}(c.getTicks());n.each(h,function(e){var i=[];n.each(g,function(n){var r="x"===l?e.value:n.value,a="x"===l?n.value:e.value;if(r>=0&&r<=1&&a>=0&&a<=1){var s=t.convertPoint({x:r,y:a});i.push(s)}}),p.push({points:i,_id:"axis-"+l+f+"-grid-"+e.tickValue})}),e.gridPoints=p,t.isPolar&&(e.center=t.center,e.startAngle=t.startAngle,e.endAngle=t.endAngle)}i._id="axis-"+l,n.isNil(f)||(i._id="axis-"+l+f),new r[s](n.mix(e,i))})},e.clear=function(){this.axes={},this.frontPlot.clear(),this.backPlot.clear()},t}();t.exports=o},function(t,e,i){var n=i(26);i(81),t.exports=n},function(t,e,i){var n=i(0),r=i(26),a=function(t){function e(){return t.apply(this,arguments)||this}!function(t,e){t.prototype=Object.create(e.prototype),t.prototype.constructor=t,t.__proto__=e}(e,t);var i=e.prototype;return i._initDefaultCfg=function(){t.prototype._initDefaultCfg.call(this),this.start=null,this.end=null},i.getOffsetPoint=function(t){var e=this.start,i=this.end;return{x:e.x+(i.x-e.x)*t,y:e.y+(i.y-e.y)*t}},i.getAxisVector=function(){var t=this.start,e=this.end;return[e.x-t.x,e.y-t.y]},i.drawLine=function(t){var e=this.getContainer(t.top),i=this.start,r=this.end;e.addShape("line",{className:"axis-line",attrs:n.mix({x1:i.x,y1:i.y,x2:r.x,y2:r.y},t)})},e}(r);r.Line=a,t.exports=a},function(t,e,i){var n=i(0),r=i(38),a=i(39),s=i(40).requestAnimationFrame,o=function(){function t(t){this._attrs=n.mix({type:"canvas",children:[]},t),this._initPixelRatio(),this._initCanvas()}var e=t.prototype;return e.get=function(t){return this._attrs[t]},e.set=function(t,e){this._attrs[t]=e},e._initPixelRatio=function(){this.get("pixelRatio")||this.set("pixelRatio",n.getPixelRatio())},e.beforeDraw=function(){var t=this._attrs.context,e=this._attrs.el;!n.isWx&&!n.isMy&&t&&t.clearRect(0,0,e.width,e.height)},e._initCanvas=function(){var t,e=this.get("el"),i=this.get("context");if(!(t=i?i.canvas:n.isString(e)?n.getDomById(e):e))throw new Error("Please specify the id or el of the chart!");i&&t&&!t.getContext&&(t.getContext=function(){return i});var r=this.get("width");r||(r=n.getWidth(t));var a=this.get("height");a||(a=n.getHeight(t)),this.set("canvas",this),this.set("el",t),this.set("context",i||t.getContext("2d")),this.changeSize(r,a)},e.changeSize=function(t,e){var i=this.get("pixelRatio"),r=this.get("el");if(n.isBrowser&&(r.style.width=t+"px",r.style.height=e+"px"),!n.isWx&&!n.isMy&&(r.width=t*i,r.height=e*i,1!==i)){this.get("context").scale(i,i)}this.set("width",t),this.set("height",e)},e.getWidth=function(){var t=this.get("pixelRatio");return this.get("width")*t},e.getHeight=function(){var t=this.get("pixelRatio");return this.get("height")*t},e.getPointByClient=function(t,e){var i=this.get("el"),n=i.getBoundingClientRect(),r=n.right-n.left,a=n.bottom-n.top;return{x:(t-n.left)*(i.width/r),y:(e-n.top)*(i.height/a)}},e._beginDraw=function(){this._attrs.toDraw=!0},e._endDraw=function(){this._attrs.toDraw=!1},e.draw=function(){function t(){e.set("animateHandler",s(function(){e.set("animateHandler",void 0),e.get("toDraw")&&t()})),e.beforeDraw();try{for(var i=e._attrs.context,r=e._attrs.children,a=0,o=r.length;a<o;a++){r[a].draw(i)}(n.isWx||n.isMy)&&i.draw()}catch(t){console.warn("error in draw canvas, detail as:"),console.warn(t),e._endDraw()}e._endDraw()}var e=this;e.get("destroyed")||(e.get("animateHandler")?this._beginDraw():t())},e.destroy=function(){this.get("destroyed")||(this.clear(),this._attrs={},this.set("destroyed",!0))},e.isDestroyed=function(){return this.get("destroyed")},t}();n.mix(o.prototype,r,{getGroupClass:function(){return a}}),t.exports=o},function(t,e,i){function n(t,e){r.each(t,function(t){t=t.split(":"),e.addColorStop(Number(t[0]),t[1])})}var r=i(0);t.exports={parseStyle:function(t,e,i){if("("===t[1])try{var r=t[0];if("l"===r)return function(t,e,i){var r=t.split(" "),a=r[0].slice(2,r[0].length-1);a=function(t,e){return(t%e+e)%e}(parseFloat(a)*Math.PI/180,2*Math.PI);var s,o,c=r.slice(1),h=e.getBBox(),l=h.minX,u=h.minY,f=h.maxX,p=h.maxY;a>=0&&a<.5*Math.PI?(s={x:l,y:u},o={x:f,y:p}):.5*Math.PI<=a&&a<Math.PI?(s={x:f,y:u},o={x:l,y:p}):Math.PI<=a&&a<1.5*Math.PI?(s={x:f,y:p},o={x:l,y:u}):(s={x:l,y:p},o={x:f,y:u});var g=Math.tan(a),d=g*g,v=(o.x-s.x+g*(o.y-s.y))/(d+1)+s.x,y=g*(o.x-s.x+g*(o.y-s.y))/(d+1)+s.y,m=i.createLinearGradient(s.x,s.y,v,y);return n(c,m),m}(t,e,i);if("r"===r)return function(t,e,i){var r=t.split(" "),a=r[0].slice(2,r[0].length-1);a=a.split(",");var s=parseFloat(a[0]),o=parseFloat(a[1]),c=parseFloat(a[2]),h=r.slice(1);if(0===c)return h[h.length-1].split(":")[1];var l=e.getBBox(),u=l.width,f=l.height,p=l.minX,g=l.minY,d=Math.sqrt(u*u+f*f)/2,v=i.createRadialGradient(p+u*s,g+f*o,c*d,p+u/2,g+f/2,d);return n(h,v),v}(t,e,i)}catch(t){console.error("error in parsing gradient string, please check if there are any extra whitespaces."),console.error(t)}return t}}},function(t,e,i){var n=i(0),r=i(2),a=function(t){function e(){return t.apply(this,arguments)||this}!function(t,e){t.prototype=Object.create(e.prototype),t.prototype.constructor=t,t.__proto__=e}(e,t);var i=e.prototype;return i._initProperties=function(){t.prototype._initProperties.call(this),this._attrs.canFill=!0,this._attrs.canStroke=!0,this._attrs.type="rect"},i.getDefaultAttrs=function(){return{x:0,y:0,width:0,height:0,radius:0,lineWidth:0}},i.createPath=function(t){var e=this.get("attrs"),i=e.x,r=e.y,a=e.width,s=e.height;t.beginPath();var o=e.radius;o&&a*s?(o=n.parsePadding(o),t.moveTo(i+o[0],r),t.lineTo(i+a-o[1],r),t.arc(i+a-o[1],r+o[1],o[1],-Math.PI/2,0,!1),t.lineTo(i+a,r+s-o[2]),t.arc(i+a-o[2],r+s-o[2],o[2],0,Math.PI/2,!1),t.lineTo(i+o[3],r+s),t.arc(i+o[3],r+s-o[3],o[3],Math.PI/2,Math.PI,!1),t.lineTo(i,r+o[0]),t.arc(i+o[0],r+o[0],o[0],Math.PI,3*Math.PI/2,!1),t.closePath()):t.rect(i,r,a,s)},i.calculateBox=function(){var t=this.get("attrs"),e=t.x,i=t.y;return{minX:e,minY:i,maxX:e+t.width,maxY:i+t.height}},e}(r);r.Rect=a,t.exports=a},function(t,e,i){var n=i(2),r=function(t){function e(){return t.apply(this,arguments)||this}!function(t,e){t.prototype=Object.create(e.prototype),t.prototype.constructor=t,t.__proto__=e}(e,t);var i=e.prototype;return i._initProperties=function(){t.prototype._initProperties.call(this),this._attrs.canFill=!0,this._attrs.canStroke=!0,this._attrs.type="circle"},i.getDefaultAttrs=function(){return{x:0,y:0,r:0,lineWidth:0}},i.createPath=function(t){var e=this.get("attrs"),i=e.x,n=e.y,r=e.r;t.beginPath(),t.arc(i,n,r,0,2*Math.PI,!1),t.closePath()},i.calculateBox=function(){var t=this.get("attrs"),e=t.x,i=t.y,n=t.r;return{minX:e-n,maxX:e+n,minY:i-n,maxY:i+n}},e}(n);n.Circle=r,t.exports=r},function(t,e,i){var n=i(2),r=i(14),a=function(t){function e(){return t.apply(this,arguments)||this}!function(t,e){t.prototype=Object.create(e.prototype),t.prototype.constructor=t,t.__proto__=e}(e,t);var i=e.prototype;return i._initProperties=function(){t.prototype._initProperties.call(this),this._attrs.canStroke=!0,this._attrs.type="line"},i.getDefaultAttrs=function(){return{x1:0,y1:0,x2:0,y2:0,lineWidth:1}},i.createPath=function(t){var e=this.get("attrs"),i=e.x1,n=e.y1,r=e.x2,a=e.y2;t.beginPath(),t.moveTo(i,n),t.lineTo(r,a)},i.calculateBox=function(){var t=this.get("attrs"),e=t.x1,i=t.y1,n=t.x2,a=t.y2,s=t.lineWidth;return r.getBBoxFromLine(e,i,n,a,s)},e}(n);n.Line=a,t.exports=a},function(t,e,i){var n=i(2),r=i(14),a=function(t){function e(){return t.apply(this,arguments)||this}!function(t,e){t.prototype=Object.create(e.prototype),t.prototype.constructor=t,t.__proto__=e}(e,t);var i=e.prototype;return i._initProperties=function(){t.prototype._initProperties.call(this),this._attrs.canFill=!0,this._attrs.canStroke=!0,this._attrs.type="polygon"},i.getDefaultAttrs=function(){return{points:null,lineWidth:0}},i.createPath=function(t){var e=this.get("attrs").points;t.beginPath();for(var i=0,n=e.length;i<n;i++){var r=e[i];0===i?t.moveTo(r.x,r.y):t.lineTo(r.x,r.y)}t.closePath()},i.calculateBox=function(){var t=this.get("attrs").points;return r.getBBoxFromPoints(t)},e}(n);n.Polygon=a,t.exports=a},function(t,e,i){var n=i(2),r=i(41),a=i(14),s=function(t){function e(){return t.apply(this,arguments)||this}!function(t,e){t.prototype=Object.create(e.prototype),t.prototype.constructor=t,t.__proto__=e}(e,t);var i=e.prototype;return i._initProperties=function(){t.prototype._initProperties.call(this),this._attrs.canFill=!0,this._attrs.canStroke=!0,this._attrs.type="polyline"},i.getDefaultAttrs=function(){return{points:null,lineWidth:1,smooth:!1}},i.createPath=function(t){for(var e=this.get("attrs"),i=e.points,n=e.smooth,a=[],s=0,o=i.length;s<o;s++){var c=i[s];isNaN(c.x)||isNaN(c.y)||a.push(c)}if(t.beginPath(),a.length)if(t.moveTo(a[0].x,a[0].y),n)for(var h=r.smooth(a,!1,[[0,0],[1,1]]),l=0,u=h.length;l<u;l++){var f=h[l];t.bezierCurveTo(f[1],f[2],f[3],f[4],f[5],f[6])}else{var p,g;for(p=1,g=a.length-1;p<g;p++)t.lineTo(a[p].x,a[p].y);t.lineTo(a[g].x,a[g].y)}},i.calculateBox=function(){var t=this.get("attrs"),e=t.points,i=t.smooth,n=t.lineWidth;if(i){for(var s=[],o=r.smooth(e,!1,[[0,0],[1,1]]),c=0,h=o.length;c<h;c++){var l=o[c];if(0===c)s.push([e[0].x,e[0].y,l[1],l[2],l[3],l[4],l[5],l[6]]);else{var u=o[c-1];s.push([u[5],u[6],l[1],l[2],l[3],l[4],l[5],l[6]])}}return a.getBBoxFromBezierGroup(s,n)}return a.getBBoxFromPoints(e,n)},e}(n);n.Polyline=s,t.exports=s},function(t,e,i){var n=i(2),r=i(14),a=function(t){function e(){return t.apply(this,arguments)||this}!function(t,e){t.prototype=Object.create(e.prototype),t.prototype.constructor=t,t.__proto__=e}(e,t);var i=e.prototype;return i._initProperties=function(){t.prototype._initProperties.call(this),this._attrs.canStroke=!0,this._attrs.canFill=!0,this._attrs.type="arc"},i.getDefaultAttrs=function(){return{x:0,y:0,r:0,startAngle:0,endAngle:2*Math.PI,clockwise:!1,lineWidth:1}},i.createPath=function(t){var e=this.get("attrs"),i=e.x,n=e.y,r=e.r,a=e.startAngle,s=e.endAngle,o=e.clockwise;t.beginPath(),t.arc(i,n,r,a,s,o)},i.calculateBox=function(){var t=this.get("attrs"),e=t.x,i=t.y,n=t.r,a=t.startAngle,s=t.endAngle,o=t.clockwise;return r.getBBoxFromArc(e,i,n,a,s,o)},e}(n);n.Arc=a,t.exports=a},function(t,e,i){var n=i(2),r=i(14),a=function(t){function e(){return t.apply(this,arguments)||this}!function(t,e){t.prototype=Object.create(e.prototype),t.prototype.constructor=t,t.__proto__=e}(e,t);var i=e.prototype;return i._initProperties=function(){t.prototype._initProperties.call(this),this._attrs.canFill=!0,this._attrs.canStroke=!0,this._attrs.type="sector"},i.getDefaultAttrs=function(){return{x:0,y:0,lineWidth:0,r:0,r0:0,startAngle:0,endAngle:2*Math.PI,clockwise:!1}},i.createPath=function(t){var e=this.get("attrs"),i=e.x,n=e.y,r=e.startAngle,a=e.endAngle,s=e.r,o=e.r0,c=e.clockwise;t.beginPath();var h=Math.cos(r),l=Math.sin(r);t.moveTo(h*o+i,l*o+n),t.lineTo(h*s+i,l*s+n),t.arc(i,n,s,r,a,c),t.lineTo(Math.cos(a)*o+i,Math.sin(a)*o+n),0!==o&&t.arc(i,n,o,a,r,!c),t.closePath()},i.calculateBox=function(){var t=this.get("attrs"),e=t.x,i=t.y,n=t.r,a=t.r0,s=t.startAngle,o=t.endAngle,c=t.clockwise,h=r.getBBoxFromArc(e,i,n,s,o,c),l=r.getBBoxFromArc(e,i,a,s,o,c);return{minX:Math.min(h.minX,l.minX),minY:Math.min(h.minY,l.minY),maxX:Math.max(h.maxX,l.maxX),maxY:Math.max(h.maxY,l.maxY)}},e}(n);n.Sector=a,t.exports=a},function(t,e,i){var n=i(0),r=i(2),a=0,s={},o=function(t){function e(){return t.apply(this,arguments)||this}!function(t,e){t.prototype=Object.create(e.prototype),t.prototype.constructor=t,t.__proto__=e}(e,t);var i=e.prototype;return i._initProperties=function(){t.prototype._initProperties.call(this),this._attrs.canFill=!0,this._attrs.canStroke=!0,this._attrs.type="text"},i.getDefaultAttrs=function(){return{lineWidth:0,lineCount:1,fontSize:12,fontFamily:"sans-serif",fontStyle:"normal",fontWeight:"normal",fontVariant:"normal",textAlign:"start",textBaseline:"bottom",lineHeight:null,textArr:null}},i._getFontStyle=function(){var t=this._attrs.attrs,e=t.fontSize,i=t.fontFamily,n=t.fontWeight;return t.fontStyle+" "+t.fontVariant+" "+n+" "+e+"px "+i},i._afterAttrsSet=function(){var t=this._attrs.attrs;if(t.font=this._getFontStyle(),t.text){var e=t.text,i=null,r=1;n.isString(e)&&-1!==e.indexOf("\n")&&(r=(i=e.split("\n")).length),t.lineCount=r,t.textArr=i}this.set("attrs",t)},i._getTextHeight=function(){var t=this._attrs.attrs;if(t.height)return t.height;var e=t.lineCount,i=1*t.fontSize;if(e>1){return i*e+this._getSpaceingY()*(e-1)}return i},i._getSpaceingY=function(){var t=this._attrs.attrs,e=t.lineHeight,i=1*t.fontSize;return e?e-i:.14*i},i.drawInner=function(t){var e=this._attrs.attrs,i=e.text,r=e.x,a=e.y;if(!(n.isNil(i)||isNaN(r)||isNaN(a))){var s=e.textArr,o=1*e.fontSize,c=this._getSpaceingY();e.rotate&&(t.translate(r,a),t.rotate(e.rotate),r=0,a=0);var h,l=e.textBaseline;s&&(h=this._getTextHeight());var u;if(this.hasFill()){var f=e.fillOpacity;if(n.isNil(f)||1===f||(t.globalAlpha=f),s)for(var p=0,g=s.length;p<g;p++){var d=s[p];u=a+p*(c+o)-h+o,"middle"===l&&(u+=h-o-(h-o)/2),"top"===l&&(u+=h-o),t.fillText(d,r,u)}else t.fillText(i,r,a)}if(this.hasStroke())if(s)for(var v=0,y=s.length;v<y;v++){var m=s[v];u=a+v*(c+o)-h+o,"middle"===l&&(u+=h-o-(h-o)/2),"top"===l&&(u+=h-o),t.strokeText(m,r,u)}else t.strokeText(i,r,a)}},i.calculateBox=function(){var t=this._attrs.attrs,e=t.x,i=t.y,n=t.textAlign,r=t.textBaseline,a=this._getTextWidth();if(!a)return{minX:e,minY:i,maxX:e,maxY:i};var s=this._getTextHeight(),o={x:e,y:i-s};return n&&("end"===n||"right"===n?o.x-=a:"center"===n&&(o.x-=a/2)),r&&("top"===r?o.y+=s:"middle"===r&&(o.y+=s/2)),{minX:o.x,minY:o.y,maxX:o.x+a,maxY:o.y+s}},i._getTextWidth=function(){var t=this._attrs.attrs;if(t.width)return t.width;var e=t.text,i=this.get("context");if(!n.isNil(e)){var r=t.font,o=t.textArr,c=e+""+r;if(s[c])return s[c];var h=0;if(o)for(var l=0,u=o.length;l<u;l++){var f=o[l];h=Math.max(h,n.measureText(f,r,i).width)}else h=n.measureText(e,r,i).width;return a>5e3&&(a=0,s={}),a++,s[c]=h,h}},e}(r);r.Text=o,t.exports=o},function(t,e,i){var n=i(2),r=function(t){function e(){return t.apply(this,arguments)||this}!function(t,e){t.prototype=Object.create(e.prototype),t.prototype.constructor=t,t.__proto__=e}(e,t);var i=e.prototype;return i._initProperties=function(){t.prototype._initProperties.call(this),this._attrs.canFill=!0,this._attrs.canStroke=!0,this._attrs.createPath=null,this._attrs.type="custom"},i.createPath=function(t){var e=this.get("createPath");e&&e.call(this,t)},i.calculateBox=function(){var t=this.get("calculateBox");return t&&t.call(this)},e}(n);n.Custom=r,t.exports=r},function(t,e,i){var n=i(1),r=i(0);setTimeout(function(){if(n.trackable&&r.isBrowser){var t=new Image,e={pg:document.URL,r:(new Date).getTime(),f2:!0,version:n.version,page_type:"syslog"},i=encodeURIComponent(JSON.stringify([e]));t.src="https://kcart.alipay.com/web/bi.do?BIProfile=merge&d="+i}},3e3)},function(t,e,i){var n=i(5);i(95),i(42),i(97),i(98),i(100),i(102),i(104),t.exports=n},function(t,e,i){var n=i(0),r=i(5);i(96);var a=function(t){function e(){return t.apply(this,arguments)||this}!function(t,e){t.prototype=Object.create(e.prototype),t.prototype.constructor=t,t.__proto__=e}(e,t);var i=e.prototype;return i.getDefaultCfg=function(){var e=t.prototype.getDefaultCfg.call(this);return e.type="point",e.shapeType="point",e.generatePoints=!0,e},i.draw=function(t,e){var i=this,r=i.get("container");n.each(t,function(t){var a=t.shape,s=i.getDrawCfg(t);if(n.isArray(t.y)){var o=i.hasAdjust("stack");n.each(t.y,function(n,c){s.y=n,o&&0===c||i.drawShape(a,t,s,r,e)})}else n.isNil(t.y)||i.drawShape(a,t,s,r,e)})},e}(r);r.Point=a,t.exports=a},function(t,e,i){function n(t,e,i){if(0!==t.size){var n=function(t){var e={lineWidth:0,stroke:t.color,fill:t.color};return t.size&&(e.size=t.size),r.mix(e,t.style),r.mix({},a.shape.point,e)}(t),s=n.r||n.size,o=t.x,c=r.isArray(t.y)?t.y:[t.y];"hollowCircle"===i&&(n.lineWidth=1,n.fill=null);for(var h=0,l=c.length;h<l;h++)return"rect"===i?e.addShape("Rect",{className:"point",attrs:r.mix({x:o-s,y:c[h]-s,width:2*s,height:2*s},n)}):e.addShape("Circle",{className:"point",attrs:r.mix({x:o,y:c[h],r:s},n)})}}var r=i(0),a=i(1),s=i(22),o=i(8),c=o.registerFactory("point",{defaultShapeType:"circle",getDefaultPoints:function(t){return s.splitPoints(t)}});r.each(["circle","hollowCircle","rect"],function(t){o.registerShape("point",t,{draw:function(e,i){return n(e,i,t)}})}),t.exports=c},function(t,e,i){var n=i(42),r=i(5);i(43);var a=function(t){function e(){return t.apply(this,arguments)||this}!function(t,e){t.prototype=Object.create(e.prototype),t.prototype.constructor=t,t.__proto__=e}(e,t);return e.prototype.getDefaultCfg=function(){var e=t.prototype.getDefaultCfg.call(this);return e.type="line",e.sortable=!0,e},e}(n);r.Line=a,t.exports=a},function(t,e,i){var n=i(5),r=i(22),a=i(0);i(99);var s=function(t){function e(){return t.apply(this,arguments)||this}!function(t,e){t.prototype=Object.create(e.prototype),t.prototype.constructor=t,t.__proto__=e}(e,t);var i=e.prototype;return i.getDefaultCfg=function(){var e=t.prototype.getDefaultCfg.call(this);return e.type="area",e.shapeType="area",e.generatePoints=!0,e.sortable=!0,e},i.draw=function(t,e){var i=this,n=i.get("container"),s=this.getDrawCfg(t[0]),o=i.getYScale(),c=i.get("connectNulls"),h=r.splitArray(t,o.field,c);s.origin=t,a.each(h,function(r,a){s.splitedIndex=a;var o=r.map(function(t){return t.points});s.points=o,i.drawShape(s.shape,t[0],s,n,e)})},e}(n);n.Area=s,t.exports=s},function(t,e,i){function n(t,e){return Math.abs(t-e)<1e-5}function r(t){return!isNaN(t)&&!o.isNil(t)}function a(t){for(var e=[],i=0,n=t.length;i<n;i++){var a=t[i];r(a.x)&&r(a.y)&&e.push(a)}return e}function s(t,e,i){var r=t.points,s=[],c=[];o.each(r,function(t){c.push(t[0]),s.push(t[1])});var f=o.mix({fillStyle:t.color},u.shape.area,t.style);return c.reverse(),s=this.parsePoints(s),c=this.parsePoints(c),t.isInCircle&&(s.push(s[0]),c.unshift(c[c.length-1]),function(t,e){var i=!0;return o.each(t,function(t){if(!n(t.x,e.x)||!n(t.y,e.y))return i=!1,!1}),i}(c,t.center)&&(c=[])),function(t,e,i,n,r){var s=t.concat(e);return r?i.addShape("Custom",{className:"area",attrs:o.mix({points:s},n),createPath:function(t){var e=[[0,0],[1,1]],i=a(this._attrs.attrs.points),n=i.length,r=i.slice(0,n/2),s=i.slice(n/2,n),o=h.smooth(r,!1,e);t.beginPath(),t.moveTo(r[0].x,r[0].y);for(var c=0,l=o.length;c<l;c++){var u=o[c];t.bezierCurveTo(u[1],u[2],u[3],u[4],u[5],u[6])}if(s.length){var f=h.smooth(s,!1,e);t.lineTo(s[0].x,s[0].y);for(var p=0,g=f.length;p<g;p++){var d=f[p];t.bezierCurveTo(d[1],d[2],d[3],d[4],d[5],d[6])}}t.closePath()},calculateBox:function(){var t=a(this._attrs.attrs.points);return l.getBBoxFromPoints(t)}}):i.addShape("Polyline",{className:"area",attrs:o.mix({points:s},n)})}(s,c,e,f,i)}var o=i(0),c=i(8),h=i(41),l=i(14),u=i(1),f=c.registerFactory("area",{defaultShapeType:"area",getDefaultPoints:function(t){var e=t.x,i=t.y,n=t.y0;i=o.isArray(i)?i:[n,i];var r=[];return r.push({x:e,y:i[0]},{x:e,y:i[1]}),r}});o.each(["area","smooth"],function(t){c.registerShape("area",t,{draw:function(e,i){return s.call(this,e,i,"smooth"===t)}})}),t.exports=f},function(t,e,i){function n(t){if(void 0===t)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return t}var r=i(5),a=i(0),s=i(44);i(101);var o=function(t){function e(e){var i;return i=t.call(this,e)||this,a.mix(n(n(i)),s),i}!function(t,e){t.prototype=Object.create(e.prototype),t.prototype.constructor=t,t.__proto__=e}(e,t);var i=e.prototype;return i.getDefaultCfg=function(){var e=t.prototype.getDefaultCfg.call(this);return e.type="interval",e.shapeType="interval",e.generatePoints=!0,e},i.createShapePointsCfg=function(e){var i=t.prototype.createShapePointsCfg.call(this,e);return i.size=this.getNormalizedSize(e),i},i.clearInner=function(){t.prototype.clearInner.call(this),this.set("defaultSize",null)},e}(r);r.Interval=o,t.exports=o},function(t,e,i){var n=i(0),r=i(8),a=i(9),s=i(1),o=r.registerFactory("interval",{defaultShapeType:"rect",getDefaultPoints:function(t){return function(t){var e=t.x,i=t.y,r=t.y0,a=t.size,s=r,o=i;n.isArray(i)&&(o=i[1],s=i[0]);var c,h;return n.isArray(e)?(c=e[0],h=e[1]):(c=e-a/2,h=e+a/2),[{x:c,y:s},{x:c,y:o},{x:h,y:o},{x:h,y:s}]}(t)}});r.registerShape("interval","rect",{draw:function(t,e){var i=this.parsePoints(t.points),r=n.mix({fill:t.color},s.shape.interval,t.style);if(t.isInCircle){var o=i.slice(0);this._coord.transposed&&(o=[i[0],i[3],i[2],i[1]]);var c=t.center,h=c.x,l=c.y,u=[1,0],f=[o[0].x-h,o[0].y-l],p=[o[1].x-h,o[1].y-l],g=[o[2].x-h,o[2].y-l],d=a.angleTo(u,p),v=a.angleTo(u,g),y=a.length(f),m=a.length(p);return d>=1.5*Math.PI&&(d-=2*Math.PI),v>=1.5*Math.PI&&(v-=2*Math.PI),e.addShape("Sector",{className:"interval",attrs:n.mix({x:h,y:l,r:m,r0:y,startAngle:d,endAngle:v},r)})}var x=function(t){for(var e=[],i=[],n=0,r=t.length;n<r;n++){var a=t[n];e.push(a.x),i.push(a.y)}var s=Math.min.apply(null,e),o=Math.min.apply(null,i);return{x:s,y:o,width:Math.max.apply(null,e)-s,height:Math.max.apply(null,i)-o}}(i);return e.addShape("rect",{className:"interval",attrs:n.mix(x,r)})}}),t.exports=o},function(t,e,i){var n=i(5),r=i(0);i(103);var a=function(t){function e(){return t.apply(this,arguments)||this}!function(t,e){t.prototype=Object.create(e.prototype),t.prototype.constructor=t,t.__proto__=e}(e,t);var i=e.prototype;return i.getDefaultCfg=function(){var e=t.prototype.getDefaultCfg.call(this);return e.type="polygon",e.shapeType="polygon",e.generatePoints=!0,e},i.createShapePointsCfg=function(e){var i,n=t.prototype.createShapePointsCfg.call(this,e),a=n.x,s=n.y;if(!r.isArray(a)||!r.isArray(s)){var o=this.getXScale(),c=this.getYScale(),h=.5/(o.values?o.values.length:o.ticks.length),l=.5/(c.values?c.values.length:c.ticks.length);o.isCategory&&c.isCategory?(a=[a-h,a-h,a+h,a+h],s=[s-l,s+l,s+l,s-l]):r.isArray(a)?(a=[(i=a)[0],i[0],i[1],i[1]],s=[s-l/2,s+l/2,s+l/2,s-l/2]):r.isArray(s)&&(s=[(i=s)[0],i[1],i[1],i[0]],a=[a-h/2,a-h/2,a+h/2,a+h/2]),n.x=a,n.y=s}return n},e}(n);n.Polygon=a,t.exports=a},function(t,e,i){var n=i(8),r=i(0),a=n.registerFactory("polygon",{defaultShapeType:"polygon",getDefaultPoints:function(t){for(var e=[],i=t.x,n=t.y,r=0,a=i.length;r<a;r++)e.push({x:i[r],y:n[r]});return e}});n.registerShape("polygon","polygon",{draw:function(t,e){var i=this.parsePoints(t.points),n=r.mix({fill:t.color,points:i},t.style);return e.addShape("Polygon",{className:"polygon",attrs:n})}}),t.exports=a},function(t,e,i){function n(t){if(void 0===t)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return t}var r=i(5),a=i(0),s=i(44);i(105);var o=function(t){function e(e){var i;return i=t.call(this,e)||this,a.mix(n(n(i)),s),i}!function(t,e){t.prototype=Object.create(e.prototype),t.prototype.constructor=t,t.__proto__=e}(e,t);var i=e.prototype;return i.getDefaultCfg=function(){var e=t.prototype.getDefaultCfg.call(this);return e.type="schema",e.shapeType="schema",e.generatePoints=!0,e},i.createShapePointsCfg=function(e){var i=t.prototype.createShapePointsCfg.call(this,e);return i.size=this.getNormalizedSize(e),i},i.clearInner=function(){t.prototype.clearInner.call(this),this.set("defaultSize",null)},e}(r);r.Schema=o,t.exports=o},function(t,e,i){var n=i(8),r=i(0),a=n.registerFactory("schema",{});n.registerShape("schema","candle",{getPoints:function(t){return function(t,e,i){var n=function(t){var i=e.sort(function(t,e){return t<e?1:-1}),n=i.length;if(n<4)for(var r=i[n-1],a=0;a<4-n;a++)i.push(r);return i}();return[{x:t,y:n[0]},{x:t,y:n[1]},{x:t-i/2,y:n[2]},{x:t-i/2,y:n[1]},{x:t+i/2,y:n[1]},{x:t+i/2,y:n[2]},{x:t,y:n[2]},{x:t,y:n[3]}]}(t.x,t.y,t.size)},draw:function(t,e){var i=this.parsePoints(t.points),n=r.mix({stroke:t.color,fill:t.color,lineWidth:1},t.style);return e.addShape("Custom",{className:"schema",attrs:n,createPath:function(t){t.beginPath(),t.moveTo(i[0].x,i[0].y),t.lineTo(i[1].x,i[1].y),t.moveTo(i[2].x,i[2].y);for(var e=3;e<6;e++)t.lineTo(i[e].x,i[e].y);t.closePath(),t.moveTo(i[6].x,i[6].y),t.lineTo(i[7].x,i[7].y)}})}}),t.exports=a},function(t,e,i){t.exports={Stack:i(107),Dodge:i(109)}},function(t,e,i){var n=i(108);t.exports=n},function(t,e,i){var n=i(13),r=i(10),a=i(25),s=function(t){function e(){return t.apply(this,arguments)||this}!function(t,e){t.prototype=Object.create(e.prototype),t.prototype.constructor=t,t.__proto__=e}(e,t);var i=e.prototype;return i._initDefaultCfg=function(){this.xField=null,this.yField=null},i.processAdjust=function(t){this.processStack(t)},i.processStack=function(t){var e=this.xField,i=this.yField,a=t.length,s={positive:{},negative:{}};this.reverseOrder&&(t=t.slice(0).reverse());for(var o=0;o<a;o++)for(var c=t[o],h=0,l=c.length;h<l;h++){var u=c[h],f=u[e]||0,p=u[i],g=f.toString();if(p=n(p)?p[1]:p,!r(p)){var d=p>=0?"positive":"negative";s[d][g]||(s[d][g]=0),u[i]=[s[d][g],p+s[d][g]],s[d][g]+=p}}},e}(a);a.Stack=s,t.exports=s},function(t,e,i){var n=i(110);t.exports=n},function(t,e,i){var n=i(25),r=i(4),a=function(t){function e(){return t.apply(this,arguments)||this}!function(t,e){t.prototype=Object.create(e.prototype),t.prototype.constructor=t,t.__proto__=e}(e,t);var i=e.prototype;return i._initDefaultCfg=function(){this.marginRatio=.5,this.dodgeRatio=.5,this.adjustNames=["x","y"]},i.getDodgeOffset=function(t,e,i){var n=t.pre,r=t.next,a=r-n,s=a*this.dodgeRatio/i,o=this.marginRatio*s;return(n+r)/2+(.5*(a-i*s-(i-1)*o)+((e+1)*s+e*o)-.5*s-.5*a)},i.processAdjust=function(t){var e=this,i=t.length,n=e.xField;r(t,function(t,r){for(var a=0,s=t.length;a<s;a++){var o=t[a],c=o[n],h={pre:c-.5,next:c+.5},l=e.getDodgeOffset(h,r,i);o[n]=l}})},e}(n);n.Dodge=a,t.exports=a},function(t,e,i){var n=i(24),r=i(9),a=i(28),s=function(t){function e(){return t.apply(this,arguments)||this}!function(t,e){t.prototype=Object.create(e.prototype),t.prototype.constructor=t,t.__proto__=e}(e,t);var i=e.prototype;return i._initDefaultCfg=function(){this.type="polar",this.startAngle=-Math.PI/2,this.endAngle=3*Math.PI/2,this.inner=0,this.innerRadius=0,this.isPolar=!0,this.transposed=!1,this.center=null,this.radius=null},i.init=function(t,e){var i,n,r=this.inner||this.innerRadius,a=Math.abs(e.x-t.x),s=Math.abs(e.y-t.y);this.startAngle===-Math.PI&&0===this.endAngle?(i=Math.min(a/2,s),n={x:(t.x+e.x)/2,y:t.y}):(i=Math.min(a,s)/2,n={x:(t.x+e.x)/2,y:(t.y+e.y)/2});var o=this.radius;o>0&&o<=1&&(i*=o),this.x={start:this.startAngle,end:this.endAngle},this.y={start:i*r,end:i},this.center=n,this.circleRadius=i},i.convertPoint=function(t){var e=this.center,i=this.transposed,n=i?"y":"x",r=i?"x":"y",a=this.x,s=this.y,o=a.start+(a.end-a.start)*t[n],c=s.start+(s.end-s.start)*t[r];return{x:e.x+Math.cos(o)*c,y:e.y+Math.sin(o)*c}},i.invertPoint=function(t){var e=this.center,i=this.transposed,n=this.x,s=this.y,o=i?"y":"x",c=i?"x":"y",h=[1,0,0,1,0,0];a.rotate(h,h,n.start);var l=[1,0];r.transformMat2d(l,l,h),l=[l[0],l[1]];var u=[t.x-e.x,t.y-e.y];if(r.zero(u))return{x:0,y:0};var f=r.angleTo(l,u,n.end<n.start);Math.abs(f-2*Math.PI)<.001&&(f=0);var p=r.length(u),g=f/(n.end-n.start);g=n.end-n.start>0?g:-g;var d=(p-s.start)/(s.end-s.start),v={};return v[o]=g,v[c]=d,v},e}(n);n.Polar=s,t.exports=s},function(t,e,i){var n=i(0),r=i(26),a=function(t){function e(){return t.apply(this,arguments)||this}!function(t,e){t.prototype=Object.create(e.prototype),t.prototype.constructor=t,t.__proto__=e}(e,t);var i=e.prototype;return i._initDefaultCfg=function(){t.prototype._initDefaultCfg.call(this),this.startAngle=-Math.PI/2,this.endAngle=3*Math.PI/2,this.radius=null,this.center=null},i.getOffsetPoint=function(t){var e=this.startAngle,i=e+(this.endAngle-e)*t;return this._getCirclePoint(i)},i._getCirclePoint=function(t,e){var i=this.center;return e=e||this.radius,{x:i.x+Math.cos(t)*e,y:i.y+Math.sin(t)*e}},i.getTextAlignInfo=function(t,e){var i,n=this.getOffsetVector(t,e),r="middle";return n[0]>0?i="left":n[0]<0?i="right":(i="center",n[1]>0?r="top":n[1]<0&&(r="bottom")),{textAlign:i,textBaseline:r}},i.getAxisVector=function(t){var e=this.center,i=this.offsetFactor;return[(t.y-e.y)*i,-1*(t.x-e.x)*i]},i.drawLine=function(t){var e=this.center,i=this.radius,r=this.startAngle,a=this.endAngle;this.getContainer(t.top).addShape("arc",{className:"axis-line",attrs:n.mix({x:e.x,y:e.y,r:i,startAngle:r,endAngle:a},t)})},e}(r);r.Circle=a,t.exports=a},function(t,e,i){var n=i(114);t.exports=n},function(t,e,i){var n=i(17),r=i(36),a=i(115),s=i(37),o=i(29),c=i(4),h=i(16),l=i(18),u=i(15),f=function(t){function e(){return t.apply(this,arguments)||this}!function(t,e){t.prototype=Object.create(e.prototype),t.prototype.constructor=t,t.__proto__=e}(e,t);var i=e.prototype;return i._initDefaultCfg=function(){t.prototype._initDefaultCfg.call(this),this.type="timeCat",this.sortable=!0,this.tickCount=5,this.mask="YYYY-MM-DD"},i.init=function(){var t=this,e=this.values;c(e,function(i,n){e[n]=t._toTimeStamp(i)}),this.sortable&&e.sort(function(t,e){return t-e}),t.ticks||(t.ticks=this.calculateTicks())},i.calculateTicks=function(){var t,e=this.tickCount;if(e){t=s({maxCount:e,data:this.values,isRounding:this.isRounding}).ticks}else t=this.values;return t},i.translate=function(t){t=this._toTimeStamp(t);var e=this.values.indexOf(t);return-1===e&&(e=h(t)&&t<this.values.length?t:NaN),e},i.scale=function(t){var e,i=this.rangeMin(),n=this.rangeMax(),r=this.translate(t);return e=1===this.values.length||isNaN(r)?r:r>-1?r/(this.values.length-1):0,i+e*(n-i)},i.getText=function(t){var e="",i=this.translate(t);e=i>-1?this.values[i]:t;var n=this.formatter;return e=parseInt(e,10),e=n?n(e):a.format(e,this.mask)},i.getTicks=function(){var t=this,e=this.ticks,i=[];return c(e,function(e){var n;n=l(e)?e:{text:u(e)?e:t.getText(e),value:t.scale(e),tickValue:e},i.push(n)}),i},i._toTimeStamp=function(t){return o.toTimeStamp(t)},e}(r);n.TimeCat=f,t.exports=f},function(t,e,i){var n;!function(r){"use strict";function a(t,e){for(var i=[],n=0,r=t.length;n<r;n++)i.push(t[n].substr(0,e));return i}function s(t){return function(e,i,n){var r=n[t].indexOf(i.charAt(0).toUpperCase()+i.substr(1).toLowerCase());~r&&(e.month=r)}}function o(t,e){for(t=String(t),e=e||2;t.length<e;)t="0"+t;return t}var c={},h=/d{1,4}|M{1,4}|YY(?:YY)?|S{1,3}|Do|ZZ|([HhMsDm])\1?|[aA]|"[^"]*"|'[^']*'/g,l=/\d\d?/,u=/[0-9]*['a-z\u00A0-\u05FF\u0700-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+|[\u0600-\u06FF\/]+(\s*?[\u0600-\u06FF]+){1,2}/i,f=/\[([^]*?)\]/gm,p=function(){},g=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],d=["January","February","March","April","May","June","July","August","September","October","November","December"],v=a(d,3),y=a(g,3);c.i18n={dayNamesShort:y,dayNames:g,monthNamesShort:v,monthNames:d,amPm:["am","pm"],DoFn:function(t){return t+["th","st","nd","rd"][t%10>3?0:(t-t%10!=10)*t%10]}};var m={D:function(t){return t.getDate()},DD:function(t){return o(t.getDate())},Do:function(t,e){return e.DoFn(t.getDate())},d:function(t){return t.getDay()},dd:function(t){return o(t.getDay())},ddd:function(t,e){return e.dayNamesShort[t.getDay()]},dddd:function(t,e){return e.dayNames[t.getDay()]},M:function(t){return t.getMonth()+1},MM:function(t){return o(t.getMonth()+1)},MMM:function(t,e){return e.monthNamesShort[t.getMonth()]},MMMM:function(t,e){return e.monthNames[t.getMonth()]},YY:function(t){return String(t.getFullYear()).substr(2)},YYYY:function(t){return o(t.getFullYear(),4)},h:function(t){return t.getHours()%12||12},hh:function(t){return o(t.getHours()%12||12)},H:function(t){return t.getHours()},HH:function(t){return o(t.getHours())},m:function(t){return t.getMinutes()},mm:function(t){return o(t.getMinutes())},s:function(t){return t.getSeconds()},ss:function(t){return o(t.getSeconds())},S:function(t){return Math.round(t.getMilliseconds()/100)},SS:function(t){return o(Math.round(t.getMilliseconds()/10),2)},SSS:function(t){return o(t.getMilliseconds(),3)},a:function(t,e){return t.getHours()<12?e.amPm[0]:e.amPm[1]},A:function(t,e){return t.getHours()<12?e.amPm[0].toUpperCase():e.amPm[1].toUpperCase()},ZZ:function(t){var e=t.getTimezoneOffset();return(e>0?"-":"+")+o(100*Math.floor(Math.abs(e)/60)+Math.abs(e)%60,4)}},x={D:[l,function(t,e){t.day=e}],Do:[new RegExp(l.source+u.source),function(t,e){t.day=parseInt(e,10)}],M:[l,function(t,e){t.month=e-1}],YY:[l,function(t,e){var i=+(""+(new Date).getFullYear()).substr(0,2);t.year=""+(e>68?i-1:i)+e}],h:[l,function(t,e){t.hour=e}],m:[l,function(t,e){t.minute=e}],s:[l,function(t,e){t.second=e}],YYYY:[/\d{4}/,function(t,e){t.year=e}],S:[/\d/,function(t,e){t.millisecond=100*e}],SS:[/\d{2}/,function(t,e){t.millisecond=10*e}],SSS:[/\d{3}/,function(t,e){t.millisecond=e}],d:[l,p],ddd:[u,p],MMM:[u,s("monthNamesShort")],MMMM:[u,s("monthNames")],a:[u,function(t,e,i){var n=e.toLowerCase();n===i.amPm[0]?t.isPm=!1:n===i.amPm[1]&&(t.isPm=!0)}],ZZ:[/([\+\-]\d\d:?\d\d|Z)/,function(t,e){"Z"===e&&(e="+00:00");var i,n=(e+"").match(/([\+\-]|\d\d)/gi);n&&(i=60*n[1]+parseInt(n[2],10),t.timezoneOffset="+"===n[0]?i:-i)}]};x.dd=x.d,x.dddd=x.ddd,x.DD=x.D,x.mm=x.m,x.hh=x.H=x.HH=x.h,x.MM=x.M,x.ss=x.s,x.A=x.a,c.masks={default:"ddd MMM DD YYYY HH:mm:ss",shortDate:"M/D/YY",mediumDate:"MMM D, YYYY",longDate:"MMMM D, YYYY",fullDate:"dddd, MMMM D, YYYY",shortTime:"HH:mm",mediumTime:"HH:mm:ss",longTime:"HH:mm:ss.SSS"},c.format=function(t,e,i){var n=i||c.i18n;if("number"==typeof t&&(t=new Date(t)),"[object Date]"!==Object.prototype.toString.call(t)||isNaN(t.getTime()))throw new Error("Invalid Date in fecha.format");var r=[];return e=(e=c.masks[e]||e||c.masks.default).replace(f,function(t,e){return r.push(e),"??"}),(e=e.replace(h,function(e){return e in m?m[e](t,n):e.slice(1,e.length-1)})).replace(/\?\?/g,function(){return r.shift()})},c.parse=function(t,e,i){var n=i||c.i18n;if("string"!=typeof e)throw new Error("Invalid format in fecha.parse");if(e=c.masks[e]||e,t.length>1e3)return!1;var r=!0,a={};if(e.replace(h,function(e){if(x[e]){var i=x[e],s=t.search(i[0]);~s?t.replace(i[0],function(e){return i[1](a,e,n),t=t.substr(s+e.length),e}):r=!1}return x[e]?"":e.slice(1,e.length-1)}),!r)return!1;var s=new Date;!0===a.isPm&&null!=a.hour&&12!=+a.hour?a.hour=+a.hour+12:!1===a.isPm&&12==+a.hour&&(a.hour=0);var o;return null!=a.timezoneOffset?(a.minute=+(a.minute||0)-+a.timezoneOffset,o=new Date(Date.UTC(a.year||s.getFullYear(),a.month||0,a.day||1,a.hour||0,a.minute||0,a.second||0,a.millisecond||0))):o=new Date(a.year||s.getFullYear(),a.month||0,a.day||1,a.hour||0,a.minute||0,a.second||0,a.millisecond||0),o},void 0!==t&&t.exports?t.exports=c:void 0!==(n=function(){return c}.call(e,i,e,t))&&(t.exports=n)}()},function(t,e,i){t.exports={Text:i(117),Line:i(118),Arc:i(119),Rect:i(120),Html:i(121),Tag:i(122),Point:i(123),RegionFilter:i(124)}},function(t,e,i){var n=i(0),r=i(6),a=function(t){function e(){return t.apply(this,arguments)||this}!function(t,e){t.prototype=Object.create(e.prototype),t.prototype.constructor=t,t.__proto__=e}(e,t);var i=e.prototype;return i._initDefaultCfg=function(){this.type="text",this.position=null,this.content=null,this.style={fill:"#000"},this.offsetX=0,this.offsetY=0},i.render=function(t,e){var i=this.position,r=this.parsePoint(t,i);if(r){var a=this.content,s=this.style,o=this.offsetX,c=this.offsetY;o&&(r.x+=o),c&&(r.y+=c);var h=e.addShape("text",{className:"guide-text",attrs:n.mix({x:r.x,y:r.y,text:a},s)});return this.element=h,h}},e}(r);r.Text=a,t.exports=a},function(t,e,i){var n=i(0),r=i(6),a=function(t){function e(){return t.apply(this,arguments)||this}!function(t,e){t.prototype=Object.create(e.prototype),t.prototype.constructor=t,t.__proto__=e}(e,t);var i=e.prototype;return i._initDefaultCfg=function(){this.type="line",this.start=[],this.end=[],this.style={stroke:"#000",lineWidth:1}},i.render=function(t,e){var i=[];if(i[0]=this.parsePoint(t,this.start),i[1]=this.parsePoint(t,this.end),i[0]&&i[1]){var r=e.addShape("Line",{className:"guide-line",attrs:n.mix({x1:i[0].x,y1:i[0].y,x2:i[1].x,y2:i[1].y},this.style)});return this.element=r,r}},e}(r);r.Line=a,t.exports=a},function(t,e,i){var n=i(0),r=i(6),a=function(t){function e(){return t.apply(this,arguments)||this}!function(t,e){t.prototype=Object.create(e.prototype),t.prototype.constructor=t,t.__proto__=e}(e,t);var i=e.prototype;return i._initDefaultCfg=function(){this.type="arc",this.start=[],this.end=[],this.style={stroke:"#999",lineWidth:1}},i.render=function(t,e){var i=this.parsePoint(t,this.start),r=this.parsePoint(t,this.end);if(i&&r){var a=t.center,s=Math.sqrt((i.x-a.x)*(i.x-a.x)+(i.y-a.y)*(i.y-a.y)),o=Math.atan2(i.y-a.y,i.x-a.x),c=Math.atan2(r.y-a.y,r.x-a.x),h=e.addShape("arc",{className:"guide-arc",attrs:n.mix({x:a.x,y:a.y,r:s,startAngle:o,endAngle:c},this.style)});return this.element=h,h}},e}(r);r.Arc=a,t.exports=a},function(t,e,i){var n=i(0),r=i(6),a=function(t){function e(){return t.apply(this,arguments)||this}!function(t,e){t.prototype=Object.create(e.prototype),t.prototype.constructor=t,t.__proto__=e}(e,t);var i=e.prototype;return i._initDefaultCfg=function(){this.type="rect",this.start=[],this.end=[],this.style={fill:"#CCD7EB",opacity:.4}},i.render=function(t,e){var i=this.parsePoint(t,this.start),r=this.parsePoint(t,this.end);if(i&&r){var a=e.addShape("rect",{className:"guide-rect",attrs:n.mix({x:Math.min(i.x,r.x),y:Math.min(i.y,r.y),width:Math.abs(r.x-i.x),height:Math.abs(i.y-r.y)},this.style)});return this.element=a,a}},e}(r);r.Rect=a,t.exports=a},function(t,e,i){function n(t,e){for(var i in e)e.hasOwnProperty(i)&&(t.style[i]=e[i]);return t}function r(t){var e=document.createElement("div");return t=t.replace(/(^\s*)|(\s*$)/g,""),e.innerHTML=""+t,e.childNodes[0]}var a=i(0),s=i(6),o=function(t){function e(){return t.apply(this,arguments)||this}!function(t,e){t.prototype=Object.create(e.prototype),t.prototype.constructor=t,t.__proto__=e}(e,t);var i=e.prototype;return i._initDefaultCfg=function(){this.type="html",this.position=null,this.alignX="center",this.alignY="middle",this.offsetX=null,this.offsetY=null,this.html=null},i.render=function(t,e){var i=this.parsePoint(t,this.position);if(i){var s=r(this.html);s=n(s,{position:"absolute",top:Math.floor(i.y)+"px",left:Math.floor(i.x)+"px",visibility:"hidden"});var o=e.get("canvas").get("el"),c=o.parentNode;c=n(c,{position:"relative"});var h=r('<div class="guideWapper" style="position: absolute;top: 0; left: 0;"></div>');c.appendChild(h),h.appendChild(s);var l=o.offsetTop,u=o.offsetLeft,f=this.alignX,p=this.alignY,g=this.offsetX,d=this.offsetY,v=function(t,e,i,n){var r=[];return"left"===t&&"top"===e?(r[0]=0,r[1]=0):"right"===t&&"top"===e?(r[0]=-i,r[1]=0):"left"===t&&"bottom"===e?(r[0]=0,r[1]=Math.floor(-n)):"right"===t&&"bottom"===e?(r[0]=Math.floor(-i),r[1]=Math.floor(-n)):"right"===t&&"middle"===e?(r[0]=Math.floor(-i),r[1]=Math.floor(-n/2)):"left"===t&&"middle"===e?(r[0]=0,r[1]=Math.floor(-n/2)):"center"===t&&"bottom"===e?(r[0]=Math.floor(-i/2),r[1]=Math.floor(-n)):"center"===t&&"top"===e?(r[0]=Math.floor(-i/2),r[1]=0):(r[0]=Math.floor(-i/2),r[1]=Math.floor(-n/2)),r}(f,p,a.getWidth(s),a.getHeight(s));i.x=i.x+v[0]+u,i.y=i.y+v[1]+l,g&&(i.x+=g),d&&(i.y+=d),n(s,{top:Math.floor(i.y)+"px",left:Math.floor(i.x)+"px",visibility:"visible"}),this.element=h}},i.remove=function(){var t=this.element;t&&t.parentNode&&t.parentNode.removeChild(t)},e}(s);s.Html=o,t.exports=o},function(t,e,i){var n=i(0),r=i(6),a=function(t){function e(){return t.apply(this,arguments)||this}!function(t,e){t.prototype=Object.create(e.prototype),t.prototype.constructor=t,t.__proto__=e}(e,t);var i=e.prototype;return i._initDefaultCfg=function(){this.type="tag",this.position=null,this.content=null,this.direct="tl",this.autoAdjust=!0,this.offsetX=0,this.offsetY=0,this.side=4,this.background={padding:5,radius:2,fill:"#1890FF"},this.textStyle={fontSize:12,fill:"#fff",textAlign:"center",textBaseline:"middle"},this.withPoint=!0,this.pointStyle={fill:"#1890FF",r:3,lineWidth:1,stroke:"#fff"}},i._getDirect=function(t,e,i,n){var r=this.direct,a=this.side,s=t.get("canvas"),o=s.get("width"),c=s.get("height"),h=e.x,l=e.y,u=r[0],f=r[1];"t"===u&&l-a-n<0?u="b":"b"===u&&l+a+n>c&&(u="t");var p="c"===u?a:0;return"l"===f&&h-p-i<0?f="r":"r"===f&&h+p+i>o?f="l":"c"===f&&(i/2+h+p>o?f="l":h-i/2-p<0&&(f="r")),r=u+f},i.render=function(t,e){var i=this.parsePoint(t,this.position);if(i){var r=this.content,a=this.background,s=this.textStyle,o=[],c=e.addGroup({className:"guide-tag"});if(this.withPoint){var h=c.addShape("Circle",{className:"guide-tag-point",attrs:n.mix({x:i.x,y:i.y},this.pointStyle)});o.push(h)}var l=c.addGroup(),u=l.addShape("text",{className:"guide-tag-text",zIndex:1,attrs:n.mix({x:0,y:0,text:r},s)});o.push(u);var f=u.getBBox(),p=n.parsePadding(a.padding),g=f.width+p[1]+p[3],d=f.height+p[0]+p[2],v=f.minY-p[0],y=f.minX-p[3],m=l.addShape("rect",{className:"guide-tag-bg",zIndex:-1,attrs:n.mix({x:y,y:v,width:g,height:d},a)});o.push(m);var x,_=this.autoAdjust?this._getDirect(e,i,g,d):this.direct,S=this.side,b=i.x+this.offsetX,C=i.y+this.offsetY,P=n.parsePadding(a.radius);"tl"===_?(x=[{x:g+y-S-1,y:d+v-1},{x:g+y,y:d+v-1},{x:g+y,y:d+S+v}],P[2]=0,b-=g,C=C-S-d):"cl"===_?(x=[{x:g+y-1,y:(d-S)/2+v-1},{x:g+y-1,y:(d+S)/2+v+1},{x:g+S+y,y:d/2+v}],b=b-g-S,C-=d/2):"bl"===_?(x=[{x:g+y,y:-S+v},{x:g+y-S-1,y:v+1},{x:g+y,y:v+1}],P[1]=0,b-=g,C+=S):"bc"===_?(x=[{x:g/2+y,y:-S+v},{x:(g-S)/2+y-1,y:v+1},{x:(g+S)/2+y+1,y:v+1}],b-=g/2,C+=S):"br"===_?(x=[{x:y,y:v-S},{x:y,y:v+1},{x:y+S+1,y:v+1}],P[0]=0,C+=S):"cr"===_?(x=[{x:y-S,y:d/2+v},{x:y+1,y:(d-S)/2+v-1},{x:y+1,y:(d+S)/2+v+1}],b+=S,C-=d/2):"tr"===_?(x=[{x:y,y:d+S+v},{x:y,y:d+v-1},{x:S+y+1,y:d+v-1}],P[3]=0,C=C-d-S):"tc"===_&&(x=[{x:(g-S)/2+y-1,y:d+v-1},{x:(g+S)/2+y+1,y:d+v-1},{x:g/2+y,y:d+S+v}],b-=g/2,C=C-d-S);var w=l.addShape("Polygon",{className:"guide-tag-side",zIndex:0,attrs:{points:x,fill:a.fill}});return o.push(w),m.attr("radius",P),l.moveTo(b-y,C-v),l.sort(),this.element=c,o}},e}(r);r.Tag=a,t.exports=a},function(t,e,i){var n=i(0),r=i(6),a=function(t){function e(){return t.apply(this,arguments)||this}!function(t,e){t.prototype=Object.create(e.prototype),t.prototype.constructor=t,t.__proto__=e}(e,t);var i=e.prototype;return i._initDefaultCfg=function(){this.type="point",this.position=null,this.offsetX=0,this.offsetY=0,this.style={fill:"#1890FF",r:3,lineWidth:1,stroke:"#fff"}},i.render=function(t,e){var i=this.parsePoint(t,this.position);if(!i)return null;var r=e.addShape("Circle",{className:"guide-point",attrs:n.mix({x:i.x+this.offsetX,y:i.y+this.offsetY},this.style)});return this.element=r,r},e}(r);r.Point=a,t.exports=a},function(t,e,i){var n=i(0),r=i(6),a=i(2).Rect,s=function(t){function e(){return t.apply(this,arguments)||this}!function(t,e){t.prototype=Object.create(e.prototype),t.prototype.constructor=t,t.__proto__=e}(e,t);var i=e.prototype;return i._initDefaultCfg=function(){this.type="regionFilter",this.start=[],this.end=[],this.color=null,this.style=null},i.render=function(t){var e=this.parsePoint(t,this.start),i=this.parsePoint(t,this.end);if(e&&i){var r=new a({attrs:{x:Math.min(e.x,i.x),y:Math.min(e.y,i.y),width:Math.abs(i.x-e.x),height:Math.abs(i.y-e.y)}});this.clip=r;var s=this.chart,o=this.color,c=this.style||{},h=[];s.get("geoms").map(function(t){var e=t.get("container"),i=e.get("children"),a=e.addGroup({zIndex:10,className:"guide-region-filter"});return i.map(function(t){if(t.get("isShape")){var e=t.get("type"),i=n.mix({},t.get("attrs"),c);o&&(i.fill||i.fillStyle)&&(i.fill=i.fillStyle=o),o&&(i.stroke||i.strokeStyle)&&(i.stroke=i.strokeStyle=o);var r={attrs:i};"custom"!==e&&"Custom"!==e||(r.createPath=t.get("createPath"),r.calculateBox=t.get("calculateBox")),a.addShape(e,r)}return t}),a.attr("clip",r),e.sort(),h.push(a),t}),this.element=h}},i.remove=function(){var t=this.element;n.each(t,function(t){t&&t.remove(!0)}),this.clip&&this.clip.remove(!0)},e}(r);r.RegionFilter=s,t.exports=s},function(t,e,i){function n(t){var e=t.getAttr("color");if(e){var i=e.getScale(e.type);if(i.isLinear)return i}var n=t.getXScale(),r=t.getYScale();return r||n}function r(t){var e=[];return a.each(t,function(t){var i=function(t,e){var i=-1;return a.each(t,function(t,n){if(t.title===e.title&&t.name===e.name&&t.value===e.value&&t.color===e.color)return i=n,!1}),i}(e,t);-1===i?e.push(t):e[i]=t}),e}var a=i(0),s=i(1),o=i(126),c=i(21);s.tooltip=a.deepMix({triggerOn:["touchstart","touchmove"],alwaysShow:!1,showTitle:!1,showCrosshairs:!1,crosshairsStyle:{stroke:"rgba(0, 0, 0, 0.25)",lineWidth:1},showTooltipMarker:!0,background:{radius:1,fill:"rgba(0, 0, 0, 0.65)",padding:[3,5]},titleStyle:{fontSize:12,fill:"#fff",textAlign:"start",textBaseline:"top"},nameStyle:{fontSize:12,fill:"rgba(255, 255, 255, 0.65)",textAlign:"start",textBaseline:"middle"},valueStyle:{fontSize:12,fill:"#fff",textAlign:"start",textBaseline:"middle"},showItemMarker:!0,itemMarkerStyle:{radius:3,symbol:"circle",lineWidth:1,stroke:"#fff"},layout:"horizontal",snap:!1},s.tooltip||{});var h=function(){function t(t){this.enable=!0,this.cfg={},this.tooltip=null,this.chart=null,this.timeStamp=0,a.mix(this,t);var e=this.chart;this.canvasDom=e.get("canvas").get("el")}var e=t.prototype;return e._setCrosshairsCfg=function(){var t=this.chart,e=a.mix({},s.tooltip),i=t.get("geoms"),n=[];a.each(i,function(t){var e=t.get("type");-1===n.indexOf(e)&&n.push(e)});var r=t.get("coord").type;return!i.length||"cartesian"!==r&&"rect"!==r||1===n.length&&-1!==["line","area","path","point"].indexOf(n[0])&&a.mix(e,{showCrosshairs:!0}),e},e._getMaxLength=function(t){void 0===t&&(t={});var e=t,i=e.layout,n=e.plotRange;return"horizontal"===i?n.br.x-n.bl.x:n.bl.y-n.tr.y},e.render=function(){if(!this.tooltip){var t=this.chart,e=t.get("canvas"),i=t.get("frontPlot").addGroup({className:"tooltipContainer",zIndex:10}),n=t.get("backPlot").addGroup({className:"tooltipContainer"}),r=t.get("plotRange"),s=t.get("coord"),c=this._setCrosshairsCfg(),h=this.cfg;(h=a.deepMix({plotRange:r,frontPlot:i,backPlot:n,canvas:e,fixed:s.transposed||s.isPolar},c,h)).maxLength=this._getMaxLength(h),this.cfg=h;var l=new o(h);this.tooltip=l,this.bindEvents()}},e.clear=function(){var t=this.tooltip;t&&t.destroy(),this.tooltip=null,this.prePoint=null,this._lastActive=null,this.unBindEvents()},e._getTooltipMarkerStyle=function(t){void 0===t&&(t={});var e=t,i=e.type,n=e.items,r=this.cfg;if("rect"===i){var s,o,c,h,l=this.chart,u=l.get("plotRange"),f=u.tl,p=u.br,g=l.get("coord"),d=n[0],v=n[n.length-1],y=d.width;g.transposed?(s=f.x,o=v.y-.75*y,c=p.x-f.x,h=d.y-v.y+1.5*y):(s=d.x-.75*y,o=f.y,c=v.x-d.x+1.5*y,h=p.y-f.y),t.style=a.mix({x:s,y:o,width:c,height:h,fill:"#CCD6EC",opacity:.3},r.tooltipMarkerStyle)}else t.style=a.mix({radius:4,fill:"#fff",lineWidth:2},r.tooltipMarkerStyle);return t},e._setTooltip=function(t,e,i){void 0===i&&(i={});var n=this._lastActive,s=this.tooltip,o=this.cfg;e=r(e);var h=this.chart,l=h.get("coord"),u=h.getYScales()[0],f=o.snap;if(!1===f&&u.isLinear){var p,g,d=l.invertPoint(t),v=h.get("plotRange");c.isPointInPlot(t,v)&&(l.transposed?(p=u.invert(d.x),g=t.x,s.setXTipContent(p),s.setXTipPosition(g),s.setYCrosshairPosition(g)):(p=u.invert(d.y),g=t.y,s.setYTipContent(p),s.setYTipPosition(g),s.setXCrosshairPosition(g)))}if(o.onShow&&o.onShow({x:t.x,y:t.y,tooltip:s,items:e,tooltipMarkerCfg:i}),function(t,e){return JSON.stringify(t)===JSON.stringify(e)}(n,e)){if(!1===f&&(a.directionEnabled(o.crosshairsType,"y")||o.showYTip)){this.chart.get("canvas").draw()}}else{this._lastActive=e;var y=o.onChange;y&&y({x:t.x,y:t.y,tooltip:s,items:e,tooltipMarkerCfg:i});var m=e[0],x=m.title||m.name,_=m.x;if(e.length>1&&(_=(e[0].x+e[e.length-1].x)/2),s.setContent(x,e,l.transposed),s.setPosition(e,t),l.transposed){var S=m.y;e.length>1&&(S=(e[0].y+e[e.length-1].y)/2),s.setYTipContent(x),s.setYTipPosition(S),s.setXCrosshairPosition(S),f&&(s.setXTipContent(m.value),s.setXTipPosition(_),s.setYCrosshairPosition(_))}else s.setXTipContent(x),s.setXTipPosition(_),s.setYCrosshairPosition(_),f&&(s.setYTipContent(m.value),s.setYTipPosition(m.y),s.setXCrosshairPosition(m.y));var b=i.items;o.showTooltipMarker&&b.length?(i=this._getTooltipMarkerStyle(i),s.setMarkers(i)):s.clearMarkers(),s.show()}},e.showTooltip=function(t){var e,i,r=this.chart,o=[],c=[],h=this.cfg;h.showItemMarker&&(i=h.itemMarkerStyle);var l=r.get("geoms"),u=r.get("coord");if(a.each(l,function(r){if(r.get("visible")){var h=r.get("type"),l=r.getSnapRecords(t);a.each(l,function(t){if(t.x&&t.y){var l=t.x,f=t.y,p=t._origin,g=t.color,d={x:l,y:a.isArray(f)?f[1]:f,color:g||s.defaultColor,origin:p,name:function(t,e){var i,r,s=t._getGroupScales();if(s.length&&a.each(s,function(t){return r=t,!1}),r){var o=r.field;i=r.getText(e[o])}else{var c=n(t);i=c.alias||c.field}return i}(r,p),value:function(t,e){var i=n(t);return i.getText(e[i.field])}(r,p),title:function(t,e){var i=t.getAttr("position").getFields()[0],n=t.get("scales")[i];return n.getText(e[n.field])}(r,p)};i&&(d.marker=a.mix({fill:g||s.defaultColor},i)),c.push(d),-1!==["line","area","path"].indexOf(h)?(e="circle",o.push(d)):"interval"!==h||"cartesian"!==u.type&&"rect"!==u.type||(e="rect",d.width=r.getSize(t._origin),o.push(d))}})}}),c.length){var f={items:o,type:e};this._setTooltip(t,c,f)}else this.hideTooltip()},e.hideTooltip=function(){var t=this.cfg;this._lastActive=null;var e=this.tooltip;if(e){e.hide(),t.onHide&&t.onHide({tooltip:e});this.chart.get("canvas").draw()}},e.handleShowEvent=function(t){var e=this.chart;if(this.enable&&!e.get("_closeTooltip")){var i=e.get("plotRange"),n=a.createEvent(t,e);if(c.isPointInPlot(n,i)||this.cfg.alwaysShow){var r=this.timeStamp,s=+new Date;s-r>16&&(this.showTooltip(n),this.timeStamp=s)}else this.hideTooltip()}},e.handleHideEvent=function(){var t=this.chart;this.enable&&!t.get("_closeTooltip")&&this.hideTooltip()},e.handleDocEvent=function(t){var e=this.chart;if(this.enable&&!e.get("_closeTooltip")){var i=this.canvasDom;t.target!==i&&this.hideTooltip()}},e._handleEvent=function(t,e,i){var n=this.canvasDom;a.each([].concat(t),function(t){"bind"===i?a.addEventListener(n,t,e):a.removeEventListener(n,t,e)})},e.bindEvents=function(){var t=this.cfg,e=t.triggerOn,i=t.triggerOff,n=t.alwaysShow,r=a.wrapBehavior(this,"handleShowEvent"),s=a.wrapBehavior(this,"handleHideEvent");if(e&&this._handleEvent(e,r,"bind"),i&&this._handleEvent(i,s,"bind"),!n){var o=a.wrapBehavior(this,"handleDocEvent");a.isBrowser&&a.addEventListener(document,"touchstart",o)}},e.unBindEvents=function(){var t=this.cfg,e=t.triggerOn,i=t.triggerOff,n=t.alwaysShow,r=a.getWrapBehavior(this,"handleShowEvent"),s=a.getWrapBehavior(this,"handleHideEvent");if(e&&this._handleEvent(e,r,"unBind"),i&&this._handleEvent(i,s,"unBind"),!n){var o=a.getWrapBehavior(this,"handleDocEvent");a.isBrowser&&a.removeEventListener(document,"touchstart",o)}},t}();t.exports={init:function(t){var e=new h({chart:t});t.set("tooltipController",e),t.tooltip=function(t,i){return a.isObject(t)&&(i=t,t=!0),e.enable=t,i&&(e.cfg=i),this}},afterGeomDraw:function(t){var e=t.get("tooltipController");e.render(),t.showTooltip=function(t){return e.showTooltip(t),this},t.hideTooltip=function(){return e.hideTooltip(),this}},clearInner:function(t){t.get("tooltipController").clear()}}},function(t,e,i){var n=i(0),r=i(45),a=i(46),s=i(127),o=function(){function t(t){n.deepMix(this,this.getDefaultCfg(),t);var e=this.frontPlot;if(!this.custom){var i=new a(n.mix({parent:e,zIndex:3},t));this.container=i;var r=this.fixed,o=this.background;r||(this.tooltipArrow=e.addShape("Polygon",{className:"tooltip-arrow",visible:!1,zIndex:2,attrs:n.mix({points:[]},o)}))}if(this.showXTip){var c=this.xTipBackground,h=new s({className:"xTip",background:c,visible:!1});e.add(h.container),this.xTipBox=h}if(this.showYTip){var l=this.yTipBackground,u=new s({className:"yTip",background:l,visible:!1});e.add(u.container),this.yTipBox=u}this.showCrosshairs&&this._renderCrosshairs(),e.sort()}var e=t.prototype;return e.getDefaultCfg=function(){return{showCrosshairs:!1,crosshairsStyle:{stroke:"rgba(0, 0, 0, 0.25)",lineWidth:1},crosshairsType:"y",showXTip:!1,showYTip:!1,xTip:null,xTipBackground:{radius:1,fill:"rgba(0, 0, 0, 0.65)",padding:[3,5]},yTip:null,yTipBackground:{radius:1,fill:"rgba(0, 0, 0, 0.65)",padding:[3,5]},background:null,layout:"horizontal",offsetX:0,offsetY:0}},e.setContent=function(t,e){if(this.title=t,this.items=e,!this.custom){var i=this.container;i.setTitle(t),i.setItems(e)}},e.setYTipContent=function(t){var e=this.yTip;t=n.isFunction(e)?e(t):n.mix({text:t},e),this.yTipBox&&this.yTipBox.updateContent(t)},e.setYTipPosition=function(t){var e=this.plotRange,i=this.crosshairsShapeX;if(this.showYTip){var n=this.yTipBox,r=n.getHeight(),a=n.getWidth(),s=e.tl.x-a,o=t-r/2;o<=e.tl.y&&(o=e.tl.y),o+r>=e.br.y&&(o=e.br.y-r),s<0&&(s=e.tl.x,i&&i.attr("x1",e.tl.x+a)),n.updatePosition(s,o)}},e.setXTipContent=function(t){var e=this.xTip;t=n.isFunction(e)?e(t):n.mix({text:t},e),this.xTipBox&&this.xTipBox.updateContent(t)},e.setXTipPosition=function(t){var e=this.showXTip,i=this.canvas,n=this.plotRange,r=this.xTipBox,a=this.crosshairsShapeY;if(e){var s=i.get("height"),o=r.getWidth(),c=r.getHeight(),h=t-o/2,l=n.br.y;h<=n.tl.x&&(h=n.tl.x),h+o>=n.tr.x&&(h=n.tr.x-o),s-l<c&&(l-=c),r.updatePosition(h,l),a&&a.attr("y1",l)}},e.setXCrosshairPosition=function(t){this.crosshairsShapeX&&this.crosshairsShapeX.moveTo(0,t)},e.setYCrosshairPosition=function(t){this.crosshairsShapeY&&this.crosshairsShapeY.moveTo(t,0)},e.setPosition=function(t){var e=this.container,i=this.plotRange,r=this.offsetX,a=this.offsetY,s=this.fixed,o=this.tooltipArrow;if(e){var c=e.container.getBBox(),h=c.minX,l=c.minY,u=c.width,f=c.height,p=i.tl,g=i.tr,d=0,v=p.y-f-4+a;if(s){d=(p.x+g.x)/2-u/2+r}else{var y;if(y=t.length>1?(t[0].x+t[t.length-1].x)/2:t[0].x,(d=y-u/2+r)<p.x&&(d=p.x),d+u>g.x&&(d=g.x-u),o){o.attr("points",[{x:y-3,y:p.y-4+a},{x:y+3,y:p.y-4+a},{x:y,y:p.y+a}]);var m=e.backShape,x=n.parsePadding(m.attr("radius"));y===p.x?(x[3]=0,o.attr("points",[{x:p.x,y:p.y+a},{x:p.x,y:p.y-4+a},{x:p.x+4,y:p.y-4+a}])):y===g.x&&(x[2]=0,o.attr("points",[{x:g.x,y:p.y+a},{x:g.x-4,y:p.y-4+a},{x:g.x,y:p.y-4+a}])),m.attr("radius",x)}}e.moveTo(d-h,v-l)}},e.setMarkers=function(t){void 0===t&&(t={});var e=t,i=e.items,a=e.style,s=e.type,o=this._getMarkerGroup(s);if("circle"===s)for(var c=0,h=i.length;c<h;c++){var l=i[c],u=new r({className:"tooltip-circle-marker",attrs:n.mix({x:l.x,y:l.y,stroke:l.color},a)});o.add(u)}else o.addShape("rect",{className:"tooltip-rect-marker",attrs:a})},e.clearMarkers=function(){var t=this.markerGroup;t&&t.clear()},e.show=function(){var t=this.crosshairsShapeX,e=this.crosshairsShapeY,i=this.markerGroup,n=this.container,r=this.tooltipArrow,a=this.xTipBox,s=this.yTipBox,o=this.canvas;t&&t.show(),e&&e.show(),i&&i.show(),n&&n.show(),r&&r.show(),a&&a.show(),s&&s.show(),o.draw()},e.hide=function(){var t=this.crosshairsShapeX,e=this.crosshairsShapeY,i=this.markerGroup,n=this.container,r=this.tooltipArrow,a=this.xTipBox,s=this.yTipBox;t&&t.hide(),e&&e.hide(),i&&i.hide(),n&&n.hide(),r&&r.hide(),a&&a.hide(),s&&s.hide()},e.destroy=function(){var t=this.crosshairsShapeX,e=this.crosshairsShapeY,i=this.markerGroup,n=this.container,r=this.tooltipArrow,a=this.xTipBox,s=this.yTipBox;t&&t.remove(!0),e&&e.remove(!0),i&&i.remove(!0),r&&r.remove(!0),n&&n.clear(),a&&a.clear(),s&&s.clear(),this.destroyed=!0},e._getMarkerGroup=function(t){var e=this.markerGroup;return e?e.clear():("circle"===t?(e=this.frontPlot.addGroup({zIndex:1}),this.frontPlot.sort()):e=this.backPlot.addGroup(),this.markerGroup=e),e},e._renderCrosshairs=function(){var t=this.crosshairsType,e=this.crosshairsStyle,i=this.frontPlot,r=this.plotRange,a=r.tl,s=r.br;n.directionEnabled(t,"x")&&(this.crosshairsShapeX=i.addShape("Line",{className:"tooltip-crosshairs-x",zIndex:0,visible:!1,attrs:n.mix({x1:a.x,y1:0,x2:s.x,y2:0},e)})),n.directionEnabled(t,"y")&&(this.crosshairsShapeY=i.addShape("Line",{className:"tooltip-crosshairs-y",zIndex:0,visible:!1,attrs:n.mix({x1:0,y1:s.y,x2:0,y2:a.y},e)}))},t}();t.exports=o},function(t,e,i){var n=i(0),r=i(3).Group,a=function(){function t(t){n.deepMix(this,this.getDefaultCfg(),t),this._init();var e=this.content,i=this.x,r=this.y;n.isNil(e)||this.updateContent(e),this.updatePosition(i,r)}var e=t.prototype;return e.getDefaultCfg=function(){return{x:0,y:0,content:"",textStyle:{fontSize:12,fill:"#fff",textAlign:"center",textBaseline:"middle"},background:{radius:1,fill:"rgba(0, 0, 0, 0.65)",padding:[3,5]},width:0,height:0,className:""}},e._init=function(){var t=this.content,e=this.textStyle,i=this.background,a=this.className,s=this.visible,o=new r({className:a,zIndex:0,visible:s}),c=o.addShape("Text",{className:a+"-text",zIndex:1,attrs:n.mix({text:t,x:0,y:0},e)}),h=o.addShape("Rect",{className:a+"-bg",zIndex:-1,attrs:n.mix({x:0,y:0,width:0,height:0},i)});o.sort(),this.container=o,this.textShape=c,this.backgroundShape=h},e._getBBox=function(){var t=this.textShape,e=this.background,i=t.getBBox(),r=n.parsePadding(e.padding),a=i.width+r[1]+r[3],s=i.height+r[0]+r[2];return{x:i.minX-r[3],y:i.minY-r[0],width:a,height:s}},e.updateContent=function(t){var e=this.textShape,i=this.backgroundShape;if(!n.isNil(t)){n.isObject(t)||(t={text:t}),e.attr(t);var r=this._getBBox(),a=r.x,s=r.y,o=r.width,c=r.height,h=this.width||o,l=this.height||c;i.attr({x:a,y:s,width:h,height:l}),this._width=h,this._height=l,this.content=t.text}},e.updatePosition=function(t,e){var i=this.container,n=this._getBBox(),r=n.x,a=n.y;i.moveTo(t-r,e-a),this.x=t-r,this.y=e-a},e.getWidth=function(){return this._width},e.getHeight=function(){return this._height},e.show=function(){this.container.show()},e.hide=function(){this.container.hide()},e.clear=function(){var t=this.container;t.clear(),t.remove(!0),this.container=null,this.textShape=null,this.backgroundShape=null},t}();t.exports=a},function(t,e,i){var n=i(0),r=i(6),a=i(1);a.guide=n.deepMix({line:{style:{stroke:"#a3a3a3",lineWidth:1},top:!0},text:{style:{fill:"#787878",textAlign:"center",textBaseline:"middle"},offsetX:0,offsetY:0,top:!0},rect:{style:{fill:"#fafafa"},top:!1},arc:{style:{stroke:"#a3a3a3"},top:!0},html:{offsetX:0,offsetY:0,alignX:"center",alignY:"middle"},tag:{top:!0,offsetX:0,offsetY:0,side:4,background:{padding:5,radius:2,fill:"#1890FF"},textStyle:{fontSize:12,fill:"#fff",textAlign:"center",textBaseline:"middle"}},point:{top:!0,offsetX:0,offsetY:0,style:{fill:"#fff",r:3,lineWidth:2,stroke:"#1890ff"}}},a.guide||{});var s=function(){function t(t){this.guides=[],this.xScale=null,this.yScales=null,this.guideShapes=[],n.mix(this,t)}var e=t.prototype;return e._toString=function(t){return n.isFunction(t)&&(t=t(this.xScale,this.yScales)),t=t.toString()},e._getId=function(t,e){var i=e.id;if(!i){var n=e.type;i="arc"===n||"line"===n||"rect"===n?this._toString(e.start)+"-"+this._toString(e.end):this._toString(e.position)}return i},e.paint=function(t){var e=this,i=e.chart,r=e.guides,a=e.xScale,s=e.yScales,o=[];n.each(r,function(n,r){n.xScale=a,n.yScales=s;var c;"regionFilter"===n.type?n.chart=i:c=n.top?e.frontPlot:e.backPlot,n.coord=t,n.container=c,n.canvas=i.get("canvas");var h=n.render(t,c);if(h){var l=e._getId(h,n);[].concat(h).forEach(function(t){t._id=t.get("className")+"-"+l,t.set("index",r),o.push(t)})}}),e.guideShapes=o},e.clear=function(){return this.reset(),this.guides=[],this},e.reset=function(){var t=this.guides;n.each(t,function(t){t.remove()})},e._createGuide=function(t,e){var i=n.upperFirst(t),s=new r[i](n.deepMix({},a.guide[t],e));return this.guides.push(s),s},e.line=function(t){return void 0===t&&(t={}),this._createGuide("line",t)},e.text=function(t){return void 0===t&&(t={}),this._createGuide("text",t)},e.arc=function(t){return void 0===t&&(t={}),this._createGuide("arc",t)},e.html=function(t){return void 0===t&&(t={}),this._createGuide("html",t)},e.rect=function(t){return void 0===t&&(t={}),this._createGuide("rect",t)},e.tag=function(t){return void 0===t&&(t={}),this._createGuide("tag",t)},e.point=function(t){return void 0===t&&(t={}),this._createGuide("point",t)},e.regionFilter=function(t){return void 0===t&&(t={}),this._createGuide("regionFilter",t)},t}();t.exports={init:function(t){var e=new s({frontPlot:t.get("frontPlot").addGroup({zIndex:20,className:"guideContainer"}),backPlot:t.get("backPlot").addGroup({className:"guideContainer"})});t.set("guideController",e),t.guide=function(){return e}},afterGeomDraw:function(t){var e=t.get("guideController");if(e.guides.length){var i=t.getXScale(),n=t.getYScales(),r=t.get("coord");e.xScale=i,e.yScales=n,e.chart=t,e.paint(r)}},clear:function(t){t.get("guideController").clear()},repaint:function(t){t.get("guideController").reset()}}},function(t,e,i){var n=i(0),r=i(46),a=i(1),s={itemMarginBottom:12,itemGap:10,showTitle:!1,titleStyle:{fontSize:12,fill:"#808080",textAlign:"start",textBaseline:"top"},nameStyle:{fill:"#808080",fontSize:12,textAlign:"start",textBaseline:"middle"},valueStyle:{fill:"#000000",fontSize:12,textAlign:"start",textBaseline:"middle"},unCheckStyle:{fill:"#bfbfbf"},itemWidth:"auto",wordSpace:6,selectedMode:"multiple"};a.legend=n.deepMix({common:s,right:n.mix({position:"right",layout:"vertical"},s),left:n.mix({position:"left",layout:"vertical"},s),top:n.mix({position:"top",layout:"horizontal"},s),bottom:n.mix({position:"bottom",layout:"horizontal"},s)},a.legend||{});var o=function(){function t(t){this.legendCfg={},this.enable=!0,this.position="top",n.mix(this,t);var e=this.chart;this.canvasDom=e.get("canvas").get("el"),this.clear()}var e=t.prototype;return e.addLegend=function(t,e,i){var n=this.legendCfg,r=t.field,a=n[r];if(!1===a)return null;if(a&&a.custom)this.addCustomLegend(r);else{var s=n.position||this.position;a&&a.position&&(s=a.position),t.isCategory&&this._addCategoryLegend(t,e,s,i)}},e.addCustomLegend=function(t){var e=this.legendCfg;t&&e[t]&&(e=e[t]);var i=e.position||this.position,s=this.legends;s[i]=s[i]||[];var o=e.items;if(!o)return null;var c=this.container;n.each(o,function(t){n.isPlainObject(t.marker)?t.marker.radius=t.marker.radius||3:t.marker={symbol:t.marker||"circle",fill:t.fill,radius:3},t.checked=!!n.isNil(t.checked)||t.checked,t.name=t.name||t.value});var h=new r(n.deepMix({},a.legend[i],e,{maxLength:this._getMaxLength(i),items:o,parent:c}));s[i].push(h)},e.clear=function(){var t=this.legends;n.each(t,function(t){n.each(t,function(t){t.clear()})}),this.legends={},this.unBindEvents()},e._isFiltered=function(t,e,i){var r=!1;return n.each(e,function(e){if(r=r||t.getText(e)===t.getText(i))return!1}),r},e._getMaxLength=function(t){var e=this.chart,i=n.parsePadding(e.get("appendPadding"));return"right"===t||"left"===t?e.get("height")-(i[0]+i[2]):e.get("width")-(i[1]+i[3])},e._addCategoryLegend=function(t,e,i,s){var o=this,c=o.legendCfg,h=o.legends,l=o.container,u=o.chart,f=t.field;h[i]=h[i]||[];var p="circle";c[f]&&c[f].marker?p=c[f].marker:c.marker&&(p=c.marker),n.each(e,function(e){n.isPlainObject(p)?n.mix(e.marker,p):e.marker.symbol=p,s&&(e.checked=o._isFiltered(t,s,e.dataValue))});u.get("legendItems")[f]=e;var g=n.deepMix({},a.legend[i],c[f]||c,{maxLength:o._getMaxLength(i),items:e,field:f,filterVals:s,parent:l});g.showTitle&&n.deepMix(g,{title:t.alias||t.field});var d=new r(g);return h[i].push(d),d},e._alignLegend=function(t,e,i){var r=this.plotRange,a=r.tl,s=r.bl,o=this.chart,c=t.offsetX||0,h=t.offsetY||0,l=o.get("width"),u=o.get("height"),f=n.parsePadding(o.get("appendPadding")),p=t.getHeight(),g=t.getWidth(),d=0,v=0;if("left"===i||"right"===i){var y=t.verticalAlign||"middle",m=Math.abs(a.y-s.y);d="left"===i?f[3]:l-g-f[1],v=(m-p)/2+a.y,"top"===y?v=a.y:"bottom"===y&&(v=s.y-p),e&&(v=e.get("y")-p-12)}else{var x=t.align||"left";if(d=f[3],"center"===x?d=l/2-g/2:"right"===x&&(d=l-(g+f[1])),v="top"===i?f[0]+Math.abs(t.container.getBBox().minY):u-p,e){var _=e.getWidth();d=e.x+_+12}}"bottom"===i&&h>0&&(h=0),"right"===i&&c>0&&(c=0),t.moveTo(d+c,v+h)},e.alignLegends=function(){var t=this,e=t.legends;return n.each(e,function(e,i){n.each(e,function(n,r){var a=e[r-1];t._alignLegend(n,a,i)})}),t},e.handleEvent=function(t){var e=this,i=e.chart,r=n.createEvent(t,i),a=function(t,i){var r=null,a=e.legends;return n.each(a,function(e){n.each(e,function(e){var a=e.itemsGroup,s=e.legendHitBoxes,o=a.get("children");if(o.length){var c=e.x,h=e.y;n.each(s,function(n,a){if(t>=n.x+c&&t<=n.x+n.width+c&&i>=n.y+h&&i<=n.height+n.y+h)return r={clickedItem:o[a],clickedLegend:e},!1})}})}),r}(r.x,r.y);if(a&&!1!==a.clickedLegend.clickable){var s=a.clickedItem,o=a.clickedLegend;if(o.onClick)t.clickedItem=s,o.onClick(t);else if(!o.custom){var c=s.get("checked"),h=s.get("dataValue"),l=o.filterVals,u=o.field;"single"===o.selectedMode?i.filter(u,function(t){return t===h}):(c?n.Array.remove(l,h):l.push(h),i.filter(u,function(t){return-1!==l.indexOf(t)})),i.repaint()}}},e.bindEvents=function(){var t=this.legendCfg.triggerOn||"touchstart",e=n.wrapBehavior(this,"handleEvent");n.addEventListener(this.canvasDom,t,e)},e.unBindEvents=function(){var t=this.legendCfg.triggerOn||"touchstart",e=n.getWrapBehavior(this,"handleEvent");n.removeEventListener(this.canvasDom,t,e)},t}();t.exports={init:function(t){var e=new o({container:t.get("backPlot"),plotRange:t.get("plotRange"),chart:t});t.set("legendController",e),t.legend=function(t,i){var r=e.legendCfg;return e.enable=!0,n.isBoolean(t)?(e.enable=t,r=i||{}):n.isObject(t)?r=t:r[t]=i,e.legendCfg=r,this}},beforeGeomDraw:function(t){var e=t.get("legendController");if(!e.enable)return null;var i=e.legendCfg;if(i&&i.custom)e.addCustomLegend();else{var r=t.getLegendItems(),a=t.get("scales"),s=t.get("filters");n.each(r,function(t,i){var n,r=a[i],o=r.values;n=s&&s[i]?o.filter(s[i]):o.slice(0),e.addLegend(r,t,n)})}i&&!1!==i.clickable&&e.bindEvents();var o=e.legends,c={top:0,right:0,bottom:0,left:0};n.each(o,function(e,i){var r=0;n.each(e,function(t){var e=t.getWidth(),n=t.getHeight();"top"===i||"bottom"===i?(r=Math.max(r,n),t.offsetY>0&&(r+=t.offsetY)):(r=Math.max(r,e),t.offsetX>0&&(r+=t.offsetX))}),c[i]=r+function(t,e){var i=0;switch(e=n.parsePadding(e),t){case"top":i=e[0];break;case"right":i=e[1];break;case"bottom":i=e[2];break;case"left":i=e[3]}return i}(i,t.get("appendPadding"))}),t.set("legendRange",c)},afterGeomDraw:function(t){t.get("legendController").alignLegends()},clearInner:function(t){t.get("legendController").clear(),t.set("legendRange",null)}}},function(t,e,i){function n(t,e,i){var n=[];return h.each(t,function(t,r){var a=t.get("container").get("children"),s=t.get("type"),c=h.isNil(t.get("animateCfg"))?o(s,e):t.get("animateCfg");!1!==c&&h.each(a,function(e,a){e.get("className")===s&&(e._id=function(t,e,i){var n,r=t.get("type"),a="geom"+i+"-"+r,s=t.getXScale(),o=t.getYScale(),c=s.field||"x",l=o.field||"y",u=e[l];n=s.isIdentity?s.value:e[c],a+="interval"===r||"schema"===r?"-"+n:"line"===r||"area"===r||"path"===r?"-"+r:s.isCategory?"-"+n:"-"+n+"-"+u;var f=t._getGroupScales();return h.each(f,function(t){var i=t.field;"identity"!==t.type&&(a+="-"+e[i])}),a}(t,e.get("origin")._origin,r),e.set("coord",i),e.set("animateCfg",c),e.set("index",a),n.push(e))}),t.set("shapes",a)}),n}function r(t,e,i,n){return h.isFunction(n)?n:h.isString(n)?p.Action[n]:p.getAnimation(t,e,i)}function a(t,e,i){if(!1===i||h.isObject(i)&&!1===i[e])return!1;var n=p.getAnimateCfg(t,e);return i&&i[e]?h.deepMix({},n,i[e]):n}function s(t,e,i){var n,s,o=[],c=[];h.each(e,function(e){var i=t[e._id];i?(e.set("cacheShape",i),o.push(e),delete t[e._id]):c.push(e)}),h.each(t,function(t){var e=t.className,o=t.coord,c=t._id,l=t.attrs,u=t.index,f=t.type;if(!1===(s=a(e,"leave",t.animateCfg)))return!0;if(n=r(e,o,"leave",s.animation),h.isFunction(n)){var p=i.addShape(f,{attrs:l,index:u,canvas:i,className:e});p._id=c,n(p,s,o)}}),h.each(o,function(t){var e=t.get("className");if(!1===(s=a(e,"update",t.get("animateCfg"))))return!0;var i=t.get("coord"),o=t.get("cacheShape").attrs,c=function(t,e){var i={};for(var n in e)h.isNumber(t[n])&&t[n]!==e[n]?i[n]=e[n]:h.isArray(t[n])&&JSON.stringify(t[n])!==JSON.stringify(e[n])&&(i[n]=e[n]);return i}(o,t._attrs.attrs);Object.keys(c).length&&(n=r(e,i,"update",s.animation),h.isFunction(n)?n(t,s,i):(t.attr(o),t.animate().to({attrs:c,duration:s.duration,easing:s.easing,delay:s.delay}).onEnd(function(){t.set("cacheShape",null)})))}),h.each(c,function(t){var e=t.get("className"),i=t.get("coord");if(!1===(s=a(e,"enter",t.get("animateCfg"))))return!0;if(n=r(e,i,"enter",s.animation),h.isFunction(n))if("interval"===e&&i.isPolar&&i.transposed){var c=t.get("index"),l=o[c-1];n(t,s,l)}else n(t,s,i)})}function o(t,e){if(!t)return null;var i=e.get("animate");return t.indexOf("guide-tag")>-1&&(t="guide-tag"),h.isObject(i)?i[t]:!1!==i&&null}var c,h=i(0),l=i(27),u=i(131),f=i(132),p=i(47),g=i(134),d=i(135),v=i(7);l.prototype.animate=function(){var t=h.mix({},this.get("attrs"));return new f(this,t,c)},v.prototype.animate=function(t){return this.set("animate",t),this},p.Action=g,p.defaultCfg={interval:{enter:function(t){return t.isPolar&&t.transposed?function(t){t.set("zIndex",-1);t.get("parent").sort()}:g.fadeIn}},area:{enter:function(t){return t.isPolar?null:g.fadeIn}},line:{enter:function(t){return t.isPolar?null:g.fadeIn}},path:{enter:function(t){return t.isPolar?null:g.fadeIn}}};var y={line:function(t){return t.isPolar?d.groupScaleInXY:d.groupWaveIn},area:function(t){return t.isPolar?d.groupScaleInXY:d.groupWaveIn},path:function(t){return t.isPolar?d.groupScaleInXY:d.groupWaveIn},point:function(){return d.shapesScaleInXY},interval:function(t){var e;return t.isPolar?(e=d.groupScaleInXY,t.transposed&&(e=d.groupWaveIn)):e=t.transposed?d.groupScaleInX:d.groupScaleInY,e},schema:function(){return d.groupWaveIn}};t.exports={afterCanvasInit:function(){(c=new u).play()},beforeCanvasDraw:function(t){if(!1!==t.get("animate")){var e=t.get("isUpdate"),i=t.get("canvas"),c=t.get("coord"),l=t.get("geoms"),u=i.get("caches")||[];0===u.length&&(e=!1);var f=n(l,t,c),g=t.get("axisController"),v=g.frontPlot,m=g.backPlot,x=v.get("children").concat(m.get("children")),_=[];t.get("guideController")&&(_=t.get("guideController").guideShapes);var S=[];if(x.concat(_).forEach(function(e){var i=o(e.get("className"),t);e.set("coord",c),e.set("animateCfg",i),S.push(e),f.push(e)}),i.set("caches",function(t){for(var e={},i=0,n=t.length;i<n;i++){var r=t[i];if(r._id&&!r.isClip){var a=r._id;e[a]={_id:a,type:r.get("type"),attrs:h.mix({},r._attrs.attrs),className:r.get("className"),geomType:r.get("className"),index:r.get("index"),coord:r.get("coord"),animateCfg:r.get("animateCfg")}}}return e}(f)),e)s(u,f,i);else{var b,C;h.each(l,function(e){var i=e.get("type"),n=h.isNil(e.get("animateCfg"))?o(i,t):e.get("animateCfg");if(!1!==n)if(b=a(i,"appear",n),C=r(i,c,"appear",b.animation),h.isFunction(C)){var s=e.get("shapes");h.each(s,function(t){C(t,b,c)})}else if(y[i]){C=d[b.animation]||y[i](c);var l=e.getYScale(),u=c.convertPoint({x:0,y:l.scale(e.getYMinValue())}),f=e.get("container");C&&C(f,b,c,u)}}),h.each(S,function(t){var e=t.get("animateCfg"),i=t.get("className");if(e&&e.appear){var n=p.getAnimateCfg(i,"appear"),a=h.deepMix({},n,e.appear),s=r(i,c,"appear",a.animation);h.isFunction(s)&&s(t,a,c)}})}}},afterCanvasDestroyed:function(){c.stop()}}},function(t,e,i){var n=i(40).requestAnimationFrame,r="object"==typeof performance&&performance.now?performance:Date,a=function(){function t(){this.anims=[],this.time=null,this.playing=!1,this.canvas=[]}var e=t.prototype;return e.play=function(){function t(){e.playing&&(n(t),e.update())}var e=this;e.time=r.now(),e.playing=!0,n(t)},e.stop=function(){this.playing=!1,this.time=null,this.canvas=[]},e.update=function(){var t=r.now();this.canvas=[];for(var e=0;e<this.anims.length;e++){var i=this.anims[e];if(!(t<i.startTime||i.hasEnded)){var n=i.shape;if(n.get("destroyed"))this.anims.splice(e,1),e--;else{var a=i.startState,s=i.endState,o=i.interpolate,c=i.duration;t>=i.startTime&&!i.hasStarted&&(i.hasStarted=!0,i.onStart&&i.onStart());var h=(t-i.startTime)/c;if(h=Math.max(0,Math.min(h,1)),h=i.easing(h),i.onFrame)i.onFrame(h);else for(var l in o){var u=(0,o[l])(h),f=void 0;if("points"===l){f=[];for(var p=Math.max(a.points.length,s.points.length),g=0;g<p;g+=2)f.push({x:u[g],y:u[g+1]})}else f=u;n._attrs.attrs[l]=f,n._attrs.bbox=null}var d=n.get("canvas");-1===this.canvas.indexOf(d)&&this.canvas.push(d),i.onUpdate&&i.onUpdate(h),t>=i.endTime&&!i.hasEnded&&(i.hasEnded=!0,i.onEnd&&i.onEnd()),1===h&&(this.anims.splice(e,1),e--)}}}this.canvas.map(function(t){return t.draw(),t}),this.time=r.now()},t}();t.exports=a},function(t,e,i){function n(t){for(var e=[],i=0,n=t.length;i<n;i++)t[i]&&(e.push(t[i].x),e.push(t[i].y));return e}function r(t,e){return t=+t,e-=t,function(i){return t+e*i}}function a(t,e){var i,n=e?e.length:0,a=t?Math.min(n,t.length):0,s=new Array(a),o=new Array(n);for(i=0;i<a;++i)s[i]=r(t[i],e[i]);for(;i<n;++i)o[i]=e[i];return function(t){for(i=0;i<a;++i)o[i]=s[i](t);return o}}var s=i(133),o=function(){function t(t,e,i){this.hasStarted=!1,this.hasEnded=!1,this.shape=t,this.source=e,this.timeline=i,this.animate=null}var e=t.prototype;return e.to=function(t){void 0===t&&(t={});var e,i=t.delay||0,o=t.attrs||{},c=t.duration||1e3;e="function"==typeof t.easing?t.easing:s[t.easing]||s.linear;var h={shape:this.shape,startTime:this.timeline.time+i,duration:c,easing:e},l={};for(var u in o){var f=this.source[u],p=o[u];"points"===u?(f=n(f),p=n(p),l.points=a(f,p),this.source.points=f,o.points=p):"matrix"===u?l.matrix=a(f,p):l[u]=r(f,p)}return h.interpolate=l,h.startState=this.source,h.endState=o,h.endTime=h.startTime+c,this.timeline.anims.push(h),this.animate=h,this},e.onFrame=function(t){return this.animate&&(this.animate.onFrame=function(e){t(e)}),this},e.onStart=function(t){return this.animate&&(this.animate.onStart=function(){t()}),this},e.onUpdate=function(t){return this.animate&&(this.animate.onUpdate=function(e){t(e)}),this},e.onEnd=function(t){return this.animate&&(this.animate.onEnd=function(){t()}),this},t}();t.exports=o},function(t,e){var i={linear:function(t){return t},quadraticIn:function(t){return t*t},quadraticOut:function(t){return t*(2-t)},quadraticInOut:function(t){return(t*=2)<1?.5*t*t:-.5*(--t*(t-2)-1)},cubicIn:function(t){return t*t*t},cubicOut:function(t){return--t*t*t+1},cubicInOut:function(t){return(t*=2)<1?.5*t*t*t:.5*((t-=2)*t*t+2)},elasticIn:function(t){var e,i=.1,n=.4;return 0===t?0:1===t?1:(n||(n=.3),!i||i<1?(i=1,e=n/4):e=n/(2*Math.PI)*Math.asin(1/i),-i*Math.pow(2,10*(t-=1))*Math.sin((t-e)*(2*Math.PI)/n))},elasticOut:function(t){var e,i=.1,n=.4;return 0===t?0:1===t?1:(n||(n=.3),!i||i<1?(i=1,e=n/4):e=n/(2*Math.PI)*Math.asin(1/i),i*Math.pow(2,-10*t)*Math.sin((t-e)*(2*Math.PI)/n)+1)},elasticInOut:function(t){var e,i=.1,n=.4;return 0===t?0:1===t?1:(n||(n=.3),!i||i<1?(i=1,e=n/4):e=n/(2*Math.PI)*Math.asin(1/i),(t*=2)<1?i*Math.pow(2,10*(t-=1))*Math.sin((t-e)*(2*Math.PI)/n)*-.5:i*Math.pow(2,-10*(t-=1))*Math.sin((t-e)*(2*Math.PI)/n)*.5+1)},backIn:function(t){var e=1.70158;return t*t*((e+1)*t-e)},backOut:function(t){var e=1.70158;return(t-=1)*t*((e+1)*t+e)+1},backInOut:function(t){var e=2.5949095;return(t*=2)<1?t*t*((e+1)*t-e)*.5:.5*((t-=2)*t*((e+1)*t+e)+2)},bounceIn:function(t){return 1-i.bounceOut(1-t)},bounceOut:function(t){return(t/=1)<1/2.75?7.5625*t*t:t<2/2.75?7.5625*(t-=1.5/2.75)*t+.75:t<2.5/2.75?7.5625*(t-=2.25/2.75)*t+.9375:7.5625*(t-=2.625/2.75)*t+.984375},bounceInOut:function(t){return t<.5?.5*i.bounceIn(2*t):.5*i.bounceOut(2*t-1)+.5}};t.exports=i},function(t,e,i){var n=i(0),r=i(48);t.exports={fadeIn:function(t,e){var i=n.isNil(t.attr("fillOpacity"))?1:t.attr("fillOpacity"),a=n.isNil(t.attr("strokeOpacity"))?1:t.attr("strokeOpacity");t.attr("fillOpacity",0),t.attr("strokeOpacity",0);var s={fillOpacity:i,strokeOpacity:a};r.doAnimation(t,s,e)}}},function(t,e,i){function n(t,e,i,n,r){var s,c,h=a.getCoordInfo(i),l=h.start,u=h.end,f=h.width,p=h.height,g=new o.Rect({attrs:{x:l.x,y:u.y,width:f,height:p}});"y"===r?(s=l.x+f/2,c=n.y<l.y?n.y:l.y):"x"===r?(s=n.x>l.x?n.x:l.x,c=l.y+p/2):"xy"===r&&(i.isPolar?(s=i.center.x,c=i.center.y):(s=(l.x+u.x)/2,c=(l.y+u.y)/2));var d=a.getScaledMatrix(g,[s,c],r);g.isClip=!0,g.endState={matrix:d},g.set("canvas",t.get("canvas")),t.attr("clip",g);a.doAnimation(g,g.endState,e,function(){t.attr("clip",null),g.remove(!0)})}function r(t,e,i){for(var n,r,s,o=t.get("children"),c=0,h=o.length;c<h;c++){var l=o[c],u=l.getBBox();n=(u.minX+u.maxX)/2,r=(u.minY+u.maxY)/2,s=a.getScaledMatrix(l,[n,r],i),a.doAnimation(l,{matrix:s},e)}}var a=i(48),s=i(21),o=i(3).Shape;t.exports={groupWaveIn:function(t,e,i){var n=s.getClip(i);n.set("canvas",t.get("canvas")),t.attr("clip",n);var r={};if(i.isPolar){var o=i.startAngle,c=i.endAngle;r.endAngle=c,n.attr("endAngle",o)}else{var h=i.start,l=i.end,u=Math.abs(h.x-l.x),f=Math.abs(h.y-l.y);i.isTransposed?(n.attr("height",0),r.height=f):(n.attr("width",0),r.width=u)}a.doAnimation(n,r,e,function(){t.attr("clip",null),n.remove(!0)})},groupScaleInX:function(t,e,i,r){n(t,e,i,r,"x")},groupScaleInY:function(t,e,i,r){n(t,e,i,r,"y")},groupScaleInXY:function(t,e,i,r){n(t,e,i,r,"xy")},shapesScaleInX:function(t,e){r(t,e,"x")},shapesScaleInY:function(t,e){r(t,e,"y")},shapesScaleInXY:function(t,e){r(t,e,"xy")}}},function(t,e,i){var n=i(23),r=i(0),a={mode:"x",xStyle:{backgroundColor:"rgba(202, 215, 239, .2)",fillerColor:"rgba(202, 215, 239, .5)",size:4,lineCap:"round",offsetX:0,offsetY:8},yStyle:{backgroundColor:"rgba(202, 215, 239, .2)",fillerColor:"rgba(202, 215, 239, .5)",size:4,lineCap:"round",offsetX:8,offsetY:0}};t.exports={init:function(t){t.set("_limitRange",{}),t.scrollBar=function(t){!0===t?t=a:r.isObject(t)&&(t=r.deepMix({},a,t)),this.set("_scrollBarCfg",t)}},clear:function(t){t.set("_limitRange",{})},changeData:function(t){t.set("_limitRange",{})},clearInner:function(t){var e=t.get("_horizontalBar"),i=t.get("_verticalBar");e&&e.remove(!0),i&&i.remove(!0),t.set("_horizontalBar",null),t.set("_verticalBar",null)},afterGeomDraw:function(t){var e=t.get("_scrollBarCfg");if(e){var i=t.get("data"),a=t.get("plotRange"),s=t.get("backPlot"),o=t.get("canvas").get("height"),c=t.get("_limitRange"),h=e.mode;if(r.directionEnabled(h,"x")){var l=e.xStyle,u=l.offsetX,f=l.offsetY,p=l.lineCap,g=l.backgroundColor,d=l.fillerColor,v=l.size,y=t.getXScale(),m=c[y.field];m||(m=n.getLimitRange(i,y),c[y.field]=m);var x=n.getFieldRange(y,m,y.type),_=t.get("_horizontalBar"),S=o-v/2+f;if(_){_.get("children")[1].attr({x1:Math.max(a.bl.x+a.width*x[0]+u,a.bl.x),x2:Math.min(a.bl.x+a.width*x[1]+u,a.br.x)})}else(_=s.addGroup({className:"horizontalBar"})).addShape("line",{attrs:{x1:a.bl.x+u,y1:S,x2:a.br.x+u,y2:S,lineWidth:v,stroke:g,lineCap:p}}),_.addShape("line",{attrs:{x1:Math.max(a.bl.x+a.width*x[0]+u,a.bl.x),y1:S,x2:Math.min(a.bl.x+a.width*x[1]+u,a.br.x),y2:S,lineWidth:v,stroke:d,lineCap:p}}),t.set("_horizontalBar",_)}if(r.directionEnabled(h,"y")){var b=e.yStyle,C=b.offsetX,P=b.offsetY,w=b.lineCap,M=b.backgroundColor,T=b.fillerColor,A=b.size,D=t.getYScales()[0],k=c[D.field];k||(k=n.getLimitRange(i,D),c[D.field]=k);var I=n.getFieldRange(D,k,D.type),O=t.get("_verticalBar"),E=A/2+C;if(O){O.get("children")[1].attr({y1:Math.max(a.tl.y+a.height*I[0]+P,a.tl.y),y2:Math.min(a.tl.y+a.height*I[1]+P,a.bl.y)})}else(O=s.addGroup({className:"verticalBar"})).addShape("line",{attrs:{x1:E,y1:a.tl.y+P,x2:E,y2:a.bl.y+P,lineWidth:A,stroke:M,lineCap:w}}),O.addShape("line",{attrs:{x1:E,y1:Math.max(a.tl.y+a.height*I[0]+P,a.tl.y),x2:E,y2:Math.min(a.tl.y+a.height*I[1]+P,a.bl.y),lineWidth:A,stroke:T,lineCap:w}}),t.set("_verticalBar",O)}}}}},function(t,e,i){function n(t,e,i){return{x:t.x+i*Math.cos(e),y:t.y+i*Math.sin(e)}}function r(t,e){var i=t.getBBox(),n=e.getBBox();return Math.max(i.minX,n.minX)<=Math.min(i.maxX,n.minX)&&Math.max(i.minY,n.minY)<=Math.min(i.maxY,n.maxY)}var a=i(0),s=i(3).Group,o={anchorOffset:5,inflectionOffset:15,sidePadding:20,lineHeight:32,adjustOffset:15,skipOverlapLabels:!1,triggerOn:"touchstart",activeShape:!1,activeStyle:{offset:1,appendRadius:8,fillOpacity:.5},label1OffsetY:-1,label2OffsetY:1},c=function(){function t(t){a.mix(this,t);var e=this.chart;this.canvasDom=e.get("canvas").get("el")}var e=t.prototype;return e.renderLabels=function(){var t=this,e=t.chart,i=t.pieLabelCfg,o=t.labelGroup,c=[[],[]],h=e.get("geoms")[0].get("container").get("children"),l=i.anchorOffset,u=i.inflectionOffset,f=i.label1,p=i.label2,g=i.lineHeight,d=i.skipOverlapLabels,v=i.label1OffsetY,y=i.label2OffsetY,m=e.get("coord"),x=m.center,_=m.circleRadius;h.forEach(function(t){var i=t._attrs.attrs,r=function(t,e){return e<t&&(e+=2*Math.PI),(e+t)/2}(i.startAngle,i.endAngle),o=n(x,r,_+l),h=n(x,r,_+u),g=t.get("origin"),d=g._origin,m=g.color,S={_anchor:o,_inflection:h,_data:d,x:h.x,y:h.y,r:_+u,fill:m},b=new s({context:e.get("canvas").get("context"),data:d}),C={x:0,y:0,fontSize:12,lineHeight:12,fill:"#808080"};a.isFunction(f)&&b.addShape("Text",{attrs:a.mix({textBaseline:"bottom"},C,f(d,m)),data:d,offsetY:v}),a.isFunction(p)&&b.addShape("Text",{attrs:a.mix({textBaseline:"top"},C,p(d,m)),data:d,offsetY:y}),S.textGroup=b,o.x<x.x?(S._side="left",c[0].push(S)):(S._side="right",c[1].push(S))});var S=[];if(d)for(var b,C=c[1].concat(c[0]),P=0,w=C.length;P<w;P++){var M=C[P],T=t._drawLabel(M);b&&r(T,b)||(o.add(T),t._drawLabelLine(M),b=T,S.push(T))}else{var A=e.get("height"),D=parseInt(A/g,10);c.forEach(function(e){e.length>D&&e.splice(D,e.length-D),e.sort(function(t,e){return t.y-e.y});var i=t._antiCollision(e);S=S.concat(i)})}this.drawnLabels=S},e.bindEvents=function(){var t=this.pieLabelCfg.triggerOn||"touchstart",e=a.wrapBehavior(this,"_handleEvent");a.addEventListener(this.canvasDom,t,e)},e.unBindEvents=function(){var t=this.pieLabelCfg.triggerOn||"touchstart",e=a.getWrapBehavior(this,"_handleEvent");a.removeEventListener(this.canvasDom,t,e)},e.clear=function(){this.labelGroup&&this.labelGroup.clear(),this.halo&&this.halo.remove(!0),this.lastSelectedData=null,this.drawnLabels=[],this.unBindEvents()},e._drawLabel=function(t){var e=this.pieLabelCfg,i=this.chart.get("width"),n=e.sidePadding,r=t.y,a=t.textGroup,s=a.get("children"),o={textAlign:"left"===t._side?"left":"right",x:"left"===t._side?n:i-n};return s.forEach(function(t){t.attr(o),t.attr("y",r+t.get("offsetY"))}),a},e._drawLabelLine=function(t,e){var i=this.chart,n=this.pieLabelCfg,r=this.labelGroup,s=i.get("width"),o=n.sidePadding,c=n.adjustOffset,h=n.lineStyle,l=n.anchorStyle,u=n.skipOverlapLabels,f=t._anchor,p=t._inflection,g=t.fill,d=t.y,v={x:"left"===t._side?o:s-o,y:d},y=[f,p,v];if(!u&&p.y!==d)if(p.y<d){var m=p,x={x:"left"===t._side?v.x+e+c:v.x-e-c,y:p.y},_={x:"left"===t._side?v.x+e:v.x-e,y:v.y};y=[f,m,x,_,v],("right"===t._side&&x.x<m.x||"left"===t._side&&x.x>m.x)&&(y=[f,_,v])}else y=[f,{x:p.x,y:d},v];r.addShape("Polyline",{attrs:a.mix({points:y,lineWidth:1,stroke:g},h)}),r.addShape("Circle",{attrs:a.mix({x:f.x,y:f.y,r:2,fill:g},l)})},e._antiCollision=function(t){var e,i=this,n=i.chart,r=i.pieLabelCfg,a=n.get("coord"),s=n.get("height"),o=a.center,c=a.circleRadius,h=r.inflectionOffset,l=r.lineHeight,u=o.y-c-h-l,f=!0,p=s,g=0,d=Number.MIN_VALUE,v=0,y=t.map(function(t){var e=t.y;e>g&&(g=e),e<d&&(d=e);var i=t.textGroup.getBBox().width;return i>=v&&(v=i),{size:l,targets:[e-u]}});g-u>p&&(p=g-u);for(var m=function(t){t.forEach(function(t){var e=(Math.min.apply(d,t.targets)+Math.max.apply(d,t.targets))/2;t.pos=Math.min(Math.max(d,e-t.size/2),p-t.size)})};f;)for(m(y),f=!1,e=y.length;e--;)if(e>0){var x=y[e-1],_=y[e];x.pos+x.size>_.pos&&(x.size+=_.size,x.targets=x.targets.concat(_.targets),x.pos+x.size>p&&(x.pos=p-x.size),y.splice(e,1),f=!0)}e=0,y.forEach(function(i){var n=u;i.targets.forEach(function(){t[e].y=i.pos+n+l/2,n+=l,e++})});var S=[];return t.forEach(function(t){var e=i._drawLabel(t);i.labelGroup.add(e),i._drawLabelLine(t,v),S.push(e)}),S},e._handleEvent=function(t){for(var e,i=this.chart,n=this.drawnLabels,r=this.pieLabelCfg,s=r.onClick,o=r.activeShape,c=a.createEvent(t,i),h=c.x,l=c.y,u=0,f=n.length;u<f;u++){var p=n[u],g=p.getBBox();if(h>=g.minX&&h<=g.maxX&&l>=g.minY&&l<=g.maxY){e=p;break}}var d=i.getSnapRecords({x:h,y:l});e?c.data=e.get("data"):d.length&&(c.data=d[0]._origin),s&&s(c),c.data&&o&&this._activeShape(c.data)},e._getSelectedShapeByData=function(t){var e=null,i=this.chart.get("geoms")[0],n=i.get("container").get("children");return a.each(n,function(n){if(n.get("isShape")&&n.get("className")===i.get("type")){var r=n.get("origin")._origin;if(a.isObjectValueEqual(r,t))return e=n,!1}}),e},e._activeShape=function(t){var e=this.chart,i=this.lastSelectedData,n=this.pieLabelCfg;if(t!==i){this.lastSelectedData=t;var r=n.activeStyle,s=this._getSelectedShapeByData(t)._attrs.attrs,o=s.x,c=s.y,h=s.startAngle,l=s.endAngle,u=s.r,f=s.fill,p=e.get("frontPlot");this.halo&&this.halo.remove(!0);var g=p.addShape("sector",{attrs:a.mix({x:o,y:c,r:u+r.offset+r.appendRadius,r0:u+r.offset,fill:f,startAngle:h,endAngle:l},r)});this.halo=g,e.get("canvas").draw()}},t}();t.exports={init:function(t){var e=t.get("frontPlot").addGroup({className:"pie-label",zIndex:0}),i=new c({chart:t,labelGroup:e});t.set("pieLabelController",i),t.pieLabel=function(t){return t=a.deepMix({},o,t),i.pieLabelCfg=t,this}},afterGeomDraw:function(t){var e=t.get("pieLabelController");e.pieLabelCfg&&(e.renderLabels(),e.bindEvents())},clearInner:function(t){var e=t.get("pieLabelController");e.pieLabelCfg&&e.clear()}}},function(t,e,i){t.exports={Interaction:i(12),PieSelect:i(140),IntervalSelect:i(141),Swipe:i(142),Pan:i(143),Pinch:i(144)}},function(t,e,i){var n;!function(r,a,s,o){"use strict";function c(t,e,i){return setTimeout(p(t,i),e)}function h(t,e,i){return!!Array.isArray(t)&&(l(t,i[e],i),!0)}function l(t,e,i){var n;if(t)if(t.forEach)t.forEach(e,i);else if(t.length!==o)for(n=0;n<t.length;)e.call(i,t[n],n,t),n++;else for(n in t)t.hasOwnProperty(n)&&e.call(i,t[n],n,t)}function u(t,e,i){var n="DEPRECATED METHOD: "+e+"\n"+i+" AT \n";return function(){var e=new Error("get-stack-trace"),i=e&&e.stack?e.stack.replace(/^[^\(]+?[\n$]/gm,"").replace(/^\s+at\s+/gm,"").replace(/^Object.<anonymous>\s*\(/gm,"{anonymous}()@"):"Unknown Stack Trace",a=r.console&&(r.console.warn||r.console.log);return a&&a.call(r.console,n,i),t.apply(this,arguments)}}function f(t,e,i){var n,r=e.prototype;(n=t.prototype=Object.create(r)).constructor=t,n._super=r,i&&et(n,i)}function p(t,e){return function(){return t.apply(e,arguments)}}function g(t,e){return typeof t==rt?t.apply(e?e[0]||o:o,e):t}function d(t,e){return t===o?e:t}function v(t,e,i){l(_(e),function(e){t.addEventListener(e,i,!1)})}function y(t,e,i){l(_(e),function(e){t.removeEventListener(e,i,!1)})}function m(t,e){for(;t;){if(t==e)return!0;t=t.parentNode}return!1}function x(t,e){return t.indexOf(e)>-1}function _(t){return t.trim().split(/\s+/g)}function S(t,e,i){if(t.indexOf&&!i)return t.indexOf(e);for(var n=0;n<t.length;){if(i&&t[n][i]==e||!i&&t[n]===e)return n;n++}return-1}function b(t){return Array.prototype.slice.call(t,0)}function C(t,e,i){for(var n=[],r=[],a=0;a<t.length;){var s=e?t[a][e]:t[a];S(r,s)<0&&n.push(t[a]),r[a]=s,a++}return i&&(n=e?n.sort(function(t,i){return t[e]>i[e]}):n.sort()),n}function P(t,e){for(var i,n,r=e[0].toUpperCase()+e.slice(1),a=0;a<it.length;){if(i=it[a],(n=i?i+r:e)in t)return n;a++}return o}function w(t){var e=t.ownerDocument||t;return e.defaultView||e.parentWindow||r}function M(t,e){var i=this;this.manager=t,this.callback=e,this.element=t.element,this.target=t.options.inputTarget,this.domHandler=function(e){g(t.options.enable,[t])&&i.handler(e)},this.init()}function T(t,e,i){var n=i.pointers.length,r=i.changedPointers.length,a=e&dt&&n-r==0,s=e&(yt|mt)&&n-r==0;i.isFirst=!!a,i.isFinal=!!s,a&&(t.session={}),i.eventType=e,function(t,e){var i=t.session,n=e.pointers,r=n.length;i.firstInput||(i.firstInput=A(e));r>1&&!i.firstMultiple?i.firstMultiple=A(e):1===r&&(i.firstMultiple=!1);var a=i.firstInput,s=i.firstMultiple,c=s?s.center:a.center,h=e.center=D(n);e.timeStamp=ot(),e.deltaTime=e.timeStamp-a.timeStamp,e.angle=E(c,h),e.distance=O(c,h),function(t,e){var i=e.center,n=t.offsetDelta||{},r=t.prevDelta||{},a=t.prevInput||{};e.eventType!==dt&&a.eventType!==yt||(r=t.prevDelta={x:a.deltaX||0,y:a.deltaY||0},n=t.offsetDelta={x:i.x,y:i.y});e.deltaX=r.x+(i.x-n.x),e.deltaY=r.y+(i.y-n.y)}(i,e),e.offsetDirection=I(e.deltaX,e.deltaY);var l=k(e.deltaTime,e.deltaX,e.deltaY);e.overallVelocityX=l.x,e.overallVelocityY=l.y,e.overallVelocity=st(l.x)>st(l.y)?l.x:l.y,e.scale=s?function(t,e){return O(e[0],e[1],At)/O(t[0],t[1],At)}(s.pointers,n):1,e.rotation=s?function(t,e){return E(e[1],e[0],At)+E(t[1],t[0],At)}(s.pointers,n):0,e.maxPointers=i.prevInput?e.pointers.length>i.prevInput.maxPointers?e.pointers.length:i.prevInput.maxPointers:e.pointers.length,function(t,e){var i,n,r,a,s=t.lastInterval||e,c=e.timeStamp-s.timeStamp;if(e.eventType!=mt&&(c>gt||s.velocity===o)){var h=e.deltaX-s.deltaX,l=e.deltaY-s.deltaY,u=k(c,h,l);n=u.x,r=u.y,i=st(u.x)>st(u.y)?u.x:u.y,a=I(h,l),t.lastInterval=e}else i=s.velocity,n=s.velocityX,r=s.velocityY,a=s.direction;e.velocity=i,e.velocityX=n,e.velocityY=r,e.direction=a}(i,e);var u=t.element;m(e.srcEvent.target,u)&&(u=e.srcEvent.target);e.target=u}(t,i),t.emit("hammer.input",i),t.recognize(i),t.session.prevInput=i}function A(t){for(var e=[],i=0;i<t.pointers.length;)e[i]={clientX:at(t.pointers[i].clientX),clientY:at(t.pointers[i].clientY)},i++;return{timeStamp:ot(),pointers:e,center:D(e),deltaX:t.deltaX,deltaY:t.deltaY}}function D(t){var e=t.length;if(1===e)return{x:at(t[0].clientX),y:at(t[0].clientY)};for(var i=0,n=0,r=0;r<e;)i+=t[r].clientX,n+=t[r].clientY,r++;return{x:at(i/e),y:at(n/e)}}function k(t,e,i){return{x:e/t||0,y:i/t||0}}function I(t,e){return t===e?xt:st(t)>=st(e)?t<0?_t:St:e<0?bt:Ct}function O(t,e,i){i||(i=Tt);var n=e[i[0]]-t[i[0]],r=e[i[1]]-t[i[1]];return Math.sqrt(n*n+r*r)}function E(t,e,i){i||(i=Tt);var n=e[i[0]]-t[i[0]],r=e[i[1]]-t[i[1]];return 180*Math.atan2(r,n)/Math.PI}function Y(){this.evEl=kt,this.evWin=It,this.pressed=!1,M.apply(this,arguments)}function B(){this.evEl=Yt,this.evWin=Bt,M.apply(this,arguments),this.store=this.manager.session.pointerEvents=[]}function F(){this.evTarget=Nt,this.evWin=Lt,this.started=!1,M.apply(this,arguments)}function N(){this.evTarget=Xt,this.targetIds={},M.apply(this,arguments)}function L(){M.apply(this,arguments);var t=p(this.handler,this);this.touch=new N(this.manager,t),this.mouse=new Y(this.manager,t),this.primaryTouch=null,this.lastTouches=[]}function R(t){var e=t.changedPointers[0];if(e.identifier===this.primaryTouch){var i={x:e.clientX,y:e.clientY};this.lastTouches.push(i);var n=this.lastTouches;setTimeout(function(){var t=n.indexOf(i);t>-1&&n.splice(t,1)},zt)}}function X(t,e){this.manager=t,this.set(e)}function z(t){this.options=et({},this.defaults,t||{}),this.id=lt++,this.manager=null,this.options.enable=d(this.options.enable,!0),this.state=$t,this.simultaneous={},this.requireFail=[]}function j(t){return t&ie?"cancel":t&te?"end":t&Qt?"move":t&Kt?"start":""}function G(t){return t==Ct?"down":t==bt?"up":t==_t?"left":t==St?"right":""}function W(t,e){var i=e.manager;return i?i.get(t):t}function H(){z.apply(this,arguments)}function V(){H.apply(this,arguments),this.pX=null,this.pY=null}function q(){H.apply(this,arguments)}function U(){z.apply(this,arguments),this._timer=null,this._input=null}function Z(){H.apply(this,arguments)}function J(){H.apply(this,arguments)}function $(){z.apply(this,arguments),this.pTime=!1,this.pCenter=!1,this._timer=null,this._input=null,this.count=0}function K(t,e){return e=e||{},e.recognizers=d(e.recognizers,K.defaults.preset),new Q(t,e)}function Q(t,e){this.options=et({},K.defaults,e||{}),this.options.inputTarget=this.options.inputTarget||t,this.handlers={},this.session={},this.recognizers=[],this.oldCssProps={},this.element=t,this.input=function(t){var e=t.options.inputClass;return new(e||(ft?B:pt?N:ut?L:Y))(t,T)}(this),this.touchAction=new X(this,this.options.touchAction),tt(this,!0),l(this.options.recognizers,function(t){var e=this.add(new t[0](t[1]));t[2]&&e.recognizeWith(t[2]),t[3]&&e.requireFailure(t[3])},this)}function tt(t,e){var i=t.element;if(i.style){var n;l(t.options.cssProps,function(r,a){n=P(i.style,a),e?(t.oldCssProps[n]=i.style[n],i.style[n]=r):i.style[n]=t.oldCssProps[n]||""}),e||(t.oldCssProps={})}}var et,it=["","webkit","Moz","MS","ms","o"],nt=a.createElement("div"),rt="function",at=Math.round,st=Math.abs,ot=Date.now;et="function"!=typeof Object.assign?function(t){if(t===o||null===t)throw new TypeError("Cannot convert undefined or null to object");for(var e=Object(t),i=1;i<arguments.length;i++){var n=arguments[i];if(n!==o&&null!==n)for(var r in n)n.hasOwnProperty(r)&&(e[r]=n[r])}return e}:Object.assign;var ct=u(function(t,e,i){for(var n=Object.keys(e),r=0;r<n.length;)(!i||i&&t[n[r]]===o)&&(t[n[r]]=e[n[r]]),r++;return t},"extend","Use `assign`."),ht=u(function(t,e){return ct(t,e,!0)},"merge","Use `assign`."),lt=1,ut="ontouchstart"in r,ft=P(r,"PointerEvent")!==o,pt=ut&&/mobile|tablet|ip(ad|hone|od)|android/i.test(navigator.userAgent),gt=25,dt=1,vt=2,yt=4,mt=8,xt=1,_t=2,St=4,bt=8,Ct=16,Pt=_t|St,wt=bt|Ct,Mt=Pt|wt,Tt=["x","y"],At=["clientX","clientY"];M.prototype={handler:function(){},init:function(){this.evEl&&v(this.element,this.evEl,this.domHandler),this.evTarget&&v(this.target,this.evTarget,this.domHandler),this.evWin&&v(w(this.element),this.evWin,this.domHandler)},destroy:function(){this.evEl&&y(this.element,this.evEl,this.domHandler),this.evTarget&&y(this.target,this.evTarget,this.domHandler),this.evWin&&y(w(this.element),this.evWin,this.domHandler)}};var Dt={mousedown:dt,mousemove:vt,mouseup:yt},kt="mousedown",It="mousemove mouseup";f(Y,M,{handler:function(t){var e=Dt[t.type];e&dt&&0===t.button&&(this.pressed=!0),e&vt&&1!==t.which&&(e=yt),this.pressed&&(e&yt&&(this.pressed=!1),this.callback(this.manager,e,{pointers:[t],changedPointers:[t],pointerType:"mouse",srcEvent:t}))}});var Ot={pointerdown:dt,pointermove:vt,pointerup:yt,pointercancel:mt,pointerout:mt},Et={2:"touch",3:"pen",4:"mouse",5:"kinect"},Yt="pointerdown",Bt="pointermove pointerup pointercancel";r.MSPointerEvent&&!r.PointerEvent&&(Yt="MSPointerDown",Bt="MSPointerMove MSPointerUp MSPointerCancel"),f(B,M,{handler:function(t){var e=this.store,i=!1,n=t.type.toLowerCase().replace("ms",""),r=Ot[n],a=Et[t.pointerType]||t.pointerType,s="touch"==a,o=S(e,t.pointerId,"pointerId");r&dt&&(0===t.button||s)?o<0&&(e.push(t),o=e.length-1):r&(yt|mt)&&(i=!0),o<0||(e[o]=t,this.callback(this.manager,r,{pointers:e,changedPointers:[t],pointerType:a,srcEvent:t}),i&&e.splice(o,1))}});var Ft={touchstart:dt,touchmove:vt,touchend:yt,touchcancel:mt},Nt="touchstart",Lt="touchstart touchmove touchend touchcancel";f(F,M,{handler:function(t){var e=Ft[t.type];if(e===dt&&(this.started=!0),this.started){var i=function(t,e){var i=b(t.touches),n=b(t.changedTouches);return e&(yt|mt)&&(i=C(i.concat(n),"identifier",!0)),[i,n]}.call(this,t,e);e&(yt|mt)&&i[0].length-i[1].length==0&&(this.started=!1),this.callback(this.manager,e,{pointers:i[0],changedPointers:i[1],pointerType:"touch",srcEvent:t})}}});var Rt={touchstart:dt,touchmove:vt,touchend:yt,touchcancel:mt},Xt="touchstart touchmove touchend touchcancel";f(N,M,{handler:function(t){var e=Rt[t.type],i=function(t,e){var i=b(t.touches),n=this.targetIds;if(e&(dt|vt)&&1===i.length)return n[i[0].identifier]=!0,[i,i];var r,a,s=b(t.changedTouches),o=[],c=this.target;if(a=i.filter(function(t){return m(t.target,c)}),e===dt)for(r=0;r<a.length;)n[a[r].identifier]=!0,r++;for(r=0;r<s.length;)n[s[r].identifier]&&o.push(s[r]),e&(yt|mt)&&delete n[s[r].identifier],r++;return o.length?[C(a.concat(o),"identifier",!0),o]:void 0}.call(this,t,e);i&&this.callback(this.manager,e,{pointers:i[0],changedPointers:i[1],pointerType:"touch",srcEvent:t})}});var zt=2500,jt=25;f(L,M,{handler:function(t,e,i){var n="touch"==i.pointerType,r="mouse"==i.pointerType;if(!(r&&i.sourceCapabilities&&i.sourceCapabilities.firesTouchEvents)){if(n)(function(t,e){t&dt?(this.primaryTouch=e.changedPointers[0].identifier,R.call(this,e)):t&(yt|mt)&&R.call(this,e)}).call(this,e,i);else if(r&&function(t){for(var e=t.srcEvent.clientX,i=t.srcEvent.clientY,n=0;n<this.lastTouches.length;n++){var r=this.lastTouches[n],a=Math.abs(e-r.x),s=Math.abs(i-r.y);if(a<=jt&&s<=jt)return!0}return!1}.call(this,i))return;this.callback(t,e,i)}},destroy:function(){this.touch.destroy(),this.mouse.destroy()}});var Gt=P(nt.style,"touchAction"),Wt=Gt!==o,Ht="auto",Vt="manipulation",qt="none",Ut="pan-x",Zt="pan-y",Jt=function(){if(!Wt)return!1;var t={},e=r.CSS&&r.CSS.supports;return["auto","manipulation","pan-y","pan-x","pan-x pan-y","none"].forEach(function(i){t[i]=!e||r.CSS.supports("touch-action",i)}),t}();X.prototype={set:function(t){"compute"==t&&(t=this.compute()),Wt&&this.manager.element.style&&Jt[t]&&(this.manager.element.style[Gt]=t),this.actions=t.toLowerCase().trim()},update:function(){this.set(this.manager.options.touchAction)},compute:function(){var t=[];return l(this.manager.recognizers,function(e){g(e.options.enable,[e])&&(t=t.concat(e.getTouchAction()))}),function(t){if(x(t,qt))return qt;var e=x(t,Ut),i=x(t,Zt);return e&&i?qt:e||i?e?Ut:Zt:x(t,Vt)?Vt:Ht}(t.join(" "))},preventDefaults:function(t){var e=t.srcEvent,i=t.offsetDirection;if(this.manager.session.prevented)e.preventDefault();else{var n=this.actions,r=x(n,qt)&&!Jt[qt],a=x(n,Zt)&&!Jt[Zt],s=x(n,Ut)&&!Jt[Ut];if(r){var o=1===t.pointers.length,c=t.distance<2,h=t.deltaTime<250;if(o&&c&&h)return}if(!s||!a)return r||a&&i&Pt||s&&i&wt?this.preventSrc(e):void 0}},preventSrc:function(t){this.manager.session.prevented=!0,t.preventDefault()}};var $t=1,Kt=2,Qt=4,te=8,ee=te,ie=16;z.prototype={defaults:{},set:function(t){return et(this.options,t),this.manager&&this.manager.touchAction.update(),this},recognizeWith:function(t){if(h(t,"recognizeWith",this))return this;var e=this.simultaneous;return t=W(t,this),e[t.id]||(e[t.id]=t,t.recognizeWith(this)),this},dropRecognizeWith:function(t){return h(t,"dropRecognizeWith",this)?this:(t=W(t,this),delete this.simultaneous[t.id],this)},requireFailure:function(t){if(h(t,"requireFailure",this))return this;var e=this.requireFail;return t=W(t,this),-1===S(e,t)&&(e.push(t),t.requireFailure(this)),this},dropRequireFailure:function(t){if(h(t,"dropRequireFailure",this))return this;t=W(t,this);var e=S(this.requireFail,t);return e>-1&&this.requireFail.splice(e,1),this},hasRequireFailures:function(){return this.requireFail.length>0},canRecognizeWith:function(t){return!!this.simultaneous[t.id]},emit:function(t){function e(e){i.manager.emit(e,t)}var i=this,n=this.state;n<te&&e(i.options.event+j(n)),e(i.options.event),t.additionalEvent&&e(t.additionalEvent),n>=te&&e(i.options.event+j(n))},tryEmit:function(t){if(this.canEmit())return this.emit(t);this.state=32},canEmit:function(){for(var t=0;t<this.requireFail.length;){if(!(this.requireFail[t].state&(32|$t)))return!1;t++}return!0},recognize:function(t){var e=et({},t);if(!g(this.options.enable,[this,e]))return this.reset(),void(this.state=32);this.state&(ee|ie|32)&&(this.state=$t),this.state=this.process(e),this.state&(Kt|Qt|te|ie)&&this.tryEmit(e)},process:function(t){},getTouchAction:function(){},reset:function(){}},f(H,z,{defaults:{pointers:1},attrTest:function(t){var e=this.options.pointers;return 0===e||t.pointers.length===e},process:function(t){var e=this.state,i=t.eventType,n=e&(Kt|Qt),r=this.attrTest(t);return n&&(i&mt||!r)?e|ie:n||r?i&yt?e|te:e&Kt?e|Qt:Kt:32}}),f(V,H,{defaults:{event:"pan",threshold:10,pointers:1,direction:Mt},getTouchAction:function(){var t=this.options.direction,e=[];return t&Pt&&e.push(Zt),t&wt&&e.push(Ut),e},directionTest:function(t){var e=this.options,i=!0,n=t.distance,r=t.direction,a=t.deltaX,s=t.deltaY;return r&e.direction||(e.direction&Pt?(r=0===a?xt:a<0?_t:St,i=a!=this.pX,n=Math.abs(t.deltaX)):(r=0===s?xt:s<0?bt:Ct,i=s!=this.pY,n=Math.abs(t.deltaY))),t.direction=r,i&&n>e.threshold&&r&e.direction},attrTest:function(t){return H.prototype.attrTest.call(this,t)&&(this.state&Kt||!(this.state&Kt)&&this.directionTest(t))},emit:function(t){this.pX=t.deltaX,this.pY=t.deltaY;var e=G(t.direction);e&&(t.additionalEvent=this.options.event+e),this._super.emit.call(this,t)}}),f(q,H,{defaults:{event:"pinch",threshold:0,pointers:2},getTouchAction:function(){return[qt]},attrTest:function(t){return this._super.attrTest.call(this,t)&&(Math.abs(t.scale-1)>this.options.threshold||this.state&Kt)},emit:function(t){if(1!==t.scale){var e=t.scale<1?"in":"out";t.additionalEvent=this.options.event+e}this._super.emit.call(this,t)}}),f(U,z,{defaults:{event:"press",pointers:1,time:251,threshold:9},getTouchAction:function(){return[Ht]},process:function(t){var e=this.options,i=t.pointers.length===e.pointers,n=t.distance<e.threshold,r=t.deltaTime>e.time;if(this._input=t,!n||!i||t.eventType&(yt|mt)&&!r)this.reset();else if(t.eventType&dt)this.reset(),this._timer=c(function(){this.state=ee,this.tryEmit()},e.time,this);else if(t.eventType&yt)return ee;return 32},reset:function(){clearTimeout(this._timer)},emit:function(t){this.state===ee&&(t&&t.eventType&yt?this.manager.emit(this.options.event+"up",t):(this._input.timeStamp=ot(),this.manager.emit(this.options.event,this._input)))}}),f(Z,H,{defaults:{event:"rotate",threshold:0,pointers:2},getTouchAction:function(){return[qt]},attrTest:function(t){return this._super.attrTest.call(this,t)&&(Math.abs(t.rotation)>this.options.threshold||this.state&Kt)}}),f(J,H,{defaults:{event:"swipe",threshold:10,velocity:.3,direction:Pt|wt,pointers:1},getTouchAction:function(){return V.prototype.getTouchAction.call(this)},attrTest:function(t){var e,i=this.options.direction;return i&(Pt|wt)?e=t.overallVelocity:i&Pt?e=t.overallVelocityX:i&wt&&(e=t.overallVelocityY),this._super.attrTest.call(this,t)&&i&t.offsetDirection&&t.distance>this.options.threshold&&t.maxPointers==this.options.pointers&&st(e)>this.options.velocity&&t.eventType&yt},emit:function(t){var e=G(t.offsetDirection);e&&this.manager.emit(this.options.event+e,t),this.manager.emit(this.options.event,t)}}),f($,z,{defaults:{event:"tap",pointers:1,taps:1,interval:300,time:250,threshold:9,posThreshold:10},getTouchAction:function(){return[Vt]},process:function(t){var e=this.options,i=t.pointers.length===e.pointers,n=t.distance<e.threshold,r=t.deltaTime<e.time;if(this.reset(),t.eventType&dt&&0===this.count)return this.failTimeout();if(n&&r&&i){if(t.eventType!=yt)return this.failTimeout();var a=!this.pTime||t.timeStamp-this.pTime<e.interval,s=!this.pCenter||O(this.pCenter,t.center)<e.posThreshold;this.pTime=t.timeStamp,this.pCenter=t.center,s&&a?this.count+=1:this.count=1,this._input=t;if(0===this.count%e.taps)return this.hasRequireFailures()?(this._timer=c(function(){this.state=ee,this.tryEmit()},e.interval,this),Kt):ee}return 32},failTimeout:function(){return this._timer=c(function(){this.state=32},this.options.interval,this),32},reset:function(){clearTimeout(this._timer)},emit:function(){this.state==ee&&(this._input.tapCount=this.count,this.manager.emit(this.options.event,this._input))}}),K.VERSION="2.0.7",K.defaults={domEvents:!1,touchAction:"compute",enable:!0,inputTarget:null,inputClass:null,preset:[[Z,{enable:!1}],[q,{enable:!1},["rotate"]],[J,{direction:Pt}],[V,{direction:Pt},["swipe"]],[$],[$,{event:"doubletap",taps:2},["tap"]],[U]],cssProps:{userSelect:"none",touchSelect:"none",touchCallout:"none",contentZooming:"none",userDrag:"none",tapHighlightColor:"rgba(0,0,0,0)"}};Q.prototype={set:function(t){return et(this.options,t),t.touchAction&&this.touchAction.update(),t.inputTarget&&(this.input.destroy(),this.input.target=t.inputTarget,this.input.init()),this},stop:function(t){this.session.stopped=t?2:1},recognize:function(t){var e=this.session;if(!e.stopped){this.touchAction.preventDefaults(t);var i,n=this.recognizers,r=e.curRecognizer;(!r||r&&r.state&ee)&&(r=e.curRecognizer=null);for(var a=0;a<n.length;)i=n[a],2===e.stopped||r&&i!=r&&!i.canRecognizeWith(r)?i.reset():i.recognize(t),!r&&i.state&(Kt|Qt|te)&&(r=e.curRecognizer=i),a++}},get:function(t){if(t instanceof z)return t;for(var e=this.recognizers,i=0;i<e.length;i++)if(e[i].options.event==t)return e[i];return null},add:function(t){if(h(t,"add",this))return this;var e=this.get(t.options.event);return e&&this.remove(e),this.recognizers.push(t),t.manager=this,this.touchAction.update(),t},remove:function(t){if(h(t,"remove",this))return this;if(t=this.get(t)){var e=this.recognizers,i=S(e,t);-1!==i&&(e.splice(i,1),this.touchAction.update())}return this},on:function(t,e){if(t!==o&&e!==o){var i=this.handlers;return l(_(t),function(t){i[t]=i[t]||[],i[t].push(e)}),this}},off:function(t,e){if(t!==o){var i=this.handlers;return l(_(t),function(t){e?i[t]&&i[t].splice(S(i[t],e),1):delete i[t]}),this}},emit:function(t,e){this.options.domEvents&&function(t,e){var i=a.createEvent("Event");i.initEvent(t,!0,!0),i.gesture=e,e.target.dispatchEvent(i)}(t,e);var i=this.handlers[t]&&this.handlers[t].slice();if(i&&i.length){e.type=t,e.preventDefault=function(){e.srcEvent.preventDefault()};for(var n=0;n<i.length;)i[n](e),n++}},destroy:function(){this.element&&tt(this,!1),this.handlers={},this.session={},this.input.destroy(),this.element=null}},et(K,{INPUT_START:dt,INPUT_MOVE:vt,INPUT_END:yt,INPUT_CANCEL:mt,STATE_POSSIBLE:$t,STATE_BEGAN:Kt,STATE_CHANGED:Qt,STATE_ENDED:te,STATE_RECOGNIZED:ee,STATE_CANCELLED:ie,STATE_FAILED:32,DIRECTION_NONE:xt,DIRECTION_LEFT:_t,DIRECTION_RIGHT:St,DIRECTION_UP:bt,DIRECTION_DOWN:Ct,DIRECTION_HORIZONTAL:Pt,DIRECTION_VERTICAL:wt,DIRECTION_ALL:Mt,Manager:Q,Input:M,TouchAction:X,TouchInput:N,MouseInput:Y,PointerEventInput:B,TouchMouseInput:L,SingleTouchInput:F,Recognizer:z,AttrRecognizer:H,Tap:$,Pan:V,Swipe:J,Pinch:q,Rotate:Z,Press:U,on:v,off:y,each:l,merge:ht,extend:ct,assign:et,inherit:f,bindFn:p,prefixed:P});(void 0!==r?r:"undefined"!=typeof self?self:{}).Hammer=K,(n=function(){return K}.call(e,i,e,t))!==o&&(t.exports=n)}(window,document)},function(t,e,i){function n(t){if(void 0===t)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return t}var r=i(0),a=i(12),s=i(7),o=function(t){function e(e,i){var a,s=n(n(a=t.call(this,e,i)||this));i.registerPlugins({clearInner:function(){s.halo&&s.halo.remove(!0),s.selected=!1,s.selectedShape=null,s.lastShape=null,s.halo=null,s.defaultSelected=null}});var o=s.defaultSelected;if(r.isObject(o)){var c=s._getSelectedShapeByData(o);c&&s._selectedShape(c),a.canvas.draw()}return a}!function(t,e){t.prototype=Object.create(e.prototype),t.prototype.constructor=t,t.__proto__=e}(e,t);var i=e.prototype;return i.getDefaultCfg=function(){var e=t.prototype.getDefaultCfg.call(this);return e=r.mix({},e,{startEvent:"tap",processEvent:null,animate:!1,offset:1,appendRadius:8,style:{fillOpacity:.5},cancelable:!0,defaultSelected:null}),(r.isWx||r.isMy)&&(e.startEvent="touchstart",e.endEvent="touchend"),e},i._getSelectedShapeByData=function(t){var e=null,i=this.chart.get("geoms")[0],n=i.get("container").get("children");return r.each(n,function(n){if(n.get("isShape")&&n.get("className")===i.get("type")){var a=n.get("origin")._origin;if(r.isObjectValueEqual(a,t))return e=n,!1}}),e},i._selectedShape=function(t){var e=this.offset,i=this.style,n=this.appendRadius,a=this.chart;this.lastShape=t;var s=t._attrs.attrs,o=s.x,c=s.y,h=s.startAngle,l=s.endAngle,u=s.r,f=s.fill,p=a.get("frontPlot").addShape("sector",{attrs:r.mix({x:o,y:c,r:u+e+n,r0:u+e,fill:f,startAngle:h,endAngle:l},i)});this.halo=p;var g=this.animate;g&&(!0===g&&(g={duration:300}),p.attr("r",u+e),p.animate().to(r.mix({attrs:{r:u+e+n}},g)))},i.start=function(t){var e=this.chart;"tap"===t.type&&(t.clientX=t.center.x,t.clientY=t.center.y);var i=r.createEvent(t,e),n=i.x,a=i.y;this.halo&&this.halo.remove(!0);var s=e.getSnapRecords({x:n,y:a});if(!s.length)return this.selected=!1,void(this.selectedShape=null);var o=s[0]._origin,c=this._getSelectedShapeByData(o),h=this.lastShape;if(this.selectedShape=c,this.selected=!0,c===h){if(!this.cancelable)return;this.halo&&this.halo.remove(!0),this.lastShape=null,this.selected=!1}else this._selectedShape(c);this.canvas.draw()},i.end=function(t){var e=this.selectedShape;e&&!e.get("destroyed")&&(t.data=e.get("origin")._origin,t.shapeInfo=e.get("origin"),t.shape=e,t.selected=!!this.selected)},e}(a);s.registerInteraction("pie-select",o),t.exports=o},function(t,e,i){var n=i(0),r=i(21),a=i(12),s=i(7),o=function(t){function e(e,i){var r,a=(r=t.call(this,e,i)||this).defaultSelected;if(n.isObject(a)){var s=r._selectShapesByData(a),o=s.selectedShape,c=s.unSelectedShapes;o&&r._selectShapes(o,c),r.selectedShape=o}return r}!function(t,e){t.prototype=Object.create(e.prototype),t.prototype.constructor=t,t.__proto__=e}(e,t);var i=e.prototype;return i.getDefaultCfg=function(){var e=t.prototype.getDefaultCfg.call(this);return e=n.mix({},e,{startEvent:"tap",processEvent:null,selectAxis:!0,selectAxisStyle:{fontWeight:"bold"},mode:"shape",selectStyle:{fillOpacity:1},unSelectStyle:{fillOpacity:.4},cancelable:!0,defaultSelected:null}),(n.isWx||n.isMy)&&(e.startEvent="touchstart",e.endEvent="touchend"),e},i._getIntervalShapes=function(){var t=[];return this.chart.get("geoms").forEach(function(e){if("interval"===e.get("type")){var i=e.get("container");t=t.concat(i.get("children"))}}),t},i._resetShape=function(t){var e=t.get("_originAttrs");e&&(t._attrs.attrs=e,t.set("_originAttrs",null))},i._setEventData=function(t){var e=this.selectedShape;e&&!e.get("destroyed")&&(t.data=e.get("origin")._origin,t.shapeInfo=e.get("origin"),t.shape=e,t.selected=!!e.get("_selected"))},i._selectShapesByData=function(t){var e=this._getIntervalShapes(),i=null,r=[];return n.each(e,function(e){if(e.get("isShape")&&"interval"===e.get("className")){var a=e.get("origin")._origin;n.isObjectValueEqual(a,t)?i=e:r.push(e)}}),{selectedShape:i,unSelectedShapes:r}},i._selectShapes=function(t,e){var i=this.selectStyle,r=this.unSelectStyle,a=this.selectAxisStyle,s=this.chart;if(!t.get("_originAttrs")){var o=Object.assign({},t.attr());t.set("_originAttrs",o)}if(t.attr(i),n.each(e,function(t){if(t.get("_originAttrs"))t.attr(t.get("_originAttrs"));else{var e=Object.assign({},t.attr());t.set("_originAttrs",e)}t.set("_selected",!1),r&&t.attr(r)}),t.set("_selected",!0),this.selectAxis){this.selectedAxisShape&&this._resetShape(this.selectedAxisShape);var c,h=s.getXScale(),l=t.get("origin")._origin,u=s.get("axisController"),f=u.frontPlot,p=u.backPlot;n.each(f.get("children").concat(p.get("children")),function(t){if(t.get("value")===h.scale(l[h.field]))return c=t,!1}),this.selectedAxisShape=c,c.set("_originAttrs",Object.assign({},c.attr())),c.attr(a)}this.canvas.draw()},i.reset=function(){var t=this;if(t.selectedShape){var e=t._getIntervalShapes();n.each(e,function(e){t._resetShape(e),e.set("_selected",!1)}),t.selectedAxisShape&&t._resetShape(t.selectedAxisShape),t.canvas.draw(),t.selectedShape=null,t.selectedAxisShape=null}},i.start=function(t){var e=this.chart;"tap"===t.type&&(t.clientX=t.center.x,t.clientY=t.center.y);var i,a=n.createEvent(t,e),s=a.x,o=a.y,c=this.mode,h=this._getIntervalShapes(),l=[];if("shape"===c){var u=e.get("plotRange");if(!r.isPointInPlot({x:s,y:o},u))return void this.reset();n.each(h,function(t){var e=t.getBBox();s>=e.x&&s<=e.x+e.width&&o>=e.y&&o<=e.height+e.y?i=t:l.push(t)})}else if("range"===c){var f=e.getSnapRecords({x:s,y:o});if(!f.length)return void this.reset();var p=f[0]._origin,g=this._selectShapesByData(p);i=g.selectedShape,l=g.unSelectedShapes}if(i)if(this.selectedShape=i,i.get("_selected")){if(!this.cancelable)return void this._setEventData(t);this.reset()}else this._selectShapes(i,l);else this.reset();this._setEventData(t)},i.end=function(t){this._setEventData(t)},e}(a);s.registerInteraction("interval-select",o),t.exports=o},function(t,e,i){function n(t){if(void 0===t)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return t}var r=i(0),a=i(12),s=i(7),o=i(30),c=i(49),h=i(31),l=function(t){function e(e,i){var a,s=n(n(a=t.call(this,e,i)||this)),l=s.hammer,u=s.threshold,f=s.velocity;return l&&l.get("swipe").set({direction:6,threshold:u,velocity:f}),i.registerPlugins([o,{changeData:function(){s.limitRange={}},clear:function(){s.limitRange={}}}]),s.mode="x",r.mix(s,h,c),a}!function(t,e){t.prototype=Object.create(e.prototype),t.prototype.constructor=t,t.__proto__=e}(e,t);var i=e.prototype;return i.getDefaultCfg=function(){var e=t.prototype.getDefaultCfg.call(this);return e=r.mix({},e,{startEvent:"touchstart",processEvent:"swipe",endEvent:"touchend",currentDeltaX:null,threshold:10,velocity:.3,limitRange:{},_timestamp:0,_panCumulativeDelta:0,speed:5})},i.process=function(t){this.currentDeltaX=0,this._handleMove(t)},i.end=function(){this.currentDeltaX=null,this._panCumulativeDelta=0},e}(a);s.registerInteraction("swipe",l),t.exports=l},function(t,e,i){function n(t){if(void 0===t)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return t}var r=i(0),a=i(12),s=i(7),o=i(30),c=i(49),h=i(50),l=i(31),u=function(t){function e(e,i){var a,s=n(n(a=t.call(this,e,i)||this)),u=s.hammer,f=s.panThreshold;return u&&u.get("pan").set({threshold:f}),i.registerPlugins([o,{changeData:function(){s.limitRange={}},clear:function(){s.limitRange={}}}]),r.mix(n(n(a)),l,c,h),a._bindPress(),a}!function(t,e){t.prototype=Object.create(e.prototype),t.prototype.constructor=t,t.__proto__=e}(e,t);var i=e.prototype;return i.getDefaultCfg=function(){var e=t.prototype.getDefaultCfg.call(this);return e=r.mix({},e,{startEvent:"panstart",processEvent:"panmove",endEvent:"panend",resetEvent:"touchend",mode:"x",panThreshold:10,pressThreshold:9,pressTime:251,currentDeltaX:null,currentDeltaY:null,limitRange:{},_timestamp:0,lastPoint:null,_panCumulativeDelta:0,speed:5}),(r.isWx||r.isMy)&&(e.startEvent="touchstart",e.processEvent="touchmove",e.endEvent="touchend"),e},i.start=function(t){this.pressed||(this.currentDeltaX=0,this.currentDeltaY=0,"touchstart"!==t.type&&"touchStart"!==t.type||(this.lastPoint=t.touches[0]),this._handleMove(t))},i.process=function(t){this.pressed||this._handleMove(t)},i.end=function(){this.pressed||(this.currentDeltaX=null,this.currentDeltaY=null,this.lastPoint=null,this._panCumulativeDelta=0)},e}(a);s.registerInteraction("pan",u),t.exports=u},function(t,e,i){function n(t){if(void 0===t)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return t}var r=i(0),a=i(23),s=i(12),o=i(7),c=i(30),h=i(50),l=i(31),u=function(t){function e(e,i){var a,s=n(n(a=t.call(this,e,i)||this));return s.hammer.get("pinch").set({enable:!0}),i.registerPlugins([c,{changeData:function(){s.limitRange={},s.originTicks=null},clear:function(){s.limitRange={},s.originTicks=null}}]),r.mix(s,h,l),s._bindPress(),a}!function(t,e){t.prototype=Object.create(e.prototype),t.prototype.constructor=t,t.__proto__=e}(e,t);var i=e.prototype;return i.getDefaultCfg=function(){var e=t.prototype.getDefaultCfg.call(this);return r.mix({},e,{startEvent:"pinchstart",processEvent:"pinch",endEvent:"pinchend",resetEvent:"touchend",pressThreshold:9,pressTime:251,mode:"x",currentPinchScaling:null,originValues:null,minScale:null,maxScale:null,limitRange:{},sensitivity:1,_pinchCumulativeDelta:0,_timestamp:0})},i.start=function(){this.pressed||(this.currentPinchScaling=1)},i.process=function(t){this.pressed||this._handlePinch(t)},i.end=function(t){this.pressed||(this._handlePinch(t),this.currentPinchScaling=null,this.pinchCumulativeDelta=0)},i._handlePinch=function(t){var e,i=1/this.currentPinchScaling*t.scale,n=t.target.getBoundingClientRect(),r={x:t.center.x-n.left,y:t.center.y-n.top},a=Math.abs(t.pointers[0].clientX-t.pointers[1].clientX),s=Math.abs(t.pointers[0].clientY-t.pointers[1].clientY),o=a/s;e=o>.3&&o<1.7?"xy":a>s?"x":"y";var c=this._timestamp,h=+new Date;h-c>16&&(this._doZoom(i,r,e),this._timestamp=h),this.currentPinchScaling=t.scale},i._doZoom=function(t,e,i){var n,s=this,o=s.mode,c=s.chart,h=s.limitRange;n="xy"===o&&void 0!==i?i:"xy";var l=c.get("data");if(r.directionEnabled(o,"x")&&r.directionEnabled(n,"x")){var u=c.getXScale(),f=u.field;h[f]||(h[f]=a.getLimitRange(l,u)),u.isCategory?s._zoomCatScale(u,t,e):u.isLinear&&s._zoomLinearScale(u,t,e,"x");var p=a.getColDef(c,f);this.xRange=a.getFieldRange(p,h[f],u.type)}if(r.directionEnabled(o,"y")&&r.directionEnabled(n,"y")){var g=c.getYScales();r.each(g,function(i){var n=i.field;h[n]||(h[n]=a.getLimitRange(l,i)),i.isLinear&&s._zoomLinearScale(i,t,e,"y")});var d=a.getColDef(c,g[0].field);this.yRange=a.getFieldRange(d,h[g[0].field],g[0].type)}c.repaint()},i._zoomLinearScale=function(t,e,i,n){var r=this.chart,a=t.min,s=t.max,o=t.field,c=s-a,h=this.limitRange,l=h[o].max-h[o].min,u=r.get("coord"),f=c*(e-1);if(this.minScale&&e<1){var p=l/this.minScale;f=Math.max(c-p,f)}if(this.maxScale&&e>=1){var g=l/this.maxScale;f=Math.min(c-g,f)}var d=u.invertPoint(i),v="x"===n?d.x:d.y,y=s-f*(1-v),m=a+f*v;this.updateLinearScale(o,m,y)},i._zoomCatScale=function(t,e,i){var n=this._pinchCumulativeDelta,r=this.sensitivity;n=e>1?n+1:n-1,this._pinchCumulativeDelta=n;var a=t.field,s=t.values,o=this.chart.get("coord");this.originTicks||(this.originTicks=t.ticks);var c=this.limitRange[a],h=c.length,l=this.minScale||1,u=this.maxScale||5,f=parseInt(h/u),p=parseInt(h/l),g=s.length;if(n>0&&g<=f)return null;if(n<0&&g>=p)return null;var d=h-1,v=s[0],y=s[g-1],m=c.indexOf(v),x=c.indexOf(y),_=(o.start.x+o.end.x)/2,S=i.x;if(Math.abs(n)>r){var b=Math.max(1,parseInt(g*Math.abs(e-1)));n<0?(S>=_?m<=0?x=Math.min(d,x+b):m=Math.max(0,m-b):S<_&&(x>=d?m=Math.max(0,m-b):x=Math.min(d,x+b)),this._pinchCumulativeDelta=0):n>0&&(S>=_?m=m<x?m=Math.min(x,m+b):m:S<_&&(x=x>m?x=Math.max(m,x-b):x),this._pinchCumulativeDelta=0);var C=c.slice(m,x+1);this.updateCatScale(a,C,this.originTicks,c,m,x)}},e}(s);o.registerInteraction("pinch",u),t.exports=u}])});
-}, function(modId) {var map = {}; return __REQUIRE__(map[modId], modId); })
-return __REQUIRE__(1553152447443);
-})()
-//# sourceMappingURL=index.js.map
+(function (factory) {
+    typeof define === 'function' && define.amd ? define(factory) :
+    factory();
+}((function () { 'use strict';
+
+    var isArrayLike = function (value) {
+        /**
+         * isArrayLike([1, 2, 3]) => true
+         * isArrayLike(document.body.children) => true
+         * isArrayLike('abc') => true
+         * isArrayLike(Function) => false
+         */
+        return value !== null && typeof value !== 'function' && isFinite(value.length);
+    };
+
+    var contains = function (arr, value) {
+        if (!isArrayLike(arr)) {
+            return false;
+        }
+        return arr.indexOf(value) > -1;
+    };
+
+    var filter = function (arr, func) {
+        if (!isArrayLike(arr)) {
+            return arr;
+        }
+        var result = [];
+        for (var index = 0; index < arr.length; index++) {
+            var value = arr[index];
+            if (func(value, index)) {
+                result.push(value);
+            }
+        }
+        return result;
+    };
+
+    var toString = {}.toString;
+    var isType = function (value, type) { return toString.call(value) === '[object ' + type + ']'; };
+
+    /**
+     * 是否为函数
+     * @param  {*} fn 对象
+     * @return {Boolean}  是否函数
+     */
+    var isFunction = (function (value) {
+        return isType(value, 'Function');
+    });
+
+    // isFinite,
+    var isNil = function (value) {
+        /**
+         * isNil(null) => true
+         * isNil() => true
+         */
+        return value === null || value === undefined;
+    };
+
+    var isArray = (function (value) {
+        return Array.isArray ?
+            Array.isArray(value) :
+            isType(value, 'Array');
+    });
+
+    var isObject = (function (value) {
+        /**
+         * isObject({}) => true
+         * isObject([1, 2, 3]) => true
+         * isObject(Function) => true
+         * isObject(null) => false
+         */
+        var type = typeof value;
+        return value !== null && type === 'object' || type === 'function';
+    });
+
+    function each(elements, func) {
+        if (!elements) {
+            return;
+        }
+        var rst;
+        if (isArray(elements)) {
+            for (var i = 0, len = elements.length; i < len; i++) {
+                rst = func(elements[i], i);
+                if (rst === false) {
+                    break;
+                }
+            }
+        }
+        else if (isObject(elements)) {
+            for (var k in elements) {
+                if (elements.hasOwnProperty(k)) {
+                    rst = func(elements[k], k);
+                    if (rst === false) {
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    var keys = Object.keys ? function (obj) { return Object.keys(obj); } : function (obj) {
+        var result = [];
+        each(obj, function (value, key) {
+            if (!(isFunction(obj) && key === 'prototype')) {
+                result.push(key);
+            }
+        });
+        return result;
+    };
+
+    function isMatch(obj, attrs) {
+        var _keys = keys(attrs);
+        var length = _keys.length;
+        if (isNil(obj))
+            return !length;
+        for (var i = 0; i < length; i += 1) {
+            var key = _keys[i];
+            if (attrs[key] !== obj[key] || !(key in obj)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    var isObjectLike = function (value) {
+        /**
+         * isObjectLike({}) => true
+         * isObjectLike([1, 2, 3]) => true
+         * isObjectLike(Function) => false
+         * isObjectLike(null) => false
+         */
+        return typeof value === 'object' && value !== null;
+    };
+
+    var isPlainObject = function (value) {
+        /**
+         * isObjectLike(new Foo) => false
+         * isObjectLike([1, 2, 3]) => false
+         * isObjectLike({ x: 0, y: 0 }) => true
+         * isObjectLike(Object.create(null)) => true
+         */
+        if (!isObjectLike(value) || !isType(value, 'Object')) {
+            return false;
+        }
+        if (Object.getPrototypeOf(value) === null) {
+            return true;
+        }
+        var proto = value;
+        while (Object.getPrototypeOf(proto) !== null) {
+            proto = Object.getPrototypeOf(proto);
+        }
+        return Object.getPrototypeOf(value) === proto;
+    };
+
+    function find(arr, predicate) {
+        if (!isArray(arr))
+            return null;
+        var _predicate;
+        if (isFunction(predicate)) {
+            _predicate = predicate;
+        }
+        if (isPlainObject(predicate)) {
+            _predicate = function (a) { return isMatch(a, predicate); };
+        }
+        if (_predicate) {
+            for (var i = 0; i < arr.length; i += 1) {
+                if (_predicate(arr[i])) {
+                    return arr[i];
+                }
+            }
+        }
+        return null;
+    }
+
+    var getRange = function (values) {
+        // 存在 NaN 时，min,max 判定会出问题
+        var filterValues = values.filter(function (v) { return !isNaN(v); });
+        if (!filterValues.length) { // 如果没有数值则直接返回0
+            return {
+                min: 0,
+                max: 0,
+            };
+        }
+        if (isArray(values[0])) {
+            var tmp = [];
+            for (var i = 0; i < values.length; i++) {
+                tmp = tmp.concat(values[i]);
+            }
+            filterValues = tmp;
+        }
+        var max = Math.max.apply(null, filterValues);
+        var min = Math.min.apply(null, filterValues);
+        return {
+            min: min,
+            max: max,
+        };
+    };
+
+    var isString = (function (str) {
+        return isType(str, 'String');
+    });
+
+    var uniq = function (arr) {
+        var resultArr = [];
+        each(arr, function (item) {
+            if (!contains(resultArr, item)) {
+                resultArr.push(item);
+            }
+        });
+        return resultArr;
+    };
+
+    function head(o) {
+        if (isArrayLike(o)) {
+            return o[0];
+        }
+        return undefined;
+    }
+
+    function last(o) {
+        if (isArrayLike(o)) {
+            var arr = o;
+            return arr[arr.length - 1];
+        }
+        return undefined;
+    }
+
+    var fixedBase = function (v, base) {
+        var str = base.toString();
+        var index = str.indexOf('.');
+        if (index === -1) {
+            return Math.round(v);
+        }
+        var length = str.substr(index + 1).length;
+        if (length > 20) {
+            length = 20;
+        }
+        return parseFloat(v.toFixed(length));
+    };
+
+    /**
+     * 判断是否数字
+     * @return {Boolean} 是否数字
+     */
+    var isNumber = function (value) {
+        return isType(value, 'Number');
+    };
+
+    var toString$1 = (function (value) {
+        if (isNil(value))
+            return '';
+        return value.toString();
+    });
+
+    var lowerFirst = function (value) {
+        var str = toString$1(value);
+        return str.charAt(0).toLowerCase() + str.substring(1);
+    };
+
+    var upperFirst = function (value) {
+        var str = toString$1(value);
+        return str.charAt(0).toUpperCase() + str.substring(1);
+    };
+
+    var toString$2 = {}.toString;
+    var getType = function (value) {
+        return toString$2.call(value).replace(/^\[object /, '').replace(/]$/, '');
+    };
+
+    /**
+     * 是否是布尔类型
+     *
+     * @param {Object} value 测试的值
+     * @return {Boolean}
+     */
+    var isBoolean = function (value) {
+        return isType(value, 'Boolean');
+    };
+
+    var isDate = function (value) {
+        return isType(value, 'Date');
+    };
+
+    var objectProto = Object.prototype;
+    var isPrototype = function (value) {
+        var Ctor = value && value.constructor;
+        var proto = (typeof Ctor === 'function' && Ctor.prototype) || objectProto;
+        return value === proto;
+    };
+
+    // FIXME: Mutable param should be forbidden in static lang.
+    function _mix(dist, obj) {
+        for (var key in obj) {
+            if (obj.hasOwnProperty(key) && key !== 'constructor' && obj[key] !== undefined) {
+                dist[key] = obj[key];
+            }
+        }
+    }
+    function mix(dist, src1, src2, src3) {
+        if (src1)
+            _mix(dist, src1);
+        if (src2)
+            _mix(dist, src2);
+        if (src3)
+            _mix(dist, src3);
+        return dist;
+    }
+
+    var MAX_MIX_LEVEL = 5;
+    function _deepMix(dist, src, level, maxLevel) {
+        level = level || 0;
+        maxLevel = maxLevel || MAX_MIX_LEVEL;
+        for (var key in src) {
+            if (src.hasOwnProperty(key)) {
+                var value = src[key];
+                if (value !== null && isPlainObject(value)) {
+                    if (!isPlainObject(dist[key])) {
+                        dist[key] = {};
+                    }
+                    if (level < maxLevel) {
+                        _deepMix(dist[key], value, level + 1, maxLevel);
+                    }
+                    else {
+                        dist[key] = src[key];
+                    }
+                }
+                else if (isArray(value)) {
+                    dist[key] = [];
+                    dist[key] = dist[key].concat(value);
+                }
+                else if (value !== undefined) {
+                    dist[key] = value;
+                }
+            }
+        }
+    }
+    // todo 重写
+    var deepMix = function (rst) {
+        var args = [];
+        for (var _i = 1; _i < arguments.length; _i++) {
+            args[_i - 1] = arguments[_i];
+        }
+        for (var i = 0; i < args.length; i += 1) {
+            _deepMix(rst, args[i]);
+        }
+        return rst;
+    };
+
+    var indexOf = function (arr, obj) {
+        if (!isArrayLike(arr)) {
+            return -1;
+        }
+        var m = Array.prototype.indexOf;
+        if (m) {
+            return m.call(arr, obj);
+        }
+        var index = -1;
+        for (var i = 0; i < arr.length; i++) {
+            if (arr[i] === obj) {
+                index = i;
+                break;
+            }
+        }
+        return index;
+    };
+
+    var hasOwnProperty = Object.prototype.hasOwnProperty;
+    function isEmpty(value) {
+        /**
+         * isEmpty(null) => true
+         * isEmpty() => true
+         * isEmpty(true) => true
+         * isEmpty(1) => true
+         * isEmpty([1, 2, 3]) => false
+         * isEmpty('abc') => false
+         * isEmpty({ a: 1 }) => false
+         */
+        if (isNil(value)) {
+            return true;
+        }
+        if (isArrayLike(value)) {
+            return !value.length;
+        }
+        var type = getType(value);
+        if (type === 'Map' || type === 'Set') {
+            return !value.size;
+        }
+        if (isPrototype(value)) {
+            return !Object.keys(value).length;
+        }
+        for (var key in value) {
+            if (hasOwnProperty.call(value, key)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    var isEqual = function (value, other) {
+        if (value === other) {
+            return true;
+        }
+        if (!value || !other) {
+            return false;
+        }
+        if (isString(value) || isString(other)) {
+            return false;
+        }
+        if (isArrayLike(value) || isArrayLike(other)) {
+            if (value.length !== other.length) {
+                return false;
+            }
+            var rst = true;
+            for (var i = 0; i < value.length; i++) {
+                rst = isEqual(value[i], other[i]);
+                if (!rst) {
+                    break;
+                }
+            }
+            return rst;
+        }
+        if (isObjectLike(value) || isObjectLike(other)) {
+            var valueKeys = Object.keys(value);
+            var otherKeys = Object.keys(other);
+            if (valueKeys.length !== otherKeys.length) {
+                return false;
+            }
+            var rst = true;
+            for (var i = 0; i < valueKeys.length; i++) {
+                rst = isEqual(value[valueKeys[i]], other[valueKeys[i]]);
+                if (!rst) {
+                    break;
+                }
+            }
+            return rst;
+        }
+        return false;
+    };
+
+    var map = function (arr, func) {
+        if (!isArrayLike(arr)) {
+            // @ts-ignore
+            return arr;
+        }
+        var result = [];
+        for (var index = 0; index < arr.length; index++) {
+            var value = arr[index];
+            result.push(func(value, index));
+        }
+        return result;
+    };
+
+    function size(o) {
+        if (isNil(o)) {
+            return 0;
+        }
+        if (isArrayLike(o)) {
+            return o.length;
+        }
+        return Object.keys(o).length;
+    }
+
+    function merge(dataArray) {
+      var rst = [];
+
+      for (var i = 0, len = dataArray.length; i < len; i++) {
+        rst = rst.concat(dataArray[i]);
+      }
+
+      return rst;
+    }
+
+    function values(data, name) {
+      var rst = [];
+      var tmpMap = {};
+
+      for (var i = 0, len = data.length; i < len; i++) {
+        var obj = data[i];
+        var value = obj[name];
+
+        if (!isNil(value)) {
+          if (!isArray(value)) {
+            if (!tmpMap[value]) {
+              rst.push(value);
+              tmpMap[value] = true;
+            }
+          } else {
+            each(value, function (val) {
+              if (!tmpMap[val]) {
+                rst.push(val);
+                tmpMap[val] = true;
+              }
+            });
+          }
+        }
+      }
+
+      return rst;
+    }
+
+    function firstValue(data, name) {
+      var rst = null;
+
+      for (var i = 0, len = data.length; i < len; i++) {
+        var obj = data[i];
+        var value = obj[name];
+
+        if (!isNil(value)) {
+          if (isArray(value)) {
+            rst = value[0];
+          } else {
+            rst = value;
+          }
+
+          break;
+        }
+      }
+
+      return rst;
+    }
+
+    function groupToMap(data, fields) {
+      if (!fields) {
+        return {
+          0: data
+        };
+      }
+
+      var callback = function callback(row) {
+        var unique = '_';
+
+        for (var i = 0, l = fields.length; i < l; i++) {
+          unique += row[fields[i]] && row[fields[i]].toString();
+        }
+
+        return unique;
+      };
+
+      var groups = {};
+
+      for (var i = 0, len = data.length; i < len; i++) {
+        var row = data[i];
+        var key = callback(row);
+
+        if (groups[key]) {
+          groups[key].push(row);
+        } else {
+          groups[key] = [row];
+        }
+      }
+
+      return groups;
+    }
+
+    function group(data, fields) {
+      var appendConditions = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+
+      if (!fields) {
+        return [data];
+      }
+
+      var groups = groupToMap(data, fields);
+      var array = [];
+
+      if (fields.length === 1 && appendConditions[fields[0]]) {
+        var _values = appendConditions[fields[0]];
+        each(_values, function (value) {
+          value = '_' + value;
+          array.push(groups[value]);
+        });
+      } else {
+        for (var i in groups) {
+          array.push(groups[i]);
+        }
+      }
+
+      return array;
+    }
+
+    function remove(arr, obj) {
+      if (!arr) {
+        return;
+      }
+
+      var index = arr.indexOf(obj);
+
+      if (index !== -1) {
+        arr.splice(index, 1);
+      }
+    }
+
+    function getRange$1(values) {
+      if (!values.length) {
+        return {
+          min: 0,
+          max: 0
+        };
+      }
+
+      var max = Math.max.apply(null, values);
+      var min = Math.min.apply(null, values);
+      return {
+        min,
+        max
+      };
+    }
+
+    var array = /*#__PURE__*/Object.freeze({
+        __proto__: null,
+        merge: merge,
+        values: values,
+        firstValue: firstValue,
+        group: group,
+        groupToMap: groupToMap,
+        remove: remove,
+        getRange: getRange$1
+    });
+
+    /**
+     * Detects support for options object argument in addEventListener.
+     * https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener#Safely_detecting_option_support
+     * @private
+     */
+    var supportsEventListenerOptions = function () {
+      var supports = false;
+
+      try {
+        var options = Object.defineProperty({}, 'passive', {
+          get() {
+            supports = true;
+          }
+
+        });
+        window.addEventListener('e', null, options);
+      } catch (e) {// continue regardless of error
+      }
+
+      return supports;
+    }(); // Default passive to true as expected by Chrome for 'touchstart' and 'touchend' events.
+    // https://github.com/chartjs/Chart.js/issues/4287
+
+
+    var eventListenerOptions = supportsEventListenerOptions ? {
+      passive: true
+    } : false;
+    /* global wx, my */
+    // weixin miniprogram
+
+    var isWx = typeof wx === 'object' && typeof wx.getSystemInfoSync === 'function'; // ant miniprogram
+
+    var isMy = typeof my === 'object' && typeof my.getSystemInfoSync === 'function'; // in node
+
+    var isNode = typeof global && !typeof window; // in browser
+
+    var isBrowser = typeof window !== 'undefined' && typeof window.document !== 'undefined' && typeof window.sessionStorage !== 'undefined';
+
+    function isCanvasElement(el) {
+      if (!el || typeof el !== 'object') return false;
+
+      if (el.nodeType === 1 && el.nodeName) {
+        // HTMLCanvasElement
+        return true;
+      } // CanvasElement
+
+
+      return !!el.isCanvasElement;
+    }
+
+    function getPixelRatio() {
+      return window && window.devicePixelRatio || 1;
+    }
+
+    function getStyle(el, property) {
+      return el.currentStyle ? el.currentStyle[property] : document.defaultView.getComputedStyle(el, null).getPropertyValue(property);
+    }
+
+    function getWidth(el) {
+      var width = getStyle(el, 'width');
+
+      if (width === 'auto') {
+        width = el.offsetWidth;
+      }
+
+      return parseFloat(width);
+    }
+
+    function getHeight(el) {
+      var height = getStyle(el, 'height');
+
+      if (height === 'auto') {
+        height = el.offsetHeight;
+      }
+
+      return parseFloat(height);
+    }
+
+    function getDomById(id) {
+      if (!id) {
+        return null;
+      }
+
+      return document.getElementById(id);
+    }
+
+    function getRelativePosition(point, canvas) {
+      var canvasDom = canvas.get('el');
+      if (!canvasDom) return point;
+      var {
+        top,
+        right,
+        bottom,
+        left
+      } = canvasDom.getBoundingClientRect();
+      var paddingLeft = parseFloat(getStyle(canvasDom, 'padding-left'));
+      var paddingTop = parseFloat(getStyle(canvasDom, 'padding-top'));
+      var paddingRight = parseFloat(getStyle(canvasDom, 'padding-right'));
+      var paddingBottom = parseFloat(getStyle(canvasDom, 'padding-bottom'));
+      var width = right - left - paddingLeft - paddingRight;
+      var height = bottom - top - paddingTop - paddingBottom;
+      var pixelRatio = canvas.get('pixelRatio');
+      var mouseX = (point.x - left - paddingLeft) / width * canvasDom.width / pixelRatio;
+      var mouseY = (point.y - top - paddingTop) / height * canvasDom.height / pixelRatio;
+      return {
+        x: mouseX,
+        y: mouseY
+      };
+    }
+
+    function addEventListener(source, type, listener) {
+      source.addEventListener(type, listener, eventListenerOptions);
+    }
+
+    function removeEventListener(source, type, listener) {
+      source.removeEventListener(type, listener, eventListenerOptions);
+    }
+
+    function createEventObj(type, chart, x, y, nativeEvent) {
+      return {
+        type,
+        chart,
+        native: nativeEvent || null,
+        x: x !== undefined ? x : null,
+        y: y !== undefined ? y : null
+      };
+    }
+
+    function createEvent(event, chart) {
+      var type = event.type;
+      var clientPoint; // 说明是touch相关事件
+
+      if (event.touches) {
+        // https://developer.mozilla.org/zh-CN/docs/Web/API/TouchEvent/changedTouches
+        // 这里直接拿changedTouches就可以了，不管是touchstart, touchmove, touchend changedTouches 都是有的
+        // 为了以防万一，做个空判断
+        var touch = event.changedTouches[0] || {}; // x, y: 相对canvas原点的位置，clientX, clientY 相对于可视窗口的位置
+
+        var {
+          x,
+          y,
+          clientX,
+          clientY
+        } = touch; // 小程序环境会有x,y，这里就直接返回
+
+        if (x && y) {
+          return createEventObj(type, chart, x, y, event);
+        }
+
+        clientPoint = {
+          x: clientX,
+          y: clientY
+        };
+      } else {
+        // mouse相关事件
+        clientPoint = {
+          x: event.clientX,
+          y: event.clientY
+        };
+      } // 理论上应该是只有有在浏览器环境才会走到这里
+
+
+      var canvas = chart.get('canvas'); // 通过clientX, clientY 计算x, y
+
+      var point = getRelativePosition(clientPoint, canvas);
+      return createEventObj(type, chart, point.x, point.y, event);
+    }
+
+    function measureText(text, font, ctx) {
+      if (!ctx) {
+        ctx = document.createElement('canvas').getContext('2d');
+      }
+
+      ctx.font = font || '12px sans-serif';
+      return ctx.measureText(text);
+    }
+
+    /**
+     * @fileOverview Utility for F2
+     * @author dxq613 @gmail.com
+     * @author sima.zhang1990@gmail.com
+     */
+
+    function isObjectValueEqual(a, b) {
+      // for vue.js
+      a = Object.assign({}, a);
+      b = Object.assign({}, b);
+      var aProps = Object.getOwnPropertyNames(a);
+      var bProps = Object.getOwnPropertyNames(b);
+
+      if (aProps.length !== bProps.length) {
+        return false;
+      }
+
+      for (var i = 0, len = aProps.length; i < len; i++) {
+        var propName = aProps[i];
+
+        if (a[propName] !== b[propName]) {
+          return false;
+        }
+      }
+
+      return true;
+    }
+
+    function parsePadding(padding) {
+      var top;
+      var right;
+      var bottom;
+      var left;
+
+      if (isNumber(padding) || isString(padding)) {
+        top = bottom = left = right = padding;
+      } else if (isArray(padding)) {
+        top = padding[0];
+        right = !isNil(padding[1]) ? padding[1] : padding[0];
+        bottom = !isNil(padding[2]) ? padding[2] : padding[0];
+        left = !isNil(padding[3]) ? padding[3] : right;
+      }
+
+      return [top, right, bottom, left];
+    }
+
+    function directionEnabled(mode, dir) {
+      if (mode === undefined) {
+        return true;
+      } else if (typeof mode === 'string') {
+        return mode.indexOf(dir) !== -1;
+      }
+
+      return false;
+    }
+
+    function toTimeStamp(value) {
+      if (isString(value)) {
+        if (value.indexOf('T') > 0) {
+          value = new Date(value).getTime();
+        } else {
+          // new Date('2010/01/10') 和 new Date('2010-01-10') 的差别在于:
+          // 如果仅有年月日时，前者是带有时区的: Fri Jan 10 2020 02:40:13 GMT+0800 (中国标准时间)
+          // 后者会格式化成 Sun Jan 10 2010 08:00:00 GMT+0800 (中国标准时间)
+          value = new Date(value.replace(/-/gi, '/')).getTime();
+        }
+      }
+
+      if (isDate(value)) {
+        value = value.getTime();
+      }
+
+      return value;
+    }
+
+    var Util = /*#__PURE__*/Object.freeze({
+        __proto__: null,
+        Array: array,
+        upperFirst: upperFirst,
+        lowerFirst: lowerFirst,
+        isString: isString,
+        isNumber: isNumber,
+        isBoolean: isBoolean,
+        isFunction: isFunction,
+        isDate: isDate,
+        isArray: isArray,
+        isNil: isNil,
+        isObject: isObject,
+        isPlainObject: isPlainObject,
+        isEqual: isEqual,
+        deepMix: deepMix,
+        mix: mix,
+        each: each,
+        uniq: uniq,
+        find: find,
+        isObjectValueEqual: isObjectValueEqual,
+        parsePadding: parsePadding,
+        directionEnabled: directionEnabled,
+        toTimeStamp: toTimeStamp,
+        isWx: isWx,
+        isMy: isMy,
+        isNode: isNode,
+        isBrowser: isBrowser,
+        isCanvasElement: isCanvasElement,
+        getPixelRatio: getPixelRatio,
+        getStyle: getStyle,
+        getWidth: getWidth,
+        getHeight: getHeight,
+        getDomById: getDomById,
+        getRelativePosition: getRelativePosition,
+        addEventListener: addEventListener,
+        removeEventListener: removeEventListener,
+        createEvent: createEvent,
+        measureText: measureText
+    });
+
+    /**
+     * @fileOverview default theme
+     * @author dxq613@gail.com
+     */
+    var color1 = '#E8E8E8'; // color of axis-line and axis-grid
+
+    var color2 = '#808080'; // color of axis label
+
+    var defaultAxis = {
+      label: {
+        fill: color2,
+        fontSize: 10
+      },
+      line: {
+        stroke: color1,
+        lineWidth: 1
+      },
+      grid: {
+        type: 'line',
+        stroke: color1,
+        lineWidth: 1,
+        lineDash: [2]
+      },
+      tickLine: null,
+      labelOffset: 7.5
+    };
+    var Theme = {
+      fontFamily: '"Helvetica Neue", "San Francisco", Helvetica, Tahoma, Arial, "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", sans-serif',
+      defaultColor: '#1890FF',
+      pixelRatio: 1,
+      padding: 'auto',
+      appendPadding: 15,
+      colors: ['#1890FF', '#2FC25B', '#FACC14', '#223273', '#8543E0', '#13C2C2', '#3436C7', '#F04864'],
+      shapes: {
+        line: ['line', 'dash'],
+        point: ['circle', 'hollowCircle']
+      },
+      sizes: [4, 10],
+      axis: {
+        common: defaultAxis,
+        // common axis configuration
+        bottom: mix({}, defaultAxis, {
+          grid: null
+        }),
+        left: mix({}, defaultAxis, {
+          line: null
+        }),
+        right: mix({}, defaultAxis, {
+          line: null
+        }),
+        circle: mix({}, defaultAxis, {
+          line: null
+        }),
+        radius: mix({}, defaultAxis, {
+          labelOffset: 4
+        })
+      },
+      shape: {
+        line: {
+          lineWidth: 2,
+          lineJoin: 'round',
+          lineCap: 'round'
+        },
+        point: {
+          lineWidth: 0,
+          size: 3
+        },
+        area: {
+          fillOpacity: 0.1
+        }
+      },
+      _defaultAxis: defaultAxis
+    };
+
+    var Global = {
+      version: '3.7.6',
+      scales: {},
+      widthRatio: {
+        column: 1 / 2,
+        rose: 0.999999,
+        multiplePie: 3 / 4
+      },
+      lineDash: [4, 4]
+    };
+
+    Global.setTheme = function (theme) {
+      deepMix(this, theme);
+    };
+
+    Global.setTheme(Theme);
+
+    var EVENT_AFTER_INIT = 'afterinit';
+    var EVENT_BEFORE_RENDER = 'beforerender';
+    var EVENT_AFTER_RENDER = 'afterrender';
+    var EVENT_BEFORE_DATA_CHANGE = 'beforedatachange';
+    var EVENT_AFTER_DATA_CHANGE = 'afterdatachange';
+    var EVENT_AFTER_SIZE_CHANGE = '_aftersizechange';
+    var EVENT_AFTER_GEOM_INIT = '_aftergeominit';
+    var EVENT_BEFORE_GEOM_DRAW = 'beforegeomdraw';
+    var EVENT_AFTER_GEOM_DRAW = 'aftergeomdraw';
+    var EVENT_CLEAR = 'clear';
+    var EVENT_CLEAR_INNER = 'clearinner';
+    var EVENT_REPAINT = 'repaint';
+
+    // 实现简单的事件机制
+
+    class EventEmit {
+      constructor() {
+        this.__events = {};
+      }
+
+      on(type, listener) {
+        if (!type || !listener) {
+          return;
+        }
+
+        var events = this.__events[type] || [];
+        events.push(listener);
+        this.__events[type] = events;
+      }
+
+      emit(type, e) {
+        var _this = this;
+
+        if (isObject(type)) {
+          e = type;
+          type = e && e.type;
+        }
+
+        if (!type) {
+          return;
+        }
+
+        var events = this.__events[type];
+
+        if (!events || !events.length) {
+          return;
+        }
+
+        events.forEach(function (listener) {
+          listener.call(_this, e);
+        });
+      }
+
+      off(type, listener) {
+        var __events = this.__events;
+        var events = __events[type];
+
+        if (!events || !events.length) {
+          return;
+        } // 如果没有指定方法，则删除所有项
+
+
+        if (!listener) {
+          delete __events[type];
+          return;
+        } // 删除指定的 listener
+
+
+        for (var i = 0, len = events.length; i < len; i++) {
+          if (events[i] === listener) {
+            events.splice(i, 1);
+            i--;
+          }
+        }
+      }
+
+    }
+
+    /**
+     * @fileOverview Base class of chart and geometry
+     * @author dxq613@gmail.com
+     */
+
+    class Base extends EventEmit {
+      getDefaultCfg() {
+        return {};
+      }
+
+      constructor(cfg) {
+        super();
+        var attrs = {};
+        var defaultCfg = this.getDefaultCfg();
+        this._attrs = attrs;
+        mix(attrs, defaultCfg, cfg);
+      }
+
+      get(name) {
+        return this._attrs[name];
+      }
+
+      set(name, value) {
+        this._attrs[name] = value;
+      }
+
+      destroy() {
+        this._attrs = {};
+        this.destroyed = true;
+      }
+
+    }
+
+    class Plot {
+      constructor(cfg) {
+        mix(this, cfg);
+
+        this._init();
+      }
+
+      _init() {
+        var self = this;
+        var start = self.start;
+        var end = self.end;
+        var xMin = Math.min(start.x, end.x);
+        var xMax = Math.max(start.x, end.x);
+        var yMin = Math.min(start.y, end.y);
+        var yMax = Math.max(start.y, end.y);
+        this.tl = {
+          x: xMin,
+          y: yMin
+        };
+        this.tr = {
+          x: xMax,
+          y: yMin
+        };
+        this.bl = {
+          x: xMin,
+          y: yMax
+        };
+        this.br = {
+          x: xMax,
+          y: yMax
+        };
+        this.width = xMax - xMin;
+        this.height = yMax - yMin;
+      }
+      /**
+       * reset
+       * @param  {Object} start start point
+       * @param  {Object} end end point
+       */
+
+
+      reset(start, end) {
+        this.start = start;
+        this.end = end;
+
+        this._init();
+      }
+      /**
+       * check the point is in the range of plot
+       * @param  {Number}  x x value
+       * @param  {[type]}  y y value
+       * @return {Boolean} return the result
+       */
+
+
+      isInRange(x, y) {
+        if (isObject(x)) {
+          y = x.y;
+          x = x.x;
+        }
+
+        var tl = this.tl;
+        var br = this.br;
+        return tl.x <= x && x <= br.x && tl.y <= y && y <= br.y;
+      }
+
+    }
+
+    var Matrix = {
+      multiply(m1, m2) {
+        var m11 = m1[0] * m2[0] + m1[2] * m2[1];
+        var m12 = m1[1] * m2[0] + m1[3] * m2[1];
+        var m21 = m1[0] * m2[2] + m1[2] * m2[3];
+        var m22 = m1[1] * m2[2] + m1[3] * m2[3];
+        var dx = m1[0] * m2[4] + m1[2] * m2[5] + m1[4];
+        var dy = m1[1] * m2[4] + m1[3] * m2[5] + m1[5];
+        return [m11, m12, m21, m22, dx, dy];
+      },
+
+      scale(out, m, v) {
+        out[0] = m[0] * v[0];
+        out[1] = m[1] * v[0];
+        out[2] = m[2] * v[1];
+        out[3] = m[3] * v[1];
+        out[4] = m[4];
+        out[5] = m[5];
+        return out;
+      },
+
+      rotate(out, m, radian) {
+        var c = Math.cos(radian);
+        var s = Math.sin(radian);
+        var m11 = m[0] * c + m[2] * s;
+        var m12 = m[1] * c + m[3] * s;
+        var m21 = m[0] * -s + m[2] * c;
+        var m22 = m[1] * -s + m[3] * c;
+        out[0] = m11;
+        out[1] = m12;
+        out[2] = m21;
+        out[3] = m22;
+        out[4] = m[4];
+        out[5] = m[5];
+        return out;
+      },
+
+      translate(out, m, v) {
+        out[0] = m[0];
+        out[1] = m[1];
+        out[2] = m[2];
+        out[3] = m[3];
+        out[4] = m[4] + m[0] * v[0] + m[2] * v[1];
+        out[5] = m[5] + m[1] * v[0] + m[3] * v[1];
+        return out;
+      },
+
+      transform(m, actions) {
+        var out = [].concat(m);
+
+        for (var i = 0, len = actions.length; i < len; i++) {
+          var action = actions[i];
+
+          switch (action[0]) {
+            case 't':
+              Matrix.translate(out, out, [action[1], action[2]]);
+              break;
+
+            case 's':
+              Matrix.scale(out, out, [action[1], action[2]]);
+              break;
+
+            case 'r':
+              Matrix.rotate(out, out, action[1]);
+              break;
+          }
+        }
+
+        return out;
+      }
+
+    };
+
+    /**
+     * 2 Dimensional Vector
+     * @module vector2
+     */
+    var Vector2 = {
+      /**
+       * Creates a new, empty vector2
+       *
+       * @return {vector2} a new 2D vector
+       */
+      create() {
+        return [0, 0];
+      },
+
+      /**
+       * Calculates the length of a vector2
+       *
+       * @param {vector2} v vector to calculate length of
+       * @return {Number} length of v
+       */
+      length(v) {
+        var x = v[0];
+        var y = v[1];
+        return Math.sqrt(x * x + y * y);
+      },
+
+      /**
+       * Normalize a vector2
+       *
+       * @param {vector2} out the receiving vector
+       * @param {vector2} v vector to normalize
+       * @return {vector2} out
+       */
+      normalize(out, v) {
+        var len = this.length(v);
+
+        if (len === 0) {
+          out[0] = 0;
+          out[1] = 0;
+        } else {
+          out[0] = v[0] / len;
+          out[1] = v[1] / len;
+        }
+
+        return out;
+      },
+
+      /**
+       * Adds two vector2's
+       *
+       * @param {vector2} out the receiving vector
+       * @param {vector2} v1 the first operand
+       * @param {vector2} v2 the second operand
+       * @return {vector2} out
+       */
+      add(out, v1, v2) {
+        out[0] = v1[0] + v2[0];
+        out[1] = v1[1] + v2[1];
+        return out;
+      },
+
+      /**
+       * Subtracts vector v2 from vector v1
+       *
+       * @param {vector2} out the receiving vector
+       * @param {vector2} v1 the first operand
+       * @param {vector2} v2 the second operand
+       * @return {vector2} out
+       */
+      sub(out, v1, v2) {
+        out[0] = v1[0] - v2[0];
+        out[1] = v1[1] - v2[1];
+        return out;
+      },
+
+      /**
+       * Scales a vector2 by a scalar number
+       *
+       * @param {vector2} out the receiving vector
+       * @param {vector2} v the vector to scale
+       * @param {Number} s amount to scale the vector by
+       * @return {vector2} out
+       */
+      scale(out, v, s) {
+        out[0] = v[0] * s;
+        out[1] = v[1] * s;
+        return out;
+      },
+
+      /**
+       * Calculates the dot product of two vector2's
+       *
+       * @param {vector2} v1 the first operand
+       * @param {vector2} v2 the second operand
+       * @return {Number} dot product of v1 and v2
+       */
+      dot(v1, v2) {
+        return v1[0] * v2[0] + v1[1] * v2[1];
+      },
+
+      /**
+       * Calculates the direction of two vector2's
+       *
+       * @param {vector2} v1 the first operand
+       * @param {vector2} v2 the second operand
+       * @return {Boolean} the direction of v1 and v2
+       */
+      direction(v1, v2) {
+        return v1[0] * v2[1] - v2[0] * v1[1];
+      },
+
+      /**
+       * Calculates the angle of two vector2's
+       *
+       * @param {vector2} v1 the first operand
+       * @param {vector2} v2 the second operand
+       * @return {Number} angle of v1 and v2
+       */
+      angle(v1, v2) {
+        var theta = this.dot(v1, v2) / (this.length(v1) * this.length(v2));
+        return Math.acos(theta);
+      },
+
+      /**
+       * Calculates the angle of two vector2's with direction
+       *
+       * @param {vector2} v1 the first operand
+       * @param {vector2} v2 the second operand
+       * @param {Boolean} direction the direction of two vector2's
+       * @return {Number} angle of v1 and v2
+       */
+      angleTo(v1, v2, direction) {
+        var angle = this.angle(v1, v2);
+        var angleLargeThanPI = this.direction(v1, v2) >= 0;
+
+        if (direction) {
+          if (angleLargeThanPI) {
+            return Math.PI * 2 - angle;
+          }
+
+          return angle;
+        }
+
+        if (angleLargeThanPI) {
+          return angle;
+        }
+
+        return Math.PI * 2 - angle;
+      },
+
+      /**
+       * whether a vector2 is zero vector
+       *
+       * @param  {vector2} v vector to calculate
+       * @return {Boolean}   is or not a zero vector
+       */
+      zero(v) {
+        return v[0] === 0 && v[1] === 0;
+      },
+
+      /**
+       * Calculates the euclidian distance between two vector2's
+       *
+       * @param {vector2} v1 the first operand
+       * @param {vector2} v2 the second operand
+       * @return {Number} distance between a and b
+       */
+      distance(v1, v2) {
+        var x = v2[0] - v1[0];
+        var y = v2[1] - v1[1];
+        return Math.sqrt(x * x + y * y);
+      },
+
+      /**
+       * Creates a new vector2 initialized with values from an existing vector
+       *
+       * @param {vector2} v vector to clone
+       * @return {Array} a new 2D vector
+       */
+      clone(v) {
+        return [v[0], v[1]];
+      },
+
+      /**
+       * Return the minimum of two vector2's
+       *
+       * @param {vector2} out the receiving vector
+       * @param {vector2} v1 the first operand
+       * @param {vector2} v2 the second operand
+       * @return {vector2} out
+       */
+      min(out, v1, v2) {
+        out[0] = Math.min(v1[0], v2[0]);
+        out[1] = Math.min(v1[1], v2[1]);
+        return out;
+      },
+
+      /**
+       * Return the maximum of two vector2's
+       *
+       * @param {vector2} out the receiving vector
+       * @param {vector2} v1 the first operand
+       * @param {vector2} v2 the second operand
+       * @return {vector2} out
+       */
+      max(out, v1, v2) {
+        out[0] = Math.max(v1[0], v2[0]);
+        out[1] = Math.max(v1[1], v2[1]);
+        return out;
+      },
+
+      /**
+       * Transforms the vector2 with a mat2d
+       *
+       * @param {vector2} out the receiving vector
+       * @param {vector2} v the vector to transform
+       * @param {mat2d} m matrix to transform with
+       * @return {vector2} out
+       */
+      transformMat2d(out, v, m) {
+        var x = v[0];
+        var y = v[1];
+        out[0] = m[0] * x + m[2] * y + m[4];
+        out[1] = m[1] * x + m[3] * y + m[5];
+        return out;
+      }
+
+    };
+
+    var defaultMatrix = [1, 0, 0, 1, 0, 0];
+
+    class Base$1 {
+      _initDefaultCfg() {}
+
+      constructor(cfg) {
+        this._initDefaultCfg();
+
+        mix(this, cfg);
+        var start;
+        var end;
+
+        if (this.plot) {
+          start = this.plot.bl;
+          end = this.plot.tr;
+          this.start = start;
+          this.end = end;
+        } else {
+          start = this.start;
+          end = this.end;
+        }
+
+        this.init(start, end);
+      }
+
+      _scale(s1, s2) {
+        var matrix = this.matrix;
+        var center = this.center;
+        Matrix.translate(matrix, matrix, [center.x, center.y]);
+        Matrix.scale(matrix, matrix, [s1, s2]);
+        Matrix.translate(matrix, matrix, [-center.x, -center.y]);
+      }
+
+      init(start, end) {
+        this.matrix = [].concat(defaultMatrix); // 设置中心点
+
+        this.center = {
+          x: (end.x - start.x) / 2 + start.x,
+          y: (end.y - start.y) / 2 + start.y
+        };
+
+        if (this.scale) {
+          this._scale(this.scale[0], this.scale[1]);
+        }
+      }
+
+      convertPoint(point) {
+        var {
+          x,
+          y
+        } = this._convertPoint(point);
+
+        var vector = [x, y];
+        Vector2.transformMat2d(vector, vector, this.matrix);
+        return {
+          x: vector[0],
+          y: vector[1]
+        };
+      }
+
+      invertPoint(point) {
+        return this._invertPoint(point);
+      }
+
+      _convertPoint(point) {
+        return point;
+      }
+
+      _invertPoint(point) {
+        return point;
+      }
+
+      reset(plot) {
+        this.plot = plot;
+        var {
+          bl,
+          tr
+        } = plot;
+        this.start = bl;
+        this.end = tr;
+        this.init(bl, tr);
+      }
+
+    }
+
+    class Cartesian extends Base$1 {
+      _initDefaultCfg() {
+        this.type = 'cartesian';
+        this.transposed = false;
+        this.isRect = true;
+      }
+
+      init(start, end) {
+        super.init(start, end);
+        this.x = {
+          start: start.x,
+          end: end.x
+        };
+        this.y = {
+          start: start.y,
+          end: end.y
+        };
+      }
+
+      _convertPoint(point) {
+        var self = this;
+        var transposed = self.transposed;
+        var xDim = transposed ? 'y' : 'x';
+        var yDim = transposed ? 'x' : 'y';
+        var x = self.x;
+        var y = self.y;
+        return {
+          x: x.start + (x.end - x.start) * point[xDim],
+          y: y.start + (y.end - y.start) * point[yDim]
+        };
+      }
+
+      _invertPoint(point) {
+        var self = this;
+        var transposed = self.transposed;
+        var xDim = transposed ? 'y' : 'x';
+        var yDim = transposed ? 'x' : 'y';
+        var x = self.x;
+        var y = self.y;
+        var rst = {};
+        rst[xDim] = (point.x - x.start) / (x.end - x.start);
+        rst[yDim] = (point.y - y.start) / (y.end - y.start);
+        return rst;
+      }
+
+    }
+
+    Base$1.Cartesian = Cartesian;
+    Base$1.Rect = Cartesian;
+
+    /**
+     * @fileOverview the Attribute base class
+     */
+
+    function toScaleString(scale, value) {
+      if (isString(value)) {
+        return value;
+      }
+
+      return scale.invert(scale.scale(value));
+    }
+    /**
+     * 所有视觉通道属性的基类
+     * @class Attr
+     */
+
+
+    class AttributeBase {
+      constructor(cfg) {
+        var _this = this;
+
+        /**
+         * 属性的类型
+         * @type {String}
+         */
+        this.type = 'base';
+        /**
+         * 属性的名称
+         * @type {String}
+         */
+
+        this.name = null;
+        /**
+         * 回调函数
+         * @type {Function}
+         */
+
+        this.method = null;
+        /**
+         * 备选的值数组
+         * @type {Array}
+         */
+
+        this.values = [];
+        /**
+         * 属性内部的度量
+         * @type {Array}
+         */
+
+        this.scales = [];
+        /**
+         * 是否通过线性取值, 如果未指定，则根据数值的类型判定
+         * @type {Boolean}
+         */
+
+        this.linear = null;
+        /**
+         * 当用户设置的 callback 返回 null 时, 应该返回默认 callback 中的值
+         */
+
+        var mixedCallback = null;
+        var defaultCallback = this.callback;
+
+        if (cfg.callback) {
+          var userCallback = cfg.callback;
+
+          mixedCallback = function mixedCallback() {
+            for (var _len = arguments.length, params = new Array(_len), _key = 0; _key < _len; _key++) {
+              params[_key] = arguments[_key];
+            }
+
+            var ret = userCallback(...params);
+
+            if (isNil(ret)) {
+              ret = defaultCallback.apply(_this, params);
+            }
+
+            return ret;
+          };
+        }
+
+        mix(this, cfg);
+
+        if (mixedCallback) {
+          mix(this, {
+            callback: mixedCallback
+          });
+        }
+      } // 获取属性值，将值映射到视觉通道
+
+
+      _getAttrValue(scale, value) {
+        var values = this.values;
+
+        if (scale.isCategory && !this.linear) {
+          var index = scale.translate(value);
+          return values[index % values.length];
+        }
+
+        var percent = scale.scale(value);
+        return this.getLinearValue(percent);
+      }
+      /**
+       * 如果进行线性映射，返回对应的映射值
+       * @protected
+       * @param  {Number} percent 百分比
+       * @return {*}  颜色值、形状、大小等
+       */
+
+
+      getLinearValue(percent) {
+        var values = this.values;
+        var steps = values.length - 1;
+        var step = Math.floor(steps * percent);
+        var leftPercent = steps * percent - step;
+        var start = values[step];
+        var end = step === steps ? start : values[step + 1];
+        var rstValue = start + (end - start) * leftPercent;
+        return rstValue;
+      }
+      /**
+       * 默认的回调函数
+       * @param {*} value 回调函数的值
+       * @type {Function}
+       * @return {Array} 返回映射后的值
+       */
+
+
+      callback(value) {
+        var self = this;
+        var scale = self.scales[0];
+        var rstValue = null;
+
+        if (scale.type === 'identity') {
+          rstValue = scale.value;
+        } else {
+          rstValue = self._getAttrValue(scale, value);
+        }
+
+        return rstValue;
+      }
+      /**
+       * 根据度量获取属性名
+       * @return {Array} dims of this Attribute
+       */
+
+
+      getNames() {
+        var scales = this.scales;
+        var names = this.names;
+        var length = Math.min(scales.length, names.length);
+        var rst = [];
+
+        for (var i = 0; i < length; i++) {
+          rst.push(names[i]);
+        }
+
+        return rst;
+      }
+      /**
+       * 根据度量获取维度名
+       * @return {Array} dims of this Attribute
+       */
+
+
+      getFields() {
+        var scales = this.scales;
+        var rst = [];
+        each(scales, function (scale) {
+          rst.push(scale.field);
+        });
+        return rst;
+      }
+      /**
+       * 根据名称获取度量
+       * @param  {String} name the name of scale
+       * @return {Scale} scale
+       */
+
+
+      getScale(name) {
+        var scales = this.scales;
+        var names = this.names;
+        var index = names.indexOf(name);
+        return scales[index];
+      }
+      /**
+       * 映射数据
+       * @param {*} param1...paramn 多个数值
+       * @return {Array} 映射的值组成的数组
+       */
+
+
+      mapping() {
+        var scales = this.scales;
+        var callback = this.callback;
+
+        for (var _len2 = arguments.length, params = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+          params[_key2] = arguments[_key2];
+        }
+
+        var values = params;
+
+        if (callback) {
+          for (var i = 0, len = params.length; i < len; i++) {
+            params[i] = this._toOriginParam(params[i], scales[i]);
+          }
+
+          values = callback.apply(this, params);
+        }
+
+        values = [].concat(values);
+        return values;
+      } // 原始的参数
+
+
+      _toOriginParam(param, scale) {
+        var rst = param;
+
+        if (!scale.isLinear) {
+          if (isArray(param)) {
+            rst = [];
+
+            for (var i = 0, len = param.length; i < len; i++) {
+              rst.push(toScaleString(scale, param[i]));
+            }
+          } else {
+            rst = toScaleString(scale, param);
+          }
+        }
+
+        return rst;
+      }
+
+    }
+
+    class Position extends AttributeBase {
+      constructor(cfg) {
+        super(cfg);
+        this.names = ['x', 'y'];
+        this.type = 'position';
+      }
+
+      mapping(x, y) {
+        var scales = this.scales;
+        var coord = this.coord;
+        var scaleX = scales[0];
+        var scaleY = scales[1];
+        var rstX;
+        var rstY;
+        var obj;
+
+        if (isNil(x) || isNil(y)) {
+          return [];
+        }
+
+        if (isArray(y) && isArray(x)) {
+          rstX = [];
+          rstY = [];
+
+          for (var i = 0, j = 0, xLen = x.length, yLen = y.length; i < xLen && j < yLen; i++, j++) {
+            obj = coord.convertPoint({
+              x: scaleX.scale(x[i]),
+              y: scaleY.scale(y[j])
+            });
+            rstX.push(obj.x);
+            rstY.push(obj.y);
+          }
+        } else if (isArray(y)) {
+          x = scaleX.scale(x);
+          rstY = [];
+          each(y, function (yVal) {
+            yVal = scaleY.scale(yVal);
+            obj = coord.convertPoint({
+              x,
+              y: yVal
+            });
+
+            if (rstX && rstX !== obj.x) {
+              if (!isArray(rstX)) {
+                rstX = [rstX];
+              }
+
+              rstX.push(obj.x);
+            } else {
+              rstX = obj.x;
+            }
+
+            rstY.push(obj.y);
+          });
+        } else if (isArray(x)) {
+          y = scaleY.scale(y);
+          rstX = [];
+          each(x, function (xVal) {
+            xVal = scaleX.scale(xVal);
+            obj = coord.convertPoint({
+              x: xVal,
+              y
+            });
+
+            if (rstY && rstY !== obj.y) {
+              if (!isArray(rstY)) {
+                rstY = [rstY];
+              }
+
+              rstY.push(obj.y);
+            } else {
+              rstY = obj.y;
+            }
+
+            rstX.push(obj.x);
+          });
+        } else {
+          x = scaleX.scale(x);
+          y = scaleY.scale(y);
+          var point = coord.convertPoint({
+            x,
+            y
+          });
+          rstX = point.x;
+          rstY = point.y;
+        }
+
+        return [rstX, rstY];
+      }
+
+    }
+
+    class Shape extends AttributeBase {
+      constructor(cfg) {
+        super(cfg);
+        this.names = ['shape'];
+        this.type = 'shape';
+        this.gradient = null;
+      }
+      /**
+       * @override
+       */
+
+
+      getLinearValue(percent) {
+        var values = this.values;
+        var index = Math.round((values.length - 1) * percent);
+        return values[index];
+      }
+
+    }
+
+    class Size extends AttributeBase {
+      constructor(cfg) {
+        super(cfg);
+        this.names = ['size'];
+        this.type = 'size';
+        this.gradient = null;
+      }
+
+    }
+
+    function getValue(start, end, percent, index) {
+      var value = start[index] + (end[index] - start[index]) * percent;
+      return value;
+    } // convert to hex
+
+
+    function arr2hex(arr) {
+      return '#' + toRGBValue(arr[0]) + toRGBValue(arr[1]) + toRGBValue(arr[2]);
+    }
+
+    function toRGBValue(value) {
+      value = Math.round(value);
+      value = value.toString(16);
+
+      if (value.length === 1) {
+        value = '0' + value;
+      }
+
+      return value;
+    }
+
+    function calColor(colors, percent) {
+      var steps = colors.length - 1;
+      var step = Math.floor(steps * percent);
+      var left = steps * percent - step;
+      var start = colors[step];
+      var end = step === steps ? start : colors[step + 1];
+      var rgb = arr2hex([getValue(start, end, left, 0), getValue(start, end, left, 1), getValue(start, end, left, 2)]);
+      return rgb;
+    }
+
+    function hex2arr(str) {
+      var arr = [];
+      arr.push(parseInt(str.substr(1, 2), 16));
+      arr.push(parseInt(str.substr(3, 2), 16));
+      arr.push(parseInt(str.substr(5, 2), 16));
+      return arr;
+    }
+
+    var colorCache = {
+      black: '#000000',
+      blue: '#0000ff',
+      grey: '#808080',
+      green: '#008000',
+      orange: '#ffa500',
+      pink: '#ffc0cb',
+      purple: '#800080',
+      red: '#ff0000',
+      white: '#ffffff',
+      yellow: '#ffff00'
+    };
+    /**
+     * Returns a hexadecimal string representing this color in RGB space, such as #f7eaba.
+     * @param  {String} color color value
+     * @return {String} Returns a hexadecimal string
+     */
+
+    function toHex(color) {
+      if (colorCache[color]) {
+        return colorCache[color];
+      }
+
+      if (color[0] === '#') {
+        if (color.length === 7) {
+          return color;
+        }
+
+        var hex = color.replace(/^#?([a-f\d])([a-f\d])([a-f\d])$/i, function (m, r, g, b) {
+          return '#' + r + r + g + g + b + b;
+        }); // hex3 to hex6
+
+        colorCache[color] = hex;
+        return hex;
+      } // rgb/rgba to hex
+
+
+      var rst = color.match(/^rgba?[\s+]?\([\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?/i);
+      rst.shift();
+      rst = arr2hex(rst);
+      colorCache[color] = rst;
+      return rst;
+    }
+    /**
+     * handle the gradient color
+     * @param  {Array} colors the colors
+     * @return {String} return the color value
+     */
+
+
+    function gradient(colors) {
+      var points = [];
+
+      if (isString(colors)) {
+        colors = colors.split('-');
+      }
+
+      each(colors, function (color) {
+        if (color.indexOf('#') === -1) {
+          color = toHex(color);
+        }
+
+        points.push(hex2arr(color));
+      });
+      return function (percent) {
+        return calColor(points, percent);
+      };
+    }
+
+    class Color extends AttributeBase {
+      constructor(cfg) {
+        super(cfg);
+        this.names = ['color'];
+        this.type = 'color';
+        this.gradient = null;
+
+        if (isString(this.values)) {
+          this.linear = true;
+        }
+      }
+      /**
+       * @override
+       */
+
+
+      getLinearValue(percent) {
+        var gradient$1 = this.gradient;
+
+        if (!gradient$1) {
+          var values = this.values;
+          gradient$1 = gradient(values);
+          this.gradient = gradient$1;
+        }
+
+        return gradient$1(percent);
+      }
+
+    }
+
+
+
+    var Attr = /*#__PURE__*/Object.freeze({
+        __proto__: null,
+        Position: Position,
+        Shape: Shape,
+        Size: Size,
+        Color: Color
+    });
+
+    var Shape$1 = {};
+    var ShapeBase = {
+      _coord: null,
+
+      /**
+       * draw the shape
+       * @param {Object} cfg options
+       * @param {Object} container container to store the shapes
+       */
+      draw(cfg, container) {
+        if (this.drawShape) {
+          this.drawShape(cfg, container);
+        }
+      },
+
+      /**
+       * set the coordinate instance
+       * @param {Coord} coord coordinate instance
+       */
+      setCoord(coord) {
+        this._coord = coord;
+      },
+
+      /**
+       * convert the normalized value to the canvas position
+       * @param  {point} point the point to convert
+       * @return {point} point return the result
+       */
+      parsePoint(point) {
+        var coord = this._coord;
+
+        if (coord.isPolar) {
+          if (point.x === 1) point.x = 0.9999999;
+          if (point.y === 1) point.y = 0.9999999;
+        }
+
+        return coord.convertPoint(point);
+      },
+
+      /**
+       * convert the normalized value to the canvas position
+       * @param  {points} points the array that store the points
+       * @return {points} points return the result
+       */
+      parsePoints(points) {
+        if (!points) return false;
+        var self = this;
+        var rst = [];
+        points.forEach(function (point) {
+          rst.push(self.parsePoint(point));
+        });
+        return rst;
+      }
+
+    };
+    var ShapeFactoryBase = {
+      defaultShapeType: null,
+
+      setCoord(coord) {
+        this._coord = coord;
+      },
+
+      getShape(type) {
+        var self = this;
+
+        if (isArray(type)) {
+          type = type[0];
+        }
+
+        var shape = self[type] || self[self.defaultShapeType];
+        shape._coord = self._coord;
+        return shape;
+      },
+
+      getShapePoints(type, cfg) {
+        var shape = this.getShape(type);
+        var fn = shape.getPoints || shape.getShapePoints || this.getDefaultPoints;
+        var points = fn(cfg);
+        return points;
+      },
+
+      getDefaultPoints()
+      /* cfg */
+      {
+        return [];
+      },
+
+      drawShape(type, cfg, container) {
+        var shape = this.getShape(type);
+
+        if (!cfg.color) {
+          cfg.color = Global.colors[0];
+        }
+
+        return shape.draw(cfg, container);
+      }
+
+    };
+
+    Shape$1.registerFactory = function (factoryName, cfg) {
+      var className = upperFirst(factoryName);
+      var geomObj = mix({}, ShapeFactoryBase, cfg);
+      Shape$1[className] = geomObj;
+      geomObj.name = factoryName;
+      return geomObj;
+    };
+
+    Shape$1.registerShape = function (factoryName, shapeType, cfg) {
+      var className = upperFirst(factoryName);
+      var factory = Shape$1[className];
+      var shapeObj = mix({}, ShapeBase, cfg);
+      factory[shapeType] = shapeObj;
+      return shapeObj;
+    };
+
+    Shape$1.registShape = Shape$1.registerShape;
+
+    Shape$1.getShapeFactory = function (factoryName) {
+      var self = this;
+      factoryName = factoryName || 'point';
+      var className = upperFirst(factoryName);
+      return self[className];
+    };
+
+    function _mix$1(dist, obj) {
+      for (var key in obj) {
+        if (obj.hasOwnProperty(key) && key !== 'constructor' && obj[key] !== undefined) {
+          dist[key] = obj[key];
+        }
+      }
+    }
+
+    var mix$1 = function mix(dist, src1, src2, src3) {
+      if (src1) _mix$1(dist, src1);
+      if (src2) _mix$1(dist, src2);
+      if (src3) _mix$1(dist, src3);
+      return dist;
+    };
+
+    var mix_1 = mix$1;
+
+    var Adjust =
+    /*#__PURE__*/
+    function () {
+      var _proto = Adjust.prototype;
+
+      _proto._initDefaultCfg = function _initDefaultCfg() {
+        this.adjustNames = ['x', 'y']; // 调整的维度，默认,x,y都做调整
+      };
+
+      function Adjust(cfg) {
+        this._initDefaultCfg();
+
+        mix_1(this, cfg);
+      }
+      /**
+       * @override
+       */
+
+
+      _proto.processAdjust = function processAdjust()
+      /* dataArray */
+      {};
+
+      return Adjust;
+    }();
+
+    var base = Adjust;
+
+    function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+    function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+    function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+    var GROUP_ATTRS = ['color', 'size', 'shape'];
+    var FIELD_ORIGIN = '_origin';
+    var FIELD_ORIGIN_Y = '_originY';
+
+    function parseFields(field) {
+      if (isArray(field)) {
+        return field;
+      }
+
+      if (isString(field)) {
+        return field.split('*');
+      }
+
+      return [field];
+    }
+    /**
+     * The parent class for Geometry
+     * @class Geom
+     */
+
+
+    class Geom extends Base {
+      getDefaultCfg() {
+        return {
+          /**
+           * geometry type
+           * @type {String}
+           */
+          type: null,
+
+          /**
+           * the data of geometry
+           * @type {Array}
+           */
+          data: null,
+
+          /**
+           * the attrs of geo,etry
+           * @type {Object}
+           */
+          attrs: {},
+          scales: {},
+
+          /**
+           * group for storing the shapes
+           * @type {Canvas}
+           */
+          container: null,
+
+          /**
+           * style options
+           * @type {Object}
+           */
+          styleOptions: null,
+          chart: null,
+          shapeType: '',
+
+          /**
+           * wether to generate key points for each shape
+           * @protected
+           * @type {Boolean}
+           */
+          generatePoints: false,
+          attrOptions: {},
+          sortable: false,
+          startOnZero: true,
+          visible: true,
+          connectNulls: false,
+          // 是否丢弃没有值的分组。
+          ignoreEmptyGroup: false,
+          // 是否已经初始化
+          isInit: false
+        };
+      }
+
+      init() {
+        var self = this;
+        var isInit = self.get('isInit');
+
+        if (isInit) {
+          return;
+        }
+
+        self._initAttrs();
+
+        self._processData();
+
+        self.set('isInit', true);
+      }
+
+      _getGroupScales() {
+        var self = this;
+        var scales = [];
+        each(GROUP_ATTRS, function (attrName) {
+          var attr = self.getAttr(attrName);
+
+          if (attr) {
+            var attrScales = attr.scales;
+            each(attrScales, function (scale) {
+              if (scale && scale.isCategory && scales.indexOf(scale) === -1) {
+                scales.push(scale);
+              }
+            });
+          }
+        });
+        return scales;
+      }
+
+      _groupData(data) {
+        var self = this;
+        var colDefs = self.get('colDefs');
+
+        var groupScales = self._getGroupScales();
+
+        if (groupScales.length) {
+          var appendConditions = {};
+          var names = [];
+          each(groupScales, function (scale) {
+            var field = scale.field;
+            names.push(field);
+
+            if (colDefs && colDefs[field] && colDefs[field].values) {
+              // users have defined
+              appendConditions[scale.field] = colDefs[field].values;
+            }
+          });
+          return group(data, names, appendConditions);
+        }
+
+        return [data];
+      }
+
+      _setAttrOptions(attrName, attrCfg) {
+        var options = this.get('attrOptions');
+        options[attrName] = attrCfg;
+        var attrs = this.get('attrs'); // 说明已经初始化过了
+
+        if (Object.keys(attrs).length) {
+          this._createAttr(attrName, attrCfg);
+        }
+      }
+
+      _createAttrOption(attrName, field, cfg, defaultValues) {
+        var attrCfg = {};
+        attrCfg.field = field;
+
+        if (cfg) {
+          if (isFunction(cfg)) {
+            attrCfg.callback = cfg;
+          } else {
+            attrCfg.values = cfg;
+          }
+        } else {
+          attrCfg.values = defaultValues;
+        }
+
+        this._setAttrOptions(attrName, attrCfg);
+      }
+
+      _createAttr(type, option) {
+        var self = this;
+        var attrs = self.get('attrs');
+        var coord = self.get('coord');
+        var className = upperFirst(type);
+        var fields = parseFields(option.field);
+
+        if (type === 'position') {
+          option.coord = coord;
+        }
+
+        var scales = [];
+
+        for (var i = 0, len = fields.length; i < len; i++) {
+          var field = fields[i];
+
+          var scale = self._createScale(field);
+
+          scales.push(scale);
+        }
+
+        if (type === 'position') {
+          var yScale = scales[1]; // 饼图的处理，但是还不知道为啥
+
+          if (coord.type === 'polar' && coord.transposed && self.hasAdjust('stack')) {
+            if (yScale.values.length) {
+              yScale.change({
+                nice: false,
+                min: 0,
+                max: Math.max.apply(null, yScale.values)
+              });
+            }
+          }
+        }
+
+        option.scales = scales;
+        var attr = new Attr[className](option);
+        attrs[type] = attr;
+        return attr;
+      }
+
+      _initAttrs() {
+        var self = this;
+        var attrOptions = self.get('attrOptions');
+
+        for (var type in attrOptions) {
+          if (attrOptions.hasOwnProperty(type)) {
+            this._createAttr(type, attrOptions[type]);
+          }
+        }
+      }
+
+      _createScale(field) {
+        var scales = this.get('scales');
+        var scale = scales[field];
+
+        if (!scale) {
+          scale = this.get('chart').createScale(field);
+          scales[field] = scale;
+        }
+
+        return scale;
+      }
+
+      _processData() {
+        var self = this;
+        var data = this.get('data');
+        var dataArray = [];
+
+        var groupedArray = this._groupData(data);
+
+        if (this.get('ignoreEmptyGroup')) {
+          var yScale = this.getYScale();
+          groupedArray = groupedArray.filter(function (group) {
+            return group.some(function (item) {
+              return typeof item[yScale.field] !== 'undefined';
+            });
+          });
+        }
+
+        for (var i = 0, len = groupedArray.length; i < len; i++) {
+          var subData = groupedArray[i];
+
+          var tempData = self._saveOrigin(subData);
+
+          if (this.hasAdjust('dodge')) {
+            self._numberic(tempData);
+          }
+
+          dataArray.push(tempData);
+        }
+
+        if (self.get('adjust')) {
+          self._adjustData(dataArray);
+        }
+
+        if (self.get('sortable')) {
+          self._sort(dataArray);
+        }
+
+        self.emit('afterprocessdata', {
+          dataArray
+        });
+        self.set('mappingData', dataArray);
+        self.set('dataArray', dataArray);
+        return dataArray;
+      }
+
+      _saveOrigin(data) {
+        var rst = [];
+
+        for (var i = 0, len = data.length; i < len; i++) {
+          var origin = data[i];
+          var obj = {};
+
+          for (var k in origin) {
+            obj[k] = origin[k];
+          }
+
+          obj[FIELD_ORIGIN] = origin;
+          rst.push(obj);
+        }
+
+        return rst;
+      }
+
+      _numberic(data) {
+        var positionAttr = this.getAttr('position');
+        var scales = positionAttr.scales;
+
+        for (var j = 0, len = data.length; j < len; j++) {
+          var obj = data[j];
+          var count = Math.min(2, scales.length);
+
+          for (var i = 0; i < count; i++) {
+            var scale = scales[i];
+
+            if (scale.isCategory) {
+              var field = scale.field;
+              obj[field] = scale.translate(obj[field]);
+            }
+          }
+        }
+      }
+
+      _adjustData(dataArray) {
+        var self = this;
+        var adjust = self.get('adjust');
+
+        if (adjust) {
+          var adjustType = upperFirst(adjust.type);
+
+          if (!base[adjustType]) {
+            throw new Error('not support such adjust : ' + adjust);
+          }
+
+          var xScale = self.getXScale();
+          var yScale = self.getYScale();
+          var cfg = mix({
+            xField: xScale.field,
+            yField: yScale.field
+          }, adjust);
+          var adjustObject = new base[adjustType](cfg);
+          adjustObject.processAdjust(dataArray);
+
+          if (adjustType === 'Stack') {
+            self._updateStackRange(yScale.field, yScale, dataArray);
+          }
+        }
+      }
+
+      _updateStackRange(field, scale, dataArray) {
+        var mergeArray = merge(dataArray);
+        var min = scale.min;
+        var max = scale.max;
+
+        for (var i = 0, len = mergeArray.length; i < len; i++) {
+          var obj = mergeArray[i];
+          var tmpMin = Math.min.apply(null, obj[field]);
+          var tmpMax = Math.max.apply(null, obj[field]);
+
+          if (tmpMin < min) {
+            min = tmpMin;
+          }
+
+          if (tmpMax > max) {
+            max = tmpMax;
+          }
+        }
+
+        if (min < scale.min || max > scale.max) {
+          scale.change({
+            min,
+            max
+          });
+        }
+      }
+
+      _sort(mappedArray) {
+        var self = this;
+        var xScale = self.getXScale();
+        var {
+          field,
+          type
+        } = xScale;
+
+        if (type !== 'identity' && xScale.values.length > 1) {
+          each(mappedArray, function (itemArr) {
+            itemArr.sort(function (obj1, obj2) {
+              if (type === 'timeCat') {
+                return toTimeStamp(obj1[FIELD_ORIGIN][field]) - toTimeStamp(obj2[FIELD_ORIGIN][field]);
+              }
+
+              return xScale.translate(obj1[FIELD_ORIGIN][field]) - xScale.translate(obj2[FIELD_ORIGIN][field]);
+            });
+          });
+        }
+
+        self.set('hasSorted', true);
+        self.set('dataArray', mappedArray);
+      }
+
+      paint() {
+        var self = this;
+        var dataArray = self.get('mappingData');
+        var mappedArray = [];
+        var shapeFactory = self.getShapeFactory();
+        shapeFactory.setCoord(self.get('coord'));
+
+        self._beforeMapping(dataArray);
+
+        for (var i = 0, len = dataArray.length; i < len; i++) {
+          var data = dataArray[i];
+
+          if (data.length) {
+            var mappedData = self._mapping(data);
+
+            mappedArray.push(mappedData);
+            self.draw(mappedData, shapeFactory);
+          }
+        }
+
+        self.set('dataArray', mappedArray);
+      }
+
+      getShapeFactory() {
+        var shapeFactory = this.get('shapeFactory');
+
+        if (!shapeFactory) {
+          var shapeType = this.get('shapeType');
+          shapeFactory = Shape$1.getShapeFactory(shapeType);
+          this.set('shapeFactory', shapeFactory);
+        }
+
+        return shapeFactory;
+      }
+
+      _mapping(data) {
+        var self = this;
+        var attrs = self.get('attrs');
+        var yField = self.getYScale().field; // 用来缓存转换的值，减少mapping耗时
+
+        var mappedCache = {};
+        var mappedData = new Array(data.length);
+
+        for (var k in attrs) {
+          if (attrs.hasOwnProperty(k)) {
+            var attr = attrs[k];
+            var names = attr.names;
+            var scales = attr.scales;
+
+            for (var i = 0, len = data.length; i < len; i++) {
+              var record = data[i];
+
+              var mappedRecord = _objectSpread(_objectSpread({}, record), mappedData[i]);
+
+              mappedRecord[FIELD_ORIGIN_Y] = record[yField]; // 获取视觉属性对应的value值
+              // 位置的缓存命中率低，还是每次单独计算
+
+              if (attr.type === 'position') {
+                var values = self._getAttrValues(attr, record);
+
+                for (var j = 0, _len = values.length; j < _len; j++) {
+                  var val = values[j];
+                  var name = names[j];
+                  mappedRecord[name] = isArray(val) && val.length === 1 ? val[0] : val;
+                }
+              } else {
+                // 除了position其他都只有一项
+                var _name = names[0];
+                var field = scales[0].field;
+                var value = record[field];
+                var key = "".concat(_name).concat(value);
+                var _values = mappedCache[key];
+
+                if (!_values) {
+                  _values = self._getAttrValues(attr, record);
+                  mappedCache[key] = _values;
+                }
+
+                mappedRecord[_name] = _values[0];
+              } // 设置新数组
+
+
+              mappedData[i] = mappedRecord;
+            }
+          }
+        }
+
+        return mappedData;
+      }
+
+      _getAttrValues(attr, record) {
+        var scales = attr.scales;
+        var params = [];
+
+        for (var i = 0, len = scales.length; i < len; i++) {
+          var scale = scales[i];
+          var field = scale.field;
+
+          if (scale.type === 'identity') {
+            params.push(scale.value);
+          } else {
+            params.push(record[field]);
+          }
+        }
+
+        var values = attr.mapping(...params);
+        return values;
+      }
+
+      getAttrValue(attrName, record) {
+        var attr = this.getAttr(attrName);
+        var rst = null;
+
+        if (attr) {
+          var values = this._getAttrValues(attr, record);
+
+          rst = values[0];
+        }
+
+        return rst;
+      }
+
+      _beforeMapping(dataArray) {
+        var self = this;
+
+        if (self.get('generatePoints')) {
+          self._generatePoints(dataArray);
+        }
+      }
+
+      isInCircle() {
+        var coord = this.get('coord');
+        return coord && coord.isPolar;
+      }
+
+      getCallbackCfg(fields, cfg, origin) {
+        if (!fields) {
+          return cfg;
+        }
+
+        var tmpCfg = {};
+        var params = fields.map(function (field) {
+          return origin[field];
+        });
+        each(cfg, function (v, k) {
+          if (isFunction(v)) {
+            tmpCfg[k] = v.apply(null, params);
+          } else {
+            tmpCfg[k] = v;
+          }
+        });
+        return tmpCfg;
+      }
+
+      getDrawCfg(obj) {
+        var self = this;
+        var isInCircle = self.isInCircle();
+        var cfg = {
+          origin: obj,
+          x: obj.x,
+          y: obj.y,
+          color: obj.color,
+          size: obj.size,
+          shape: obj.shape,
+          isInCircle,
+          opacity: obj.opacity
+        };
+        var styleOptions = self.get('styleOptions');
+
+        if (styleOptions && styleOptions.style) {
+          cfg.style = self.getCallbackCfg(styleOptions.fields, styleOptions.style, obj[FIELD_ORIGIN]);
+        }
+
+        if (self.get('generatePoints')) {
+          cfg.points = obj.points;
+          cfg.nextPoints = obj.nextPoints;
+        }
+
+        if (isInCircle) {
+          cfg.center = self.get('coord').center;
+        }
+
+        return cfg;
+      }
+
+      draw(data, shapeFactory) {
+        var self = this;
+        var container = self.get('container');
+        var yScale = self.getYScale();
+        each(data, function (obj, index) {
+          if (yScale && isNil(obj._origin[yScale.field])) {
+            return;
+          }
+
+          obj.index = index;
+          var cfg = self.getDrawCfg(obj);
+          var shape = obj.shape;
+          self.drawShape(shape, obj, cfg, container, shapeFactory);
+        });
+      }
+
+      drawShape(shape, shapeData, cfg, container, shapeFactory) {
+        var gShape = shapeFactory.drawShape(shape, cfg, container);
+
+        if (gShape) {
+          each([].concat(gShape), function (s) {
+            s.set('origin', shapeData);
+          });
+        }
+      }
+
+      _generatePoints(dataArray) {
+        var self = this;
+        var shapeFactory = self.getShapeFactory();
+        var shapeAttr = self.getAttr('shape');
+        each(dataArray, function (data) {
+          for (var i = 0, len = data.length; i < len; i++) {
+            var obj = data[i];
+            var cfg = self.createShapePointsCfg(obj);
+            var shape = shapeAttr ? self._getAttrValues(shapeAttr, obj) : null;
+            var points = shapeFactory.getShapePoints(shape, cfg);
+            obj.points = points;
+          }
+        }); // 添加nextPoints
+
+        each(dataArray, function (data, index) {
+          var nextData = dataArray[index + 1];
+
+          if (nextData) {
+            data[0].nextPoints = nextData[0].points;
+          }
+        });
+      }
+      /**
+       * get the info of each shape
+       * @protected
+       * @param  {Object} obj the data item
+       * @return {Object} cfg return the result
+       */
+
+
+      createShapePointsCfg(obj) {
+        var xScale = this.getXScale();
+        var yScale = this.getYScale();
+
+        var x = this._normalizeValues(obj[xScale.field], xScale);
+
+        var y;
+
+        if (yScale) {
+          y = this._normalizeValues(obj[yScale.field], yScale);
+        } else {
+          y = obj.y ? obj.y : 0.1;
+        }
+
+        return {
+          x,
+          y,
+          y0: yScale ? yScale.scale(this.getYMinValue()) : undefined
+        };
+      }
+
+      getYMinValue() {
+        var yScale = this.getYScale();
+        var {
+          min,
+          max
+        } = yScale;
+        var value;
+
+        if (this.get('startOnZero')) {
+          if (max <= 0 && min <= 0) {
+            value = max;
+          } else {
+            value = min >= 0 ? min : 0;
+          }
+        } else {
+          value = min;
+        }
+
+        return value;
+      }
+
+      _normalizeValues(values, scale) {
+        var rst = [];
+
+        if (isArray(values)) {
+          for (var i = 0, len = values.length; i < len; i++) {
+            var v = values[i];
+            rst.push(scale.scale(v));
+          }
+        } else {
+          rst = scale.scale(values);
+        }
+
+        return rst;
+      }
+
+      getAttr(name) {
+        return this.get('attrs')[name];
+      }
+
+      getXScale() {
+        return this.getAttr('position').scales[0];
+      }
+
+      getYScale() {
+        return this.getAttr('position').scales[1];
+      }
+
+      hasAdjust(adjust) {
+        return this.get('adjust') && this.get('adjust').type === adjust;
+      }
+
+      _getSnap(scale, item, arr) {
+        var i = 0;
+        var values;
+        var yField = this.getYScale().field; // 叠加的维度
+
+        if (this.hasAdjust('stack') && scale.field === yField) {
+          values = [];
+          arr.forEach(function (obj) {
+            values.push(obj[FIELD_ORIGIN_Y]);
+          });
+
+          for (var len = values.length; i < len; i++) {
+            if (values[0][0] > item) {
+              break;
+            }
+
+            if (values[values.length - 1][1] <= item) {
+              i = values.length - 1;
+              break;
+            }
+
+            if (values[i][0] <= item && values[i][1] > item) {
+              break;
+            }
+          }
+        } else {
+          values = scale.values;
+          values.sort(function (a, b) {
+            return a - b;
+          });
+
+          for (var _len2 = values.length; i < _len2; i++) {
+            // 如果只有1个点直接返回第1个点
+            if (_len2 <= 1) {
+              break;
+            } // 第1个点和第2个点之间
+
+
+            if ((values[0] + values[1]) / 2 > item) {
+              break;
+            } // 中间的点
+
+
+            if ((values[i - 1] + values[i]) / 2 <= item && (values[i + 1] + values[i]) / 2 > item) {
+              break;
+            } // 最后2个点
+
+
+            if ((values[values.length - 2] + values[values.length - 1]) / 2 <= item) {
+              i = values.length - 1;
+              break;
+            }
+          }
+        }
+
+        var result = values[i];
+        return result;
+      }
+
+      getSnapRecords(point) {
+        var self = this;
+        var coord = self.get('coord');
+        var xScale = self.getXScale();
+        var yScale = self.getYScale();
+        var xfield = xScale.field;
+        var dataArray = self.get('dataArray');
+
+        if (!this.get('hasSorted')) {
+          this._sort(dataArray);
+        }
+
+        var rst = [];
+        var invertPoint = coord.invertPoint(point);
+        var invertPointX = invertPoint.x;
+
+        if (self.isInCircle() && !coord.transposed && invertPointX > (1 + xScale.rangeMax()) / 2) {
+          invertPointX = xScale.rangeMin();
+        }
+
+        var xValue = xScale.invert(invertPointX);
+
+        if (!xScale.isCategory) {
+          xValue = self._getSnap(xScale, xValue);
+        }
+
+        var tmp = [];
+        dataArray.forEach(function (data) {
+          data.forEach(function (obj) {
+            var originValue = isNil(obj[FIELD_ORIGIN]) ? obj[xfield] : obj[FIELD_ORIGIN][xfield];
+
+            if (self._isEqual(originValue, xValue, xScale)) {
+              tmp.push(obj);
+            }
+          });
+        }); // special for pie chart
+
+        if (this.hasAdjust('stack') && coord.isPolar && coord.transposed) {
+          if (invertPointX >= 0 && invertPointX <= 1) {
+            var yValue = yScale.invert(invertPoint.y);
+            yValue = self._getSnap(yScale, yValue, tmp);
+            tmp.forEach(function (obj) {
+              if (isArray(yValue) ? obj[FIELD_ORIGIN_Y].toString() === yValue.toString() : obj[FIELD_ORIGIN_Y] === yValue) {
+                rst.push(obj);
+              }
+            });
+          }
+        } else {
+          rst = tmp;
+        }
+
+        return rst;
+      }
+
+      getRecords(value) {
+        var _this = this;
+
+        var xScale = this.getXScale();
+        var dataArray = this.get('dataArray');
+        var xfield = xScale.field;
+        return dataArray.map(function (data) {
+          for (var len = data.length, i = len - 1; i >= 0; i--) {
+            var obj = data[i];
+            var originValue = isNil(obj[FIELD_ORIGIN]) ? obj[xfield] : obj[FIELD_ORIGIN][xfield];
+
+            if (_this._isEqual(originValue, value, xScale)) {
+              return obj;
+            }
+          }
+
+          return null;
+        });
+      }
+
+      _isEqual(originValue, value, scale) {
+        if (scale.type === 'timeCat') {
+          return toTimeStamp(originValue) === value;
+        }
+
+        return value === originValue;
+      }
+
+      position(field) {
+        this._setAttrOptions('position', {
+          field
+        });
+
+        return this;
+      }
+
+      color(field, values) {
+        this._createAttrOption('color', field, values, Global.colors);
+
+        return this;
+      }
+
+      size(field, values) {
+        this._createAttrOption('size', field, values, Global.sizes);
+
+        return this;
+      }
+
+      shape(field, values) {
+        var type = this.get('type');
+        var shapes = Global.shapes[type] || [];
+
+        this._createAttrOption('shape', field, values, shapes);
+
+        return this;
+      }
+
+      style(field, cfg) {
+        var styleOptions = this.get('styleOptions');
+
+        if (!styleOptions) {
+          styleOptions = {};
+          this.set('styleOptions', styleOptions);
+        }
+
+        if (isObject(field)) {
+          cfg = field;
+          field = null;
+        }
+
+        var fields;
+
+        if (field) {
+          fields = parseFields(field);
+        }
+
+        styleOptions.fields = fields;
+        styleOptions.style = cfg;
+        return this;
+      }
+
+      adjust(type) {
+        if (isString(type)) {
+          type = {
+            type
+          };
+        }
+
+        this.set('adjust', type);
+        return this;
+      }
+
+      animate(cfg) {
+        this.set('animateCfg', cfg);
+        return this;
+      }
+
+      changeData(data) {
+        this.set('data', data); // 改变数据后，情况度量，因为需要重新实例化
+
+        this.set('scales', {});
+        if (!this.get('isInit')) return;
+        this.set('isInit', false);
+        this.init();
+      }
+
+      clearInner() {
+        var container = this.get('container');
+
+        if (container) {
+          container.clear(); // container.setMatrix([ 1, 0, 0, 1, 0, 0 ]);
+        }
+      }
+
+      reset() {
+        this.set('isInit', false);
+        this.set('attrs', {});
+        this.set('attrOptions', {});
+        this.set('adjust', null);
+        this.clearInner();
+      }
+
+      clear() {
+        this.clearInner();
+      }
+
+      destroy() {
+        this.set('isInit', false);
+        this.clear();
+        super.destroy();
+      }
+
+      _display(visible) {
+        this.set('visible', visible);
+        var container = this.get('container');
+        var canvas = container.get('canvas');
+        container.set('visible', visible);
+        canvas.draw();
+      }
+
+      show() {
+        this._display(true);
+      }
+
+      hide() {
+        this._display(false);
+      }
+
+    }
+
+    var methodCache = {};
+    /**
+     * 获取计算 ticks 的方法
+     * @param key 键值
+     * @returns 计算 ticks 的方法
+     */
+    function getTickMethod(key) {
+        return methodCache[key];
+    }
+    /**
+     * 注册计算 ticks 的方法
+     * @param key 键值
+     * @param method 方法
+     */
+    function registerTickMethod(key, method) {
+        methodCache[key] = method;
+    }
+
+    var Scale = /** @class */ (function () {
+        function Scale(cfg) {
+            /**
+             * 度量的类型
+             */
+            this.type = 'base';
+            /**
+             * 是否分类类型的度量
+             */
+            this.isCategory = false;
+            /**
+             * 是否线性度量，有linear, time 度量
+             */
+            this.isLinear = false;
+            /**
+             * 是否连续类型的度量，linear,time,log, pow, quantile, quantize 都支持
+             */
+            this.isContinuous = false;
+            /**
+             * 是否是常量的度量，传入和传出一致
+             */
+            this.isIdentity = false;
+            this.values = [];
+            this.range = [0, 1];
+            this.ticks = [];
+            this.__cfg__ = cfg;
+            this.initCfg();
+            this.init();
+        }
+        // 对于原始值的必要转换，如分类、时间字段需转换成数值，用transform/map命名可能更好
+        Scale.prototype.translate = function (v) {
+            return v;
+        };
+        /** 重新初始化 */
+        Scale.prototype.change = function (cfg) {
+            // 覆盖配置项，而不替代
+            mix(this.__cfg__, cfg);
+            this.init();
+        };
+        Scale.prototype.clone = function () {
+            return this.constructor(this.__cfg__);
+        };
+        /** 获取坐标轴需要的ticks */
+        Scale.prototype.getTicks = function () {
+            var _this = this;
+            return map(this.ticks, function (tick, idx) {
+                if (isObject(tick)) {
+                    // 仅当符合Tick类型时才有意义
+                    return tick;
+                }
+                return {
+                    text: _this.getText(tick, idx),
+                    tickValue: tick,
+                    value: _this.scale(tick),
+                };
+            });
+        };
+        /** 获取Tick的格式化结果 */
+        Scale.prototype.getText = function (value, key) {
+            var formatter = this.formatter;
+            var res = formatter ? formatter(value, key) : value;
+            if (isNil(res) || !isFunction(res.toString)) {
+                return '';
+            }
+            return res.toString();
+        };
+        // 获取配置项中的值，当前 scale 上的值可能会被修改
+        Scale.prototype.getConfig = function (key) {
+            return this.__cfg__[key];
+        };
+        // scale初始化
+        Scale.prototype.init = function () {
+            mix(this, this.__cfg__);
+            this.setDomain();
+            if (isEmpty(this.getConfig('ticks'))) {
+                this.ticks = this.calculateTicks();
+            }
+        };
+        // 子类上覆盖某些属性，不能直接在类上声明，否则会被覆盖
+        Scale.prototype.initCfg = function () { };
+        Scale.prototype.setDomain = function () { };
+        Scale.prototype.calculateTicks = function () {
+            var tickMethod = this.tickMethod;
+            var ticks = [];
+            if (isString(tickMethod)) {
+                var method = getTickMethod(tickMethod);
+                if (!method) {
+                    throw new Error('There is no method to to calculate ticks!');
+                }
+                ticks = method(this);
+            }
+            else if (isFunction(tickMethod)) {
+                ticks = tickMethod(this);
+            }
+            return ticks;
+        };
+        // range 的最小值
+        Scale.prototype.rangeMin = function () {
+            return head(this.range);
+        };
+        // range 的最大值
+        Scale.prototype.rangeMax = function () {
+            return last(this.range);
+        };
+        /** 定义域转 0~1 */
+        Scale.prototype.calcPercent = function (value, min, max) {
+            if (isNumber(value)) {
+                return (value - min) / (max - min);
+            }
+            return NaN;
+        };
+        /** 0~1转定义域 */
+        Scale.prototype.calcValue = function (percent, min, max) {
+            return min + percent * (max - min);
+        };
+        return Scale;
+    }());
+
+    /*! *****************************************************************************
+    Copyright (c) Microsoft Corporation.
+
+    Permission to use, copy, modify, and/or distribute this software for any
+    purpose with or without fee is hereby granted.
+
+    THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+    REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+    AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+    INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+    LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+    OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+    PERFORMANCE OF THIS SOFTWARE.
+    ***************************************************************************** */
+    /* global Reflect, Promise */
+
+    var extendStatics = function(d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+
+    function __extends(d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    }
+
+    function __spreadArrays() {
+        for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+        for (var r = Array(s), k = 0, i = 0; i < il; i++)
+            for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+                r[k] = a[j];
+        return r;
+    }
+
+    /**
+     * 分类度量
+     * @class
+     */
+    var Category = /** @class */ (function (_super) {
+        __extends(Category, _super);
+        function Category() {
+            var _this = _super !== null && _super.apply(this, arguments) || this;
+            _this.type = 'cat';
+            _this.isCategory = true;
+            return _this;
+        }
+        Category.prototype.translate = function (value) {
+            var index = indexOf(this.values, value);
+            if (index === -1) {
+                return isNumber(value) ? value : NaN;
+            }
+            return index;
+        };
+        Category.prototype.scale = function (value) {
+            var order = this.translate(value);
+            // 分类数据允许 0.5 范围内调整
+            // if (order < this.min - 0.5 || order > this.max + 0.5) {
+            //   return NaN;
+            // }
+            var percent = this.calcPercent(order, this.min, this.max);
+            return this.calcValue(percent, this.rangeMin(), this.rangeMax());
+        };
+        Category.prototype.invert = function (scaledValue) {
+            var domainRange = this.max - this.min;
+            var percent = this.calcPercent(scaledValue, this.rangeMin(), this.rangeMax());
+            var idx = Math.round(domainRange * percent) + this.min;
+            if (idx < this.min || idx > this.max) {
+                return NaN;
+            }
+            return this.values[idx];
+        };
+        Category.prototype.getText = function (value) {
+            var args = [];
+            for (var _i = 1; _i < arguments.length; _i++) {
+                args[_i - 1] = arguments[_i];
+            }
+            var v = value;
+            // value为index
+            if (isNumber(value) && !this.values.includes(value)) {
+                v = this.values[v];
+            }
+            return _super.prototype.getText.apply(this, __spreadArrays([v], args));
+        };
+        // 复写属性
+        Category.prototype.initCfg = function () {
+            this.tickMethod = 'cat';
+        };
+        // 设置 min, max
+        Category.prototype.setDomain = function () {
+            // 用户有可能设置 min
+            if (isNil(this.getConfig('min'))) {
+                this.min = 0;
+            }
+            if (isNil(this.getConfig('max'))) {
+                var size = this.values.length;
+                this.max = size > 1 ? size - 1 : size;
+            }
+        };
+        return Category;
+    }(Scale));
+
+    var token = /d{1,4}|M{1,4}|YY(?:YY)?|S{1,3}|Do|ZZ|Z|([HhMsDm])\1?|[aA]|"[^"]*"|'[^']*'/g;
+    var twoDigitsOptional = "[1-9]\\d?";
+    var twoDigits = "\\d\\d";
+    var threeDigits = "\\d{3}";
+    var fourDigits = "\\d{4}";
+    var word = "[^\\s]+";
+    var literal = /\[([^]*?)\]/gm;
+    function shorten(arr, sLen) {
+        var newArr = [];
+        for (var i = 0, len = arr.length; i < len; i++) {
+            newArr.push(arr[i].substr(0, sLen));
+        }
+        return newArr;
+    }
+    var monthUpdate = function (arrName) { return function (v, i18n) {
+        var lowerCaseArr = i18n[arrName].map(function (v) { return v.toLowerCase(); });
+        var index = lowerCaseArr.indexOf(v.toLowerCase());
+        if (index > -1) {
+            return index;
+        }
+        return null;
+    }; };
+    function assign(origObj) {
+        var args = [];
+        for (var _i = 1; _i < arguments.length; _i++) {
+            args[_i - 1] = arguments[_i];
+        }
+        for (var _a = 0, args_1 = args; _a < args_1.length; _a++) {
+            var obj = args_1[_a];
+            for (var key in obj) {
+                // @ts-ignore ex
+                origObj[key] = obj[key];
+            }
+        }
+        return origObj;
+    }
+    var dayNames = [
+        "Sunday",
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday"
+    ];
+    var monthNames = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December"
+    ];
+    var monthNamesShort = shorten(monthNames, 3);
+    var dayNamesShort = shorten(dayNames, 3);
+    var defaultI18n = {
+        dayNamesShort: dayNamesShort,
+        dayNames: dayNames,
+        monthNamesShort: monthNamesShort,
+        monthNames: monthNames,
+        amPm: ["am", "pm"],
+        DoFn: function (dayOfMonth) {
+            return (dayOfMonth +
+                ["th", "st", "nd", "rd"][dayOfMonth % 10 > 3
+                    ? 0
+                    : ((dayOfMonth - (dayOfMonth % 10) !== 10 ? 1 : 0) * dayOfMonth) % 10]);
+        }
+    };
+    var globalI18n = assign({}, defaultI18n);
+    var setGlobalDateI18n = function (i18n) {
+        return (globalI18n = assign(globalI18n, i18n));
+    };
+    var regexEscape = function (str) {
+        return str.replace(/[|\\{()[^$+*?.-]/g, "\\$&");
+    };
+    var pad = function (val, len) {
+        if (len === void 0) { len = 2; }
+        val = String(val);
+        while (val.length < len) {
+            val = "0" + val;
+        }
+        return val;
+    };
+    var formatFlags = {
+        D: function (dateObj) { return String(dateObj.getDate()); },
+        DD: function (dateObj) { return pad(dateObj.getDate()); },
+        Do: function (dateObj, i18n) {
+            return i18n.DoFn(dateObj.getDate());
+        },
+        d: function (dateObj) { return String(dateObj.getDay()); },
+        dd: function (dateObj) { return pad(dateObj.getDay()); },
+        ddd: function (dateObj, i18n) {
+            return i18n.dayNamesShort[dateObj.getDay()];
+        },
+        dddd: function (dateObj, i18n) {
+            return i18n.dayNames[dateObj.getDay()];
+        },
+        M: function (dateObj) { return String(dateObj.getMonth() + 1); },
+        MM: function (dateObj) { return pad(dateObj.getMonth() + 1); },
+        MMM: function (dateObj, i18n) {
+            return i18n.monthNamesShort[dateObj.getMonth()];
+        },
+        MMMM: function (dateObj, i18n) {
+            return i18n.monthNames[dateObj.getMonth()];
+        },
+        YY: function (dateObj) {
+            return pad(String(dateObj.getFullYear()), 4).substr(2);
+        },
+        YYYY: function (dateObj) { return pad(dateObj.getFullYear(), 4); },
+        h: function (dateObj) { return String(dateObj.getHours() % 12 || 12); },
+        hh: function (dateObj) { return pad(dateObj.getHours() % 12 || 12); },
+        H: function (dateObj) { return String(dateObj.getHours()); },
+        HH: function (dateObj) { return pad(dateObj.getHours()); },
+        m: function (dateObj) { return String(dateObj.getMinutes()); },
+        mm: function (dateObj) { return pad(dateObj.getMinutes()); },
+        s: function (dateObj) { return String(dateObj.getSeconds()); },
+        ss: function (dateObj) { return pad(dateObj.getSeconds()); },
+        S: function (dateObj) {
+            return String(Math.round(dateObj.getMilliseconds() / 100));
+        },
+        SS: function (dateObj) {
+            return pad(Math.round(dateObj.getMilliseconds() / 10), 2);
+        },
+        SSS: function (dateObj) { return pad(dateObj.getMilliseconds(), 3); },
+        a: function (dateObj, i18n) {
+            return dateObj.getHours() < 12 ? i18n.amPm[0] : i18n.amPm[1];
+        },
+        A: function (dateObj, i18n) {
+            return dateObj.getHours() < 12
+                ? i18n.amPm[0].toUpperCase()
+                : i18n.amPm[1].toUpperCase();
+        },
+        ZZ: function (dateObj) {
+            var offset = dateObj.getTimezoneOffset();
+            return ((offset > 0 ? "-" : "+") +
+                pad(Math.floor(Math.abs(offset) / 60) * 100 + (Math.abs(offset) % 60), 4));
+        },
+        Z: function (dateObj) {
+            var offset = dateObj.getTimezoneOffset();
+            return ((offset > 0 ? "-" : "+") +
+                pad(Math.floor(Math.abs(offset) / 60), 2) +
+                ":" +
+                pad(Math.abs(offset) % 60, 2));
+        }
+    };
+    var monthParse = function (v) { return +v - 1; };
+    var emptyDigits = [null, twoDigitsOptional];
+    var emptyWord = [null, word];
+    var amPm = [
+        "isPm",
+        word,
+        function (v, i18n) {
+            var val = v.toLowerCase();
+            if (val === i18n.amPm[0]) {
+                return 0;
+            }
+            else if (val === i18n.amPm[1]) {
+                return 1;
+            }
+            return null;
+        }
+    ];
+    var timezoneOffset = [
+        "timezoneOffset",
+        "[^\\s]*?[\\+\\-]\\d\\d:?\\d\\d|[^\\s]*?Z?",
+        function (v) {
+            var parts = (v + "").match(/([+-]|\d\d)/gi);
+            if (parts) {
+                var minutes = +parts[1] * 60 + parseInt(parts[2], 10);
+                return parts[0] === "+" ? minutes : -minutes;
+            }
+            return 0;
+        }
+    ];
+    var parseFlags = {
+        D: ["day", twoDigitsOptional],
+        DD: ["day", twoDigits],
+        Do: ["day", twoDigitsOptional + word, function (v) { return parseInt(v, 10); }],
+        M: ["month", twoDigitsOptional, monthParse],
+        MM: ["month", twoDigits, monthParse],
+        YY: [
+            "year",
+            twoDigits,
+            function (v) {
+                var now = new Date();
+                var cent = +("" + now.getFullYear()).substr(0, 2);
+                return +("" + (+v > 68 ? cent - 1 : cent) + v);
+            }
+        ],
+        h: ["hour", twoDigitsOptional, undefined, "isPm"],
+        hh: ["hour", twoDigits, undefined, "isPm"],
+        H: ["hour", twoDigitsOptional],
+        HH: ["hour", twoDigits],
+        m: ["minute", twoDigitsOptional],
+        mm: ["minute", twoDigits],
+        s: ["second", twoDigitsOptional],
+        ss: ["second", twoDigits],
+        YYYY: ["year", fourDigits],
+        S: ["millisecond", "\\d", function (v) { return +v * 100; }],
+        SS: ["millisecond", twoDigits, function (v) { return +v * 10; }],
+        SSS: ["millisecond", threeDigits],
+        d: emptyDigits,
+        dd: emptyDigits,
+        ddd: emptyWord,
+        dddd: emptyWord,
+        MMM: ["month", word, monthUpdate("monthNamesShort")],
+        MMMM: ["month", word, monthUpdate("monthNames")],
+        a: amPm,
+        A: amPm,
+        ZZ: timezoneOffset,
+        Z: timezoneOffset
+    };
+    // Some common format strings
+    var globalMasks = {
+        default: "ddd MMM DD YYYY HH:mm:ss",
+        shortDate: "M/D/YY",
+        mediumDate: "MMM D, YYYY",
+        longDate: "MMMM D, YYYY",
+        fullDate: "dddd, MMMM D, YYYY",
+        isoDate: "YYYY-MM-DD",
+        isoDateTime: "YYYY-MM-DDTHH:mm:ssZ",
+        shortTime: "HH:mm",
+        mediumTime: "HH:mm:ss",
+        longTime: "HH:mm:ss.SSS"
+    };
+    var setGlobalDateMasks = function (masks) { return assign(globalMasks, masks); };
+    /***
+     * Format a date
+     * @method format
+     * @param {Date|number} dateObj
+     * @param {string} mask Format of the date, i.e. 'mm-dd-yy' or 'shortDate'
+     * @returns {string} Formatted date string
+     */
+    var format = function (dateObj, mask, i18n) {
+        if (mask === void 0) { mask = globalMasks["default"]; }
+        if (i18n === void 0) { i18n = {}; }
+        if (typeof dateObj === "number") {
+            dateObj = new Date(dateObj);
+        }
+        if (Object.prototype.toString.call(dateObj) !== "[object Date]" ||
+            isNaN(dateObj.getTime())) {
+            throw new Error("Invalid Date pass to format");
+        }
+        mask = globalMasks[mask] || mask;
+        var literals = [];
+        // Make literals inactive by replacing them with @@@
+        mask = mask.replace(literal, function ($0, $1) {
+            literals.push($1);
+            return "@@@";
+        });
+        var combinedI18nSettings = assign(assign({}, globalI18n), i18n);
+        // Apply formatting rules
+        mask = mask.replace(token, function ($0) {
+            return formatFlags[$0](dateObj, combinedI18nSettings);
+        });
+        // Inline literal values back into the formatted value
+        return mask.replace(/@@@/g, function () { return literals.shift(); });
+    };
+    /**
+     * Parse a date string into a Javascript Date object /
+     * @method parse
+     * @param {string} dateStr Date string
+     * @param {string} format Date parse format
+     * @param {i18n} I18nSettingsOptional Full or subset of I18N settings
+     * @returns {Date|null} Returns Date object. Returns null what date string is invalid or doesn't match format
+     */
+    function parse(dateStr, format, i18n) {
+        if (i18n === void 0) { i18n = {}; }
+        if (typeof format !== "string") {
+            throw new Error("Invalid format in fecha parse");
+        }
+        // Check to see if the format is actually a mask
+        format = globalMasks[format] || format;
+        // Avoid regular expression denial of service, fail early for really long strings
+        // https://www.owasp.org/index.php/Regular_expression_Denial_of_Service_-_ReDoS
+        if (dateStr.length > 1000) {
+            return null;
+        }
+        // Default to the beginning of the year.
+        var today = new Date();
+        var dateInfo = {
+            year: today.getFullYear(),
+            month: 0,
+            day: 1,
+            hour: 0,
+            minute: 0,
+            second: 0,
+            millisecond: 0,
+            isPm: null,
+            timezoneOffset: null
+        };
+        var parseInfo = [];
+        var literals = [];
+        // Replace all the literals with @@@. Hopefully a string that won't exist in the format
+        var newFormat = format.replace(literal, function ($0, $1) {
+            literals.push(regexEscape($1));
+            return "@@@";
+        });
+        var specifiedFields = {};
+        var requiredFields = {};
+        // Change every token that we find into the correct regex
+        newFormat = regexEscape(newFormat).replace(token, function ($0) {
+            var info = parseFlags[$0];
+            var field = info[0], regex = info[1], requiredField = info[3];
+            // Check if the person has specified the same field twice. This will lead to confusing results.
+            if (specifiedFields[field]) {
+                throw new Error("Invalid format. " + field + " specified twice in format");
+            }
+            specifiedFields[field] = true;
+            // Check if there are any required fields. For instance, 12 hour time requires AM/PM specified
+            if (requiredField) {
+                requiredFields[requiredField] = true;
+            }
+            parseInfo.push(info);
+            return "(" + regex + ")";
+        });
+        // Check all the required fields are present
+        Object.keys(requiredFields).forEach(function (field) {
+            if (!specifiedFields[field]) {
+                throw new Error("Invalid format. " + field + " is required in specified format");
+            }
+        });
+        // Add back all the literals after
+        newFormat = newFormat.replace(/@@@/g, function () { return literals.shift(); });
+        // Check if the date string matches the format. If it doesn't return null
+        var matches = dateStr.match(new RegExp(newFormat, "i"));
+        if (!matches) {
+            return null;
+        }
+        var combinedI18nSettings = assign(assign({}, globalI18n), i18n);
+        // For each match, call the parser function for that date part
+        for (var i = 1; i < matches.length; i++) {
+            var _a = parseInfo[i - 1], field = _a[0], parser = _a[2];
+            var value = parser
+                ? parser(matches[i], combinedI18nSettings)
+                : +matches[i];
+            // If the parser can't make sense of the value, return null
+            if (value == null) {
+                return null;
+            }
+            dateInfo[field] = value;
+        }
+        if (dateInfo.isPm === 1 && dateInfo.hour != null && +dateInfo.hour !== 12) {
+            dateInfo.hour = +dateInfo.hour + 12;
+        }
+        else if (dateInfo.isPm === 0 && +dateInfo.hour === 12) {
+            dateInfo.hour = 0;
+        }
+        var dateWithoutTZ = new Date(dateInfo.year, dateInfo.month, dateInfo.day, dateInfo.hour, dateInfo.minute, dateInfo.second, dateInfo.millisecond);
+        var validateFields = [
+            ["month", "getMonth"],
+            ["day", "getDate"],
+            ["hour", "getHours"],
+            ["minute", "getMinutes"],
+            ["second", "getSeconds"]
+        ];
+        for (var i = 0, len = validateFields.length; i < len; i++) {
+            // Check to make sure the date field is within the allowed range. Javascript dates allows values
+            // outside the allowed range. If the values don't match the value was invalid
+            if (specifiedFields[validateFields[i][0]] &&
+                dateInfo[validateFields[i][0]] !== dateWithoutTZ[validateFields[i][1]]()) {
+                return null;
+            }
+        }
+        if (dateInfo.timezoneOffset == null) {
+            return dateWithoutTZ;
+        }
+        return new Date(Date.UTC(dateInfo.year, dateInfo.month, dateInfo.day, dateInfo.hour, dateInfo.minute - dateInfo.timezoneOffset, dateInfo.second, dateInfo.millisecond));
+    }
+    var fecha = {
+        format: format,
+        parse: parse,
+        defaultI18n: defaultI18n,
+        setGlobalDateI18n: setGlobalDateI18n,
+        setGlobalDateMasks: setGlobalDateMasks
+    };
+
+    var fecha1 = /*#__PURE__*/Object.freeze({
+        __proto__: null,
+        'default': fecha,
+        assign: assign,
+        format: format,
+        parse: parse,
+        defaultI18n: defaultI18n,
+        setGlobalDateI18n: setGlobalDateI18n,
+        setGlobalDateMasks: setGlobalDateMasks
+    });
+
+    /**
+     * 二分右侧查找
+     * https://github.com/d3/d3-array/blob/master/src/bisector.js
+     */
+    function bisector (getter) {
+        /**
+         * x: 目标值
+         * lo: 起始位置
+         * hi: 结束位置
+         */
+        return function (a, x, _lo, _hi) {
+            var lo = isNil(_lo) ? 0 : _lo;
+            var hi = isNil(_hi) ? a.length : _hi;
+            while (lo < hi) {
+                var mid = (lo + hi) >>> 1;
+                if (getter(a[mid]) > x) {
+                    hi = mid;
+                }
+                else {
+                    lo = mid + 1;
+                }
+            }
+            return lo;
+        };
+    }
+
+    var FORMAT_METHOD = 'format';
+    function timeFormat(time, mask) {
+        var method = fecha1[FORMAT_METHOD] || fecha[FORMAT_METHOD];
+        return method(time, mask);
+    }
+    /**
+     * 转换成时间戳
+     * @param value 时间值
+     */
+    function toTimeStamp$1(value) {
+        if (isString(value)) {
+            if (value.indexOf('T') > 0) {
+                value = new Date(value).getTime();
+            }
+            else {
+                // new Date('2010/01/10') 和 new Date('2010-01-10') 的差别在于:
+                // 如果仅有年月日时，前者是带有时区的: Fri Jan 10 2020 02:40:13 GMT+0800 (中国标准时间)
+                // 后者会格式化成 Sun Jan 10 2010 08:00:00 GMT+0800 (中国标准时间)
+                value = new Date(value.replace(/-/gi, '/')).getTime();
+            }
+        }
+        if (isDate(value)) {
+            value = value.getTime();
+        }
+        return value;
+    }
+    var SECOND = 1000;
+    var MINUTE = 60 * SECOND;
+    var HOUR = 60 * MINUTE;
+    var DAY = 24 * HOUR;
+    var MONTH = DAY * 31;
+    var YEAR = DAY * 365;
+    var intervals = [
+        ['HH:mm:ss', SECOND],
+        ['HH:mm:ss', SECOND * 10],
+        ['HH:mm:ss', SECOND * 30],
+        ['HH:mm', MINUTE],
+        ['HH:mm', MINUTE * 10],
+        ['HH:mm', MINUTE * 30],
+        ['HH', HOUR],
+        ['HH', HOUR * 6],
+        ['HH', HOUR * 12],
+        ['YYYY-MM-DD', DAY],
+        ['YYYY-MM-DD', DAY * 4],
+        ['YYYY-WW', DAY * 7],
+        ['YYYY-MM', MONTH],
+        ['YYYY-MM', MONTH * 4],
+        ['YYYY-MM', MONTH * 6],
+        ['YYYY', DAY * 380],
+    ];
+    function getTickInterval(min, max, tickCount) {
+        var target = (max - min) / tickCount;
+        var idx = bisector(function (o) { return o[1]; })(intervals, target) - 1;
+        var interval = intervals[idx];
+        if (idx < 0) {
+            interval = intervals[0];
+        }
+        else if (idx >= intervals.length) {
+            interval = last(intervals);
+        }
+        return interval;
+    }
+
+    /**
+     * 时间分类度量
+     * @class
+     */
+    var TimeCat = /** @class */ (function (_super) {
+        __extends(TimeCat, _super);
+        function TimeCat() {
+            var _this = _super !== null && _super.apply(this, arguments) || this;
+            _this.type = 'timeCat';
+            return _this;
+        }
+        /**
+         * @override
+         */
+        TimeCat.prototype.translate = function (value) {
+            value = toTimeStamp$1(value);
+            var index = this.values.indexOf(value);
+            if (index === -1) {
+                if (isNumber(value) && value < this.values.length) {
+                    index = value;
+                }
+                else {
+                    index = NaN;
+                }
+            }
+            return index;
+        };
+        /**
+         * 由于时间类型数据需要转换一下，所以复写 getText
+         * @override
+         */
+        TimeCat.prototype.getText = function (value, tickIndex) {
+            var index = this.translate(value);
+            if (index > -1) {
+                var result = this.values[index];
+                var formatter = this.formatter;
+                result = formatter ? formatter(result, tickIndex) : timeFormat(result, this.mask);
+                return result;
+            }
+            return value;
+        };
+        TimeCat.prototype.initCfg = function () {
+            this.tickMethod = 'time-cat';
+            this.mask = 'YYYY-MM-DD';
+            this.tickCount = 7; // 一般时间数据会显示 7， 14， 30 天的数字
+        };
+        TimeCat.prototype.setDomain = function () {
+            var values = this.values;
+            // 针对时间分类类型，会将时间统一转换为时间戳
+            each(values, function (v, i) {
+                values[i] = toTimeStamp$1(v);
+            });
+            values.sort(function (v1, v2) {
+                return v1 - v2;
+            });
+            _super.prototype.setDomain.call(this);
+        };
+        return TimeCat;
+    }(Category));
+
+    /**
+     * 连续度量的基类
+     * @class
+     */
+    var Continuous = /** @class */ (function (_super) {
+        __extends(Continuous, _super);
+        function Continuous() {
+            var _this = _super !== null && _super.apply(this, arguments) || this;
+            _this.isContinuous = true;
+            return _this;
+        }
+        Continuous.prototype.scale = function (value) {
+            if (isNil(value)) {
+                return NaN;
+            }
+            var rangeMin = this.rangeMin();
+            var rangeMax = this.rangeMax();
+            var max = this.max;
+            var min = this.min;
+            if (max === min) {
+                return rangeMin;
+            }
+            var percent = this.getScalePercent(value);
+            return rangeMin + percent * (rangeMax - rangeMin);
+        };
+        Continuous.prototype.init = function () {
+            _super.prototype.init.call(this);
+            // init 完成后保证 min, max 包含 ticks 的范围
+            var ticks = this.ticks;
+            var firstTick = head(ticks);
+            var lastTick = last(ticks);
+            if (firstTick < this.min) {
+                this.min = firstTick;
+            }
+            if (lastTick > this.max) {
+                this.max = lastTick;
+            }
+            // strict-limit 方式
+            if (!isNil(this.minLimit)) {
+                this.min = firstTick;
+            }
+            if (!isNil(this.maxLimit)) {
+                this.max = lastTick;
+            }
+        };
+        Continuous.prototype.setDomain = function () {
+            var _a = getRange(this.values), min = _a.min, max = _a.max;
+            if (isNil(this.min)) {
+                this.min = min;
+            }
+            if (isNil(this.max)) {
+                this.max = max;
+            }
+            if (this.min > this.max) {
+                this.min = min;
+                this.max = max;
+            }
+        };
+        Continuous.prototype.calculateTicks = function () {
+            var _this = this;
+            var ticks = _super.prototype.calculateTicks.call(this);
+            if (!this.nice) {
+                ticks = filter(ticks, function (tick) {
+                    return tick >= _this.min && tick <= _this.max;
+                });
+            }
+            return ticks;
+        };
+        // 计算原始值值占的百分比
+        Continuous.prototype.getScalePercent = function (value) {
+            var max = this.max;
+            var min = this.min;
+            return (value - min) / (max - min);
+        };
+        Continuous.prototype.getInvertPercent = function (value) {
+            return (value - this.rangeMin()) / (this.rangeMax() - this.rangeMin());
+        };
+        return Continuous;
+    }(Scale));
+
+    /**
+     * 线性度量
+     * @class
+     */
+    var Linear = /** @class */ (function (_super) {
+        __extends(Linear, _super);
+        function Linear() {
+            var _this = _super !== null && _super.apply(this, arguments) || this;
+            _this.type = 'linear';
+            _this.isLinear = true;
+            return _this;
+        }
+        Linear.prototype.invert = function (value) {
+            var percent = this.getInvertPercent(value);
+            return this.min + percent * (this.max - this.min);
+        };
+        Linear.prototype.initCfg = function () {
+            this.tickMethod = 'wilkinson-extended';
+            this.nice = false;
+        };
+        return Linear;
+    }(Continuous));
+
+    // 求以a为次幂，结果为b的基数，如 x^^a = b;求x
+    // 虽然数学上 b 不支持负数，但是这里需要支持 负数
+    function calBase(a, b) {
+        var e = Math.E;
+        var value;
+        if (b >= 0) {
+            value = Math.pow(e, Math.log(b) / a); // 使用换底公式求底
+        }
+        else {
+            value = Math.pow(e, Math.log(-b) / a) * -1; // 使用换底公式求底
+        }
+        return value;
+    }
+    function log(a, b) {
+        if (a === 1) {
+            return 1;
+        }
+        return Math.log(b) / Math.log(a);
+    }
+    function getLogPositiveMin(values, base, max) {
+        if (isNil(max)) {
+            max = Math.max.apply(null, values);
+        }
+        var positiveMin = max;
+        each(values, function (value) {
+            if (value > 0 && value < positiveMin) {
+                positiveMin = value;
+            }
+        });
+        if (positiveMin === max) {
+            positiveMin = max / base;
+        }
+        if (positiveMin > 1) {
+            positiveMin = 1;
+        }
+        return positiveMin;
+    }
+
+    /**
+     * Log 度量，处理非均匀分布
+     */
+    var Log = /** @class */ (function (_super) {
+        __extends(Log, _super);
+        function Log() {
+            var _this = _super !== null && _super.apply(this, arguments) || this;
+            _this.type = 'log';
+            return _this;
+        }
+        /**
+         * @override
+         */
+        Log.prototype.invert = function (value) {
+            var base = this.base;
+            var max = log(base, this.max);
+            var rangeMin = this.rangeMin();
+            var range = this.rangeMax() - rangeMin;
+            var min;
+            var positiveMin = this.positiveMin;
+            if (positiveMin) {
+                if (value === 0) {
+                    return 0;
+                }
+                min = log(base, positiveMin / base);
+                var appendPercent = (1 / (max - min)) * range; // 0 到 positiveMin的占比
+                if (value < appendPercent) {
+                    // 落到 0 - positiveMin 之间
+                    return (value / appendPercent) * positiveMin;
+                }
+            }
+            else {
+                min = log(base, this.min);
+            }
+            var percent = (value - rangeMin) / range;
+            var tmp = percent * (max - min) + min;
+            return Math.pow(base, tmp);
+        };
+        Log.prototype.initCfg = function () {
+            this.tickMethod = 'log';
+            this.base = 10;
+            this.tickCount = 6;
+            this.nice = true;
+        };
+        // 设置
+        Log.prototype.setDomain = function () {
+            _super.prototype.setDomain.call(this);
+            var min = this.min;
+            if (min < 0) {
+                throw new Error('When you use log scale, the minimum value must be greater than zero!');
+            }
+            if (min === 0) {
+                this.positiveMin = getLogPositiveMin(this.values, this.base, this.max);
+            }
+        };
+        // 根据当前值获取占比
+        Log.prototype.getScalePercent = function (value) {
+            var max = this.max;
+            var min = this.min;
+            if (max === min) {
+                return 0;
+            }
+            // 如果值小于等于0，则按照0处理
+            if (value <= 0) {
+                return 0;
+            }
+            var base = this.base;
+            var positiveMin = this.positiveMin;
+            // 如果min == 0, 则根据比0大的最小值，计算比例关系。这个最小值作为坐标轴上的第二个tick，第一个是0但是不显示
+            if (positiveMin) {
+                min = (positiveMin * 1) / base;
+            }
+            var percent;
+            // 如果数值小于次小值，那么就计算 value / 次小值 占整体的比例
+            if (value < positiveMin) {
+                percent = value / positiveMin / (log(base, max) - log(base, min));
+            }
+            else {
+                percent = (log(base, value) - log(base, min)) / (log(base, max) - log(base, min));
+            }
+            return percent;
+        };
+        return Log;
+    }(Continuous));
+
+    /**
+     * Pow 度量，处理非均匀分布
+     */
+    var Pow = /** @class */ (function (_super) {
+        __extends(Pow, _super);
+        function Pow() {
+            var _this = _super !== null && _super.apply(this, arguments) || this;
+            _this.type = 'pow';
+            return _this;
+        }
+        /**
+         * @override
+         */
+        Pow.prototype.invert = function (value) {
+            var percent = this.getInvertPercent(value);
+            var exponent = this.exponent;
+            var max = calBase(exponent, this.max);
+            var min = calBase(exponent, this.min);
+            var tmp = percent * (max - min) + min;
+            var factor = tmp >= 0 ? 1 : -1;
+            return Math.pow(tmp, exponent) * factor;
+        };
+        Pow.prototype.initCfg = function () {
+            this.tickMethod = 'pow';
+            this.exponent = 2;
+            this.tickCount = 5;
+            this.nice = true;
+        };
+        // 获取度量计算时，value占的定义域百分比
+        Pow.prototype.getScalePercent = function (value) {
+            var max = this.max;
+            var min = this.min;
+            if (max === min) {
+                return 0;
+            }
+            var exponent = this.exponent;
+            var percent = (calBase(exponent, value) - calBase(exponent, min)) / (calBase(exponent, max) - calBase(exponent, min));
+            return percent;
+        };
+        return Pow;
+    }(Continuous));
+
+    /**
+     * 时间度量
+     * @class
+     */
+    var Time = /** @class */ (function (_super) {
+        __extends(Time, _super);
+        function Time() {
+            var _this = _super !== null && _super.apply(this, arguments) || this;
+            _this.type = 'time';
+            return _this;
+        }
+        /**
+         * @override
+         */
+        Time.prototype.getText = function (value, index) {
+            var numberValue = this.translate(value);
+            var formatter = this.formatter;
+            return formatter ? formatter(numberValue, index) : timeFormat(numberValue, this.mask);
+        };
+        /**
+         * @override
+         */
+        Time.prototype.scale = function (value) {
+            var v = value;
+            if (isString(v) || isDate(v)) {
+                v = this.translate(v);
+            }
+            return _super.prototype.scale.call(this, v);
+        };
+        /**
+         * 将时间转换成数字
+         * @override
+         */
+        Time.prototype.translate = function (v) {
+            return toTimeStamp$1(v);
+        };
+        Time.prototype.initCfg = function () {
+            this.tickMethod = 'time-pretty';
+            this.mask = 'YYYY-MM-DD';
+            this.tickCount = 7;
+            this.nice = false;
+        };
+        Time.prototype.setDomain = function () {
+            var values = this.values;
+            // 是否设置了 min, max，而不是直接取 this.min, this.max
+            var minConfig = this.getConfig('min');
+            var maxConfig = this.getConfig('max');
+            // 如果设置了 min,max 则转换成时间戳
+            if (!isNil(minConfig) || !isNumber(minConfig)) {
+                this.min = this.translate(this.min);
+            }
+            if (!isNil(maxConfig) || !isNumber(maxConfig)) {
+                this.max = this.translate(this.max);
+            }
+            // 没有设置 min, max 时
+            if (values && values.length) {
+                // 重新计算最大最小值
+                var timeStamps_1 = [];
+                var min_1 = Infinity; // 最小值
+                var secondMin_1 = min_1; // 次小值
+                var max_1 = 0;
+                // 使用一个循环，计算min,max,secondMin
+                each(values, function (v) {
+                    var timeStamp = toTimeStamp$1(v);
+                    if (isNaN(timeStamp)) {
+                        throw new TypeError("Invalid Time: " + v + " in time scale!");
+                    }
+                    if (min_1 > timeStamp) {
+                        secondMin_1 = min_1;
+                        min_1 = timeStamp;
+                    }
+                    else if (secondMin_1 > timeStamp) {
+                        secondMin_1 = timeStamp;
+                    }
+                    if (max_1 < timeStamp) {
+                        max_1 = timeStamp;
+                    }
+                    timeStamps_1.push(timeStamp);
+                });
+                // 存在多个值时，设置最小间距
+                if (values.length > 1) {
+                    this.minTickInterval = secondMin_1 - min_1;
+                }
+                if (isNil(minConfig)) {
+                    this.min = min_1;
+                }
+                if (isNil(maxConfig)) {
+                    this.max = max_1;
+                }
+            }
+        };
+        return Time;
+    }(Linear));
+
+    /**
+     * 分段度量
+     */
+    var Quantize = /** @class */ (function (_super) {
+        __extends(Quantize, _super);
+        function Quantize() {
+            var _this = _super !== null && _super.apply(this, arguments) || this;
+            _this.type = 'quantize';
+            return _this;
+        }
+        Quantize.prototype.invert = function (value) {
+            var ticks = this.ticks;
+            var length = ticks.length;
+            var percent = this.getInvertPercent(value);
+            var minIndex = Math.floor(percent * (length - 1));
+            // 最后一个
+            if (minIndex >= length - 1) {
+                return last(ticks);
+            }
+            // 超出左边界， 则取第一个
+            if (minIndex < 0) {
+                return head(ticks);
+            }
+            var minTick = ticks[minIndex];
+            var nextTick = ticks[minIndex + 1];
+            // 比当前值小的 tick 在度量上的占比
+            var minIndexPercent = minIndex / (length - 1);
+            var maxIndexPercent = (minIndex + 1) / (length - 1);
+            return minTick + (percent - minIndexPercent) / (maxIndexPercent - minIndexPercent) * (nextTick - minTick);
+        };
+        Quantize.prototype.initCfg = function () {
+            this.tickMethod = 'r-pretty';
+            this.tickCount = 5;
+            this.nice = true;
+        };
+        Quantize.prototype.calculateTicks = function () {
+            var ticks = _super.prototype.calculateTicks.call(this);
+            if (!this.nice) { // 如果 nice = false ,补充 min, max
+                if (last(ticks) !== this.max) {
+                    ticks.push(this.max);
+                }
+                if (head(ticks) !== this.min) {
+                    ticks.unshift(this.min);
+                }
+            }
+            return ticks;
+        };
+        // 计算当前值在刻度中的占比
+        Quantize.prototype.getScalePercent = function (value) {
+            var ticks = this.ticks;
+            // 超出左边界
+            if (value < head(ticks)) {
+                return 0;
+            }
+            // 超出右边界
+            if (value > last(ticks)) {
+                return 1;
+            }
+            var minIndex = 0;
+            each(ticks, function (tick, index) {
+                if (value >= tick) {
+                    minIndex = index;
+                }
+                else {
+                    return false;
+                }
+            });
+            return minIndex / (ticks.length - 1);
+        };
+        return Quantize;
+    }(Continuous));
+
+    var Quantile = /** @class */ (function (_super) {
+        __extends(Quantile, _super);
+        function Quantile() {
+            var _this = _super !== null && _super.apply(this, arguments) || this;
+            _this.type = 'quantile';
+            return _this;
+        }
+        Quantile.prototype.initCfg = function () {
+            this.tickMethod = 'quantile';
+            this.tickCount = 5;
+            this.nice = true;
+        };
+        return Quantile;
+    }(Quantize));
+
+    var map$1 = {};
+    function getClass(key) {
+        return map$1[key];
+    }
+    function registerClass(key, cls) {
+        if (getClass(key)) {
+            throw new Error("type '" + key + "' existed.");
+        }
+        map$1[key] = cls;
+    }
+
+    /**
+     * identity scale原则上是定义域和值域一致，scale/invert方法也是一致的
+     * 参考R的实现：https://github.com/r-lib/scales/blob/master/R/pal-identity.r
+     * 参考d3的实现（做了下转型）：https://github.com/d3/d3-scale/blob/master/src/identity.js
+     */
+    var Identity = /** @class */ (function (_super) {
+        __extends(Identity, _super);
+        function Identity() {
+            var _this = _super !== null && _super.apply(this, arguments) || this;
+            _this.type = 'identity';
+            _this.isIdentity = true;
+            return _this;
+        }
+        Identity.prototype.calculateTicks = function () {
+            return this.values;
+        };
+        Identity.prototype.scale = function (value) {
+            // 如果传入的值不等于 identity 的值，则直接返回，用于一维图时的 dodge
+            if (this.values[0] !== value && isNumber(value)) {
+                return value;
+            }
+            return this.range[0];
+        };
+        Identity.prototype.invert = function (value) {
+            var range = this.range;
+            if (value < range[0] || value > range[1]) {
+                return NaN;
+            }
+            return this.values[0];
+        };
+        return Identity;
+    }(Scale));
+
+    var DEFAULT_Q = [1, 5, 2, 2.5, 4, 3];
+    var eps = Number.EPSILON * 100;
+    // https://stackoverflow.com/questions/4467539/javascript-modulo-gives-a-negative-result-for-negative-numbers
+    function mod(n, m) {
+        return ((n % m) + m) % m;
+    }
+    function simplicity(q, Q, j, lmin, lmax, lstep) {
+        var n = size(Q);
+        var i = indexOf(Q, q);
+        var v = 0;
+        var m = mod(lmin, lstep);
+        if ((m < eps || lstep - m < eps) && lmin <= 0 && lmax >= 0) {
+            v = 1;
+        }
+        return 1 - i / (n - 1) - j + v;
+    }
+    function simplicityMax(q, Q, j) {
+        var n = size(Q);
+        var i = indexOf(Q, q);
+        var v = 1;
+        return 1 - i / (n - 1) - j + v;
+    }
+    function density(k, m, dmin, dmax, lmin, lmax) {
+        var r = (k - 1) / (lmax - lmin);
+        var rt = (m - 1) / (Math.max(lmax, dmax) - Math.min(dmin, lmin));
+        return 2 - Math.max(r / rt, rt / r);
+    }
+    function densityMax(k, m) {
+        if (k >= m) {
+            return 2 - (k - 1) / (m - 1);
+        }
+        return 1;
+    }
+    function coverage(dmin, dmax, lmin, lmax) {
+        var range = dmax - dmin;
+        return 1 - (0.5 * (Math.pow(dmax - lmax, 2) + Math.pow(dmin - lmin, 2))) / Math.pow(0.1 * range, 2);
+    }
+    function coverageMax(dmin, dmax, span) {
+        var range = dmax - dmin;
+        if (span > range) {
+            var half = (span - range) / 2;
+            return 1 - Math.pow(half, 2) / Math.pow(0.1 * range, 2);
+        }
+        return 1;
+    }
+    function legibility() {
+        return 1;
+    }
+    /**
+     * An Extension of Wilkinson's Algorithm for Position Tick Labels on Axes
+     * https://www.yuque.com/preview/yuque/0/2019/pdf/185317/1546999150858-45c3b9c2-4e86-4223-bf1a-8a732e8195ed.pdf
+     * @param dmin 最小值
+     * @param dmax 最大值
+     * @param m tick个数
+     * @param onlyLoose 是否允许扩展min、max，不绝对强制，例如[3, 97]
+     * @param Q nice numbers集合
+     * @param w 四个优化组件的权重
+     */
+    function extended(dmin, dmax, m, onlyLoose, Q, w) {
+        if (m === void 0) { m = 5; }
+        if (onlyLoose === void 0) { onlyLoose = true; }
+        if (Q === void 0) { Q = DEFAULT_Q; }
+        if (w === void 0) { w = [0.25, 0.2, 0.5, 0.05]; }
+        if (dmin === dmax || m === 1) {
+            return {
+                min: dmin,
+                max: dmax,
+                ticks: [dmin],
+            };
+        }
+        var best = {
+            score: -2,
+            lmin: 0,
+            lmax: 0,
+            lstep: 0,
+        };
+        var j = 1;
+        while (j < Infinity) {
+            for (var _i = 0, Q_1 = Q; _i < Q_1.length; _i++) {
+                var q = Q_1[_i];
+                var sm = simplicityMax(q, Q, j);
+                if (Number.isNaN(sm)) {
+                    throw new Error('NaN');
+                }
+                if (w[0] * sm + w[1] + w[2] + w[3] < best.score) {
+                    j = Infinity;
+                    break;
+                }
+                var k = 2;
+                while (k < Infinity) {
+                    var dm = densityMax(k, m);
+                    if (w[0] * sm + w[1] + w[2] * dm + w[3] < best.score) {
+                        break;
+                    }
+                    var delta = (dmax - dmin) / (k + 1) / j / q;
+                    var z = Math.ceil(Math.log10(delta));
+                    while (z < Infinity) {
+                        var step = j * q * Math.pow(10, z);
+                        var cm = coverageMax(dmin, dmax, step * (k - 1));
+                        if (w[0] * sm + w[1] * cm + w[2] * dm + w[3] < best.score) {
+                            break;
+                        }
+                        var minStart = Math.floor(dmax / step) * j - (k - 1) * j;
+                        var maxStart = Math.ceil(dmin / step) * j;
+                        if (minStart > maxStart) {
+                            z = z + 1;
+                            continue;
+                        }
+                        for (var start = minStart; start <= maxStart; start = start + 1) {
+                            var lmin = start * (step / j);
+                            var lmax = lmin + step * (k - 1);
+                            var lstep = step;
+                            var s = simplicity(q, Q, j, lmin, lmax, lstep);
+                            var c = coverage(dmin, dmax, lmin, lmax);
+                            var g = density(k, m, dmin, dmax, lmin, lmax);
+                            var l = legibility();
+                            var score = w[0] * s + w[1] * c + w[2] * g + w[3] * l;
+                            if (score > best.score && (!onlyLoose || (lmin <= dmin && lmax >= dmax))) {
+                                best.lmin = lmin;
+                                best.lmax = lmax;
+                                best.lstep = lstep;
+                                best.score = score;
+                            }
+                        }
+                        z = z + 1;
+                    }
+                    k = k + 1;
+                }
+            }
+            j = j + 1;
+        }
+        // 步长为浮点数时处理精度
+        var toFixed = Number.isInteger(best.lstep) ? 0 : Math.ceil(Math.abs(Math.log10(best.lstep)));
+        var range = [];
+        for (var tick = best.lmin; tick <= best.lmax; tick += best.lstep) {
+            range.push(tick);
+        }
+        var ticks = toFixed ? map(range, function (x) { return Number.parseFloat(x.toFixed(toFixed)); }) : range;
+        return {
+            min: Math.min(dmin, head(ticks)),
+            max: Math.max(dmax, last(ticks)),
+            ticks: ticks,
+        };
+    }
+
+    /**
+     * 计算分类 ticks
+     * @param cfg 度量的配置项
+     * @returns 计算后的 ticks
+     */
+    function calculateCatTicks(cfg) {
+        var values = cfg.values, tickInterval = cfg.tickInterval, tickCount = cfg.tickCount;
+        var ticks = values;
+        if (isNumber(tickInterval)) {
+            return filter(ticks, function (__, i) { return i % tickInterval === 0; });
+        }
+        var min = cfg.min, max = cfg.max;
+        if (isNil(min)) {
+            min = 0;
+        }
+        if (isNil(max)) {
+            max = values.length - 1;
+        }
+        if (isNumber(tickCount) && tickCount < max - min) {
+            // 简单过滤，部分情况下小数的倍数也可以是整数
+            // tslint:disable-next-line: no-shadowed-variable
+            var ticks_1 = extended(min, max, tickCount, false, [1, 2, 5, 3, 4, 7, 6, 8, 9]).ticks;
+            var valid = filter(ticks_1, function (tick) { return tick >= min && tick <= max; });
+            return valid.map(function (index) { return values[index]; });
+        }
+        return values.slice(min, max + 1);
+    }
+
+    function d3Linear(cfg) {
+        var min = cfg.min, max = cfg.max, nice = cfg.nice, tickCount = cfg.tickCount;
+        var linear = new D3Linear();
+        linear.domain([min, max]);
+        if (nice) {
+            linear.nice(tickCount);
+        }
+        return linear.ticks(tickCount);
+    }
+    var DEFAULT_COUNT = 5;
+    var e10 = Math.sqrt(50);
+    var e5 = Math.sqrt(10);
+    var e2 = Math.sqrt(2);
+    // https://github.com/d3/d3-scale
+    var D3Linear = /** @class */ (function () {
+        function D3Linear() {
+            this._domain = [0, 1];
+        }
+        D3Linear.prototype.domain = function (domain) {
+            if (domain) {
+                this._domain = Array.from(domain, Number);
+                return this;
+            }
+            return this._domain.slice();
+        };
+        D3Linear.prototype.nice = function (count) {
+            var _a, _b;
+            if (count === void 0) { count = DEFAULT_COUNT; }
+            var d = this._domain.slice();
+            var i0 = 0;
+            var i1 = this._domain.length - 1;
+            var start = this._domain[i0];
+            var stop = this._domain[i1];
+            var step;
+            if (stop < start) {
+                _a = [stop, start], start = _a[0], stop = _a[1];
+                _b = [i1, i0], i0 = _b[0], i1 = _b[1];
+            }
+            step = tickIncrement(start, stop, count);
+            if (step > 0) {
+                start = Math.floor(start / step) * step;
+                stop = Math.ceil(stop / step) * step;
+                step = tickIncrement(start, stop, count);
+            }
+            else if (step < 0) {
+                start = Math.ceil(start * step) / step;
+                stop = Math.floor(stop * step) / step;
+                step = tickIncrement(start, stop, count);
+            }
+            if (step > 0) {
+                d[i0] = Math.floor(start / step) * step;
+                d[i1] = Math.ceil(stop / step) * step;
+                this.domain(d);
+            }
+            else if (step < 0) {
+                d[i0] = Math.ceil(start * step) / step;
+                d[i1] = Math.floor(stop * step) / step;
+                this.domain(d);
+            }
+            return this;
+        };
+        D3Linear.prototype.ticks = function (count) {
+            if (count === void 0) { count = DEFAULT_COUNT; }
+            return d3ArrayTicks(this._domain[0], this._domain[this._domain.length - 1], count || DEFAULT_COUNT);
+        };
+        return D3Linear;
+    }());
+    function d3ArrayTicks(start, stop, count) {
+        var reverse;
+        var i = -1;
+        var n;
+        var ticks;
+        var step;
+        (stop = +stop), (start = +start), (count = +count);
+        if (start === stop && count > 0) {
+            return [start];
+        }
+        // tslint:disable-next-line
+        if ((reverse = stop < start)) {
+            (n = start), (start = stop), (stop = n);
+        }
+        // tslint:disable-next-line
+        if ((step = tickIncrement(start, stop, count)) === 0 || !isFinite(step)) {
+            return [];
+        }
+        if (step > 0) {
+            start = Math.ceil(start / step);
+            stop = Math.floor(stop / step);
+            ticks = new Array((n = Math.ceil(stop - start + 1)));
+            while (++i < n) {
+                ticks[i] = (start + i) * step;
+            }
+        }
+        else {
+            start = Math.floor(start * step);
+            stop = Math.ceil(stop * step);
+            ticks = new Array((n = Math.ceil(start - stop + 1)));
+            while (++i < n) {
+                ticks[i] = (start - i) / step;
+            }
+        }
+        if (reverse) {
+            ticks.reverse();
+        }
+        return ticks;
+    }
+    function tickIncrement(start, stop, count) {
+        var step = (stop - start) / Math.max(0, count);
+        var power = Math.floor(Math.log(step) / Math.LN10);
+        var error = step / Math.pow(10, power);
+        return power >= 0
+            ? (error >= e10 ? 10 : error >= e5 ? 5 : error >= e2 ? 2 : 1) * Math.pow(10, power)
+            : -Math.pow(10, -power) / (error >= e10 ? 10 : error >= e5 ? 5 : error >= e2 ? 2 : 1);
+    }
+
+    function snapMultiple(v, base, snapType) {
+        var div;
+        if (snapType === 'ceil') {
+            div = Math.ceil(v / base);
+        }
+        else if (snapType === 'floor') {
+            div = Math.floor(v / base);
+        }
+        else {
+            div = Math.round(v / base);
+        }
+        return div * base;
+    }
+    function intervalTicks(min, max, interval) {
+        // 变成 interval 的倍数
+        var minTick = snapMultiple(min, interval, 'floor');
+        var maxTick = snapMultiple(max, interval, 'ceil');
+        // 统一小数位数
+        minTick = fixedBase(minTick, interval);
+        maxTick = fixedBase(maxTick, interval);
+        var ticks = [];
+        for (var i = minTick; i <= maxTick; i = i + interval) {
+            var tickValue = fixedBase(i, interval); // 防止浮点数加法出现问题
+            ticks.push(tickValue);
+        }
+        return {
+            min: minTick,
+            max: maxTick,
+            ticks: ticks
+        };
+    }
+
+    /**
+     * 按照给定的 minLimit/maxLimit/tickCount 均匀计算出刻度 ticks
+     *
+     * @param cfg Scale 配置项
+     * @return ticks
+     */
+    function strictLimit(cfg, defaultMin, defaultMax) {
+        var _a;
+        var minLimit = cfg.minLimit, maxLimit = cfg.maxLimit, min = cfg.min, max = cfg.max, _b = cfg.tickCount, tickCount = _b === void 0 ? 5 : _b;
+        var tickMin = isNil(minLimit) ? (isNil(defaultMin) ? min : defaultMin) : minLimit;
+        var tickMax = isNil(maxLimit) ? (isNil(defaultMax) ? max : defaultMax) : maxLimit;
+        if (tickMin > tickMax) {
+            _a = [tickMin, tickMax], tickMax = _a[0], tickMin = _a[1];
+        }
+        if (tickCount <= 2) {
+            return [tickMin, tickMax];
+        }
+        var step = (tickMax - tickMin) / (tickCount - 1);
+        var ticks = [];
+        for (var i = 0; i < tickCount; i++) {
+            ticks.push(tickMin + step * i);
+        }
+        return ticks;
+    }
+
+    function d3LinearTickMethod(cfg) {
+        var min = cfg.min, max = cfg.max, tickInterval = cfg.tickInterval, minLimit = cfg.minLimit, maxLimit = cfg.maxLimit;
+        var ticks = d3Linear(cfg);
+        if (!isNil(minLimit) || !isNil(maxLimit)) {
+            return strictLimit(cfg, head(ticks), last(ticks));
+        }
+        if (tickInterval) {
+            return intervalTicks(min, max, tickInterval).ticks;
+        }
+        return ticks;
+    }
+
+    /**
+     * 计算线性的 ticks，使用 wilkinson extended 方法
+     * @param cfg 度量的配置项
+     * @returns 计算后的 ticks
+     */
+    function linear(cfg) {
+        var min = cfg.min, max = cfg.max, tickCount = cfg.tickCount, nice = cfg.nice, tickInterval = cfg.tickInterval, minLimit = cfg.minLimit, maxLimit = cfg.maxLimit;
+        var ticks = extended(min, max, tickCount, nice).ticks;
+        if (!isNil(minLimit) || !isNil(maxLimit)) {
+            return strictLimit(cfg, head(ticks), last(ticks));
+        }
+        if (tickInterval) {
+            return intervalTicks(min, max, tickInterval).ticks;
+        }
+        return ticks;
+    }
+
+    /**
+     * 计算 log 的 ticks，考虑 min = 0 的场景
+     * @param cfg 度量的配置项
+     * @returns 计算后的 ticks
+     */
+    function calculateLogTicks(cfg) {
+        var base = cfg.base, tickCount = cfg.tickCount, min = cfg.min, max = cfg.max, values = cfg.values;
+        var minTick;
+        var maxTick = log(base, max);
+        if (min > 0) {
+            minTick = Math.floor(log(base, min));
+        }
+        else {
+            var positiveMin = getLogPositiveMin(values, base, max);
+            minTick = Math.floor(log(base, positiveMin));
+        }
+        var count = maxTick - minTick;
+        var avg = Math.ceil(count / tickCount);
+        var ticks = [];
+        for (var i = minTick; i < maxTick + avg; i = i + avg) {
+            ticks.push(Math.pow(base, i));
+        }
+        if (min <= 0) {
+            // 最小值 <= 0 时显示 0
+            ticks.unshift(0);
+        }
+        return ticks;
+    }
+
+    function pretty(min, max, n) {
+        if (n === void 0) { n = 5; }
+        var res = {
+            max: 0,
+            min: 0,
+            ticks: [],
+        };
+        /*
+          R pretty:
+          https://svn.r-project.org/R/trunk/src/appl/pretty.c
+          https://www.rdocumentation.org/packages/base/versions/3.5.2/topics/pretty
+          */
+        var h = 1.5; // high.u.bias
+        var h5 = 0.5 + 1.5 * h; // u5.bias
+        // 反正我也不会调参，跳过所有判断步骤
+        var d = max - min;
+        var c = d / n;
+        // 当d非常小的时候触发，但似乎没什么用
+        // const min_n = Math.floor(n / 3);
+        // const shrink_sml = Math.pow(2, 5);
+        // if (Math.log10(d) < -2) {
+        //   c = (_.max([ Math.abs(max), Math.abs(min) ]) * shrink_sml) / min_n;
+        // }
+        var base = Math.pow(10, Math.floor(Math.log10(c)));
+        var toFixed = base < 1 ? Math.ceil(Math.abs(Math.log10(base))) : 0;
+        var unit = base;
+        if (2 * base - c < h * (c - unit)) {
+            unit = 2 * base;
+            if (5 * base - c < h5 * (c - unit)) {
+                unit = 5 * base;
+                if (10 * base - c < h * (c - unit)) {
+                    unit = 10 * base;
+                }
+            }
+        }
+        var nu = Math.ceil(max / unit);
+        var ns = Math.floor(min / unit);
+        res.max = Math.max(nu * unit, max);
+        res.min = Math.min(ns * unit, min);
+        var x = Number.parseFloat((ns * unit).toFixed(toFixed));
+        while (x < max) {
+            res.ticks.push(x);
+            x += unit;
+            if (toFixed) {
+                x = Number.parseFloat(x.toFixed(toFixed));
+            }
+        }
+        res.ticks.push(x);
+        return res;
+    }
+
+    /**
+     * 计算 Pow 的 ticks
+     * @param cfg 度量的配置项
+     * @returns 计算后的 ticks
+     */
+    function calculatePowTicks(cfg) {
+        var exponent = cfg.exponent, tickCount = cfg.tickCount;
+        var max = Math.ceil(calBase(exponent, cfg.max));
+        var min = Math.floor(calBase(exponent, cfg.min));
+        var ticks = pretty(min, max, tickCount).ticks;
+        return ticks.map(function (tick) {
+            var factor = tick >= 0 ? 1 : -1;
+            return Math.pow(tick, exponent) * factor;
+        });
+    }
+
+    /**
+     * 计算几分位 https://github.com/simple-statistics/simple-statistics/blob/master/src/quantile_sorted.js
+     * @param x  数组
+     * @param p  百分比
+     */
+    function quantileSorted(x, p) {
+        var idx = x.length * p;
+        /*if (x.length === 0) { // 当前场景这些条件不可能命中
+          throw new Error('quantile requires at least one value.');
+        } else if (p < 0 || p > 1) {
+          throw new Error('quantiles must be between 0 and 1');
+        } else */
+        if (p === 1) {
+            // If p is 1, directly return the last element
+            return x[x.length - 1];
+        }
+        else if (p === 0) {
+            // If p is 0, directly return the first element
+            return x[0];
+        }
+        else if (idx % 1 !== 0) {
+            // If p is not integer, return the next element in array
+            return x[Math.ceil(idx) - 1];
+        }
+        else if (x.length % 2 === 0) {
+            // If the list has even-length, we'll take the average of this number
+            // and the next value, if there is one
+            return (x[idx - 1] + x[idx]) / 2;
+        }
+        else {
+            // Finally, in the simple case of an integer value
+            // with an odd-length list, return the x value at the index.
+            return x[idx];
+        }
+    }
+    function calculateTicks(cfg) {
+        var tickCount = cfg.tickCount, values = cfg.values;
+        if (!values || !values.length) {
+            return [];
+        }
+        var sorted = values.slice().sort(function (a, b) {
+            return a - b;
+        });
+        var ticks = [];
+        for (var i = 0; i < tickCount; i++) {
+            var p = i / (tickCount - 1);
+            ticks.push(quantileSorted(sorted, p));
+        }
+        return ticks;
+    }
+
+    /**
+     * 计算线性的 ticks，使用 R's pretty 方法
+     * @param cfg 度量的配置项
+     * @returns 计算后的 ticks
+     */
+    function linearPretty(cfg) {
+        var min = cfg.min, max = cfg.max, tickCount = cfg.tickCount, tickInterval = cfg.tickInterval, minLimit = cfg.minLimit, maxLimit = cfg.maxLimit;
+        var ticks = pretty(min, max, tickCount).ticks;
+        if (!isNil(minLimit) || !isNil(maxLimit)) {
+            return strictLimit(cfg, head(ticks), last(ticks));
+        }
+        if (tickInterval) {
+            return intervalTicks(min, max, tickInterval).ticks;
+        }
+        return ticks;
+    }
+
+    function calculateTimeTicks(cfg) {
+        var min = cfg.min, max = cfg.max, minTickInterval = cfg.minTickInterval;
+        var tickInterval = cfg.tickInterval;
+        var tickCount = cfg.tickCount;
+        // 指定 tickInterval 后 tickCount 不生效，需要重新计算
+        if (tickInterval) {
+            tickCount = Math.ceil((max - min) / tickInterval);
+        }
+        else {
+            tickInterval = getTickInterval(min, max, tickCount)[1];
+            var count = (max - min) / tickInterval;
+            var ratio = count / tickCount;
+            if (ratio > 1) {
+                tickInterval = tickInterval * Math.ceil(ratio);
+            }
+            // 如果设置了最小间距，则使用最小间距
+            if (minTickInterval && tickInterval < minTickInterval) {
+                tickInterval = minTickInterval;
+            }
+        }
+        var ticks = [];
+        for (var i = min; i < max + tickInterval; i += tickInterval) {
+            ticks.push(i);
+        }
+        return ticks;
+    }
+
+    /**
+     * 计算时间分类的 ticks, 保头，保尾
+     * @param cfg 度量的配置项
+     * @returns 计算后的 ticks
+     */
+    function calculateTimeCatTicks(cfg) {
+        var ticks = calculateCatTicks(cfg);
+        var lastValue = last(cfg.values);
+        if (lastValue !== last(ticks)) {
+            ticks.push(lastValue);
+        }
+        return ticks;
+    }
+
+    function getYear(date) {
+        return new Date(date).getFullYear();
+    }
+    function createYear(year) {
+        return new Date(year, 0, 1).getTime();
+    }
+    function getMonth(date) {
+        return new Date(date).getMonth();
+    }
+    function diffMonth(min, max) {
+        var minYear = getYear(min);
+        var maxYear = getYear(max);
+        var minMonth = getMonth(min);
+        var maxMonth = getMonth(max);
+        return (maxYear - minYear) * 12 + ((maxMonth - minMonth) % 12);
+    }
+    function creatMonth(year, month) {
+        return new Date(year, month, 1).getTime();
+    }
+    function diffDay(min, max) {
+        return Math.ceil((max - min) / DAY);
+    }
+    function diffHour(min, max) {
+        return Math.ceil((max - min) / HOUR);
+    }
+    function diffMinus(min, max) {
+        return Math.ceil((max - min) / (60 * 1000));
+    }
+    /**
+     * 计算 time 的 ticks，对 month, year 进行 pretty 处理
+     * @param cfg 度量的配置项
+     * @returns 计算后的 ticks
+     */
+    function timePretty(cfg) {
+        var min = cfg.min, max = cfg.max, minTickInterval = cfg.minTickInterval;
+        var tickInterval = cfg.tickInterval;
+        var tickCount = cfg.tickCount;
+        var ticks = [];
+        // 指定 tickInterval 后 tickCount 不生效，需要重新计算
+        if (!tickInterval) {
+            tickInterval = (max - min) / tickCount;
+            // 如果设置了最小间距，则使用最小间距
+            if (minTickInterval && tickInterval < minTickInterval) {
+                tickInterval = minTickInterval;
+            }
+        }
+        var minYear = getYear(min);
+        // 如果间距大于 1 年，则将开始日期从整年开始
+        if (tickInterval > YEAR) {
+            var maxYear = getYear(max);
+            var yearInterval = Math.ceil(tickInterval / YEAR);
+            for (var i = minYear; i <= maxYear + yearInterval; i = i + yearInterval) {
+                ticks.push(createYear(i));
+            }
+        }
+        else if (tickInterval > MONTH) {
+            // 大于月时
+            var monthInterval = Math.ceil(tickInterval / MONTH);
+            var mmMoth = getMonth(min);
+            var dMonths = diffMonth(min, max);
+            for (var i = 0; i <= dMonths + monthInterval; i = i + monthInterval) {
+                ticks.push(creatMonth(minYear, i + mmMoth));
+            }
+        }
+        else if (tickInterval > DAY) {
+            // 大于天
+            var date = new Date(min);
+            var year = date.getFullYear();
+            var month = date.getMonth();
+            var mday = date.getDate();
+            var day = Math.ceil(tickInterval / DAY);
+            var ddays = diffDay(min, max);
+            for (var i = 0; i < ddays + day; i = i + day) {
+                ticks.push(new Date(year, month, mday + i).getTime());
+            }
+        }
+        else if (tickInterval > HOUR) {
+            // 大于小时
+            var date = new Date(min);
+            var year = date.getFullYear();
+            var month = date.getMonth();
+            var day = date.getDate();
+            var hour = date.getHours();
+            var hours = Math.ceil(tickInterval / HOUR);
+            var dHours = diffHour(min, max);
+            for (var i = 0; i <= dHours + hours; i = i + hours) {
+                ticks.push(new Date(year, month, day, hour + i).getTime());
+            }
+        }
+        else if (tickInterval > MINUTE) {
+            // 大于分钟
+            var dMinus = diffMinus(min, max);
+            var minutes = Math.ceil(tickInterval / MINUTE);
+            for (var i = 0; i <= dMinus + minutes; i = i + minutes) {
+                ticks.push(min + i * MINUTE);
+            }
+        }
+        else {
+            // 小于分钟
+            var interval = tickInterval;
+            if (interval < SECOND) {
+                interval = SECOND;
+            }
+            var minSecond = Math.floor(min / SECOND) * SECOND;
+            var dSeconds = Math.ceil((max - min) / SECOND);
+            var seconds = Math.ceil(interval / SECOND);
+            for (var i = 0; i < dSeconds + seconds; i = i + seconds) {
+                ticks.push(minSecond + i * SECOND);
+            }
+        }
+        return ticks;
+    }
+
+    registerTickMethod('cat', calculateCatTicks);
+    registerTickMethod('time-cat', calculateTimeCatTicks);
+    registerTickMethod('wilkinson-extended', linear);
+    registerTickMethod('r-pretty', linearPretty);
+    registerTickMethod('time', calculateTimeTicks);
+    registerTickMethod('time-pretty', timePretty);
+    registerTickMethod('log', calculateLogTicks);
+    registerTickMethod('pow', calculatePowTicks);
+    registerTickMethod('quantile', calculateTicks);
+    registerTickMethod('d3-linear', d3LinearTickMethod);
+
+    registerClass('cat', Category);
+    registerClass('category', Category);
+    registerClass('identity', Identity);
+    registerClass('linear', Linear);
+    registerClass('log', Log);
+    registerClass('pow', Pow);
+    registerClass('time', Time);
+    registerClass('timeCat', TimeCat);
+    registerClass('quantize', Quantize);
+    registerClass('quantile', Quantile);
+
+    // cat平均算法，保头保尾
+    var CatTick = (function (cfg) {
+      var {
+        values,
+        tickCount
+      } = cfg;
+
+      if (!tickCount) {
+        return values;
+      }
+
+      if (values.length <= 1) {
+        return values;
+      } // 获取间隔步长, 最小是1
+
+
+      var step = parseInt(values.length / (tickCount - 1)) || 1;
+      var ticks = []; // 按间隔数取对应节点
+
+      for (var index = 0; index < values.length; index = index + step) {
+        ticks.push(values[index]);
+      }
+
+      var last = values[values.length - 1]; // 如果最后一个tick不等于原数据的最后一个
+
+      if (ticks[ticks.length - 1] !== last) {
+        if (ticks.length >= tickCount) {
+          // 如果当前的tick个数满足要求
+          ticks[ticks.length - 1] = last;
+        } else {
+          // 不满足tickCount则直接加入最后一个
+          ticks.push(last);
+        }
+      }
+
+      return ticks;
+    });
+
+    // 认为是nice的刻度
+    var SNAP_COUNT_ARRAY = [1, 1.2, 1.5, 2, 2.2, 2.4, 2.5, 3, 4, 5, 6, 7.5, 8, 10];
+    var DEFAULT_COUNT$1 = 5; // 默认刻度值
+
+    var LinearTick = (function (cfg) {
+      var {
+        tickCount,
+        tickInterval
+      } = cfg || {};
+      var {
+        min,
+        max
+      } = cfg || {};
+      min = isNaN(min) ? 0 : min;
+      max = isNaN(max) ? 0 : max;
+      var count = tickCount && tickCount >= 2 ? tickCount : DEFAULT_COUNT$1; // 计算interval， 优先取tickInterval
+
+      var interval = tickInterval || getBestInterval({
+        tickCount: count,
+        max,
+        min
+      }); // 通过interval计算最小tick
+
+      var minTick = Math.floor(min / interval) * interval; // 如果指定了tickInterval, count 需要根据指定的tickInterval来算计
+
+      if (tickInterval) {
+        var intervalCount = Math.abs(Math.ceil((max - minTick) / tickInterval)) + 1; // tickCount 作为最小 count 处理
+
+        count = Math.max(count, intervalCount);
+      }
+
+      var ticks = [];
+      var tickLength = 0;
+      var fixedLength = getFixedLength(interval);
+
+      while (tickLength < count) {
+        ticks.push(toFixed(minTick + tickLength * interval, fixedLength));
+        tickLength++;
+      }
+
+      return ticks;
+    });
+    var DECIMAL_LENGTH = 12;
+
+    function getFactor(number) {
+      // 取正数
+      number = Math.abs(number);
+      var factor = 1;
+
+      if (number === 0) {
+        return factor;
+      } // 小于1,逐渐放大
+
+
+      if (number < 1) {
+        var count = 0;
+
+        while (number < 1) {
+          factor = factor / 10;
+          number = number * 10;
+          count++;
+        } // 浮点数计算出现问题
+
+
+        if (factor.toString().length > DECIMAL_LENGTH) {
+          factor = parseFloat(factor.toFixed(count));
+        }
+
+        return factor;
+      } // 大于10逐渐缩小
+
+
+      while (number > 10) {
+        factor = factor * 10;
+        number = number / 10;
+      }
+
+      return factor;
+    } // 获取最佳匹配刻度
+
+
+    function getBestInterval(_ref) {
+      var {
+        tickCount,
+        min,
+        max
+      } = _ref;
+
+      // 如果最大最小相等，则直接按1处理
+      if (min === max) {
+        return 1 * getFactor(max);
+      } // 1.计算平均刻度间隔
+
+
+      var avgInterval = (max - min) / (tickCount - 1); // 2.数据标准归一化 映射到[1-10]区间
+
+      var factor = getFactor(avgInterval);
+      var calInterval = avgInterval / factor;
+      var calMax = max / factor;
+      var calMin = min / factor; // 根据平均值推算最逼近刻度值
+
+      var similarityIndex = 0;
+
+      for (var index = 0; index < SNAP_COUNT_ARRAY.length; index++) {
+        var item = SNAP_COUNT_ARRAY[index];
+
+        if (calInterval <= item) {
+          similarityIndex = index;
+          break;
+        }
+      }
+
+      var similarityInterval = getInterval(similarityIndex, tickCount, calMin, calMax); // 小数点位数还原到数据的位数, 因为similarityIndex有可能是小数，所以需要保留similarityIndex自己的小数位数
+
+      var fixedLength = getFixedLength(similarityInterval) + getFixedLength(factor);
+      return toFixed(similarityInterval * factor, fixedLength);
+    }
+
+    function getInterval(startIndex, tickCount, min, max) {
+      var verify = false;
+      var interval = SNAP_COUNT_ARRAY[startIndex]; // 刻度值校验，如果不满足，循环下去
+
+      for (var i = startIndex; i < SNAP_COUNT_ARRAY.length; i++) {
+        if (intervalIsVerify({
+          interval: SNAP_COUNT_ARRAY[i],
+          tickCount,
+          max,
+          min
+        })) {
+          // 有符合条件的interval
+          interval = SNAP_COUNT_ARRAY[i];
+          verify = true;
+          break;
+        }
+      } // 如果不满足, 依次缩小10倍，再计算
+
+
+      if (!verify) {
+        return 10 * getInterval(0, tickCount, min / 10, max / 10);
+      }
+
+      return interval;
+    } // 刻度是否满足展示需求
+
+
+    function intervalIsVerify(_ref2) {
+      var {
+        interval,
+        tickCount,
+        max,
+        min
+      } = _ref2;
+      var minTick = Math.floor(min / interval) * interval;
+
+      if (minTick + (tickCount - 1) * interval >= max) {
+        return true;
+      }
+
+      return false;
+    } // 计算小数点应该保留的位数
+
+
+    function getFixedLength(num) {
+      var str = num.toString();
+      var index = str.indexOf('.');
+      var indexOfExp = str.indexOf('e-');
+      var length = indexOfExp >= 0 ? parseInt(str.substr(indexOfExp + 2), 10) : str.substr(index + 1).length;
+
+      if (length > 20) {
+        // 最多保留20位小数
+        length = 20;
+      }
+
+      return length;
+    } // @antv/util fixedbase不支持科学计数法的判断，需要提mr
+
+
+    function toFixed(v, length) {
+      return parseFloat(v.toFixed(length));
+    }
+
+    var Linear$1 = getClass('linear');
+    var Identity$1 = getClass('identity');
+    var Category$1 = getClass('category');
+    var TimeCat$1 = getClass('timeCat'); // 覆盖0.3.x的 cat 方法
+
+    registerTickMethod('cat', CatTick);
+    registerTickMethod('time-cat', CatTick); // 覆盖linear 度量的tick算法
+
+    registerTickMethod('wilkinson-extended', LinearTick);
+    Scale.Linear = Linear$1;
+    Scale.Identity = Identity$1;
+    Scale.Category = Category$1;
+    Scale.Cat = Category$1;
+    Scale.TimeCat = TimeCat$1;
+
+    function isFullCircle(coord) {
+      if (!coord.isPolar) {
+        return false;
+      }
+
+      var startAngle = coord.startAngle;
+      var endAngle = coord.endAngle;
+
+      if (!isNil(startAngle) && !isNil(endAngle) && endAngle - startAngle < Math.PI * 2) {
+        return false;
+      }
+
+      return true;
+    }
+
+    function clearObj(obj) {
+      Object.keys(obj).forEach(function (key) {
+        delete obj[key];
+      });
+    }
+
+    class ScaleController {
+      constructor(cfg) {
+        // defs 列定义
+        this.defs = {}; // 已经实例化的scale
+
+        this.scales = {};
+        mix(this, cfg);
+      }
+
+      setFieldDef(field, cfg) {
+        var {
+          defs
+        } = this;
+
+        if (isObject(field)) {
+          mix(defs, field);
+        } else {
+          defs[field] = cfg;
+        } // 因为可能同时变更多个scale，所以要把所有已实例化的scale都更新下
+
+
+        this.updateScales();
+      }
+
+      _getDef(field) {
+        var defs = this.defs;
+        var def = null;
+
+        if (Global.scales[field] || defs[field]) {
+          def = mix({}, Global.scales[field]);
+          each(defs[field], function (v, k) {
+            if (isNil(v)) {
+              delete def[k];
+            } else {
+              def[k] = v;
+            }
+          });
+        }
+
+        return def;
+      }
+
+      _getDefaultType(field, data, def) {
+        if (def && def.type) {
+          return def.type;
+        }
+
+        var type = 'linear';
+        var value = firstValue(data, field);
+
+        if (isArray(value)) {
+          value = value[0];
+        }
+
+        if (isString(value)) {
+          type = 'cat';
+        }
+
+        return type;
+      }
+
+      _getScaleDef(type, field, data, def) {
+        var values$1;
+
+        if (def && def.values) {
+          values$1 = def.values;
+        } else {
+          values$1 = values(data, field);
+        }
+
+        var cfg = {
+          field,
+          values: values$1
+        };
+
+        if (type !== 'cat' && type !== 'timeCat') {
+          if (!def || !(def.min && def.max)) {
+            var {
+              min,
+              max
+            } = getRange$1(values$1);
+            cfg.min = min;
+            cfg.max = max;
+            cfg.nice = true;
+          }
+        } else {
+          cfg.isRounding = false; // used for tickCount calculation
+        }
+
+        return cfg;
+      } // 调整range，为了让图形居中
+
+
+      _adjustRange(type, cfg) {
+        var {
+          range,
+          values
+        } = cfg; // 如果是线性, 或者有自定义range都不处理
+
+        if (type === 'linear' || range || !values) {
+          return cfg;
+        }
+
+        var count = values.length; // 单只有一条数据时，在中间显示
+
+        if (count === 1) {
+          cfg.range = [0.5, 1];
+        } else {
+          var {
+            chart
+          } = this;
+          var coord = chart.get('coord');
+          var widthRatio = Global.widthRatio.multiplePie;
+          var offset = 0;
+
+          if (isFullCircle(coord)) {
+            if (!coord.transposed) {
+              cfg.range = [0, 1 - 1 / count];
+            } else {
+              offset = 1 / count * widthRatio;
+              cfg.range = [offset / 2, 1 - offset / 2];
+            }
+          } else {
+            // 为了让图形居中，所以才设置range
+            offset = 1 / count * 0.5; // 这里可能用0.25会更合理
+
+            cfg.range = [offset, 1 - offset];
+          }
+        }
+
+        return cfg;
+      }
+
+      _getScaleCfg(field, data) {
+        var self = this;
+
+        var def = self._getDef(field);
+
+        if (!data || !data.length) {
+          if (def && def.type) {
+            def.field = field;
+            return {
+              type: def.type,
+              cfg: def
+            };
+          }
+
+          return {
+            type: 'identity',
+            cfg: {
+              value: field,
+              field: field.toString(),
+              values: [field]
+            }
+          };
+        }
+
+        var firstObj = data[0];
+        var firstValue$1 = firstObj[field];
+
+        if (firstValue$1 === null) {
+          firstValue$1 = firstValue(data, field);
+        }
+
+        if (isNumber(field) || isNil(firstValue$1) && !def) {
+          return {
+            type: 'identity',
+            cfg: {
+              value: field,
+              field: field.toString(),
+              values: [field]
+            }
+          };
+        }
+
+        var type = self._getDefaultType(field, data, def);
+
+        var cfg = self._getScaleDef(type, field, data, def);
+
+        def && mix(cfg, def);
+        cfg = this._adjustRange(type, cfg);
+        return {
+          type,
+          cfg
+        };
+      }
+
+      createScale(field, data) {
+        var {
+          scales
+        } = this;
+
+        var {
+          type,
+          cfg
+        } = this._getScaleCfg(field, data);
+
+        var scale = scales[field]; // 如果已经存在，且类型相等时直接返回
+
+        if (scale && scale.type === type) {
+          scale.change(cfg);
+          return scale;
+        }
+
+        var Scale = getClass(type);
+        var newScale = new Scale(cfg);
+        scales[field] = newScale;
+        return newScale;
+      }
+
+      _updateScale(scale) {
+        var {
+          field
+        } = scale; // 因为每个field的数据都会不同
+
+        var data = this.chart._getScaleData(field);
+
+        var {
+          cfg
+        } = this._getScaleCfg(field, data);
+
+        scale.change(cfg);
+      }
+
+      updateScales() {
+        var _this = this;
+
+        var {
+          scales
+        } = this; // 修改完列定义后，需要更新已经实例化的scale
+        // 如果是还没有实例化的，在geom初始化的时候会被实例化，所以这里可以不用更新
+
+        each(scales, function (scale) {
+          _this._updateScale(scale);
+        });
+      } // 调整scale从0开始
+
+
+      adjustStartZero(scale) {
+        var {
+          defs
+        } = this;
+        var {
+          field,
+          min,
+          max
+        } = scale; // 如果有定义，则不处理
+
+        if (defs[field] && defs[field].min) {
+          return;
+        }
+
+        if (min > 0) {
+          scale.change({
+            min: 0
+          });
+        } else if (max < 0) {
+          scale.change({
+            max: 0
+          });
+        }
+      }
+
+      clear() {
+        // this.defs = {};
+        // this.scales = {};
+        clearObj(this.defs);
+        clearObj(this.scales);
+        this.data = null;
+      }
+
+    }
+
+    class Abastract {
+      _initDefaultCfg() {
+        /**
+         * ticks
+         * @type {Array}
+         */
+        this.ticks = [];
+        /**
+         * the configuration for tickLine
+         * @type {Object}
+         */
+
+        this.tickLine = {};
+        /**
+         * the direction of ticks, 1 means clockwise
+         * @type {Number}
+         */
+
+        this.offsetFactor = 1;
+        /**
+         * the top container
+         * @type {container}
+         */
+
+        this.frontContainer = null;
+        /**
+         * the back container
+         * @type {[type]}
+         */
+
+        this.backContainer = null;
+        /**
+         * points for draw grid line
+         * @type {Array}
+         */
+
+        this.gridPoints = [];
+      }
+
+      constructor(cfg) {
+        this._initDefaultCfg();
+
+        mix(this, cfg);
+        this.draw();
+      }
+
+      draw() {
+        var {
+          line,
+          tickLine,
+          label,
+          grid
+        } = this;
+        grid && this.drawGrid(grid); // draw the grid lines
+
+        tickLine && this.drawTicks(tickLine); // draw the tickLine
+
+        line && this.drawLine(line); // draw axis line
+
+        label && this.drawLabels(); // draw ticks
+      }
+
+      drawTicks(tickCfg) {
+        var self = this;
+        var ticks = self.ticks;
+        var length = tickCfg.length;
+        var container = self.getContainer(tickCfg.top);
+        each(ticks, function (tick) {
+          var start = self.getOffsetPoint(tick.value);
+          var end = self.getSidePoint(start, length);
+          var shape = container.addShape('line', {
+            className: 'axis-tick',
+            attrs: mix({
+              x1: start.x,
+              y1: start.y,
+              x2: end.x,
+              y2: end.y
+            }, tickCfg)
+          });
+          shape._id = self._id + '-ticks';
+        });
+      }
+
+      drawLabels() {
+        var self = this;
+        var labelOffset = self.labelOffset;
+        var labels = self.labels;
+        each(labels, function (labelShape) {
+          var container = self.getContainer(labelShape.get('top'));
+          var start = self.getOffsetPoint(labelShape.get('value'));
+          var {
+            x,
+            y
+          } = self.getSidePoint(start, labelOffset);
+          labelShape.attr(mix({
+            x,
+            y
+          }, self.getTextAlignInfo(start, labelOffset), labelShape.get('textStyle')));
+          labelShape._id = self._id + '-' + labelShape.attr('text');
+          container.add(labelShape);
+        });
+      }
+
+      drawLine() {}
+
+      drawGrid(grid) {
+        var self = this;
+        var {
+          gridPoints,
+          ticks
+        } = self;
+        var gridCfg = grid;
+        var count = gridPoints.length;
+        each(gridPoints, function (subPoints, index) {
+          if (isFunction(grid)) {
+            var tick = ticks[index] || {};
+            var executedGrid = grid(tick.text, index, count);
+            gridCfg = executedGrid ? mix({}, Global._defaultAxis.grid, executedGrid) : null;
+          }
+
+          if (gridCfg) {
+            var type = gridCfg.type; // has two types: 'line' and 'arc'
+
+            var points = subPoints.points;
+            var container = self.getContainer(gridCfg.top);
+            var shape;
+
+            if (type === 'arc') {
+              var {
+                center,
+                startAngle,
+                endAngle
+              } = self;
+              var radius = Vector2.length([points[0].x - center.x, points[0].y - center.y]);
+              shape = container.addShape('Arc', {
+                className: 'axis-grid',
+                attrs: mix({
+                  x: center.x,
+                  y: center.y,
+                  startAngle,
+                  endAngle,
+                  r: radius
+                }, gridCfg)
+              });
+            } else {
+              shape = container.addShape('Polyline', {
+                className: 'axis-grid',
+                attrs: mix({
+                  points
+                }, gridCfg)
+              });
+            }
+
+            shape._id = subPoints._id;
+          }
+        });
+      }
+
+      getOffsetPoint() {}
+
+      getAxisVector() {}
+
+      getOffsetVector(point, offset) {
+        var self = this;
+        var axisVector = self.getAxisVector(point);
+        var normal = Vector2.normalize([], axisVector);
+        var factor = self.offsetFactor;
+        var verticalVector = [normal[1] * -1 * factor, normal[0] * factor];
+        return Vector2.scale([], verticalVector, offset);
+      }
+
+      getSidePoint(point, offset) {
+        var self = this;
+        var offsetVector = self.getOffsetVector(point, offset);
+        return {
+          x: point.x + offsetVector[0],
+          y: point.y + offsetVector[1]
+        };
+      }
+
+      getTextAlignInfo(point, offset) {
+        var self = this;
+        var offsetVector = self.getOffsetVector(point, offset);
+        var align;
+        var baseLine;
+
+        if (offsetVector[0] > 0) {
+          align = 'left';
+        } else if (offsetVector[0] < 0) {
+          align = 'right';
+        } else {
+          align = 'center';
+        }
+
+        if (offsetVector[1] > 0) {
+          baseLine = 'top';
+        } else if (offsetVector[1] < 0) {
+          baseLine = 'bottom';
+        } else {
+          baseLine = 'middle';
+        }
+
+        return {
+          textAlign: align,
+          textBaseline: baseLine
+        };
+      }
+
+      getContainer(isTop) {
+        var {
+          frontContainer,
+          backContainer
+        } = this;
+        return isTop ? frontContainer : backContainer;
+      }
+
+    }
+
+    class Line extends Abastract {
+      _initDefaultCfg() {
+        super._initDefaultCfg();
+
+        this.start = null;
+        this.end = null;
+      }
+
+      getOffsetPoint(value) {
+        var {
+          start,
+          end
+        } = this;
+        return {
+          x: start.x + (end.x - start.x) * value,
+          y: start.y + (end.y - start.y) * value
+        };
+      }
+
+      getAxisVector() {
+        var {
+          start,
+          end
+        } = this;
+        return [end.x - start.x, end.y - start.y];
+      }
+
+      drawLine(lineCfg) {
+        var container = this.getContainer(lineCfg.top);
+        var {
+          start,
+          end
+        } = this;
+        container.addShape('line', {
+          className: 'axis-line',
+          attrs: mix({
+            x1: start.x,
+            y1: start.y,
+            x2: end.x,
+            y2: end.y
+          }, lineCfg)
+        });
+      }
+
+    }
+
+    Abastract.Line = Line;
+
+    function _defineProperty$1(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+    var calcDirection = function calcDirection(start, end) {
+      var xDistance = end.x - start.x;
+      var yDistance = end.y - start.y; // x 的距离大于y 说明是横向，否则就是纵向
+
+      if (Math.abs(xDistance) > Math.abs(yDistance)) {
+        return xDistance > 0 ? 'right' : 'left';
+      }
+
+      return yDistance > 0 ? 'down' : 'up';
+    }; // 计算2点之间的距离
+
+
+    var calcDistance = function calcDistance(point1, point2) {
+      var xDistance = Math.abs(point2.x - point1.x);
+      var yDistance = Math.abs(point2.y - point1.y);
+      return Math.sqrt(xDistance * xDistance + yDistance * yDistance);
+    };
+
+    var getCenter = function getCenter(point1, point2) {
+      var x = point1.x + (point2.x - point1.x) / 2;
+      var y = point1.y + (point2.y - point1.y) / 2;
+      return {
+        x,
+        y
+      };
+    };
+
+    var convertPoints = function convertPoints(ev, canvas) {
+      var touches = ev.touches; // 认为是mouse事件
+
+      if (!touches) {
+        var point = getRelativePosition({
+          x: ev.clientX,
+          y: ev.clientY
+        }, canvas);
+        return [point];
+      }
+
+      var points = [];
+      var len = touches.length;
+
+      for (var i = 0; i < len; i++) {
+        var touch = touches[i]; // x, y: 相对canvas原点的位置，clientX, clientY 相对于可视窗口的位置
+
+        var {
+          x,
+          y,
+          clientX,
+          clientY
+        } = touch;
+
+        var _point = void 0; // 小程序环境会有x,y
+
+
+        if (isNumber(x) || isNumber(y)) {
+          _point = {
+            x,
+            y
+          };
+        } else {
+          // 浏览器环境再计算下canvas的相对位置
+          _point = getRelativePosition({
+            x: clientX,
+            y: clientY
+          }, canvas);
+        }
+
+        points.push(_point);
+      }
+
+      return points;
+    };
+
+    var PRESS_DELAY = 250;
+
+    class EventController {
+      constructor(_ref) {
+        var _this = this;
+
+        var {
+          canvas,
+          el
+        } = _ref;
+
+        _defineProperty$1(this, "_click", function (ev) {
+          var points = convertPoints(ev, _this.canvas);
+          ev.points = points;
+
+          _this.emitEvent('click', ev);
+        });
+
+        _defineProperty$1(this, "_start", function (ev) {
+          var points = convertPoints(ev, _this.canvas);
+
+          if (!points) {
+            return;
+          }
+
+          ev.points = points;
+
+          _this.emitEvent('touchstart', ev); // 防止上次的内容没有清理掉，重新reset下
+
+
+          _this.reset(); // 记录touch start 的时间
+
+
+          _this.startTime = Date.now(); // 记录touch start 的点
+
+          _this.startPoints = points;
+
+          if (points.length > 1) {
+            _this.startDistance = calcDistance(points[0], points[1]);
+            _this.center = getCenter(points[0], points[1]);
+          } else {
+            // 如果touchstart后停顿250ms, 则也触发press事件
+            _this.pressTimeout = setTimeout(function () {
+              // 这里固定触发press事件
+              var eventType = 'press';
+              var direction = 'none';
+              ev.direction = direction;
+
+              _this.emitStart(eventType, ev);
+
+              _this.emitEvent(eventType, ev);
+
+              _this.eventType = eventType;
+              _this.direction = direction;
+            }, PRESS_DELAY);
+          }
+        });
+
+        _defineProperty$1(this, "_move", function (ev) {
+          var points = convertPoints(ev, _this.canvas);
+          if (!points) return;
+
+          _this.clearPressTimeout();
+
+          ev.points = points;
+
+          _this.emitEvent('touchmove', ev);
+
+          var startPoints = _this.startPoints;
+          if (!startPoints) return; // 多指触控
+
+          if (points.length > 1) {
+            // touchstart的距离
+            var startDistance = _this.startDistance;
+            var currentDistance = calcDistance(points[0], points[1]);
+            ev.zoom = currentDistance / startDistance;
+            ev.center = _this.center; // 触发缩放事件
+
+            _this.emitStart('pinch', ev);
+
+            _this.emitEvent('pinch', ev);
+          } else {
+            var deltaX = points[0].x - startPoints[0].x;
+            var deltaY = points[0].y - startPoints[0].y;
+            var direction = _this.direction || calcDirection(startPoints[0], points[0]);
+            _this.direction = direction; // 获取press或者pan的事件类型
+            // press 按住滑动, pan表示平移
+            // 如果start后立刻move，则触发pan, 如果有停顿，则触发press
+
+            var eventType = _this.getEventType(points);
+
+            ev.direction = direction;
+            ev.deltaX = deltaX;
+            ev.deltaY = deltaY;
+
+            _this.emitStart(eventType, ev);
+
+            _this.emitEvent(eventType, ev); // 记录最后2次move的时间和坐标，为了给swipe事件用
+
+
+            var prevMoveTime = _this.lastMoveTime;
+            var now = Date.now(); // 最后2次的时间间隔一定要大于0，否则swipe没发计算
+
+            if (now - prevMoveTime > 0) {
+              _this.prevMoveTime = prevMoveTime;
+              _this.prevMovePoints = _this.lastMovePoints;
+              _this.lastMoveTime = now;
+              _this.lastMovePoints = points;
+            }
+          }
+        });
+
+        _defineProperty$1(this, "_end", function (ev) {
+          _this.emitEnd(ev);
+
+          _this.emitEvent('touchend', ev); // swipe事件处理, 在touchend之后触发
+
+
+          var lastMoveTime = _this.lastMoveTime;
+          var now = Date.now(); // 做这个判断是为了最后一次touchmove后到end前，还有一个停顿的过程
+          // 100 是拍的一个值，理论这个值会很短，一般不卡顿的话在10ms以内
+
+          if (now - lastMoveTime < 100) {
+            var prevMoveTime = _this.prevMoveTime || _this.startTime;
+            var intervalTime = lastMoveTime - prevMoveTime; // 时间间隔一定要大于0, 否则计算没意义
+
+            if (intervalTime > 0) {
+              var prevMovePoints = _this.prevMovePoints || _this.startPoints;
+              var lastMovePoints = _this.lastMovePoints; // move速率
+
+              var velocity = calcDistance(prevMovePoints[0], lastMovePoints[0]) / intervalTime; // 0.3 是参考hammerjs的设置
+
+              if (velocity > 0.3) {
+                ev.velocity = velocity;
+                ev.direction = calcDirection(prevMovePoints[0], lastMovePoints[0]);
+
+                _this.emitEvent('swipe', ev);
+              }
+            }
+          }
+
+          _this.reset();
+
+          var touches = ev.touches; // 当多指只释放了1指时也会触发end, 这时重新触发一次start
+
+          if (touches && touches.length > 0) {
+            _this._start(ev);
+          }
+        });
+
+        _defineProperty$1(this, "_cancel", function (ev) {
+          _this.emitEvent('touchcancel', ev);
+
+          _this.reset();
+        });
+
+        // canvasEl
+        this.canvas = canvas;
+        this.delegateEvent(el); // 用来记录当前触发的事件
+
+        this.processEvent = {};
+      }
+
+      delegateEvent(canvasEl) {
+        // 代理这几个事件
+        canvasEl.addEventListener('click', this._click);
+        canvasEl.addEventListener('touchstart', this._start);
+        canvasEl.addEventListener('touchmove', this._move);
+        canvasEl.addEventListener('touchend', this._end);
+        canvasEl.addEventListener('touchcancel', this._cancel);
+      }
+
+      emitEvent(type, ev) {
+        var canvas = this.canvas;
+        canvas.emit(type, ev);
+      }
+
+      getEventType(points) {
+        var {
+          eventType,
+          canvas,
+          startTime,
+          startPoints
+        } = this;
+
+        if (eventType) {
+          return eventType;
+        }
+
+        var type;
+        var panEventListeners = canvas.__events.pan; // 如果没有pan事件的监听，默认都是press
+
+        if (!panEventListeners || !panEventListeners.length) {
+          type = 'press';
+        } else {
+          // 如果有pan事件的处理，press则需要停顿250ms, 且移动距离小于10
+          var now = Date.now();
+
+          if (now - startTime > PRESS_DELAY && calcDistance(startPoints[0], points[0]) < 10) {
+            type = 'press';
+          } else {
+            type = 'pan';
+          }
+        }
+
+        this.eventType = type;
+        return type;
+      }
+
+      enable(eventType) {
+        this.processEvent[eventType] = true;
+      } // 是否进行中的事件
+
+
+      isProcess(eventType) {
+        return this.processEvent[eventType];
+      } // 触发start事件
+
+
+      emitStart(type, ev) {
+        if (this.isProcess(type)) {
+          return;
+        }
+
+        this.enable(type);
+        this.emitEvent("".concat(type, "start"), ev);
+      } // 触发end事件
+
+
+      emitEnd(ev) {
+        var _this2 = this;
+
+        var processEvent = this.processEvent;
+        Object.keys(processEvent).forEach(function (type) {
+          _this2.emitEvent("".concat(type, "end"), ev);
+
+          delete processEvent[type];
+        });
+      }
+
+      clearPressTimeout() {
+        if (this.pressTimeout) {
+          clearTimeout(this.pressTimeout);
+          this.pressTimeout = 0;
+        }
+      }
+
+      reset() {
+        this.clearPressTimeout();
+        this.startTime = 0;
+        this.startPoints = null;
+        this.startDistance = 0;
+        this.direction = null;
+        this.eventType = null;
+        this.pinch = false;
+        this.prevMoveTime = 0;
+        this.prevMovePoints = null;
+        this.lastMoveTime = 0;
+        this.lastMovePoints = null;
+      }
+
+    }
+
+    class CanvasElement extends EventEmit {
+      constructor(ctx) {
+        super();
+        this.context = ctx; // canvas实际的宽高 (width/height) * pixelRatio
+
+        this.width = 0;
+        this.height = 0;
+        this.style = {};
+        this.currentStyle = {}; // 用来标识是CanvasElement实例
+
+        this.isCanvasElement = true;
+      }
+
+      getContext()
+      /* type */
+      {
+        return this.context;
+      }
+
+      getBoundingClientRect() {
+        var width = this.width;
+        var height = this.height; // 默认都处理成可视窗口的顶部位置
+
+        return {
+          top: 0,
+          right: width,
+          bottom: height,
+          left: 0
+        };
+      }
+
+      addEventListener(type, listener) {
+        this.on(type, listener);
+      }
+
+      removeEventListener(type, listener) {
+        this.off(type, listener);
+      }
+
+      dispatchEvent(type, e) {
+        this.emit(type, e);
+      }
+
+    }
+
+    function supportEventListener(canvas) {
+      if (!canvas) {
+        return false;
+      } // 非 HTMLCanvasElement
+
+
+      if (canvas.nodeType !== 1 || !canvas.nodeName || canvas.nodeName.toLowerCase() !== 'canvas') {
+        return false;
+      } // 微信小程序canvas.getContext('2d')时也是CanvasRenderingContext2D
+      // 也会有ctx.canvas, 而且nodeType也是1，所以还要在看下是否支持addEventListener
+
+
+      var support = false;
+
+      try {
+        canvas.addEventListener('eventTest', function () {
+          support = true;
+        });
+        canvas.dispatchEvent(new Event('eventTest'));
+      } catch (error) {
+        support = false;
+      }
+
+      return support;
+    }
+
+    var CanvasElement$1 = {
+      create(ctx) {
+        if (!ctx) {
+          return null;
+        }
+
+        if (supportEventListener(ctx.canvas)) {
+          return ctx.canvas;
+        }
+
+        return new CanvasElement(ctx);
+      }
+
+    };
+
+    function _mod(n, m) {
+      return (n % m + m) % m;
+    }
+
+    function _addStop(steps, gradient) {
+      each(steps, function (item) {
+        item = item.split(':');
+        gradient.addColorStop(Number(item[0]), item[1]);
+      });
+    } // the string format: 'l(0) 0:#ffffff 0.5:#7ec2f3 1:#1890ff'
+
+
+    function _parseLineGradient(color, shape, context) {
+      var arr = color.split(' ');
+      var angle = arr[0].slice(2, arr[0].length - 1);
+      angle = _mod(parseFloat(angle) * Math.PI / 180, Math.PI * 2);
+      var steps = arr.slice(1);
+      var {
+        minX,
+        minY,
+        maxX,
+        maxY
+      } = shape.getBBox();
+      var start;
+      var end;
+
+      if (angle >= 0 && angle < 0.5 * Math.PI) {
+        start = {
+          x: minX,
+          y: minY
+        };
+        end = {
+          x: maxX,
+          y: maxY
+        };
+      } else if (0.5 * Math.PI <= angle && angle < Math.PI) {
+        start = {
+          x: maxX,
+          y: minY
+        };
+        end = {
+          x: minX,
+          y: maxY
+        };
+      } else if (Math.PI <= angle && angle < 1.5 * Math.PI) {
+        start = {
+          x: maxX,
+          y: maxY
+        };
+        end = {
+          x: minX,
+          y: minY
+        };
+      } else {
+        start = {
+          x: minX,
+          y: maxY
+        };
+        end = {
+          x: maxX,
+          y: minY
+        };
+      }
+
+      var tanTheta = Math.tan(angle);
+      var tanTheta2 = tanTheta * tanTheta;
+      var x = (end.x - start.x + tanTheta * (end.y - start.y)) / (tanTheta2 + 1) + start.x;
+      var y = tanTheta * (end.x - start.x + tanTheta * (end.y - start.y)) / (tanTheta2 + 1) + start.y;
+      var gradient = context.createLinearGradient(start.x, start.y, x, y);
+
+      _addStop(steps, gradient);
+
+      return gradient;
+    } // the string format: 'r(0.5, 0.5, 0.1) 0:#ffffff 1:#1890ff'
+
+
+    function _parseRadialGradient(color, shape, context) {
+      var arr = color.split(' ');
+      var circleCfg = arr[0].slice(2, arr[0].length - 1);
+      circleCfg = circleCfg.split(',');
+      var fx = parseFloat(circleCfg[0]);
+      var fy = parseFloat(circleCfg[1]);
+      var fr = parseFloat(circleCfg[2]);
+      var steps = arr.slice(1); // if radius is 0, no gradient, stroke with the last color
+
+      if (fr === 0) {
+        var _color = steps[steps.length - 1];
+        return _color.split(':')[1];
+      }
+
+      var {
+        width,
+        height,
+        minX,
+        minY
+      } = shape.getBBox();
+      var r = Math.sqrt(width * width + height * height) / 2;
+      var gradient = context.createRadialGradient(minX + width * fx, minY + height * fy, fr * r, minX + width / 2, minY + height / 2, r);
+
+      _addStop(steps, gradient);
+
+      return gradient;
+    }
+
+    function parseStyle(color, shape, context) {
+      if (color[1] === '(') {
+        try {
+          var firstCode = color[0];
+
+          if (firstCode === 'l') {
+            return _parseLineGradient(color, shape, context);
+          } else if (firstCode === 'r') {
+            return _parseRadialGradient(color, shape, context);
+          }
+        } catch (ev) {
+          console.error('error in parsing gradient string, please check if there are any extra whitespaces.');
+          console.error(ev);
+        }
+      }
+
+      return color;
+    }
+
+    function isUnchanged(m) {
+      return m[0] === 1 && m[1] === 0 && m[2] === 0 && m[3] === 1 && m[4] === 0 && m[5] === 0;
+    }
+
+    var ALIAS_ATTRS_MAP = {
+      stroke: 'strokeStyle',
+      fill: 'fillStyle',
+      opacity: 'globalAlpha'
+    };
+    var SHAPE_ATTRS = ['fillStyle', 'font', 'globalAlpha', 'lineCap', 'lineWidth', 'lineJoin', 'miterLimit', 'shadowBlur', 'shadowColor', 'shadowOffsetX', 'shadowOffsetY', 'strokeStyle', 'textAlign', 'textBaseline', 'lineDash', 'shadow' // 兼容支付宝小程序
+    ];
+    var CLIP_SHAPES = ['circle', 'sector', 'polygon', 'rect', 'polyline'];
+
+    class Element {
+      _initProperties() {
+        this._attrs = {
+          zIndex: 0,
+          visible: true,
+          destroyed: false
+        };
+      }
+
+      constructor(cfg) {
+        this._initProperties();
+
+        mix(this._attrs, cfg);
+        var attrs = this._attrs.attrs;
+
+        if (attrs) {
+          this.initAttrs(attrs);
+        }
+
+        this.initTransform();
+      }
+
+      get(name) {
+        return this._attrs[name];
+      }
+
+      set(name, value) {
+        this._attrs[name] = value;
+      }
+
+      isGroup() {
+        return this.get('isGroup');
+      }
+
+      isShape() {
+        return this.get('isShape');
+      }
+
+      initAttrs(attrs) {
+        this.attr(mix(this.getDefaultAttrs(), attrs));
+      }
+
+      getDefaultAttrs() {
+        return {};
+      }
+
+      _setAttr(name, value) {
+        var attrs = this._attrs.attrs;
+
+        if (name === 'clip') {
+          value = this._setAttrClip(value);
+        } else {
+          var alias = ALIAS_ATTRS_MAP[name];
+
+          if (alias) {
+            attrs[alias] = value;
+          }
+        }
+
+        attrs[name] = value;
+      }
+
+      _getAttr(name) {
+        return this._attrs.attrs[name];
+      } // _afterAttrsSet() {}
+
+
+      _setAttrClip(clip) {
+        if (clip && CLIP_SHAPES.indexOf(clip._attrs.type) > -1) {
+          if (clip.get('canvas') === null) {
+            clip = Object.assign({}, clip);
+          }
+
+          clip.set('parent', this.get('parent'));
+          clip.set('context', this.get('context'));
+          return clip;
+        }
+
+        return null;
+      }
+
+      attr(name, value) {
+        var self = this;
+        if (self.get('destroyed')) return null;
+        var argumentsLen = arguments.length;
+
+        if (argumentsLen === 0) {
+          return self._attrs.attrs;
+        }
+
+        if (isObject(name)) {
+          this._attrs.bbox = null;
+
+          for (var k in name) {
+            self._setAttr(k, name[k]);
+          }
+
+          if (self._afterAttrsSet) {
+            self._afterAttrsSet();
+          }
+
+          return self;
+        }
+
+        if (argumentsLen === 2) {
+          this._attrs.bbox = null;
+
+          self._setAttr(name, value);
+
+          if (self._afterAttrsSet) {
+            self._afterAttrsSet();
+          }
+
+          return self;
+        }
+
+        return self._getAttr(name);
+      }
+
+      getParent() {
+        return this.get('parent');
+      }
+
+      draw(context) {
+        if (this.get('destroyed')) {
+          return;
+        }
+
+        if (this.get('visible')) {
+          this.setContext(context);
+          this.drawInner(context);
+          this.restoreContext(context);
+        }
+      }
+
+      setContext(context) {
+        var clip = this._attrs.attrs.clip;
+        context.save();
+
+        if (clip) {
+          clip.resetTransform(context);
+          clip.createPath(context);
+          context.clip();
+        }
+
+        this.resetContext(context);
+        this.resetTransform(context);
+      }
+
+      restoreContext(context) {
+        context.restore();
+      }
+
+      resetContext(context) {
+        var elAttrs = this._attrs.attrs;
+
+        if (!this._attrs.isGroup) {
+          for (var k in elAttrs) {
+            if (SHAPE_ATTRS.indexOf(k) > -1) {
+              var v = elAttrs[k];
+
+              if (k === 'fillStyle' || k === 'strokeStyle') {
+                v = parseStyle(v, this, context);
+              }
+
+              if (k === 'lineDash' && context.setLineDash && isArray(v)) {
+                context.setLineDash(v);
+              } else {
+                context[k] = v;
+              }
+            }
+          }
+        }
+      }
+
+      hasFill() {
+        return this.get('canFill') && this._attrs.attrs.fillStyle;
+      }
+
+      hasStroke() {
+        return this.get('canStroke') && this._attrs.attrs.strokeStyle;
+      }
+
+      drawInner()
+      /* context */
+      {}
+
+      show() {
+        this.set('visible', true);
+        return this;
+      }
+
+      hide() {
+        this.set('visible', false);
+        return this;
+      }
+
+      isVisible() {
+        return this.get('visible');
+      }
+
+      _removeFromParent() {
+        var parent = this.get('parent');
+
+        if (parent) {
+          var children = parent.get('children');
+          remove(children, this);
+        }
+
+        return this;
+      }
+
+      remove(destroy) {
+        if (destroy) {
+          this.destroy();
+        } else {
+          this._removeFromParent();
+        }
+      }
+
+      destroy() {
+        var destroyed = this.get('destroyed');
+
+        if (destroyed) {
+          return null;
+        }
+
+        this._removeFromParent();
+
+        this._attrs = {};
+        this.set('destroyed', true);
+      }
+
+      getBBox() {
+        return {
+          minX: 0,
+          maxX: 0,
+          minY: 0,
+          maxY: 0,
+          width: 0,
+          height: 0
+        };
+      }
+
+      initTransform() {
+        var attrs = this._attrs.attrs || {};
+
+        if (!attrs.matrix) {
+          attrs.matrix = [1, 0, 0, 1, 0, 0];
+        }
+
+        this._attrs.attrs = attrs;
+      }
+
+      getMatrix() {
+        return this._attrs.attrs.matrix;
+      }
+
+      setMatrix(m) {
+        this._attrs.attrs.matrix = [m[0], m[1], m[2], m[3], m[4], m[5]];
+      }
+
+      transform(actions) {
+        var matrix = this._attrs.attrs.matrix;
+        this._attrs.attrs.matrix = Matrix.transform(matrix, actions);
+        return this;
+      }
+
+      setTransform(actions) {
+        this._attrs.attrs.matrix = [1, 0, 0, 1, 0, 0];
+        return this.transform(actions);
+      }
+
+      translate(x, y) {
+        var matrix = this._attrs.attrs.matrix;
+        Matrix.translate(matrix, matrix, [x, y]);
+      }
+
+      rotate(rad) {
+        var matrix = this._attrs.attrs.matrix;
+        Matrix.rotate(matrix, matrix, rad);
+      }
+
+      scale(sx, sy) {
+        var matrix = this._attrs.attrs.matrix;
+        Matrix.scale(matrix, matrix, [sx, sy]);
+      }
+
+      moveTo(x, y) {
+        var cx = this._attrs.x || 0;
+        var cy = this._attrs.y || 0;
+        this.translate(x - cx, y - cy);
+        this.set('x', x);
+        this.set('y', y);
+      }
+
+      apply(v) {
+        var m = this._attrs.attrs.matrix;
+        Vector2.transformMat2d(v, v, m);
+        return this;
+      }
+
+      resetTransform(context) {
+        var mo = this._attrs.attrs.matrix;
+
+        if (!isUnchanged(mo)) {
+          context.transform(mo[0], mo[1], mo[2], mo[3], mo[4], mo[5]);
+        }
+      }
+
+      isDestroyed() {
+        return this.get('destroyed');
+      }
+
+    }
+
+    class Shape$2 extends Element {
+      _initProperties() {
+        this._attrs = {
+          zIndex: 0,
+          visible: true,
+          destroyed: false,
+          isShape: true,
+          attrs: {}
+        };
+      }
+
+      getType() {
+        return this._attrs.type;
+      }
+
+      drawInner(context) {
+        var self = this;
+        var attrs = self.get('attrs');
+        self.createPath(context);
+        var originOpacity = context.globalAlpha;
+
+        if (self.hasFill()) {
+          var fillOpacity = attrs.fillOpacity;
+
+          if (!isNil(fillOpacity) && fillOpacity !== 1) {
+            context.globalAlpha = fillOpacity;
+            context.fill();
+            context.globalAlpha = originOpacity;
+          } else {
+            context.fill();
+          }
+        }
+
+        if (self.hasStroke()) {
+          var lineWidth = attrs.lineWidth;
+
+          if (lineWidth > 0) {
+            var strokeOpacity = attrs.strokeOpacity;
+
+            if (!isNil(strokeOpacity) && strokeOpacity !== 1) {
+              context.globalAlpha = strokeOpacity;
+            }
+
+            context.stroke();
+          }
+        }
+      }
+
+      getBBox() {
+        var bbox = this._attrs.bbox;
+
+        if (!bbox) {
+          bbox = this.calculateBox();
+
+          if (bbox) {
+            bbox.x = bbox.minX;
+            bbox.y = bbox.minY;
+            bbox.width = bbox.maxX - bbox.minX;
+            bbox.height = bbox.maxY - bbox.minY;
+          }
+
+          this._attrs.bbox = bbox;
+        }
+
+        return bbox;
+      }
+
+      calculateBox() {
+        return null;
+      }
+
+      createPath() {}
+
+    }
+
+    var SHAPE_MAP = {};
+    var INDEX = '_INDEX';
+
+    function getComparer(compare) {
+      return function (left, right) {
+        var result = compare(left, right);
+        return result === 0 ? left[INDEX] - right[INDEX] : result;
+      };
+    }
+
+    var Container = {
+      getGroupClass() {},
+
+      getChildren() {
+        return this.get('children');
+      },
+
+      addShape(type) {
+        var cfg = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+        var canvas = this.get('canvas');
+        var shapeType = SHAPE_MAP[type];
+
+        if (!shapeType) {
+          shapeType = upperFirst(type);
+          SHAPE_MAP[type] = shapeType;
+        }
+
+        cfg.canvas = canvas;
+
+        if (shapeType === 'Text' && canvas && canvas.get('fontFamily')) {
+          cfg.attrs.fontFamily = cfg.attrs.fontFamily || canvas.get('fontFamily');
+        }
+
+        var shape = new Shape$2[shapeType](cfg);
+        this.add(shape);
+        return shape;
+      },
+
+      addGroup(cfg) {
+        var canvas = this.get('canvas');
+        var groupClass = this.getGroupClass();
+        cfg = mix({}, cfg);
+        cfg.canvas = canvas;
+        cfg.parent = this;
+        var rst = new groupClass(cfg);
+        this.add(rst);
+        return rst;
+      },
+
+      contain(item) {
+        var children = this.get('children');
+        return children.indexOf(item) > -1;
+      },
+
+      sort() {
+        var children = this.get('children');
+
+        for (var i = 0, len = children.length; i < len; i++) {
+          var child = children[i];
+          child[INDEX] = i;
+        }
+
+        children.sort(getComparer(function (obj1, obj2) {
+          return obj1.get('zIndex') - obj2.get('zIndex');
+        }));
+        return this;
+      },
+
+      clear() {
+        var children = this.get('children');
+
+        while (children.length !== 0) {
+          children[children.length - 1].remove(true);
+        }
+
+        return this;
+      },
+
+      add(items) {
+        var self = this;
+        var children = self.get('children');
+
+        if (!isArray(items)) {
+          items = [items];
+        }
+
+        for (var i = 0, len = items.length; i < len; i++) {
+          var item = items[i];
+          var parent = item.get('parent');
+
+          if (parent) {
+            var descendants = parent.get('children');
+            remove(descendants, item);
+          }
+
+          self._setEvn(item);
+
+          children.push(item);
+        }
+
+        return self;
+      },
+
+      _setEvn(item) {
+        var self = this;
+        item._attrs.parent = self;
+        item._attrs.context = self._attrs.context;
+        item._attrs.canvas = self._attrs.canvas;
+        var clip = item._attrs.attrs.clip;
+
+        if (clip) {
+          clip.set('parent', self);
+          clip.set('context', self.get('context'));
+        }
+
+        if (item._attrs.isGroup) {
+          var children = item._attrs.children;
+
+          for (var i = 0, len = children.length; i < len; i++) {
+            item._setEvn(children[i]);
+          }
+        }
+      }
+
+    };
+
+    class Group extends Element {
+      _initProperties() {
+        this._attrs = {
+          zIndex: 0,
+          visible: true,
+          destroyed: false,
+          isGroup: true,
+          children: []
+        };
+      }
+
+      drawInner(context) {
+        var children = this.get('children');
+
+        for (var i = 0, len = children.length; i < len; i++) {
+          var child = children[i];
+          child.draw(context);
+        }
+
+        return this;
+      }
+
+      getBBox() {
+        var self = this;
+        var minX = Infinity;
+        var maxX = -Infinity;
+        var minY = Infinity;
+        var maxY = -Infinity;
+        var children = self.get('children');
+
+        for (var i = 0, length = children.length; i < length; i++) {
+          var child = children[i];
+
+          if (child.get('visible')) {
+            var box = child.getBBox();
+
+            if (!box) {
+              continue;
+            }
+
+            var leftTop = [box.minX, box.minY];
+            var leftBottom = [box.minX, box.maxY];
+            var rightTop = [box.maxX, box.minY];
+            var rightBottom = [box.maxX, box.maxY];
+            var matrix = child.attr('matrix');
+            Vector2.transformMat2d(leftTop, leftTop, matrix);
+            Vector2.transformMat2d(leftBottom, leftBottom, matrix);
+            Vector2.transformMat2d(rightTop, rightTop, matrix);
+            Vector2.transformMat2d(rightBottom, rightBottom, matrix);
+            minX = Math.min(leftTop[0], leftBottom[0], rightTop[0], rightBottom[0], minX);
+            maxX = Math.max(leftTop[0], leftBottom[0], rightTop[0], rightBottom[0], maxX);
+            minY = Math.min(leftTop[1], leftBottom[1], rightTop[1], rightBottom[1], minY);
+            maxY = Math.max(leftTop[1], leftBottom[1], rightTop[1], rightBottom[1], maxY);
+          }
+        }
+
+        return {
+          minX,
+          minY,
+          maxX,
+          maxY,
+          x: minX,
+          y: minY,
+          width: maxX - minX,
+          height: maxY - minY
+        };
+      }
+
+      destroy() {
+        if (this.get('destroyed')) {
+          return;
+        }
+
+        this.clear();
+        super.destroy();
+      }
+
+    }
+
+    mix(Group.prototype, Container, {
+      getGroupClass() {
+        return Group;
+      }
+
+    });
+
+    var requestAnimationFrame = typeof window === 'object' && window.requestAnimationFrame ? window.requestAnimationFrame : function (fn) {
+      return setTimeout(fn, 16);
+    };
+
+    class Canvas extends EventEmit {
+      get(name) {
+        return this._attrs[name];
+      }
+
+      set(name, value) {
+        this._attrs[name] = value;
+      }
+
+      constructor(cfg) {
+        super();
+        this._attrs = mix({
+          type: 'canvas',
+          children: []
+        }, cfg);
+
+        this._initPixelRatio();
+
+        this._initCanvas();
+      }
+
+      _initPixelRatio() {
+        var pixelRatio = this.get('pixelRatio');
+
+        if (!pixelRatio) {
+          this.set('pixelRatio', getPixelRatio());
+        }
+      }
+
+      beforeDraw() {
+        var context = this._attrs.context;
+        var el = this._attrs.el;
+        context && context.clearRect && context.clearRect(0, 0, el.width, el.height);
+      }
+
+      _initCanvas() {
+        var self = this;
+        var el = self.get('el');
+        var context = self.get('context');
+
+        if (!el && !context) {
+          throw new Error('Please specify the id, el or context of the chart!');
+        }
+
+        var canvas;
+
+        if (el) {
+          // DOMElement or String
+          canvas = isString(el) ? getDomById(el) : el;
+        } else {
+          // 说明没有指定el
+          canvas = CanvasElement$1.create(context);
+        }
+
+        if (context && canvas && !canvas.getContext) {
+          canvas.getContext = function () {
+            return context;
+          };
+        }
+
+        var width = self.get('width');
+
+        if (!width) {
+          width = getWidth(canvas);
+        }
+
+        var height = self.get('height');
+
+        if (!height) {
+          height = getHeight(canvas);
+        }
+
+        self.set('canvas', this);
+        self.set('el', canvas);
+        self.set('context', context || canvas.getContext('2d'));
+        self.changeSize(width, height); // 初始化事件控制器
+
+        var eventController = new EventController({
+          canvas: this,
+          el: canvas
+        });
+        self.set('eventController', eventController);
+      }
+
+      changeSize(width, height) {
+        var pixelRatio = this.get('pixelRatio');
+        var canvasDOM = this.get('el'); // HTMLCanvasElement or canvasElement
+        // 浏览器环境设置style样式
+
+        if (canvasDOM.style) {
+          canvasDOM.style.width = width + 'px';
+          canvasDOM.style.height = height + 'px';
+        }
+
+        if (isCanvasElement(canvasDOM)) {
+          canvasDOM.width = width * pixelRatio;
+          canvasDOM.height = height * pixelRatio;
+
+          if (pixelRatio !== 1) {
+            var ctx = this.get('context');
+            ctx.scale(pixelRatio, pixelRatio);
+          }
+        }
+
+        this.set('width', width);
+        this.set('height', height);
+      }
+
+      getWidth() {
+        var pixelRatio = this.get('pixelRatio');
+        var width = this.get('width');
+        return width * pixelRatio;
+      }
+
+      getHeight() {
+        var pixelRatio = this.get('pixelRatio');
+        var height = this.get('height');
+        return height * pixelRatio;
+      }
+
+      getPointByClient(clientX, clientY) {
+        var el = this.get('el');
+        var bbox = el.getBoundingClientRect();
+        var width = bbox.right - bbox.left;
+        var height = bbox.bottom - bbox.top;
+        return {
+          x: (clientX - bbox.left) * (el.width / width),
+          y: (clientY - bbox.top) * (el.height / height)
+        };
+      }
+
+      _beginDraw() {
+        this._attrs.toDraw = true;
+      }
+
+      _endDraw() {
+        this._attrs.toDraw = false;
+      }
+
+      draw() {
+        var self = this;
+
+        function drawInner() {
+          self.set('animateHandler', requestAnimationFrame(function () {
+            self.set('animateHandler', undefined);
+
+            if (self.get('toDraw')) {
+              drawInner();
+            }
+          }));
+          self.beforeDraw();
+
+          try {
+            var context = self._attrs.context;
+            var children = self._attrs.children;
+
+            for (var i = 0, len = children.length; i < len; i++) {
+              var child = children[i];
+              child.draw(context);
+            } // 支付宝，微信小程序，需要调context.draw才能完成绘制， 所以这里直接判断是否有.draw方法
+
+
+            if (context.draw) {
+              context.draw();
+            }
+          } catch (ev) {
+            console.warn('error in draw canvas, detail as:');
+            console.warn(ev);
+
+            self._endDraw();
+          }
+
+          self._endDraw();
+        }
+
+        if (self.get('destroyed')) {
+          return;
+        }
+
+        if (self.get('animateHandler')) {
+          this._beginDraw();
+        } else {
+          drawInner();
+        }
+      }
+
+      destroy() {
+        if (this.get('destroyed')) {
+          return;
+        } // 需要清理 canvas 画布内容，否则会导致 spa 应用 ios 下 canvas 白屏
+        // https://stackoverflow.com/questions/52532614/total-canvas-memory-use-exceeds-the-maximum-limit-safari-12
+        // https://github.com/antvis/F2/issues/630
+
+
+        var el = this.get('el');
+        el.width = 0;
+        el.height = 0;
+        this.clear();
+        this._attrs = {};
+        this.set('destroyed', true);
+      }
+
+      isDestroyed() {
+        return this.get('destroyed');
+      }
+
+    }
+
+    mix(Canvas.prototype, Container, {
+      getGroupClass() {
+        return Group;
+      }
+
+    });
+
+    function parseRadius(radius, width, height) {
+      radius = parsePadding(radius); // 都为0
+
+      if (!radius[0] && !radius[1] && !radius[2] && !radius[3]) {
+        return radius;
+      }
+
+      var minWidth = Math.max(radius[0] + radius[1], radius[2] + radius[3]);
+      var minHeight = Math.max(radius[0] + radius[3], radius[1] + radius[2]);
+      var scale = Math.min(width / minWidth, height / minHeight);
+
+      if (scale < 1) {
+        return radius.map(function (r) {
+          return r * scale;
+        });
+      }
+
+      return radius;
+    }
+
+    class Rect extends Shape$2 {
+      _initProperties() {
+        super._initProperties();
+
+        this._attrs.canFill = true;
+        this._attrs.canStroke = true;
+        this._attrs.type = 'rect';
+      }
+
+      getDefaultAttrs() {
+        return {
+          x: 0,
+          y: 0,
+          width: 0,
+          height: 0,
+          radius: 0,
+          lineWidth: 0
+        };
+      }
+
+      createPath(context) {
+        var self = this;
+        var attrs = self.get('attrs');
+        var {
+          x,
+          y,
+          width,
+          height,
+          radius
+        } = attrs;
+        context.beginPath();
+
+        if (!radius || !(width * height)) {
+          context.rect(x, y, width, height);
+        } else {
+          radius = parseRadius(radius, width, height);
+          context.moveTo(x + radius[0], y);
+          context.lineTo(x + width - radius[1], y);
+          context.arc(x + width - radius[1], y + radius[1], radius[1], -Math.PI / 2, 0, false);
+          context.lineTo(x + width, y + height - radius[2]);
+          context.arc(x + width - radius[2], y + height - radius[2], radius[2], 0, Math.PI / 2, false);
+          context.lineTo(x + radius[3], y + height);
+          context.arc(x + radius[3], y + height - radius[3], radius[3], Math.PI / 2, Math.PI, false);
+          context.lineTo(x, y + radius[0]);
+          context.arc(x + radius[0], y + radius[0], radius[0], Math.PI, Math.PI * 3 / 2, false);
+          context.closePath();
+        }
+      }
+
+      calculateBox() {
+        var attrs = this.get('attrs');
+        var {
+          x,
+          y,
+          width,
+          height
+        } = attrs;
+        return {
+          minX: x,
+          minY: y,
+          maxX: x + width,
+          maxY: y + height
+        };
+      }
+
+    }
+
+    Shape$2.Rect = Rect;
+
+    class ImageShape extends Shape$2 {
+      _initProperties() {
+        super._initProperties();
+
+        this._attrs.canFill = false;
+        this._attrs.canStroke = false;
+        this._attrs.loading = false;
+        this._attrs.image = null;
+        this._attrs.type = 'image';
+      }
+
+      getDefaultAttrs() {
+        return {
+          x: 0,
+          y: 0,
+          width: 0,
+          height: 0
+        };
+      }
+
+      createPath(context) {
+        var _this = this;
+
+        var attrs = this.get('attrs');
+        var {
+          src
+        } = attrs;
+
+        if (this.get('loading')) {
+          return;
+        }
+
+        var image = this.get('image');
+
+        if (image) {
+          this.drawImage(context, image);
+        } else {
+          if (src && Image) {
+            this.set('loading', true);
+
+            var _image = new Image();
+
+            _image.src = src; // 设置跨域
+
+            _image.crossOrigin = 'Anonymous';
+
+            _image.onload = function () {
+              _this.set('loading', false);
+
+              _this.set('image', _image);
+
+              _this.drawImage(context, _image);
+            };
+          }
+        }
+      }
+
+      drawImage(context, image) {
+        var attrs = this.get('attrs');
+        var {
+          x,
+          y,
+          width,
+          height,
+          sx,
+          sy,
+          swidth,
+          sheight
+        } = attrs;
+
+        if (!isNil(sx) && !isNil(sy) && !isNil(swidth) && !isNil(sheight)) {
+          context.drawImage(image, sx, sy, swidth, sheight, x, y, width, height);
+        } else {
+          context.drawImage(image, x, y, width, height);
+        }
+      }
+
+      calculateBox() {
+        var attrs = this.get('attrs');
+        var {
+          x,
+          y,
+          width,
+          height
+        } = attrs; // 和rect一样
+
+        return {
+          minX: x,
+          minY: y,
+          maxX: x + width,
+          maxY: y + height
+        };
+      }
+
+    }
+
+    Shape$2.Image = ImageShape;
+
+    class Circle extends Shape$2 {
+      _initProperties() {
+        super._initProperties();
+
+        this._attrs.canFill = true;
+        this._attrs.canStroke = true;
+        this._attrs.type = 'circle';
+      }
+
+      getDefaultAttrs() {
+        return {
+          x: 0,
+          y: 0,
+          r: 0,
+          lineWidth: 0
+        };
+      }
+
+      createPath(context) {
+        var attrs = this.get('attrs');
+        var {
+          x,
+          y,
+          r
+        } = attrs;
+        context.beginPath();
+        context.arc(x, y, r, 0, Math.PI * 2, false);
+        context.closePath();
+      }
+
+      calculateBox() {
+        var attrs = this.get('attrs');
+        var {
+          x,
+          y,
+          r
+        } = attrs;
+        return {
+          minX: x - r,
+          maxX: x + r,
+          minY: y - r,
+          maxY: y + r
+        };
+      }
+
+    }
+
+    Shape$2.Circle = Circle;
+
+    var start = Vector2.create();
+    var end = Vector2.create();
+    var extremity = Vector2.create();
+
+    function getCubicBezierXYatT(startPt, controlPt1, controlPt2, endPt, T) {
+      var x = CubicN(T, startPt.x, controlPt1.x, controlPt2.x, endPt.x);
+      var y = CubicN(T, startPt.y, controlPt1.y, controlPt2.y, endPt.y);
+      return {
+        x,
+        y
+      };
+    } // cubic helper formula at T distance
+
+
+    function CubicN(T, a, b, c, d) {
+      var t2 = T * T;
+      var t3 = t2 * T;
+      return a + (-a * 3 + T * (3 * a - a * T)) * T + (3 * b + T * (-6 * b + b * 3 * T)) * T + (c * 3 - c * 3 * T) * t2 + d * t3;
+    }
+
+    function cubicBezierBounds(c) {
+      var minX = Infinity;
+      var maxX = -Infinity;
+      var minY = Infinity;
+      var maxY = -Infinity;
+      var s = {
+        x: c[0],
+        y: c[1]
+      };
+      var c1 = {
+        x: c[2],
+        y: c[3]
+      };
+      var c2 = {
+        x: c[4],
+        y: c[5]
+      };
+      var e = {
+        x: c[6],
+        y: c[7]
+      };
+
+      for (var t = 0; t < 100; t++) {
+        var pt = getCubicBezierXYatT(s, c1, c2, e, t / 100);
+
+        if (pt.x < minX) {
+          minX = pt.x;
+        }
+
+        if (pt.x > maxX) {
+          maxX = pt.x;
+        }
+
+        if (pt.y < minY) {
+          minY = pt.y;
+        }
+
+        if (pt.y > maxY) {
+          maxY = pt.y;
+        }
+      }
+
+      return {
+        minX,
+        minY,
+        maxX,
+        maxY
+      };
+    }
+
+    function getBBoxFromPoints(points, lineWidth) {
+      if (points.length === 0) {
+        return;
+      }
+
+      var p = points[0];
+      var left = p.x;
+      var right = p.x;
+      var top = p.y;
+      var bottom = p.y;
+      var len = points.length;
+
+      for (var i = 1; i < len; i++) {
+        p = points[i];
+        left = Math.min(left, p.x);
+        right = Math.max(right, p.x);
+        top = Math.min(top, p.y);
+        bottom = Math.max(bottom, p.y);
+      }
+
+      lineWidth = lineWidth / 2 || 0;
+      return {
+        minX: left - lineWidth,
+        minY: top - lineWidth,
+        maxX: right + lineWidth,
+        maxY: bottom + lineWidth
+      };
+    }
+
+    function getBBoxFromLine(x0, y0, x1, y1, lineWidth) {
+      lineWidth = lineWidth / 2 || 0;
+      return {
+        minX: Math.min(x0, x1) - lineWidth,
+        minY: Math.min(y0, y1) - lineWidth,
+        maxX: Math.max(x0, x1) + lineWidth,
+        maxY: Math.max(y0, y1) + lineWidth
+      };
+    }
+
+    function getBBoxFromArc(x, y, r, startAngle, endAngle, anticlockwise) {
+      var diff = Math.abs(startAngle - endAngle);
+
+      if (diff % (Math.PI * 2) < 1e-4 && diff > 1e-4) {
+        // Is a circle
+        return {
+          minX: x - r,
+          minY: y - r,
+          maxX: x + r,
+          maxY: y + r
+        };
+      }
+
+      start[0] = Math.cos(startAngle) * r + x;
+      start[1] = Math.sin(startAngle) * r + y;
+      end[0] = Math.cos(endAngle) * r + x;
+      end[1] = Math.sin(endAngle) * r + y;
+      var min = [0, 0];
+      var max = [0, 0];
+      Vector2.min(min, start, end);
+      Vector2.max(max, start, end); // Thresh to [0, Math.PI * 2]
+
+      startAngle = startAngle % (Math.PI * 2);
+
+      if (startAngle < 0) {
+        startAngle = startAngle + Math.PI * 2;
+      }
+
+      endAngle = endAngle % (Math.PI * 2);
+
+      if (endAngle < 0) {
+        endAngle = endAngle + Math.PI * 2;
+      }
+
+      if (startAngle > endAngle && !anticlockwise) {
+        endAngle += Math.PI * 2;
+      } else if (startAngle < endAngle && anticlockwise) {
+        startAngle += Math.PI * 2;
+      }
+
+      if (anticlockwise) {
+        var tmp = endAngle;
+        endAngle = startAngle;
+        startAngle = tmp;
+      }
+
+      for (var angle = 0; angle < endAngle; angle += Math.PI / 2) {
+        if (angle > startAngle) {
+          extremity[0] = Math.cos(angle) * r + x;
+          extremity[1] = Math.sin(angle) * r + y;
+          Vector2.min(min, extremity, min);
+          Vector2.max(max, extremity, max);
+        }
+      }
+
+      return {
+        minX: min[0],
+        minY: min[1],
+        maxX: max[0],
+        maxY: max[1]
+      };
+    }
+
+    function getBBoxFromBezierGroup(points, lineWidth) {
+      var minX = Infinity;
+      var maxX = -Infinity;
+      var minY = Infinity;
+      var maxY = -Infinity;
+
+      for (var i = 0, len = points.length; i < len; i++) {
+        var bbox = cubicBezierBounds(points[i]);
+
+        if (bbox.minX < minX) {
+          minX = bbox.minX;
+        }
+
+        if (bbox.maxX > maxX) {
+          maxX = bbox.maxX;
+        }
+
+        if (bbox.minY < minY) {
+          minY = bbox.minY;
+        }
+
+        if (bbox.maxY > maxY) {
+          maxY = bbox.maxY;
+        }
+      }
+
+      lineWidth = lineWidth / 2 || 0;
+      return {
+        minX: minX - lineWidth,
+        minY: minY - lineWidth,
+        maxX: maxX + lineWidth,
+        maxY: maxY + lineWidth
+      };
+    }
+
+    class Line$1 extends Shape$2 {
+      _initProperties() {
+        super._initProperties();
+
+        this._attrs.canStroke = true;
+        this._attrs.type = 'line';
+      }
+
+      getDefaultAttrs() {
+        return {
+          x1: 0,
+          y1: 0,
+          x2: 0,
+          y2: 0,
+          lineWidth: 1
+        };
+      }
+
+      createPath(context) {
+        var attrs = this.get('attrs');
+        var {
+          x1,
+          y1,
+          x2,
+          y2
+        } = attrs;
+        context.beginPath();
+        context.moveTo(x1, y1);
+        context.lineTo(x2, y2);
+      }
+
+      calculateBox() {
+        var attrs = this.get('attrs');
+        var {
+          x1,
+          y1,
+          x2,
+          y2,
+          lineWidth
+        } = attrs;
+        return getBBoxFromLine(x1, y1, x2, y2, lineWidth);
+      }
+
+    }
+
+    Shape$2.Line = Line$1;
+
+    class Polygon extends Shape$2 {
+      _initProperties() {
+        super._initProperties();
+
+        this._attrs.canFill = true;
+        this._attrs.canStroke = true;
+        this._attrs.type = 'polygon';
+      }
+
+      getDefaultAttrs() {
+        return {
+          points: null,
+          lineWidth: 0
+        };
+      }
+
+      createPath(context) {
+        var self = this;
+        var attrs = self.get('attrs');
+        var points = attrs.points;
+        context.beginPath();
+
+        for (var i = 0, len = points.length; i < len; i++) {
+          var point = points[i];
+
+          if (i === 0) {
+            context.moveTo(point.x, point.y);
+          } else {
+            context.lineTo(point.x, point.y);
+          }
+        }
+
+        context.closePath();
+      }
+
+      calculateBox() {
+        var attrs = this.get('attrs');
+        var {
+          points
+        } = attrs;
+        return getBBoxFromPoints(points);
+      }
+
+    }
+
+    Shape$2.Polygon = Polygon;
+
+    /**
+     * @fileOverview convert the line to curve
+     * @author dxq613@gmail.com
+     */
+
+    function getPoint(v) {
+      return [v.x, v.y];
+    }
+
+    function smoothBezier(points, smooth, isLoop, constraint) {
+      var cps = [];
+      var prevPoint;
+      var nextPoint;
+      var hasConstraint = !!constraint;
+      var min;
+      var max;
+      var point;
+      var len;
+      var l;
+      var i;
+
+      if (hasConstraint) {
+        min = [Infinity, Infinity];
+        max = [-Infinity, -Infinity];
+
+        for (i = 0, l = points.length; i < l; i++) {
+          point = getPoint(points[i]);
+          Vector2.min(min, min, point);
+          Vector2.max(max, max, point);
+        }
+
+        Vector2.min(min, min, constraint[0]);
+        Vector2.max(max, max, constraint[1]);
+      }
+
+      for (i = 0, len = points.length; i < len; i++) {
+        point = getPoint(points[i]);
+
+        if (isLoop) {
+          prevPoint = getPoint(points[i ? i - 1 : len - 1]);
+          nextPoint = getPoint(points[(i + 1) % len]);
+        } else {
+          if (i === 0 || i === len - 1) {
+            cps.push([point[0], point[1]]);
+            continue;
+          } else {
+            prevPoint = getPoint(points[i - 1]);
+            nextPoint = getPoint(points[i + 1]);
+          }
+        }
+
+        var v = Vector2.sub([], nextPoint, prevPoint);
+        Vector2.scale(v, v, smooth);
+        var d0 = Vector2.distance(point, prevPoint);
+        var d1 = Vector2.distance(point, nextPoint);
+        var sum = d0 + d1;
+
+        if (sum !== 0) {
+          d0 /= sum;
+          d1 /= sum;
+        }
+
+        var v1 = Vector2.scale([], v, -d0);
+        var v2 = Vector2.scale([], v, d1);
+        var cp0 = Vector2.add([], point, v1);
+        var cp1 = Vector2.add([], point, v2);
+
+        if (hasConstraint) {
+          Vector2.max(cp0, cp0, min);
+          Vector2.min(cp0, cp0, max);
+          Vector2.max(cp1, cp1, min);
+          Vector2.min(cp1, cp1, max);
+        }
+
+        cps.push([cp0[0], cp0[1]]);
+        cps.push([cp1[0], cp1[1]]);
+      }
+
+      if (isLoop) {
+        cps.push(cps.shift());
+      }
+
+      return cps;
+    }
+
+    function catmullRom2bezier(pointList, z, constraint) {
+      var isLoop = !!z;
+      var controlPointList = smoothBezier(pointList, 0.4, isLoop, constraint);
+      var len = pointList.length;
+      var d1 = [];
+      var cp1;
+      var cp2;
+      var p;
+
+      for (var i = 0; i < len - 1; i++) {
+        cp1 = controlPointList[i * 2];
+        cp2 = controlPointList[i * 2 + 1];
+        p = pointList[i + 1];
+        d1.push(['C', cp1[0], cp1[1], cp2[0], cp2[1], p.x, p.y]);
+      }
+
+      if (isLoop) {
+        cp1 = controlPointList[len];
+        cp2 = controlPointList[len + 1];
+        p = pointList[0];
+        d1.push(['C', cp1[0], cp1[1], cp2[0], cp2[1], p.x, p.y]);
+      }
+
+      return d1;
+    }
+
+    function _filterPoints(points) {
+      var filteredPoints = [];
+
+      for (var i = 0, len = points.length; i < len; i++) {
+        var point = points[i];
+
+        if (!isNaN(point.x) && !isNaN(point.y)) {
+          filteredPoints.push(point);
+        }
+      }
+
+      return filteredPoints;
+    }
+
+    class Polyline extends Shape$2 {
+      _initProperties() {
+        super._initProperties();
+
+        this._attrs.canFill = true;
+        this._attrs.canStroke = true;
+        this._attrs.type = 'polyline';
+      }
+
+      getDefaultAttrs() {
+        return {
+          points: null,
+          lineWidth: 1,
+          smooth: false
+        };
+      }
+
+      createPath(context) {
+        var self = this;
+        var attrs = self.get('attrs');
+        var {
+          points,
+          smooth
+        } = attrs;
+
+        var filteredPoints = _filterPoints(points);
+
+        context.beginPath();
+
+        if (filteredPoints.length) {
+          context.moveTo(filteredPoints[0].x, filteredPoints[0].y);
+
+          if (smooth) {
+            var constaint = [[0, 0], [1, 1]];
+            var sps = catmullRom2bezier(filteredPoints, false, constaint);
+
+            for (var i = 0, n = sps.length; i < n; i++) {
+              var sp = sps[i];
+              context.bezierCurveTo(sp[1], sp[2], sp[3], sp[4], sp[5], sp[6]);
+            }
+          } else {
+            var _i;
+
+            var l;
+
+            for (_i = 1, l = filteredPoints.length - 1; _i < l; _i++) {
+              context.lineTo(filteredPoints[_i].x, filteredPoints[_i].y);
+            }
+
+            context.lineTo(filteredPoints[l].x, filteredPoints[l].y);
+          }
+        }
+      }
+
+      calculateBox() {
+        var attrs = this.get('attrs');
+        var {
+          points,
+          smooth,
+          lineWidth
+        } = attrs;
+
+        var filteredPoints = _filterPoints(points);
+
+        if (smooth) {
+          var newPoints = [];
+          var constaint = [[0, 0], [1, 1]];
+          var sps = catmullRom2bezier(filteredPoints, false, constaint);
+
+          for (var i = 0, n = sps.length; i < n; i++) {
+            var sp = sps[i];
+
+            if (i === 0) {
+              newPoints.push([filteredPoints[0].x, filteredPoints[0].y, sp[1], sp[2], sp[3], sp[4], sp[5], sp[6]]);
+            } else {
+              var lastPoint = sps[i - 1];
+              newPoints.push([lastPoint[5], lastPoint[6], sp[1], sp[2], sp[3], sp[4], sp[5], sp[6]]);
+            }
+          }
+
+          return getBBoxFromBezierGroup(newPoints, lineWidth);
+        }
+
+        return getBBoxFromPoints(filteredPoints, lineWidth);
+      }
+
+    }
+
+    Shape$2.Polyline = Polyline;
+
+    class Arc extends Shape$2 {
+      _initProperties() {
+        super._initProperties();
+
+        this._attrs.canStroke = true;
+        this._attrs.canFill = true;
+        this._attrs.type = 'arc';
+      }
+
+      getDefaultAttrs() {
+        return {
+          x: 0,
+          y: 0,
+          r: 0,
+          startAngle: 0,
+          endAngle: Math.PI * 2,
+          anticlockwise: false,
+          lineWidth: 1
+        };
+      }
+
+      createPath(context) {
+        var attrs = this.get('attrs');
+        var {
+          x,
+          y,
+          r,
+          startAngle,
+          endAngle,
+          anticlockwise
+        } = attrs;
+        context.beginPath();
+
+        if (startAngle !== endAngle) {
+          context.arc(x, y, r, startAngle, endAngle, anticlockwise);
+        }
+      }
+
+      calculateBox() {
+        var attrs = this.get('attrs');
+        var {
+          x,
+          y,
+          r,
+          startAngle,
+          endAngle,
+          anticlockwise
+        } = attrs;
+        return getBBoxFromArc(x, y, r, startAngle, endAngle, anticlockwise);
+      }
+
+    }
+
+    Shape$2.Arc = Arc;
+
+    class Sector extends Shape$2 {
+      _initProperties() {
+        super._initProperties();
+
+        this._attrs.canFill = true;
+        this._attrs.canStroke = true;
+        this._attrs.type = 'sector';
+      }
+
+      getDefaultAttrs() {
+        return {
+          x: 0,
+          y: 0,
+          lineWidth: 0,
+          r: 0,
+          r0: 0,
+          startAngle: 0,
+          endAngle: Math.PI * 2,
+          anticlockwise: false
+        };
+      }
+
+      createPath(context) {
+        var attrs = this.get('attrs');
+        var {
+          x,
+          y,
+          startAngle,
+          endAngle,
+          r,
+          r0,
+          anticlockwise
+        } = attrs;
+        context.beginPath();
+        var unitX = Math.cos(startAngle);
+        var unitY = Math.sin(startAngle);
+        context.moveTo(unitX * r0 + x, unitY * r0 + y);
+        context.lineTo(unitX * r + x, unitY * r + y); // 当扇形的角度非常小的时候，就不进行弧线的绘制；或者整个只有1个扇形时，会出现end<0的情况不绘制
+
+        if (Math.abs(endAngle - startAngle) > 0.0001 || startAngle === 0 && endAngle < 0) {
+          context.arc(x, y, r, startAngle, endAngle, anticlockwise);
+          context.lineTo(Math.cos(endAngle) * r0 + x, Math.sin(endAngle) * r0 + y);
+
+          if (r0 !== 0) {
+            context.arc(x, y, r0, endAngle, startAngle, !anticlockwise);
+          }
+        }
+
+        context.closePath();
+      }
+
+      calculateBox() {
+        var attrs = this.get('attrs');
+        var {
+          x,
+          y,
+          r,
+          r0,
+          startAngle,
+          endAngle,
+          anticlockwise
+        } = attrs;
+        var outerBBox = getBBoxFromArc(x, y, r, startAngle, endAngle, anticlockwise);
+        var innerBBox = getBBoxFromArc(x, y, r0, startAngle, endAngle, anticlockwise);
+        return {
+          minX: Math.min(outerBBox.minX, innerBBox.minX),
+          minY: Math.min(outerBBox.minY, innerBBox.minY),
+          maxX: Math.max(outerBBox.maxX, innerBBox.maxX),
+          maxY: Math.max(outerBBox.maxY, innerBBox.maxY)
+        };
+      }
+
+    }
+
+    Shape$2.Sector = Sector;
+
+    var Rect$1 = {
+      calcRotatedBox(_ref) {
+        var {
+          width,
+          height,
+          rotate
+        } = _ref;
+        var absRotate = Math.abs(rotate);
+        return {
+          width: Math.abs(width * Math.cos(absRotate) + height * Math.sin(absRotate)),
+          height: Math.abs(height * Math.cos(absRotate) + width * Math.sin(absRotate))
+        };
+      }
+
+    };
+
+    var textWidthCacheCounter = 0;
+    var textWidthCache = {};
+    var TEXT_CACHE_MAX = 5000;
+
+    class Text extends Shape$2 {
+      _initProperties() {
+        super._initProperties();
+
+        this._attrs.canFill = true;
+        this._attrs.canStroke = true;
+        this._attrs.type = 'text';
+      }
+
+      getDefaultAttrs() {
+        return {
+          lineWidth: 0,
+          lineCount: 1,
+          fontSize: 12,
+          fontFamily: 'sans-serif',
+          fontStyle: 'normal',
+          fontWeight: 'normal',
+          fontVariant: 'normal',
+          textAlign: 'start',
+          textBaseline: 'bottom',
+          lineHeight: null,
+          textArr: null
+        };
+      }
+
+      _getFontStyle() {
+        var attrs = this._attrs.attrs;
+        var {
+          fontSize,
+          fontFamily,
+          fontWeight,
+          fontStyle,
+          fontVariant
+        } = attrs;
+        return "".concat(fontStyle, " ").concat(fontVariant, " ").concat(fontWeight, " ").concat(fontSize, "px ").concat(fontFamily);
+      }
+
+      _afterAttrsSet() {
+        var attrs = this._attrs.attrs;
+        attrs.font = this._getFontStyle();
+
+        if (attrs.text) {
+          var text = attrs.text;
+          var textArr = null;
+          var lineCount = 1;
+
+          if (isString(text) && text.indexOf('\n') !== -1) {
+            textArr = text.split('\n');
+            lineCount = textArr.length;
+          }
+
+          attrs.lineCount = lineCount;
+          attrs.textArr = textArr;
+        }
+
+        this.set('attrs', attrs);
+      }
+
+      _getTextHeight() {
+        var attrs = this._attrs.attrs;
+
+        if (attrs.height) {
+          return attrs.height;
+        }
+
+        var lineCount = attrs.lineCount;
+        var fontSize = attrs.fontSize * 1;
+
+        if (lineCount > 1) {
+          var spaceingY = this._getSpaceingY();
+
+          return fontSize * lineCount + spaceingY * (lineCount - 1);
+        }
+
+        return fontSize;
+      }
+
+      _getSpaceingY() {
+        var attrs = this._attrs.attrs;
+        var lineHeight = attrs.lineHeight;
+        var fontSize = attrs.fontSize * 1;
+        return lineHeight ? lineHeight - fontSize : fontSize * 0.14;
+      }
+
+      drawInner(context) {
+        var self = this;
+        var attrs = self._attrs.attrs;
+        var text = attrs.text;
+        var x = attrs.x;
+        var y = attrs.y;
+
+        if (isNil(text) || isNaN(x) || isNaN(y)) {
+          // text will be 0
+          return;
+        }
+
+        var textArr = attrs.textArr;
+        var fontSize = attrs.fontSize * 1;
+
+        var spaceingY = self._getSpaceingY();
+
+        if (attrs.rotate) {
+          // do rotation
+          context.translate(x, y);
+          context.rotate(attrs.rotate);
+          x = 0;
+          y = 0;
+        }
+
+        var textBaseline = attrs.textBaseline;
+        var height;
+
+        if (textArr) {
+          height = self._getTextHeight();
+        }
+
+        var subY; // context.beginPath();
+
+        if (self.hasFill()) {
+          var fillOpacity = attrs.fillOpacity;
+
+          if (!isNil(fillOpacity) && fillOpacity !== 1) {
+            context.globalAlpha = fillOpacity;
+          }
+
+          if (textArr) {
+            for (var i = 0, len = textArr.length; i < len; i++) {
+              var subText = textArr[i];
+              subY = y + i * (spaceingY + fontSize) - height + fontSize; // bottom;
+
+              if (textBaseline === 'middle') {
+                subY += height - fontSize - (height - fontSize) / 2;
+              }
+
+              if (textBaseline === 'top') {
+                subY += height - fontSize;
+              }
+
+              context.fillText(subText, x, subY);
+            }
+          } else {
+            context.fillText(text, x, y);
+          }
+        }
+
+        if (self.hasStroke()) {
+          if (textArr) {
+            for (var _i = 0, _len = textArr.length; _i < _len; _i++) {
+              var _subText = textArr[_i];
+              subY = y + _i * (spaceingY + fontSize) - height + fontSize; // bottom;
+
+              if (textBaseline === 'middle') {
+                subY += height - fontSize - (height - fontSize) / 2;
+              }
+
+              if (textBaseline === 'top') {
+                subY += height - fontSize;
+              }
+
+              context.strokeText(_subText, x, subY);
+            }
+          } else {
+            context.strokeText(text, x, y);
+          }
+        }
+      }
+
+      calculateBox() {
+        var self = this;
+        var attrs = self._attrs.attrs;
+        var {
+          x,
+          y,
+          textAlign,
+          textBaseline
+        } = attrs;
+
+        var width = self._getTextWidth(); // attrs.width
+
+
+        if (!width) {
+          return {
+            minX: x,
+            minY: y,
+            maxX: x,
+            maxY: y
+          };
+        }
+
+        var height = self._getTextHeight(); // attrs.height
+
+
+        if (attrs.rotate) {
+          var rotatedBox = Rect$1.calcRotatedBox({
+            width,
+            height,
+            rotate: attrs.rotate
+          });
+          width = rotatedBox.width;
+          height = rotatedBox.height;
+        }
+
+        var point = {
+          x,
+          y: y - height
+        }; // default textAlign: start, textBaseline: bottom
+
+        if (textAlign) {
+          if (textAlign === 'end' || textAlign === 'right') {
+            point.x -= width;
+          } else if (textAlign === 'center') {
+            point.x -= width / 2;
+          }
+        }
+
+        if (textBaseline) {
+          if (textBaseline === 'top') {
+            point.y += height;
+          } else if (textBaseline === 'middle') {
+            point.y += height / 2;
+          }
+        }
+
+        return {
+          minX: point.x,
+          minY: point.y,
+          maxX: point.x + width,
+          maxY: point.y + height
+        };
+      }
+
+      _getTextWidth() {
+        var attrs = this._attrs.attrs;
+
+        if (attrs.width) {
+          return attrs.width;
+        }
+
+        var text = attrs.text;
+        var context = this.get('context');
+        if (isNil(text)) return undefined;
+        var font = attrs.font;
+        var textArr = attrs.textArr;
+        var key = text + '' + font;
+
+        if (textWidthCache[key]) {
+          return textWidthCache[key];
+        }
+
+        var width = 0;
+
+        if (textArr) {
+          for (var i = 0, length = textArr.length; i < length; i++) {
+            var subText = textArr[i];
+            width = Math.max(width, measureText(subText, font, context).width);
+          }
+        } else {
+          width = measureText(text, font, context).width;
+        }
+
+        if (textWidthCacheCounter > TEXT_CACHE_MAX) {
+          textWidthCacheCounter = 0;
+          textWidthCache = {};
+        }
+
+        textWidthCacheCounter++;
+        textWidthCache[key] = width;
+        return width;
+      }
+
+    }
+
+    Shape$2.Text = Text;
+
+    class Custom extends Shape$2 {
+      _initProperties() {
+        super._initProperties();
+
+        this._attrs.canFill = true;
+        this._attrs.canStroke = true;
+        this._attrs.createPath = null;
+        this._attrs.type = 'custom';
+      }
+
+      createPath(context) {
+        var createPath = this.get('createPath');
+        createPath && createPath.call(this, context);
+      }
+
+      calculateBox() {
+        var calculateBox = this.get('calculateBox');
+        return calculateBox && calculateBox.call(this);
+      }
+
+    }
+
+    Shape$2.Custom = Custom;
+
+
+
+    var G = /*#__PURE__*/Object.freeze({
+        __proto__: null,
+        Canvas: Canvas,
+        Group: Group,
+        Shape: Shape$2,
+        Matrix: Matrix,
+        Vector2: Vector2
+    });
+
+    function formatTicks(ticks) {
+      var tmp = ticks.slice(0);
+
+      if (tmp.length > 0) {
+        var first = tmp[0];
+        var last = tmp[tmp.length - 1];
+
+        if (first.value !== 0) {
+          tmp.unshift({
+            value: 0
+          });
+        }
+
+        if (last.value !== 1) {
+          tmp.push({
+            value: 1
+          });
+        }
+      }
+
+      return tmp;
+    }
+
+    class AxisController {
+      constructor(cfg) {
+        this.axisCfg = {};
+        this.frontPlot = null;
+        this.backPlot = null;
+        this.axes = {}; // store the axes's options
+
+        mix(this, cfg);
+      }
+
+      _isHide(field) {
+        var axisCfg = this.axisCfg;
+        return !axisCfg || axisCfg[field] === false;
+      }
+
+      _getLinePosition(scale, dimType, index, transposed) {
+        var position = '';
+        var field = scale.field;
+        var axisCfg = this.axisCfg;
+
+        if (axisCfg[field] && axisCfg[field].position) {
+          position = axisCfg[field].position;
+        } else if (dimType === 'x') {
+          position = transposed ? 'left' : 'bottom';
+        } else if (dimType === 'y') {
+          position = index ? 'right' : 'left';
+
+          if (transposed) {
+            position = 'bottom';
+          }
+        }
+
+        return position;
+      }
+
+      _getLineCfg(coord, dimType, position) {
+        var start;
+        var end;
+        var factor = 1; // Mark clockwise or counterclockwise
+
+        if (dimType === 'x') {
+          start = {
+            x: 0,
+            y: 0
+          };
+          end = {
+            x: 1,
+            y: 0
+          };
+        } else {
+          if (position === 'right') {
+            // there will be several y axes
+            start = {
+              x: 1,
+              y: 0
+            };
+            end = {
+              x: 1,
+              y: 1
+            };
+          } else {
+            start = {
+              x: 0,
+              y: 0
+            };
+            end = {
+              x: 0,
+              y: 1
+            };
+            factor = -1;
+          }
+        }
+
+        if (coord.transposed) {
+          factor *= -1;
+        }
+
+        return {
+          offsetFactor: factor,
+          start: coord.convertPoint(start),
+          end: coord.convertPoint(end)
+        };
+      }
+
+      _getCircleCfg(coord) {
+        return {
+          startAngle: coord.startAngle,
+          endAngle: coord.endAngle,
+          center: coord.center,
+          radius: coord.circleRadius
+        };
+      }
+
+      _getRadiusCfg(coord) {
+        var transposed = coord.transposed;
+        var start;
+        var end;
+
+        if (transposed) {
+          start = {
+            x: 0,
+            y: 0
+          };
+          end = {
+            x: 1,
+            y: 0
+          };
+        } else {
+          start = {
+            x: 0,
+            y: 0
+          };
+          end = {
+            x: 0,
+            y: 1
+          };
+        }
+
+        return {
+          offsetFactor: -1,
+          start: coord.convertPoint(start),
+          end: coord.convertPoint(end)
+        };
+      }
+
+      _getAxisCfg(coord, scale, verticalScale, dimType, defaultCfg) {
+        var self = this;
+        var axisCfg = this.axisCfg;
+        var ticks = scale.getTicks();
+        var cfg = deepMix({
+          ticks,
+          frontContainer: this.frontPlot,
+          backContainer: this.backPlot
+        }, defaultCfg, axisCfg[scale.field]);
+        var labels = [];
+        var label = cfg.label;
+        var count = ticks.length;
+        var maxWidth = 0;
+        var maxHeight = 0;
+        var labelCfg = label;
+        each(ticks, function (tick, index) {
+          if (isFunction(label)) {
+            var executedLabel = label(tick.text, index, count);
+            labelCfg = executedLabel ? mix({}, Global._defaultAxis.label, executedLabel) : null;
+          }
+
+          if (labelCfg) {
+            var textStyle = {};
+
+            if (labelCfg.textAlign) {
+              textStyle.textAlign = labelCfg.textAlign;
+            }
+
+            if (labelCfg.textBaseline) {
+              textStyle.textBaseline = labelCfg.textBaseline;
+            }
+
+            var axisLabel = new Shape$2.Text({
+              className: 'axis-label',
+              attrs: mix({
+                x: 0,
+                y: 0,
+                text: tick.text,
+                fontFamily: self.chart.get('canvas').get('fontFamily')
+              }, labelCfg),
+              value: tick.value,
+              textStyle,
+              top: labelCfg.top,
+              context: self.chart.get('canvas').get('context')
+            });
+            labels.push(axisLabel);
+            var {
+              width,
+              height
+            } = axisLabel.getBBox();
+            maxWidth = Math.max(maxWidth, width);
+            maxHeight = Math.max(maxHeight, height);
+          }
+        });
+        cfg.labels = labels;
+        cfg.maxWidth = maxWidth;
+        cfg.maxHeight = maxHeight;
+        return cfg;
+      }
+
+      _createAxis(coord, scale, verticalScale, dimType) {
+        var index = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : '';
+        var self = this;
+        var coordType = coord.type;
+        var transposed = coord.transposed;
+        var type;
+        var key;
+        var defaultCfg;
+
+        if (coordType === 'cartesian' || coordType === 'rect') {
+          var position = self._getLinePosition(scale, dimType, index, transposed);
+
+          defaultCfg = Global.axis[position];
+          defaultCfg.position = position;
+          type = 'Line';
+          key = position;
+        } else {
+          if (dimType === 'x' && !transposed || dimType === 'y' && transposed) {
+            defaultCfg = Global.axis.circle;
+            type = 'Circle';
+            key = 'circle';
+          } else {
+            defaultCfg = Global.axis.radius;
+            type = 'Line';
+            key = 'radius';
+          }
+        }
+
+        var cfg = self._getAxisCfg(coord, scale, verticalScale, dimType, defaultCfg);
+
+        cfg.type = type;
+        cfg.dimType = dimType;
+        cfg.verticalScale = verticalScale;
+        cfg.index = index;
+        this.axes[key] = cfg;
+      }
+
+      createAxis(coord, xScale, yScales) {
+        var self = this;
+
+        if (xScale && !self._isHide(xScale.field)) {
+          self._createAxis(coord, xScale, yScales[0], 'x');
+        }
+
+        each(yScales, function (yScale, index) {
+          if (!self._isHide(yScale.field)) {
+            self._createAxis(coord, yScale, xScale, 'y', index);
+          }
+        });
+        var axes = this.axes;
+        var chart = self.chart;
+
+        if (chart._isAutoPadding()) {
+          var userPadding = parsePadding(chart.get('padding'));
+          var appendPadding = parsePadding(chart.get('appendPadding'));
+          var legendRange = chart.get('legendRange') || {
+            top: 0,
+            right: 0,
+            bottom: 0,
+            left: 0
+          };
+          var padding = [userPadding[0] === 'auto' ? legendRange.top + appendPadding[0] * 2 : userPadding[0], userPadding[1] === 'auto' ? legendRange.right + appendPadding[1] : userPadding[1], userPadding[2] === 'auto' ? legendRange.bottom + appendPadding[2] : userPadding[2], userPadding[3] === 'auto' ? legendRange.left + appendPadding[3] : userPadding[3]];
+
+          if (coord.isPolar) {
+            var circleAxis = axes.circle;
+
+            if (circleAxis) {
+              var {
+                maxHeight,
+                maxWidth,
+                labelOffset
+              } = circleAxis;
+              padding[0] += maxHeight + labelOffset;
+              padding[1] += maxWidth + labelOffset;
+              padding[2] += maxHeight + labelOffset;
+              padding[3] += maxWidth + labelOffset;
+            }
+          } else {
+            if (axes.right && userPadding[1] === 'auto') {
+              var {
+                maxWidth: _maxWidth,
+                labelOffset: _labelOffset
+              } = axes.right;
+              padding[1] += _maxWidth + _labelOffset;
+            }
+
+            if (axes.left && userPadding[3] === 'auto') {
+              var {
+                maxWidth: _maxWidth2,
+                labelOffset: _labelOffset2
+              } = axes.left;
+              padding[3] += _maxWidth2 + _labelOffset2;
+            }
+
+            if (axes.bottom && userPadding[2] === 'auto') {
+              var {
+                maxHeight: _maxHeight,
+                labelOffset: _labelOffset3
+              } = axes.bottom;
+              padding[2] += _maxHeight + _labelOffset3;
+            }
+          }
+
+          chart.set('_padding', padding);
+
+          chart._updateLayout(padding);
+        }
+
+        each(axes, function (axis) {
+          var {
+            type,
+            grid,
+            verticalScale,
+            ticks,
+            dimType,
+            position,
+            index
+          } = axis;
+          var appendCfg;
+
+          if (coord.isPolar) {
+            if (type === 'Line') {
+              appendCfg = self._getRadiusCfg(coord);
+            } else if (type === 'Circle') {
+              appendCfg = self._getCircleCfg(coord);
+            }
+          } else {
+            appendCfg = self._getLineCfg(coord, dimType, position);
+          }
+
+          if (grid && verticalScale) {
+            var gridPoints = [];
+            var verticalTicks = formatTicks(verticalScale.getTicks());
+            each(ticks, function (tick) {
+              var subPoints = [];
+              each(verticalTicks, function (verticalTick) {
+                var x = dimType === 'x' ? tick.value : verticalTick.value;
+                var y = dimType === 'x' ? verticalTick.value : tick.value;
+
+                if (x >= 0 && x <= 1 && y >= 0 && y <= 1) {
+                  var point = coord.convertPoint({
+                    x,
+                    y
+                  });
+                  subPoints.push(point);
+                }
+              });
+              gridPoints.push({
+                points: subPoints,
+                _id: 'axis-' + dimType + index + '-grid-' + tick.tickValue
+              });
+            });
+            axis.gridPoints = gridPoints;
+
+            if (coord.isPolar) {
+              axis.center = coord.center;
+              axis.startAngle = coord.startAngle;
+              axis.endAngle = coord.endAngle;
+            }
+          }
+
+          appendCfg._id = 'axis-' + dimType;
+
+          if (!isNil(index)) {
+            appendCfg._id = 'axis-' + dimType + index;
+          }
+
+          new Abastract[type](mix(axis, appendCfg));
+        });
+      }
+
+      clear() {
+        this.axes = {};
+        this.frontPlot.clear();
+        this.backPlot.clear();
+      }
+
+    }
+
+    function getClip(coord) {
+      var start = coord.start;
+      var end = coord.end;
+      var width = end.x - start.x;
+      var height = Math.abs(end.y - start.y);
+      var margin = 10;
+      var clip;
+
+      if (coord.isPolar) {
+        var {
+          circleRadius,
+          center,
+          startAngle,
+          endAngle
+        } = coord;
+        clip = new Shape$2.Sector({
+          attrs: {
+            x: center.x,
+            y: center.y,
+            r: circleRadius,
+            r0: 0,
+            startAngle,
+            endAngle
+          }
+        });
+      } else {
+        clip = new Shape$2.Rect({
+          attrs: {
+            x: start.x,
+            y: end.y - margin,
+            width,
+            height: height + 2 * margin
+          }
+        });
+      }
+
+      clip.isClip = true;
+      return clip;
+    }
+
+    function isPointInPlot(point, plot) {
+      var {
+        x,
+        y
+      } = point;
+      var {
+        tl,
+        tr,
+        br
+      } = plot;
+      return x >= tl.x && x <= tr.x && y >= tl.y && y <= br.y;
+    }
+
+    var Helper = /*#__PURE__*/Object.freeze({
+        __proto__: null,
+        getClip: getClip,
+        isPointInPlot: isPointInPlot
+    });
+
+    function compare(a, b) {
+      return a - b;
+    }
+
+    function _isScaleExist(scales, compareScale) {
+      var flag = false;
+      each(scales, function (scale) {
+        var scaleValues = [].concat(scale.values);
+        var compareScaleValues = [].concat(compareScale.values);
+
+        if (scale.type === compareScale.type && scale.field === compareScale.field && scaleValues.sort(compare).toString() === compareScaleValues.sort(compare).toString()) {
+          flag = true;
+          return;
+        }
+      });
+      return flag;
+    }
+
+    class Chart extends Base {
+      static initPlugins() {
+        return {
+          _plugins: [],
+          _cacheId: 0,
+
+          register(plugins) {
+            var p = this._plugins;
+            [].concat(plugins).forEach(function (plugin) {
+              if (p.indexOf(plugin) === -1) {
+                p.push(plugin);
+              }
+            });
+            this._cacheId++;
+          },
+
+          unregister(plugins) {
+            var p = this._plugins;
+            [].concat(plugins).forEach(function (plugin) {
+              var idx = p.indexOf(plugin);
+
+              if (idx !== -1) {
+                p.splice(idx, 1);
+              }
+            });
+            this._cacheId++;
+          },
+
+          clear() {
+            this._plugins = [];
+            this._cacheId++;
+          },
+
+          count() {
+            return this._plugins.length;
+          },
+
+          getAll() {
+            return this._plugins;
+          },
+
+          notify(chart, hook, args) {
+            var descriptors = this.descriptors(chart);
+            var ilen = descriptors.length;
+            var i;
+            var descriptor;
+            var plugin;
+            var params;
+            var method;
+
+            for (i = 0; i < ilen; ++i) {
+              descriptor = descriptors[i];
+              plugin = descriptor.plugin;
+              method = plugin[hook];
+
+              if (typeof method === 'function') {
+                params = [chart].concat(args || []);
+
+                if (method.apply(plugin, params) === false) {
+                  return false;
+                }
+              }
+            }
+
+            return true;
+          },
+
+          descriptors(chart) {
+            var cache = chart._plugins || (chart._plugins = {});
+
+            if (cache.id === this._cacheId) {
+              return cache.descriptors;
+            }
+
+            var plugins = [];
+            var descriptors = [];
+
+            this._plugins.concat(chart && chart.get('plugins') || []).forEach(function (plugin) {
+              var idx = plugins.indexOf(plugin);
+
+              if (idx !== -1) {
+                return;
+              }
+
+              plugins.push(plugin);
+              descriptors.push({
+                plugin
+              });
+            });
+
+            cache.descriptors = descriptors;
+            cache.id = this._cacheId;
+            return descriptors;
+          }
+
+        };
+      }
+
+      getDefaultCfg() {
+        return {
+          /**
+           * the id of canvas
+           * @type {String}
+           */
+          id: null,
+          rendered: false,
+
+          /**
+           * padding
+           * @type {Array|Number}
+           */
+          padding: Global.padding,
+
+          /**
+           * data
+           * @type {Array}
+           */
+          data: null,
+
+          /**
+           * scales of chart
+           * @type {Object}
+           */
+          scales: {},
+
+          /**
+           * @private
+           * geometry instances
+           * @type {Array}
+           */
+          geoms: [],
+
+          /**
+           * scale configuration
+           * @type {Object}
+           */
+          colDefs: null,
+          pixelRatio: Global.pixelRatio,
+
+          /**
+           * filter options
+           * @type {Object}
+           */
+          filters: null,
+          appendPadding: Global.appendPadding
+        };
+      }
+
+      _syncYScales() {
+        var syncY = this.get('syncY');
+
+        if (!syncY) {
+          return;
+        }
+
+        var geoms = this.get('geoms');
+        var syncScales = [];
+        var min = [];
+        var max = [];
+        each(geoms, function (geom) {
+          var yScale = geom.getYScale();
+
+          if (yScale.isLinear) {
+            syncScales.push(yScale);
+            min.push(yScale.min);
+            max.push(yScale.max);
+          }
+        });
+        min = Math.min.apply(null, min);
+        max = Math.max.apply(null, max);
+        each(syncScales, function (scale) {
+          scale.change({
+            min
+          });
+          scale.change({
+            max
+          });
+        });
+      }
+
+      _getFieldsForLegend() {
+        var fields = [];
+        var geoms = this.get('geoms');
+        each(geoms, function (geom) {
+          var attrOptions = geom.get('attrOptions');
+          var attrCfg = attrOptions.color;
+
+          if (attrCfg && attrCfg.field && isString(attrCfg.field)) {
+            var arr = attrCfg.field.split('*');
+            each(arr, function (item) {
+              if (fields.indexOf(item) === -1) {
+                fields.push(item);
+              }
+            });
+          }
+        });
+        return fields;
+      }
+
+      _getScaleData(field) {
+        var data = this.get('data');
+        var filteredData = this.get('filteredData');
+
+        if (filteredData.length) {
+          var legendFields = this._getFieldsForLegend();
+
+          if (legendFields.indexOf(field) === -1) {
+            data = filteredData;
+          }
+        }
+
+        return data;
+      } // _updateScales() {
+      //   const scaleController = this.get('scaleController');
+      //   scaleController.updateScales();
+      //   this._adjustScale();
+      // }
+
+
+      _adjustScale() {
+        var self = this;
+        var scaleController = self.get('scaleController'); // 看起来是为了让柱状图最小或最大都默认从0开始
+
+        var geoms = this.get('geoms');
+
+        for (var i = 0; i < geoms.length; i++) {
+          var geom = geoms[i];
+
+          if (geom.get('type') === 'interval') {
+            var yScale = geom.getYScale();
+            scaleController.adjustStartZero(yScale);
+          }
+        }
+      }
+
+      _removeGeoms() {
+        var geoms = this.get('geoms');
+
+        while (geoms.length > 0) {
+          var geom = geoms.shift();
+          geom.destroy();
+        }
+      }
+
+      _clearGeoms() {
+        var geoms = this.get('geoms');
+
+        for (var i = 0, length = geoms.length; i < length; i++) {
+          var geom = geoms[i];
+          geom.clear();
+        }
+      }
+
+      _clearInner() {
+        this._clearGeoms();
+
+        Chart.plugins.notify(this, 'clearInner');
+        this.emit(EVENT_CLEAR_INNER);
+        this.get('axisController') && this.get('axisController').clear();
+      }
+
+      _initFilteredData() {
+        var filters = this.get('filters');
+        var data = this.get('data') || [];
+
+        if (filters) {
+          data = data.filter(function (obj) {
+            var rst = true;
+            each(filters, function (fn, k) {
+              if (fn) {
+                rst = fn(obj[k], obj);
+
+                if (!rst) {
+                  return false;
+                }
+              }
+            });
+            return rst;
+          });
+        }
+
+        this.set('filteredData', data);
+      }
+
+      _changeGeomsData() {
+        var geoms = this.get('geoms');
+        var data = this.get('filteredData');
+
+        for (var i = 0, length = geoms.length; i < length; i++) {
+          var geom = geoms[i];
+          geom.changeData(data);
+        }
+      }
+
+      _initGeom(geom) {
+        if (geom.get('isInit')) {
+          return;
+        }
+
+        var coord = this.get('coord');
+        var data = this.get('filteredData');
+        var colDefs = this.get('colDefs');
+        var middlePlot = this.get('middlePlot');
+        geom.set('chart', this);
+        geom.set('container', middlePlot.addGroup());
+        geom.set('data', data);
+        geom.set('coord', coord);
+        geom.set('colDefs', colDefs);
+        geom.init();
+        this.emit(EVENT_AFTER_GEOM_INIT, geom);
+      }
+
+      _initGeoms() {
+        var geoms = this.get('geoms');
+
+        for (var i = 0, length = geoms.length; i < length; i++) {
+          this._initGeom(geoms[i]);
+        }
+      }
+
+      _initCoord() {
+        var plot = this.get('plotRange');
+        var coordCfg = mix({
+          type: 'cartesian'
+        }, this.get('coordCfg'), {
+          plot
+        });
+        var type = coordCfg.type;
+        var C = Base$1[upperFirst(type)];
+        var coord = new C(coordCfg);
+        this.set('coord', coord);
+      }
+
+      _initLayout() {
+        var padding = this.get('_padding');
+
+        if (!padding) {
+          padding = this.get('margin') || this.get('padding');
+          padding = parsePadding(padding);
+        }
+
+        var top = padding[0] === 'auto' ? 0 : padding[0];
+        var right = padding[1] === 'auto' ? 0 : padding[1];
+        var bottom = padding[2] === 'auto' ? 0 : padding[2];
+        var left = padding[3] === 'auto' ? 0 : padding[3];
+        var width = this.get('width');
+        var height = this.get('height');
+        var start = {
+          x: left,
+          y: top
+        };
+        var end = {
+          x: width - right,
+          y: height - bottom
+        };
+        var plot = this.get('plot');
+
+        if (plot) {
+          plot.reset(start, end);
+          return;
+        }
+
+        var newPlot = new Plot({
+          start,
+          end
+        });
+        this.set('plotRange', newPlot);
+        this.set('plot', newPlot);
+      }
+
+      _initCanvas() {
+        var self = this;
+
+        try {
+          var canvas = new Canvas({
+            el: self.get('el') || self.get('id'),
+            context: self.get('context'),
+            pixelRatio: self.get('pixelRatio'),
+            width: self.get('width'),
+            height: self.get('height'),
+            fontFamily: Global.fontFamily
+          });
+          self.set('canvas', canvas);
+          self.set('el', canvas.get('el'));
+          self.set('width', canvas.get('width'));
+          self.set('height', canvas.get('height'));
+        } catch (error) {
+          throw error;
+        }
+
+        Chart.plugins.notify(self, 'afterCanvasInit');
+      }
+
+      _initLayers() {
+        var canvas = this.get('canvas');
+        this.set('backPlot', canvas.addGroup());
+        this.set('middlePlot', canvas.addGroup({
+          zIndex: 10
+        }));
+        this.set('frontPlot', canvas.addGroup({
+          zIndex: 20
+        }));
+      }
+
+      _initEvents() {
+        var _this = this;
+
+        // 数据更新后的一些更新
+        this.on(EVENT_AFTER_DATA_CHANGE, function () {
+          // 数据更新后，重新设置filterdata
+          _this._initFilteredData(); // 更新geoms里的数据
+
+
+          _this._changeGeomsData();
+        }); // 大小变化后的一些更新
+
+        this.on(EVENT_AFTER_SIZE_CHANGE, function () {
+          _this._initLayout(); // layout变化后，坐标轴也需要做相应的变化
+
+
+          var coord = _this.get('coord');
+
+          if (coord) {
+            coord.reset(_this.get('plot'));
+          }
+        });
+      }
+
+      _initScaleController() {
+        var scaleController = new ScaleController({
+          chart: this
+        }); // 让colDefs 和 scaleController.defs 用同一个对象，这样就不用考虑同步的问题
+
+        this.set('colDefs', scaleController.defs); // 已经实例化的scales 也保持统一个对象
+
+        this.set('scales', scaleController.scales);
+        this.set('scaleController', scaleController);
+      }
+
+      _clearScaleController() {
+        var scaleController = this.get('scaleController');
+        scaleController.clear();
+      }
+
+      _init() {
+        var self = this;
+
+        self._initCanvas();
+
+        self._initLayout();
+
+        self._initLayers();
+
+        self._initEvents();
+
+        self._initScaleController();
+
+        self.set('axisController', new AxisController({
+          frontPlot: self.get('frontPlot').addGroup({
+            className: 'axisContainer'
+          }),
+          backPlot: self.get('backPlot').addGroup({
+            className: 'axisContainer'
+          }),
+          chart: self
+        }));
+        Chart.plugins.notify(self, 'init');
+      }
+
+      constructor(cfg) {
+        super(cfg);
+        var self = this;
+        each(Geom, function (geomConstructor, className) {
+          var methodName = lowerFirst(className);
+
+          self[methodName] = function (cfg) {
+            var geom = new geomConstructor(cfg);
+            self.addGeom(geom);
+            return geom;
+          };
+        });
+
+        self._init();
+      }
+
+      init() {
+        // 初始filterData
+        this._initFilteredData(); // initialization coordinate instance
+
+
+        this._initCoord();
+
+        Chart.plugins.notify(this, 'beforeGeomInit'); // init all geometry instances
+
+        this._initGeoms(); // 多 Y 轴的情况时，统一 Y 轴的数值范围。
+
+
+        this._syncYScales(); // do some adjust for data
+
+
+        this._adjustScale();
+
+        this.emit(EVENT_AFTER_INIT);
+      }
+      /**
+       * set data and some scale configuration
+       * @chainable
+       * @param  {Array} data the dataset to visualize
+       * @param  {Object} colDefs the configuration for scales
+       * @return {Chart} return the chart instance
+       */
+
+
+      source(data, colDefs) {
+        this.set('data', data);
+
+        if (colDefs) {
+          this.scale(colDefs);
+        }
+
+        return this;
+      }
+
+      scale(field, cfg) {
+        var scaleController = this.get('scaleController');
+        scaleController.setFieldDef(field, cfg);
+        return this;
+      }
+      /**
+       * configure the axis
+       * @chainable
+       * @param  {String|Boolean} field the field name of data
+       * @param  {Object} cfg configuration for axis
+       * @return {Chart} return the chart instance
+       */
+
+
+      axis(field, cfg) {
+        var axisController = this.get('axisController');
+
+        if (!field) {
+          axisController.axisCfg = null;
+        } else {
+          axisController.axisCfg = axisController.axisCfg || {};
+          axisController.axisCfg[field] = cfg;
+        }
+
+        return this;
+      }
+      /**
+       * configure the coordinate
+       * @chainable
+       * @param  {String} type set the type of coodinate
+       * @param  {Object} cfg configuration for coordinate
+       * @return {Chart} return the chart instance
+       */
+
+
+      coord(type, cfg) {
+        var coordCfg;
+
+        if (isObject(type)) {
+          coordCfg = type;
+        } else {
+          coordCfg = cfg || {};
+          coordCfg.type = type || 'cartesian';
+        }
+
+        this.set('coordCfg', coordCfg);
+        return this;
+      }
+
+      filter(field, condition) {
+        var filters = this.get('filters') || {};
+        filters[field] = condition;
+        this.set('filters', filters); // 如果已经render过，则再重新触发一次change
+
+        if (this.get('rendered')) {
+          this.emit(EVENT_AFTER_DATA_CHANGE, this.get('data'));
+        }
+      }
+      /**
+       * render the chart
+       * @chainable
+       * @return {Chart} return the chart instance
+       */
+
+
+      render() {
+        var rendered = this.get('rendered');
+        var canvas = this.get('canvas');
+        var geoms = this.get('geoms'); // 已经渲染过
+
+        if (rendered) {
+          this._initGeoms();
+
+          this._adjustScale();
+        } else {
+          this.init();
+          this.set('rendered', true);
+        }
+
+        this.emit(EVENT_BEFORE_RENDER);
+        Chart.plugins.notify(this, 'beforeGeomDraw');
+
+        this._renderAxis();
+
+        var middlePlot = this.get('middlePlot');
+
+        if (this.get('limitInPlot') && !middlePlot.attr('clip')) {
+          var coord = this.get('coord');
+          var clip = getClip(coord);
+          clip.set('canvas', middlePlot.get('canvas'));
+          middlePlot.attr('clip', clip);
+        }
+
+        this.emit(EVENT_BEFORE_GEOM_DRAW);
+
+        for (var i = 0, length = geoms.length; i < length; i++) {
+          var geom = geoms[i];
+          geom.paint();
+        }
+
+        this.emit(EVENT_AFTER_GEOM_DRAW);
+        Chart.plugins.notify(this, 'afterGeomDraw');
+        canvas.sort();
+        this.get('frontPlot').sort();
+        Chart.plugins.notify(this, 'beforeCanvasDraw');
+        canvas.draw();
+        this.emit(EVENT_AFTER_RENDER);
+        return this;
+      }
+      /**
+       * clear the chart, include geometris and all the shapes
+       * @chainable
+       * @return {Chart} return the chart
+       */
+
+
+      clear() {
+        Chart.plugins.notify(this, 'clear');
+        this.emit(EVENT_CLEAR);
+
+        this._clearInner();
+
+        this._removeGeoms();
+
+        this._clearScaleController();
+
+        this.set('legendItems', null);
+        this.set('filters', null);
+        this.set('isUpdate', false);
+        this.set('_padding', null);
+        this.set('rendered', false);
+        var canvas = this.get('canvas');
+        canvas.draw();
+        return this;
+      }
+
+      repaint() {
+        // 如果在没有render之前就repaint的，就直接return退出
+        var rendered = this.get('rendered');
+
+        if (!rendered) {
+          return;
+        }
+
+        this.set('isUpdate', true);
+        this.set('legendItems', null);
+        Chart.plugins.notify(this, 'repaint');
+
+        this._clearInner();
+
+        this.emit(EVENT_REPAINT);
+        this.render();
+      }
+
+      changeData(data) {
+        this.emit(EVENT_BEFORE_DATA_CHANGE, data);
+        this.set('data', data);
+        Chart.plugins.notify(this, 'changeData');
+        this.emit(EVENT_AFTER_DATA_CHANGE, data);
+        this.set('_padding', null);
+        this.repaint();
+      }
+
+      changeSize(width, height) {
+        if (width) {
+          this.set('width', width);
+        } else {
+          width = this.get('width');
+        }
+
+        if (height) {
+          this.set('height', height);
+        } else {
+          height = this.get('height');
+        }
+
+        var canvas = this.get('canvas');
+        canvas.changeSize(width, height);
+        this.emit(EVENT_AFTER_SIZE_CHANGE, {
+          width,
+          height
+        });
+        this.repaint();
+        return this;
+      }
+
+      destroy() {
+        this.clear();
+        var canvas = this.get('canvas');
+        canvas.destroy();
+        Chart.plugins.notify(this, 'afterCanvasDestroyed');
+
+        if (this._interactions) {
+          each(this._interactions, function (interaction) {
+            interaction.destroy();
+          });
+        }
+
+        super.destroy();
+      }
+      /**
+       * calculate dataset's position on canvas
+       * @param  {Object} record the dataset
+       * @return {Object} return the position
+       */
+
+
+      getPosition(record) {
+        var self = this;
+        var coord = self.get('coord');
+        var xScale = self.getXScale();
+        var yScale = self.getYScales()[0];
+        var xField = xScale.field;
+        var x = xScale.scale(record[xField]);
+        var yField = yScale.field;
+        var y = yScale.scale(record[yField]);
+        return coord.convertPoint({
+          x,
+          y
+        });
+      }
+      /**
+       * get the data item of the point
+       * @param  {Object} point canvas position
+       * @return {Object} return the data item
+       */
+
+
+      getRecord(point) {
+        var self = this;
+        var coord = self.get('coord');
+        var xScale = self.getXScale();
+        var yScale = self.getYScales()[0];
+        var invertPoint = coord.invertPoint(point);
+        var record = {};
+        record[xScale.field] = xScale.invert(invertPoint.x);
+        record[yScale.field] = yScale.invert(invertPoint.y);
+        return record;
+      }
+      /**
+       * get the dataset of the point
+       * @param  {Object} point canvas position
+       * @return {Array} return the dataset
+      **/
+
+
+      getSnapRecords(point) {
+        var geom = this.get('geoms')[0];
+        var data = [];
+
+        if (geom) {
+          // need to judge
+          data = geom.getSnapRecords(point);
+        }
+
+        return data;
+      }
+      /**
+       * creat scale instances
+       * @param  {String} field field name of data
+       * @return {Scale} return the scale
+       */
+
+
+      createScale(field) {
+        var data = this._getScaleData(field);
+
+        var scaleController = this.get('scaleController');
+        return scaleController.createScale(field, data);
+      }
+      /**
+       * @protected
+       * add geometry instance to geoms
+       * @param {Geom} geom geometry instance
+       */
+
+
+      addGeom(geom) {
+        var geoms = this.get('geoms');
+        geoms.push(geom);
+      }
+      /**
+       * get the scale of x axis
+       * @return {Scale} return the scale
+       */
+
+
+      getXScale() {
+        var self = this;
+        var geoms = self.get('geoms');
+        var xScale = geoms[0].getXScale();
+        return xScale;
+      }
+      /**
+       * get the scale of y axis
+       * @return {Array} return the scale
+       */
+
+
+      getYScales() {
+        var geoms = this.get('geoms');
+        var rst = [];
+        each(geoms, function (geom) {
+          var yScale = geom.getYScale();
+
+          if (rst.indexOf(yScale) === -1) {
+            rst.push(yScale);
+          }
+        });
+        return rst;
+      }
+
+      getLegendItems() {
+        if (this.get('legendItems')) {
+          return this.get('legendItems');
+        }
+
+        var legendItems = {};
+        var scales = [];
+        var geoms = this.get('geoms');
+        each(geoms, function (geom) {
+          var colorAttr = geom.getAttr('color');
+
+          if (colorAttr) {
+            var scale = colorAttr.getScale('color'); // 只支持分类图例
+
+            if (scale.isCategory && !_isScaleExist(scales, scale)) {
+              scales.push(scale);
+              var field = scale.field;
+              var ticks = scale.getTicks();
+              var items = [];
+              each(ticks, function (tick) {
+                var text = tick.text;
+                var name = text;
+                var scaleValue = tick.value;
+                var value = scale.invert(scaleValue);
+                var color = colorAttr.mapping(value).join('') || Global.defaultColor;
+                var marker = {
+                  fill: color,
+                  radius: 3,
+                  symbol: 'circle',
+                  stroke: '#fff'
+                };
+                items.push({
+                  name,
+                  // for display
+                  dataValue: value,
+                  // the origin value
+                  checked: true,
+                  marker
+                });
+              });
+              legendItems[field] = items;
+            }
+          }
+        });
+        this.set('legendItems', legendItems);
+        return legendItems;
+      } // register the plugins
+
+
+      registerPlugins(plugins) {
+        var self = this;
+        var chartPlugins = self.get('plugins') || [];
+
+        if (!isArray(chartPlugins)) {
+          chartPlugins = [chartPlugins];
+        }
+
+        [].concat(plugins).forEach(function (plugin) {
+          if (chartPlugins.indexOf(plugin) === -1) {
+            plugin.init && plugin.init(self); // init
+
+            chartPlugins.push(plugin);
+          }
+        });
+        Chart.plugins._cacheId++;
+        self.set('plugins', chartPlugins);
+      }
+
+      _renderAxis() {
+        var axisController = this.get('axisController');
+        var xScale = this.getXScale();
+        var yScales = this.getYScales();
+        var coord = this.get('coord');
+        Chart.plugins.notify(this, 'beforeRenderAxis');
+        axisController.createAxis(coord, xScale, yScales);
+      }
+
+      _isAutoPadding() {
+        if (this.get('_padding')) {
+          return false;
+        }
+
+        var padding = this.get('padding');
+
+        if (isArray(padding)) {
+          return padding.indexOf('auto') !== -1;
+        }
+
+        return padding === 'auto';
+      }
+
+      _updateLayout(padding) {
+        var width = this.get('width');
+        var height = this.get('height');
+        var start = {
+          x: padding[3],
+          y: padding[0]
+        };
+        var end = {
+          x: width - padding[1],
+          y: height - padding[2]
+        };
+        var plot = this.get('plot');
+        var coord = this.get('coord');
+        plot.reset(start, end);
+        coord.reset(plot);
+      }
+
+    }
+
+    Chart.plugins = Chart.initPlugins();
+
+    var track = function track() {
+      return null;
+    };
+
+    /**
+     * @fileOverview shape util
+     * @author dxq613@gmail.com
+     */
+
+    function splitPoints(obj) {
+      var points = [];
+      var x = obj.x;
+      var y = obj.y;
+      y = isArray(y) ? y : [y];
+      y.forEach(function (yItem, index) {
+        var point = {
+          x: isArray(x) ? x[index] : x,
+          y: yItem
+        };
+        points.push(point);
+      });
+      return points;
+    }
+
+    function splitArray(data, yField, connectNulls) {
+      if (!data.length) return [];
+      var arr = [];
+      var tmp = [];
+      var yValue;
+      each(data, function (obj) {
+        yValue = obj._origin ? obj._origin[yField] : obj[yField];
+
+        if (connectNulls) {
+          if (!isNil(yValue)) {
+            tmp.push(obj);
+          }
+        } else {
+          if (isArray(yValue) && isNil(yValue[0]) || isNil(yValue)) {
+            if (tmp.length) {
+              arr.push(tmp);
+              tmp = [];
+            }
+          } else {
+            tmp.push(obj);
+          }
+        }
+      });
+
+      if (tmp.length) {
+        arr.push(tmp);
+      }
+
+      return arr;
+    }
+
+    var SHAPES = ['circle', 'hollowCircle', 'rect'];
+    var Point = Shape$1.registerFactory('point', {
+      defaultShapeType: 'circle',
+
+      getDefaultPoints(pointInfo) {
+        return splitPoints(pointInfo);
+      }
+
+    });
+
+    function getPointsCfg(cfg) {
+      var style = {
+        lineWidth: 0,
+        stroke: cfg.color,
+        fill: cfg.color
+      };
+
+      if (cfg.size) {
+        style.size = cfg.size;
+      }
+
+      mix(style, cfg.style);
+      return mix({}, Global.shape.point, style);
+    }
+
+    function drawShape(cfg, container, shape) {
+      if (cfg.size === 0) return;
+      var pointCfg = getPointsCfg(cfg);
+      var size = pointCfg.r || pointCfg.size;
+      var x = cfg.x;
+      var y = !isArray(cfg.y) ? [cfg.y] : cfg.y;
+
+      if (shape === 'hollowCircle') {
+        pointCfg.lineWidth = 1;
+        pointCfg.fill = null;
+      }
+
+      for (var i = 0, len = y.length; i < len; i++) {
+        if (shape === 'rect') {
+          return container.addShape('Rect', {
+            className: 'point',
+            attrs: mix({
+              x: x - size,
+              y: y[i] - size,
+              width: size * 2,
+              height: size * 2
+            }, pointCfg)
+          });
+        }
+
+        return container.addShape('Circle', {
+          className: 'point',
+          attrs: mix({
+            x,
+            y: y[i],
+            r: size
+          }, pointCfg)
+        });
+      }
+    }
+
+    each(SHAPES, function (shapeType) {
+      Shape$1.registerShape('point', shapeType, {
+        draw(cfg, container) {
+          return drawShape(cfg, container, shapeType);
+        }
+
+      });
+    });
+
+    class Point$1 extends Geom {
+      getDefaultCfg() {
+        var cfg = super.getDefaultCfg();
+        cfg.type = 'point';
+        cfg.shapeType = 'point';
+        cfg.generatePoints = false;
+        return cfg;
+      }
+
+      draw(data, shapeFactory) {
+        var self = this;
+        var container = self.get('container');
+        each(data, function (obj) {
+          var shape = obj.shape;
+          var cfg = self.getDrawCfg(obj);
+
+          if (isArray(obj.y)) {
+            var hasStack = self.hasAdjust('stack');
+            each(obj.y, function (y, idx) {
+              cfg.y = y;
+
+              if (!hasStack || idx !== 0) {
+                self.drawShape(shape, obj, cfg, container, shapeFactory);
+              }
+            });
+          } else if (!isNil(obj.y)) {
+            self.drawShape(shape, obj, cfg, container, shapeFactory);
+          }
+        });
+      }
+
+    }
+
+    Geom.Point = Point$1;
+
+    var Line$2 = Shape$1.registerFactory('line', {
+      defaultShapeType: 'line'
+    });
+
+    function getStyle$1(cfg) {
+      var style = {
+        strokeStyle: cfg.color
+      };
+
+      if (cfg.size >= 0) {
+        style.lineWidth = cfg.size;
+      }
+
+      mix(style, cfg.style);
+      return mix({}, Global.shape.line, style);
+    }
+
+    function drawLines(cfg, container, style, smooth) {
+      var points = cfg.points;
+
+      if (points.length && isArray(points[0].y)) {
+        var topPoints = [];
+        var bottomPoints = [];
+
+        for (var i = 0, len = points.length; i < len; i++) {
+          var point = points[i];
+          var tmp = splitPoints(point);
+          bottomPoints.push(tmp[0]);
+          topPoints.push(tmp[1]);
+        }
+
+        if (cfg.isInCircle) {
+          topPoints.push(topPoints[0]);
+          bottomPoints.push(bottomPoints[0]);
+        }
+
+        if (cfg.isStack) {
+          return container.addShape('Polyline', {
+            className: 'line',
+            attrs: mix({
+              points: topPoints,
+              smooth
+            }, style)
+          });
+        }
+
+        var topShape = container.addShape('Polyline', {
+          className: 'line',
+          attrs: mix({
+            points: topPoints,
+            smooth
+          }, style)
+        });
+        var bottomShape = container.addShape('Polyline', {
+          className: 'line',
+          attrs: mix({
+            points: bottomPoints,
+            smooth
+          }, style)
+        });
+        return [topShape, bottomShape];
+      }
+
+      if (cfg.isInCircle) {
+        points.push(points[0]);
+      }
+
+      return container.addShape('Polyline', {
+        className: 'line',
+        attrs: mix({
+          points,
+          smooth
+        }, style)
+      });
+    }
+
+    var SHAPES$1 = ['line', 'smooth', 'dash'];
+    each(SHAPES$1, function (shapeType) {
+      Shape$1.registerShape('line', shapeType, {
+        draw(cfg, container) {
+          var smooth = shapeType === 'smooth';
+          var style = getStyle$1(cfg);
+
+          if (shapeType === 'dash') {
+            style.lineDash = Global.lineDash;
+          }
+
+          return drawLines(cfg, container, style, smooth);
+        }
+
+      });
+    });
+
+    class Path extends Geom {
+      getDefaultCfg() {
+        var cfg = super.getDefaultCfg();
+        cfg.type = 'path';
+        cfg.shapeType = 'line';
+        return cfg;
+      }
+
+      getDrawCfg(obj) {
+        var cfg = super.getDrawCfg(obj);
+        cfg.isStack = this.hasAdjust('stack');
+        return cfg;
+      }
+
+      draw(data, shapeFactory) {
+        var self = this;
+        var container = self.get('container');
+        var yScale = self.getYScale();
+        var connectNulls = self.get('connectNulls');
+        var splitArrayObj = splitArray(data, yScale.field, connectNulls);
+        var cfg = this.getDrawCfg(data[0]);
+        cfg.origin = data;
+        each(splitArrayObj, function (subData, splitedIndex) {
+          cfg.splitedIndex = splitedIndex;
+          cfg.points = subData;
+          self.drawShape(cfg.shape, data[0], cfg, container, shapeFactory);
+        });
+      }
+
+    }
+
+    Geom.Path = Path;
+
+    class Line$3 extends Path {
+      getDefaultCfg() {
+        var cfg = super.getDefaultCfg();
+        cfg.type = 'line';
+        cfg.sortable = true;
+        return cfg;
+      }
+
+    }
+
+    Geom.Line = Line$3;
+
+    function equals(v1, v2) {
+      return Math.abs(v1 - v2) < 0.00001;
+    }
+
+    function notEmpty(value) {
+      return !isNaN(value) && !isNil(value);
+    }
+
+    function filterPoints(points) {
+      var filteredPoints = []; // filter the point which x or y is NaN
+
+      for (var i = 0, len = points.length; i < len; i++) {
+        var point = points[i];
+
+        if (notEmpty(point.x) && notEmpty(point.y)) {
+          filteredPoints.push(point);
+        }
+      }
+
+      return filteredPoints;
+    }
+
+    function equalsCenter(points, center) {
+      var eqls = true;
+      each(points, function (point) {
+        if (!equals(point.x, center.x) || !equals(point.y, center.y)) {
+          eqls = false;
+          return false;
+        }
+      });
+      return eqls;
+    }
+
+    function drawRectShape(topPoints, bottomPoints, container, style, isSmooth) {
+      var shape;
+      var points = topPoints.concat(bottomPoints);
+
+      if (isSmooth) {
+        shape = container.addShape('Custom', {
+          className: 'area',
+          attrs: mix({
+            points
+          }, style),
+
+          createPath(context) {
+            var constaint = [[0, 0], [1, 1]];
+            var points = filterPoints(this._attrs.attrs.points);
+            var pointsLen = points.length;
+            var topPoints = points.slice(0, pointsLen / 2);
+            var bottomPoints = points.slice(pointsLen / 2, pointsLen);
+            var topSps = catmullRom2bezier(topPoints, false, constaint);
+            context.beginPath();
+            context.moveTo(topPoints[0].x, topPoints[0].y);
+
+            for (var i = 0, n = topSps.length; i < n; i++) {
+              var sp = topSps[i];
+              context.bezierCurveTo(sp[1], sp[2], sp[3], sp[4], sp[5], sp[6]);
+            }
+
+            if (bottomPoints.length) {
+              var bottomSps = catmullRom2bezier(bottomPoints, false, constaint);
+              context.lineTo(bottomPoints[0].x, bottomPoints[0].y);
+
+              for (var _i = 0, _n = bottomSps.length; _i < _n; _i++) {
+                var _sp = bottomSps[_i];
+                context.bezierCurveTo(_sp[1], _sp[2], _sp[3], _sp[4], _sp[5], _sp[6]);
+              }
+            }
+
+            context.closePath();
+          },
+
+          calculateBox() {
+            var points = filterPoints(this._attrs.attrs.points);
+            return getBBoxFromPoints(points);
+          }
+
+        });
+      } else {
+        shape = container.addShape('Polyline', {
+          className: 'area',
+          attrs: mix({
+            points
+          }, style)
+        });
+      }
+
+      return shape;
+    }
+
+    function drawShape$1(cfg, container, isSmooth) {
+      var self = this;
+      var points = cfg.points;
+      var topPoints = [];
+      var bottomPoints = [];
+      each(points, function (point) {
+        bottomPoints.push(point[0]);
+        topPoints.push(point[1]);
+      });
+      var style = mix({
+        fillStyle: cfg.color
+      }, Global.shape.area, cfg.style);
+      bottomPoints.reverse();
+      topPoints = self.parsePoints(topPoints);
+      bottomPoints = self.parsePoints(bottomPoints);
+
+      if (cfg.isInCircle) {
+        topPoints.push(topPoints[0]);
+        bottomPoints.unshift(bottomPoints[bottomPoints.length - 1]);
+
+        if (equalsCenter(bottomPoints, cfg.center)) {
+          bottomPoints = [];
+        }
+      }
+
+      return drawRectShape(topPoints, bottomPoints, container, style, isSmooth);
+    }
+
+    var Area = Shape$1.registerFactory('area', {
+      defaultShapeType: 'area',
+
+      getDefaultPoints(obj) {
+        var x = obj.x;
+        var y = obj.y;
+        var y0 = obj.y0;
+        y = isArray(y) ? y : [y0, y];
+        var points = [];
+        points.push({
+          x,
+          y: y[0]
+        }, {
+          x,
+          y: y[1]
+        });
+        return points;
+      }
+
+    });
+    var SHAPES$2 = ['area', 'smooth'];
+    each(SHAPES$2, function (shapeType) {
+      Shape$1.registerShape('area', shapeType, {
+        draw(cfg, container) {
+          var smooth = shapeType === 'smooth';
+          return drawShape$1.call(this, cfg, container, smooth);
+        }
+
+      });
+    });
+
+    /**
+     * @fileOverview area geometry
+     * @author dxq613 @gmail.com
+     * @author sima.zhang1990@gmail.com
+     */
+
+    class Area$1 extends Geom {
+      /**
+       * get the default configuration
+       * @protected
+       * @return {Object} return the result
+       */
+      getDefaultCfg() {
+        var cfg = super.getDefaultCfg();
+        cfg.type = 'area';
+        cfg.shapeType = 'area';
+        cfg.generatePoints = true;
+        cfg.sortable = true;
+        return cfg;
+      }
+
+      draw(data, shapeFactory) {
+        var self = this;
+        var container = self.get('container');
+        var cfg = this.getDrawCfg(data[0]);
+        var yScale = self.getYScale();
+        var connectNulls = self.get('connectNulls');
+        var splitArrayfn = splitArray(data, yScale.field, connectNulls);
+        cfg.origin = data;
+        each(splitArrayfn, function (subData, splitedIndex) {
+          cfg.splitedIndex = splitedIndex;
+          var points = subData.map(function (obj) {
+            return obj.points;
+          });
+          cfg.points = points;
+          self.drawShape(cfg.shape, data[0], cfg, container, shapeFactory);
+        });
+      }
+
+    }
+
+    Geom.Area = Area$1;
+
+    /**
+     * @fileOverview Utility for calculate the with ratui in x axis
+     * @author sima.zhang1990@gmail.com
+     * @author dxq613@gmail.com
+     */
+    var SizeMixin = {
+      initEvent() {
+        var _this = this;
+
+        var chart = this.get('chart');
+
+        if (!chart) {
+          return;
+        }
+
+        chart.on(EVENT_AFTER_SIZE_CHANGE, function () {
+          _this.set('_width', null);
+        });
+      },
+
+      getDefaultSize() {
+        var defaultSize = this.get('defaultSize');
+
+        if (!defaultSize) {
+          var coord = this.get('coord');
+          var xScale = this.getXScale();
+          var dataArray = this.get('dataArray');
+          var values = uniq(xScale.values);
+          var count = values.length;
+          var range = xScale.range;
+          var normalizeSize = 1 / count;
+          var widthRatio = 1;
+
+          if (coord && coord.isPolar) {
+            if (coord.transposed && count > 1) {
+              widthRatio = Global.widthRatio.multiplePie;
+            } else {
+              widthRatio = Global.widthRatio.rose;
+            }
+          } else {
+            if (xScale.isLinear) {
+              normalizeSize *= range[1] - range[0];
+            }
+
+            widthRatio = Global.widthRatio.column;
+          }
+
+          normalizeSize *= widthRatio;
+
+          if (this.hasAdjust('dodge')) {
+            normalizeSize = normalizeSize / dataArray.length;
+          }
+
+          defaultSize = normalizeSize;
+          this.set('defaultSize', defaultSize);
+        }
+
+        return defaultSize;
+      },
+
+      getDimWidth(dimName) {
+        var coord = this.get('coord');
+        var start = coord.convertPoint({
+          x: 0,
+          y: 0
+        });
+        var end = coord.convertPoint({
+          x: dimName === 'x' ? 1 : 0,
+          y: dimName === 'x' ? 0 : 1
+        });
+        var width = 0;
+
+        if (start && end) {
+          width = Math.sqrt(Math.pow(end.x - start.x, 2) + Math.pow(end.y - start.y, 2));
+        }
+
+        return width;
+      },
+
+      _getWidth() {
+        var width = this.get('_width');
+
+        if (!width) {
+          var coord = this.get('coord');
+
+          if (coord && coord.isPolar && !coord.transposed) {
+            width = (coord.endAngle - coord.startAngle) * coord.circleRadius;
+          } else {
+            width = this.getDimWidth('x');
+          }
+
+          this.set('_width', width);
+        }
+
+        return width;
+      },
+
+      _toNormalizedSize(size) {
+        var width = this._getWidth();
+
+        return size / width;
+      },
+
+      _toCoordSize(normalizeSize) {
+        var width = this._getWidth();
+
+        return width * normalizeSize;
+      },
+
+      getNormalizedSize(obj) {
+        var size = this.getAttrValue('size', obj);
+
+        if (isNil(size)) {
+          size = this.getDefaultSize();
+        } else {
+          size = this._toNormalizedSize(size);
+        }
+
+        return size;
+      },
+
+      getSize(obj) {
+        var size = this.getAttrValue('size', obj);
+
+        if (isNil(size)) {
+          var normalizeSize = this.getDefaultSize();
+          size = this._toCoordSize(normalizeSize);
+        }
+
+        return size;
+      }
+
+    };
+
+    function getRectPoints(cfg) {
+      var {
+        x,
+        y,
+        y0,
+        size
+      } = cfg;
+      var ymin = y0;
+      var ymax = y;
+
+      if (isArray(y)) {
+        ymax = y[1];
+        ymin = y[0];
+      }
+
+      var xmin;
+      var xmax;
+
+      if (isArray(x)) {
+        xmin = x[0];
+        xmax = x[1];
+      } else {
+        xmin = x - size / 2;
+        xmax = x + size / 2;
+      }
+
+      return [{
+        x: xmin,
+        y: ymin
+      }, {
+        x: xmin,
+        y: ymax
+      }, {
+        x: xmax,
+        y: ymax
+      }, {
+        x: xmax,
+        y: ymin
+      }];
+    }
+
+    function getRectRange(points) {
+      var xValues = [];
+      var yValues = [];
+
+      for (var i = 0, len = points.length; i < len; i++) {
+        var point = points[i];
+        xValues.push(point.x);
+        yValues.push(point.y);
+      }
+
+      var xMin = Math.min.apply(null, xValues);
+      var yMin = Math.min.apply(null, yValues);
+      var xMax = Math.max.apply(null, xValues);
+      var yMax = Math.max.apply(null, yValues);
+      return {
+        x: xMin,
+        y: yMin,
+        width: xMax - xMin,
+        height: yMax - yMin
+      };
+    }
+
+    function getMiddlePoint(a, b) {
+      var x = (a.x - b.x) / 2 + b.x;
+      var y = (a.y - b.y) / 2 + b.y;
+      return {
+        x,
+        y
+      };
+    }
+
+    var Interval = Shape$1.registerFactory('interval', {
+      defaultShapeType: 'rect',
+
+      getDefaultPoints(cfg) {
+        return getRectPoints(cfg);
+      }
+
+    });
+    Shape$1.registerShape('interval', 'rect', {
+      draw(cfg, container) {
+        var points = this.parsePoints(cfg.points);
+        var style = mix({
+          fill: cfg.color
+        }, Global.shape.interval, cfg.style);
+
+        if (cfg.isInCircle) {
+          var newPoints = points.slice(0);
+
+          if (this._coord.transposed) {
+            newPoints = [points[0], points[3], points[2], points[1]];
+          }
+
+          var {
+            x,
+            y
+          } = cfg.center;
+          var v = [1, 0];
+          var v0 = [newPoints[0].x - x, newPoints[0].y - y];
+          var v1 = [newPoints[1].x - x, newPoints[1].y - y];
+          var v2 = [newPoints[2].x - x, newPoints[2].y - y];
+          var startAngle = Vector2.angleTo(v, v1);
+          var endAngle = Vector2.angleTo(v, v2);
+          var r0 = Vector2.length(v0);
+          var r = Vector2.length(v1);
+
+          if (startAngle >= 1.5 * Math.PI) {
+            startAngle = startAngle - 2 * Math.PI;
+          }
+
+          if (endAngle >= 1.5 * Math.PI) {
+            endAngle = endAngle - 2 * Math.PI;
+          }
+
+          return container.addShape('Sector', {
+            className: 'interval',
+            attrs: mix({
+              x,
+              y,
+              r,
+              r0,
+              startAngle,
+              endAngle
+            }, style)
+          });
+        }
+
+        var rectCfg = getRectRange(points);
+        return container.addShape('rect', {
+          className: 'interval',
+          attrs: mix(rectCfg, style)
+        });
+      }
+
+    }); // 金字塔 和 漏斗图
+
+    ['pyramid', 'funnel'].forEach(function (shapeType) {
+      Shape$1.registerShape('interval', shapeType, {
+        getPoints(cfg) {
+          cfg.size = cfg.size * 2; // 漏斗图的 size 是柱状图的两倍
+
+          return getRectPoints(cfg);
+        },
+
+        draw(cfg, container) {
+          var points = this.parsePoints(cfg.points);
+          var nextPoints = this.parsePoints(cfg.nextPoints);
+          var polygonPoints = null;
+
+          if (nextPoints) {
+            polygonPoints = [points[0], points[1], nextPoints[1], nextPoints[0]];
+          } else {
+            polygonPoints = [points[0], points[1]]; // pyramid 顶部是三角形，所以取中心点就好了，funnel顶部是长方形
+
+            if (shapeType === 'pyramid') {
+              polygonPoints.push(getMiddlePoint(points[2], points[3]));
+            } else {
+              polygonPoints.push(points[2], points[3]);
+            }
+          }
+
+          var attrs = mix({
+            fill: cfg.color,
+            points: polygonPoints
+          }, Global.shape.interval, cfg.style);
+          return container.addShape('polygon', {
+            className: 'interval',
+            attrs
+          });
+        }
+
+      });
+    });
+
+    class Interval$1 extends Geom {
+      getDefaultCfg() {
+        var cfg = super.getDefaultCfg();
+        cfg.type = 'interval';
+        cfg.shapeType = 'interval';
+        cfg.generatePoints = true;
+        return cfg;
+      }
+
+      constructor(cfg) {
+        super(cfg);
+        mix(this, SizeMixin);
+      }
+
+      init() {
+        super.init(); // 绑定事件
+
+        this.initEvent();
+      }
+
+      createShapePointsCfg(obj) {
+        var cfg = super.createShapePointsCfg(obj);
+        cfg.size = this.getNormalizedSize(obj);
+        return cfg;
+      }
+
+      clearInner() {
+        super.clearInner();
+        this.set('defaultSize', null);
+      }
+
+    }
+
+    Geom.Interval = Interval$1;
+
+    var Polygon$1 = Shape$1.registerFactory('polygon', {
+      defaultShapeType: 'polygon',
+
+      getDefaultPoints(pointInfo) {
+        var points = [];
+        var {
+          x,
+          y
+        } = pointInfo;
+
+        for (var i = 0, len = x.length; i < len; i++) {
+          points.push({
+            x: x[i],
+            y: y[i]
+          });
+        }
+
+        return points;
+      }
+
+    });
+    Shape$1.registerShape('polygon', 'polygon', {
+      draw(cfg, container) {
+        var points = this.parsePoints(cfg.points);
+        var style = mix({
+          fill: cfg.color,
+          points
+        }, cfg.style);
+        return container.addShape('Polygon', {
+          className: 'polygon',
+          attrs: style
+        });
+      }
+
+    });
+
+    class Polygon$2 extends Geom {
+      getDefaultCfg() {
+        var cfg = super.getDefaultCfg();
+        cfg.type = 'polygon';
+        cfg.shapeType = 'polygon';
+        cfg.generatePoints = true;
+        return cfg;
+      }
+
+      createShapePointsCfg(obj) {
+        var cfg = super.createShapePointsCfg(obj);
+        var self = this;
+        var x = cfg.x;
+        var y = cfg.y;
+        var temp;
+
+        if (!(isArray(x) && isArray(y))) {
+          var xScale = self.getXScale();
+          var yScale = self.getYScale();
+          var xCount = xScale.values ? xScale.values.length : xScale.ticks.length;
+          var yCount = yScale.values ? yScale.values.length : yScale.ticks.length;
+          var xOffset = 0.5 * 1 / xCount;
+          var yOffset = 0.5 * 1 / yCount;
+
+          if (xScale.isCategory && yScale.isCategory) {
+            x = [x - xOffset, x - xOffset, x + xOffset, x + xOffset];
+            y = [y - yOffset, y + yOffset, y + yOffset, y - yOffset];
+          } else if (isArray(x)) {
+            temp = x;
+            x = [temp[0], temp[0], temp[1], temp[1]];
+            y = [y - yOffset / 2, y + yOffset / 2, y + yOffset / 2, y - yOffset / 2];
+          } else if (isArray(y)) {
+            temp = y;
+            y = [temp[0], temp[1], temp[1], temp[0]];
+            x = [x - xOffset / 2, x - xOffset / 2, x + xOffset / 2, x + xOffset / 2];
+          }
+
+          cfg.x = x;
+          cfg.y = y;
+        }
+
+        return cfg;
+      }
+
+    }
+
+    Geom.Polygon = Polygon$2;
+
+    function _sortValue(value) {
+      var sorted = value.sort(function (a, b) {
+        return a < b ? 1 : -1;
+      });
+      var length = sorted.length;
+
+      if (length < 4) {
+        var min = sorted[length - 1];
+
+        for (var i = 0; i < 4 - length; i++) {
+          sorted.push(min);
+        }
+      }
+
+      return sorted;
+    } // from left bottom corner, and clockwise
+
+
+    function getCandlePoints(x, y, width) {
+      var yValues = _sortValue(y);
+
+      var points = [{
+        x,
+        y: yValues[0]
+      }, {
+        x,
+        y: yValues[1]
+      }, {
+        x: x - width / 2,
+        y: yValues[2]
+      }, {
+        x: x - width / 2,
+        y: yValues[1]
+      }, {
+        x: x + width / 2,
+        y: yValues[1]
+      }, {
+        x: x + width / 2,
+        y: yValues[2]
+      }, {
+        x,
+        y: yValues[2]
+      }, {
+        x,
+        y: yValues[3]
+      }];
+      return points;
+    }
+
+    var Schema = Shape$1.registerFactory('schema', {});
+    Shape$1.registerShape('schema', 'candle', {
+      getPoints(cfg) {
+        return getCandlePoints(cfg.x, cfg.y, cfg.size);
+      },
+
+      draw(cfg, container) {
+        var points = this.parsePoints(cfg.points);
+        var style = mix({
+          stroke: cfg.color,
+          fill: cfg.color,
+          lineWidth: 1
+        }, cfg.style);
+        return container.addShape('Custom', {
+          className: 'schema',
+          attrs: style,
+
+          createPath(ctx) {
+            ctx.beginPath();
+            ctx.moveTo(points[0].x, points[0].y);
+            ctx.lineTo(points[1].x, points[1].y);
+            ctx.moveTo(points[2].x, points[2].y);
+
+            for (var i = 3; i < 6; i++) {
+              ctx.lineTo(points[i].x, points[i].y);
+            }
+
+            ctx.closePath();
+            ctx.moveTo(points[6].x, points[6].y);
+            ctx.lineTo(points[7].x, points[7].y);
+          }
+
+        });
+      }
+
+    });
+
+    class Schema$1 extends Geom {
+      getDefaultCfg() {
+        var cfg = super.getDefaultCfg();
+        cfg.type = 'schema';
+        cfg.shapeType = 'schema';
+        cfg.generatePoints = true;
+        return cfg;
+      }
+
+      constructor(cfg) {
+        super(cfg);
+        mix(this, SizeMixin);
+      }
+
+      init() {
+        super.init(); // 绑定事件
+
+        this.initEvent();
+      }
+
+      createShapePointsCfg(obj) {
+        var cfg = super.createShapePointsCfg(obj);
+        cfg.size = this.getNormalizedSize(obj);
+        return cfg;
+      }
+
+      clearInner() {
+        super.clearInner();
+        this.set('defaultSize', null);
+      }
+
+    }
+
+    Geom.Schema = Schema$1;
+
+    var toString$3 = {}.toString;
+    var isType$1 = function isType(value, type) {
+      return toString$3.call(value) === '[object ' + type + ']';
+    };
+
+    var isType_1 = isType$1;
+
+    var isArray$1 = Array.isArray ? Array.isArray : function (value) {
+      return isType_1(value, 'Array');
+    };
+
+    var isArray_1 = isArray$1;
+
+    // isFinite,
+    var isNil$1 = function isNil(value) {
+      /**
+       * isNil(null) => true
+       * isNil() => true
+       */
+      return value === null || value === undefined;
+    };
+
+    var isNil_1 = isNil$1;
+
+    function _inheritsLoose(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
+
+
+
+
+
+
+
+    var Stack =
+    /*#__PURE__*/
+    function (_Adjust) {
+      _inheritsLoose(Stack, _Adjust);
+
+      function Stack() {
+        return _Adjust.apply(this, arguments) || this;
+      }
+
+      var _proto = Stack.prototype;
+
+      _proto._initDefaultCfg = function _initDefaultCfg() {
+        this.xField = null; // 调整对应的 x 方向对应的字段名称
+
+        this.yField = null; // 调整对应的 y 方向对应的字段名称
+      };
+
+      _proto.processAdjust = function processAdjust(dataArray) {
+        this.processStack(dataArray);
+      };
+
+      _proto.processStack = function processStack(dataArray) {
+        var self = this;
+        var xField = self.xField;
+        var yField = self.yField;
+        var count = dataArray.length;
+        var stackCache = {
+          positive: {},
+          negative: {}
+        }; // 层叠顺序翻转
+
+        if (self.reverseOrder) {
+          dataArray = dataArray.slice(0).reverse();
+        }
+
+        for (var i = 0; i < count; i++) {
+          var data = dataArray[i];
+
+          for (var j = 0, len = data.length; j < len; j++) {
+            var item = data[j];
+            var x = item[xField] || 0;
+            var y = item[yField];
+            var xkey = x.toString();
+            y = isArray_1(y) ? y[1] : y;
+
+            if (!isNil_1(y)) {
+              var direction = y >= 0 ? 'positive' : 'negative';
+
+              if (!stackCache[direction][xkey]) {
+                stackCache[direction][xkey] = 0;
+              }
+
+              item[yField] = [stackCache[direction][xkey], y + stackCache[direction][xkey]];
+              stackCache[direction][xkey] += y;
+            }
+          }
+        }
+      };
+
+      return Stack;
+    }(base);
+
+    base.Stack = Stack;
+
+    var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+    var isObject$1 = function isObject(value) {
+      /**
+       * isObject({}) => true
+       * isObject([1, 2, 3]) => true
+       * isObject(Function) => true
+       * isObject(null) => false
+       */
+      var type = typeof value === 'undefined' ? 'undefined' : _typeof(value);
+      return value !== null && type === 'object' || type === 'function';
+    };
+
+    var isObject_1 = isObject$1;
+
+    var each$1 = function each(elements, func) {
+      if (!elements) {
+        return;
+      }
+      var rst = void 0;
+      if (isArray_1(elements)) {
+        for (var i = 0, len = elements.length; i < len; i++) {
+          rst = func(elements[i], i);
+          if (rst === false) {
+            break;
+          }
+        }
+      } else if (isObject_1(elements)) {
+        for (var k in elements) {
+          if (elements.hasOwnProperty(k)) {
+            rst = func(elements[k], k);
+            if (rst === false) {
+              break;
+            }
+          }
+        }
+      }
+    };
+
+    var each_1 = each$1;
+
+    function _inheritsLoose$1(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
+
+
+
+
+
+    var MARGIN_RATIO = 1 / 2;
+    var DODGE_RATIO = 1 / 2;
+
+    var Dodge =
+    /*#__PURE__*/
+    function (_Adjust) {
+      _inheritsLoose$1(Dodge, _Adjust);
+
+      function Dodge() {
+        return _Adjust.apply(this, arguments) || this;
+      }
+
+      var _proto = Dodge.prototype;
+
+      _proto._initDefaultCfg = function _initDefaultCfg() {
+        /**
+         * 调整过程中,2个数据的间距
+         * @type {Number}
+         */
+        this.marginRatio = MARGIN_RATIO;
+        /**
+         * 调整占单位宽度的比例,例如：占2个分类间距的 1/2
+         * @type {Number}
+         */
+
+        this.dodgeRatio = DODGE_RATIO;
+        this.adjustNames = ['x', 'y']; // 调整的维度，默认,x,y都做调整
+      };
+
+      _proto.getDodgeOffset = function getDodgeOffset(range, index, count) {
+        var self = this;
+        var pre = range.pre;
+        var next = range.next;
+        var tickLength = next - pre;
+        var width = tickLength * self.dodgeRatio / count;
+        var margin = self.marginRatio * width;
+        var offset = 1 / 2 * (tickLength - count * width - (count - 1) * margin) + ((index + 1) * width + index * margin) - 1 / 2 * width - 1 / 2 * tickLength;
+        return (pre + next) / 2 + offset;
+      };
+
+      _proto.processAdjust = function processAdjust(dataArray) {
+        var self = this;
+        var count = dataArray.length;
+        var xField = self.xField;
+        each_1(dataArray, function (data, index) {
+          for (var i = 0, len = data.length; i < len; i++) {
+            var obj = data[i];
+            var value = obj[xField];
+            var range = {
+              pre: len === 1 ? value - 1 : value - 0.5,
+              next: len === 1 ? value + 1 : value + 0.5
+            };
+            var dodgeValue = self.getDodgeOffset(range, index, count);
+            obj[xField] = dodgeValue;
+          }
+        });
+      };
+
+      return Dodge;
+    }(base);
+
+    base.Dodge = Dodge;
+
+    /**
+     * 是否为函数
+     * @param  {*} fn 对象
+     * @return {Boolean}  是否函数
+     */
+
+
+    var isFunction$1 = function isFunction(value) {
+      return isType_1(value, 'Function');
+    };
+
+    var isFunction_1 = isFunction$1;
+
+    /**
+     * @param {Array} arr The array to iterate over.
+     * @param {Function} [fn] The iteratee invoked per element.
+     * @return {*} Returns the maximum value.
+     * @example
+     *
+     * var objects = [{ 'n': 1 }, { 'n': 2 }];
+     *
+     * maxBy(objects, function(o) { return o.n; });
+     * // => { 'n': 2 }
+     *
+     * maxBy(objects, 'n');
+     * // => { 'n': 2 }
+     */
+    var maxBy = function maxBy(arr, fn) {
+      if (!isArray_1(arr)) {
+        return undefined;
+      }
+      var max = arr[0];
+      var maxData = void 0;
+      if (isFunction_1(fn)) {
+        maxData = fn(arr[0]);
+      } else {
+        maxData = arr[0][fn];
+      }
+      var data = void 0;
+      each_1(arr, function (val) {
+        if (isFunction_1(fn)) {
+          data = fn(val);
+        } else {
+          data = val[fn];
+        }
+        if (data > maxData) {
+          max = val;
+          maxData = data;
+        }
+      });
+      return max;
+    };
+
+    var maxBy_1 = maxBy;
+
+    var merge$1 = function merge(dataArray) {
+      var rst = [];
+      for (var i = 0; i < dataArray.length; i++) {
+        rst = rst.concat(dataArray[i]);
+      }
+      return rst;
+    };
+
+    var merge_1 = merge$1;
+
+    function _inheritsLoose$2(subClass, superClass) { subClass.prototype = Object.create(superClass.prototype); subClass.prototype.constructor = subClass; subClass.__proto__ = superClass; }
+
+
+
+
+
+
+
+    var ArrayUtil = {
+      merge: merge_1
+    };
+
+
+
+    var Symmetric =
+    /*#__PURE__*/
+    function (_Adjust) {
+      _inheritsLoose$2(Symmetric, _Adjust);
+
+      function Symmetric() {
+        return _Adjust.apply(this, arguments) || this;
+      }
+
+      var _proto = Symmetric.prototype;
+
+      _proto._initDefaultCfg = function _initDefaultCfg() {
+        this.xField = null; // 调整对应的 x 方向对应的字段名称
+
+        this.yField = null; // 调整对应的 y 方向对应的字段名称
+
+        this.cacheMax = null; // 缓存的最大值
+
+        this.adjustNames = ['y']; // Only support stack y
+
+        this.groupFields = null; // 参与分组的数据维度
+      }; // 获取最大的y值
+
+
+      _proto._getMax = function _getMax(dim) {
+        var self = this;
+        var mergeData = self.mergeData;
+        var maxRecord = maxBy_1(mergeData, function (obj) {
+          var value = obj[dim];
+
+          if (isArray_1(value)) {
+            return Math.max.apply(null, value);
+          }
+
+          return value;
+        });
+        var maxValue = maxRecord[dim];
+        var max = isArray_1(maxValue) ? Math.max.apply(null, maxValue) : maxValue;
+        return max;
+      }; // 获取每个字段最大的值
+
+
+      _proto._getXValuesMax = function _getXValuesMax() {
+        var self = this;
+        var yField = self.yField;
+        var xField = self.xField;
+        var cache = {};
+        var mergeData = self.mergeData;
+        each_1(mergeData, function (obj) {
+          var xValue = obj[xField];
+          var yValue = obj[yField];
+          var max = isArray_1(yValue) ? Math.max.apply(null, yValue) : yValue;
+          cache[xValue] = cache[xValue] || 0;
+
+          if (cache[xValue] < max) {
+            cache[xValue] = max;
+          }
+        });
+        return cache;
+      }; // 入口函数
+
+
+      _proto.processAdjust = function processAdjust(dataArray) {
+        var self = this;
+        var mergeData = ArrayUtil.merge(dataArray);
+        self.mergeData = mergeData;
+
+        self._processSymmetric(dataArray);
+
+        self.mergeData = null;
+      }; // 处理对称
+
+
+      _proto._processSymmetric = function _processSymmetric(dataArray) {
+        var self = this;
+        var xField = self.xField;
+        var yField = self.yField;
+
+        var max = self._getMax(yField);
+
+        var first = dataArray[0][0];
+        var cache;
+
+        if (first && isArray_1(first[yField])) {
+          cache = self._getXValuesMax();
+        }
+
+        each_1(dataArray, function (data) {
+          each_1(data, function (obj) {
+            var value = obj[yField];
+            var offset;
+
+            if (isArray_1(value)) {
+              var xValue = obj[xField];
+              var valueMax = cache[xValue];
+              offset = (max - valueMax) / 2;
+              var tmp = [];
+              /* eslint-disable no-loop-func */
+
+              each_1(value, function (subVal) {
+                // 多个字段
+                tmp.push(offset + subVal);
+              });
+              /* eslint-enable no-loop-func */
+
+              obj[yField] = tmp;
+            } else {
+              offset = (max - value) / 2;
+              obj[yField] = [offset, value + offset];
+            }
+          });
+        });
+      };
+
+      return Symmetric;
+    }(base);
+
+    base.Symmetric = Symmetric;
+
+    class Polar extends Base$1 {
+      _initDefaultCfg() {
+        this.type = 'polar';
+        this.startAngle = -Math.PI / 2;
+        this.endAngle = Math.PI * 3 / 2;
+        this.inner = 0;
+        this.innerRadius = 0; // alias
+
+        this.isPolar = true;
+        this.transposed = false;
+        this.center = null;
+        this.radius = null; // relative, 0 ~ 1
+      }
+
+      init(start, end) {
+        super.init(start, end);
+        var self = this;
+        var inner = self.inner || self.innerRadius;
+        var width = Math.abs(end.x - start.x);
+        var height = Math.abs(end.y - start.y);
+        var maxRadius;
+        var center;
+
+        if (self.startAngle === -Math.PI && self.endAngle === 0) {
+          maxRadius = Math.min(width / 2, height);
+          center = {
+            x: (start.x + end.x) / 2,
+            y: start.y
+          };
+        } else {
+          maxRadius = Math.min(width, height) / 2;
+          center = {
+            x: (start.x + end.x) / 2,
+            y: (start.y + end.y) / 2
+          };
+        }
+
+        var radius = self.radius;
+
+        if (radius > 0 && radius <= 1) {
+          maxRadius = maxRadius * radius;
+        }
+
+        this.x = {
+          start: self.startAngle,
+          end: self.endAngle
+        };
+        this.y = {
+          start: maxRadius * inner,
+          end: maxRadius
+        };
+        this.center = center;
+        this.circleRadius = maxRadius; // the radius value in px
+      }
+
+      _convertPoint(point) {
+        var self = this;
+        var center = self.center;
+        var transposed = self.transposed;
+        var xDim = transposed ? 'y' : 'x';
+        var yDim = transposed ? 'x' : 'y';
+        var x = self.x;
+        var y = self.y;
+        var angle = x.start + (x.end - x.start) * point[xDim];
+        var radius = y.start + (y.end - y.start) * point[yDim];
+        return {
+          x: center.x + Math.cos(angle) * radius,
+          y: center.y + Math.sin(angle) * radius
+        };
+      }
+
+      _invertPoint(point) {
+        var self = this;
+        var {
+          center,
+          transposed,
+          x,
+          y
+        } = self;
+        var xDim = transposed ? 'y' : 'x';
+        var yDim = transposed ? 'x' : 'y';
+        var m = [1, 0, 0, 1, 0, 0];
+        Matrix.rotate(m, m, x.start);
+        var startV = [1, 0];
+        Vector2.transformMat2d(startV, startV, m);
+        startV = [startV[0], startV[1]];
+        var pointV = [point.x - center.x, point.y - center.y];
+
+        if (Vector2.zero(pointV)) {
+          return {
+            x: 0,
+            y: 0
+          };
+        }
+
+        var theta = Vector2.angleTo(startV, pointV, x.end < x.start);
+
+        if (Math.abs(theta - Math.PI * 2) < 0.001) {
+          theta = 0;
+        }
+
+        var l = Vector2.length(pointV);
+        var percentX = theta / (x.end - x.start);
+        percentX = x.end - x.start > 0 ? percentX : -percentX;
+        var percentY = (l - y.start) / (y.end - y.start);
+        var rst = {};
+        rst[xDim] = percentX;
+        rst[yDim] = percentY;
+        return rst;
+      }
+
+    }
+
+    Base$1.Polar = Polar;
+
+    class Circle$1 extends Abastract {
+      _initDefaultCfg() {
+        super._initDefaultCfg();
+
+        this.startAngle = -Math.PI / 2; // start angle，in radian
+
+        this.endAngle = Math.PI * 3 / 2; // end angle, in radian
+
+        this.radius = null; // radius
+
+        this.center = null; // center
+      }
+
+      getOffsetPoint(value) {
+        var {
+          startAngle,
+          endAngle
+        } = this;
+        var angle = startAngle + (endAngle - startAngle) * value;
+        return this._getCirclePoint(angle);
+      }
+
+      _getCirclePoint(angle, radius) {
+        var self = this;
+        var center = self.center;
+        radius = radius || self.radius;
+        return {
+          x: center.x + Math.cos(angle) * radius,
+          y: center.y + Math.sin(angle) * radius
+        };
+      }
+
+      getTextAlignInfo(point, offset) {
+        var self = this;
+        var offsetVector = self.getOffsetVector(point, offset);
+        var align;
+        var baseLine = 'middle';
+
+        if (offsetVector[0] > 0) {
+          align = 'left';
+        } else if (offsetVector[0] < 0) {
+          align = 'right';
+        } else {
+          align = 'center';
+
+          if (offsetVector[1] > 0) {
+            baseLine = 'top';
+          } else if (offsetVector[1] < 0) {
+            baseLine = 'bottom';
+          }
+        }
+
+        return {
+          textAlign: align,
+          textBaseline: baseLine
+        };
+      }
+
+      getAxisVector(point) {
+        var center = this.center;
+        var factor = this.offsetFactor;
+        return [(point.y - center.y) * factor, (point.x - center.x) * -1 * factor];
+      }
+
+      drawLine(lineCfg) {
+        var {
+          center,
+          radius,
+          startAngle,
+          endAngle
+        } = this;
+        var container = this.getContainer(lineCfg.top);
+        container.addShape('arc', {
+          className: 'axis-line',
+          attrs: mix({
+            x: center.x,
+            y: center.y,
+            r: radius,
+            startAngle,
+            endAngle
+          }, lineCfg)
+        });
+      }
+
+    }
+
+    Abastract.Circle = Circle$1;
+
+    var KEYWORDS_PERCENT = {
+      min: 0,
+      median: 0.5,
+      max: 1
+    };
+
+    class GuideBase {
+      _initDefaultCfg() {}
+
+      constructor(cfg) {
+        this._initDefaultCfg();
+
+        deepMix(this, cfg);
+      }
+
+      _getNormalizedValue(val, scale) {
+        var rst;
+
+        if (isNil(KEYWORDS_PERCENT[val])) {
+          rst = scale.scale(val);
+        } else {
+          rst = KEYWORDS_PERCENT[val];
+        }
+
+        return rst;
+      }
+
+      parsePercentPoint(coord, position) {
+        var xPercent = parseFloat(position[0]) / 100;
+        var yPercent = parseFloat(position[1]) / 100;
+        var start = coord.start;
+        var end = coord.end;
+        var width = Math.abs(start.x - end.x);
+        var height = Math.abs(start.y - end.y);
+        var x = width * xPercent + Math.min(start.x, end.x);
+        var y = height * yPercent + Math.min(start.y, end.y);
+        return {
+          x,
+          y
+        };
+      }
+
+      parsePoint(coord, position) {
+        var self = this;
+        var xScale = self.xScale;
+        var yScales = self.yScales;
+
+        if (isFunction(position)) {
+          position = position(xScale, yScales); // position 必须是对象
+        } // 如果数据格式是 ['50%', '50%'] 的格式
+        // fix: 原始数据中可能会包含 'xxx5%xxx' 这样的数据，需要判断下 https://github.com/antvis/f2/issues/590
+
+
+        if (isString(position[0]) && position[0].indexOf('%') !== -1 && !isNaN(position[0].slice(0, -1))) {
+          return this.parsePercentPoint(coord, position);
+        }
+
+        var x = self._getNormalizedValue(position[0], xScale);
+
+        var y = self._getNormalizedValue(position[1], yScales[0]);
+
+        var point = coord.convertPoint({
+          x,
+          y
+        });
+
+        if (self.limitInPlot) {
+          // limit in chart plotRange
+          if (x >= 0 && x <= 1 && y >= 0 && y <= 1) {
+            return point;
+          }
+
+          return null;
+        }
+
+        return point;
+      }
+      /**
+       * render the guide component
+       * @param  {Coord} coord  coordinate instance
+       * @param  {Canvas.Group} group the container
+       */
+
+
+      render()
+      /* coord,group */
+      {}
+
+      repaint() {
+        this.remove();
+        var {
+          coord,
+          container,
+          canvas
+        } = this;
+
+        if (container && !container.isDestroyed()) {
+          this.render(coord, container);
+          canvas.draw();
+        }
+      }
+
+      remove() {
+        var {
+          element
+        } = this;
+        element && element.remove(true);
+      }
+
+      changeVisible(visible) {
+        var self = this;
+        self.visible = visible;
+        var element = self.element;
+        if (!element) return;
+
+        if (element.set) {
+          element.set('visible', visible);
+        } else {
+          element.style.display = visible ? '' : 'none';
+        }
+      }
+
+    }
+
+    class Arc$1 extends GuideBase {
+      _initDefaultCfg() {
+        this.type = 'arc';
+        /**
+         * start point
+         * @type {Array | Function}
+         */
+
+        this.start = [];
+        /**
+         * end point
+         * @type {Array | Function}
+         */
+
+        this.end = [];
+        /**
+         * style configuration
+         * @type {Object}
+         */
+
+        this.style = {
+          stroke: '#999',
+          lineWidth: 1
+        };
+      }
+
+      render(coord, container) {
+        var self = this;
+        var start = self.parsePoint(coord, self.start);
+        var end = self.parsePoint(coord, self.end);
+
+        if (!start || !end) {
+          return;
+        }
+
+        var coordCenter = coord.center;
+        var radius = Math.sqrt((start.x - coordCenter.x) * (start.x - coordCenter.x) + (start.y - coordCenter.y) * (start.y - coordCenter.y));
+        var startAngle = Math.atan2(start.y - coordCenter.y, start.x - coordCenter.x);
+        var endAngle = Math.atan2(end.y - coordCenter.y, end.x - coordCenter.x);
+        var shape = container.addShape('arc', {
+          className: 'guide-arc',
+          attrs: mix({
+            x: coordCenter.x,
+            y: coordCenter.y,
+            r: radius,
+            startAngle,
+            endAngle
+          }, self.style)
+        });
+        self.element = shape;
+        return shape;
+      }
+
+    }
+
+    GuideBase.Arc = Arc$1;
+
+    function getOffsetFromAlign(alignX, alignY, width, height) {
+      var result = [];
+
+      if (alignX === 'left' && alignY === 'top') {
+        result[0] = 0;
+        result[1] = 0;
+      } else if (alignX === 'right' && alignY === 'top') {
+        result[0] = -width;
+        result[1] = 0;
+      } else if (alignX === 'left' && alignY === 'bottom') {
+        result[0] = 0;
+        result[1] = Math.floor(-height);
+      } else if (alignX === 'right' && alignY === 'bottom') {
+        result[0] = Math.floor(-width);
+        result[1] = Math.floor(-height);
+      } else if (alignX === 'right' && alignY === 'middle') {
+        result[0] = Math.floor(-width);
+        result[1] = Math.floor(-height / 2);
+      } else if (alignX === 'left' && alignY === 'middle') {
+        result[0] = 0;
+        result[1] = Math.floor(-height / 2);
+      } else if (alignX === 'center' && alignY === 'bottom') {
+        result[0] = Math.floor(-width / 2);
+        result[1] = Math.floor(-height);
+      } else if (alignX === 'center' && alignY === 'top') {
+        result[0] = Math.floor(-width / 2);
+        result[1] = 0;
+      } else {
+        result[0] = Math.floor(-width / 2);
+        result[1] = Math.floor(-height / 2);
+      }
+
+      return result;
+    }
+
+    function modifyCSS(DOM, CSS) {
+      for (var key in CSS) {
+        if (CSS.hasOwnProperty(key)) {
+          DOM.style[key] = CSS[key];
+        }
+      }
+
+      return DOM;
+    }
+
+    function createDom(str) {
+      var container = document.createElement('div');
+      str = str.replace(/(^\s*)|(\s*$)/g, '');
+      container.innerHTML = '' + str;
+      return container.childNodes[0];
+    }
+
+    class Html extends GuideBase {
+      _initDefaultCfg() {
+        this.type = 'html';
+        /**
+         * dom position
+         * @type {Object | Array}
+         */
+
+        this.position = null;
+        /**
+          * alignment for horizontal direction，can be 'left','center','right'
+          * @type {String}
+          */
+
+        this.alignX = 'center';
+        /**
+          * alignment for vertical direction，can be 'top', 'middle', 'bottom'
+          * @type {String}
+          */
+
+        this.alignY = 'middle';
+        /**
+          * offset for horizontal direction
+          * @type {Number}
+          */
+
+        this.offsetX = null;
+        /**
+          * offset for vertical direction
+          * @type {Number}
+          */
+
+        this.offsetY = null;
+        /**
+        * the html string
+        *@type {String | Function}
+        */
+
+        this.html = null;
+      } // override paint
+
+
+      render(coord, container) {
+        var self = this;
+        var position = self.parsePoint(coord, self.position);
+
+        if (!position) {
+          return;
+        }
+
+        var myNode = createDom(self.html);
+        myNode = modifyCSS(myNode, {
+          position: 'absolute',
+          top: Math.floor(position.y) + 'px',
+          left: Math.floor(position.x) + 'px',
+          visibility: 'hidden'
+        });
+        var canvasDom = container.get('canvas').get('el');
+        var parentNode = canvasDom.parentNode;
+        parentNode = modifyCSS(parentNode, {
+          position: 'relative'
+        });
+        var wrapperNode = createDom('<div class="guideWapper" style="position: absolute;top: 0; left: 0;"></div>');
+        parentNode.appendChild(wrapperNode);
+        wrapperNode.appendChild(myNode);
+        var canvasOffsetTop = canvasDom.offsetTop;
+        var canvasOffsetLeft = canvasDom.offsetLeft;
+        var {
+          alignX,
+          alignY,
+          offsetX,
+          offsetY
+        } = self;
+        var width = getWidth(myNode);
+        var height = getHeight(myNode);
+        var newOffset = getOffsetFromAlign(alignX, alignY, width, height);
+        position.x = position.x + newOffset[0] + canvasOffsetLeft;
+        position.y = position.y + newOffset[1] + canvasOffsetTop;
+
+        if (offsetX) {
+          position.x += offsetX;
+        }
+
+        if (offsetY) {
+          position.y += offsetY;
+        }
+
+        modifyCSS(myNode, {
+          top: Math.floor(position.y) + 'px',
+          left: Math.floor(position.x) + 'px',
+          visibility: 'visible'
+        });
+        self.element = wrapperNode;
+      }
+
+      remove() {
+        var element = this.element;
+        element && element.parentNode && element.parentNode.removeChild(element);
+      }
+
+    }
+
+    GuideBase.Html = Html;
+
+    class Line$4 extends GuideBase {
+      _initDefaultCfg() {
+        this.type = 'line';
+        this.start = [];
+        this.end = [];
+        this.style = {
+          stroke: '#000',
+          lineWidth: 1
+        };
+      }
+
+      render(coord, container) {
+        var points = [];
+        points[0] = this.parsePoint(coord, this.start);
+        points[1] = this.parsePoint(coord, this.end);
+
+        if (!points[0] || !points[1]) {
+          return;
+        }
+
+        var shape = container.addShape('Line', {
+          className: 'guide-line',
+          attrs: mix({
+            x1: points[0].x,
+            y1: points[0].y,
+            x2: points[1].x,
+            y2: points[1].y
+          }, this.style)
+        });
+        this.element = shape;
+        return shape;
+      }
+
+    }
+
+    GuideBase.Line = Line$4;
+
+    class Rect$2 extends GuideBase {
+      _initDefaultCfg() {
+        this.type = 'rect';
+        this.start = [];
+        this.end = [];
+        this.style = {
+          fill: '#CCD7EB',
+          opacity: 0.4
+        };
+      }
+
+      render(coord, container) {
+        var start = this.parsePoint(coord, this.start);
+        var end = this.parsePoint(coord, this.end);
+
+        if (!start || !end) {
+          return;
+        }
+
+        var shape = container.addShape('rect', {
+          className: 'guide-rect',
+          attrs: mix({
+            x: Math.min(start.x, end.x),
+            y: Math.min(start.y, end.y),
+            width: Math.abs(end.x - start.x),
+            height: Math.abs(start.y - end.y)
+          }, this.style)
+        });
+        this.element = shape;
+        return shape;
+      }
+
+    }
+
+    GuideBase.Rect = Rect$2;
+
+    class Text$1 extends GuideBase {
+      _initDefaultCfg() {
+        this.type = 'text';
+        /**
+         * the position of text
+         * @type {Function | Array}
+         */
+
+        this.position = null;
+        /**
+         * the display content
+         * @type {String}
+         */
+
+        this.content = null;
+        /**
+         * style configuration for text
+         * @type {Object}
+         */
+
+        this.style = {
+          fill: '#000'
+        };
+        /**
+         * offset of horizontal direction
+         * @type {Number}
+         */
+
+        this.offsetX = 0;
+        /**
+         * offset of vertical direction
+         * @type {Number}
+         */
+
+        this.offsetY = 0;
+      }
+
+      render(coord, container) {
+        var position = this.position;
+        var point = this.parsePoint(coord, position);
+
+        if (!point) {
+          return;
+        }
+
+        var {
+          content,
+          style,
+          offsetX,
+          offsetY
+        } = this;
+
+        if (offsetX) {
+          point.x += offsetX;
+        }
+
+        if (offsetY) {
+          point.y += offsetY;
+        }
+
+        var shape = container.addShape('text', {
+          className: 'guide-text',
+          attrs: mix({
+            x: point.x,
+            y: point.y,
+            text: content
+          }, style)
+        });
+        this.element = shape;
+        return shape;
+      }
+
+    }
+
+    GuideBase.Text = Text$1;
+
+    class Tag extends GuideBase {
+      _initDefaultCfg() {
+        this.type = 'tag';
+        this.position = null;
+        this.content = null;
+        this.direct = 'tl';
+        this.autoAdjust = true;
+        this.offsetX = 0;
+        this.offsetY = 0;
+        this.side = 4;
+        this.background = {
+          padding: 5,
+          radius: 2,
+          fill: '#1890FF'
+        };
+        this.textStyle = {
+          fontSize: 12,
+          fill: '#fff',
+          textAlign: 'center',
+          textBaseline: 'middle'
+        };
+        this.withPoint = true;
+        this.pointStyle = {
+          fill: '#1890FF',
+          r: 3,
+          lineWidth: 1,
+          stroke: '#fff'
+        };
+      }
+
+      _getDirect(container, point, tagWidth, tagHeight) {
+        var direct = this.direct;
+        var side = this.side;
+        var canvas = container.get('canvas');
+        var clientWidth = canvas.get('width');
+        var clientHeight = canvas.get('height');
+        var {
+          x,
+          y
+        } = point;
+        var vertical = direct[0];
+        var horizontal = direct[1]; // adjust for vertical direction
+
+        if (vertical === 't' && y - side - tagHeight < 0) {
+          vertical = 'b';
+        } else if (vertical === 'b' && y + side + tagHeight > clientHeight) {
+          vertical = 't';
+        } // adjust for horizontal direction
+
+
+        var diff = vertical === 'c' ? side : 0;
+
+        if (horizontal === 'l' && x - diff - tagWidth < 0) {
+          horizontal = 'r';
+        } else if (horizontal === 'r' && x + diff + tagWidth > clientWidth) {
+          horizontal = 'l';
+        } else if (horizontal === 'c') {
+          if (tagWidth / 2 + x + diff > clientWidth) {
+            horizontal = 'l';
+          } else if (x - tagWidth / 2 - diff < 0) {
+            horizontal = 'r';
+          }
+        }
+
+        direct = vertical + horizontal;
+        return direct;
+      }
+
+      render(coord, container) {
+        var position = this.parsePoint(coord, this.position);
+
+        if (!position) {
+          return;
+        } // 数据不在显示范围内时，x/y 会为NaN
+
+
+        if (isNaN(position.x) || isNaN(position.y)) {
+          return;
+        }
+
+        var {
+          content,
+          background,
+          textStyle
+        } = this;
+        var shapes = [];
+        var wrapperContainer = container.addGroup({
+          className: 'guide-tag'
+        });
+
+        if (this.withPoint) {
+          var pointShape = wrapperContainer.addShape('Circle', {
+            className: 'guide-tag-point',
+            attrs: mix({
+              x: position.x,
+              y: position.y
+            }, this.pointStyle)
+          });
+          shapes.push(pointShape);
+        }
+
+        var tagContainer = wrapperContainer.addGroup(); // create a text shape
+
+        var tagText = tagContainer.addShape('text', {
+          className: 'guide-tag-text',
+          zIndex: 1,
+          attrs: mix({
+            x: 0,
+            y: 0,
+            text: content
+          }, textStyle)
+        });
+        shapes.push(tagText); // create background box
+
+        var textBBox = tagText.getBBox();
+        var padding = parsePadding(background.padding);
+        var tagWidth = textBBox.width + padding[1] + padding[3];
+        var tagHeight = textBBox.height + padding[0] + padding[2];
+        var yMin = textBBox.minY - padding[0];
+        var xMin = textBBox.minX - padding[3];
+        var tagBg = tagContainer.addShape('rect', {
+          className: 'guide-tag-bg',
+          zIndex: -1,
+          attrs: mix({
+            x: xMin,
+            y: yMin,
+            width: tagWidth,
+            height: tagHeight
+          }, background)
+        });
+        shapes.push(tagBg);
+        var direct = this.autoAdjust ? this._getDirect(container, position, tagWidth, tagHeight) : this.direct;
+        var side = this.side;
+        var x = position.x + this.offsetX;
+        var y = position.y + this.offsetY;
+        var arrowPoints;
+        var radius = parsePadding(background.radius);
+
+        if (direct === 'tl') {
+          arrowPoints = [{
+            x: tagWidth + xMin - side - 1,
+            y: tagHeight + yMin - 1
+          }, // 这个 1 是为了防止出现白边
+          {
+            x: tagWidth + xMin,
+            y: tagHeight + yMin - 1
+          }, {
+            x: tagWidth + xMin,
+            y: tagHeight + side + yMin
+          }];
+          radius[2] = 0;
+          x = x - tagWidth;
+          y = y - side - tagHeight;
+        } else if (direct === 'cl') {
+          arrowPoints = [{
+            x: tagWidth + xMin - 1,
+            y: (tagHeight - side) / 2 + yMin - 1
+          }, {
+            x: tagWidth + xMin - 1,
+            y: (tagHeight + side) / 2 + yMin + 1
+          }, {
+            x: tagWidth + side + xMin,
+            y: tagHeight / 2 + yMin
+          }];
+          x = x - tagWidth - side;
+          y = y - tagHeight / 2;
+        } else if (direct === 'bl') {
+          arrowPoints = [{
+            x: tagWidth + xMin,
+            y: -side + yMin
+          }, {
+            x: tagWidth + xMin - side - 1,
+            y: yMin + 1
+          }, {
+            x: tagWidth + xMin,
+            y: yMin + 1
+          }];
+          radius[1] = 0;
+          x = x - tagWidth;
+          y = y + side;
+        } else if (direct === 'bc') {
+          arrowPoints = [{
+            x: tagWidth / 2 + xMin,
+            y: -side + yMin
+          }, {
+            x: (tagWidth - side) / 2 + xMin - 1,
+            y: yMin + 1
+          }, {
+            x: (tagWidth + side) / 2 + xMin + 1,
+            y: yMin + 1
+          }];
+          x = x - tagWidth / 2;
+          y = y + side;
+        } else if (direct === 'br') {
+          arrowPoints = [{
+            x: xMin,
+            y: yMin - side
+          }, {
+            x: xMin,
+            y: yMin + 1
+          }, {
+            x: xMin + side + 1,
+            y: yMin + 1
+          }];
+          radius[0] = 0;
+          y = y + side;
+        } else if (direct === 'cr') {
+          arrowPoints = [{
+            x: xMin - side,
+            y: tagHeight / 2 + yMin
+          }, {
+            x: xMin + 1,
+            y: (tagHeight - side) / 2 + yMin - 1
+          }, {
+            x: xMin + 1,
+            y: (tagHeight + side) / 2 + yMin + 1
+          }];
+          x = x + side;
+          y = y - tagHeight / 2;
+        } else if (direct === 'tr') {
+          arrowPoints = [{
+            x: xMin,
+            y: tagHeight + side + yMin
+          }, {
+            x: xMin,
+            y: tagHeight + yMin - 1
+          }, {
+            x: side + xMin + 1,
+            y: tagHeight + yMin - 1
+          }];
+          radius[3] = 0;
+          y = y - tagHeight - side;
+        } else if (direct === 'tc') {
+          arrowPoints = [{
+            x: (tagWidth - side) / 2 + xMin - 1,
+            y: tagHeight + yMin - 1
+          }, {
+            x: (tagWidth + side) / 2 + xMin + 1,
+            y: tagHeight + yMin - 1
+          }, {
+            x: tagWidth / 2 + xMin,
+            y: tagHeight + side + yMin
+          }];
+          x = x - tagWidth / 2;
+          y = y - tagHeight - side;
+        }
+
+        var sideShape = tagContainer.addShape('Polygon', {
+          className: 'guide-tag-side',
+          zIndex: 0,
+          attrs: {
+            points: arrowPoints,
+            fill: background.fill
+          }
+        });
+        shapes.push(sideShape);
+        tagBg.attr('radius', radius);
+        tagContainer.moveTo(x - xMin, y - yMin);
+        tagContainer.sort();
+        this.element = wrapperContainer;
+        return shapes;
+      }
+
+    }
+
+    GuideBase.Tag = Tag;
+
+    class Point$2 extends GuideBase {
+      _initDefaultCfg() {
+        this.type = 'point';
+        this.position = null;
+        this.offsetX = 0;
+        this.offsetY = 0;
+        this.style = {
+          fill: '#1890FF',
+          r: 3,
+          lineWidth: 1,
+          stroke: '#fff'
+        };
+      }
+
+      render(coord, container) {
+        var position = this.parsePoint(coord, this.position);
+        if (!position) return null;
+        var shape = container.addShape('Circle', {
+          className: 'guide-point',
+          attrs: mix({
+            x: position.x + this.offsetX,
+            y: position.y + this.offsetY
+          }, this.style)
+        });
+        this.element = shape;
+        return shape;
+      }
+
+    }
+
+    GuideBase.Point = Point$2;
+
+    /**
+     * marker shapes，used for tooltip and legend
+     */
+    var SYMBOLS = {
+      circle(x, y, r, ctx) {
+        ctx.arc(x, y, r, 0, Math.PI * 2, false);
+      },
+
+      square(x, y, r, ctx) {
+        ctx.moveTo(x - r, y - r);
+        ctx.lineTo(x + r, y - r);
+        ctx.lineTo(x + r, y + r);
+        ctx.lineTo(x - r, y + r);
+        ctx.closePath();
+      }
+
+    };
+
+    class Marker extends Shape$2 {
+      _initProperties() {
+        super._initProperties();
+
+        this._attrs.canFill = true;
+        this._attrs.canStroke = true;
+        this._attrs.type = 'marker';
+      }
+
+      getDefaultAttrs() {
+        return {
+          x: 0,
+          y: 0,
+          lineWidth: 0
+        };
+      }
+
+      createPath(context) {
+        var attrs = this.get('attrs');
+        var {
+          x,
+          y,
+          radius
+        } = attrs;
+        var symbol = attrs.symbol || 'circle';
+        var method;
+
+        if (isFunction(symbol)) {
+          method = symbol;
+        } else {
+          method = SYMBOLS[symbol];
+        }
+
+        context.beginPath();
+        method(x, y, radius, context, this);
+      }
+
+      calculateBox() {
+        var attrs = this.get('attrs');
+        var {
+          x,
+          y,
+          radius
+        } = attrs;
+        return {
+          minX: x - radius,
+          minY: y - radius,
+          maxX: x + radius,
+          maxY: y + radius
+        };
+      }
+
+    }
+
+    var MARKER_RADIUS = 3;
+
+    class List {
+      getDefaultCfg() {
+        return {
+          showTitle: false,
+
+          /**
+           * title string
+           * @type {?String}
+           */
+          title: null,
+
+          /**
+           * items array
+           * @type {?Array}
+           */
+          items: null,
+
+          /**
+           * offset between title and items
+           * @type {Number}
+           */
+          titleGap: 12,
+
+          /**
+           * offset between each item
+           * @type {Number}
+           */
+          itemGap: 10,
+
+          /**
+           * the offset between each item in vertical direaction
+           * @type {Number}
+           */
+          itemMarginBottom: 12,
+
+          /**
+           * the formatter for item text
+           * @type {[type]}
+           */
+          itemFormatter: null,
+          itemWidth: null,
+
+          /**
+           * offset between marker and text
+           * @type {Number}
+           */
+          wordSpace: 6,
+          x: 0,
+          y: 0,
+          layout: 'horizontal',
+
+          /**
+           * the join string of `name` and `value`
+           * @type {String}
+           */
+          joinString: ': '
+        };
+      }
+
+      constructor(cfg) {
+        deepMix(this, this.getDefaultCfg(), cfg);
+
+        this._init();
+
+        this._renderTitle();
+
+        this._renderItems();
+      }
+
+      _init() {
+        var container = new Group({
+          zIndex: this.zIndex || 0
+        });
+        this.container = container;
+        var wrapper = container.addGroup();
+        this.wrapper = wrapper;
+        var itemsGroup = wrapper.addGroup({
+          className: 'itemsGroup'
+        });
+        this.itemsGroup = itemsGroup;
+
+        if (this.parent) {
+          this.parent.add(container);
+        }
+      }
+
+      _renderTitle(title) {
+        title = title || this.title;
+        var titleShape = this.titleShape;
+        var titleHeight = 0;
+
+        if (this.showTitle && title) {
+          if (titleShape && !titleShape.get('destroyed')) {
+            titleShape.attr('text', title);
+          } else {
+            var {
+              wrapper,
+              titleStyle
+            } = this;
+            titleShape = wrapper.addShape('text', {
+              className: 'title',
+              attrs: mix({
+                x: 0,
+                y: 0,
+                text: title
+              }, titleStyle)
+            });
+            this.titleShape = titleShape;
+          }
+
+          titleHeight = titleShape.getBBox().height + this.titleGap;
+        }
+
+        this._titleHeight = titleHeight;
+      }
+
+      _renderItems(items) {
+        var self = this;
+        items = items || self.items;
+
+        if (!items) {
+          return;
+        }
+
+        if (self.reversed) {
+          items.reverse();
+        }
+
+        each(items, function (item, index) {
+          self._addItem(item, index);
+        });
+
+        if (items.length > 1) {
+          this._adjustItems();
+        }
+
+        this._renderBackground();
+      }
+
+      _renderBackground() {
+        var background = this.background;
+
+        if (background) {
+          var container = this.container;
+          var wrapper = this.wrapper;
+          var {
+            minX,
+            minY,
+            width,
+            height
+          } = wrapper.getBBox();
+          var padding = background.padding || [0, 0, 0, 0];
+          padding = parsePadding(padding);
+          var attrs = mix({
+            x: minX - padding[3],
+            y: minY - padding[0],
+            width: width + padding[1] + padding[3],
+            height: height + padding[0] + padding[2]
+          }, background);
+          var backShape = this.backShape;
+
+          if (backShape) {
+            backShape.attr(attrs);
+          } else {
+            backShape = container.addShape('Rect', {
+              zIndex: -1,
+              attrs
+            });
+          }
+
+          this.backShape = backShape;
+          container.sort();
+        }
+      }
+
+      _addItem(item) {
+        var itemsGroup = this.itemsGroup;
+        var itemGroup = itemsGroup.addGroup({
+          name: item.name,
+          value: item.value,
+          dataValue: item.dataValue,
+          checked: item.checked
+        });
+        var {
+          unCheckStyle,
+          unCheckColor,
+          nameStyle,
+          valueStyle,
+          wordSpace
+        } = this;
+        var {
+          marker,
+          value
+        } = item;
+        var startX = 0;
+
+        if (unCheckColor) {
+          unCheckStyle.fill = unCheckColor;
+        }
+
+        if (marker) {
+          var radius = marker.radius || MARKER_RADIUS;
+          var markerAttrs = mix({
+            x: radius,
+            y: this._titleHeight
+          }, marker);
+
+          if (item.checked === false) {
+            mix(markerAttrs, unCheckStyle);
+          }
+
+          var markerShape = new Marker({
+            className: 'item-marker',
+            attrs: markerAttrs
+          });
+          itemGroup.add(markerShape);
+          startX += markerShape.getBBox().width + wordSpace;
+        }
+
+        var nameText;
+        var name = item.name;
+
+        if (name) {
+          var joinString = this.joinString || '';
+          name = value ? name + joinString : name;
+          nameText = itemGroup.addShape('text', {
+            className: 'name',
+            attrs: mix({
+              x: startX,
+              y: this._titleHeight,
+              text: this._formatItemValue(name)
+            }, nameStyle, item.checked === false ? unCheckStyle : null)
+          });
+        }
+
+        if (value) {
+          var valueX = startX;
+
+          if (nameText) {
+            valueX += nameText.getBBox().width;
+          }
+
+          itemGroup.addShape('text', {
+            className: 'value',
+            attrs: mix({
+              x: valueX,
+              y: this._titleHeight,
+              text: value
+            }, valueStyle, item.checked === false ? unCheckStyle : null)
+          });
+        }
+
+        return itemGroup;
+      }
+
+      _formatItemValue(value) {
+        var formatter = this.itemFormatter;
+
+        if (formatter) {
+          value = formatter.call(this, value);
+        }
+
+        return value;
+      }
+
+      _getMaxItemWidth() {
+        var width;
+        var itemWidth = this.itemWidth;
+
+        if (isNumber(itemWidth) || isNil(itemWidth)) {
+          return itemWidth;
+        }
+
+        if (itemWidth === 'auto') {
+          var itemsGroup = this.itemsGroup;
+          var children = itemsGroup.get('children');
+          var count = children.length;
+          var maxItemWidth = 0;
+
+          for (var i = 0; i < count; i++) {
+            var {
+              width: _width
+            } = children[i].getBBox();
+            maxItemWidth = Math.max(maxItemWidth, _width);
+          }
+
+          var maxLength = this.maxLength;
+          var itemGap = this.itemGap;
+          var twoAvgWidth = (maxLength - itemGap) / 2;
+          var threeAvgWidth = (maxLength - itemGap * 2) / 3;
+
+          if (count === 2) {
+            width = Math.max(maxItemWidth, twoAvgWidth);
+          } else {
+            // 1. max <= 3Avg, 3Avg
+            // 2. 3Avg < max && max < 2avg, 2avg
+            // 3. max > 2avg, max, one column
+            if (maxItemWidth <= threeAvgWidth) {
+              width = threeAvgWidth;
+            } else if (maxItemWidth <= twoAvgWidth) {
+              width = twoAvgWidth;
+            } else {
+              width = maxItemWidth;
+            }
+          }
+
+          return width;
+        }
+      }
+
+      _adjustHorizontal() {
+        var {
+          maxLength,
+          itemsGroup
+        } = this;
+        var children = itemsGroup.get('children');
+        var {
+          itemGap,
+          itemMarginBottom
+        } = this;
+        var titleHeight = this._titleHeight;
+        var row = 0;
+        var rowWidth = 0;
+        var width;
+        var height;
+
+        var itemWidth = this._getMaxItemWidth();
+
+        var legendHitBoxes = [];
+
+        for (var i = 0, len = children.length; i < len; i++) {
+          var child = children[i];
+          var box = child.getBBox();
+          var childHeight = box.height;
+          var childWidth = box.width;
+          width = itemWidth || childWidth;
+          height = childHeight + itemMarginBottom;
+
+          if (width - (maxLength - rowWidth) > 0.0001) {
+            row++;
+            rowWidth = 0;
+          }
+
+          child.moveTo(rowWidth, row * height);
+          legendHitBoxes.push({
+            x: rowWidth,
+            y: row * height + titleHeight - childHeight / 2,
+            width: childWidth * 1.375,
+            height: childHeight * 1.375
+          });
+          rowWidth += width + itemGap;
+        }
+
+        this.legendHitBoxes = legendHitBoxes;
+        return;
+      }
+
+      _adjustVertical() {
+        var {
+          maxLength,
+          itemsGroup
+        } = this;
+        var {
+          itemGap,
+          itemMarginBottom,
+          itemWidth
+        } = this;
+        var titleHeight = this._titleHeight;
+        var children = itemsGroup.get('children');
+        var colHeight = 0;
+        var width;
+        var height;
+        var maxItemWidth = 0;
+        var totalWidth = 0;
+        var legendHitBoxes = [];
+
+        for (var i = 0, length = children.length; i < length; i++) {
+          var child = children[i];
+          var bbox = child.getBBox();
+          width = bbox.width;
+          height = bbox.height;
+
+          if (isNumber(itemWidth)) {
+            maxItemWidth = itemWidth + itemGap;
+          } else if (width > maxItemWidth) {
+            maxItemWidth = width + itemGap;
+          }
+
+          if (maxLength - colHeight < height) {
+            colHeight = 0;
+            totalWidth += maxItemWidth;
+            child.moveTo(totalWidth, 0);
+            legendHitBoxes.push({
+              x: totalWidth,
+              y: titleHeight - height / 2,
+              width: width * 1.375,
+              height: height * 1.375
+            });
+          } else {
+            child.moveTo(totalWidth, colHeight);
+            legendHitBoxes.push({
+              x: totalWidth,
+              y: colHeight - height / 2 + titleHeight,
+              width: width * 1.375,
+              height: height * 1.375
+            });
+          }
+
+          colHeight += height + itemMarginBottom;
+        }
+
+        this.legendHitBoxes = legendHitBoxes;
+        return;
+      }
+
+      _adjustItems() {
+        var layout = this.layout;
+
+        if (layout === 'horizontal') {
+          this._adjustHorizontal();
+        } else {
+          this._adjustVertical();
+        }
+      }
+
+      moveTo(x, y) {
+        this.x = x;
+        this.y = y;
+        var container = this.container;
+        container && container.moveTo(x, y);
+        return this;
+      }
+
+      setItems(items) {
+        this.clearItems();
+
+        this._renderItems(items);
+      }
+
+      setTitle(title) {
+        this._renderTitle(title);
+      }
+
+      clearItems() {
+        var itemsGroup = this.itemsGroup;
+        itemsGroup.clear();
+      }
+
+      getWidth() {
+        var container = this.container;
+        var bbox = container.getBBox();
+        return bbox.width;
+      }
+
+      getHeight() {
+        var container = this.container;
+        var bbox = container.getBBox();
+        return bbox.height;
+      }
+
+      show() {
+        var container = this.container;
+        container.show();
+      }
+
+      hide() {
+        var container = this.container;
+        container.hide();
+      }
+
+      clear() {
+        var container = this.container;
+        container.clear();
+        container.remove(true);
+      }
+
+    }
+
+    class TextBox {
+      getDefaultCfg() {
+        return {
+          x: 0,
+          y: 0,
+          content: '',
+          textStyle: {
+            fontSize: 12,
+            fill: '#fff',
+            textAlign: 'center',
+            textBaseline: 'middle',
+            fontFamily: 'Arial'
+          },
+          background: {
+            radius: 1,
+            fill: 'rgba(0, 0, 0, 0.65)',
+            padding: [3, 5]
+          },
+          width: 0,
+          height: 0,
+          className: ''
+        };
+      }
+
+      constructor(cfg) {
+        deepMix(this, this.getDefaultCfg(), cfg);
+
+        this._init();
+
+        var {
+          content,
+          x,
+          y
+        } = this;
+
+        if (!isNil(content)) {
+          this.updateContent(content);
+        }
+
+        this.updatePosition(x, y);
+      }
+
+      _init() {
+        var {
+          content,
+          textStyle,
+          background,
+          className,
+          visible
+        } = this;
+        var container = new Group({
+          className,
+          zIndex: 0,
+          visible
+        });
+        var text = container.addShape('Text', {
+          className: className + '-text',
+          zIndex: 1,
+          attrs: mix({
+            text: content,
+            x: 0,
+            y: 0
+          }, textStyle)
+        });
+        var backgroundShape = container.addShape('Rect', {
+          className: className + '-bg',
+          zIndex: -1,
+          attrs: mix({
+            x: 0,
+            y: 0,
+            width: 0,
+            height: 0
+          }, background)
+        });
+        container.sort();
+        this.container = container;
+        this.textShape = text;
+        this.backgroundShape = backgroundShape;
+      }
+
+      _getBBox() {
+        var textShape = this.textShape;
+        var background = this.background;
+        var textBBox = textShape.getBBox();
+        var padding = parsePadding(background.padding);
+        var width = textBBox.width + padding[1] + padding[3];
+        var height = textBBox.height + padding[0] + padding[2];
+        var x = textBBox.minX - padding[3];
+        var y = textBBox.minY - padding[0];
+        return {
+          x,
+          y,
+          width,
+          height
+        };
+      }
+
+      updateContent(text) {
+        var {
+          textShape,
+          backgroundShape
+        } = this;
+
+        if (!isNil(text)) {
+          if (!isObject(text)) {
+            text = {
+              text
+            };
+          }
+
+          textShape.attr(text); // update box shape
+
+          var {
+            x,
+            y,
+            width: tipWidth,
+            height: tipHeight
+          } = this._getBBox();
+
+          var width = this.width || tipWidth;
+          var height = this.height || tipHeight;
+          backgroundShape.attr({
+            x,
+            y,
+            width,
+            height
+          });
+          this._width = width;
+          this._height = height;
+          this.content = text.text;
+        }
+      }
+
+      updatePosition(x, y) {
+        var container = this.container;
+
+        var {
+          x: xMin,
+          y: yMin
+        } = this._getBBox();
+
+        container.moveTo(x - xMin, y - yMin);
+        this.x = x - xMin;
+        this.y = y - yMin;
+      }
+
+      getWidth() {
+        return this._width;
+      }
+
+      getHeight() {
+        return this._height;
+      }
+
+      show() {
+        this.container.show();
+      }
+
+      hide() {
+        this.container.hide();
+      }
+
+      clear() {
+        var container = this.container;
+        container.clear();
+        container.remove(true);
+        this.container = null;
+        this.textShape = null;
+        this.backgroundShape = null;
+      }
+
+    }
+
+    var GAP = 4;
+    /**
+     * TODOList：
+     * 1. 移除 fixed 参数
+     */
+
+    class Tooltip {
+      getDefaultCfg() {
+        return {
+          /**
+           * wether show the crosshairs
+           * @type {Object}
+           */
+          showCrosshairs: false,
+
+          /**
+           * the style for crosshairs
+           * @type {Object}
+           */
+          crosshairsStyle: {
+            stroke: 'rgba(0, 0, 0, 0.25)',
+            lineWidth: 1
+          },
+
+          /**
+           * the type of crosshairs, optional value is 'x', 'y' or 'xy', default is 'y'
+           */
+          crosshairsType: 'y',
+
+          /**
+           * show or hide the x axis tip
+           */
+          showXTip: false,
+
+          /**
+           * show or hide the y axis tip
+           */
+          showYTip: false,
+          xTip: null,
+          xTipBackground: {
+            radius: 1,
+            fill: 'rgba(0, 0, 0, 0.65)',
+            padding: [3, 5]
+          },
+          xTipTextStyle: {
+            fontSize: 12,
+            fill: '#fff',
+            textAlign: 'center',
+            textBaseline: 'middle'
+          },
+          yTip: null,
+          yTipBackground: {
+            radius: 1,
+            fill: 'rgba(0, 0, 0, 0.65)',
+            padding: [3, 5]
+          },
+          yTipTextStyle: {
+            fontSize: 12,
+            fill: '#fff',
+            textAlign: 'center',
+            textBaseline: 'middle'
+          },
+
+          /**
+           * the style for tooltip container's background
+           * @type {Object}
+           */
+          background: null,
+
+          /**
+           * layout, can be horizontal or vertical
+           * @type {String}
+           */
+          layout: 'horizontal',
+          offsetX: 0,
+          offsetY: 0
+        };
+      }
+
+      constructor(cfg) {
+        deepMix(this, this.getDefaultCfg(), cfg);
+        var {
+          frontPlot,
+          custom
+        } = this;
+
+        if (!custom) {
+          // custom means user do customize
+          var container = new List(mix({
+            parent: frontPlot,
+            zIndex: 3
+          }, cfg));
+          this.container = container;
+          var {
+            fixed,
+            background
+          } = this;
+
+          if (!fixed) {
+            this.tooltipArrow = frontPlot.addShape('Polygon', {
+              className: 'tooltip-arrow',
+              visible: false,
+              zIndex: 2,
+              attrs: mix({
+                points: []
+              }, background)
+            });
+          }
+        }
+
+        if (this.showXTip) {
+          var {
+            xTipBackground,
+            xTipTextStyle
+          } = this;
+          var xTipBox = new TextBox({
+            className: 'xTip',
+            background: xTipBackground,
+            textStyle: xTipTextStyle,
+            visible: false
+          });
+          frontPlot.add(xTipBox.container);
+          this.xTipBox = xTipBox;
+        }
+
+        if (this.showYTip) {
+          var {
+            yTipBackground,
+            yTipTextStyle
+          } = this;
+          var yTipBox = new TextBox({
+            className: 'yTip',
+            background: yTipBackground,
+            textStyle: yTipTextStyle,
+            visible: false
+          });
+          frontPlot.add(yTipBox.container);
+          this.yTipBox = yTipBox;
+        }
+
+        if (this.showCrosshairs) {
+          this._renderCrosshairs();
+        }
+
+        frontPlot.sort();
+      }
+
+      setContent(title, items) {
+        this.title = title;
+        this.items = items;
+
+        if (!this.custom) {
+          var container = this.container;
+          container.setTitle(title);
+          container.setItems(items);
+        }
+      }
+
+      setYTipContent(val) {
+        var yTip = this.yTip;
+
+        if (isFunction(yTip)) {
+          val = yTip(val);
+        } else {
+          val = mix({
+            text: val
+          }, yTip);
+        }
+
+        this.yTipBox && this.yTipBox.updateContent(val);
+      }
+
+      setYTipPosition(pos) {
+        var plotRange = this.plotRange;
+        var crosshairsShapeX = this.crosshairsShapeX;
+
+        if (this.showYTip) {
+          var yTipBox = this.yTipBox;
+          var yTipHeight = yTipBox.getHeight();
+          var yTipWidth = yTipBox.getWidth();
+          var posX = plotRange.tl.x - yTipWidth;
+          var posY = pos - yTipHeight / 2;
+
+          if (posY <= plotRange.tl.y) {
+            posY = plotRange.tl.y;
+          }
+
+          if (posY + yTipHeight >= plotRange.br.y) {
+            posY = plotRange.br.y - yTipHeight;
+          }
+
+          if (posX < 0) {
+            posX = plotRange.tl.x;
+            crosshairsShapeX && crosshairsShapeX.attr('x1', plotRange.tl.x + yTipWidth);
+          }
+
+          yTipBox.updatePosition(posX, posY);
+        }
+      }
+
+      setXTipContent(val) {
+        var xTip = this.xTip;
+
+        if (isFunction(xTip)) {
+          val = xTip(val);
+        } else {
+          val = mix({
+            text: val
+          }, xTip);
+        }
+
+        this.xTipBox && this.xTipBox.updateContent(val);
+      }
+
+      setXTipPosition(pos) {
+        var {
+          showXTip,
+          canvas,
+          plotRange,
+          xTipBox,
+          crosshairsShapeY
+        } = this;
+
+        if (showXTip) {
+          // const el = canvas.get('el');
+          // const canvasHeight = Util.getHeight(el);
+          var canvasHeight = canvas.get('height');
+          var xTipWidth = xTipBox.getWidth();
+          var xTipHeight = xTipBox.getHeight();
+          var posX = pos - xTipWidth / 2;
+          var posY = plotRange.br.y;
+
+          if (posX <= plotRange.tl.x) {
+            posX = plotRange.tl.x;
+          }
+
+          if (posX + xTipWidth >= plotRange.tr.x) {
+            posX = plotRange.tr.x - xTipWidth;
+          }
+
+          if (canvasHeight - posY < xTipHeight) {
+            posY -= xTipHeight;
+          }
+
+          xTipBox.updatePosition(posX, posY);
+          crosshairsShapeY && crosshairsShapeY.attr('y1', posY);
+        }
+      }
+
+      setXCrosshairPosition(pos) {
+        this.crosshairsShapeX && this.crosshairsShapeX.moveTo(0, pos);
+      }
+
+      setYCrosshairPosition(pos) {
+        this.crosshairsShapeY && this.crosshairsShapeY.moveTo(pos, 0);
+      }
+
+      setPosition(items) {
+        var {
+          container,
+          plotRange,
+          offsetX,
+          offsetY,
+          fixed,
+          tooltipArrow
+        } = this;
+
+        if (!container) {
+          return;
+        }
+
+        var containerBBox = container.container.getBBox();
+        var {
+          minX,
+          minY,
+          width,
+          height
+        } = containerBBox;
+        var {
+          tl,
+          tr
+        } = plotRange;
+        var posX = 0;
+        var posY = tl.y - height - GAP + offsetY;
+
+        if (fixed) {
+          var x = (tl.x + tr.x) / 2;
+          posX = x - width / 2 + offsetX;
+        } else {
+          var _x;
+
+          if (items.length > 1) {
+            _x = (items[0].x + items[items.length - 1].x) / 2;
+          } else {
+            _x = items[0].x;
+          }
+
+          posX = _x - width / 2 + offsetX;
+
+          if (posX < tl.x) {
+            posX = tl.x;
+          }
+
+          if (posX + width > tr.x) {
+            posX = tr.x - width;
+          }
+
+          if (tooltipArrow) {
+            tooltipArrow.attr('points', [{
+              x: _x - 3,
+              y: tl.y - GAP + offsetY
+            }, {
+              x: _x + 3,
+              y: tl.y - GAP + offsetY
+            }, {
+              x: _x,
+              y: tl.y + offsetY
+            }]);
+            var backShape = container.backShape;
+            var radius = parsePadding(backShape.attr('radius'));
+
+            if (_x === tl.x) {
+              radius[3] = 0;
+              tooltipArrow.attr('points', [{
+                x: tl.x,
+                y: tl.y + offsetY
+              }, {
+                x: tl.x,
+                y: tl.y - GAP + offsetY
+              }, {
+                x: tl.x + GAP,
+                y: tl.y - GAP + offsetY
+              }]);
+            } else if (_x === tr.x) {
+              radius[2] = 0;
+              tooltipArrow.attr('points', [{
+                x: tr.x,
+                y: tl.y + offsetY
+              }, {
+                x: tr.x - GAP,
+                y: tl.y - GAP + offsetY
+              }, {
+                x: tr.x,
+                y: tl.y - GAP + offsetY
+              }]);
+            }
+
+            backShape.attr('radius', radius);
+          }
+        }
+
+        container.moveTo(posX - minX, posY - minY);
+      }
+
+      setMarkers() {
+        var cfg = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+        var self = this;
+        var {
+          items,
+          style,
+          type
+        } = cfg;
+
+        var markerGroup = self._getMarkerGroup(type);
+
+        if (type === 'circle') {
+          for (var i = 0, length = items.length; i < length; i++) {
+            var item = items[i];
+            var marker = new Marker({
+              className: 'tooltip-circle-marker',
+              attrs: mix({
+                x: item.x,
+                y: item.y,
+                stroke: item.color
+              }, style)
+            });
+            markerGroup.add(marker);
+          }
+        } else {
+          markerGroup.addShape('rect', {
+            className: 'tooltip-rect-marker',
+            attrs: style
+          });
+        }
+      }
+
+      clearMarkers() {
+        var markerGroup = this.markerGroup;
+        markerGroup && markerGroup.clear();
+      }
+
+      show() {
+        var crosshairsShapeX = this.crosshairsShapeX;
+        var crosshairsShapeY = this.crosshairsShapeY;
+        var markerGroup = this.markerGroup;
+        var container = this.container;
+        var tooltipArrow = this.tooltipArrow;
+        var xTipBox = this.xTipBox;
+        var yTipBox = this.yTipBox;
+        var canvas = this.canvas;
+        crosshairsShapeX && crosshairsShapeX.show();
+        crosshairsShapeY && crosshairsShapeY.show();
+        markerGroup && markerGroup.show();
+        container && container.show();
+        tooltipArrow && tooltipArrow.show();
+        xTipBox && xTipBox.show();
+        yTipBox && yTipBox.show();
+        canvas.draw();
+      }
+
+      hide() {
+        var crosshairsShapeX = this.crosshairsShapeX;
+        var crosshairsShapeY = this.crosshairsShapeY;
+        var markerGroup = this.markerGroup;
+        var container = this.container;
+        var tooltipArrow = this.tooltipArrow;
+        var xTipBox = this.xTipBox;
+        var yTipBox = this.yTipBox;
+        crosshairsShapeX && crosshairsShapeX.hide();
+        crosshairsShapeY && crosshairsShapeY.hide();
+        markerGroup && markerGroup.hide();
+        container && container.hide();
+        tooltipArrow && tooltipArrow.hide();
+        xTipBox && xTipBox.hide();
+        yTipBox && yTipBox.hide();
+      }
+
+      destroy() {
+        var crosshairsShapeX = this.crosshairsShapeX;
+        var crosshairsShapeY = this.crosshairsShapeY;
+        var markerGroup = this.markerGroup;
+        var container = this.container;
+        var tooltipArrow = this.tooltipArrow;
+        var xTipBox = this.xTipBox;
+        var yTipBox = this.yTipBox;
+        crosshairsShapeX && crosshairsShapeX.remove(true);
+        crosshairsShapeY && crosshairsShapeY.remove(true);
+        markerGroup && markerGroup.remove(true);
+        tooltipArrow && tooltipArrow.remove(true);
+        container && container.clear();
+        xTipBox && xTipBox.clear();
+        yTipBox && yTipBox.clear();
+        this.destroyed = true;
+      }
+
+      _getMarkerGroup(type) {
+        var markerGroup = this.markerGroup;
+
+        if (!markerGroup) {
+          if (type === 'circle') {
+            markerGroup = this.frontPlot.addGroup({
+              zIndex: 1
+            });
+            this.frontPlot.sort();
+          } else {
+            markerGroup = this.backPlot.addGroup();
+          }
+
+          this.markerGroup = markerGroup;
+        } else {
+          markerGroup.clear();
+        }
+
+        return markerGroup;
+      }
+
+      _renderCrosshairs() {
+        var {
+          crosshairsType,
+          crosshairsStyle,
+          frontPlot,
+          plotRange
+        } = this;
+        var {
+          tl,
+          br
+        } = plotRange;
+
+        if (directionEnabled(crosshairsType, 'x')) {
+          this.crosshairsShapeX = frontPlot.addShape('Line', {
+            className: 'tooltip-crosshairs-x',
+            zIndex: 0,
+            visible: false,
+            attrs: mix({
+              x1: tl.x,
+              y1: 0,
+              x2: br.x,
+              y2: 0
+            }, crosshairsStyle)
+          });
+        }
+
+        if (directionEnabled(crosshairsType, 'y')) {
+          this.crosshairsShapeY = frontPlot.addShape('Line', {
+            className: 'tooltip-crosshairs-y',
+            zIndex: 0,
+            visible: false,
+            attrs: mix({
+              x1: 0,
+              y1: br.y,
+              x2: 0,
+              y2: tl.y
+            }, crosshairsStyle)
+          });
+        }
+      }
+
+    }
+
+    function _defineProperty$2(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+    Global.tooltip = deepMix({
+      triggerOn: 'press',
+      triggerOff: 'pressend',
+      alwaysShow: false,
+      showTitle: false,
+      showCrosshairs: false,
+      crosshairsStyle: {
+        stroke: 'rgba(0, 0, 0, 0.25)',
+        lineWidth: 1
+      },
+      showTooltipMarker: true,
+      background: {
+        radius: 1,
+        fill: 'rgba(0, 0, 0, 0.65)',
+        padding: [3, 5]
+      },
+      titleStyle: {
+        fontSize: 12,
+        fill: '#fff',
+        textAlign: 'start',
+        textBaseline: 'top'
+      },
+      nameStyle: {
+        fontSize: 12,
+        fill: 'rgba(255, 255, 255, 0.65)',
+        textAlign: 'start',
+        textBaseline: 'middle'
+      },
+      valueStyle: {
+        fontSize: 12,
+        fill: '#fff',
+        textAlign: 'start',
+        textBaseline: 'middle'
+      },
+      showItemMarker: true,
+      itemMarkerStyle: {
+        radius: 3,
+        symbol: 'circle',
+        lineWidth: 1,
+        stroke: '#fff'
+      },
+      layout: 'horizontal',
+      snap: false
+    }, Global.tooltip || {});
+
+    function _getTooltipValueScale(geom) {
+      var colorAttr = geom.getAttr('color');
+
+      if (colorAttr) {
+        var colorScale = colorAttr.getScale(colorAttr.type);
+
+        if (colorScale.isLinear) {
+          return colorScale;
+        }
+      }
+
+      var xScale = geom.getXScale();
+      var yScale = geom.getYScale();
+
+      if (yScale) {
+        return yScale;
+      }
+
+      return xScale;
+    }
+
+    function getTooltipName(geom, origin) {
+      var name;
+      var nameScale;
+
+      var groupScales = geom._getGroupScales();
+
+      if (groupScales.length) {
+        each(groupScales, function (scale) {
+          nameScale = scale;
+          return false;
+        });
+      }
+
+      if (nameScale) {
+        var field = nameScale.field;
+        name = nameScale.getText(origin[field]);
+      } else {
+        var valueScale = _getTooltipValueScale(geom);
+
+        name = valueScale.alias || valueScale.field;
+      }
+
+      return name;
+    }
+
+    function getTooltipValue(geom, origin) {
+      var scale = _getTooltipValueScale(geom);
+
+      return scale.getText(origin[scale.field]);
+    }
+
+    function getTooltipTitle(geom, origin) {
+      var position = geom.getAttr('position');
+      var field = position.getFields()[0];
+      var scale = geom.get('scales')[field];
+      return scale.getText(origin[scale.field]);
+    }
+
+    function _indexOfArray(items, item) {
+      var rst = -1;
+      each(items, function (sub, index) {
+        if (sub.title === item.title && sub.name === item.name && sub.value === item.value && sub.color === item.color) {
+          rst = index;
+          return false;
+        }
+      });
+      return rst;
+    }
+
+    function _uniqItems(items) {
+      var tmp = [];
+      each(items, function (item) {
+        var index = _indexOfArray(tmp, item);
+
+        if (index === -1) {
+          tmp.push(item);
+        } else {
+          tmp[index] = item;
+        }
+      });
+      return tmp;
+    }
+
+    function isEqual$1(arr1, arr2) {
+      return JSON.stringify(arr1) === JSON.stringify(arr2);
+    }
+
+    class TooltipController {
+      constructor(cfg) {
+        var _this = this;
+
+        _defineProperty$2(this, "handleShowEvent", function (ev) {
+          var chart = _this.chart;
+          if (!_this.enable) return;
+          var plot = chart.get('plotRange');
+          var point = createEvent(ev, chart);
+
+          if (!isPointInPlot(point, plot) && !_this._tooltipCfg.alwaysShow) {
+            // not in chart plot
+            _this.hideTooltip();
+
+            return;
+          }
+
+          var lastTimeStamp = _this.timeStamp;
+          var timeStamp = +new Date();
+
+          if (timeStamp - lastTimeStamp > 16) {
+            _this.showTooltip(point);
+
+            _this.timeStamp = timeStamp;
+          }
+        });
+
+        _defineProperty$2(this, "handleHideEvent", function () {
+          if (!_this.enable) return;
+
+          _this.hideTooltip();
+        });
+
+        this.enable = true;
+        this.cfg = {};
+        this.tooltip = null;
+        this.chart = null;
+        this.timeStamp = 0;
+        mix(this, cfg);
+        var _chart = this.chart;
+
+        var canvas = _chart.get('canvas');
+
+        this.canvas = canvas;
+        this.canvasDom = canvas.get('el');
+      }
+
+      _setCrosshairsCfg() {
+        var self = this;
+        var chart = self.chart;
+        var defaultCfg = mix({}, Global.tooltip);
+        var geoms = chart.get('geoms');
+        var shapes = [];
+        each(geoms, function (geom) {
+          var type = geom.get('type');
+
+          if (shapes.indexOf(type) === -1) {
+            shapes.push(type);
+          }
+        });
+        var coordType = chart.get('coord').type;
+
+        if (geoms.length && (coordType === 'cartesian' || coordType === 'rect')) {
+          if (shapes.length === 1 && ['line', 'area', 'path', 'point'].indexOf(shapes[0]) !== -1) {
+            mix(defaultCfg, {
+              showCrosshairs: true
+            });
+          }
+        }
+
+        return defaultCfg;
+      }
+
+      _getMaxLength() {
+        var cfg = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+        var {
+          layout,
+          plotRange
+        } = cfg;
+        return layout === 'horizontal' ? plotRange.br.x - plotRange.bl.x : plotRange.bl.y - plotRange.tr.y;
+      }
+
+      render() {
+        var self = this;
+
+        if (self.tooltip) {
+          return;
+        }
+
+        var chart = self.chart;
+        var canvas = chart.get('canvas');
+        var frontPlot = chart.get('frontPlot').addGroup({
+          className: 'tooltipContainer',
+          zIndex: 10
+        });
+        var backPlot = chart.get('backPlot').addGroup({
+          className: 'tooltipContainer'
+        });
+        var plotRange = chart.get('plotRange');
+        var coord = chart.get('coord');
+
+        var defaultCfg = self._setCrosshairsCfg();
+
+        var cfg = self.cfg; // 通过 chart.tooltip() 接口传入的 tooltip 配置项
+
+        var tooltipCfg = deepMix({
+          plotRange,
+          frontPlot,
+          backPlot,
+          canvas,
+          fixed: coord.transposed || coord.isPolar
+        }, defaultCfg, cfg); // 创建 tooltip 实例需要的配置，不应该修改 this.cfg，即用户传入的配置
+
+        tooltipCfg.maxLength = self._getMaxLength(tooltipCfg);
+        this._tooltipCfg = tooltipCfg;
+        var tooltip = new Tooltip(tooltipCfg);
+        self.tooltip = tooltip;
+        self.bindEvents();
+      }
+
+      clear() {
+        var tooltip = this.tooltip;
+
+        if (tooltip) {
+          tooltip.destroy();
+          this.unBindEvents();
+        }
+
+        this.tooltip = null;
+        this.prePoint = null;
+        this._lastActive = null;
+      }
+
+      _getTooltipMarkerStyle() {
+        var cfg = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+        var {
+          type,
+          items
+        } = cfg;
+        var tooltipCfg = this._tooltipCfg;
+
+        if (type === 'rect') {
+          var x;
+          var y;
+          var width;
+          var height;
+          var chart = this.chart;
+          var {
+            tl,
+            br
+          } = chart.get('plotRange');
+          var coord = chart.get('coord');
+          var firstItem = items[0];
+          var lastItem = items[items.length - 1];
+          var intervalWidth = firstItem.width;
+
+          if (coord.transposed) {
+            x = tl.x;
+            y = lastItem.y - intervalWidth * 0.75;
+            width = br.x - tl.x;
+            height = firstItem.y - lastItem.y + 1.5 * intervalWidth;
+          } else {
+            x = firstItem.x - intervalWidth * 0.75;
+            y = tl.y;
+            width = lastItem.x - firstItem.x + 1.5 * intervalWidth;
+            height = br.y - tl.y;
+          }
+
+          cfg.style = mix({
+            x,
+            y,
+            width,
+            height,
+            fill: '#CCD6EC',
+            opacity: 0.3
+          }, tooltipCfg.tooltipMarkerStyle);
+        } else {
+          cfg.style = mix({
+            radius: 4,
+            fill: '#fff',
+            lineWidth: 2
+          }, tooltipCfg.tooltipMarkerStyle);
+        }
+
+        return cfg;
+      }
+
+      _setTooltip(point, items) {
+        var tooltipMarkerCfg = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+        var lastActive = this._lastActive;
+        var tooltip = this.tooltip;
+        var cfg = this._tooltipCfg;
+        items = _uniqItems(items);
+        var chart = this.chart;
+        var coord = chart.get('coord');
+        var yScale = chart.getYScales()[0];
+        var snap = cfg.snap;
+
+        if (snap === false && yScale.isLinear) {
+          var invertPoint = coord.invertPoint(point);
+          var plot = chart.get('plotRange');
+          var tip;
+          var pos;
+
+          if (isPointInPlot(point, plot)) {
+            if (coord.transposed) {
+              tip = yScale.invert(invertPoint.x);
+              pos = point.x;
+              tooltip.setXTipContent(tip);
+              tooltip.setXTipPosition(pos);
+              tooltip.setYCrosshairPosition(pos);
+            } else {
+              tip = yScale.invert(invertPoint.y);
+              pos = point.y;
+              tooltip.setYTipContent(tip);
+              tooltip.setYTipPosition(pos);
+              tooltip.setXCrosshairPosition(pos);
+            }
+          }
+        }
+
+        if (cfg.onShow) {
+          cfg.onShow({
+            x: point.x,
+            y: point.y,
+            tooltip,
+            items,
+            tooltipMarkerCfg
+          });
+        }
+
+        if (isEqual$1(lastActive, items)) {
+          if (snap === false && (directionEnabled(cfg.crosshairsType, 'y') || cfg.showYTip)) {
+            var canvas = this.chart.get('canvas');
+            canvas.draw();
+          }
+
+          return;
+        }
+
+        this._lastActive = items;
+        var onChange = cfg.onChange;
+
+        if (onChange) {
+          onChange({
+            x: point.x,
+            y: point.y,
+            tooltip,
+            items,
+            tooltipMarkerCfg
+          });
+        }
+
+        var first = items[0];
+        var title = first.title || first.name;
+        var xTipPosX = first.x;
+
+        if (items.length > 1) {
+          xTipPosX = (items[0].x + items[items.length - 1].x) / 2;
+        }
+
+        tooltip.setContent(title, items, coord.transposed);
+        tooltip.setPosition(items, point);
+
+        if (coord.transposed) {
+          var yTipPosY = first.y;
+
+          if (items.length > 1) {
+            yTipPosY = (items[0].y + items[items.length - 1].y) / 2;
+          }
+
+          tooltip.setYTipContent(title);
+          tooltip.setYTipPosition(yTipPosY);
+          tooltip.setXCrosshairPosition(yTipPosY);
+
+          if (snap) {
+            tooltip.setXTipContent(first.value);
+            tooltip.setXTipPosition(xTipPosX);
+            tooltip.setYCrosshairPosition(xTipPosX);
+          }
+        } else {
+          tooltip.setXTipContent(title);
+          tooltip.setXTipPosition(xTipPosX);
+          tooltip.setYCrosshairPosition(xTipPosX);
+
+          if (snap) {
+            tooltip.setYTipContent(first.value);
+            tooltip.setYTipPosition(first.y);
+            tooltip.setXCrosshairPosition(first.y);
+          }
+        }
+
+        var markerItems = tooltipMarkerCfg.items;
+
+        if (cfg.showTooltipMarker && markerItems.length) {
+          tooltipMarkerCfg = this._getTooltipMarkerStyle(tooltipMarkerCfg);
+          tooltip.setMarkers(tooltipMarkerCfg);
+        } else {
+          tooltip.clearMarkers();
+        }
+
+        tooltip.show();
+      }
+
+      showTooltip(point) {
+        var self = this;
+        var chart = self.chart;
+        var tooltipMarkerType;
+        var tooltipMarkerItems = [];
+        var items = [];
+        var cfg = self._tooltipCfg;
+        var marker;
+
+        if (cfg.showItemMarker) {
+          marker = cfg.itemMarkerStyle;
+        }
+
+        var geoms = chart.get('geoms');
+        var coord = chart.get('coord');
+        each(geoms, function (geom) {
+          if (geom.get('visible')) {
+            var type = geom.get('type');
+            var records = geom.getSnapRecords(point);
+            var adjust = geom.get('adjust'); // 漏斗图和金子塔图tooltip位置有问题，暂时不开放显示
+
+            if (type === 'interval' && adjust && adjust.type === 'symmetric') {
+              return;
+            }
+
+            each(records, function (record) {
+              if (record.x && record.y) {
+                var {
+                  x,
+                  y,
+                  _origin,
+                  color
+                } = record;
+                var tooltipItem = {
+                  x,
+                  y: isArray(y) ? y[1] : y,
+                  color: color || Global.defaultColor,
+                  origin: _origin,
+                  name: getTooltipName(geom, _origin),
+                  value: getTooltipValue(geom, _origin),
+                  title: getTooltipTitle(geom, _origin)
+                };
+
+                if (marker) {
+                  tooltipItem.marker = mix({
+                    fill: color || Global.defaultColor
+                  }, marker);
+                }
+
+                items.push(tooltipItem);
+
+                if (['line', 'area', 'path'].indexOf(type) !== -1) {
+                  tooltipMarkerType = 'circle';
+                  tooltipMarkerItems.push(tooltipItem);
+                } else if (type === 'interval' && (coord.type === 'cartesian' || coord.type === 'rect')) {
+                  tooltipMarkerType = 'rect';
+                  tooltipItem.width = geom.getSize(record._origin);
+                  tooltipMarkerItems.push(tooltipItem);
+                }
+              }
+            });
+          }
+        });
+
+        if (items.length) {
+          var tooltipMarkerCfg = {
+            items: tooltipMarkerItems,
+            type: tooltipMarkerType
+          };
+
+          self._setTooltip(point, items, tooltipMarkerCfg);
+        } else {
+          self.hideTooltip();
+        }
+      }
+
+      hideTooltip() {
+        var cfg = this._tooltipCfg;
+        this._lastActive = null;
+        var tooltip = this.tooltip;
+
+        if (tooltip) {
+          tooltip.hide();
+
+          if (cfg.onHide) {
+            cfg.onHide({
+              tooltip
+            });
+          }
+
+          var canvas = this.chart.get('canvas');
+          canvas.draw();
+        }
+      }
+
+      _handleEvent(methodName, method, action) {
+        var canvas = this.canvas;
+        each([].concat(methodName), function (aMethod) {
+          if (action === 'bind') {
+            canvas.on(aMethod, method);
+          } else {
+            canvas.off(aMethod, method);
+          }
+        });
+      }
+
+      bindEvents() {
+        var cfg = this._tooltipCfg;
+        var {
+          triggerOn,
+          triggerOff,
+          alwaysShow
+        } = cfg;
+        triggerOn && this._handleEvent(triggerOn, this.handleShowEvent, 'bind'); // 如果 !alwaysShow, 则在手势离开后就隐藏
+
+        if (!alwaysShow) {
+          this._handleEvent(triggerOff, this.handleHideEvent, 'bind');
+        }
+      }
+
+      unBindEvents() {
+        var cfg = this._tooltipCfg;
+        var {
+          triggerOn,
+          triggerOff,
+          alwaysShow
+        } = cfg;
+        triggerOn && this._handleEvent(triggerOn, this.handleShowEvent, 'unBind');
+
+        if (!alwaysShow) {
+          this._handleEvent(triggerOff, this.handleHideEvent, 'unBind');
+        }
+      }
+
+    }
+
+    function init(chart) {
+      var tooltipController = new TooltipController({
+        chart
+      });
+      chart.set('tooltipController', tooltipController);
+
+      chart.tooltip = function (enable, cfg) {
+        if (isObject(enable)) {
+          cfg = enable;
+          enable = true;
+        }
+
+        tooltipController.enable = enable;
+
+        if (cfg) {
+          tooltipController.cfg = cfg;
+        }
+
+        return this;
+      };
+    }
+
+    function afterGeomDraw(chart) {
+      var tooltipController = chart.get('tooltipController');
+      tooltipController.render();
+
+      chart.showTooltip = function (point) {
+        tooltipController.showTooltip(point);
+        return this;
+      };
+
+      chart.hideTooltip = function () {
+        tooltipController.hideTooltip();
+        return this;
+      };
+    }
+
+    function clearInner(chart) {
+      var tooltipController = chart.get('tooltipController');
+      tooltipController.clear();
+    }
+    var tooltip = {
+      init,
+      afterGeomDraw,
+      clearInner
+    };
+
+    var Tooltip$1 = /*#__PURE__*/Object.freeze({
+        __proto__: null,
+        init: init,
+        afterGeomDraw: afterGeomDraw,
+        clearInner: clearInner,
+        'default': tooltip
+    });
+
+    Global.guide = deepMix({
+      line: {
+        style: {
+          stroke: '#a3a3a3',
+          lineWidth: 1
+        },
+        top: true
+      },
+      text: {
+        style: {
+          fill: '#787878',
+          textAlign: 'center',
+          textBaseline: 'middle'
+        },
+        offsetX: 0,
+        offsetY: 0,
+        top: true
+      },
+      rect: {
+        style: {
+          fill: '#fafafa'
+        },
+        top: false
+      },
+      arc: {
+        style: {
+          stroke: '#a3a3a3'
+        },
+        top: true
+      },
+      html: {
+        offsetX: 0,
+        offsetY: 0,
+        alignX: 'center',
+        alignY: 'middle'
+      },
+      tag: {
+        top: true,
+        offsetX: 0,
+        offsetY: 0,
+        side: 4,
+        background: {
+          padding: 5,
+          radius: 2,
+          fill: '#1890FF'
+        },
+        textStyle: {
+          fontSize: 12,
+          fill: '#fff',
+          textAlign: 'center',
+          textBaseline: 'middle'
+        }
+      },
+      point: {
+        top: true,
+        offsetX: 0,
+        offsetY: 0,
+        style: {
+          fill: '#fff',
+          r: 3,
+          lineWidth: 2,
+          stroke: '#1890ff'
+        }
+      }
+    }, Global.guide || {});
+
+    class GuideController {
+      constructor(cfg) {
+        this.guides = [];
+        this.xScale = null;
+        this.yScales = null;
+        this.guideShapes = [];
+        mix(this, cfg);
+      }
+
+      _toString(position) {
+        if (isFunction(position)) {
+          position = position(this.xScale, this.yScales);
+        }
+
+        position = position.toString();
+        return position;
+      }
+
+      _getId(shape, guide) {
+        var id = guide.id;
+
+        if (!id) {
+          var type = guide.type;
+
+          if (type === 'arc' || type === 'line' || type === 'rect') {
+            id = this._toString(guide.start) + '-' + this._toString(guide.end);
+          } else {
+            id = this._toString(guide.position);
+          }
+        }
+
+        return id;
+      }
+
+      paint(coord) {
+        var self = this;
+        var {
+          chart,
+          guides,
+          xScale,
+          yScales
+        } = self;
+        var guideShapes = [];
+        each(guides, function (guide, idx) {
+          guide.xScale = xScale;
+          guide.yScales = yScales;
+          var container;
+
+          if (guide.type === 'regionFilter') {
+            // TODO: RegionFilter support animation
+            guide.chart = chart;
+          } else {
+            container = guide.top ? self.frontPlot : self.backPlot;
+          }
+
+          guide.coord = coord;
+          guide.container = container;
+          guide.canvas = chart.get('canvas');
+          var shape = guide.render(coord, container);
+
+          if (shape) {
+            var id = self._getId(shape, guide);
+
+            [].concat(shape).forEach(function (s) {
+              s._id = s.get('className') + '-' + id;
+              s.set('index', idx);
+              guideShapes.push(s);
+            });
+          }
+        });
+        self.guideShapes = guideShapes;
+      }
+
+      clear() {
+        this.reset();
+        this.guides = [];
+        return this;
+      }
+
+      reset() {
+        var guides = this.guides;
+        each(guides, function (guide) {
+          guide.remove();
+        });
+      }
+
+      _createGuide(type, cfg) {
+        var ClassName = upperFirst(type);
+        var guide = new GuideBase[ClassName](deepMix({}, Global.guide[type], cfg));
+        this.guides.push(guide);
+        return guide;
+      }
+
+      line() {
+        var cfg = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+        return this._createGuide('line', cfg);
+      }
+
+      text() {
+        var cfg = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+        return this._createGuide('text', cfg);
+      }
+
+      arc() {
+        var cfg = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+        return this._createGuide('arc', cfg);
+      }
+
+      html() {
+        var cfg = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+        return this._createGuide('html', cfg);
+      }
+
+      rect() {
+        var cfg = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+        return this._createGuide('rect', cfg);
+      }
+
+      tag() {
+        var cfg = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+        return this._createGuide('tag', cfg);
+      }
+
+      point() {
+        var cfg = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+        return this._createGuide('point', cfg);
+      }
+
+      regionFilter() {
+        var cfg = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+        return this._createGuide('regionFilter', cfg);
+      }
+
+    }
+
+    function init$1(chart) {
+      var guideController = new GuideController({
+        frontPlot: chart.get('frontPlot').addGroup({
+          zIndex: 20,
+          className: 'guideContainer'
+        }),
+        backPlot: chart.get('backPlot').addGroup({
+          className: 'guideContainer'
+        })
+      });
+      chart.set('guideController', guideController);
+      /**
+       * 为图表添加 guide
+       * @return {GuideController} 返回 guide 控制器
+       */
+
+      chart.guide = function () {
+        return guideController;
+      };
+    }
+
+    function afterGeomDraw$1(chart) {
+      var guideController = chart.get('guideController');
+
+      if (!guideController.guides.length) {
+        return;
+      }
+
+      var xScale = chart.getXScale();
+      var yScales = chart.getYScales();
+      var coord = chart.get('coord');
+      guideController.xScale = xScale;
+      guideController.yScales = yScales;
+      guideController.chart = chart; // for regionFilter
+
+      guideController.paint(coord);
+    }
+
+    function clear(chart) {
+      chart.get('guideController').clear();
+    }
+
+    function repaint(chart) {
+      chart.get('guideController').reset();
+    }
+    var guide = {
+      init: init$1,
+      afterGeomDraw: afterGeomDraw$1,
+      clear,
+      repaint
+    };
+
+    var Guide = /*#__PURE__*/Object.freeze({
+        __proto__: null,
+        init: init$1,
+        afterGeomDraw: afterGeomDraw$1,
+        clear: clear,
+        repaint: repaint,
+        'default': guide
+    });
+
+    function _defineProperty$3(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+    var LEGEND_GAP = 12;
+    var MARKER_SIZE = 3;
+    var DEFAULT_CFG = {
+      itemMarginBottom: 12,
+      itemGap: 10,
+      showTitle: false,
+      titleStyle: {
+        fontSize: 12,
+        fill: '#808080',
+        textAlign: 'start',
+        textBaseline: 'top'
+      },
+      nameStyle: {
+        fill: '#808080',
+        fontSize: 12,
+        textAlign: 'start',
+        textBaseline: 'middle'
+      },
+      valueStyle: {
+        fill: '#000000',
+        fontSize: 12,
+        textAlign: 'start',
+        textBaseline: 'middle'
+      },
+      unCheckStyle: {
+        fill: '#bfbfbf'
+      },
+      itemWidth: 'auto',
+      wordSpace: 6,
+      selectedMode: 'multiple' // 'multiple' or 'single'
+
+    }; // Register the default configuration for Legend
+
+    Global.legend = deepMix({
+      common: DEFAULT_CFG,
+      // common legend configuration
+      right: mix({
+        position: 'right',
+        layout: 'vertical'
+      }, DEFAULT_CFG),
+      left: mix({
+        position: 'left',
+        layout: 'vertical'
+      }, DEFAULT_CFG),
+      top: mix({
+        position: 'top',
+        layout: 'horizontal'
+      }, DEFAULT_CFG),
+      bottom: mix({
+        position: 'bottom',
+        layout: 'horizontal'
+      }, DEFAULT_CFG)
+    }, Global.legend || {});
+
+    function getPaddingByPos(pos, appendPadding) {
+      var padding = 0;
+      appendPadding = parsePadding(appendPadding);
+
+      switch (pos) {
+        case 'top':
+          padding = appendPadding[0];
+          break;
+
+        case 'right':
+          padding = appendPadding[1];
+          break;
+
+        case 'bottom':
+          padding = appendPadding[2];
+          break;
+
+        case 'left':
+          padding = appendPadding[3];
+          break;
+      }
+
+      return padding;
+    }
+
+    class LegendController {
+      constructor(cfg) {
+        var _this = this;
+
+        _defineProperty$3(this, "handleEvent", function (ev) {
+          var self = _this;
+
+          function findItem(x, y) {
+            var result = null;
+            var legends = self.legends;
+            each(legends, function (legendItems) {
+              each(legendItems, function (legend) {
+                var {
+                  itemsGroup,
+                  legendHitBoxes
+                } = legend;
+                var children = itemsGroup.get('children');
+
+                if (children.length) {
+                  var legendPosX = legend.x;
+                  var legendPosY = legend.y;
+                  each(legendHitBoxes, function (box, index) {
+                    if (x >= box.x + legendPosX && x <= box.x + box.width + legendPosX && y >= box.y + legendPosY && y <= box.height + box.y + legendPosY) {
+                      // inbox
+                      result = {
+                        clickedItem: children[index],
+                        clickedLegend: legend
+                      };
+                      return false;
+                    }
+                  });
+                }
+              });
+            });
+            return result;
+          }
+
+          var chart = self.chart;
+          var {
+            x,
+            y
+          } = createEvent(ev, chart);
+          var clicked = findItem(x, y);
+
+          if (clicked && clicked.clickedLegend.clickable !== false) {
+            var {
+              clickedItem,
+              clickedLegend
+            } = clicked;
+
+            if (clickedLegend.onClick) {
+              ev.clickedItem = clickedItem;
+              clickedLegend.onClick(ev);
+            } else if (!clickedLegend.custom) {
+              var checked = clickedItem.get('checked');
+              var value = clickedItem.get('dataValue');
+              var {
+                filteredVals,
+                field,
+                selectedMode
+              } = clickedLegend;
+              var isSingeSelected = selectedMode === 'single';
+
+              if (isSingeSelected) {
+                chart.filter(field, function (val) {
+                  return val === value;
+                });
+              } else {
+                if (checked) {
+                  filteredVals.push(value);
+                } else {
+                  remove(filteredVals, value);
+                }
+
+                chart.filter(field, function (val) {
+                  return filteredVals.indexOf(val) === -1;
+                });
+              }
+
+              chart.repaint();
+            }
+          }
+        });
+
+        this.legendCfg = {};
+        this.enable = true;
+        this.position = 'top';
+        mix(this, cfg);
+        var _chart = this.chart;
+        this.canvasDom = _chart.get('canvas').get('el');
+        this.clear();
+      }
+
+      addLegend(scale, items, filteredVals) {
+        var self = this;
+        var legendCfg = self.legendCfg;
+        var field = scale.field;
+        var fieldCfg = legendCfg[field];
+
+        if (fieldCfg === false) {
+          return null;
+        }
+
+        if (fieldCfg && fieldCfg.custom) {
+          self.addCustomLegend(field);
+        } else {
+          var position = legendCfg.position || self.position;
+
+          if (fieldCfg && fieldCfg.position) {
+            position = fieldCfg.position;
+          }
+
+          if (scale.isCategory) {
+            self._addCategoryLegend(scale, items, position, filteredVals);
+          }
+        }
+      }
+
+      addCustomLegend(field) {
+        var self = this;
+        var legendCfg = self.legendCfg;
+
+        if (field && legendCfg[field]) {
+          legendCfg = legendCfg[field];
+        }
+
+        var position = legendCfg.position || self.position;
+        var legends = self.legends;
+        legends[position] = legends[position] || [];
+        var items = legendCfg.items;
+
+        if (!items) {
+          return null;
+        }
+
+        var container = self.container;
+        each(items, function (item) {
+          if (!isPlainObject(item.marker)) {
+            item.marker = {
+              symbol: item.marker || 'circle',
+              fill: item.fill,
+              radius: MARKER_SIZE
+            };
+          } else {
+            item.marker.radius = item.marker.radius || MARKER_SIZE;
+          }
+
+          item.checked = isNil(item.checked) ? true : item.checked;
+          item.name = item.name || item.value;
+        });
+        var legend = new List(deepMix({}, Global.legend[position], legendCfg, {
+          maxLength: self._getMaxLength(position),
+          items,
+          parent: container
+        }));
+        legends[position].push(legend);
+      }
+
+      clear() {
+        var legends = this.legends;
+        each(legends, function (legendItems) {
+          each(legendItems, function (legend) {
+            legend.clear();
+          });
+        });
+        this.legends = {};
+        this.unBindEvents();
+      }
+
+      _isFiltered(scale, values, value) {
+        var rst = false;
+        each(values, function (val) {
+          rst = rst || scale.getText(val) === scale.getText(value);
+
+          if (rst) {
+            return false;
+          }
+        });
+        return rst;
+      }
+
+      _getMaxLength(position) {
+        var chart = this.chart;
+        var appendPadding = parsePadding(chart.get('appendPadding'));
+        return position === 'right' || position === 'left' ? chart.get('height') - (appendPadding[0] + appendPadding[2]) : chart.get('width') - (appendPadding[1] + appendPadding[3]);
+      }
+
+      _addCategoryLegend(scale, items, position, filteredVals) {
+        var self = this;
+        var {
+          legendCfg,
+          legends,
+          container,
+          chart
+        } = self;
+        var field = scale.field;
+        legends[position] = legends[position] || [];
+        var symbol = 'circle';
+
+        if (legendCfg[field] && legendCfg[field].marker) {
+          symbol = legendCfg[field].marker;
+        } else if (legendCfg.marker) {
+          symbol = legendCfg.marker;
+        }
+
+        each(items, function (item) {
+          if (isPlainObject(symbol)) {
+            mix(item.marker, symbol);
+          } else {
+            item.marker.symbol = symbol;
+          }
+
+          if (filteredVals) {
+            item.checked = !self._isFiltered(scale, filteredVals, item.dataValue);
+          }
+        });
+        var legendItems = chart.get('legendItems');
+        legendItems[field] = items;
+        var lastCfg = deepMix({}, Global.legend[position], legendCfg[field] || legendCfg, {
+          maxLength: self._getMaxLength(position),
+          items,
+          field,
+          filteredVals,
+          parent: container
+        });
+
+        if (lastCfg.showTitle) {
+          deepMix(lastCfg, {
+            title: scale.alias || scale.field
+          });
+        }
+
+        var legend = new List(lastCfg);
+        legends[position].push(legend);
+        return legend;
+      }
+
+      _alignLegend(legend, pre, position) {
+        var self = this;
+        var {
+          tl,
+          bl
+        } = self.plotRange;
+        var chart = self.chart;
+        var offsetX = legend.offsetX || 0;
+        var offsetY = legend.offsetY || 0;
+        var chartWidth = chart.get('width');
+        var chartHeight = chart.get('height');
+        var appendPadding = parsePadding(chart.get('appendPadding'));
+        var legendHeight = legend.getHeight();
+        var legendWidth = legend.getWidth();
+        var x = 0;
+        var y = 0;
+
+        if (position === 'left' || position === 'right') {
+          var verticalAlign = legend.verticalAlign || 'middle';
+          var height = Math.abs(tl.y - bl.y);
+          x = position === 'left' ? appendPadding[3] : chartWidth - legendWidth - appendPadding[1];
+          y = (height - legendHeight) / 2 + tl.y;
+
+          if (verticalAlign === 'top') {
+            y = tl.y;
+          } else if (verticalAlign === 'bottom') {
+            y = bl.y - legendHeight;
+          }
+
+          if (pre) {
+            y = pre.get('y') - legendHeight - LEGEND_GAP;
+          }
+        } else {
+          var align = legend.align || 'left';
+          x = appendPadding[3];
+
+          if (align === 'center') {
+            x = chartWidth / 2 - legendWidth / 2;
+          } else if (align === 'right') {
+            x = chartWidth - (legendWidth + appendPadding[1]);
+          }
+
+          y = position === 'top' ? appendPadding[0] + Math.abs(legend.container.getBBox().minY) : chartHeight - legendHeight;
+
+          if (pre) {
+            var preWidth = pre.getWidth();
+            x = pre.x + preWidth + LEGEND_GAP;
+          }
+        }
+
+        if (position === 'bottom' && offsetY > 0) {
+          offsetY = 0;
+        }
+
+        if (position === 'right' && offsetX > 0) {
+          offsetX = 0;
+        }
+
+        legend.moveTo(x + offsetX, y + offsetY);
+      }
+
+      alignLegends() {
+        var self = this;
+        var legends = self.legends;
+        each(legends, function (legendItems, position) {
+          each(legendItems, function (legend, index) {
+            var pre = legendItems[index - 1];
+
+            self._alignLegend(legend, pre, position);
+          });
+        });
+        return self;
+      }
+
+      bindEvents() {
+        var legendCfg = this.legendCfg;
+        var triggerOn = legendCfg.triggerOn || 'touchstart';
+        addEventListener(this.canvasDom, triggerOn, this.handleEvent);
+      }
+
+      unBindEvents() {
+        var legendCfg = this.legendCfg;
+        var triggerOn = legendCfg.triggerOn || 'touchstart';
+        removeEventListener(this.canvasDom, triggerOn, this.handleEvent);
+      }
+
+    }
+
+    function init$2(chart) {
+      var legendController = new LegendController({
+        container: chart.get('backPlot'),
+        plotRange: chart.get('plotRange'),
+        chart
+      });
+      chart.set('legendController', legendController);
+
+      chart.legend = function (field, cfg) {
+        var legendCfg = legendController.legendCfg;
+        legendController.enable = true;
+
+        if (isBoolean(field)) {
+          legendController.enable = field;
+          legendCfg = cfg || {};
+        } else if (isObject(field)) {
+          legendCfg = field;
+        } else {
+          legendCfg[field] = cfg;
+        }
+
+        legendController.legendCfg = legendCfg;
+        return this;
+      };
+    }
+
+    function beforeGeomDraw(chart) {
+      var legendController = chart.get('legendController');
+      if (!legendController.enable) return null; // legend is not displayed
+
+      var legendCfg = legendController.legendCfg;
+
+      if (legendCfg && legendCfg.custom) {
+        legendController.addCustomLegend();
+      } else {
+        var legendItems = chart.getLegendItems();
+        var scales = chart.get('scales');
+        var filters = chart.get('filters');
+        each(legendItems, function (items, field) {
+          var scale = scales[field];
+          var values = scale.values;
+          var filteredVals;
+
+          if (filters && filters[field]) {
+            filteredVals = values.filter(function (v) {
+              return !filters[field](v);
+            });
+          } else {
+            filteredVals = [];
+          }
+
+          legendController.addLegend(scale, items, filteredVals);
+        });
+      }
+
+      if (legendCfg && legendCfg.clickable !== false) {
+        legendController.bindEvents();
+      }
+
+      var legends = legendController.legends;
+      var legendRange = {
+        top: 0,
+        right: 0,
+        bottom: 0,
+        left: 0
+      };
+      each(legends, function (legendItems, position) {
+        var padding = 0;
+        each(legendItems, function (legend) {
+          var width = legend.getWidth();
+          var height = legend.getHeight();
+
+          if (position === 'top' || position === 'bottom') {
+            padding = Math.max(padding, height);
+
+            if (legend.offsetY > 0) {
+              padding += legend.offsetY;
+            }
+          } else {
+            padding = Math.max(padding, width);
+
+            if (legend.offsetX > 0) {
+              padding += legend.offsetX;
+            }
+          }
+        });
+        legendRange[position] = padding + getPaddingByPos(position, chart.get('appendPadding'));
+      });
+      chart.set('legendRange', legendRange);
+    }
+
+    function afterGeomDraw$2(chart) {
+      var legendController = chart.get('legendController');
+      legendController.alignLegends();
+    }
+
+    function clearInner$1(chart) {
+      var legendController = chart.get('legendController');
+      legendController.clear();
+      chart.set('legendRange', null);
+    }
+    var legend = {
+      init: init$2,
+      beforeGeomDraw,
+      afterGeomDraw: afterGeomDraw$2,
+      clearInner: clearInner$1
+    };
+
+    var Legend = /*#__PURE__*/Object.freeze({
+        __proto__: null,
+        init: init$2,
+        beforeGeomDraw: beforeGeomDraw,
+        afterGeomDraw: afterGeomDraw$2,
+        clearInner: clearInner$1,
+        'default': legend
+    });
+
+    var clock = typeof performance === 'object' && performance.now ? performance : Date;
+
+    class Timeline {
+      constructor() {
+        this.anims = [];
+        this.time = null;
+        this.playing = false;
+        this.canvas = [];
+      }
+
+      play() {
+        var self = this;
+        self.time = clock.now();
+        self.playing = true;
+
+        function step() {
+          if (self.playing) {
+            requestAnimationFrame(step);
+            self.update();
+          }
+        }
+
+        requestAnimationFrame(step);
+      }
+
+      stop() {
+        this.playing = false;
+        this.time = null;
+        this.canvas = [];
+      }
+
+      update() {
+        var currentTime = clock.now();
+        this.canvas = [];
+
+        for (var i = 0; i < this.anims.length; i++) {
+          var propertyAnim = this.anims[i];
+
+          if (currentTime < propertyAnim.startTime || propertyAnim.hasEnded) {
+            continue;
+          }
+
+          var shape = propertyAnim.shape; // shape
+
+          if (shape.get('destroyed')) {
+            this.anims.splice(i, 1);
+            i--;
+            continue;
+          }
+
+          var {
+            startState,
+            endState,
+            interpolate,
+            duration
+          } = propertyAnim;
+
+          if (currentTime >= propertyAnim.startTime && !propertyAnim.hasStarted) {
+            propertyAnim.hasStarted = true;
+
+            if (propertyAnim.onStart) {
+              propertyAnim.onStart();
+            }
+          }
+
+          var t = (currentTime - propertyAnim.startTime) / duration;
+          t = Math.max(0, Math.min(t, 1));
+          t = propertyAnim.easing(t);
+
+          if (propertyAnim.onFrame) {
+            propertyAnim.onFrame(t);
+          } else {
+            for (var key in interpolate) {
+              var diff = interpolate[key];
+              var value = diff(t);
+              var newValue = void 0;
+
+              if (key === 'points') {
+                newValue = [];
+                var aLen = Math.max(startState.points.length, endState.points.length);
+
+                for (var j = 0; j < aLen; j += 2) {
+                  newValue.push({
+                    x: value[j],
+                    y: value[j + 1]
+                  });
+                }
+              } else {
+                newValue = value;
+              }
+
+              shape._attrs.attrs[key] = newValue;
+              shape._attrs.bbox = null; // should clear calculated bbox
+            }
+          }
+
+          var canvas = shape.get('canvas');
+
+          if (this.canvas.indexOf(canvas) === -1) {
+            this.canvas.push(canvas);
+          }
+
+          if (propertyAnim.onUpdate) {
+            propertyAnim.onUpdate(t);
+          }
+
+          if (currentTime >= propertyAnim.endTime && !propertyAnim.hasEnded) {
+            propertyAnim.hasEnded = true;
+
+            if (propertyAnim.onEnd) {
+              propertyAnim.onEnd();
+            }
+          }
+
+          if (t === 1) {
+            // end
+            this.anims.splice(i, 1);
+            i--;
+          }
+        }
+
+        this.canvas.map(function (c) {
+          c.draw();
+          return c;
+        });
+        this.time = clock.now();
+      }
+
+    }
+
+    function linear$1(k) {
+      return k;
+    }
+
+    function quadraticIn(k) {
+      return k * k;
+    }
+
+    function quadraticOut(k) {
+      return k * (2 - k);
+    }
+
+    function quadraticInOut(k) {
+      if ((k *= 2) < 1) {
+        return 0.5 * k * k;
+      }
+
+      return -0.5 * (--k * (k - 2) - 1);
+    }
+
+    function cubicIn(k) {
+      return k * k * k;
+    }
+
+    function cubicOut(k) {
+      return --k * k * k + 1;
+    }
+
+    function cubicInOut(k) {
+      if ((k *= 2) < 1) {
+        return 0.5 * k * k * k;
+      }
+
+      return 0.5 * ((k -= 2) * k * k + 2);
+    }
+
+    function elasticIn(k) {
+      var s;
+      var a = 0.1;
+      var p = 0.4;
+      if (k === 0) return 0;
+      if (k === 1) return 1;
+
+      if (!a || a < 1) {
+        a = 1;
+        s = p / 4;
+      } else {
+        s = p / (2 * Math.PI) * Math.asin(1 / a);
+      }
+
+      return -(a * Math.pow(2, 10 * (k -= 1)) * Math.sin((k - s) * (2 * Math.PI) / p));
+    }
+
+    function elasticOut(k) {
+      var s;
+      var a = 0.1;
+      var p = 0.4;
+      if (k === 0) return 0;
+      if (k === 1) return 1;
+
+      if (!a || a < 1) {
+        a = 1;
+        s = p / 4;
+      } else {
+        s = p / (2 * Math.PI) * Math.asin(1 / a);
+      }
+
+      return a * Math.pow(2, -10 * k) * Math.sin((k - s) * (2 * Math.PI) / p) + 1;
+    }
+
+    function elasticInOut(k) {
+      var s;
+      var a = 0.1;
+      var p = 0.4;
+      if (k === 0) return 0;
+      if (k === 1) return 1;
+
+      if (!a || a < 1) {
+        a = 1;
+        s = p / 4;
+      } else {
+        s = p / (2 * Math.PI) * Math.asin(1 / a);
+      }
+
+      if ((k *= 2) < 1) {
+        return -0.5 * (a * Math.pow(2, 10 * (k -= 1)) * Math.sin((k - s) * (2 * Math.PI) / p));
+      }
+
+      return a * Math.pow(2, -10 * (k -= 1)) * Math.sin((k - s) * (2 * Math.PI) / p) * 0.5 + 1;
+    }
+
+    function backIn(k) {
+      var s = 1.70158;
+      return k * k * ((s + 1) * k - s);
+    }
+
+    function backOut(k) {
+      var s = 1.70158;
+      return (k = k - 1) * k * ((s + 1) * k + s) + 1;
+    }
+
+    function backInOut(k) {
+      var s = 1.70158 * 1.525;
+
+      if ((k *= 2) < 1) {
+        return 0.5 * (k * k * ((s + 1) * k - s));
+      }
+
+      return 0.5 * ((k -= 2) * k * ((s + 1) * k + s) + 2);
+    }
+
+    function bounceIn(k) {
+      return 1 - bounceOut(1 - k);
+    }
+
+    function bounceOut(k) {
+      if ((k /= 1) < 1 / 2.75) {
+        return 7.5625 * k * k;
+      } else if (k < 2 / 2.75) {
+        return 7.5625 * (k -= 1.5 / 2.75) * k + 0.75;
+      } else if (k < 2.5 / 2.75) {
+        return 7.5625 * (k -= 2.25 / 2.75) * k + 0.9375;
+      }
+
+      return 7.5625 * (k -= 2.625 / 2.75) * k + 0.984375;
+    }
+
+    function bounceInOut(k) {
+      if (k < 0.5) {
+        return bounceIn(k * 2) * 0.5;
+      }
+
+      return bounceOut(k * 2 - 1) * 0.5 + 0.5;
+    }
+
+    var Easing = /*#__PURE__*/Object.freeze({
+        __proto__: null,
+        linear: linear$1,
+        quadraticIn: quadraticIn,
+        quadraticOut: quadraticOut,
+        quadraticInOut: quadraticInOut,
+        cubicIn: cubicIn,
+        cubicOut: cubicOut,
+        cubicInOut: cubicInOut,
+        elasticIn: elasticIn,
+        elasticOut: elasticOut,
+        elasticInOut: elasticInOut,
+        backIn: backIn,
+        backOut: backOut,
+        backInOut: backInOut,
+        bounceIn: bounceIn,
+        bounceOut: bounceOut,
+        bounceInOut: bounceInOut
+    });
+
+    function plainArray(arr) {
+      var result = [];
+
+      for (var i = 0, len = arr.length; i < len; i++) {
+        if (arr[i]) {
+          result.push(arr[i].x);
+          result.push(arr[i].y);
+        }
+      }
+
+      return result;
+    }
+
+    function interpolateNumber(a, b) {
+      a = +a;
+      b -= a;
+      return function (t) {
+        return a + b * t;
+      };
+    }
+
+    function interpolateArray(a, b) {
+      var nb = b ? b.length : 0;
+      var na = a ? Math.min(nb, a.length) : 0;
+      var x = new Array(na);
+      var c = new Array(nb);
+      var i;
+
+      for (i = 0; i < na; ++i) {
+        x[i] = interpolateNumber(a[i], b[i]);
+      }
+
+      for (; i < nb; ++i) {
+        c[i] = b[i];
+      }
+
+      return function (t) {
+        for (i = 0; i < na; ++i) {
+          c[i] = x[i](t);
+        }
+
+        return c;
+      };
+    }
+
+    class Animator {
+      constructor(shape, source, timeline) {
+        this.hasStarted = false;
+        this.hasEnded = false;
+        this.shape = shape;
+        this.source = source;
+        this.timeline = timeline;
+        this.animate = null;
+      } // delay, attrs, duration, easing
+
+
+      to() {
+        var cfg = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+        var delay = cfg.delay || 0;
+        var attrs = cfg.attrs || {};
+        var duration = cfg.duration || 1000;
+        var easing; // 缓动函数
+
+        if (typeof cfg.easing === 'function') {
+          easing = cfg.easing;
+        } else {
+          easing = Easing[cfg.easing] || linear$1;
+        }
+
+        var animInfo = {
+          shape: this.shape,
+          startTime: this.timeline.time + delay,
+          duration,
+          easing
+        };
+        var interpolate = {}; // 差值函数
+
+        for (var attrName in attrs) {
+          var startValue = this.source[attrName];
+          var endValue = attrs[attrName];
+
+          if (attrName === 'points') {
+            startValue = plainArray(startValue);
+            endValue = plainArray(endValue);
+            interpolate.points = interpolateArray(startValue, endValue);
+            this.source.points = startValue;
+            attrs.points = endValue;
+          } else if (attrName === 'matrix') {
+            interpolate.matrix = interpolateArray(startValue, endValue);
+          } else {
+            interpolate[attrName] = interpolateNumber(startValue, endValue);
+          }
+        }
+
+        animInfo.interpolate = interpolate;
+        animInfo.startState = this.source;
+        animInfo.endState = attrs;
+        animInfo.endTime = animInfo.startTime + duration;
+        this.timeline.anims.push(animInfo);
+        this.animate = animInfo;
+        return this;
+      }
+
+      onFrame(callback) {
+        // 自定义每一帧动画的动作
+        if (this.animate) {
+          this.animate.onFrame = function (frame) {
+            callback(frame);
+          };
+        }
+
+        return this;
+      }
+
+      onStart(callback) {
+        if (this.animate) {
+          this.animate.onStart = function () {
+            callback();
+          };
+        }
+
+        return this;
+      }
+
+      onUpdate(callback) {
+        if (this.animate) {
+          this.animate.onUpdate = function (frame) {
+            callback(frame);
+          };
+        }
+
+        return this;
+      }
+
+      onEnd(callback) {
+        if (this.animate) {
+          this.animate.onEnd = function () {
+            callback();
+          };
+        }
+
+        return this;
+      }
+
+    }
+
+    function ownKeys$1(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+    function _objectSpread$1(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$1(Object(source), true).forEach(function (key) { _defineProperty$4(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$1(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+    function _defineProperty$4(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+    var defaultAnimationCfg = {
+      appear: {
+        duration: 450,
+        easing: 'quadraticOut'
+      },
+      // 'appear' animation options
+      update: {
+        duration: 300,
+        easing: 'quadraticOut'
+      },
+      // 'update' animation options
+      enter: {
+        duration: 300,
+        easing: 'quadraticOut'
+      },
+      // 'enter' animation options
+      leave: {
+        duration: 350,
+        easing: 'quadraticIn'
+      } // 'leave' animation options
+
+    };
+    var Animate = {
+      defaultCfg: {},
+      Action: {},
+
+      getAnimation(geomType, coord, animationType) {
+        var geomAnimateCfg = this.defaultCfg[geomType];
+
+        if (geomAnimateCfg) {
+          var animation = geomAnimateCfg[animationType];
+
+          if (isFunction(animation)) {
+            return animation(coord);
+          }
+        }
+
+        return false;
+      },
+
+      getAnimateCfg(geomType, animationType) {
+        var defaultCfg = defaultAnimationCfg[animationType];
+        var geomConfig = this.defaultCfg[geomType];
+
+        if (geomConfig && geomConfig.cfg && geomConfig.cfg[animationType]) {
+          return deepMix({}, defaultCfg, geomConfig.cfg[animationType]);
+        }
+
+        return defaultCfg;
+      },
+
+      registerAnimation(animationName, animationFun) {
+        if (!this.Action) {
+          this.Action = {};
+        }
+
+        this.Action = _objectSpread$1(_objectSpread$1({}, this.Action), {}, {
+          [animationName]: animationFun
+        });
+      }
+
+    };
+
+    /**
+     * Utility
+     * @author sima.zhang1990@gmail.com
+     */
+
+    function getCoordInfo(coord) {
+      var start = coord.start;
+      var end = coord.end;
+      return {
+        start,
+        end,
+        width: end.x - start.x,
+        height: Math.abs(end.y - start.y)
+      };
+    }
+
+    function getScaledMatrix(shape, v, direct) {
+      var scaledMatrix;
+      shape.apply(v);
+      var x = v[0];
+      var y = v[1];
+
+      if (direct === 'x') {
+        shape.transform([['t', x, y], ['s', 0.01, 1], ['t', -x, -y]]);
+        var matrix = shape.getMatrix();
+        scaledMatrix = Matrix.transform(matrix, [['t', x, y], ['s', 100, 1], ['t', -x, -y]]);
+      } else if (direct === 'y') {
+        shape.transform([['t', x, y], ['s', 1, 0.01], ['t', -x, -y]]);
+
+        var _matrix = shape.getMatrix();
+
+        scaledMatrix = Matrix.transform(_matrix, [['t', x, y], ['s', 1, 100], ['t', -x, -y]]);
+      } else if (direct === 'xy') {
+        shape.transform([['t', x, y], ['s', 0.01, 0.01], ['t', -x, -y]]);
+
+        var _matrix2 = shape.getMatrix();
+
+        scaledMatrix = Matrix.transform(_matrix2, [['t', x, y], ['s', 100, 100], ['t', -x, -y]]);
+      }
+
+      return scaledMatrix;
+    }
+
+    function getAnimateParam(animateCfg, index, id) {
+      var result = {};
+
+      if (animateCfg.delay) {
+        result.delay = isFunction(animateCfg.delay) ? animateCfg.delay(index, id) : animateCfg.delay;
+      }
+
+      result.easing = animateCfg.easing;
+      result.duration = animateCfg.duration;
+      result.delay = animateCfg.delay;
+      return result;
+    }
+
+    function doAnimation(shape, endState, animateCfg, callback) {
+      var id = shape._id;
+      var index = shape.get('index');
+      var {
+        easing,
+        delay,
+        duration
+      } = getAnimateParam(animateCfg, index, id);
+      var anim = shape.animate().to({
+        attrs: endState,
+        duration,
+        delay,
+        easing
+      });
+
+      if (callback) {
+        anim.onEnd(function () {
+          callback();
+        });
+      }
+    }
+
+    /**
+     * Animation functions for shape
+     * @author sima.zhang1990@gmail.com
+     */
+    /*
+    function waveIn(shape, animateCfg, coord) {
+      const clip = Helpers.getClip(coord);
+      clip.set('canvas', shape.get('canvas'));
+      shape.attr('clip', clip);
+      const onEnd = function() {
+        shape.attr('clip', null);
+        clip.remove(true);
+      };
+      Helpers.doAnimation(clip, clip.endState, animateCfg, onEnd);
+    }
+
+    function scaleInX(shape, animateCfg) {
+      const box = shape.getBBox();
+      const points = shape.get('origin').points;
+      let x;
+      const y = (box.minY + box.maxY) / 2;
+
+      if (points[0].y - points[1].y > 0) { // 当顶点在零点之下
+        x = box.maxX;
+      } else {
+        x = box.minX;
+      }
+      const scaledMatrix = Helpers.getScaledMatrix(shape, [ x, y ], 'x');
+      Helpers.doAnimation(shape, { matrix: scaledMatrix }, animateCfg);
+    }
+
+    function scaleInY(shape, animateCfg) {
+      const box = shape.getBBox();
+      const points = shape.get('origin').points;
+      const x = (box.minX + box.maxX) / 2;
+      let y;
+
+      if (points[0].y - points[1].y <= 0) { // 当顶点在零点之下
+        y = box.maxY;
+      } else {
+        y = box.minY;
+      }
+      const scaledMatrix = Helpers.getScaledMatrix(shape, [ x, y ], 'x');
+      Helpers.doAnimation(shape, { matrix: scaledMatrix }, animateCfg);
+    }
+    */
+
+    function fadeIn(shape, animateCfg) {
+      var fillOpacity = isNil(shape.attr('fillOpacity')) ? 1 : shape.attr('fillOpacity');
+      var strokeOpacity = isNil(shape.attr('strokeOpacity')) ? 1 : shape.attr('strokeOpacity');
+      shape.attr('fillOpacity', 0);
+      shape.attr('strokeOpacity', 0);
+      var endState = {
+        fillOpacity,
+        strokeOpacity
+      };
+      doAnimation(shape, endState, animateCfg);
+    }
+
+    var ShapeAction = /*#__PURE__*/Object.freeze({
+        __proto__: null,
+        fadeIn: fadeIn
+    });
+
+    /**
+     * Group animate functions
+     * @author sima.zhang1990@gmail.com
+     */
+
+    function _groupScaleIn(container, animateCfg, coord, zeroY, type) {
+      var {
+        start,
+        end,
+        width,
+        height
+      } = getCoordInfo(coord);
+      var x;
+      var y;
+      var clip = new Shape$2.Rect({
+        attrs: {
+          x: start.x,
+          y: end.y,
+          width,
+          height
+        }
+      });
+
+      if (type === 'y') {
+        x = start.x + width / 2;
+        y = zeroY.y < start.y ? zeroY.y : start.y;
+      } else if (type === 'x') {
+        x = zeroY.x > start.x ? zeroY.x : start.x;
+        y = start.y + height / 2;
+      } else if (type === 'xy') {
+        if (coord.isPolar) {
+          x = coord.center.x;
+          y = coord.center.y;
+        } else {
+          x = (start.x + end.x) / 2;
+          y = (start.y + end.y) / 2;
+        }
+      }
+
+      var endMatrix = getScaledMatrix(clip, [x, y], type);
+      clip.isClip = true;
+      clip.endState = {
+        matrix: endMatrix
+      };
+      clip.set('canvas', container.get('canvas'));
+      container.attr('clip', clip);
+
+      var onEnd = function onEnd() {
+        container.attr('clip', null);
+        clip.remove(true);
+      };
+
+      doAnimation(clip, clip.endState, animateCfg, onEnd);
+    }
+
+    function _shapeScale(container, animateCfg, type) {
+      var shapes = container.get('children');
+      var x;
+      var y;
+      var endMatrix;
+
+      for (var i = 0, len = shapes.length; i < len; i++) {
+        var shape = shapes[i];
+        var box = shape.getBBox();
+        x = (box.minX + box.maxX) / 2;
+        y = (box.minY + box.maxY) / 2;
+        endMatrix = getScaledMatrix(shape, [x, y], type);
+        doAnimation(shape, {
+          matrix: endMatrix
+        }, animateCfg);
+      }
+    }
+
+    function groupScaleInX(container, animateCfg, coord, zeroY) {
+      _groupScaleIn(container, animateCfg, coord, zeroY, 'x');
+    }
+
+    function groupScaleInY(container, animateCfg, coord, zeroY) {
+      _groupScaleIn(container, animateCfg, coord, zeroY, 'y');
+    }
+
+    function groupScaleInXY(container, animateCfg, coord, zeroY) {
+      _groupScaleIn(container, animateCfg, coord, zeroY, 'xy');
+    }
+
+    function shapesScaleInX(container, animateCfg) {
+      _shapeScale(container, animateCfg, 'x');
+    }
+
+    function shapesScaleInY(container, animateCfg) {
+      _shapeScale(container, animateCfg, 'y');
+    }
+
+    function shapesScaleInXY(container, animateCfg) {
+      _shapeScale(container, animateCfg, 'xy');
+    }
+
+    function groupWaveIn(container, animateCfg, coord) {
+      var clip = getClip(coord);
+      clip.set('canvas', container.get('canvas'));
+      container.attr('clip', clip);
+
+      var onEnd = function onEnd() {
+        container.attr('clip', null);
+        clip.remove(true);
+      };
+
+      var endState = {};
+
+      if (coord.isPolar) {
+        var {
+          startAngle,
+          endAngle
+        } = coord;
+        endState.endAngle = endAngle;
+        clip.attr('endAngle', startAngle);
+      } else {
+        var {
+          start,
+          end
+        } = coord;
+        var width = Math.abs(start.x - end.x);
+        var height = Math.abs(start.y - end.y);
+
+        if (coord.isTransposed) {
+          clip.attr('height', 0);
+          endState.height = height;
+        } else {
+          clip.attr('width', 0);
+          endState.width = width;
+        }
+      }
+
+      doAnimation(clip, endState, animateCfg, onEnd);
+    }
+
+    var GroupAction = /*#__PURE__*/Object.freeze({
+        __proto__: null,
+        groupWaveIn: groupWaveIn,
+        groupScaleInX: groupScaleInX,
+        groupScaleInY: groupScaleInY,
+        groupScaleInXY: groupScaleInXY,
+        shapesScaleInX: shapesScaleInX,
+        shapesScaleInY: shapesScaleInY,
+        shapesScaleInXY: shapesScaleInXY
+    });
+
+    /**
+     * Handle the detail animations
+     * @author sima.zhang1990@gmail.com
+     */
+    var timeline;
+
+    Element.prototype.animate = function () {
+      var attrs = mix({}, this.get('attrs'));
+      return new Animator(this, attrs, timeline);
+    };
+
+    Chart.prototype.animate = function (cfg) {
+      this.set('animate', cfg);
+      return this;
+    };
+
+    Animate.Action = ShapeAction;
+    Animate.defaultCfg = {
+      interval: {
+        enter(coord) {
+          if (coord.isPolar && coord.transposed) {
+            // for pie chart
+            return function (shape) {
+              shape.set('zIndex', -1);
+              var container = shape.get('parent');
+              container.sort();
+            };
+          }
+
+          return fadeIn;
+        }
+
+      },
+      area: {
+        enter(coord) {
+          if (coord.isPolar) return null;
+          return fadeIn;
+        }
+
+      },
+      line: {
+        enter(coord) {
+          if (coord.isPolar) return null;
+          return fadeIn;
+        }
+
+      },
+      path: {
+        enter(coord) {
+          if (coord.isPolar) return null;
+          return fadeIn;
+        }
+
+      }
+    };
+    var GROUP_ANIMATION = {
+      line(coord) {
+        if (coord.isPolar) {
+          return groupScaleInXY;
+        }
+
+        return groupWaveIn;
+      },
+
+      area(coord) {
+        if (coord.isPolar) {
+          return groupScaleInXY;
+        }
+
+        return groupWaveIn;
+      },
+
+      path(coord) {
+        if (coord.isPolar) {
+          return groupScaleInXY;
+        }
+
+        return groupWaveIn;
+      },
+
+      point() {
+        return shapesScaleInXY;
+      },
+
+      interval(coord) {
+        var result;
+
+        if (coord.isPolar) {
+          // polar coodinate
+          result = groupScaleInXY;
+
+          if (coord.transposed) {
+            // pie chart
+            result = groupWaveIn;
+          }
+        } else {
+          result = coord.transposed ? groupScaleInX : groupScaleInY;
+        }
+
+        return result;
+      },
+
+      schema() {
+        return groupWaveIn;
+      }
+
+    };
+
+    function diff(fromAttrs, toAttrs) {
+      var endState = {};
+
+      for (var k in toAttrs) {
+        if (isNumber(fromAttrs[k]) && fromAttrs[k] !== toAttrs[k]) {
+          endState[k] = toAttrs[k];
+        } else if (isArray(fromAttrs[k]) && JSON.stringify(fromAttrs[k]) !== JSON.stringify(toAttrs[k])) {
+          endState[k] = toAttrs[k];
+        }
+      }
+
+      return endState;
+    } // Add a unique id identifier to each shape
+
+
+    function _getShapeId(geom, dataObj, geomIdx) {
+      var type = geom.get('type');
+      var id = 'geom' + geomIdx + '-' + type;
+      var xScale = geom.getXScale();
+      var yScale = geom.getYScale();
+      var xField = xScale.field || 'x';
+      var yField = yScale.field || 'y';
+      var yVal = dataObj[yField];
+      var xVal;
+
+      if (xScale.isIdentity) {
+        xVal = xScale.value;
+      } else {
+        xVal = dataObj[xField];
+      }
+
+      if (type === 'interval' || type === 'schema') {
+        id += '-' + xVal;
+      } else if (type === 'line' || type === 'area' || type === 'path') {
+        id += '-' + type;
+      } else {
+        id += xScale.isCategory ? '-' + xVal : '-' + xVal + '-' + yVal;
+      }
+
+      var groupScales = geom._getGroupScales();
+
+      each(groupScales, function (groupScale) {
+        var field = groupScale.field;
+
+        if (groupScale.type !== 'identity') {
+          id += '-' + dataObj[field];
+        }
+      });
+      return id;
+    } // get geometry's shapes
+
+
+    function getShapes(geoms, chart, coord) {
+      var shapes = [];
+      each(geoms, function (geom, geomIdx) {
+        var geomContainer = geom.get('container');
+        var geomShapes = geomContainer.get('children');
+        var type = geom.get('type');
+        var animateCfg = isNil(geom.get('animateCfg')) ? _getAnimateCfgByShapeType(type, chart) : geom.get('animateCfg');
+
+        if (animateCfg !== false) {
+          each(geomShapes, function (shape, index) {
+            if (shape.get('className') === type) {
+              shape._id = _getShapeId(geom, shape.get('origin')._origin, geomIdx);
+              shape.set('coord', coord);
+              shape.set('animateCfg', animateCfg);
+              shape.set('index', index);
+              shapes.push(shape);
+            }
+          });
+        }
+
+        geom.set('shapes', geomShapes);
+      });
+      return shapes;
+    }
+
+    function cache(shapes) {
+      var rst = {};
+
+      for (var i = 0, len = shapes.length; i < len; i++) {
+        var shape = shapes[i];
+        if (!shape._id || shape.isClip) continue;
+        var id = shape._id;
+        rst[id] = {
+          _id: id,
+          type: shape.get('type'),
+          // the type of shape
+          attrs: mix({}, shape._attrs.attrs),
+          // the graphics attributes of shape
+          className: shape.get('className'),
+          geomType: shape.get('className'),
+          index: shape.get('index'),
+          coord: shape.get('coord'),
+          animateCfg: shape.get('animateCfg')
+        };
+      }
+
+      return rst;
+    }
+
+    function getAnimate(geomType, coord, animationType, animationName) {
+      var result;
+
+      if (isFunction(animationName)) {
+        result = animationName;
+      } else if (isString(animationName)) {
+        result = Animate.Action[animationName];
+      } else {
+        result = Animate.getAnimation(geomType, coord, animationType);
+      }
+
+      return result;
+    }
+
+    function getAnimateCfg(geomType, animationType, animateCfg) {
+      if (animateCfg === false || isObject(animateCfg) && animateCfg[animationType] === false) {
+        return false;
+      }
+
+      var defaultCfg = Animate.getAnimateCfg(geomType, animationType);
+
+      if (animateCfg && animateCfg[animationType]) {
+        return deepMix({}, defaultCfg, animateCfg[animationType]);
+      }
+
+      return defaultCfg;
+    }
+
+    function addAnimate(cache, shapes, canvas) {
+      var animate;
+      var animateCfg; // the order of animation: leave -> update -> enter
+
+      var updateShapes = [];
+      var newShapes = [];
+      each(shapes, function (shape) {
+        var result = cache[shape._id];
+
+        if (!result) {
+          newShapes.push(shape);
+        } else {
+          shape.set('cacheShape', result);
+          updateShapes.push(shape);
+          delete cache[shape._id];
+        }
+      }); // first do the leave animation
+
+      each(cache, function (deletedShape) {
+        var {
+          className,
+          coord,
+          _id,
+          attrs,
+          index,
+          type
+        } = deletedShape;
+        animateCfg = getAnimateCfg(className, 'leave', deletedShape.animateCfg);
+        if (animateCfg === false) return true;
+        animate = getAnimate(className, coord, 'leave', animateCfg.animation);
+
+        if (isFunction(animate)) {
+          var tempShape = canvas.addShape(type, {
+            attrs,
+            index,
+            canvas,
+            className
+          });
+          tempShape._id = _id;
+          animate(tempShape, animateCfg, coord);
+        }
+      }); // then do the update animation
+
+      each(updateShapes, function (updateShape) {
+        var className = updateShape.get('className');
+        animateCfg = getAnimateCfg(className, 'update', updateShape.get('animateCfg'));
+        if (animateCfg === false) return true;
+        var coord = updateShape.get('coord');
+        var cacheAttrs = updateShape.get('cacheShape').attrs;
+        var endState = diff(cacheAttrs, updateShape._attrs.attrs); // 判断如果属性相同的话就不进行变换
+
+        if (Object.keys(endState).length) {
+          animate = getAnimate(className, coord, 'update', animateCfg.animation);
+
+          if (isFunction(animate)) {
+            animate(updateShape, animateCfg, coord);
+          } else {
+            updateShape.attr(cacheAttrs);
+            updateShape.animate().to({
+              attrs: endState,
+              duration: animateCfg.duration,
+              easing: animateCfg.easing,
+              delay: animateCfg.delay
+            }).onEnd(function () {
+              updateShape.set('cacheShape', null);
+            });
+          }
+        }
+      }); // last, enter animation
+
+      each(newShapes, function (newShape) {
+        // 新图形元素的进场元素
+        var className = newShape.get('className');
+        var coord = newShape.get('coord');
+        animateCfg = getAnimateCfg(className, 'enter', newShape.get('animateCfg'));
+        if (animateCfg === false) return true;
+        animate = getAnimate(className, coord, 'enter', animateCfg.animation);
+
+        if (isFunction(animate)) {
+          if (className === 'interval' && coord.isPolar && coord.transposed) {
+            var index = newShape.get('index');
+            var lastShape = updateShapes[index - 1];
+            animate(newShape, animateCfg, lastShape);
+          } else {
+            animate(newShape, animateCfg, coord);
+          }
+        }
+      });
+    }
+
+    function _getAnimateCfgByShapeType(type, chart) {
+      if (!type) {
+        return null;
+      }
+
+      var animateCfg = chart.get('animate');
+
+      if (type.indexOf('guide-tag') > -1) {
+        type = 'guide-tag';
+      }
+
+      if (isObject(animateCfg)) {
+        return animateCfg[type];
+      }
+
+      if (animateCfg === false) {
+        return false;
+      }
+
+      return null;
+    }
+
+    function afterCanvasInit()
+    /* chart */
+    {
+      timeline = new Timeline();
+      timeline.play();
+    }
+
+    function beforeCanvasDraw(chart) {
+      if (chart.get('animate') === false) {
+        return;
+      }
+
+      var isUpdate = chart.get('isUpdate');
+      var canvas = chart.get('canvas');
+      var coord = chart.get('coord');
+      var geoms = chart.get('geoms');
+      var caches = canvas.get('caches') || [];
+
+      if (caches.length === 0) {
+        isUpdate = false;
+      }
+
+      var cacheShapes = getShapes(geoms, chart, coord);
+      var {
+        frontPlot,
+        backPlot
+      } = chart.get('axisController');
+      var axisShapes = frontPlot.get('children').concat(backPlot.get('children'));
+      var guideShapes = [];
+
+      if (chart.get('guideController')) {
+        guideShapes = chart.get('guideController').guideShapes;
+      }
+
+      var componentShapes = [];
+      axisShapes.concat(guideShapes).forEach(function (s) {
+        var className = s.get('className');
+
+        var animateCfg = _getAnimateCfgByShapeType(className, chart);
+
+        s.set('coord', coord);
+        s.set('animateCfg', animateCfg);
+        componentShapes.push(s);
+        cacheShapes.push(s);
+      });
+      canvas.set('caches', cache(cacheShapes));
+
+      if (isUpdate) {
+        addAnimate(caches, cacheShapes, canvas);
+      } else {
+        // do the appear animation
+        var animateCfg;
+        var animate;
+        each(geoms, function (geom) {
+          var type = geom.get('type');
+          var geomCfg = isNil(geom.get('animateCfg')) ? _getAnimateCfgByShapeType(type, chart) : geom.get('animateCfg');
+
+          if (geomCfg !== false) {
+            animateCfg = getAnimateCfg(type, 'appear', geomCfg);
+            animate = getAnimate(type, coord, 'appear', animateCfg.animation);
+
+            if (isFunction(animate)) {
+              var shapes = geom.get('shapes');
+              each(shapes, function (shape) {
+                animate(shape, animateCfg, coord);
+              });
+            } else if (GROUP_ANIMATION[type]) {
+              // do the default animation
+              animate = GroupAction[animateCfg.animation] || GROUP_ANIMATION[type](coord);
+              var yScale = geom.getYScale();
+              var zeroY = coord.convertPoint({
+                x: 0,
+                y: yScale.scale(geom.getYMinValue())
+              });
+              var container = geom.get('container');
+              animate && animate(container, animateCfg, coord, zeroY);
+            }
+          }
+        }); // do the animation of components
+
+        each(componentShapes, function (shape) {
+          var animateCfg = shape.get('animateCfg');
+          var className = shape.get('className');
+
+          if (animateCfg && animateCfg.appear) {
+            // if user configure
+            var defaultCfg = Animate.getAnimateCfg(className, 'appear');
+            var appearCfg = deepMix({}, defaultCfg, animateCfg.appear);
+
+            var _animate = getAnimate(className, coord, 'appear', appearCfg.animation);
+
+            if (isFunction(_animate)) {
+              _animate(shape, appearCfg, coord);
+            }
+          }
+        });
+      }
+    }
+
+    function afterCanvasDestroyed()
+    /* chart */
+    {
+      timeline.stop();
+    }
+    var detail = {
+      afterCanvasInit,
+      beforeCanvasDraw,
+      afterCanvasDestroyed
+    };
+
+    var Animation = /*#__PURE__*/Object.freeze({
+        __proto__: null,
+        afterCanvasInit: afterCanvasInit,
+        beforeCanvasDraw: beforeCanvasDraw,
+        afterCanvasDestroyed: afterCanvasDestroyed,
+        'default': detail
+    });
+
+    Chart._Interactions = {};
+
+    Chart.registerInteraction = function (type, constructor) {
+      Chart._Interactions[type] = constructor;
+    };
+
+    Chart.getInteraction = function (type) {
+      return Chart._Interactions[type];
+    };
+
+    Chart.prototype.interaction = function (type, cfg) {
+      var interactions = this._interactions || {};
+
+      if (interactions[type]) {
+        // if reprated, destroy last
+        interactions[type].destroy();
+      }
+
+      var Ctor = Chart.getInteraction(type);
+      var interact = new Ctor(cfg, this);
+      interactions[type] = interact;
+      this._interactions = interactions;
+      return this;
+    };
+
+    Chart.prototype.clearInteraction = function (type) {
+      var interactions = this._interactions;
+      if (!interactions) return;
+
+      if (type) {
+        interactions[type] && interactions[type].destroy();
+        delete interactions[type];
+      } else {
+        each(interactions, function (interaction, key) {
+          interaction.destroy();
+          delete interactions[key];
+        });
+      }
+
+      return this;
+    };
+
+    function _defineProperty$5(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+    function isValuesEqual(values, newValues) {
+      if (values.length !== newValues.length) {
+        return false;
+      }
+
+      var lastIndex = values.length - 1;
+      return values[0] === newValues[0] && values[lastIndex] === newValues[lastIndex];
+    } // 不同交互之间共享的上下文
+
+
+    var defaultRange = [0, 1];
+
+    class Context {
+      // 最开始的原始值
+      // 当前显示的范围
+      // 缩放最小的点数
+      // 最小的缩放比例, 默认通过minCount计算
+      // minScale = 0.01;
+      // 交互开始时，ticks个数，主要为了每次缩放后，更新ticks个数
+      // lastTickCount;
+      constructor(chart) {
+        var _this = this;
+
+        _defineProperty$5(this, "chart", null);
+
+        _defineProperty$5(this, "values", null);
+
+        _defineProperty$5(this, "range", defaultRange);
+
+        _defineProperty$5(this, "startRange", defaultRange);
+
+        _defineProperty$5(this, "minCount", 10);
+
+        _defineProperty$5(this, "_afterinit", function () {
+          // 初始化value值
+          var scale = _this.getPinchScale(); // 记录原始全量数据
+
+
+          var values = [].concat(scale.values);
+          _this.values = values; // 最小的缩放比例
+
+          if (!_this.minScale) {
+            _this.minScale = _this.minCount / values.length;
+          } // 初始化的时候有设置range，则初始化成默认比例
+
+
+          if (_this.range !== defaultRange) {
+            _this.updateRange(_this.range);
+
+            _this.updateTicks();
+          }
+        });
+
+        _defineProperty$5(this, "_afterdatachange", function () {
+          _this.updateRange(_this.range);
+        });
+
+        this.chart = chart;
+
+        this._initEvent(chart);
+      }
+
+      _initEvent(chart) {
+        // 在整体初始化后还需要设置一些初始状态
+        chart.on(EVENT_AFTER_INIT, this._afterinit);
+        chart.on(EVENT_AFTER_DATA_CHANGE, this._afterdatachange);
+      } // 缩放的主轴scale
+
+
+      getPinchScale() {
+        var {
+          chart
+        } = this; // 默认缩放x轴
+
+        var scale = chart.getXScale();
+        return scale;
+      } // 跟随轴的scale
+
+
+      getFollowScale() {
+        var {
+          chart
+        } = this; // 默认缩放x轴
+
+        var scales = chart.getYScales() || [];
+        return scales[0];
+      }
+
+      start() {
+        var {
+          range
+        } = this;
+        var scale = this.getPinchScale();
+        var [start, end] = range; // 记录交互起始的范围
+
+        this.startRange = [start, end]; // 记录开始时的ticks个数
+
+        this.lastTickCount = scale.tickCount;
+      }
+
+      doZoom(leftScale, rightScale, zoom) {
+        var {
+          startRange: range,
+          minScale
+        } = this;
+        var [start, end] = range;
+        var zoomOffset = 1 - zoom;
+        var rangeLen = end - start;
+        var rangeOffset = rangeLen * zoomOffset;
+        var leftOffset = rangeOffset * leftScale;
+        var rightOffset = rangeOffset * rightScale;
+        var newStart = Math.max(0, start - leftOffset);
+        var newEnd = Math.min(1, end + rightOffset);
+        var newRange = [newStart, newEnd]; // 如果已经到了最小比例，则不能再继续再放大
+
+        if (newEnd - newStart < minScale) {
+          return;
+        }
+
+        this.updateRange(newRange);
+      }
+
+      doMove(ratio) {
+        // 不管是0， 还是其他，都不用处理
+        if (!ratio) return;
+        var {
+          startRange: range
+        } = this;
+        var [start, end] = range;
+        var rangeLen = end - start;
+        var rangeOffset = rangeLen * ratio;
+        var newStart = start - rangeOffset;
+        var newEnd = end - rangeOffset; // 处理边界值
+
+        var newRange;
+
+        if (newStart < 0) {
+          newRange = [0, rangeLen];
+        } else if (newEnd > 1) {
+          newRange = [1 - rangeLen, 1];
+        } else {
+          newRange = [newStart, newEnd];
+        }
+
+        this.updateRange(newRange);
+      }
+
+      updateRange(range) {
+        var {
+          values
+        } = this; // 0， 1 的范围之间
+
+        var [start, end] = range; // start 不能小于0
+
+        start = Math.max(0, start); // end 不能大于1
+
+        end = Math.min(1, end); // 设置当前的范围
+
+        this.range = [start, end];
+        var len = values.length;
+        var valueStart = start * len;
+        var valueEnd = end * len; // 从原始数据里截取需要显示的数据
+
+        var newValues = values.slice(valueStart, valueEnd);
+        this.repaint(newValues);
+      }
+
+      repaint(newValues) {
+        var {
+          chart
+        } = this;
+        var scale = this.getPinchScale();
+        var {
+          values: currentValues,
+          ticks
+        } = scale; // 如果新数组和当前显示的数组相同，则不更新
+
+        if (isValuesEqual(currentValues, newValues)) {
+          return;
+        } // 更新主轴values
+
+
+        this.updateScale(scale, {
+          ticks,
+          values: newValues
+        });
+        this.updateFollowScale(scale, newValues);
+        chart.repaint();
+      }
+
+      updateFollowScale(pinchScale, pinchValues) {
+        var {
+          chart
+        } = this;
+        var followScale = this.getFollowScale();
+        var {
+          field: pinchField,
+          type: pinchScaleType
+        } = pinchScale;
+        var {
+          field: followField
+        } = followScale; // 根据主轴的value值，找到所有从轴的value值
+
+        var values = []; // 转成map，让查找性能更高
+
+        var pinchValueMap = {};
+        pinchValues.forEach(function (item) {
+          pinchValueMap[item] = true;
+        });
+        var data = chart.get('data');
+        data.forEach(function (item) {
+          if (pinchScaleType === 'timeCat') {
+            var value = toTimeStamp(item[pinchField]);
+
+            if (pinchValueMap[value]) {
+              values.push(item[followField]);
+            }
+          }
+        });
+        var {
+          min,
+          max
+        } = getRange$1(values);
+        this.updateScale(followScale, {
+          min,
+          max,
+          nice: true
+        });
+      }
+
+      updateScale(scale, cfg) {
+        if (!scale) {
+          return;
+        }
+
+        scale.change(cfg);
+      } // 上一次的tick个数
+
+
+      updateTicks() {
+        var {
+          chart,
+          values
+        } = this;
+        var scale = this.getPinchScale();
+        var {
+          values: currentValues,
+          tickCount
+        } = scale; // 根据当前数据的比例，和定义的tickCount计算应该需要多少个ticks
+
+        var newTickCount = Math.round(tickCount * values.length / currentValues.length);
+        var catTicks = getTickMethod('cat');
+        var ticks = catTicks({
+          tickCount: newTickCount,
+          values
+        });
+        this.updateScale(scale, {
+          ticks,
+          values: currentValues
+        }); // 更新完后，需要重新绘制一次
+
+        chart.repaint();
+      }
+
+      destroy() {
+        var {
+          chart
+        } = this;
+        chart.off(EVENT_AFTER_INIT, this._afterinit);
+        chart.off(EVENT_AFTER_DATA_CHANGE, this._afterdatachange);
+      }
+
+    }
+
+    function _defineProperty$6(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+    class Base$2 {
+      // 交互的上下文
+      getDefaultCfg() {
+        return {};
+      }
+
+      getInteractionContext(chart) {
+        var interactionContext = chart.get('interactionContext');
+
+        if (interactionContext) {
+          return interactionContext;
+        }
+
+        interactionContext = new Context(chart);
+        chart.set('interactionContext', interactionContext);
+        return interactionContext;
+      }
+
+      constructor(cfg, chart) {
+        var _this = this;
+
+        _defineProperty$6(this, "type", '');
+
+        _defineProperty$6(this, "startEvent", 'touchstart');
+
+        _defineProperty$6(this, "processEvent", 'touchmove');
+
+        _defineProperty$6(this, "endEvent", 'touchend');
+
+        _defineProperty$6(this, "resetEvent", null);
+
+        _defineProperty$6(this, "context", null);
+
+        _defineProperty$6(this, "_start", function (ev) {
+          _this.preStart && _this.preStart(ev);
+
+          _this.start(ev);
+
+          _this.onStart && _this.onStart(ev);
+        });
+
+        _defineProperty$6(this, "_process", function (ev) {
+          _this.preProcess && _this.preProcess(ev);
+
+          _this.process(ev);
+
+          _this.onProcess && _this.onProcess(ev);
+        });
+
+        _defineProperty$6(this, "_end", function (ev) {
+          _this.preEnd && _this.preEnd(ev);
+
+          _this.end(ev);
+
+          _this.onEnd && _this.onEnd(ev);
+        });
+
+        _defineProperty$6(this, "_reset", function (ev) {
+          _this.preReset && _this.preReset(ev);
+
+          _this.reset(ev);
+
+          _this.onReset && _this.onReset(ev);
+        });
+
+        mix(this, this.getDefaultCfg(), cfg);
+        this.context = this.getInteractionContext(chart);
+        this.chart = chart; // 只处理range, 暂时先这么处理后面再看情况调整
+
+        var {
+          range
+        } = this;
+
+        if (range) {
+          this.context.range = range;
+        }
+
+        this._bindEvents(chart);
+      }
+
+      _bindEvents(chart) {
+        var {
+          startEvent,
+          processEvent,
+          endEvent,
+          resetEvent
+        } = this;
+        var canvas = chart.get('canvas'); // 统一绑定事件
+
+        canvas.on(startEvent, this._start);
+        canvas.on(processEvent, this._process);
+        canvas.on(endEvent, this._end);
+        canvas.on(resetEvent, this._reset);
+      }
+
+      _clearEvents() {
+        var {
+          chart,
+          startEvent,
+          processEvent,
+          endEvent,
+          resetEvent
+        } = this;
+        var canvas = chart.get('canvas'); // 统一绑定事件
+
+        canvas.off(startEvent, this._start);
+        canvas.off(processEvent, this._process);
+        canvas.off(endEvent, this._end);
+        canvas.off(resetEvent, this._start);
+      }
+
+      // override
+      start() {} // override
+
+
+      process() {} // override
+
+
+      end() {} // override
+
+
+      reset() {}
+
+      destroy() {
+        this.context.destroy();
+
+        this._clearEvents();
+      }
+
+    }
+
+    class Pan extends Base$2 {
+      getDefaultCfg() {
+        return {
+          type: 'pan',
+          startEvent: 'panstart',
+          processEvent: 'pan',
+          endEvent: 'panend'
+        };
+      }
+
+      start() {
+        var {
+          context
+        } = this;
+        context.start();
+      }
+
+      process(e) {
+        var {
+          direction,
+          deltaX
+        } = e;
+
+        if (direction === 'up' || direction === 'down') {
+          return;
+        }
+
+        e.preventDefault && e.preventDefault();
+        var {
+          context
+        } = this;
+        var chart = context.chart;
+        var coord = chart.get('coord');
+        var {
+          start,
+          end
+        } = coord;
+        var coordWidth = end.x - start.x;
+        var ratio = deltaX / coordWidth;
+        context.doMove(ratio);
+      }
+
+    }
+
+    class Pinch extends Base$2 {
+      getDefaultCfg() {
+        return {
+          type: 'pinch',
+          startEvent: 'pinchstart',
+          processEvent: 'pinch',
+          endEvent: 'pinchend'
+        };
+      }
+
+      constructor(cfg, chart) {
+        super(cfg, chart);
+        var {
+          context
+        } = this;
+        mix(context, cfg);
+      }
+
+      start() {
+        var {
+          context
+        } = this;
+        context.start();
+      }
+
+      process(e) {
+        e.preventDefault && e.preventDefault();
+        var {
+          zoom,
+          center
+        } = e;
+        var {
+          context
+        } = this;
+        var {
+          chart
+        } = context;
+        var coord = chart.get('coord');
+        var {
+          start,
+          end
+        } = coord;
+        var coordWidth = end.x - start.x;
+        var leftLen = Math.abs(center.x - start.x);
+        var rightLen = Math.abs(end.x - center.x); // 计算左右缩放的比例
+
+        var leftScale = leftLen / coordWidth;
+        var rightScale = rightLen / coordWidth;
+        context.doZoom(leftScale, rightScale, zoom);
+      }
+
+      end() {
+        // 缩放完成后再更新ticks
+        var {
+          context
+        } = this;
+        context.updateTicks();
+      }
+
+    }
+
+    Chart.registerInteraction('pan', Pan);
+    Chart.registerInteraction('pinch', Pinch);
+
+    /**
+     * Default, without interactins
+     */
+    var Component$1 = {
+      Marker
+    }; // register plugins
+
+    Chart.plugins.register([Tooltip$1, Legend, Guide, Animation]); // 默认添加交互
+    var F2 = {
+      Component: Component$1,
+      Global,
+      Chart,
+      Shape: Shape$1,
+      G,
+      Util,
+      Helper,
+      track,
+      Animate
+    };
+
+    function wrapEvent(e) {
+      if (!e) return;
+      if (!e.preventDefault) {
+        e.preventDefault = function() {};
+      }
+      return e;
+    }
+
+    Component({
+      /**
+       * 组件的属性列表
+       */
+      properties: {
+        onInit: {
+          type: 'Function',
+          value: () => {}
+        }
+      },
+
+      /**
+       * 组件的初始数据
+       */
+      data: {
+
+      },
+
+      ready() {
+        const query = wx.createSelectorQuery().in(this);
+        query.select('.f2-canvas')
+          .fields({
+            node: true,
+            size: true
+          })
+          .exec(res => {
+            const { node, width, height } = res[0];
+            const context = node.getContext('2d');
+            const pixelRatio = wx.getSystemInfoSync().pixelRatio;
+            // 高清设置
+            node.width = width * pixelRatio;
+            node.height = height * pixelRatio;
+
+            const config = { context, width, height, pixelRatio };
+            const chart = this.data.onInit(F2, config);
+            if (chart) {
+              this.chart = chart;
+              this.canvasEl = chart.get('el');
+            }
+          });
+      },
+
+      /**
+       * 组件的方法列表
+       */
+      methods: {
+        touchStart(e) {
+          const canvasEl = this.canvasEl;
+          if (!canvasEl) {
+            return;
+          }
+          canvasEl.dispatchEvent('touchstart', wrapEvent(e));
+        },
+        touchMove(e) {
+          const canvasEl = this.canvasEl;
+          if (!canvasEl) {
+            return;
+          }
+          canvasEl.dispatchEvent('touchmove', wrapEvent(e));
+        },
+        touchEnd(e) {
+          const canvasEl = this.canvasEl;
+          if (!canvasEl) {
+            return;
+          }
+          canvasEl.dispatchEvent('touchend', wrapEvent(e));
+        }
+      }
+    });
+
+})));

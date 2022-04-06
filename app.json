@@ -1,81 +1,78 @@
 {
   "pages": [
-    "pages/home/index",
-    "pages/qca/deviceqcadetails/index",
-    "pages/funcpage/index",
-    "pages/realTimeData/home/home",
-    "pages/login/login",
-    "pages/qca/authorCode/authorCode",
-    "pages/my/home/home",
-    "pages/welcome/welcome",
-    "pages/authPage/authPage",
-    "pages/my/alarmDataList/alarmDataList",
-    "pages/historyData/home/home",
-    "pages/historyData/selectPollutant/selectPollutant",
-    "pages/historyData/historyDataTransverse/historyDataTransverse",
+    "pages/welcome/index",
+    "pages/entAndAir/index",
     "pages/logs/logs",
-    "pages/realTimeData/flowChart/flowChart",
-    "pages/deviceInfo/home/home",
-    "pages/deviceInfo/address/address",
-    "pages/my/visitHistory/visitHistory",
-    "pages/my/feedBack/feedBack",
-    "pages/historyData/selectDateTime/selectDateTime",
-    "pages/others/others",
-    "pages/my/alarmDataDetails/alarmDataDetails",
-    "pages/monitor/realtimedata/index",
-    "pages/monitor/flowchart/index",
-    "pages/opreation/operationform/operationform",
-    "pages/opreation/operationdetails/operationdetails",
-    "pages/addpoint/addpoint/addpoint",
-    "pages/addpoint/enterprisesearch/enterprisesearch",
-    "pages/addpoint/addenterprise/addenterprise",
-    "pages/lookagreement/index",
+    "pages/pointList/pointList",
+    "pages/my/index",
+    "pages/workbench/index",
+    "pages/analysis/index",
+    "pages/map/index",
+    "pages/pointDetails/index",
+    "pages/feedback/index",
+    "pages/selectPollutant/selectPollutant",
+    "pages/date-picker/index",
+    "pages/alarm/index",
+    "pages/ranking/index",
+    "pages/authorCode/index",
+    "pages/transit/index",
     "pages/register/register",
-    "pages/monitor/selectPollutant/selectPollutant"
+    "pages/lookagreement/index",
+    "pages/workbench/createTask/index",
+    "pages/workbench/selectAirList/index",
+    "pages/workbench/gtasks/gtasks",
+    "pages/workbench/todoTask/todoTask",
+    "pages/workbench/taskRecord/taskRecord",
+    "pages/workbench/taskDetails/taskDetails",
+    "pages/workbench/qualityControlForm/qualityControlForm",
+    "pages/workbench/qualityControlForm/pollutantsList",
+    "pages/workbench/operationsForm/operationsForm",
+    "pages/test/test"
   ],
-  "permission": {
-    "scope.userLocation": {
-      "desc": "你的位置信息将用于小程序位置接口的效果展示"
-    }
-  },
   "window": {
+    "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#cce6ff",
     "navigationBarTitleText": "",
-    "navigationBarTextStyle": "black"
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#f2f2f2"
   },
-  "usingComponents": {},
+  "style": "v2",
+  "sitemapLocation": "sitemap.json",
   "tabBar": {
-    "custom": false,
-    "color": "#9C 9C9C",
-    "selectedColor": "#56A6FF",
-    "borderStyle": "black",
-    "backgroundColor": "#ffffff",
+    "custom": true,
+    "color": "#666",
+    "selectedColor": "#56a6ff",
     "list": [
       {
-        "selectedIconPath": "images/SSGY_Select.png",
-        "iconPath": "images/SSGY.png",
-        "pagePath": "pages/realTimeData/home/home",
-        "text": "实时工艺"
+        "pagePath": "pages/entAndAir/index",
+        "iconPath": "/images/SSGY.png",
+        "selectedIconPath": "/images/SSGY_Select.png",
+        "text": "监控"
       },
       {
-        "selectedIconPath": "images/SJJK_Select.png",
-        "iconPath": "images/SJJK.png",
-        "pagePath": "pages/historyData/home/home",
-        "text": "历史数据"
+        "pagePath": "pages/map/index",
+        "iconPath": "/images/map.png",
+        "selectedIconPath": "/images/map_Select.png",
+        "text": "地图"
       },
       {
-        "selectedIconPath": "images/SBXQ_Select.png",
-        "iconPath": "images/SBXQ.png",
-        "pagePath": "pages/deviceInfo/home/home",
-        "text": "设备信息"
+        "pagePath": "pages/workbench/index",
+        "iconPath": "/images/SBXQ.png",
+        "selectedIconPath": "/images/SBXQ_Select.png",
+        "text": ""
       },
       {
-        "selectedIconPath": "images/WD_Select.png",
-        "iconPath": "images/WD.png",
-        "pagePath": "pages/my/home/home",
-        "text": "我的"
+        "pagePath": "pages/analysis/index",
+        "iconPath": "/images/SJJK.png",
+        "selectedIconPath": "/images/SJJK_Select.png",
+        "text": ""
+      },
+      {
+        "pagePath": "pages/my/index",
+        "text": "我的",
+        "iconPath": "/images/WD.png",
+        "selectedIconPath": "/images/WD_Select.png"
       }
     ]
-  },
-  "sitemapLocation": "sitemap.json"
+  }
 }

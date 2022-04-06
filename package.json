@@ -1,26 +1,19 @@
 {
-  "name": "wxpm",
-  "version": "1.0.0",
-  "description": "f2",
-  "main": "app.js",
-  "directories": {
-    "lib": "lib"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/MonitorOnlineTeam/PollutantMonitor.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/MonitorOnlineTeam/PollutantMonitor/issues"
-  },
-  "homepage": "https://github.com/MonitorOnlineTeam/PollutantMonitor#readme",
-  "dependencies": {
-    "@antv/f2-canvas": "^1.0.5",
-    "@antv/wx-f2": "^1.1.4"
-  }
+    "name": "JiangXi-wx",
+    "version": "1.0.0",
+    "description": "",
+    "main": "app.js",
+    "dependencies": {
+        "@antv/wx-f2": "^2.1.1",
+        "lin-ui": "^0.9.7",
+        "moment": "^2.29.1"
+    },
+    "devDependencies": {
+        "lin-ui-cli": "^0.1.0-beta.6"
+    },
+    "scripts": {
+        "load": "lin-ui-cli load"
+    },
+    "author": "",
+    "license": "ISC"
 }

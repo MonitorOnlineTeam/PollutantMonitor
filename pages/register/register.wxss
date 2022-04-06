@@ -1,1 +1,24 @@
 /* pages/register/register.wxss */
+page {
+  background-color: #f2f2f2;
+}
+
+.btn-lg {
+  width: 100%;
+}
+
+.register-tag {
+  border-radius: 6rpx 0 0 6rpx !important;
+  min-width: 50rpx !important;
+}
+.register-tag  view{ 
+  font-size: 24rpx !important;
+}
+
+.register-tag-r {
+  border-radius: 0 6rpx 6rpx 0 !important;
+  min-width: 50rpx !important;
+}
+.register-tag-r  view{ 
+  font-size: 24rpx !important;
+}

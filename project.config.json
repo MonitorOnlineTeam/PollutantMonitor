@@ -1,14 +1,25 @@
 {
   "description": "项目配置文件",
   "packOptions": {
-    "ignore": []
+    "ignore": [
+      {
+        "type": "file",
+        "value": "lin-ui.config.json"
+      },
+      {
+        "type": "file",
+        "value": ".gitignore"
+      }
+    ]
   },
   "setting": {
     "urlCheck": false,
     "es6": true,
+    "enhance": true,
     "postcss": true,
+    "preloadBackgroundData": false,
     "minified": true,
-    "newFeature": true,
+    "newFeature": false,
     "coverView": true,
     "nodeModules": true,
     "autoAudits": false,
@@ -18,6 +29,8 @@
     "checkInvalidKey": true,
     "checkSiteMap": true,
     "uploadWithSourceMap": true,
+    "compileHotReLoad": true,
+    "lazyloadPlaceholderEnable": false,
     "useMultiFrameRuntime": true,
     "useApiHook": true,
     "useApiHostProcess": true,
@@ -26,22 +39,26 @@
       "disablePlugins": [],
       "outputPath": ""
     },
-    "bundle": false,
     "useIsolateContext": true,
-    "useCompilerModule": true,
-    "userConfirmedUseCompilerModuleSwitch": false,
     "userConfirmedBundleSwitch": false,
     "packNpmManually": false,
     "packNpmRelationList": [],
     "minifyWXSS": true,
-    "minifyWXML": true
+    "disableUseStrict": false,
+    "minifyWXML": true,
+    "showES6CompileOption": false,
+    "useCompilerPlugins": false,
+    "ignoreUploadUnusedFiles": true
   },
   "compileType": "miniprogram",
-  "libVersion": "2.10.2",
-  "appid": "wx9a771e92f79bf08d",
-  "projectname": "saomacha",
+  "libVersion": "2.22.0",
+  "appid": "wx56983b77f2ed9d04",
+  "projectname": "lin-ui-demo",
   "debugOptions": {
     "hidedInDevtools": []
+  },
+  "scripts": {
+    "beforeCompile": "npm run load"
   },
   "isGameTourist": false,
   "simulatorType": "wechat",
@@ -54,7 +71,12 @@
       "list": []
     },
     "game": {
-      "currentL": -1,
+      "list": []
+    },
+    "plugin": {
+      "list": []
+    },
+    "gamePlugin": {
       "list": []
     },
     "miniprogram": {
