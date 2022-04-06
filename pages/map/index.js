@@ -139,8 +139,8 @@ Page({
       })
     } else {
       // 企业
-      let PollutantType = this.data.entPointList.PointList[e.detail.markerId].PollutantType;
-      let DGIMN = this.data.entPointList.PointList[e.detail.markerId].DGIMN;
+      let PollutantType = this.data.entPointList[e.detail.markerId].PollutantType;
+      let DGIMN = this.data.entPointList[e.detail.markerId].DGIMN;
       this.GetPollutantTypeCode(PollutantType, DGIMN);
     }
 
@@ -185,7 +185,7 @@ Page({
         console.log('markers=', markers);
         this.setData({
           markers: markers,
-          entPointList: res.data.Datas,
+          entPointList: filterList,
         })
       }
     })

@@ -128,6 +128,13 @@
           "name": "",
           "pathName": "pages/pointDetails/index",
           "query": "dgimn=aq140421001&pointName=%E5%8C%97%E5%8F%A3%E7%A9%BA%E6%B0%94%E7%AB%99",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "排名",
+          "pathName": "pages/ranking/index",
+          "query": "",
           "scene": null,
           "launchMode": "default"
         }

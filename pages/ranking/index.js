@@ -34,7 +34,8 @@ Page({
     airPointRankingList: [],
     selectedDate: moment().format("YYYY-MM-DD HH:00"),
     dataType: 1,
-    _tabs: ['小时', '日均', '月均', '年均'],
+    // _tabs: ['小时', '日均', '月均', '年均'],
+    _tabs: ['小时', '日均'],
   },
 
   changeTabs(key) {

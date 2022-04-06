@@ -128,7 +128,7 @@ Page({
       entName = app.globalData.OperationName;
     }
     wx.showModal({
-      title: '',
+      title: '', 
       content: `该监测点是否由《${entName}》运维，如果不是请联系管理员进行设置。`,
       success: (result) => {
         if (result.confirm) {

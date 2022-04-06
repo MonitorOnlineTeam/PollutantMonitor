@@ -17,7 +17,7 @@
                   {{item.PointName}}
                 </View>
                 <View>发布时间：{{time}}</View>
-                <View>首要污染物：{{item.PrimaryPollutantCode}}</View>
+                <View>首要污染物：{{item.PrimaryPollutant}}</View>
               </View>
               <View class="air_level">
                 <View style="color: {{item.AQI_Color}}">{{item.AQI}}</View>

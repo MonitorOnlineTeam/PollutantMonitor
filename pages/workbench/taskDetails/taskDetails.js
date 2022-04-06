@@ -17,7 +17,9 @@ Page({
       data: {
         taskID,
       },
-      options:{hideLoading: true}
+      options: {
+        hideLoading: true
+      }
     }).then(res => {
       // let formList = [];
       // if (res.data.Datas.length && res.data.Datas[0] && res.data.Datas[0].TaskLogList.length && res.data.Datas[0].TaskLogList[0]) {
@@ -109,8 +111,17 @@ Page({
     const IsComplete = e.currentTarget.dataset.complete;
     const {
       _description,
-      taskInfo
+      taskInfo,
+      formList
     } = this.data;
+    if (IsComplete && !formList.length) {
+      wx.showToast({
+        title: '请添加表单',
+        icon: 'none',
+        duration: 1500
+      })
+      return;
+    }
     if (!_description) {
       wx.showToast({
         title: '请输入处理说明',
