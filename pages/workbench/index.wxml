@@ -1,0 +1,21 @@
+<!--pages/analysis/index.wxml-->
+<view>
+  <view class="banner">
+    <image src="/images/workbench/banner.jpg"></image>
+  </view>
+  <!-- <view class="title">工作台</view> -->
+  <view class="workbench-content">
+    <view class="group-item" bind:tap="onRedirect" data-url="/pages/workbench/createTask/index">
+      <image src="/images/workbench/renwushenqing.png" />
+      <text class="analysis-item-title">创建任务</text>
+    </view>
+    <view class="group-item" bind:tap="onRedirect" data-url="/pages/workbench/taskRecord/taskRecord">
+      <image src="/images/workbench/renwujilu.png" />
+      <text class="analysis-item-title">任务记录</text>
+    </view>
+    <view class="group-item" bind:tap="onRedirect" data-url="/pages/workbench/todoTask/todoTask">
+      <image src="/images/workbench/tongzhi.png" />
+      <text class="analysis-item-title">待办任务</text>
+    </view>
+  </view>
+</view>

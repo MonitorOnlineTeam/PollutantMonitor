@@ -1,0 +1,6 @@
+<view class="textarea-card">
+  <l-textarea bind:lininput="onInput"  border="{{false}}" maxlength="-1" indicator="{{false}}" placeholder="说说你的想法吧..." />
+</view>
+<view class="flex-center bottom-btn">
+  <l-button bind:tap="onSubmit" bg-color="#0081ff" style="margin-top: 30rpx" width="700">确认提交</l-button>
+</view>

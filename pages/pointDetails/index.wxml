@@ -1,0 +1,88 @@
+<l-tabs active-color="#2d8cf0" bind:linchange="onPageTypeChangeTabs">
+  <l-tabpanel tab="实时数据" key="realTime" slot="realTime">
+    <view class="tab-content">
+      <view class='top'>
+        <view class='top-content'>
+          <view class='top-content-left'>
+            <view class='content-top'>
+              <image src='/images/states.png' mode='aspectFit'></image>
+              <text class='txtClass'>排口状态</text>
+            </view>
+            <view class='content-bottom OffLine' wx:if="{{pointInfo.status==0}}">{{pointInfo.statusName||'-'}}</view>
+            <view class='content-bottom OnLine' wx:elif="{{pointInfo.status==1}}">{{pointInfo.statusName||'-'}}</view>
+            <view class='content-bottom Over' wx:elif="{{pointInfo.status==2}}">{{pointInfo.statusName||'-'}}</view>
+            <view class='content-bottom Exception' wx:else>{{pointInfo.statusName||'-'}}</view>
+          </view>
+          <view class='top-content-right'>
+            <view class='content-top'>
+              <image src='/images/datetimes.png' mode='aspectFit'></image>
+              <text class='txtClass'>监测时间</text>
+            </view>
+            <view class='content-bottom'>
+              {{pointInfo.mointorTime||'-'}}
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <view class="table">
+        <view class="tr bg-w">
+          <view class="th">污染物</view>
+          <view class="th">监测值</view>
+          <view class="th ">单位</view>
+          <view class="th">状态</view>
+        </view>
+        <view wx:if="{{dataitem.length==0}}" class='tr' style='color:#ccc'>
+          暂无数据
+        </view>
+        <block wx:for="{{dataitem}}" wx:key="{{pollutantCode}}">
+          <view class="tr {{item.pollutantName==selectedRow? 'tab-text-color active': 'tab-text-color'}} " bindtap="showModal" data-obj="{{item}}" data-target="ChooseModal">
+            <view class="td {{item.identificationCode == '1'?'Over': item.identificationCode=='-1'?'Exception':''}}">{{item.pollutantName||'-'}}</view>
+            <view class="td {{item.identificationCode == '1'?'Over': item.identificationCode=='-1'?'Exception':''}}">{{item.value}}</view>
+            <view class="td {{item.identificationCode == '1'?'Over': item.identificationCode=='-1'?'Exception':''}}">{{item.unit||'-'}}</view>
+            <view class="td Over" wx:if="{{item.identificationCode == '1'}}">超标</view>
+            <view class="td Exception" wx:elif="{{item.identificationCode == '-1'}}">
+              异常
+            </view>
+            <view class="td" wx:elif="{{item.identificationCode=='-'}}">暂未上传</view>
+            <view class="td" wx:else>正常</view>
+          </view>
+        </block>
+      </view>
+    </view>
+  </l-tabpanel>
+  <l-tabpanel tab="历史数据" key="historyData" slot="historyData">
+    <view class="tab-content">
+      <!-- <l-calendar show="{{ true }}" format="yyyy-MM-dd HH:mm:dd" /> -->
+      <l-tabs active-color="#2d8cf0" bind:linchange="changeTabs">
+        <l-tabpanel wx:for="{{_tabs}}" wx:for-item="tab" tab="{{tab}}" key="{{index}}" slot="{{index}}">
+          <view class="tab-content">
+            <view class="handle-content">
+              <text bind:tap="onChangePollutant">选择污染物</text>
+              <text bind:tap="onChangeDate">当前选择：{{selectedDate}}</text>
+            </view>
+            <block wx:if="{{chartDatas.length}}">
+              <view class="chart-content">
+                <f2 wx:if="{{chartShow}}" class="f2-chart" onInit="{{initChart}}" />
+              </view>
+              <i-row i-class="tips-content">
+                <i-col wx:for="{{tipsData}}" span="8" i-class="col-class">
+                  <view class="tips-item">
+                    <view>{{item.PollutantName}}</view>
+                    <view class="tips-value">{{item.Value}}{{item.Unit}}</view>
+                  </view>
+                </i-col> 
+              </i-row>
+            </block>
+            <block wx:else>
+              <view class="empty">
+                <image src="/images/empty.png"></image>
+                <text>暂无数据</text>
+              </view>
+            </block>
+          </view>
+        </l-tabpanel>
+      </l-tabs>
+    </view>
+  </l-tabpanel>
+</l-tabs>

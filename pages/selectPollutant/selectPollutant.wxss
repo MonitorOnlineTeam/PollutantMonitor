@@ -1,0 +1,18 @@
+/* pages/historyData/selectPollutant/selectPollutant.wxss */
+
+/* @import "../../../weui.wxss";
+.checkbox{
+  margin-right: 20rpx;
+} */
+.cu-form-group {
+  background-color: var(--white);
+  padding: 1rpx 30rpx;
+  display: flex;
+  align-items: center;
+  min-height: 100rpx;
+  justify-content: space-between;
+  border-top: 1rpx solid #eee;
+}
+.cu-form-group:active {
+  background-color: rgb(236, 236, 236);
+}

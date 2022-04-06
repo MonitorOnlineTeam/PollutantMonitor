@@ -1,0 +1,5 @@
+<view>
+  <view bind:tap="onSelectAir" data-obj="{{item}}" wx:for="{{pointsList}}" class="list sdl-list">
+    <view class="left-section">{{item.PointName}}</view>
+  </view>
+</view>

@@ -1,0 +1,34 @@
+/* pages/alarm/index.wxss */
+
+page {
+  background-color: #f2f2f2;
+}
+
+.alarm-container {
+  padding: 20rpx 0;
+}
+
+.alarm-container .content {
+  color: #888;
+}
+
+.alarm-container .alarm-title {
+  border-bottom: 1px solid #e0e0e0;
+  line-height: 80rpx;
+  margin-bottom: 20rpx;
+  color: #333;
+  display: flex;
+  align-items: center;
+}
+
+.alarm-card {
+  width: 94% !important;
+  /* margin: 0 20rpx 20rpx 20rpx !important; */
+  margin-bottom: 20rpx !important;
+  padding-top: 10rpx !important;
+}
+
+.alarm-tag{
+  display: inline-block;
+  margin-right: 20rpx;
+}

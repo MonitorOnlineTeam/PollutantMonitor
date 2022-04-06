@@ -1,0 +1,51 @@
+<!-- <l-capsule-bar disable-back l-title-class="monitoring-capsule" capsule-left-icon-path="/images/003.png" bg-color="#cce6ff" home-page="/pages/map/index" title="站点选择"> -->
+<view class="page-container">
+  <l-tabs animated="{{true}}" active-color="#2d8cf0">
+    <l-tabpanel tab="企业" key="one" slot="one">
+      <view class="tab-content">
+        <l-list l-class="sdl-list" wx:for="{{entAndPointList}}" wx:key="index" data-index="{{index}}" title="{{item.EntName}}" is-link url="/pages/pointList/pointList?index={{index}}" />
+      </view>
+    </l-tabpanel>
+    <l-tabpanel tab="空气站" key="two" slot="two">
+      <view class="tab-content">
+        <l-card bind:tap="goToPointDetails" l-class="width100 air_card" wx:for="{{airList}}" wx:key="DGIMN" type="primary" data-DGIMN="{{item.DGIMN}}" data-point-name="{{item.PointName}}" data-pollutant-type="{{item.PollutantType}}" plaintext="{{true}}">
+          <View class="airContent">
+            <View>
+              <View class="air_info">
+                <View class="air_name">
+                  <i-icon size="24" type="homepage_fill" color="#5ed29a" />
+                  {{item.PointName}}
+                </View>
+                <View>发布时间：{{time}}</View>
+                <View>首要污染物：{{item.PrimaryPollutantCode}}</View>
+              </View>
+              <View class="air_level">
+                <View style="color: {{item.AQI_Color}}">{{item.AQI}}</View>
+                <View class="air_level_text" style="background: {{item.AQI_Color}}">{{item.AirQuality}}</View>
+              </View>
+            </View>
+            <View class="air_poll_content">
+              <View class="air_poll_title">
+                <View span="4" class="col-class not-left-border">PM2.5</View>
+                <View span="4" class="col-class">PM10</View>
+                <View span="4" class="col-class">O3</View>
+                <View span="4" class="col-class">CO</View>
+                <View span="4" class="col-class">SO2</View>
+                <View span="4" class="col-class">NO2</View>
+              </View>
+              <view class="ari_poll_value">
+                <view span="4" class="col-class not-left-border">{{item.paramsList['08'] || '-'}}</view>
+                <view span="4" class="col-class">{{item.paramsList['07'] || '-'}}</view>
+                <view span="4" class="col-class">{{item.paramsList['01'] || '-'}}</view>
+                <view span="4" class="col-class">{{item.paramsList['02'] || '-'}}</view>
+                <view span="4" class="col-class">{{item.paramsList['03'] || '-'}}</view>
+                <view span="4" class="col-class">{{item.paramsList['05'] || '-'}}</view>
+              </view>
+            </View>
+          </View>
+        </l-card>
+      </view>
+    </l-tabpanel>
+  </l-tabs>
+</view>
+<!-- </l-capsule-bar> -->

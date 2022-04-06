@@ -1,0 +1,10 @@
+/* pages/workbench/qualityControlForm/qualityControlForm.wxss */
+
+
+page {
+  background-color: #f2f2f2;
+}
+
+.form-label {
+  width: 240rpx !important;
+}

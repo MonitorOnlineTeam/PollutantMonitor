@@ -1,0 +1,12 @@
+{
+  "usingComponents": {
+    "l-input": "/miniprogram_npm/lin-ui/input/index",
+    "l-radio-group": "/miniprogram_npm/lin-ui/radio-group/index",
+    "l-radio": "/miniprogram_npm/lin-ui/radio/index",
+    "l-button": "/miniprogram_npm/lin-ui/button/index",
+    "l-textarea": "/miniprogram_npm/lin-ui/textarea/index",
+    "l-action-sheet": "/miniprogram_npm/lin-ui/action-sheet/index",
+    "l-list": "/miniprogram_npm/lin-ui/list/index"
+  },
+  "navigationBarTitleText": "运维记录表"
+}

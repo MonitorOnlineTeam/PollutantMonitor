@@ -1,0 +1,38 @@
+<view>
+  <view class="bg-white">
+    <l-list>
+      <view slot="left-section">
+        <l-input disabled="{{readonly === 'true'}}" l-class="disabled-input" label-width="240" bind:tap="onSelectType" required label="质控类型" value="{{values.QualityTypeName}}" disabled placeholder="请选择质控类型" />
+      </view>
+    </l-list>
+    <!-- <l-list is-link="{{false}}">
+      <view slot="left-section"> -->
+        <l-input disabled="{{readonly === 'true'}}" l-class="disabled-input" label-width="240" bind:lininput="onChangeErrValue" required type="number" label="相对误差(%)" value="{{values.RelativeError}}" placeholder="请填写相对误差">
+        </l-input>
+      <!-- </view>
+    </l-list> -->
+    <l-list>
+      <view slot="left-section">
+        <l-input disabled="{{readonly === 'true'}}" l-class="disabled-input" label-width="240" bind:tap="onSelectDate" required label="质控时间" value="{{values.QualityTime}}" disabled placeholder="请选择质控时间" />
+      </view>
+    </l-list>
+    <view class="l-list">
+      <view class="form-item">
+        <view class="form-label form-label-left">
+          <text>
+            <text class="text-require">* </text>是否合格
+          </text>
+        </view>
+        <l-radio-group placement="row" current="{{values.IsQualified}}" bind:linchange="onChangeIsQualified">
+          <l-radio key="1" disabled="{{readonly === 'true'}}" select-color="#0081ff"> 是</l-radio>
+          <l-radio key="0" disabled="{{readonly === 'true'}}" select-color="#0081ff"> 否</l-radio>
+        </l-radio-group>
+      </view>
+    </view>
+  </view>
+  <l-action-sheet class="my-sheet" />
+  <view wx:if="{{readonly !== 'true'}}" class="bottom-btn flex-center" style="flex-direction: column;">
+    <l-button bind:tap="DeleteQualityRecord" wx:if="{{values.ID}}" plain="{{true}}" width="700" type="error">删除</l-button>
+    <l-button bind:tap="onSubmit" bg-color="#0081ff" style="margin-top: 30rpx" width="700">确认提交</l-button>
+  </view>
+</view>

@@ -1,0 +1,19 @@
+<view>
+  <block wx:if="{{!!todoTaskList.length}}">
+    <l-card wx:for="{{todoTaskList}}" wx:key="TaskID" type="primary" plaintext="{{true}}" l-class="task-card" l-title-class="card-title" title="{{item.PointName}}" data-taskid="{{item.TaskID}}" bind:tap="onGotoDetails">
+      <view class="content">
+        <!-- <view>企业名称：{{item.EnterName}}</view> -->
+        <view>创建时间：{{item.CreateTime}}</view>
+        <view>任务来源及类型：{{item.TaskFromName}}<text wx:if="{{item.RecordTypeName}}"> | {{item.RecordTypeName}}</text></view>
+        <view>任务状态：<text style="color: #0081ff">{{item.TaskStatus}}</text></view>
+        <view>备注：{{item.Remark || '无备注信息'}}</view>
+      </view>
+    </l-card>
+  </block>
+  <block wx:else>
+    <view class="empty">
+      <image src="/images/empty.png"></image>
+      <text>暂无数据</text>
+    </view>
+  </block>
+</view>

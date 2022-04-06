@@ -1,0 +1,36 @@
+/* pages/analysis/index.wxss */
+page {
+  background-color: #f2f2f2;
+}
+
+.analysis-container {
+  display: flex;
+  margin: 20rpx 24rpx;
+  justify-content: space-between;
+}
+
+.analysis-container>view {
+  display: flex;
+  width: 340rpx;
+  background-color: #fff;
+  flex-direction: column;
+  align-items: center;
+  padding: 80rpx 30rpx;
+  box-sizing: border-box;
+}
+
+.analysis-container>view image {
+  width: 100rpx;
+  height: 100rpx;
+}
+
+.analysis-container>view text {
+  margin-top: 24rpx;
+}
+
+.analysis-item-title {}
+
+.analysis-item-desc {
+  font-size: 20rpx;
+  color: #999;
+}

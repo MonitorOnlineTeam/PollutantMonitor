@@ -1,0 +1,58 @@
+/* pages/workbench/taskRecord/taskRecord.wxss */
+page {
+  background-color: #f2f2f2;
+}
+
+.card {
+  width: 100% !important;
+  margin-bottom: 20rpx !important;
+}
+
+.card-title {
+  margin-bottom: 20rpx;
+  /* font-size: 30rpx !important; */
+}
+
+.content view {
+  color: #666;
+  font-size: 26rpx;
+  line-height: 54rpx;
+}
+
+.exception-type {
+  font-size: 26rpx;
+  color: #faad14;
+}
+
+.date-cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20rpx;
+  padding: 18rpx 0;
+}
+
+.date-cell text {
+  color: #666;
+
+}
+
+.triangle {
+  width: 0;
+  height: 0;
+  border: 10rpx solid transparent;
+  border-top-color: #666;
+  margin-top: 8rpx;
+  margin-left: 10rpx;
+}
+
+.tag {
+  margin-top: 6rpx;
+}
+
+.tag text {
+  color: #59a3ea;
+  background-color: #e5f1fd;
+  padding: 4rpx 14rpx;
+  font-size: 26rpx;
+}

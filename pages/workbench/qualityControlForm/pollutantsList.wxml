@@ -1,0 +1,10 @@
+<view>
+  <l-list wx:for="{{recordData.RecordList}}" data-index="{{index}}" bind:lintap="onGotoHandleForm" l-class="sdl-list" title="{{item.QualityItemName}}">
+    <view slot="right-section">
+      <text class="iswrite">{{item.IsWrite ? '已填写' : '未填写'}}</text>
+    </view>
+  </l-list>
+  <view wx:if="{{readonly !== 'true'}}" class="bottom-btn flex-center" style="flex-direction: column;">
+    <l-button bind:tap="DeleteQualityRecord" plain="{{true}}" width="700" type="error">删除记录表</l-button>
+  </view>
+</view>

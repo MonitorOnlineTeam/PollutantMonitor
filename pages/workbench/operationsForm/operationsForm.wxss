@@ -1,0 +1,4 @@
+/* pages/workbench/operationsForm/operationsForm.wxss */
+page {
+  background-color: #f2f2f2;
+}

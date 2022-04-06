@@ -1,0 +1,16 @@
+/* pages/feedback/index.wxss */
+page {
+  background-color: #f2f2f2;
+}
+
+.textarea-card {
+  background-color: #fff;
+  margin: 30rpx;
+  padding: 20rpx;
+}
+
+.bottom-btn {
+  position: fixed;
+  bottom: 60rpx;
+  width: 100%;
+}

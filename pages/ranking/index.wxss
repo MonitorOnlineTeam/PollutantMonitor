@@ -1,0 +1,21 @@
+/* pages/ranking/index.wxss */
+
+page {
+  background-color: #f2f2f2;
+}
+
+.ranking-table {
+  padding: 0;
+}
+
+.handle-content {
+  height: 80rpx;
+  color: #666;
+  display: flex;
+  padding: 0 20rpx;
+  line-height: 80rpx;
+  background: #fff;
+  font-size: 24rpx;
+  padding-right: 40rpx;
+  /* justify-content: space-between; */
+}

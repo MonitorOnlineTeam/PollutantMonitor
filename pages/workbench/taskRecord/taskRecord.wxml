@@ -1,0 +1,24 @@
+<view>
+  <view class="date-cell bg-white" bind:tap="onSelectDate">
+    <text>{{datesStr[0]}} - {{datesStr[1]}}</text>
+    <view class="triangle"></view>
+  </view>
+  <block wx:if="{{!taskRecordList.length}}">
+    <view class="empty">
+      <image s rc="/images/empty.png"></image>
+      <text>暂无数据</text>
+    </view>
+  </block>
+  <block wx:else>
+    <l-card wx:for="{{taskRecordList}}" type="primary" plaintext="{{true}}" l-class="card" l-title-class="card-title" title="{{item.EnterpriseName}} - {{item.PointName}}" bind:tap="onGotoDetails" data-taskid="{{item.TaskID}}">
+      <view class="content">
+        <view>{{item.CreateTime}}</view>
+        <view>{{item.TaskFromText}}<text class="exception-type" wx:if="{{item.ExceptionTypeText}}"> | {{item.ExceptionTypeText}}</text></view>
+        <view class="tag">
+          <text>{{item.TaskRecordTypeName[0].TypeName}}</text>
+        </view>
+      </view>
+    </l-card>
+  </block>
+  <van-calendar value="{{dates}}" color="#56a6ff" show="{{ show }}" min-date="{{ minDate }}" max-date="{{ maxDate }}" type="range" bind:close="onClose" bind:confirm="onConfirm" />
+</view>

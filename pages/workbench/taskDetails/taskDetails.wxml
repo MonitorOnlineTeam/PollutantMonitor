@@ -1,0 +1,74 @@
+<l-tabs bind:linchange="changeTabs" animated="{{true}}" active-key="one" active-color="#2d8cf0">
+  <l-tabpanel tab="基本信息" key="one" slot="one">
+    <view wx:if="{{taskInfo.TaskCode}}" class="tab-content">
+      <!-- <l-card type="primary" plaintext="{{true}}" l-class="card" l-title-class="card-title" title="{{taskInfo.EnterpriseName+' - '+taskInfo.PointName}}"> -->
+      <view class="card">
+        <view class="content">
+          <view class="card-title">{{taskInfo.EnterpriseName+' - '+taskInfo.PointName}}</view>
+          <view>
+            <text class="lable">任务单号：</text>
+            {{taskInfo.TaskCode}}
+          </view>
+          <view>
+            <text class="lable">创建时间：</text>
+            {{taskInfo.CreateTime}}
+          </view>
+          <view>
+            <text class="lable">创建人：</text>
+            {{taskInfo.CreateUserName}}
+          </view>
+          <view>
+            <text class="lable">来源及类型：</text>
+            {{taskInfo.TaskFromText+' | '+taskInfo.TaskTypeText}}
+          </view>
+          <view>
+            <text class="lable">描述：</text>
+            {{taskInfo.TaskDescription || '暂未填写'}}
+          </view>
+        </view>
+      </view>
+      <!-- </l-card> -->
+    </view>
+  </l-tabpanel>
+  <l-tabpanel tab="任务处理" key="two" slot="two">
+    <view class="tab-content">
+      <view>
+        <!-- <l-card type="primary" plaintext="{{true}}" l-class="card"> -->
+        <view class="card">
+          <view class="form-card-title">
+            <i-icon size="24" type="activity_fill" style="margin-right: 10rpx;" color="#2d8cf0" />
+            任务表单
+          </view>
+          <view class="content">
+            <view wx:if="{{taskInfo.TaskStatus != 3}}" class="and-form" bind:tap="onCreateForm">
+              <l-icon name="add" size="32" color="#333" l-class="inline-icon" />
+              添加表单
+            </view>
+            <view class="form-list" wx:for="{{formList}}" bind:tap="onFormClick" data-item="{{item}}">
+              <text class="index">{{index+1}}</text>
+              {{item.CnName}}
+            </view>
+            <!-- <l-list title="质控记录表" /> -->
+          </view>
+        </view>
+        <!-- </l-card> -->
+        <!-- <l-card type="primary" plaintext="{{true}}" l-class="card"> -->
+        <view class="card">
+          <view class="form-card-title">
+            <i-icon size="24" type="document_fill" style="margin-right: 10rpx;" color="#48ccee" />
+            处理说明
+          </view>
+          <view class="content">
+            <l-textarea value="{{taskInfo.TaskDescription}}" disabled="{{taskInfo.TaskStatus == 3}}" bind:lininput="onDescChange" placeholder="请填写任务处理说明..." />
+          </view>
+        </view>
+        <!-- </l-card> -->
+      </view>
+      <view wx:if="{{taskInfo.TaskStatus != 3}}" class="bottom-btn flex-center">
+        <l-button width="310" l-class="btn" type="default" bg-color="#0081ff" size="medium" bind:lintap="onPostTask" data-complete="{{false}}">暂存此任务</l-button>
+        <l-button width="310" l-class="btn" type="default" bg-color="#0081ff" size="medium" bind:lintap="onPostTask" data-complete="{{true}}">结束此任务</l-button>
+      </view>
+    </view>
+    <l-action-sheet l-title-class="title" l-item-class="itemclass" l-cancel-class="test"/>
+  </l-tabpanel>
+</l-tabs>

@@ -1,0 +1,5 @@
+<!--pages/test/test.wxml-->
+<view>
+  <!-- <l-calendar show="{{ true }}" min-date="{{ minDate }}" /> -->
+  <van-calendar color="#56a6ff" show="{{ true }}" min-date="{{ minDate }}" max-date="{{ maxDate }}" type="range" bind:close="onClose" bind:confirm="onConfirm" />
+</view>

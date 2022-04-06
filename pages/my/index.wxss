@@ -1,0 +1,33 @@
+/* pages/my/index.wxss */
+page {
+  background-color: #f2f2f2;
+}
+
+.userinfo-avatar {
+  overflow: hidden;
+  width: 128rpx;
+  height: 128rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.avatar-container {
+  background-color: #cce6ff;
+  height: 25vh;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+  flex-direction: column;
+  align-items: center;
+}
+
+.my-list {
+  margin-top: 30rpx;
+}

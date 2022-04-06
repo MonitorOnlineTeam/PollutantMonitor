@@ -1,0 +1,11 @@
+<view class="alarm-container">
+  <l-card wx:for="{{alarmDataList}}" type="primary" plaintext="{{true}}" l-class="alarm-card">
+    <view class="alarm-title">
+      <l-tag l-class="alarm-tag" plain="{{true}}" font-color="{{item.AlarmType === '2' ? '#ff4d4f' : '#faad14'}}">{{item.AlarmTypeName}}</l-tag>
+      {{item.AlarmTime}}
+    </view>
+    <view class="content">
+      {{item.AlarmMsg}}
+    </view>
+  </l-card>
+</view>

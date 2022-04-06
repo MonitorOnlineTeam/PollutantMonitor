@@ -1,0 +1,11 @@
+/* pages/workbench/createTask/index.wxss */
+page {
+  background-color: #f2f2f2;
+}
+
+.remark-content {
+  padding: 20rpx 30rpx;
+}
+/* .disabled-input{
+  color: #333 !important;
+} */

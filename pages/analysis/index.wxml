@@ -1,0 +1,13 @@
+<!--pages/analysis/index.wxml-->
+<view class="analysis-container">
+  <view bind:tap="gotoUrl" data-url="/pages/alarm/index">
+    <image src="/images/alarm.png" />
+    <text class="analysis-item-title">超标报警统计</text>
+    <text class="analysis-item-desc">统计企业超标报警情况</text>
+  </view>
+  <view bind:tap="gotoUrl" data-url="/pages/ranking/index">
+    <image src="/images/ranking.png" />
+    <text class="analysis-item-title">站点排名</text>
+    <text class="analysis-item-desc">查看空气站站点排名</text>
+  </view>
+</view>

@@ -1,0 +1,14 @@
+<view class="avatar-container">
+  <!-- <l-button type="default" bg-color="#0081ff">获取头像</l-button> -->
+  <!-- <open-data type="userAvatarUrl"></open-data> -->
+  <block>
+    <view class="userinfo-avatar">
+      <open-data type="userAvatarUrl"></open-data>
+    </view>
+    <open-data type="userNickName"></open-data>
+  </block>
+</view>
+<l-list l-class="sdl-list my-list" title="意见反馈" image="/images/fankui.png" url="/pages/feedback/index" />
+<view class="center">
+  <l-button bind:lintap="clear" bg-color="#0081ff" style="margin-top: 60rpx" width="700">清除缓存</l-button>
+</view>

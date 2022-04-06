@@ -1,0 +1,12 @@
+/* pages/workbench/selectAirList/index.wxss */
+.list {
+  width: 100%;
+  min-height: 88rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #333;
+  font-size: 28rpx;
+  border-bottom: 1px solid #f3f3f3;
+  box-sizing: border-box;
+}

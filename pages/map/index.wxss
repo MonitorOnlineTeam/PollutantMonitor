@@ -1,0 +1,138 @@
+/* pages/map/index.wxss */
+page {
+  background-color: #f2f2f2;
+}
+.map-legend {
+  position: fixed;
+  bottom: 106rpx;
+  width: 100%;
+  height: 100rpx;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #fff;
+  color: #fff;
+}
+
+.toggle {
+  background: #fff;
+  font-size: 28rpx;
+  display: flex;
+  /* justify-content: center; */
+  /* text-align: center; */
+  width: 200rpx;
+  height: 50rpx;
+  line-height: 50rpx;
+  color: #333;
+  margin: 20rpx;
+}
+
+.toggle cover-view {
+  flex: 1;
+  line-height: 50rpx;
+  text-align: center;
+}
+
+.toggle cover-view.active {
+  color: #56a6ff;
+}
+
+/* 弹出层样式 */
+.botton-content {
+  text-align: center;
+  background: #fff;
+  padding: 20rpx;
+}
+
+.botton-content .monitor-time {
+  color: #999;
+  margin-top: 14rpx;
+  border-bottom: 1px solid #f2f2f2;
+}
+
+.pollutant-list {
+  margin-top: 10rpx;
+  border-left: 1px solid #f2f2f2;
+  border-top: 1px solid #f2f2f2;
+}
+
+.pollutant-item {
+  height: 60rpx;
+  line-height: 60rpx;
+  /* border-top: 1px solid #f2f2f2; */
+  border-right: 1px solid #f2f2f2;
+  border-bottom: 1px solid #f2f2f2;
+  color: #5d5d5d;
+}
+
+.pollutant-value {
+  line-height: 60rpx;
+  /* border-top: 1px solid #f2f2f2; */
+  border-bottom: 1px solid #f2f2f2;
+  /* border-right: 1px solid #f2f2f2; */
+  border-right: 1px solid #f2f2f2;
+}
+
+.bt {
+  border-top: 1px solid #f2f2f2;
+}
+
+.map-point-legend{
+  position: fixed;
+  bottom: 106rpx;
+  width: 100%;
+  background-color: #fff;
+}
+.legent-status {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 80rpx;
+  border-top: 1px dashed #f1f1f1;
+}
+.legent-type {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 100rpx;
+}
+.legent-type view{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.legent-type view image{
+  width: 36rpx;
+  height: 36rpx;
+  margin-bottom: 10rpx;
+}
+.legent-type view text{
+  color: #888;
+  font-size: 24rpx;
+}
+
+.map-popup{
+  margin-bottom: 106rpx;
+}
+/* .customCallout {
+  box-sizing: border-box;
+  background-color: #fff; 
+  border: 1px solid #ccc;
+  border-radius: 30px;
+  width: 150px;
+  height: 40px;
+  display: inline-flex;
+  padding: 5px 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+.content {
+  flex: 0 1 auto;
+  margin: 0 10px;
+  font-size: 14px;
+  width: 100rpx;
+  height: 100rpx;
+  background-color: #000;
+} */

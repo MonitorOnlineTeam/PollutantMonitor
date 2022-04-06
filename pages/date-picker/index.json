@@ -1,0 +1,10 @@
+{
+  "usingComponents": {
+    "van-datetime-picker": "/dist/datetime-picker/index"
+  },
+  "navigationBarBackgroundColor": "#cce6ff",
+  "navigationBarTextStyle": "black",
+  "navigationBarTitleText": "选择时间",
+  "backgroundColor": "#fff",
+  "backgroundTextStyle": "light"
+}

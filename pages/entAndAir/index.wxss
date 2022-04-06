@@ -1,0 +1,78 @@
+/* pages/index/index.wxss */
+page {
+  background-color: #f2f2f2;
+}
+
+.my-tabs {
+  position: fixed !important;
+  top: 0;
+  z-index: 9;
+}
+
+.content {
+  margin-top: 42px;
+  /* background-color: #666; */
+}
+
+.air_card {
+  padding: 10rpx 16rpx !important;
+  margin-bottom: 20rpx !important;
+}
+
+.airContent {
+  color: #666;
+}
+
+.air_info>view {
+  line-height: 56rpx;
+}
+
+.air_name {
+  color: #333;
+  margin-bottom: 10rpx;
+}
+
+.air_poll_content {
+  margin: 0 -16rpx;
+  margin-top: 20rpx;
+  text-align: center;
+}
+
+.air_poll_title,
+.ari_poll_value {
+  display: flex;
+}
+
+.air_poll_content .col-class {
+  flex: 1;
+  border: 1px solid #f1f1f1;
+  border-right: 0;
+  padding: 14rpx 10rpx;
+  box-sizing: border-box;
+}
+
+.not-left-border {
+  border-left: 0;
+}
+
+.ari_poll_value .col-class {
+  border-top: 0
+}
+
+.air_level {
+  position: absolute;
+  right: 0;
+  top: 12px;
+  text-align: right;
+}
+
+.air_level_text {
+  padding: 0rpx 22rpx;
+  color: #fdffe4;
+  font-size: 26rpx;
+}
+
+.monitoring-capsule {
+  font-weight: normal !important;
+  font-size: 26rpx !important;
+}

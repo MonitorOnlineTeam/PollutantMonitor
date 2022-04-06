@@ -1,0 +1,11 @@
+<!--pages/welcome/index.wxml-->
+<l-tabs animated="{{true}}" active-color="#2d8cf0">
+  <l-tabpanel tab="企业" key="one" slot="one">
+    <view class="tab-content">
+      <loading>加载中</loading>
+    </view>
+  </l-tabpanel>
+  <l-tabpanel tab="空气站" key="two" slot="two">
+  </l-tabpanel>
+</l-tabs>
+<!-- <loading>加载中</loading> -->

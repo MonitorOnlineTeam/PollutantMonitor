@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "l-tabs": "/miniprogram_npm/lin-ui/tabs/index",
+    "l-tag": "/miniprogram_npm/lin-ui/tag/index",
+    "l-tabpanel": "/miniprogram_npm/lin-ui/tabpanel/index"
+  },
+  "navigationBarTitleText": "站点排名"
+}

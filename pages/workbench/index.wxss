@@ -1,0 +1,46 @@
+/* pages/analysis/index.wxss */
+page {
+  background-color: #f2f2f2;
+}
+
+.workbench-container {
+  /* display: flex;
+  margin: 20rpx 24rpx;
+  justify-content: space-between; */
+}
+
+.banner {
+  height: 400rpx;
+}
+
+.banner image {
+  width: 100%;
+  height: 100%;
+}
+
+.workbench-content {
+  background-color: #fff;
+  display: flex;
+  justify-content: space-between;
+  padding: 30rpx;
+  margin-top: 20rpx;
+}
+
+.workbench-content .group-item {
+  display: flex;
+  width: 240rpx;
+  background-color: #fff;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.workbench-content>.group-item image {
+  width: 100rpx;
+  height: 100rpx;
+}
+
+.workbench-content>.group-item text {
+  margin-top: 24rpx;
+  font-size: 26rpx;
+}

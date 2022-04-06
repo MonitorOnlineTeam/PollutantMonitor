@@ -1,0 +1,1 @@
+<l-list bind:tap="onPointClick" l-class="sdl-list" wx:for="{{pointList}}" wx:key="index" data-DGIMN="{{item.DGIMN}}" data-index="{{index}}" title="{{item.title}}" is-link url="/pages/pointDetails/index?dgimn={{item.DGIMN}}&pointName={{item.title}}" />

@@ -1,0 +1,69 @@
+<l-tabs wx:if="{{showType === 'air'}}" bind:linchange="changeTabs" equal-width="{{false}}" scrollable="{{true}}" active-color="#2d8cf0">
+  <l-tabpanel wx:for="{{pointPollutantList}}" tab="{{item.PollutantName}}" key="{{item.PollutantCode}}" slot="{{item.PollutantCode}}">
+  </l-tabpanel>
+</l-tabs>
+<map id="map" markers="{{markers}}" bindlabeltap="onMarkerClick" bindcallouttap="onMarkerClick" show-location longitude="{{centerLongitude}}" latitude="{{centerLatitude}}" scale="{{zoom}}" style="width: 100%; height: calc(100vh - 100rpx - 186rpx);">
+  <cover-view class="toggle">
+    <cover-view bind:tap="onShowTypeChange" data-show-type="ent" class="{{showType === 'ent' ? 'active' : ''}}">企业</cover-view>
+    <cover-view bind:tap="onShowTypeChange" data-show-type="air" class="{{showType === 'air' ? 'active' : ''}}">空气站</cover-view>
+  </cover-view>
+
+
+  <!-- <cover-view slot="callout">
+    <block wx:for="{{markers}}">
+      <cover-view class="customCallout" marker-id="{{item.id}}">
+        <cover-view class="content">
+          {{item.label.content}}
+        </cover-view>
+      </cover-view>
+    </block>
+  </cover-view> -->
+</map>
+<block wx:if="{{showType === 'air'}}">
+  <view class="map-legend">
+    <l-tag size="super-mini" bg-color="#00e400">优</l-tag>
+    <l-tag size="super-mini" bg-color="#f3dd22">良</l-tag>
+    <l-tag size="super-mini" bg-color="#ff7e00">轻度</l-tag>
+    <l-tag size="super-mini" bg-color="#ff0000">中度</l-tag>
+    <l-tag size="super-mini" bg-color="#99004c">重度</l-tag>
+    <l-tag size="super-mini" bg-color="#7e0023">严重</l-tag>
+  </view>
+</block>
+<block wx:else>
+  <view class="map-point-legend">
+    <view class="legent-type">
+      <view>
+        <image src="/images/legend/1.png"></image>
+        <text>废水</text>
+      </view>
+      <view>
+        <image src="/images/legend/2.png"></image>
+        <text>废气</text>
+      </view>
+    </view>
+    <view class="legent-status">
+      <l-tag size="super-mini" bg-color="#d9d9d9">离线</l-tag>
+      <l-tag size="super-mini" bg-color="#52c41a">在线</l-tag>
+      <l-tag size="super-mini" bg-color="#f5222d">超标</l-tag>
+      <l-tag size="super-mini" bg-color="#fa8c16">异常</l-tag>
+    </view>
+  </view>
+</block>
+<l-popup l-class="map-popup" show="{{visible}}" bind:lintap="onPopupClick" content-align="bottom">
+  <view class="botton-content">
+    <view class="title">{{pointItemData.PointName}}</view>
+    <view class="monitor-time">{{pointItemData.MonitorTime}}</view>
+    <i-row i-class="pollutant-list">
+      <block wx:for="{{pointItemData.PointPollutantList}}">
+        <i-col i-class="pollutant-item" span="6">
+          <view>
+            {{item.PollutantName}}
+          </view>
+        </i-col>
+        <i-col span="6" i-class="pollutant-value">
+          <view style="background-color:{{item.backgroundColor || '#fff'}}; color:{{item.backgroundColor ? '#fff' : '#333'}}">{{item.value || '-'}}</view>
+        </i-col>
+      </block>
+    </i-row>
+  </view>
+</l-popup>

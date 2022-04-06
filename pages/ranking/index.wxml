@@ -1,0 +1,132 @@
+<l-tabs active-color="#2d8cf0" bind:linchange="changeTabs">
+  <l-tabpanel wx:for="{{_tabs}}" wx:for-item="tabItem" key="{{index+1}}" slot="{{index+1}}" tab="{{tabItem}}">
+    <view class="handle-content">
+      <text bind:tap="onChangeDate">当前选择：{{selectedDate}}</text>
+    </view>
+    <view class="tab-content">
+      <view class="table ranking-table">
+        <view class="tr bg-w">
+          <view class="th">排名</view>
+          <view class="th">大气站</view>
+          <view class="th">站点</view>
+          <view class="th">AQI</view>
+          <view class="th">首污</view>
+        </view>
+        <view wx:if="{{dataitem.length==0}}" class='tr' style='color:#ccc'>
+          暂无数据
+        </view>
+        <block wx:for="{{airPointRankingList}}" wx:key="DGIMN">
+          <view class="tr">
+            <view class="td">{{index+1}}</view>
+            <view class="td">{{item.PointName}}</view>
+            <view class="td">{{item.StationName}}</view>
+            <view class="td Over" style="display:flex">
+              <l-tag wx:if="{{item.AQI !== '-'}}" size="mini" bg-color="{{item.AQI_Color}}" shape="circle">{{item.AQI}}</l-tag>
+              <text wx:else>-</text>
+            </view>
+            <view class="td">{{item.PrimaryPollutant || '-'}}</view>
+          </view>
+        </block>
+      </view>
+    </view>
+  </l-tabpanel>
+  <!-- <l-tabpanel tab="日均" key="2" slot="2">
+    <view class="tab-content">
+      <view class="handle-content">
+        <text bind:tap="onChangeDate">当前选择：{{selectedDate}}</text>
+      </view>
+      <view class="tab-content">
+        <view class="table ranking-table">
+          <view class="tr bg-w">
+            <view class="th">排名</view>
+            <view class="th">大气站</view>
+            <view class="th">站点</view>
+            <view class="th">AQI</view>
+            <view class="th">首污</view>
+          </view>
+          <view wx:if="{{dataitem.length==0}}" class='tr' style='color:#ccc'>
+            暂无数据
+          </view>
+          <block wx:for="{{airPointRankingList}}" wx:key="DGIMN">
+            <view class="tr">
+              <view class="td">{{index+1}}</view>
+              <view class="td">{{item.PointName}}</view>
+              <view class="td">{{item.StationName}}</view>
+              <view class="td Over" style="display:flex">
+                <l-tag wx:if="{{item.AQI !== '-'}}" size="mini" bg-color="{{item.AQI_Color}}" shape="circle">{{item.AQI}}</l-tag>
+                <text wx:else>-</text>
+              </view>
+              <view class="td">{{item.PrimaryPollutant || '-'}}</view>
+            </view>
+          </block>
+        </view>
+      </view>
+    </view>
+  </l-tabpanel>
+  <l-tabpanel tab="月均" key="3" slot="3">
+    <view class="tab-content">
+      <view class="handle-content">
+        <text bind:tap="onChangeDate">当前选择：{{selectedDate}}</text>
+      </view>
+      <view class="tab-content">
+        <view class="table ranking-table">
+          <view class="tr bg-w">
+            <view class="th">排名</view>
+            <view class="th">大气站</view>
+            <view class="th">站点</view>
+            <view class="th">AQI</view>
+            <view class="th">首污</view>
+          </view>
+          <view wx:if="{{dataitem.length==0}}" class='tr' style='color:#ccc'>
+            暂无数据
+          </view>
+          <block wx:for="{{airPointRankingList}}" wx:key="DGIMN">
+            <view class="tr">
+              <view class="td">{{index+1}}</view>
+              <view class="td">{{item.PointName}}</view>
+              <view class="td">{{item.StationName}}</view>
+              <view class="td Over" style="display:flex">
+                <l-tag wx:if="{{item.AQI !== '-'}}" size="mini" bg-color="{{item.AQI_Color}}" shape="circle">{{item.AQI}}</l-tag>
+                <text wx:else>-</text>
+              </view>
+              <view class="td">{{item.PrimaryPollutant || '-'}}</view>
+            </view>
+          </block>
+        </view>
+      </view>
+    </view>
+  </l-tabpanel>
+  <l-tabpanel tab="年均" key="4" slot="4">
+    <view class="tab-content">
+      <view class="handle-content">
+        <text bind:tap="onChangeDate">当前选择：{{selectedDate}}</text>
+      </view>
+      <view class="tab-content">
+        <view class="table ranking-table">
+          <view class="tr bg-w">
+            <view class="th">排名</view>
+            <view class="th">大气站</view>
+            <view class="th">站点</view>
+            <view class="th">AQI</view>
+            <view class="th">首污</view>
+          </view>
+          <view wx:if="{{dataitem.length==0}}" class='tr' style='color:#ccc'>
+            暂无数据
+          </view>
+          <block wx:for="{{airPointRankingList}}" wx:key="DGIMN">
+            <view class="tr">
+              <view class="td">{{index+1}}</view>
+              <view class="td">{{item.PointName}}</view>
+              <view class="td">{{item.StationName}}</view>
+              <view class="td Over" style="display:flex">
+                <l-tag wx:if="{{item.AQI !== '-'}}" size="mini" bg-color="{{item.AQI_Color}}" shape="circle">{{item.AQI}}</l-tag>
+                <text wx:else>-</text>
+              </view>
+              <view class="td">{{item.PrimaryPollutant || '-'}}</view>
+            </view>
+          </block>
+        </view>
+      </view>
+    </view>
+  </l-tabpanel> -->
+</l-tabs>

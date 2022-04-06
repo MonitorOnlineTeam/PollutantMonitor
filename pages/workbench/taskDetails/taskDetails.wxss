@@ -1,0 +1,90 @@
+/* pages/workbench/taskDetails/taskDetails.wxss */
+
+page {
+  background-color: #f2f2f2;
+}
+
+.card {
+  width: 100vw !important;
+  margin-top: 10rpx !important;
+  margin: 0 auto;
+  padding: 30rpx;
+  box-sizing: border-box;
+  background: #fff;
+  box-shadow: 0 4rpx 20rpx 0 rgba(212, 217, 223, .5);
+  border-radius: 4px;
+}
+
+.card-title {
+  margin-bottom: 20rpx;
+  font-size: 30rpx !important;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #333;
+}
+
+.content view,
+.content text {
+  color: #666;
+  font-size: 26rpx;
+  line-height: 54rpx;
+}
+
+.content .lable {
+  width: 200rpx;
+  display: inline-block;
+
+}
+
+.form-card-title {
+  vertical-align: middle;
+  display: flex;
+  align-items: center;
+  padding-bottom: 20rpx;
+  color: #333;
+  margin-bottom: 6rpx;
+}
+
+.and-form {
+  display: flex;
+  align-items: center;
+  padding: 0 14rpx;
+}
+
+.inline-icon {
+  display: inline-block;
+  margin-right: 10rpx;
+}
+
+.btns {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn {
+  box-sizing: border-box !important;
+  margin: 0 16rpx !important;
+}
+
+.form-list {
+  padding: 10rpx 14rpx;
+}
+
+.index {
+  display: inline-block;
+  width: 34rpx;
+  height: 34rpx;
+  background-color: #989898;
+  color: #fff !important;
+  text-align: center;
+  line-height: 34rpx !important;
+  border-radius: 6rpx;
+}
+
+.test{
+  color: red;
+}
+.title,.itemclass{
+  color: red;
+}

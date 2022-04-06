@@ -1,0 +1,37 @@
+<view class="bg-white">
+  <view class="l-list">
+    <view class="form-item">
+      <view class="form-label form-label-left">
+        <text>
+          <text class="text-require">* </text>是否合格
+        </text>
+      </view>
+      <l-radio-group placement="row" current="{{values.IsFault}}" bind:linchange="onChangeIsFault">
+        <l-radio disabled="{{readonly === 'true'}}" key="1" select-color="#0081ff">是</l-radio>
+        <l-radio disabled="{{readonly === 'true'}}" key="0" select-color="#0081ff">否</l-radio>
+      </l-radio-group>
+    </view>
+  </view>
+  <l-list>
+    <view slot="left-section">
+      <l-input l-class="disabled-input" label-width="240" bind:tap="onSelectStatus" required label="设备状态" value="{{values.EquipmentStatusName}}" disabled placeholder="请选择设备状态" />
+    </view>
+  </l-list>
+  <view class="textarea-content">
+    <text>告警问题</text>
+    <l-textarea disabled="{{readonly === 'true'}}" value="{{values.AlarmProblem}}" bind:lininput="onAlarmProblemInput" border="{{false}}" placeholder="请输入告警问题" />
+  </view>
+  <view class="textarea-content">
+    <text>处理方式</text>
+    <l-textarea disabled="{{readonly === 'true'}}" value="{{values.TreatmentMethod}}" bind:lininput="onTreatmentMethodInput" border="{{false}}" placeholder="请输入处理方式" />
+  </view>
+  <view class="textarea-content">
+    <text>维修内容</text>
+    <l-textarea disabled="{{readonly === 'true'}}" value="{{values.MaintenanceContent}}" bind:lininput="onMaintenanceContentInput" border="{{false}}" placeholder="请输入维修内容" />
+  </view>
+  <l-action-sheet />
+  <view wx:if="{{readonly !== 'true'}}" class="bottom-btn flex-center" style="flex-direction: column;">
+    <l-button wx:if="{{values.FormMainID}}" plain="{{true}}" width="700" type="error" bind:tap="DeleteOperationRecord">删除</l-button>
+    <l-button bind:tap="onSubmit" bg-color="#0081ff" style="margin-top: 30rpx" width="700">确认提交</l-button>
+  </view>
+</view>

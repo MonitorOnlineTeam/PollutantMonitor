@@ -1,0 +1,12 @@
+{
+  "usingComponents": {
+    "l-tag": "/miniprogram_npm/lin-ui/tag/index",
+    "l-tabs": "/miniprogram_npm/lin-ui/tabs/index",
+    "l-tabpanel": "/miniprogram_npm/lin-ui/tabpanel/index",
+    "l-popup": "/miniprogram_npm/lin-ui/popup/index",
+    "i-row": "../../dist/row/index",
+    "i-col": "../../dist/col/index",
+    "l-tab-bar": "/miniprogram_npm/lin-ui/tab-bar/index"
+  },
+  "navigationBarTitleText": "地图"
+}

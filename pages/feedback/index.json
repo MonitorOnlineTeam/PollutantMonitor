@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "l-textarea": "/miniprogram_npm/lin-ui/textarea/index",
+    "l-button": "/miniprogram_npm/lin-ui/button/index"
+  },
+  "navigationBarTitleText": "意见反馈"
+}

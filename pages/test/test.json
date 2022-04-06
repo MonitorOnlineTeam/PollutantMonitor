@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "l-calendar": "/miniprogram_npm/lin-ui/calendar/index",
+    "van-calendar": "../../dist/vant/calendar/index"
+  }
+}
