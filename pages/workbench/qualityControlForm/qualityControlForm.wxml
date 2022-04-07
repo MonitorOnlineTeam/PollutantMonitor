@@ -23,7 +23,7 @@
             <text class="text-require">* </text>是否合格
           </text>
         </view>
-        <l-radio-group placement="row" current="{{values.IsQualified}}" bind:linchange="onChangeIsQualified">
+        <l-radio-group  none-checked="{{false}}" placement="row" current="{{values.IsQualified}}" bind:linchange="onChangeIsQualified">
           <l-radio key="1" disabled="{{readonly === 'true'}}" select-color="#0081ff"> 是</l-radio>
           <l-radio key="0" disabled="{{readonly === 'true'}}" select-color="#0081ff"> 否</l-radio>
         </l-radio-group>

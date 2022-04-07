@@ -6,7 +6,7 @@
           <text class="text-require">* </text>是否合格
         </text>
       </view>
-      <l-radio-group placement="row" current="{{values.IsFault}}" bind:linchange="onChangeIsFault">
+      <l-radio-group none-checked="{{false}}" placement="row" current="{{values.IsFault}}" bind:linchange="onChangeIsFault">
         <l-radio disabled="{{readonly === 'true'}}" key="1" select-color="#0081ff">是</l-radio>
         <l-radio disabled="{{readonly === 'true'}}" key="0" select-color="#0081ff">否</l-radio>
       </l-radio-group>

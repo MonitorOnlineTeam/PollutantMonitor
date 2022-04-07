@@ -189,7 +189,7 @@ Page({
             if (value) {
               value = value == '-' ? null : (+itemD[itemP.code].toFixed(2));
             } else {
-              value = null;
+              value = 0;
             }
             chartDatas.push({
               PollutantName: `${itemP.name}`,
@@ -202,13 +202,11 @@ Page({
 
           });
         });
-
         this.setData({
           chartDatas: chartDatas,
           chartShow: true,
           initChart: (F2, config) => this.renderChar(F2, config, chartDatas)
         });
-
       }
     })
   },
