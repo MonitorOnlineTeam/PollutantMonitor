@@ -83,6 +83,13 @@ Page({
           wx.setStorageSync('Ticket', result.data.Datas.Ticket);
           wx.setStorageSync('UserCode', result.data.Datas.UserCode);
           this.GetSysMenuByUserID();
+          wx.requestSubscribeMessage({
+            tmplIds: ['hy8oFHZ3uiV-QuCIczWMZw5gKrecC_unYLXVQwsiqgg'],
+            success (res) { 
+             
+      
+            }
+          })
         }).catch(err => {
           // 未注册
           console.log('err=', err);

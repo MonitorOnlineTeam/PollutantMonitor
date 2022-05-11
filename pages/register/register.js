@@ -21,6 +21,7 @@ Page({
     //   Agreement: common.getStorage('Agreement'),
     //   checkbox: common.getStorage('Agreement'),
     // });
+  
   },
   checkboxChange: function (e) {
     this.setData({
