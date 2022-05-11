@@ -35,6 +35,8 @@ export const API = {
   GetMonitorDatas: prefix + '/SMCManagerApi/GetMonitorDatas',
   // 获取报警信息
   GetAlarmDataList: prefix + '/BaseDataApi/GetAlarmDataList',
+  // 获取公司运维报警信息
+  GetAlarmInfoList: prefix + '/OperationBasicApi/GetAlarmInfoList',
   // 获取站点排名
   GetAirPointRanking: prefix + '/MonDataApi/GetAirPointRanking',
   // 获取空气站

@@ -94,18 +94,19 @@ Page({
         entAndPointList: res.data.Datas
       })
     });
-    this.getAirList((res) => {
-      let airList = res.map(item => {
-        item.paramsList = {};
-        item.DataList.map(itm => {
-          item.paramsList[itm.PollutantCode] = itm.AvgStrength
-        })
-        return item;
-      })
-      this.setData({
-        airList
-      })
-    });
+    // 空气站数据
+    // this.getAirList((res) => {
+    //   let airList = res.map(item => {
+    //     item.paramsList = {};
+    //     item.DataList.map(itm => {
+    //       item.paramsList[itm.PollutantCode] = itm.AvgStrength
+    //     })
+    //     return item;
+    //   })
+    //   this.setData({
+    //     airList
+    //   })
+    // });
   },
 
   /**

@@ -1,4 +1,4 @@
-<view class="alarm-container">
+<!-- <view class="alarm-container">
   <l-card wx:for="{{alarmDataList}}" type="primary" plaintext="{{true}}" l-class="alarm-card">
     <view class="alarm-title">
       <l-tag l-class="alarm-tag" plain="{{true}}" font-color="{{item.AlarmType === '2' ? '#ff4d4f' : '#faad14'}}">{{item.AlarmTypeName}}</l-tag>
@@ -6,6 +6,17 @@
     </view>
     <view class="content">
       {{item.AlarmMsg}}
+    </view>
+  </l-card>
+</view> -->
+<view class="alarm-container">
+  <l-card wx:for="{{alarmDataList}}" type="primary" plaintext="{{true}}" l-class="alarm-card">
+    <view class="alarm-title">
+      <l-tag l-class="alarm-tag" plain="{{true}}" font-color="{{item.alarmType === '2' ? '#ff4d4f' : '#faad14'}}">{{item.alarmTypeName}}</l-tag>
+      {{item.alarmTime}}
+    </view>
+    <view class="content">
+      {{item.alarmMsg}}
     </view>
   </l-card>
 </view>
