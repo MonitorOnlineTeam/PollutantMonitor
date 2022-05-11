@@ -12,28 +12,51 @@ Page({
 
   // 获取系统菜单
   GetSysMenuByUserID() {
-    request.post({
-      url: 'GetSysMenuByUserID',
-      data: {
-        menu_id: app.globalData.menuId,
+    // request.post({
+    //   url: 'GetSysMenuByUserID',
+    //   data: {
+    //     menu_id: app.globalData.menuId,
+    //   },
+    //   options: {
+    //     hideLoading: true
+    //   }
+    // }).then(result => {
+    //   console.log('menuList=', result);
+    //   let tabBarList = result.data.Datas.map(item => {
+    //     return {
+    //       "pagePath": item.parentUrl,
+    //       "iconPath": `/images/${item.icon}.png`,
+    //       "selectedIconPath": `/images/${item.icon}_Select.png`,
+    //       "text": item.name
+    //     }
+    //   });
+    //   wx.setStorageSync('tabBarList', tabBarList);
+    //   wx.switchTab({
+    //     url: tabBarList[0].pagePath,
+    //   })
+    // })
+    let tabBarList = [{
+        "pagePath": "/pages/entAndAir/index",
+        "iconPath": "/images/SSGY.png",
+        "selectedIconPath": "/images/SSGY_Select.png",
+        "text": "监控"
       },
-      options: {
-        hideLoading: true
+      {
+        "pagePath": "/pages/alarm/index",
+        "iconPath": "/images/SJJK.png",
+        "selectedIconPath": "/images/SJJK_Select.png",
+        "text": "报警"
+      },
+      {
+        "pagePath": "/pages/my/index",
+        "text": "我的",
+        "iconPath": "/images/WD.png",
+        "selectedIconPath": "/images/WD_Select.png"
       }
-    }).then(result => {
-      console.log('menuList=', result);
-      let tabBarList = result.data.Datas.map(item => {
-        return {
-          "pagePath": item.parentUrl,
-          "iconPath": `/images/${item.icon}.png`,
-          "selectedIconPath": `/images/${item.icon}_Select.png`,
-          "text": item.name
-        }
-      });
-      wx.setStorageSync('tabBarList', tabBarList);
-      wx.switchTab({
-        url: tabBarList[0].pagePath,
-      })
+    ]
+    wx.setStorageSync('tabBarList', tabBarList);
+    wx.switchTab({
+      url: tabBarList[0].pagePath,
     })
   },
 

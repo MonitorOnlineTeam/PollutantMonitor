@@ -214,7 +214,6 @@ Page({
   },
 
   renderChar(F2, config, data) {
-    debugger
     const chart = new F2.Chart({
       ...config,
       // width: '100%'

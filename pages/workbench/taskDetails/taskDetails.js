@@ -84,7 +84,6 @@ Page({
     // console.log('e=', e);
     // return;
     const res = e.currentTarget.dataset;
-    debugger
     const readonly = this.data.taskInfo.TaskStatus == 3;
     // if (this.data.taskInfo.TaskStatus !== 3) {
     // 任务未结束

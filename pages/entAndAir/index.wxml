@@ -1,6 +1,7 @@
 <!-- <l-capsule-bar disable-back l-title-class="monitoring-capsule" capsule-left-icon-path="/images/003.png" bg-color="#cce6ff" home-page="/pages/map/index" title="站点选择"> -->
 <view class="page-container">
-  <l-tabs animated="{{true}}" active-color="#2d8cf0">
+  <l-list l-class="sdl-list" wx:for="{{entAndPointList}}" wx:key="index" data-index="{{index}}" title="{{item.EntName}}" is-link url="/pages/pointList/pointList?index={{index}}" />
+  <!-- <l-tabs animated="{{true}}" active-color="#2d8cf0">
     <l-tabpanel tab="企业" key="one" slot="one">
       <view class="tab-content">
         <l-list l-class="sdl-list" wx:for="{{entAndPointList}}" wx:key="index" data-index="{{index}}" title="{{item.EntName}}" is-link url="/pages/pointList/pointList?index={{index}}" />
@@ -46,6 +47,6 @@
         </l-card>
       </view>
     </l-tabpanel>
-  </l-tabs>
+  </l-tabs> -->
 </view>
 <!-- </l-capsule-bar> -->

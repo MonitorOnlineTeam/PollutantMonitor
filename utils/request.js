@@ -1,6 +1,9 @@
+// import {
+//   API
+// } from './API'
 import {
   API
-} from './API'
+} from './api'
 
 
 const request = (urlName, method, data, options) => {
@@ -11,13 +14,18 @@ const request = (urlName, method, data, options) => {
     })
   }
   return new Promise((resolve, reject) => {
+    const Ticket = wx.getStorageSync('Ticket')
+    let Authorization =  `Bearer ${wx.getStorageSync('encryData')}`;
+    if (Ticket != '') {
+      Authorization = `Bearer ${wx.getStorageSync('encryData')}$${Ticket}`;
+    }
     wx.request({
       url: API[urlName],
       method: method || 'GET',
       data: method === 'GET' ? data : JSON.stringify(data),
       header: {
         'Content-Type': 'application/json; charset=UTF-8',
-        'Authorization': `Bearer ${wx.getStorageSync('Ticket')}`,
+        'Authorization': Authorization,
         'ProxyCode': wx.getStorageSync('authorCode') || options.authorCode
       },
       success(res) {

@@ -1,5 +1,8 @@
 // pages/alarm/index.js
 import request from '../../utils/request'
+import {
+  getTabBarSelectedIndex
+} from '../../utils/util'
 import moment from 'moment'
 Page({
 
@@ -37,7 +40,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.GetAlarmDataList();
+    // console.log('onLoad');
+    // this.GetAlarmDataList();
   },
 
   /**
@@ -51,7 +55,14 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    if (typeof this.getTabBar === 'function' && this.getTabBar()) {
+      let selectedIndex = getTabBarSelectedIndex('/pages/alarm/index')
+      this.getTabBar().setData({
+        selectedIndex: selectedIndex,
+        list: wx.getStorageSync('tabBarList')
+      })
+    }
+    this.GetAlarmDataList();
   },
 
   /**

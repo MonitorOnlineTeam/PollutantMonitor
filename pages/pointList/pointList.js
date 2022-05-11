@@ -21,8 +21,6 @@ Page({
    */
   onLoad: function (options) {
     let entAndPointList = app.globalData.entAndPointList;
-    console.log("wx=",wx);
-    console.log("entAndPointList=",entAndPointList);
     const pointName = entAndPointList[options.index].title;
     const dgimn = entAndPointList[options.index].DGIMN;
     wx.setNavigationBarTitle({

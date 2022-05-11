@@ -1,10 +1,13 @@
 // const prefix = "http://172.16.12.39:6300/rest/PollutantSourceApi";
-const prefix = "https://env.bjlanyue.cn/rest/PollutantSourceApi";
+// const prefix = "https://env.bjlanyue.cn/rest/PollutantSourceApi";
+const prefix = "https://cs.chsdl.com/NewWryWebProxy/rest/PollutantSourceApi";
 // const prefix = "http://61.50.135.114:6300/rest/PollutantSourceApi";
 export const API = {
   login: prefix + '/LoginApi/Login',
   // 获取系统配置信息
-  GetSystemConfigInfo: prefix + '/SystemSettingApi/GetSystemConfigInfo',
+  // GetSystemConfigInfo: prefix + '/SystemSettingApi/GetSystemConfigInfo',
+  GetSystemConfigInfo: prefix + '/LoginApi/ValidateAuthorCode',
+  Login: prefix + '/LoginApi/Login',
   // 验证是否注册
   SDLSMCIsRegister: prefix + '/SMCManagerApi/SDLSMCIsRegister',
   // 获取系统菜单
@@ -14,6 +17,9 @@ export const API = {
   // 获取地图空气站信息
   GetAirDetailAndDatas: prefix + '/MonDataApi/GetAirDetailAndDatas',
   getEntAndAirList: prefix + '/BaseDataApi/GetEntAndPoint',
+  // 企业接口
+  GetMonitorTargetList: prefix + '/MonitorTargetApi/GetMonitorTargetList',
+  GetPointsList: prefix + '/MonitorPointApi/GetPoints',
   GetAirDataToXinJiang: prefix + '/MonDataApi/GetAirDataToXinJiang',
   // 获取实时数据列表
   GetRealTimeDataForPoint: prefix + '/SMCManagerApi/GetRealTimeDataForPoint',
