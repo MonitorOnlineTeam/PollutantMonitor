@@ -5,7 +5,8 @@ page {
 }
 
 .alarm-container {
-  padding: 20rpx 0;
+  padding-top: 20rpx;
+  padding-bottom:env(safe-area-inset-bottom)!important;
 }
 
 .alarm-container .content {

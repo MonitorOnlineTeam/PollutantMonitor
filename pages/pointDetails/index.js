@@ -89,8 +89,7 @@ Page({
       data: {
         "DGIMN": wx.getStorageSync('dgimn'),
       }
-    }).then(result => {
-      let selectedPollutants = [];
+    }).then(result => {      let selectedPollutants = [];
       let pollutantList = result.data.Datas.map(function (item, index) {
         if (index < 5) {
           selectedPollutants.push({
@@ -187,7 +186,7 @@ Page({
             }
             let value = itemD[itemP.code];
             if (value) {
-              value = value == '-' ? null : (+itemD[itemP.code].toFixed(2));
+              value = value == '-' ? null : (+parseFloat(itemD[itemP.code]).toFixed(2));
             } else {
               value = null;
             }

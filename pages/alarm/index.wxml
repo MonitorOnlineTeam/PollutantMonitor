@@ -19,4 +19,6 @@
       {{item.alarmMsg}}
     </view>
   </l-card>
+  <View style="height:106rpx"></View>
 </view>
+
