@@ -2,6 +2,7 @@
 import request from './utils/request'
 App({
   onLaunch() {
+    this.globalData.noSubscribe = true
     // 登录
     wx.login({
       success: res => {
@@ -21,5 +22,18 @@ App({
     entAndPointList: [],
     airList: [],
     pointInfo: {},
+    noSubscribe:true,
+  },
+  checkSubscribe() {
+    console.log('checkSubscribe');
+    // wx.getSetting({withSubscriptions:true
+    //   ,success:(res)=>{
+    //   console.log('success = ',res);
+    //   console.log(res.subscriptionsSetting)
+    // }
+    // ,fail:(res)=>{
+    //   console.log('fail = ',res);
+    // }})
+    return this.globalData.noSubscribe
   }
 })

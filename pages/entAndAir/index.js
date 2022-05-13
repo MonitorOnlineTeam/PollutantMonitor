@@ -15,7 +15,8 @@ Page({
     current: 'ent',
     entAndPointList: [],
     airList: [],
-    time: '-'
+    time: '-',
+    noSubscribe:false,
   },
 
   //页面滚动执行方式
@@ -90,9 +91,14 @@ Page({
   onLoad: function (options) {
     this.getEntPointAndAirList('1,2', (res) => {
       app.globalData.entAndPointList = res.data.Datas;
-      this.setData({
+      let params = {
         entAndPointList: res.data.Datas
-      })
+      }
+      if (getApp().globalData.noSubscribe) {
+        params.noSubscribe = true;
+        app.globalData.noSubscribe = false
+      }
+      this.setData(params)
     });
     // 空气站数据
     // this.getAirList((res) => {
@@ -162,5 +168,29 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+  // 同意订阅
+  confirmSubscribeMessage() {
+    app.globalData.noSubscribe = false;
+    wx.requestSubscribeMessage({
+      tmplIds: ['hy8oFHZ3uiV-QuCIczWMZw5gKrecC_unYLXVQwsiqgg'],
+      success (res) { 
+       
+        console.log('requestSubscribeMessage success');
+        wx.login({
+          success: res => {
+            // 发送 res.code 到后台换取 openId, sessionKey, unionId
+            console.log('res=', res);
+          }
+        })
+      },
+      fail (errMsg,errCode) { 
+        console.log('errMsg = ',errMsg,'errCode = ',errCode);
+       }
+    })
+  },
+  // 拒绝订阅
+  cancelSubscribeMessage(){
+    app.globalData.noSubscribe = false;
   }
 })

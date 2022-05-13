@@ -4,6 +4,7 @@ import {
   getTabBarSelectedIndex
 } from '../../utils/util'
 import moment from 'moment'
+let app = getApp();
 Page({
 
   /**
@@ -13,6 +14,7 @@ Page({
     alarmDataList: [],
     _pageIndex: 1,
     _total: 0,
+    noSubscribe:app.globalData.noSubscribe,
   },
 
   // 获取报警列表数据
@@ -52,10 +54,12 @@ Page({
       },
     }).then(result => {
       console.log('result=', result);
+      // app.globalData.noSubscribe = app.checkSubscribe();
       if (result.data && result.data.IsSuccess) {
         this.setData({
           alarmDataList: result.data.Datas,
-          _total: result.data.Total
+          _total: result.data.Total,
+          // noSubscribe:getApp().globalData.noSubscribe
         })
       }
     })
@@ -205,5 +209,29 @@ Page({
   onPullDownRefresh() {
     this.data._pageIndex = 1;
     this.GetAlarmDataList();
+  },
+  // 同意订阅
+  confirmSubscribeMessage() {
+    app.globalData.noSubscribe = false;
+    wx.requestSubscribeMessage({
+      tmplIds: ['hy8oFHZ3uiV-QuCIczWMZw5gKrecC_unYLXVQwsiqgg'],
+      success (res) { 
+       
+        console.log('requestSubscribeMessage success');
+        wx.login({
+          success: res => {
+            // 发送 res.code 到后台换取 openId, sessionKey, unionId
+            console.log('res=', res);
+          }
+        })
+      },
+      fail (errMsg,errCode) { 
+        console.log('errMsg = ',errMsg,'errCode = ',errCode);
+       }
+    })
+  },
+  // 拒绝订阅
+  cancelSubscribeMessage(){
+    app.globalData.noSubscribe = false;
   }
 })

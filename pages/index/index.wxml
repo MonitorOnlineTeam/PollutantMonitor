@@ -1,1 +1,7 @@
-<view></view>
+<view>
+  <l-dialog 
+    show="{{true}}"
+    type="confirm"     
+    title="标题"
+    content="这个是确认框" />
+</view>

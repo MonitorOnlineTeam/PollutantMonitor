@@ -82,15 +82,20 @@ Page({
           wx.setStorageSync('OpenId', result.data.Datas.OpenId);
           wx.setStorageSync('Ticket', result.data.Datas.Ticket);
           wx.setStorageSync('UserCode', result.data.Datas.UserCode);
-          this.GetSysMenuByUserID();
-          wx.requestSubscribeMessage({
-            tmplIds: ['hy8oFHZ3uiV-QuCIczWMZw5gKrecC_unYLXVQwsiqgg'],
-            success (res) { 
+          // wx.requestSubscribeMessage({
+          //   tmplIds: ['hy8oFHZ3uiV-QuCIczWMZw5gKrecC_unYLXVQwsiqgg'],
+          //   success (res) { 
              
-      
-            }
-          })
+          //     console.log('requestSubscribeMessage success');
+          //   },
+          //   fail (errMsg,errCode) { 
+          //     console.log('errMsg = ',errMsg,'errCode = ',errCode);
+          //    }
+          // })
+          console.log('welcome isRegister success')
+          this.GetSysMenuByUserID();
         }).catch(err => {
+          console.log('welcome isRegister err')
           // 未注册
           console.log('err=', err);
           wx.showToast({

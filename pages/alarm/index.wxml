@@ -20,5 +20,13 @@
     </view>
   </l-card>
   <View style="height:106rpx"></View>
+  <!-- <l-dialog 
+    show="{{noSubscribe}}"
+    type="confirm"     
+    title="提示"
+    content="需要订阅才能接受小程序推送！"
+    bind:linconfirm="confirmSubscribeMessage"
+    bind:lincancel="cancelSubscribeMessage"
+     /> -->
 </view>
 

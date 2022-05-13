@@ -1,6 +1,7 @@
 <!-- <l-capsule-bar disable-back l-title-class="monitoring-capsule" capsule-left-icon-path="/images/003.png" bg-color="#cce6ff" home-page="/pages/map/index" title="站点选择"> -->
 <view class="page-container">
   <l-list l-class="sdl-list" wx:for="{{entAndPointList}}" wx:key="index" data-index="{{index}}" title="{{item.EntName}}" is-link url="/pages/pointList/pointList?index={{index}}" />
+  
   <!-- <l-tabs animated="{{true}}" active-color="#2d8cf0">
     <l-tabpanel tab="企业" key="one" slot="one">
       <view class="tab-content">
@@ -48,5 +49,13 @@
       </view>
     </l-tabpanel>
   </l-tabs> -->
+  <l-dialog 
+    show="{{noSubscribe}}"
+    type="confirm"     
+    title="提示"
+    content="需要订阅才能接受小程序推送！"
+    bind:linconfirm="confirmSubscribeMessage"
+    bind:lincancel="cancelSubscribeMessage"
+     />
 </view>
 <!-- </l-capsule-bar> -->
