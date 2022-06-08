@@ -1,8 +1,8 @@
 // const prefix = "http://172.16.12.39:6300/rest/PollutantSourceApi";
-const prefix = "https://env.bjlanyue.cn/rest/PollutantSourceApi";
+const prefix = "https://env.bjlanyue.cn/jsh/rest/PollutantSourceApi";
 // const prefix = "http://61.50.135.114:6300/rest/PollutantSourceApi";
 export const API = {
-  login: prefix + '/LoginApi/Login',
+  login: prefix +  '/LoginApi/Login',
   // 获取系统配置信息
   GetSystemConfigInfo: prefix + '/SystemSettingApi/GetSystemConfigInfo',
   // 验证是否注册

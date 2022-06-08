@@ -135,8 +135,8 @@
           "name": "排名",
           "pathName": "pages/ranking/index",
           "query": "",
-          "scene": null,
-          "launchMode": "default"
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }

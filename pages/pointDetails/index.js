@@ -13,7 +13,7 @@ const selectTimeFormat = {
   },
   2: {
     showFormat: 'YYYY-MM-DD',
-    chartFormat: 'HH:mm'
+    chartFormat: 'MM-DD'
   },
   3: {
     showFormat: 'YYYY-MM',
@@ -127,15 +127,16 @@ Page({
     let beginTime = '';
     if (datatype == 0) {
       endTime = moment(endTime).format('YYYY-MM-DD HH:mm:00');
-      beginTime = moment(endTime).add(-1, 'hour').format('YYYY-MM-DD HH:mm:ss');
+      beginTime = moment(endTime).add(-6, 'hour').format('YYYY-MM-DD HH:mm:ss');
       _dataType = 'minute';
     } else if (datatype == 1) {
       endTime = moment(endTime).format('YYYY-MM-DD HH:59:59');
-      beginTime = moment(endTime).add(-4, 'hour').format('YYYY-MM-DD HH:00:00');
+      beginTime = moment(endTime).add(-1, 'day').format('YYYY-MM-DD HH:00:00');
       _dataType = 'hour';
     } else if (datatype == 2) {
-      beginTime = moment(endTime).add(-1, 'day').format('YYYY-MM-DD HH:mm:ss');
-      endTime = moment(endTime).add(1, 'day').add(-1, 'seconds').format('YYYY-MM-DD 23:59:59');
+      beginTime = moment(endTime).add(-6, 'day').format('YYYY-MM-DD 00:00:00');
+      // endTime = moment(endTime).add(1, 'day').add(-1, 'seconds').format('YYYY-MM-DD 23:59:59');
+      endTime = moment(endTime).format('YYYY-MM-DD 23:59:59');
       _dataType = 'day';
     } else if (datatype == 3) {
       beginTime = moment(endTime).format('YYYY-MM-01 00:00:00');
@@ -359,7 +360,6 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    console.log("onShow")
     // wx.setStorageSync('selectedDate', moment().format("YYYY-MM-DD HH:ss"))
     const storageSelectDate = wx.getStorageSync('selectedDate')
     let selectedDate = moment(storageSelectDate).format(selectTimeFormat[this.data.dataType].showFormat);
