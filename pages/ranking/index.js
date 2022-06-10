@@ -5,14 +5,18 @@ import moment from 'moment'
 const pageSelectTimeFormat = {
   0: {
     showFormat: 'YYYY-MM-DD HH:mm',
+    subtractDayNum: 0,
+    // .subtract(1, 'hours')
     chartFormat: 'HH:mm'
   },
   1: {
     showFormat: 'YYYY-MM-DD HH:00',
+    subtractDayNum: 0,
     chartFormat: 'HH:mm'
   },
   2: {
     showFormat: 'YYYY-MM-DD',
+    subtractDayNum: 1,
     chartFormat: 'HH:mm'
   },
   3: {
@@ -40,11 +44,16 @@ Page({
 
   changeTabs(key) {
     const activeKey = key.detail.activeKey;
+    let showFormat = pageSelectTimeFormat[activeKey].showFormat;
+    let subtractDayNum = pageSelectTimeFormat[activeKey].subtractDayNum;
     this.data.dataType = activeKey;
-    this.GetAirPointRanking();
+    // let selectedDate = moment(wx.getStorageSync('selectedDate')).format(showFormat);
+    let selectedDate = moment().subtract(subtractDayNum, 'days').format(showFormat)
+    wx.setStorageSync('selectedDate', selectedDate)
     this.setData({
-      selectedDate: moment(wx.getStorageSync('selectedDate')).format(pageSelectTimeFormat[activeKey].showFormat),
+      selectedDate: selectedDate
     })
+    this.GetAirPointRanking();
   },
 
   // 跳转选择时间

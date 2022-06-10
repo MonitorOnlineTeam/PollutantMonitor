@@ -61,7 +61,7 @@
           </view>
         </i-col>
         <i-col span="6" i-class="pollutant-value">
-          <view style="background-color:{{item.backgroundColor || '#fff'}}; color:{{item.backgroundColor ? '#fff' : '#333'}}">{{item.value || '-'}}</view>
+          <view style="background-color:{{item.backgroundColor || '#fff'}}; color:{{item.backgroundColor ? '#fff' : '#333'}}">{{item.value !== undefined ? item.value : '-'}}</view>
         </i-col>
       </block>
     </i-row>
