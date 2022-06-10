@@ -34,12 +34,12 @@
                 <View span="4" class="col-class">NO2</View>
               </View>
               <view class="ari_poll_value">
-                <view span="4" class="col-class not-left-border">{{item.paramsList['08'] || '-'}}</view>
-                <view span="4" class="col-class">{{item.paramsList['07'] || '-'}}</view>
-                <view span="4" class="col-class">{{item.paramsList['01'] || '-'}}</view>
-                <view span="4" class="col-class">{{item.paramsList['02'] || '-'}}</view>
-                <view span="4" class="col-class">{{item.paramsList['03'] || '-'}}</view>
-                <view span="4" class="col-class">{{item.paramsList['05'] || '-'}}</view>
+                <view span="4" class="col-class not-left-border">{{item.paramsList['a34004'] || '-'}}</view>
+                <view span="4" class="col-class">{{item.paramsList['a34002'] || '-'}}</view>
+                <view span="4" class="col-class">{{item.paramsList['a05024'] || '-'}}</view>
+                <view span="4" class="col-class">{{item.paramsList['a21005'] || '-'}}</view>
+                <view span="4" class="col-class">{{item.paramsList['a21026'] || '-'}}</view>
+                <view span="4" class="col-class">{{item.paramsList['a21004'] || '-'}}</view>
               </view>
             </View>
           </View>

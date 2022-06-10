@@ -84,10 +84,7 @@ Page({
     })
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
+  getPageData() {
     this.getEntPointAndAirList('1,2', (res) => {
       app.globalData.entAndPointList = res.data.Datas;
       this.setData({
@@ -106,6 +103,13 @@ Page({
         airList
       })
     });
+  },
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    this.getPageData();
   },
 
   /**
@@ -146,7 +150,7 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    this.getPageData();
   },
 
   /**
