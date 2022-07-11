@@ -11,7 +11,6 @@ Page({
 
   // 输入事件
   onInput(e) {
-    console.log(e);
     this.data.details = e.detail.value;
     // this.setData({
     //   details: e.detail.value
@@ -34,7 +33,6 @@ Page({
         "Details": this.data.details,
       }
     }).then(res => {
-      console.log(res);
       if (res.data.IsSuccess) {
         wx.showModal({
           title: '提示',

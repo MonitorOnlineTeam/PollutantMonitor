@@ -1,0 +1,80 @@
+<view style="width: 750rpx; padding-bottom: 20rpx; ">
+  <view style="width: 698rpx;background: #FFFFFF;border-radius: 20rpx;margin-left: 26rpx;margin-top: 20rpx;display: flex;flex-direction: column;align-items: center;padding-bottom: 30rpx;">
+    <view style="width: 698rpx;height: 89rpx;display: flex; align-items: center;">
+      <view style="width: 6rpx;height: 28rpx;background: #4EE64F;"/>
+      <text style="margin-left: 20rpx;font-size: 30rpx;font-size: #333333;">报警信息</text>
+    </view>
+    <view style="width: 698rpx;display: flex; flex-direction: column;justify-content: space-around;align-items: center;">
+      <view style="width: 652rpx;height: 1rpx;background: #F3F3F3;"/>
+      <text style="width: 661rpx;margin-left: 25rpx; font-size: 28rpx;color: #666666;margin-top: 30rpx;margin-right: 12rpx;">报警类型：{{alarmTypeName}}</text>
+      <text style="width: 661rpx;margin-left: 25rpx; font-size: 28rpx;color: #666666;margin-top: 30rpx;margin-right: 12rpx;">报警时间：{{alarmTime}}</text>
+      <text style="width: 661rpx;margin-left: 25rpx; font-size: 28rpx;color: #666666;margin-top: 30rpx;margin-right: 12rpx;">报警单位：{{entName}}</text>
+      <text style="width: 661rpx;margin-left: 25rpx; font-size: 28rpx;color: #666666;margin-top: 30rpx;margin-right: 12rpx;">报警点位：{{pointName}}</text>
+      <view style="width: 661rpx;margin-left: 25rpx;margin-top: 30rpx;display: flex;flex-direction: row;margin-right: 12rpx;">
+        <text style="font-size: 28rpx;color: #666666;">{{'报警内容：'}}</text>
+        <text style="flex: 1;">{{alarmMsg}}</text>
+      </view>
+    </view>
+  </view>
+  <view style="width: 698rpx;background: #FFFFFF;border-radius: 20rpx;margin-left: 26rpx;margin-top: 20rpx;display: flex;flex-direction: column;align-items: center;padding-bottom: 30rpx;">
+    <view style="width: 698rpx;height: 89rpx;display: flex; align-items: center;">
+      <view style="width: 6rpx;height: 28rpx;background: #4EE64F;"/>
+      <text style="margin-left: 20rpx;font-size: 30rpx;font-size: #333333;">报警数据</text>
+    </view>
+    <view style="width: 698rpx;display: flex; flex-direction: column;justify-content: space-around;align-items: center;">
+      <view style="width: 652rpx;height: 1rpx;background: #F3F3F3;"/>
+      <view style="height: 84rpx;width: 652rpx;">
+      <scroll-view scroll-y="false" scroll-x="true" style="height: 84rpx;width: 652rpx;" >
+        <view style="height: 84rpx;align-items: center; display: flex;flex-direction: row;">
+          <block wx:for="{{pollutantList}}">
+            <view bindtap="selectPollutantFun" data-index="{{index}}" data-item="{{item}}" style="height: 44rpx;margin-right: 25rpx;display: flex;flex-direction: row;">
+              <view style="margin-top: 0rpx; height: 44rpx;background:{{item.checked? item.color:'#F6F6F6'}};border-radius: 18px;display: flex;justify-content: center;align-items: center;padding-left: 16rpx;padding-right: 16rpx;">
+                <text style="font-size: 22rpx;color:{{index==0?'white':'#666666'}};white-space:nowrap">{{item.name}}</text>
+              </view>
+              <block wx:if="{{item.code == alarmPollotantCodes.code}}">
+                <view style="width: 8rpx;height: 8rpx;background:#FF0000;border-radius: 4rpx;border-radius: 4rpx;margin-left: -10rpx;margin-top: 4rpx;"></view>
+              </block>
+            </view>
+          </block>
+        </view>
+      </scroll-view>
+      </view>
+      <view style="width: 698rpx;height: 400rpx;">
+        <!-- <view class="chart-content"> -->
+        <f2 wx:if="{{chartShow}}" class="f2-chart" onInit="{{initChart}}" />
+              <!-- </view> -->
+      </view>
+    </view>
+  </view>
+  <block wx:if="{{false&&alarmType == 2}}">
+    <view style="width: 698rpx;background: #FFFFFF;border-radius: 20rpx;margin-left: 26rpx;margin-top: 20rpx;display: flex;flex-direction: column;align-items: center;padding-bottom: 30rpx;">
+      <view style="width: 698rpx;height: 89rpx;display: flex; align-items: center;">
+        <view style="width: 6rpx;height: 28rpx;background: #4EE64F;"/>
+        <text style="margin-left: 20rpx;font-size: 30rpx;font-size: #333333;">{{'核实信息'+(verifyPerson == '' ? "(未核实)":'')}}</text>
+      </view>
+      <view style="width: 698rpx;display: flex; flex-direction: column;justify-content: space-around;align-items: center;">
+        <view style="width: 652rpx;height: 1rpx;background: #F3F3F3;"/>
+        <text style="width: 661rpx;margin-left: 25rpx; font-size: 28rpx;color: #666666;margin-top: 30rpx;margin-right: 12rpx;">超标原因：{{overTypeName}}</text>
+        <view style="width: 661rpx;margin-left: 25rpx;margin-top: 30rpx;display: flex;flex-direction: row;margin-right: 12rpx;">
+          <text style="font-size: 28rpx;color: #666666;">{{'核实结果：'}}</text>
+          <text style="flex: 1;">{{verifyReamrk}}</text>
+        </view>
+        <text style="width: 661rpx;margin-left: 25rpx; font-size: 28rpx;color: #666666;margin-top: 30rpx;margin-right: 12rpx;">核实人： {{verifyPerson}}</text>
+        <text style="width: 661rpx;margin-left: 25rpx; font-size: 28rpx;color: #666666;margin-top: 30rpx;margin-right: 12rpx;">核实时间：{{verifyTime}}</text>
+      </view>
+    </view>
+  </block>
+  <block wx:if="{{false&&alarmType != 2}}">
+    <view style="width: 698rpx;background: #FFFFFF;border-radius: 20rpx;margin-left: 26rpx;margin-top: 20rpx;display: flex;flex-direction: column;align-items: center;padding-bottom: 30rpx;">
+      <view style="width: 698rpx;height: 89rpx;display: flex; align-items: center;">
+        <view style="width: 6rpx;height: 28rpx;background: #4EE64F;"/>
+        <text style="margin-left: 20rpx;font-size: 30rpx;font-size: #333333;">{{'响应信息'+(operationUserName == ''?"(未响应)":'')}}</text>
+      </view>
+      <view style="width: 698rpx;display: flex; flex-direction: column;justify-content: space-around;align-items: center;">
+        <view style="width: 652rpx;height: 1rpx;background: #F3F3F3;"/>
+        <text style="width: 661rpx;margin-left: 25rpx; font-size: 28rpx;color: #666666;margin-top: 30rpx;margin-right: 12rpx;">响应人：{{operationUserName}}</text>
+        <text style="width: 661rpx;margin-left: 25rpx; font-size: 28rpx;color: #666666;margin-top: 30rpx;margin-right: 12rpx;">响应时间： {{responseTime}}</text>
+      </view>
+    </view>
+  </block>
+</view>

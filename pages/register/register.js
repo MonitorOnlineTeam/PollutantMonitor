@@ -131,7 +131,6 @@ Page({
    * 表单提交
    */
   formSubmit: function (e) {
-    console.log(e);
     if (this.data._MobilePhone.length == 0) {
       wx.showToast({
         title: '填写信息不能为空!',
@@ -149,7 +148,8 @@ Page({
     } else {
       if (!this.data.checkbox) {
         wx.showToast({
-          title: '请先勾选用户协议!',
+          // title: '请先勾选用户协议!',
+          title: '请勾选阅读并接受用户监测数据许可协议!',
           icon: 'none',
           duration: 1500
         });
@@ -158,7 +158,6 @@ Page({
     }
     wx.login({
       success: res => {
-        console.log('code=',res.code);
         // return;
         request.get({
           url: 'SDLSMCIsRegister',
@@ -168,7 +167,6 @@ Page({
           }
         }).then(result => {
           // 已注册
-          console.log('success=', result);
           wx.setStorageSync('OpenId', result.data.Datas.OpenId);
           wx.setStorageSync('Ticket', result.data.Datas.Ticket);
           wx.setStorageSync('UserCode', result.data.Datas.UserCode);
@@ -177,14 +175,13 @@ Page({
           // 未注册
           // wx.setStorageSync('OpenId', err.data.Datas.OpenId)
           // wx.setStorageSync('Ticket', err.data.Datas.Ticket)
-          console.log('err=', err);
+          // console.log('err=', err);
         })
       }
     })
   },
   // 手机号验证
   blurPhone: function (e) {
-    console.log('e=', e);
     let MobilePhone = e.detail.value;
     this.data._MobilePhone = MobilePhone;
     let that = this

@@ -54,7 +54,7 @@
   },
   "compileType": "miniprogram",
   "libVersion": "2.22.0",
-  "appid": "wx5dc0018f21a09313",
+  "appid": "wx1884dbd89f800bc7",
   "projectname": "lin-ui-demo",
   "scripts": {
     "beforeCompile": "npm run load"

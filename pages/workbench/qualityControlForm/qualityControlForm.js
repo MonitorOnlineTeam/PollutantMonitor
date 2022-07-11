@@ -46,7 +46,6 @@ Page({
 
   // 是否合格
   onChangeIsQualified(e) {
-    console.log(e);
     let values = this.data.values;
     values.IsQualified = e.detail.currentKey;
     this.setData({
@@ -101,7 +100,6 @@ Page({
         QualityTypeName: undefined
       }]
     }
-    console.log('postData=', postData);
     this.AddQualityRecord(postData);
   },
   // 添加或修改质控表单
@@ -147,10 +145,7 @@ Page({
     this.setData({
       readonly: options.readonly
     })
-    console.log('options=', options);
     const formData = app.globalData.qcFormData;
-    console.log('formData=', formData);
-
     const sheetList = formData.QualityTypeList.map(item => {
       return {
         name: item.Name,

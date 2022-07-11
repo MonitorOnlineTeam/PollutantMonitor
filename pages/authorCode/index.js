@@ -16,14 +16,14 @@ Page({
    * 页面的初始数据
    */
   data: {
-    authorCode: ''
+    authorCode: '',
+    isDemo:false,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
   },
 
   onChangeAuthorCode(val) {
@@ -112,7 +112,7 @@ Page({
     wx.login({
       success: res => {
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
-        console.log('res=', res);
+        // console.log('res=', res);
         let wxcode = res.code
         wx.setStorageSync('wxcode', wxcode)
         request.get({
@@ -132,7 +132,7 @@ Page({
           this.GetSysMenuByUserID();
         }).catch(err => {
           // 未注册
-          console.log('err=', err);
+          // console.log('err=', err);
           // wx.showToast({999
           //   title: err.data.Message,
           // })
@@ -148,7 +148,7 @@ Page({
     var authorcode = this.data.authorCode;
     if (authorcode.length != 5) {
       this.setData({
-        message: '请输入5位授权码'
+        message: '请输入5位数授权码'
       });
       return;
     }
@@ -176,18 +176,54 @@ Page({
         wx.setStorageSync('CenterLatitude', res.Datas.CenterLatitude)
         wx.setStorageSync('CenterLongitude', res.Datas.CenterLongitude)
         wx.setStorageSync('ZoomLevel', res.Datas.ZoomLevel)
-        this.isRegister();
+        if (getApp().globalData.launchType == 'demo') {
+          wx.setStorageSync('launchType', 'demo');
+          this.demoRegister();
+        } else {
+          this.isRegister();
+        }
         // setTimeout(function () {
         //   wx.reLaunch({
         //     url: '/pages/transit/index'
         //   })
         // }, 500)
       } else {
-        console.log('res=', res);
+        // console.log('res=', res);
         this.setData({
           message: (res && res.Message) || '网络错误'
         });
       }
+    })
+  },
+  /**
+   * 演示注册
+   */
+  demoRegister() {
+    // 发送 res.code 到后台换取 openId, sessionKey, unionId
+    let wxcode = '123456789'
+    wx.setStorageSync('wxcode', wxcode)
+    request.get({
+      url: 'SDLSMCIsRegister',
+      data: {
+        wxcode: wxcode,
+        newPhone: ''
+      },
+      options: {
+        hideLoading: true
+      }
+    }).then(result => {
+      // 已注册
+      wx.setStorageSync('OpenId', '123456789');
+      wx.setStorageSync('Ticket', result.data.Datas.Ticket);
+      wx.setStorageSync('UserCode', result.data.Datas.UserCode);
+      console.log('welcome isRegister success')
+      this.GetSysMenuByUserID();
+    }).catch(err => {
+      // 演示账号配置成功后，不应该进入此页面
+      // err.data.Message
+      wx.showToast({
+        title: '演示信息获取失败',
+      })
     })
   },
 
@@ -202,7 +238,6 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
   },
 
   /**

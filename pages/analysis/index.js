@@ -13,7 +13,6 @@ Page({
 
   // 跳转页面
   gotoUrl(event) {
-    console.log('event=', event);
     // const url = event.target.dataset.url;
     const url = event.currentTarget.dataset.url;
     wx.navigateTo({

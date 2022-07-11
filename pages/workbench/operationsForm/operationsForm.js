@@ -17,7 +17,6 @@ Page({
   onChangeIsFault(e) {
     let values = this.data.values;
     values.IsFault = e.detail.currentKey;
-    console.log('values=', values);
     this.setData({
       values
     })
@@ -29,11 +28,9 @@ Page({
       title: "请选择设备状态",
       itemList: this.data._deviceState,
       success(res) {
-        console.log('success=', res)
         let values = that.data.values;
         values.EquipmentStatus = res.item.id;
         values.EquipmentStatusName = res.item.name;
-        console.log('values=', values);
         that.setData({
           values
         })
@@ -100,7 +97,6 @@ Page({
         // QualityTypeName: undefined
       }]
     }
-    console.log('postData=', postData);
     this.AddOperationRecord(postData);
   },
 
@@ -162,7 +158,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log('options=', options);
     this.setData({
       readonly: options.readonly
     })

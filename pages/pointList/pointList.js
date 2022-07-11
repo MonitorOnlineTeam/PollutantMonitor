@@ -12,7 +12,9 @@ Page({
 
   onPointClick(event) {
     const dgimn = event.currentTarget.dataset.dgimn;
+    const pollutanttype = event.currentTarget.dataset.pollutanttype;
     wx.setStorageSync('dgimn', dgimn);
+    wx.setStorageSync('pollutanttype', pollutanttype);
     app.globalData.pointInfo.dgimn = dgimn
   },
 
@@ -32,7 +34,6 @@ Page({
     this.setData({
       pointList: entAndPointList[options.index].children
     })
-    console.log("options=",options)
   },
 
   /**

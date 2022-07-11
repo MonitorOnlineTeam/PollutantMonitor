@@ -27,6 +27,12 @@ export const API = {
   AddFeedback: prefix + '/SMCManagerApi/AddFeedback',
   // 获取污染物列表
   GetPollutantList: prefix + '/SMCManagerApi/GetPollutantList',
+  // 获取运维日志
+  GetMobileOperationPageList: prefix + '/TaskProcessingApi/GetMobileOperationPageList',
+  // 系统信息
+  GetPointEquipmentInfo: prefix + '/BaseDataApi/GetPointEquipmentInfo',
+  // 设备参数信息
+  GetPointEquipmentParameters: prefix + '/BaseDataApi/GetPointEquipmentParameters',
   // 根据污染物类型获取污染物列表
   GetPollutantTypeCode: prefix + '/BaseDataApi/GetPollutantTypeCode',
   // 获取企业排口数据
@@ -36,7 +42,7 @@ export const API = {
   // 获取报警信息
   GetAlarmDataList: prefix + '/BaseDataApi/GetAlarmDataList',
   // 获取公司运维报警信息
-  GetAlarmInfoList: prefix + '/OperationBasicApi/GetAlarmInfoList',
+  GetAlarmInfoList: prefix + '/SMCManagerApi/GetWxAlarmList',
   // 获取站点排名
   GetAirPointRanking: prefix + '/MonDataApi/GetAirPointRanking',
   // 获取空气站

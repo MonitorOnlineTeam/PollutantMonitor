@@ -22,7 +22,6 @@ const getTabBarSelectedIndex = url => {
       selectedIndex = index;
     }
   })
-  console.log('selectedIndex=',selectedIndex);
   return selectedIndex;
 }
 

@@ -70,7 +70,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log('options=', options);
     this.setData({
       readonly: options.readonly
     })
@@ -93,7 +92,6 @@ Page({
    */
   onShow: function () {
     let options = this.data._options;
-    console.log('options=', options);
     this.getData({
       TaskID: options.taskID,
       TypeID: options.typeID

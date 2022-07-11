@@ -61,7 +61,7 @@ Page({
     }
   },
   onChange(event) {
-    console.log(event.detail);
+    // console.log(event.detail);
 
     const {
       dataType
@@ -98,7 +98,7 @@ Page({
 
     let currentDate = 0;
     let maxDate = moment(moment().format("YYYY-MM-DD HH:mm")).valueOf();
-    console.log('options.dataType=', options.dataType);
+    // console.log('options.dataType=', options.dataType);
     switch ((+options.dataType) || 0) {
       case 0:
         currentDate = moment(selectedDate.format('YYYY-MM-DD HH:mm:ss')).valueOf();

@@ -9,7 +9,7 @@
     </view>
   </l-card>
 </view> -->
-<view class="alarm-container">
+<!-- <view class="alarm-container">
   <l-card wx:for="{{alarmDataList}}" type="primary" plaintext="{{true}}" l-class="alarm-card">
     <view class="alarm-title">
       <l-tag l-class="alarm-tag" plain="{{true}}" font-color="{{item.alarmType === '2' ? '#ff4d4f' : '#faad14'}}">{{item.alarmTypeName}}</l-tag>
@@ -20,13 +20,40 @@
     </view>
   </l-card>
   <View style="height:106rpx"></View>
-  <!-- <l-dialog 
-    show="{{noSubscribe}}"
-    type="confirm"     
-    title="提示"
-    content="需要订阅才能接受小程序推送！"
-    bind:linconfirm="confirmSubscribeMessage"
-    bind:lincancel="cancelSubscribeMessage"
-     /> -->
+</view> -->
+<!-- 
+0异常 2 超标 12 缺失
+报警持续时间 count
+-->
+<view class="alarm-container" style="display: flex;flex-direction: column; width: 100%;padding-top: 20rpx; align-items: center;">
+  <block wx:for="{{alarmDataList}}" class="alarm-container">
+    <view bind:tap="selectAlarm" data-id="{{item.ID}}" data-item="{{item}}" data-index="{{index}}" style="height: 218rpx;width: 698rpx;margin-bottom: 20rpx;background-color: ghostwhite;display: flex;align-items: center;border-radius: 20rpx;">
+      <image style="width: 200px; height: 200px;height: 96rpx;width: 96rpx;margin-left: 17rpx;margin-right: 30rpx; "  src="{{item.alarmType == 2 ?'/images/ic_alarm_over.png':item.alarmType == 0?'/images/ic_alarm_exception.png':item.alarmType == 12? '/images/ic_alarm_miss.png':'/images/ic_alarm_over.png'}}"></image>
+      <view style="width: 555rpx;height: 218rpx;display: flex;flex-direction: column;justify-content: space-between;">
+        <view style="width: 555rpx;display: flex;flex-direction: row;justify-content: space-between;align-items: center;margin-top: 30rpx;">
+          <!-- <text style="font-size: 30rpx;color: #333333;">{{'SO2 超标报警'}}</text> -->
+          <text style="font-size: 30rpx;color: #333333;">{{(item.alarmType == 12? '': item.pollutantName)+item.alarmTypeName}}</text>
+          <text style="font-size: 22rpx;color: #999999;margin-right: 20rpx;">{{item.alarmTime}}</text>
+        </view>
+        <view style="width: 555rpx;display: flex;flex-direction: row;justify-content: space-between;align-items: center;">
+          <text style="font-size: 24rpx;color: #666666;text-overflow: clip;overflow: hidden; height: 30rpx;">{{item.entName+'-'+item.pointName}}</text>
+        </view>
+        <view style="width: 555rpx;display: flex;flex-direction: row;justify-content: space-between;align-items: center;">
+          <view style="flex: 1;">
+            <text style="font-size: 24rpx;color: #666666;">{{'报警值：'}}</text>
+            <text style="font-size: 24rpx;color: #FC6767;">{{item.alarmValue?item.alarmValue:'--'}}</text>
+          </view>
+          <view style="flex: 1;">
+            <text style="font-size: 24rpx;color: #666666;">{{'持续时间(h)：'}}</text>
+            <text style="font-size: 24rpx;color: #FC6767;">{{item.count}}</text>
+          </view>
+        </view>
+        <view style="width: 555rpx;display: flex;flex-direction: row;justify-content: space-between;align-items: center;margin-bottom: 30rpx;">
+          <!-- <text style="font-size: 24rpx;color: #666666;">{{item.alarmType ==2 ?'核实结果：'+(item.verifyPerson == ''? '未核实':item.verifyReamrk):'响应结果：'+(item.operationUserName == ''? '未响应':item.operationUserName+' 已响应')}}</text> -->
+        </view>
+      </view>
+    </view>
+  </block>
+  <View style="height:106rpx"></View>
 </view>
 

@@ -33,7 +33,6 @@ Page({
   },
   // 选择监测站
   onAirClick() {
-    console.log('this.data._airInfo=', this.data._airInfo);
     let that = this;
     wx.lin.showActionSheet({
       title: "请选择监测点",
@@ -42,10 +41,10 @@ Page({
         that.setData({
           selectAir: res.item
         })
-        console.log('success=', res)
+        // console.log('success=', res)
       },
       fail(res) {
-        console.log('fail=', res)
+        // console.log('fail=', res)
       }
     })
   },
@@ -63,13 +62,12 @@ Page({
         id: 17
       }],
       success(res) {
-        console.log('success=', res)
         that.setData({
           taskType: res.item
         })
       },
       fail(res) {
-        console.log('fail=', res)
+        // console.log('fail=', res)
       }
     })
   },
@@ -82,7 +80,6 @@ Page({
 
   // 时间切换
   bindTimeChange(e) {
-    console.log('aa=', e.detail.value);
     this.setData({
       time: e.detail.value
     })
@@ -174,7 +171,6 @@ Page({
    */
   onLoad: function (options) {
     this.getOperationTargetList();
-    console.log('globalData=', app.globalData);
   },
 
   /**
@@ -186,7 +182,6 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    console.log('globalData=', app.globalData);
     this.setData({
       pointName: app.globalData.pointName
     })

@@ -16,6 +16,7 @@ Page({
     entAndPointList: [],
     airList: [],
     time: '-',
+    isDemo:false,
     noSubscribe:false,
   },
 
@@ -69,7 +70,6 @@ Page({
   },
 
   goToPointDetails(event) {
-    console.log("event=", event)
     const dgimn = event.currentTarget.dataset.dgimn;
     const pointName = event.currentTarget.dataset.pointName;
     const pollutantType = event.currentTarget.dataset.pollutantType;
@@ -89,13 +89,32 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    const launchType = wx.getStorageSync('launchType')
     this.getEntPointAndAirList('1,2', (res) => {
-      app.globalData.entAndPointList = res.data.Datas;
+      let data = [].concat(res.data.Datas);
+      if (launchType == 'demo') {
+        data.map((item,index)=>{
+          if (item.title == '石河子市天瑞能源有限公司') {
+            item.title = '某某能源有限公司'
+            item.EntName = '某某能源有限公司'
+            item.children.map((child,childIndex)=>{
+              child.EntName = '某某能源有限公司'
+            });
+          } else {
+            item.title = 'xx企业'
+            item.children.map((child,childIndex)=>{
+              child.EntName = 'xx企业'
+            });
+          }
+        })
+      }
+      app.globalData.entAndPointList = data;
       let params = {
-        entAndPointList: res.data.Datas
+        entAndPointList: data,
+        isDemo:launchType == 'demo'
       }
       if (getApp().globalData.noSubscribe) {
-        params.noSubscribe = true;
+        // params.noSubscribe = true;
         app.globalData.noSubscribe = false
       }
       this.setData(params)
@@ -126,6 +145,36 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    const launchType = wx.getStorageSync('launchType')
+    this.getEntPointAndAirList('1,2', (res) => {
+      let data = res.data.Datas;
+      if (launchType == 'demo') {
+        data.map((item,index)=>{
+          if (item.title == '石河子市天瑞能源有限公司') {
+            item.title = '某某能源有限公司'
+            item.EntName = '某某能源有限公司'
+            item.children.map((child,childIndex)=>{
+              child.EntName = '某某能源有限公司'
+            });
+          } else {
+            item.title = 'xx企业'
+            item.children.map((child,childIndex)=>{
+              child.EntName = 'xx企业'
+            });
+          }
+        })
+      }
+      app.globalData.entAndPointList = data;
+      let params = {
+        entAndPointList: data,
+        isDemo:launchType == 'demo'
+      }
+      if (getApp().globalData.noSubscribe) {
+        // params.noSubscribe = true;
+        app.globalData.noSubscribe = false
+      }
+      this.setData(params)
+    });
     if (typeof this.getTabBar === 'function' && this.getTabBar()) {
       let selectedIndex = getTabBarSelectedIndex('/pages/entAndAir/index')
       this.getTabBar().setData({
@@ -176,11 +225,10 @@ Page({
       tmplIds: ['hy8oFHZ3uiV-QuCIczWMZw5gKrecC_unYLXVQwsiqgg'],
       success (res) { 
        
-        console.log('requestSubscribeMessage success');
         wx.login({
           success: res => {
             // 发送 res.code 到后台换取 openId, sessionKey, unionId
-            console.log('res=', res);
+            // console.log('res=', res);
           }
         })
       },

@@ -51,7 +51,6 @@ Component({
    */
   methods: {
     tabBarChange(e) {
-      console.log('e=', e);
       let index = e.detail.index;
       this.setData({
         selectedIndex: index

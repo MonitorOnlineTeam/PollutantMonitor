@@ -58,12 +58,10 @@ Page({
 
       })
     }
-    console.log('TaskFormList=', TaskFormList);
     wx.lin.showActionSheet({
       title: "选择表单类型",
       itemList: TaskFormList,
       success(res) {
-        console.log('res=', res);
         let url = "/pages/workbench/qualityControlForm/pollutantsList"
         if (res.item.typeID != '61') {
           url = "/pages/workbench/operationsForm/operationsForm"
@@ -74,7 +72,7 @@ Page({
         })
       },
       fail(res) {
-        console.log('fail=', res)
+        // console.log('fail=', res)
       }
     })
   },

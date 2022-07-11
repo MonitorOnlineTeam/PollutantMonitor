@@ -29,7 +29,6 @@ const request = (urlName, method, data, options) => {
         'ProxyCode': wx.getStorageSync('authorCode') || options.authorCode
       },
       success(res) {
-        console.log('res=', res);
         if (res.statusCode === 401) {
           wx.clearStorageSync();
           wx.redirectTo({
@@ -52,8 +51,9 @@ const request = (urlName, method, data, options) => {
             success: () => {
               if (!options.hideToast) {
                 wx.showToast({
-                  title: res.data.Message || '网络请求失败，请重试',
+                  title: res.data.Message?(res.data.Message == '授权码输入错误(P)'?'授权码输入错误':res.data.Message): '网络请求失败，请重试',
                   icon: 'error',
+                  // title:'授权码输入错误',
                   duration: 2500,
                 })
               }
@@ -65,7 +65,6 @@ const request = (urlName, method, data, options) => {
         }
       },
       fail(error) {
-        console.log('error=', error);
         reject(error)
         // wx.hideLoading()
       },

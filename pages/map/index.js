@@ -31,7 +31,6 @@ Page({
 
   // 显示类型切换
   onShowTypeChange(e) {
-    console.log('e=', e);
     const showType = e.currentTarget.dataset.showType;
     if (this.data.showType == showType) {
       return;
@@ -113,7 +112,6 @@ Page({
       // 空气站
       let pointItemData = {};
       let pointInfo = this.data.airList[e.detail.markerId]
-      console.log('pointInfo=', pointInfo);
       pointItemData = {
         MonitorTime: pointInfo.MonitorTime,
         PointName: pointInfo.PointName,
@@ -132,7 +130,6 @@ Page({
           color: pointInfo.Data[item.PollutantCode + "_color"],
         })
       })
-      console.log('pointItemData=', pointItemData);
       this.setData({
         pointItemData: pointItemData,
         visible: true
@@ -182,7 +179,6 @@ Page({
             },
           }
         })
-        console.log('markers=', markers);
         this.setData({
           markers: markers,
           entPointList: filterList,
@@ -257,7 +253,6 @@ Page({
 
   // 空气站污染物切换
   changeTabs(event) {
-    console.log('event=', event);
     let activeKey = event.detail.activeKey;
     let markers = this.data.airList.map((item, index) => {
       return {

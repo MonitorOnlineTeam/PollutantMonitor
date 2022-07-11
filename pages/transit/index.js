@@ -21,7 +21,6 @@ Page({
       // 已注册
     }).catch(err => {
       // 未注册
-      console.log('err=', err);
       wx.showToast({
         title: err.data.Message,
       })
@@ -42,7 +41,6 @@ Page({
     wx.login({
       success: res => {
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
-        console.log('res=', res);
         this.isRegister(res.code)
       }
     })

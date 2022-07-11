@@ -49,7 +49,6 @@ Page({
 
   // 跳转选择时间
   onChangeDate(event) {
-    console.log('e=', event);
     wx.navigateTo({
       url: '/pages/date-picker/index?dataType=' + this.data.dataType
     })
@@ -82,7 +81,6 @@ Page({
         "DateTime": moment(selectedDate).format("YYYY-MM-DD HH:mm:ss")
       }
     }).then(result => {
-      console.log('result=', result);
       this.setData({
         airPointRankingList: result.data.Datas
       })

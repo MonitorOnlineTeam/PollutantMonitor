@@ -9,7 +9,6 @@ Page({
     items: []
   },
   checkboxChange(e) {
-    console.log('e=', e);
     const items = this.data.items;
     let length = items.filter(m => m.checked == true);
     var thisSelected = e.currentTarget.dataset.obj;
@@ -38,7 +37,6 @@ Page({
       }
       newData.push(item);
     });
-    console.log('newData=', newData);
     this.setData({
       items: newData
     })
@@ -52,7 +50,7 @@ Page({
       }
     }).then(result => {
       let res = result.data;
-      console.log('污染物', res);
+      // console.log('污染物', res);
       if (res && res.IsSuccess && res.Datas) {
         let thisData = res.Datas;
         let selectedPollutant = {};
@@ -85,7 +83,6 @@ Page({
           }
           newData.push(item);
         });
-        console.log('pollutantList=', pollutantList);
         this.setData({
           items: pollutantList
         });
@@ -120,13 +117,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log("app=", app);
-    // var pointName = app.globalData.pointInfo.pointName;
-    // if (pointName) {
-    //   wx.setNavigationBarTitle({
-    //     title: pointName,
-    //   })
-    // }
     this.getPollutantList();
   },
 

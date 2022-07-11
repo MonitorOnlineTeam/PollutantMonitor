@@ -4,7 +4,9 @@
 <view class='margin-xl bg-white padding-xl radius shadow-lg'>
   <view class='title'>用户监测数据许可协议</view>
   <view class='text-content'>
-    <view>根据本协议，甲方同意授予乙方基于智能环境监测设备运行和服务而监测、传输与使用甲方数据信息的权利。现就具体事项约定如下：</view>
+    <view>甲方：用户</view>
+    <view>乙方：北京雪迪龙科技股份有限公司</view>
+    <view class='margin-top-sm'>根据本协议，甲方同意授予乙方基于智能环境监测设备运行和服务而监测、传输与使用甲方数据信息的权利。现就具体事项约定如下：</view>
     <view class='margin-top-sm'>一、许可对象：监测平台在运行过程中搜集到的用户基本信息、环保实时监测数据与其他周边信息。</view>
     <view class='margin-top-sm'>二、许可范围：</view>
     <view class='margin-top-sm'>1、甲方任何格式在设备或系统上监测、传输、存储或处理的所有数据、软件、设备、文本、图像、视频、音频、照片、第三方应用程序、信息、材料等。乙方自身的数据和信息不属于此列；</view>

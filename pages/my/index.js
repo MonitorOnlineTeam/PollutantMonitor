@@ -42,7 +42,7 @@ Page({
     // console.log('aa=', aa);
     wx.getUserInfo({
       success: res => {
-        console.log(res) //获取的用户信息还有很多，都在res中，看打印结果
+        // console.log(res) //获取的用户信息还有很多，都在res中，看打印结果
         // this.setData({
         //   userInfo: res.userInfo,
         //   hasUserInfo: true
@@ -65,7 +65,8 @@ Page({
     if (typeof this.getTabBar === 'function' && this.getTabBar()) {
       let selectedIndex = getTabBarSelectedIndex('/pages/my/index')
       this.getTabBar().setData({
-        selectedIndex: selectedIndex
+        selectedIndex: selectedIndex,
+        list: wx.getStorageSync('tabBarList')
       })
     }
   },

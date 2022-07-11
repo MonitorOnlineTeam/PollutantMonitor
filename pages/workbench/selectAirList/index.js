@@ -11,7 +11,6 @@ Page({
     pointsList: [],
   },
   onSelectAir(event) {
-    console.log('event=', event);
     // return;
     let itemData = event.currentTarget.dataset.obj;
     if (itemData.OperationStatus !== true) {
@@ -54,7 +53,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log('options=', options);
     this.GetPoints(options.monitorTargetId);
   },
 

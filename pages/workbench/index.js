@@ -13,7 +13,6 @@ Page({
 
   // 跳转页面
   onRedirect(event) {
-    console.log(event);
     const url = event.currentTarget.dataset.url;
     wx.navigateTo({
       url: url,

@@ -1,5 +1,6 @@
 // pages/alarm/index.js
 import request from '../../utils/request'
+import demo from '../../utils/demo'
 import {
   getTabBarSelectedIndex
 } from '../../utils/util'
@@ -14,29 +15,12 @@ Page({
     alarmDataList: [],
     _pageIndex: 1,
     _total: 0,
+    isDemo:false,
     noSubscribe:app.globalData.noSubscribe,
   },
 
   // 获取报警列表数据
   GetAlarmDataList() {
-    // request.post({
-    //   url: 'GetAlarmDataList',
-    //   data: {
-    //     "BeginTime": moment().format('YYYY-MM-DD 00:00:00'),
-    //     "EndTime": moment().format("YYYY-MM-DD 23:59:59"),
-    //     "PageIndex": this.data._pageIndex,
-    //     "PageSize": 20
-    //   }
-    // }).then(result => {
-    //   console.log('result=', result);
-    //   if (result.data && result.data.IsSuccess) {
-    //     this.setData({
-    //       alarmDataList: result.data.Datas,
-    //       _total: result.data.Total
-    //     })
-    //   }
-    // })
-
     /**
      * alarmType
      * 0    数据异常
@@ -48,20 +32,31 @@ Page({
       data:{
         "beginTime": moment().subtract(2, 'months').format('YYYY-MM-DD 00:00:00'),
         "endTime": moment().format("YYYY-MM-DD 23:59:59"),
-        "alarmType": "",
+        // "alarmType": "",
         "pageSize": 20,
         "pageIndex": this.data._pageIndex
       },
     }).then(result => {
-      console.log('result=', result);
+      // console.log('result=', result);
       // app.globalData.noSubscribe = app.checkSubscribe();
-      if (result.data && result.data.IsSuccess) {
-        this.setData({
-          alarmDataList: result.data.Datas,
-          _total: result.data.Total,
-          // noSubscribe:getApp().globalData.noSubscribe
-        })
+      if (this.data.isDemo) {
+        let alarmResult = demo.alarmResult;
+        console.log(demo.alarmResult);
+        if (alarmResult && alarmResult.IsSuccess) {
+          this.setData({
+            alarmDataList: alarmResult.Datas,
+            _total: alarmResult.Total,
+          })
+        }
+      } else {
+        if (result.data && result.data.IsSuccess) {
+          this.setData({
+            alarmDataList: result.data.Datas,
+            _total: result.data.Total,
+          })
+        }
       }
+      
     })
   },
 
@@ -84,6 +79,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    const launchType = wx.getStorageSync('launchType')
     if (typeof this.getTabBar === 'function' && this.getTabBar()) {
       let selectedIndex = getTabBarSelectedIndex('/pages/alarm/index')
       this.getTabBar().setData({
@@ -91,7 +87,9 @@ Page({
         list: wx.getStorageSync('tabBarList')
       })
     }
-    this.setData({_pageIndex:1,_total:0});
+    this.setData({_pageIndex:1,_total:0
+      ,isDemo: launchType == 'demo'
+    });
     this.GetAlarmDataList();
   },
 
@@ -123,7 +121,7 @@ Page({
         "pageIndex": 1
       },
     }).then(result => {
-      console.log('result=', result);
+      // console.log('result=', result);
       if (result.data && result.data.IsSuccess) {
         this.setData({
           alarmDataList: result.data.Datas,
@@ -137,46 +135,8 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-    // if (this.data.alarmDataList.length != this.data._total) {
-    //   this.data._pageIndex = 1 + this.data._pageIndex;
-    //   request.post({
-    //     url: 'GetAlarmDataList',
-    //     data: {
-    //       "BeginTime": moment().format('YYYY-MM-DD 00:00:00'),
-    //       "EndTime": moment().format("YYYY-MM-DD 23:59:59"),
-    //       "PageIndex": this.data._pageIndex,
-    //       "PageSize": 20
-    //     }
-    //   }).then(result => {
-    //     console.log('result=', result);
-    //     if (result.data && result.data.IsSuccess) {
-    //       this.setData({
-    //         alarmDataList: this.data.alarmDataList.concat(result.data.Datas),
-    //         _total: result.data.Total
-    //       })
-    //     }
-    //   })
-    // }
-
     if (this.data.alarmDataList.length != this.data._total) {
       this.data._pageIndex = 1 + this.data._pageIndex;
-      // request.post({
-      //   url: 'GetAlarmDataList',
-      //   data: {
-      //     "BeginTime": moment().format('YYYY-MM-DD 00:00:00'),
-      //     "EndTime": moment().format("YYYY-MM-DD 23:59:59"),
-      //     "PageIndex": this.data._pageIndex,
-      //     "PageSize": 20
-      //   }
-      // }).then(result => {
-      //   console.log('result=', result);
-      //   if (result.data && result.data.IsSuccess) {
-      //     this.setData({
-      //       alarmDataList: this.data.alarmDataList.concat(result.data.Datas),
-      //       _total: result.data.Total
-      //     })
-      //   }
-      // })
 
       request.post({
         url: 'GetAlarmInfoList',
@@ -188,7 +148,7 @@ Page({
           "pageIndex": this.data._pageIndex
         },
       }).then(result => {
-        console.log('result=', result);
+        // console.log('result=', result);
         if (result.data && result.data.IsSuccess) {
           this.setData({
             alarmDataList: this.data.alarmDataList.concat(result.data.Datas),
@@ -217,11 +177,11 @@ Page({
       tmplIds: ['hy8oFHZ3uiV-QuCIczWMZw5gKrecC_unYLXVQwsiqgg'],
       success (res) { 
        
-        console.log('requestSubscribeMessage success');
+        // console.log('requestSubscribeMessage success');
         wx.login({
           success: res => {
             // 发送 res.code 到后台换取 openId, sessionKey, unionId
-            console.log('res=', res);
+            // console.log('res=', res);
           }
         })
       },
@@ -233,5 +193,12 @@ Page({
   // 拒绝订阅
   cancelSubscribeMessage(){
     app.globalData.noSubscribe = false;
+  },
+  // 报警列表点击时间
+  selectAlarm (e) {
+    // console.log(e);
+    wx.navigateTo({
+      url: '/pages/alarmDetail/alarmDetail?index='+e.currentTarget.dataset.index+'&id='+e.currentTarget.dataset.id+"&DGIMN="+e.currentTarget.dataset.item.DGIMN+"&pollutantCode="+e.currentTarget.dataset.item.pollutantCode+"&dataType="+e.currentTarget.dataset.item.dataType+"&alarmTime="+e.currentTarget.dataset.item.alarmTime+"&pollutantName="+e.currentTarget.dataset.item.pollutantName+"alarmValue="+e.currentTarget.dataset.item.alarmValue,
+    })
   }
 })

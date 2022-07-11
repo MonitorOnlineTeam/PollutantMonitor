@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "f2": "@antv/wx-f2"
+  },
+  "navigationBarTitleText": "报警详情",
+  "enablePullDownRefresh": true,
+  "backgroundTextStyle": "dark"
+}

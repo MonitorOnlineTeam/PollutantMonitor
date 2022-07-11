@@ -1,0 +1,6 @@
+<!--pages/myWebview/index.wxml-->
+<!-- <text>pages/myWebview/index.wxml</text> -->
+<!-- <web-view src="http://61.50.135.114:61003/appoperation/apprepairrecord/7623f8d8-68cb-41e9-a012-087df2354870/1"></web-view> -->
+<web-view src="https://api.chsdl.net/text/web.html"></web-view>
+<!-- <web-view src="https://www.baidu.com"></web-view> -->
+<!-- <web-view src="{{imageurl}}"></web-view> -->

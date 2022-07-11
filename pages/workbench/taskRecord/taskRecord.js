@@ -69,7 +69,6 @@ Page({
   },
 
   onDateConfirm(value) {
-    console.log('date=', value);
   },
 
   onSelectDate() {
@@ -82,7 +81,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log('dates=', this.data.dates);
   },
 
   /**
