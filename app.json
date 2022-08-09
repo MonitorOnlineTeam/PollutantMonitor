@@ -31,7 +31,9 @@
     "pages/myWebview/index",
     "pages/selectRecordType/selectRecordType",
     "pages/alarmDetail/alarmDetail",
-    "pages/imageForm/imageForm"
+    "pages/imageForm/imageForm",
+    "pages/OrderPointList/OrderPointList",
+    "pages/pointRecords/pointRecords"
   ],
   "window": {
     "backgroundTextStyle": "light",

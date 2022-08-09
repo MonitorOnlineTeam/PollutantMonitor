@@ -1,14 +1,41 @@
-<view class="avatar-container">
-  <!-- <l-button type="default" bg-color="#0081ff">获取头像</l-button> -->
-  <!-- <open-data type="userAvatarUrl"></open-data> -->
+<!-- <view class="avatar-container">
   <block>
     <view class="userinfo-avatar">
       <open-data type="userAvatarUrl"></open-data>
     </view>
     <open-data type="userNickName"></open-data>
   </block>
+</view> -->
+<view>
+  <image class="graduated-background" src="/images/bg_mine.png"/>
+  <view class="userinfo-avatar">
+      <open-data type="userAvatarUrl"></open-data>
+    </view>
+  <view class="info-container">
+    <open-data class="nick-name" type="userNickName"></open-data>
+    <text class="normal-text">{{'最近点位服务到期：'+(personalCenterData.ExpirationDate?personalCenterData.ExpirationDate:'--')}}</text>
+    <text class="normal-text">{{'服务过期点位数量：'+(personalCenterData.ExpirationNum?personalCenterData.ExpirationNum:'0')}}</text>
+    <view class="all-points-button-bg" bindtap="gotoOrderPointList" >
+      <image src="/images/ic_location_blue.png" style="width: 18rpx;height: 26rpx;margin-right: 10rpx;"></image>
+      <text class="all-points-button-text">{{'全部点位 >'}}</text>
+    </view>
+  </view>
+  <view class="button-container">
+    <view bindtap="gotoFeedback" class="one-button-bg">
+      <image src="/images/ic_feedback.png" class="button-left-icon"></image>
+      <text style="margin-left: 20rpx;">{{'意见反馈'}}</text>
+      <view style="flex: 1;"></view>
+      <image src="/images/More.png" class="button-right-icon"></image>
+    </view>
+    <view class="center">
+      <l-button bind:lintap="clear" bg-color="#0081ff" style="margin-top: 20rpx" width="680">清除缓存</l-button>
+    </view>
+  </view>
 </view>
-<l-list l-class="sdl-list my-list" title="意见反馈" image="/images/fankui.png" url="/pages/feedback/index" />
+
+<!-- <l-list l-class="sdl-list my-list" title="意见反馈" image="/images/fankui.png" url="/pages/feedback/index" />
 <view class="center">
   <l-button bind:lintap="clear" bg-color="#0081ff" style="margin-top: 60rpx" width="700">清除缓存</l-button>
-</view>
+</view> -->
+<!-- <l-button type="default" bg-color="#0081ff">获取头像</l-button> -->
+<!-- <open-data type="userAvatarUrl"></open-data> -->

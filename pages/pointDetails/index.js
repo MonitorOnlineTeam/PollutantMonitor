@@ -30,7 +30,7 @@ Page({
     pointInfo: {},
     chartShow: false,
     initChart: null,
-    dataType: 0,
+    dataType: 1,
     tipsData: [],
     selectedDate: moment().format("YYYY-MM-DD HH:ss"),
     _tabs: ["分钟", "小时", "日", "月"],
@@ -50,7 +50,7 @@ Page({
     } else if (activeKey == 'historyData') {
       // 历史数据
       this.setData({
-        dataType: 0,
+        dataType: 1,
         chartShow: false,
         selectedDate: moment(wx.getStorageSync('selectedDate')).format(selectTimeFormat[0].showFormat),
       })
@@ -75,6 +75,7 @@ Page({
   changeTabs(key) {
     const activeKey = key.detail.activeKey;
     this.data.dataType = activeKey;
+    console.log('activeKey = ',activeKey);
     this.setData({
       dataType: activeKey,
       chartShow: false,

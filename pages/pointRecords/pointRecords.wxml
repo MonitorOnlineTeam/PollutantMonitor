@@ -1,0 +1,24 @@
+<!--pages/pointRecords.js/pointRecords.wxml-->
+<!-- <text>pages/pointRecords.js/pointRecords.wxml</text> -->
+<view class="header-container">
+  <image class="header-bg" src="/images/bg_point_records_header.png">
+  </image>
+  <text class="point-text">{{PointName}}</text>
+  <text class="ent-name-text">{{EntName}}</text>
+</view>
+<block wx:key="index" style="width: 750rpx;" wx:for="{{records}}">
+  <view class="list-item-bg">
+    <image src="/images/bg_month.png" class="list-item-month-bg"></image>
+    <text class="list-item-month-text">{{item.RenewalTime}}</text>
+    <view class="list-item-icon-container">
+      <block wx:if="{{PollutantType == 2}}">
+        <image src="/images/ic_gas.png" class="list-item-icon"></image>
+      </block>
+      <block wx:else>
+        <image src="/images/ic_water.png" class="list-item-icon"></image>
+      </block>
+    </view>
+    <text class="list-item-expire">{{'到期时间：'+item.Col1}}</text>
+    <text class="list-item-begin">{{'开通时间：'+item.CreateTime}}</text>
+  </view>
+</block>

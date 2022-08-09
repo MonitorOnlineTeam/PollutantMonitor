@@ -3,5 +3,8 @@
     "l-button": "/miniprogram_npm/lin-ui/button/index",
     "l-list": "/miniprogram_npm/lin-ui/list/index"
   },
-  "navigationBarTitleText": "我的"
+  "navigationBarBackgroundColor": "#4AA0FF",
+  "navigationBarTitleText": "我的",
+  "backgroundTextStyle": "dark",
+  "navigationBarTextStyle": "white"
 }

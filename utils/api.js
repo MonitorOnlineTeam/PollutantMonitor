@@ -71,4 +71,8 @@ export const API = {
   DeleteOperationRecord: prefix + '/TaskFormApi/DeleteOperationRecord',
   // 删除质控表单
   DeleteQualityRecord: prefix + '/TaskFormApi/DeleteQualityRecord',
+  // 续费记录
+  GetPersonalCenterOrder: prefix + '/TaskFormApi/GetPersonalCenterOrder',
+  // 单点续费历史记录
+  GetGetPersonalCenterOrderInfo: prefix + '/TaskFormApi/GetGetPersonalCenterOrderInfo',
 }

@@ -5,10 +5,10 @@ page {
 
 .userinfo-avatar {
   overflow: hidden;
-  width: 128rpx;
-  height: 128rpx;
-  margin: 20rpx;
+  width: 122rpx;
+  height: 122rpx;
   border-radius: 50%;
+  position: absolute;top: 30rpx;left: 30rpx;
 }
 
 .center {
@@ -28,6 +28,83 @@ page {
   align-items: center;
 }
 
+/* .avatar-container {
+  background-image:url('../../images/bg_mine.png');
+} */
+
 .my-list {
   margin-top: 30rpx;
+}
+
+.graduated-background {
+  width: 100%;
+}
+
+.info-container {
+  position: absolute;
+  top: 30rpx;
+  left: 160rpx;
+  display: flex;
+  flex-direction: column;
+}
+
+.nick-name {
+  color: white;
+  font-size: 34rpx;
+  margin-top: 14rpx;
+}
+
+.normal-text {
+  margin-top: 10rpx;
+  color: white;
+  font-size: 24rpx;
+}
+
+.all-points-button-bg {
+  margin-top: 5rpx; 
+  width: 166rpx; 
+  background-color: rgba(21,120,198,0.5000);
+  height: 40rpx; 
+  border-radius: 17rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.all-points-button-text {
+  text-align: center; 
+  color: white;
+  font-size: 22rpx;
+}
+
+.button-container {
+  width: 100%; 
+  position: absolute;
+  top:255rpx;
+  left: 0rpx; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.one-button-bg {
+  border-radius: 20rpx; 
+  width: 680rpx;
+  height: 80rpx;
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.button-left-icon {
+  margin-left: 20rpx; 
+  width: 44rpx;
+  height: 44rpx;
+}
+
+.button-right-icon {
+  margin-right: 20rpx; 
+  width: 44rpx;
+  height: 44rpx;
 }

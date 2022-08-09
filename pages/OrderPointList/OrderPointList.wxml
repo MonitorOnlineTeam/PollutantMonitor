@@ -1,0 +1,52 @@
+<!--pages/OrderPointList/OrderPointList.wxml-->
+<!-- <text>pages/OrderPointList/OrderPointList.wxml</text> -->
+<view class="search-bg">
+    <view class="search-container">
+      <image class="search-left-icon" src="/images/ic_search.png"></image>
+      <input value="{{searchStr}}" bindinput="bindKeyInput" placeholder="请输入企业或点位名称" class="search-input"/>
+      <l-button style="margin-right: 20rpx;" width="86" height="46" shape="semicircle" l-class="btn" type="default" bg-color="#4AA0FF" size="medium" bind:lintap="onSearchPoints" data-complete="{{false}}">搜索</l-button>
+    </view>
+</view>
+<block wx:key='index' style="width: 750rpx;flex: 1;" wx:for="{{points}}">
+  <block wx:if="{{item.expire}}">
+    <view bindtap="gotoPointRecords" data-item="{{item}}" style="background-color: #ececec;" class="list-item-bg">
+      <view class="list-item-first-line">
+        <block wx:if="{{item.PollutantType == 2}}">
+          <image src="/images/ic_gas.png" class="list-item-icon"></image>
+        </block>
+        <block wx:else>
+          <image src="/images/ic_water.png" class="list-item-icon"></image>
+        </block>
+        <text class="list-item-first-line-text">{{item.PointName}}</text>
+      </view>
+      <text class="list-item-second-line-text">{{item.EntName}}</text>
+      <view class="list-item-third-line-container">
+        <view style="display: flex;flex-direction: row;">
+          <text class="list-item-third-line-text">{{'有效期：'+item.ExpirationDate}}</text>
+          <!-- <text class="list-item-third-line-text" style="margin-left: 8rpx; color: red;">{{'已过期'}}</text> -->
+        </view>
+        
+        <text class="list-item-third-line-text" style="margin-right: 19rpx;">{{'开通记录 >'}}</text>
+      </view>
+      <image style="width:130rpx;height: 120rpx;margin-top: -140rpx;margin-bottom: 16rpx; margin-left: 250rpx;" src="/images/watermark_expire.png"></image>
+    </view>
+  </block>
+  <block wx:else>
+    <view bindtap="gotoPointRecords" data-item="{{item}}" style="background-color: white;" class="list-item-bg">
+      <view class="list-item-first-line">
+        <block wx:if="{{item.PollutantType == 2}}">
+          <image src="/images/ic_gas.png" class="list-item-icon"></image>
+        </block>
+        <block wx:else>
+          <image src="/images/ic_water.png" class="list-item-icon"></image>
+        </block>
+        <text class="list-item-first-line-text">{{item.PointName}}</text>
+      </view>
+      <text class="list-item-second-line-text">{{item.EntName}}</text>
+      <view class="list-item-third-line-container">
+        <text class="list-item-third-line-text">{{'有效期：'+item.ExpirationDate}}</text>
+        <text class="list-item-third-line-text" style="margin-right: 19rpx;">{{'开通记录 >'}}</text>
+      </view>
+    </view>
+  </block>
+</block>

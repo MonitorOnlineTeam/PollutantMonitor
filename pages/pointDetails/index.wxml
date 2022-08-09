@@ -39,7 +39,7 @@
           <view class="tr {{item.pollutantName==selectedRow? 'tab-text-color active': 'tab-text-color'}} " bindtap="showModal" data-obj="{{item}}" data-target="ChooseModal">
             <view class="td {{item.identificationCode == '1'?'Over': item.identificationCode=='-1'?'Exception':''}}">{{item.pollutantName||'-'}}</view>
             <view class="td {{item.identificationCode == '1'?'Over': item.identificationCode=='-1'?'Exception':''}}">{{item.value}}</view>
-            <view class="td {{item.identificationCode == '1'?'Over': item.identificationCode=='-1'?'Exception':''}}">{{item.unit||'-'}}</view>
+            <view class="td {{item.identificationCode == '1'?'Over': item.identificationCode=='-1'?'Exception':''}}">{{item.pollutantName=='流速'?'m³/s':(item.unit||'-')}}</view>
             <view class="td Over" wx:if="{{item.identificationCode == '1'}}">超标</view>
             <view class="td Exception" wx:elif="{{item.identificationCode == '-1'}}">
               异常

@@ -1,4 +1,5 @@
 // pages/my/index.js
+import request from '../../utils/request'
 import {
   getTabBarSelectedIndex
 } from '../../utils/util'
@@ -10,6 +11,7 @@ Page({
   data: {
     canIUseOpenData: wx.canIUse('open-data.type.userAvatarUrl') && wx.canIUse('open-data.type.userNickName'),
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    personalCenterData:{}
   },
 
   clear() {
@@ -62,6 +64,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    this.getPersonalCenterOrder();
     if (typeof this.getTabBar === 'function' && this.getTabBar()) {
       let selectedIndex = getTabBarSelectedIndex('/pages/my/index')
       this.getTabBar().setData({
@@ -104,5 +107,28 @@ Page({
    */
   onShareAppMessage: function () {
 
-  }
+  },
+  gotoFeedback : function () {
+    wx.navigateTo({
+      url: `/pages/feedback/index`,
+    })
+  },
+  gotoOrderPointList : function () {
+    wx.navigateTo({
+      url: `/pages/OrderPointList/OrderPointList`,
+    })
+  },
+  getPersonalCenterOrder : function () {
+    request.post({
+      url: 'GetPersonalCenterOrder',
+      data: {
+        "KeyValue": "",
+      }
+    }).then(res => {
+      this.setData({
+        personalCenterData:res.data.Datas
+      });
+
+    })
+  },
 })
