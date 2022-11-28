@@ -40,6 +40,14 @@
         <image src="/images/legend/2.png"></image>
         <text>废气</text>
       </view>
+      <view>
+        <image src="/images/legend/9.png"></image>
+        <text>恶臭</text>
+      </view>
+      <view>
+        <image src="/images/legend/10.png"></image>
+        <text>VOC</text>
+      </view>
     </view>
     <view class="legent-status">
       <l-tag size="super-mini" bg-color="#d9d9d9">离线</l-tag>
@@ -53,17 +61,19 @@
   <view class="botton-content">
     <view class="title">{{pointItemData.PointName}}</view>
     <view class="monitor-time">{{pointItemData.MonitorTime}}</view>
-    <i-row i-class="pollutant-list">
-      <block wx:for="{{pointItemData.PointPollutantList}}">
-        <i-col i-class="pollutant-item" span="6">
-          <view>
-            {{item.PollutantName}}
-          </view>
-        </i-col>
-        <i-col span="6" i-class="pollutant-value">
-          <view style="background-color:{{item.backgroundColor || '#fff'}}; color:{{item.backgroundColor ? '#fff' : '#333'}}">{{item.value !== undefined ? item.value : '-'}}</view>
-        </i-col>
-      </block>
-    </i-row>
+    <scroll-view style="max-height: 600rpx;" scroll-y="true">
+      <i-row i-class="pollutant-list">
+        <block wx:for="{{pointItemData.PointPollutantList}}">
+          <i-col i-class="pollutant-item" span="7">
+            <view class="pollutant-item-name">
+              {{item.PollutantName}}
+            </view>
+          </i-col>
+          <i-col span="5" i-class="pollutant-value">
+            <view style="background-color:{{item.backgroundColor || '#fff'}}; color:{{item.backgroundColor ? '#fff' : '#333'}}">{{item.value !== undefined ? item.value : '-'}}</view>
+          </i-col>
+        </block>
+      </i-row>
+    </scroll-view>
   </view>
 </l-popup>

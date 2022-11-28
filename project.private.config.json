@@ -98,7 +98,7 @@
         },
         {
           "name": "",
-          "pathName": "pages/test/test",
+          "pathName": "pages/ranking/index",
           "query": "",
           "launchMode": "default",
           "scene": null

@@ -2,6 +2,7 @@
 page {
   background-color: #f2f2f2;
 }
+
 .map-legend {
   position: fixed;
   bottom: 106rpx;
@@ -42,16 +43,20 @@ page {
   text-align: center;
   background: #fff;
   padding: 20rpx;
+  /* height: 300px; */
+  /* overflow-y: scroll; */
+  /* max-height: 300px; */
+  /* overflow-y: auto; */
 }
 
 .botton-content .monitor-time {
   color: #999;
   margin-top: 14rpx;
   border-bottom: 1px solid #f2f2f2;
+  margin-bottom: 10rpx;
 }
 
 .pollutant-list {
-  margin-top: 10rpx;
   border-left: 1px solid #f2f2f2;
   border-top: 1px solid #f2f2f2;
 }
@@ -63,6 +68,12 @@ page {
   border-right: 1px solid #f2f2f2;
   border-bottom: 1px solid #f2f2f2;
   color: #5d5d5d;
+}
+
+.pollutant-item-name {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .pollutant-value {
@@ -77,12 +88,13 @@ page {
   border-top: 1px solid #f2f2f2;
 }
 
-.map-point-legend{
+.map-point-legend {
   position: fixed;
   bottom: 106rpx;
   width: 100%;
   background-color: #fff;
 }
+
 .legent-status {
   display: flex;
   justify-content: space-around;
@@ -90,31 +102,36 @@ page {
   height: 80rpx;
   border-top: 1px dashed #f1f1f1;
 }
+
 .legent-type {
   display: flex;
   justify-content: space-around;
   align-items: center;
   height: 100rpx;
 }
-.legent-type view{
+
+.legent-type view {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
-.legent-type view image{
+
+.legent-type view image {
   width: 36rpx;
   height: 36rpx;
   margin-bottom: 10rpx;
 }
-.legent-type view text{
+
+.legent-type view text {
   color: #888;
   font-size: 24rpx;
 }
 
-.map-popup{
+.map-popup {
   margin-bottom: 106rpx;
 }
+
 /* .customCallout {
   box-sizing: border-box;
   background-color: #fff; 

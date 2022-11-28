@@ -81,7 +81,7 @@ Page({
         };
         this.data._pollutantTypeCodeList.map(item => {
           res.data.Datas.map(itm => {
-            if (itm[item.field]) {
+            if (itm[item.field] !== undefined) {
               pointItemData.MonitorTime = itm.MonitorTime;
               pointItemData.PointName = itm.abbreviation ? itm.abbreviation + ' - ' + itm.pointName : itm.pointName;
               pointItemData.PointPollutantList.push({
@@ -151,11 +151,11 @@ Page({
     request.post({
       url: 'GetViewPoint',
       data: {
-        pollutantCode: '1,2',
+        // pollutantCode: '1,2',
       }
     }).then(res => {
       if (res.data && res.data.IsSuccess) {
-        let filterList = res.data.Datas.PointList.filter(item => item.PollutantType === '2' || item.PollutantType === '1')
+        let filterList = res.data.Datas.PointList.filter(item => item.PollutantType != 5)
         let markers = filterList.map((item, index) => {
           let callout = [];
           return {
@@ -284,7 +284,7 @@ Page({
         //   fontSize: 14,
         // },
         callout: {
-          content: item.PointName + "：" + (item.Data[activeKey] ? item.Data[activeKey] : '--'),
+          content: item.PointName + "：" + (item.Data[activeKey] !== undefined ? item.Data[activeKey] : '--'),
           display: "ALWAYS",
           bgColor: "#ffffff",
           color: (item.Data[activeKey + '_backgroundColor'] && item.Data[activeKey + '_backgroundColor'] !== '-') ? item.Data[activeKey + '_backgroundColor'] : "#333",
