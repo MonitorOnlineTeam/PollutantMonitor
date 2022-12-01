@@ -158,7 +158,7 @@ Page({
     }
     wx.login({
       success: res => {
-        // return;
+        // console.log(res);
         request.get({
           url: 'SDLSMCIsRegister',
           data: {

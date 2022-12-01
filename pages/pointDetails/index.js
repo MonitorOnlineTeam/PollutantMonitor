@@ -1,5 +1,6 @@
 // pages/pointDetails/index.js
 import request from '../../utils/request'
+import util from '../../utils/util'
 import moment from 'moment'
 const app = getApp();
 const selectTimeFormat = {
@@ -40,6 +41,7 @@ Page({
     screenHeight:1000,
     operationPageListIndex:1,
     isDemo:false,
+    filelist:[],// 图片表单记录
     equipmentParametersList:[] // 设备参数列表
   },
   onPageTypeChangeTabs(key) {
@@ -588,15 +590,20 @@ Page({
         url: 'GetMobileOperationPageList',
         data: params
       }).then(result => {
-        
+        // console.log('result = ',result);
         // 整理数据
-        let realData = []
+        let realData = [],
+        templist;
         result.data.Datas.FormList.map((item,index)=>{
-          realData = realData.concat(item.Nodes);
+          templist = item.Nodes;
+          util.createFormUrl(templist,'https://xuedilong.chsdl.com','temp')
+          // realData = realData.concat(item.Nodes);
+          realData = realData.concat(templist);
         })
         let recordTypeList = result.data.Datas.RecordType;
         recordTypeList.unshift({Abbreviation:'全部',TypeId:'全部'})
         this.setData({
+          filelist:result.data.Datas.Filelist, // 图片列表
           recordTypeList:result.data.Datas.RecordType,
           selectRecordType:{
             index:0,
@@ -643,17 +650,31 @@ Page({
   },
   gotoRecord: function(e) {
     if (this.data.isDemo) {
-      // wx.navigateTo({
-      //   url: '/pages/imageForm/imageForm',
-      // })
       wx.navigateTo({
         url: '/pages/myWebview/index?imageurl='+e.currentTarget.dataset.image,
       })
     } else {
-      wx.navigateTo({
-        url: '/pages/myWebview/index',
-      })
+      if (e.currentTarget.dataset.item.Type == '0') {
+        let filelistIndex = this.data.filelist.findIndex((fileItem)=>{
+          if (e.currentTarget.dataset.item.MainFormID == fileItem.FormMainID ) return true;
+        });
+        let imagesRecord = this.data.filelist[filelistIndex].FileList;
+        if (imagesRecord.length == 0) {
+
+        } else {
+          wx.previewImage({
+            current: imagesRecord[0], // 当前显示图片的 http 链接
+            urls: imagesRecord // 需要预览的图片 http 链接列表
+          })
+        }
+      } else {
+        // console.log(e.currentTarget.dataset.url);
+        // console.log('http://172.16.9.8:6789/appoperation/appsparepartreplacerecord/85938da9-1561-44c5-aa9f-6826757a3003/28')
+        wx.navigateTo({
+          // url: '/pages/myWebview/index?imageurl='+'http://172.16.9.8:6789/appoperation/appsparepartreplacerecord/85938da9-1561-44c5-aa9f-6826757a3003/28',
+          url: '/pages/myWebview/index?imageurl='+e.currentTarget.dataset.url,
+        })
+      }
     }
-    
   }
 })

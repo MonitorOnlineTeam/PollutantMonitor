@@ -17,7 +17,7 @@ Page({
     airList: [],
     time: '-',
     isDemo:false,
-    noSubscribe:false,
+    noSubscribe:true,
   },
 
   //页面滚动执行方式
@@ -222,7 +222,7 @@ Page({
   confirmSubscribeMessage() {
     app.globalData.noSubscribe = false;
     wx.requestSubscribeMessage({
-      tmplIds: ['hy8oFHZ3uiV-QuCIczWMZw5gKrecC_unYLXVQwsiqgg'],
+      tmplIds: ['PgGEIIZiCHKLfd-3GEarX4BsZHPDlIKHQxZDFBJAyBg'],
       success (res) { 
        
         wx.login({

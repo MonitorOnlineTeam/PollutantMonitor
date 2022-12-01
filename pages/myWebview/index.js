@@ -5,14 +5,17 @@ Page({
    * 页面的初始数据
    */
   data: {
-    imageurl:'https://api.chsdl.net/text/04/备品备件更换记录表-2022-06-16.jpg'
+    imageurl:'https://api.chsdl.net/text/04/备品备件更换记录表-2022-06-16.jpg',
+    isDemo:false,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    let imageurl = options.imageurl
+    const Ticket = wx.getStorageSync('Ticket')
+    let imageurl = options.imageurl+'?Ticket='+Ticket;
+    console.log('imageurl = ',imageurl)
     this.setData({
       imageurl
     });
@@ -29,7 +32,10 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-
+    const launchType = wx.getStorageSync('launchType')
+    this.setData({
+      isDemo: launchType == 'demo',
+    })
   },
 
   /**

@@ -39,7 +39,7 @@
           <view class="tr {{item.pollutantName==selectedRow? 'tab-text-color active': 'tab-text-color'}} " bindtap="showModal" data-obj="{{item}}" data-target="ChooseModal">
             <view class="td {{item.identificationCode == '1'?'Over': item.identificationCode=='-1'?'Exception':''}}">{{item.pollutantName||'-'}}</view>
             <view class="td {{item.identificationCode == '1'?'Over': item.identificationCode=='-1'?'Exception':''}}">{{item.value}}</view>
-            <view class="td {{item.identificationCode == '1'?'Over': item.identificationCode=='-1'?'Exception':''}}">{{item.pollutantName=='流速'?'m³/s':(item.unit||'-')}}</view>
+            <view class="td {{item.identificationCode == '1'?'Over': item.identificationCode=='-1'?'Exception':''}}">{{item.pollutantName=='流量'?'m³/s':(item.unit||'-')}}</view>
             <view class="td Over" wx:if="{{item.identificationCode == '1'}}">超标</view>
             <view class="td Exception" wx:elif="{{item.identificationCode == '-1'}}">
               异常
@@ -91,7 +91,7 @@
       </l-tabs>
     </view>
   </l-tabpanel>
-  <block wx:if="{{isDemo}}">
+  <!-- <block wx:if="{{isDemo}}"> -->
     <l-tabpanel tab="运维台账" key="operationLog" slot="operationLog">
       <view class="tab-content" >
         <view class="handle-content">
@@ -106,7 +106,7 @@
         <block wx:if="{{operationLogs.length}}"  >
           <scroll-view scroll-y="true" style="height: {{screenHeight-160}}rpx;padding-top: 20rpx;" bindscrolltolower="bindscrolltolower">
             <block wx:for="{{operationLogs}}">
-              <view bindtap="gotoRecord" data-image="{{item.image}}" style="height: 160rpx;width: 750rpx;background-color: white;display: flex;flex-direction: row;">
+              <view bindtap="gotoRecord" data-item="{{item}}" data-image="{{item.image}}" data-url="{{item.formUrl}}" style="height: 160rpx;width: 750rpx;background-color: white;display: flex;flex-direction: row;">
                 <view style="width: 85rpx;height: 160rpx;">
                   <block wx:if="{{index!=0}}">
                     <view style="width: 2rpx;height: 29rpx;background-color: #437EF8;margin-left: 42rpx;"></view>
@@ -148,8 +148,8 @@
         </block>
       </view>
     </l-tabpanel>
-  </block>
-  <block wx:if="{{isDemo}}">
+  <!-- </block> -->
+  <!-- <block wx:if="{{isDemo}}"> -->
     <l-tabpanel tab="设备信息" key="equipmentInfo" slot="equipmentInfo">
       <view class="tab-content" >
       <scroll-view scroll-y="true" style="height: {{screenHeight-80}}rpx">
@@ -207,5 +207,5 @@
       </scroll-view>
       </view>
     </l-tabpanel>
-  </block>
+  <!-- </block> -->
 </l-tabs>
