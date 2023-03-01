@@ -37,7 +37,7 @@ const pageUrl = {
   getUserEntInfo: `WxServer/GetUserEntInfo?authorCode=${authorCode}`,
   qcaValidatePhone: `/QualityControlWxApi/QCAValidatePhone`,
   qcaValidataQCAMN: `/QualityControlWxApi/QCAValidataQCAMN`,
-  qcaOpenDoor: `/QualityControlApi/SendOpenCMD?authorCode=${authorCode}`,
+  qcaOpenDoor: `/QCRemote/SendOpenDoorCMD?authorCode=${authorCode}`,
   qcaGetStandardGasList: `/QualityControlWxApi/QCAGetStandardGasList`,
   qcaUpdateStandardGasList: `/QualityControlWxApi/QCAUpdateStandardGasList`,
   validateAuthorCode: `/LoginApi/ValidateAuthorCode`, //代理授权码验证

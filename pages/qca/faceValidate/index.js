@@ -128,7 +128,7 @@ Page({
     var auth = common.getStorage("AuthorCode");
     wx.uploadFile({
       // url:app.globalData.url.login,
-      url: `https://api.chsdl.net/NewWryWebProxy/rest/PollutantSourceApi/UploadApi/FaceDetects?authorCode=${auth}`, header: {
+      url: `https://api.chsdl.net/NewWryWebProxy/rest/PollutantSourceApi/QCAOperator/FaceDetects?authorCode=${auth}`, header: {
         Accept: 'application/json',
         'Content-Type':  'application/json', //application/x-www-form-urlencoded
         'Authorization': `Bearer ${common.getStorage('AuthorCodeRSA')}`
