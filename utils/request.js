@@ -1,6 +1,6 @@
 import {
   API
-} from './API'
+} from './api'
 
 
 const request = (urlName, method, data, options) => {
