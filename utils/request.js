@@ -6,7 +6,7 @@ import {
 const request = (urlName, method, data, options) => {
   if (!options.hideLoading) {
     wx.showLoading({
-      title: '加载中',
+      title: '加载中', 
       mask: true
     })
   }
