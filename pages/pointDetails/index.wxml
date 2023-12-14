@@ -69,7 +69,7 @@
             </view>
             <block wx:if="{{chartDatas.length}}">
               <view class="chart-content">
-                <f2 wx:if="{{chartShow}}" class="f2-chart" onInit="{{initChart}}" />
+                <f2 type="2d" wx:if="{{chartShow}}" class="f2-chart" onInit="{{initChart}}" />
               </view>
               <i-row i-class="tips-content">
                 <i-col wx:for="{{tipsData}}" span="8" i-class="col-class">

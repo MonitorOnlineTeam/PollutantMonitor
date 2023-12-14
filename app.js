@@ -16,6 +16,7 @@ App({
     }
   },
   globalData: {
+    authorCode:'',
     launchType:'normal',
     menuId: '722ed7fd-6665-43b5-b39e-5fdafcd6ef99',
     userInfo: null,

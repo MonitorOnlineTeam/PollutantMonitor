@@ -88,7 +88,7 @@ Page({
       })
     }
     this.setData({_pageIndex:1,_total:0
-      ,isDemo: launchType == 'demo'
+      ,isDemo: launchType == 'demo'||launchType == 'singlePoint_demo'
     });
     this.GetAlarmDataList();
   },

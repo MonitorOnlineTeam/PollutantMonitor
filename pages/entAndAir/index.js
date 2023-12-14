@@ -92,7 +92,7 @@ Page({
     const launchType = wx.getStorageSync('launchType')
     this.getEntPointAndAirList('1,2', (res) => {
       let data = [].concat(res.data.Datas);
-      if (launchType == 'demo') {
+      if (launchType == 'demo'||launchType == 'singlePoint_demo') {
         data.map((item,index)=>{
           if (item.title == '石河子市天瑞能源有限公司') {
             item.title = '某某能源有限公司'
@@ -111,10 +111,9 @@ Page({
       app.globalData.entAndPointList = data;
       let params = {
         entAndPointList: data,
-        isDemo:launchType == 'demo'
+        isDemo:launchType == 'demo'||launchType == 'singlePoint_demo'
       }
       if (getApp().globalData.noSubscribe) {
-        // params.noSubscribe = true;
         app.globalData.noSubscribe = false
       }
       this.setData(params)
@@ -148,7 +147,7 @@ Page({
     const launchType = wx.getStorageSync('launchType')
     this.getEntPointAndAirList('1,2', (res) => {
       let data = res.data.Datas;
-      if (launchType == 'demo') {
+      if (launchType == 'demo'||launchType == 'singlePoint_demo') {
         data.map((item,index)=>{
           if (item.title == '石河子市天瑞能源有限公司') {
             item.title = '某某能源有限公司'
@@ -167,7 +166,7 @@ Page({
       app.globalData.entAndPointList = data;
       let params = {
         entAndPointList: data,
-        isDemo:launchType == 'demo'
+        isDemo:launchType == 'demo'||launchType == 'singlePoint_demo'
       }
       if (getApp().globalData.noSubscribe) {
         // params.noSubscribe = true;

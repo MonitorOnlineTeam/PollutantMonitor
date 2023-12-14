@@ -82,26 +82,6 @@ Page({
   },
   // 获取系统菜单
   GetSysMenuByUserID() {
-    // request.post({
-    //   url: 'GetSysMenuByUserID',
-    //   data: {
-    //     menu_id: app.globalData.menuId,
-    //   }
-    // }).then(result => {
-    //   console.log('menuList=', result);
-    //   let tabBarList = result.data.Datas.map(item => {
-    //     return {
-    //       "pagePath": item.parentUrl,
-    //       "iconPath": `/images/${item.icon}.png`,
-    //       "selectedIconPath": `/images/${item.icon}_Select.png`,
-    //       "text": item.name
-    //     }
-    //   });
-    //   wx.setStorageSync('tabBarList', tabBarList);
-    //   wx.switchTab({
-    //     url: tabBarList[0].pagePath,
-    //   })
-    // })
     let tabBarList = [{
         "pagePath": "/pages/entAndAir/index",
         "iconPath": "/images/SSGY.png",

@@ -40,7 +40,7 @@ Page({
   onLoad(options) {
     // console.log('options = ',options);
     const launchType = wx.getStorageSync('launchType')
-    let isDemo = (launchType == 'demo')
+    let isDemo = (launchType == 'demo'||launchType == 'singlePoint_demo')
     this.setData({
       isDemo,
       alarmPollotantCodes:{

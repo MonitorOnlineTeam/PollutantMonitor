@@ -131,10 +131,18 @@
           "query": "",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/welcome/index",
+          "query": "q=https://api.chsdl.net/PhoneManager/IntelligenceOperations%2Fzhanhuishiyong20230510%2F2%2FsinglePoint_demo",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }
   },
   "projectname": "PollutantMonitor",
-  "description": "项目私有配置文件。此文件中的内容将覆盖 project.config.json 中的相同字段。项目的改动优先同步到此文件中。详见文档：https://developers.weixin.qq.com/miniprogram/dev/devtools/projectconfig.html"
+  "description": "项目私有配置文件。此文件中的内容将覆盖 project.config.json 中的相同字段。项目的改动优先同步到此文件中。详见文档：https://developers.weixin.qq.com/miniprogram/dev/devtools/projectconfig.html",
+  "libVersion": "2.31.1"
 }

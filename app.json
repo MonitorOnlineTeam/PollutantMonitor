@@ -29,7 +29,6 @@
     "pages/workbench/operationsForm/operationsForm",
     "pages/test/test",
     "pages/myWebview/index",
-    "pages/selectRecordType/selectRecordType",
     "pages/alarmDetail/alarmDetail",
     "pages/imageForm/imageForm",
     "pages/OrderPointList/OrderPointList",

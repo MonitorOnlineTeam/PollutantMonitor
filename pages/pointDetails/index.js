@@ -27,6 +27,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    selectedPollutants:[],
     dataitem: [],
     pointInfo: {},
     chartShow: false,
@@ -143,6 +144,7 @@ Page({
   },
   // 获取污染物信息
   GetPollutantList() {
+    console.log('GetPollutantList start');
     request.post({
       url: 'GetPollutantList',
       data: {
@@ -171,14 +173,20 @@ Page({
           value: '-'
         }
       })
+      console.log('before setDataselectedPollutants = ',selectedPollutants);
       wx.setStorageSync('pollutantList', pollutantList)
       wx.setStorageSync('selectedPollutants', selectedPollutants)
+      this.setData({"selectedPollutants":selectedPollutants});
+      console.log('GetPollutantList end');
+      this.getData();
     })
   },
 
   // 获取历史数据
   GetMonitorDatas() {
-    let pollutantCodes = wx.getStorageSync('selectedPollutants').map(item => item.code).toString();
+    console.log('GetMonitorDatas this.data.selectedPollutants = ',this.data.selectedPollutants);
+    // let pollutantCodes = wx.getStorageSync('selectedPollutants').map(item => item.code).toString();
+    let pollutantCodes = this.data.selectedPollutants.map(item => item.code).toString();
     const datatype = this.data.dataType;
     let _dataType = 'realtime';
 
@@ -396,10 +404,6 @@ Page({
   onLoad: function (options) {
     this.data._pollutantType = options.pollutantType;
     wx.setStorageSync('selectedDate', moment().format("YYYY-MM-DD HH:ss"))
-    // wx.setNavigationBarTitle({
-    //   title: options.pointName,
-    // })
-    // this.GetRealTimeDataForPoint(options.dgimn)
     this.GetPollutantList();
     let pollutanttype = wx.getStorageSync('pollutanttype');
     this.setData({
@@ -427,10 +431,13 @@ Page({
     this.setData({
       selectedDate: selectedDate,
       chartShow: false,
-      isDemo: launchType == 'demo',
+      isDemo: launchType == 'demo'||launchType == 'singlePoint_demo',
       tipsData: [],
     })
-    this.getData();
+    // 没有和监测因子一起加载，可能导致失败，移动至获取监测因子之后
+    if (this.data.selectedPollutants.length>0) {
+      this.getData();
+    }
   },
 
   /**

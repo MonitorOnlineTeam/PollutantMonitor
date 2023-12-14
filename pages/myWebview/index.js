@@ -15,7 +15,6 @@ Page({
   onLoad(options) {
     const Ticket = wx.getStorageSync('Ticket')
     let imageurl = options.imageurl+'?Ticket='+Ticket;
-    console.log('imageurl = ',imageurl)
     this.setData({
       imageurl
     });
@@ -34,7 +33,7 @@ Page({
   onShow() {
     const launchType = wx.getStorageSync('launchType')
     this.setData({
-      isDemo: launchType == 'demo',
+      isDemo: launchType == 'demo'||launchType == 'singlePoint_demo',
     })
   },
 

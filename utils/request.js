@@ -4,6 +4,7 @@
 import {
   API
 } from './api'
+const app = getApp();
 
 
 const request = (urlName, method, data, options) => {
@@ -13,6 +14,9 @@ const request = (urlName, method, data, options) => {
       mask: true
     })
   }
+  // console.log('request = ',wx.getStorageSync('authorCode'));
+  // console.log('request2 = ',getApp());
+  
   return new Promise((resolve, reject) => {
     const Ticket = wx.getStorageSync('Ticket')
     let Authorization =  `Bearer ${wx.getStorageSync('encryData')}`;
