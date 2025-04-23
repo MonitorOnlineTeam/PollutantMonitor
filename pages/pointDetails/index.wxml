@@ -1,97 +1,202 @@
-<l-tabs active-color="#2d8cf0" bind:linchange="onPageTypeChangeTabs">
-  <l-tabpanel tab="实时数据" key="realTime" slot="realTime">
-    <view class="tab-content">
-      <view class='top'>
-        <view class='top-content'>
-          <view class='top-content-left'>
-            <view class='content-top'>
-              <image src='/images/states.png' mode='aspectFit'></image>
-              <text class='txtClass'>排口状态</text>
+<l-tabs style="display: flex; height:{{windowHeight}}px ; flex-direction: column;" active-color="#2d8cf0" bind:linchange="onPageTypeChangeTabs">
+  <block wx:if="{{hasRealtimedata}}">
+    <l-tabpanel tab="实时数据" key="realTime" slot="realTime">
+      <view class="tab-content">
+        <view class='top'>
+          <view class='top-content'>
+            <view class='top-content-left'>
+              <view class='content-top'>
+                <image src='/images/states.png' mode='aspectFit'></image>
+                <text class='txtClass'>排口状态</text>
+              </view>
+              <view class='content-bottom OffLine' wx:if="{{pointInfo.status==0}}">{{pointInfo.statusName||'-'}}</view>
+              <view class='content-bottom OnLine' wx:elif="{{pointInfo.status==1}}">{{pointInfo.statusName||'-'}}</view>
+              <view class='content-bottom Over' wx:elif="{{pointInfo.status==2}}">{{pointInfo.statusName||'-'}}</view>
+              <view class='content-bottom Exception' wx:else>{{pointInfo.statusName||'-'}}</view>
             </view>
-            <view class='content-bottom OffLine' wx:if="{{pointInfo.status==0}}">{{pointInfo.statusName||'-'}}</view>
-            <view class='content-bottom OnLine' wx:elif="{{pointInfo.status==1}}">{{pointInfo.statusName||'-'}}</view>
-            <view class='content-bottom Over' wx:elif="{{pointInfo.status==2}}">{{pointInfo.statusName||'-'}}</view>
-            <view class='content-bottom Exception' wx:else>{{pointInfo.statusName||'-'}}</view>
-          </view>
-          <view class='top-content-right'>
-            <view class='content-top'>
-              <image src='/images/datetimes.png' mode='aspectFit'></image>
-              <text class='txtClass'>监测时间</text>
-            </view>
-            <view class='content-bottom'>
-              {{pointInfo.mointorTime||'-'}}
+            <view class='top-content-right'>
+              <view class='content-top'>
+                <image src='/images/datetimes.png' mode='aspectFit'></image>
+                <text class='txtClass'>监测时间</text>
+              </view>
+              <view class='content-bottom'>
+                {{pointInfo.mointorTime||'-'}}
+              </view>
             </view>
           </view>
         </view>
-      </view>
 
-      <view class="table">
-        <view class="tr bg-w">
-          <view class="th">污染物</view>
-          <view class="th">监测值</view>
-          <view class="th ">单位</view>
-          <view class="th">状态</view>
-        </view>
-        <view wx:if="{{dataitem.length==0}}" class='tr' style='color:#ccc'>
-          暂无数据
-        </view>
-        <block wx:for="{{dataitem}}" wx:key="{{pollutantCode}}">
-          <view class="tr {{item.pollutantName==selectedRow? 'tab-text-color active': 'tab-text-color'}} " bindtap="showModal" data-obj="{{item}}" data-target="ChooseModal">
-            <view class="td {{item.identificationCode == '1'?'Over': item.identificationCode=='-1'?'Exception':''}}">{{item.pollutantName||'-'}}</view>
-            <view class="td {{item.identificationCode == '1'?'Over': item.identificationCode=='-1'?'Exception':''}}">{{item.value}}</view>
-            <view class="td {{item.identificationCode == '1'?'Over': item.identificationCode=='-1'?'Exception':''}}">{{item.pollutantName=='流量'?'m³/s':(item.unit||'-')}}</view>
-            <view class="td Over" wx:if="{{item.identificationCode == '1'}}">超标</view>
-            <view class="td Exception" wx:elif="{{item.identificationCode == '-1'}}">
-              异常
-            </view>
-            <view class="td" wx:elif="{{item.identificationCode=='-'}}">暂未上传</view>
-            <view class="td" wx:else>正常</view>
+        <view class="table">
+          <view class="tr bg-w">
+            <view class="th">污染物</view>
+            <view class="th">监测值</view>
+            <view class="th ">单位</view>
+            <view class="th">状态</view>
           </view>
-        </block>
+          <view wx:if="{{dataitem.length==0}}" class='tr' style='color:#ccc'>
+            暂无数据
+          </view>
+          <block wx:for="{{dataitem}}" wx:key="{{pollutantCode}}">
+            <view class="tr {{item.pollutantName==selectedRow? 'tab-text-color active': 'tab-text-color'}} " bindtap="showModal" data-obj="{{item}}" data-target="ChooseModal">
+              <view class="td {{item.identificationCode == '1'?'Over': item.identificationCode=='-1'?'Exception':''}}">{{item.pollutantName||'-'}}</view>
+              <view class="td {{item.identificationCode == '1'?'Over': item.identificationCode=='-1'?'Exception':''}}">{{item.value}}</view>
+              <view class="td {{item.identificationCode == '1'?'Over': item.identificationCode=='-1'?'Exception':''}}">{{item.pollutantName=='流量'?'m³/s':(item.unit||'-')}}</view>
+              <view class="td Over" wx:if="{{item.identificationCode == '1'}}">超标</view>
+              <view class="td Exception" wx:elif="{{item.identificationCode == '-1'}}">
+                异常
+              </view>
+              <view class="td" wx:elif="{{item.identificationCode=='-'}}">暂未上传</view>
+              <view class="td" wx:else>正常</view>
+            </view>
+          </block>
+        </view>
       </view>
-    </view>
-  </l-tabpanel>
-  <l-tabpanel tab="历史数据" key="historyData" slot="historyData">
-    <view class="tab-content">
-      <!-- <l-calendar show="{{ true }}" format="yyyy-MM-dd HH:mm:dd" /> -->
-      <l-tabs active-key="{{dataType}}" active-color="#2d8cf0" bind:linchange="changeTabs">
-        <l-tabpanel wx:for="{{_tabs}}" wx:for-item="tab" tab="{{tab}}" key="{{index}}" slot="{{index}}">
-          <view class="tab-content">
-            <view class="handle-content">
-              <view style="display: flex;flex-direction: row;justify-content: center;align-items: center;">
-                <text bind:tap="onChangePollutant">选择污染物</text>
-                <image src="/images/down_grey.png" style="width: 30rpx;height: 30rpx;"/>
-              </view>
-              <view style="display: flex;flex-direction: row;justify-content: center;align-items: center;">
-                <text bind:tap="onChangeDate">当前选择：{{selectedDate}}</text>
-                <image src="/images/down_grey.png" style="width: 30rpx;height: 30rpx;"/>
-              </view>
-            </view>
-            <block wx:if="{{chartDatas.length}}">
-              <view class="chart-content">
-                <f2 type="2d" wx:if="{{chartShow}}" class="f2-chart" onInit="{{initChart}}" />
-              </view>
-              <i-row i-class="tips-content">
-                <i-col wx:for="{{tipsData}}" span="8" i-class="col-class">
-                  <view class="tips-item">
-                    <view>{{item.PollutantName}}</view>
-                    <view class="tips-value">{{item.Value}}{{item.Unit}}</view>
+    </l-tabpanel>
+  </block>
+  <block style="flex: 1;display: flex;" wx:if="{{hasHistorydata}}">
+    <l-tabpanel style="display: flex;flex: 1;height: {{windowHeight - oneRpx*80}}px;" tab="历史数据" key="historyData" slot="historyData">
+      <view style="height: {{windowHeight - oneRpx*80}}px;" class="tab-content">
+        <!-- <l-calendar show="{{ true }}" format="yyyy-MM-dd HH:mm:dd" /> -->
+        <l-tabs active-key="{{dataType}}" active-color="#2d8cf0" bind:linchange="changeTabs">
+          <l-tabpanel  wx:for="{{_tabs}}" wx:for-item="tab" tab="{{tab}}" key="{{index}}" slot="{{index}}">
+            <view style="height: {{windowHeight - oneRpx*160}}px; display: flex;flex-direction: column;" class="tab-content">
+              <view class="handle-content">
+                <!-- <view style="display: flex;flex-direction: row;justify-content: center;align-items: center;">
+                  <text bind:tap="onChangePollutant">选择污染物</text>
+                  <image src="/images/down_grey.png" style="width: 30rpx;height: 30rpx;"/>
+                </view> -->
+                <view style="display: flex;flex-direction: row;justify-content: center;align-items: center;">
+                  <text bind:tap="onChangeDate">当前选择：{{selectedDate}}</text>
+                  <image src="/images/down_grey.png" style="width: 30rpx;height: 30rpx;"/>
+                </view>
+                <view style="display: flex;">
+                  <view style="display: flex; height: 40px;width: 40px;justify-content: center; align-items: center;border-radius: 8px;"
+                  bind:tap="changeShowMode">
+                    <block wx:if="{{showMode == 'chart'}}">
+                      <image style="height: 40px;width: 40px;" mode="aspectFit" src="/images/ic_map_list.png"/>
+                    </block>
+                    <block wx:else>
+                      <image style="height: 40px;width: 40px;" mode="aspectFit" src="/images/ic_chart_change.png"/>
+                    </block>
                   </view>
-                </i-col> 
-              </i-row>
-            </block>
-            <block wx:else>
-              <view class="empty">
-                <image src="/images/empty.png"></image>
-                <text>暂无数据</text>
+                  <view style="height: 40px;width: 40px;justify-content: center; align-items: center;"
+                  bind:tap="gotoLand">
+                    <image style="height: 40px;width: 40px;" mode="aspectFit" src="/images/ic_full_screen.png"/>
+                  </view>
+                </view>
+                
               </view>
-            </block>
-          </view>
-        </l-tabpanel>
-      </l-tabs>
-    </view>
-  </l-tabpanel>
-  <!-- <block wx:if="{{isDemo}}"> -->
+              <block wx:if="{{chartDatas.length&&showMode == 'chart'}}">
+                <view class="chart-content">
+                  <f2 type="2d" wx:if="{{chartShow}}" class="f2-chart" onInit="{{initChart}}" />
+                </view>
+
+                <scroll-view style="flex:1;" scroll-y>
+                  <i-row i-class="tips-content">
+                    <i-col wx:for="{{tipsData}}" span="8" i-class="col-class">
+                      <view bind:tap="clickItem" data-item="{{item}}"  class="tips-item">
+                        <view
+                          style="position: relative;"
+                        >
+                          <text overflow="ellipsis" style="width: {{200*oneRpx}}px;word-break: break-all;display: -webkit-box;overflow: hidden;white-space:nowrap;   text-overflow: ellipsis; ">{{item.PollutantName}}</text>
+                          <view style="position: absolute;top: -6px;right: -8px;">
+                            <block wx:if="{{item.Status == -1}}">
+                              <view style="display: flex;width: 32px;height: 20px;justify-content: center;align-items: center;background-color: {{item.bgColor}};border-radius: 10px 13px 10px 0px;">
+                                <text style="font-size:10px;color:white;">异常</text>
+                              </view>
+                            </block>
+                            <block wx:if="{{item.Status == 1}}">
+                              <view style="display: flex;width: 32px;height: 20px;justify-content: center;align-items: center;background-color: {{item.bgColor}};border-radius: 10px 13px 10px 0px;">
+                                <text style="font-size:10px;color:white;">超标</text>
+                              </view>
+                            </block>
+                            <block wx:if="{{item.Status != 1&&item.Status != -1}}">
+                              <view style="display: flex;width: 32px;height: 20px;justify-content: center;align-items: center;border-radius: 10px 13px 10px 0px;">
+                                <text style="font-size:10px;color:white;"> </text>
+                              </view>
+                            </block>
+                          </view>
+                          
+                        </view>
+                        <view class="tips-value">{{item.chartMonitorTime}}</view>
+                        <view class="tips-value">{{item.showValue}}{{item.Unit}}</view>
+                      </view>
+                    </i-col> 
+                  </i-row>
+                </scroll-view>
+                
+              </block>
+              
+              <block style="display:flex;flex: 1;" wx:elif="{{chartDatas.length&&showMode == 'list'}}" >
+                <scroll-view
+                  style="width: 100%;flex:1;background-color: white;display: flex;"
+                  scroll-x
+                >
+                  <view style="display: flex;flex-direction: row;flex-wrap: nowrap;min-width: 750rpx;">
+                    <view wx:for="{{listLabels}}" style="display: flex;flex-direction: row;height: 64px;width: 1000px;justify-content: center;align-items: center;" wx:for-item="labelItem">
+                      <view wx:if="{{labelItem.PollutantCode=='MonitorTime'}}">
+                        <view style="display: flex;flex-direction: column;height: 64px;width: 110px;justify-content: center;align-items: center;border-top: 1px solid #f0f0f0;border-bottom: 1px solid #f0f0f0;">
+                          <view style="color: #333333;">{{labelItem.PollutantName}}</view>
+                          <block wx:if="{{labelItem.Unit!=''}}">
+                            <view style="color: #333333;">{{labelItem.Unit}}</view>
+                          </block>
+                        </view>
+                      </view>
+                      <view wx:else>
+                        <view style="display: flex;flex-direction: column;height: 64px;width: 85px;justify-content: center;align-items: center;border-top: 1px solid #f0f0f0;border-bottom: 1px solid #f0f0f0;">
+                          <view style="color: #333333;">{{labelItem.PollutantName}}</view>
+                          <block wx:if="{{labelItem.Unit!=''}}">
+                            <view style="color: #333333;">{{labelItem.Unit}}</view>
+                          </block>
+                        </view>
+                      </view>
+                    </view>
+                  </view>
+                  <scroll-view
+                    style="width: {{110+((listLabels.length-1)*85)}}px;flex: 1; height: {{windowHeight - oneRpx*160-104-5}}px;"
+                    scroll-y
+                  >
+                    <view wx:for="{{listData}}" wx:for-item="listItem"
+                      
+                    >
+                      <view bind:tap="testOneRow" data-item="{{listItem}}" style="width: {{listLabels.length*180}}px;display: flex;height: 40px;">
+                        <view wx:for="{{listLabels}}" wx:for-item="pItem">
+                          
+                          <block wx:if="{{pItem.PollutantCode == 'MonitorTime'}}">
+                            <view style="width: 110px;height: 40px;display: flex;justify-content: center;align-items: center;border-bottom: 0.5px solid #f0f0f0;">
+                                <view style="color: #868686;">{{listItem['listMonitorTime']}}</view>
+                                <!-- <view style="color: #868686;">{{listItem[pItem.PollutantCode]}}</view> -->
+                            </view>
+                          </block>
+                          
+                          <block wx:else>
+                            <view style="width: 85px;height: 40px;display: flex;justify-content: center;align-items: center;border-bottom: 0.5px solid #f0f0f0;">
+                                <view style="background-color: {{(listItem[pItem.PollutantCode+'_status'] == 1||listItem[pItem.PollutantCode+'_status'] == -1)?listItem[pItem.PollutantCode+'_bgColor']:'white'}};border-radius: 10px; padding-left: 8px;padding-right: 8px;padding-top: 2px;padding-bottom: 2px;">
+                                  <view style="color:{{ (listItem[pItem.PollutantCode+'_status'] == 1||listItem[pItem.PollutantCode+'_status'] == -1)?'white':'#666'}};">{{listItem[pItem.PollutantCode+"_flag"]}}</view>
+                                  <!-- <view style="color: #666;">{{listItem[pItem.PollutantCode+"_bgColor"]}}</view> -->
+                                </view>
+                            </view>
+                          </block>
+
+                        </view>
+                      </view>
+                    </view>
+                  </scroll-view>
+                </scroll-view> 
+              </block>
+              <block wx:else>
+                <view class="empty">
+                  <image src="/images/empty.png"></image>
+                  <text>暂无数据</text>
+                </view>
+              </block>
+            </view>
+          </l-tabpanel>
+        </l-tabs>
+      </view>
+    </l-tabpanel>
+  </block>
+  <block wx:if="{{hasOoperationorder}}">
     <l-tabpanel tab="运维台账" key="operationLog" slot="operationLog">
       <view class="tab-content" >
         <view class="handle-content">
@@ -123,9 +228,9 @@
                   <view style="width:625rpx;height: 160rpx;display: flex;flex-direction: column;">
                     <view style="display: flex;flex-direction: row;align-items: center;">
                       <text style="font-size: 28rpx;color: #333333;margin-top: 30rpx;margin-bottom: 30rpx;margin-right: 7rpx;line-height: 28rpx;">{{item.CreateUser?item.CreateUser+'进行记录':''}}</text>
-                      <view style="min-width: {{item.Abbreviation.length*22+64}}rpx;height: 30rpx;line-height: 30rpx;font-size: 22rpx;text-align: center;color: white;">
-                        <image src="/images/bg_hours_failure.png" style="width: {{item.Abbreviation.length*22+64}}rpx;height: 30rpx;"></image>
-                        <view style="width: {{item.Abbreviation.length*22+64}}rpx;height: 30rpx;line-height: 30rpx;font-size: 22rpx;text-align: center;color: white; margin-top: -36rpx;">{{item.Abbreviation}}</view>
+                      <view style="display: flex;min-width: {{item.Abbreviation.length*22+64}}rpx;height: 30rpx;line-height: 30rpx;font-size: 22rpx;text-align: center;color: white;">
+                        <image src="/images/bg_hours_failure.png" style=" width: {{item.Abbreviation.length*22+64}}rpx;height: 30rpx;"></image>
+                        <view style="width: {{item.Abbreviation.length*22+64}}rpx;height: 30rpx;line-height: 30rpx;font-size: 22rpx;text-align: center;color: white; margin-top: -0rpx;margin-left: -{{item.Abbreviation.length*22+64}}rpx;z-index: 900;">{{item.Abbreviation}}</view>
                       </view>
                       
                     </view>
@@ -148,8 +253,8 @@
         </block>
       </view>
     </l-tabpanel>
-  <!-- </block> -->
-  <!-- <block wx:if="{{isDemo}}"> -->
+  </block>
+  <block wx:if="{{hasEquipmentinfo}}">
     <l-tabpanel tab="设备信息" key="equipmentInfo" slot="equipmentInfo">
       <view class="tab-content" >
       <scroll-view scroll-y="true" style="height: {{screenHeight-80}}rpx">
@@ -207,5 +312,5 @@
       </scroll-view>
       </view>
     </l-tabpanel>
-  <!-- </block> -->
+  </block>
 </l-tabs>

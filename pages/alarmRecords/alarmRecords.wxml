@@ -1,0 +1,52 @@
+<!--pages/alarmRecords/alarmRecords.wxml-->
+<!-- <text>pages/alarmRecords/alarmRecords.wxml</text> -->
+<view
+  style="width: 100%;height: {{pageHeight-50}}px;display: flex;flex-direction: column;"
+>
+  <view
+    style="width: 100%;margin-bottom: 10px;display: flex;background-color: white;flex-direction: column;"
+  >
+    <view
+      style="margin-left: 13px;margin-top: 15px;margin-right: 15px;width: {{pageWidth-28}}px;align-items: center;display: flex;flex-direction: row;"
+    >
+      <text style="width:100%;flex: 1;font-size: 14px;color: #333;">{{alarmRecordsPointInfo.Abbreviation}}</text>
+      <!-- <image style=""/> -->
+      <image style="width: 24px;height: 24px;margin-left: 13px;margin-right: 13px;" src="{{alarmRecordsPointInfo.src}}"/>
+    </view>
+    <view
+      style=" width: {{pageWidth-28}}px;margin-left: 13px;margin-top: 5px;margin-bottom: 15px;align-items: center;display: flex;"
+    >
+      <image style=" width: 16px;height: 16px;" src="/images/icon_location_stop.png"/>
+      <text style=" font-size:13px;color:#666;margin-left:2px;">{{alarmRecordsPointInfo.PointName}}</text>
+    </view>
+  </view>
+  <scroll-view
+    style=" flex: 1;width: 100%;"
+  >
+    <block wx:for="{{listData}}" wx:for-item="itemO">
+      <view
+        bind:tap="gotoDataDetail"
+        data-item="{{itemO}}"
+        style=" width:{{pageWidth}}px; min-height: 184px; display: flex; flex-direction: column;padding-left: 20px;background-color: white;margin-bottom: 4px;"
+      >
+        <view
+          style=" width: {{pageWidth-20}}px;height: 42px;display: flex;align-items: center;"
+        >
+          <text style="font-size: 14px;color: #666;">{{itemO.FirstTime}}</text>
+          <block wx:for="{{itemO.alarmTagList}}" wx:for-item="itemTag">
+            <view style="display: flex; margin-left: 5px;background-color: #ff5b5a22;align-items: center;justify-content: center;height: 16px;padding-left: 6px;padding-right: 6px;">
+              <text style="font-size: 13px;color: #ff5b5a;">{{itemTag}}</text>
+            </view>
+          </block>
+        </view>
+        <view style="width: {{pageWidth-40}}px;height: 1px;background-color: #E7E7E7;"></view>
+        <text style="font-size: 14px;color: #666;width: {{pageWidth-40}}px;margin-top: 10px;" max-lines="5">{{itemO.AlarmMsg}}</text>
+        <view style="margin-top: 8px;margin-bottom: 8px;display: flex;flex-direction: row;align-items: center;">
+          <image style="width: 12px;height: 12px;margin-right: 4px;" src="/images/ic_time.png"/>
+          <text style="font-size:12px;color:#AAAAAA;">{{"报警生成时间："+itemO.CreateTime}}</text>
+        </view>
+        <text style="color:#4aa0ff;font-size:14px;">{{'查看报警数据'}}</text>
+      </view>
+    </block>
+  </scroll-view>
+</view>

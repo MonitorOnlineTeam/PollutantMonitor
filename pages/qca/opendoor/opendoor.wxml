@@ -1,0 +1,64 @@
+<form>
+
+<view class="bg-white padding  margin-top-xs">
+  <view class="cu-steps steps-arrow">
+    <view class="cu-item {{index>basics?'':'text-blue'}}" wx:for="{{basicsList}}" wx:key>
+      <text class="cuIcon-{{item.icon}}"></text> {{item.name}}
+    </view>
+  </view>
+</view>
+  <view class="cu-form-group margin-top">
+    <view class="action">
+      <text class="cuIcon-titles text-blue"></text> {{UserName}}，您好
+    </view>
+  </view>
+
+  
+  <view class="cu-form-group margin-top">
+    <view class="title">企业名称</view>
+    <input placeholder="{{EntName}}" disabled="true"></input>
+  </view>
+  <view class="cu-form-group">
+    <view class="title">排口名称</view>
+    <input placeholder="{{PointName}}" disabled="true"></input>
+  </view>
+
+  <view class="cu-form-group margin-top">
+    <view class="title">联网状态</view>
+    <input placeholder="{{onlineLst[OnlineStatus]}}" disabled="true"></input>
+  </view>
+  <view class="cu-form-group">
+    <view class="title">质控仪</view>
+    <input placeholder="{{qcLst[QCAStatus]}}" disabled="true"></input>
+  </view>
+
+
+
+<view class='add_btn'>
+     <button class="cu-btn block bg-blue margin-tb-sm lg" type="button" bindtap='openlock' style="width: 90%;margin-left: 5%;margin-right: 5%;">开 锁</button>
+  <view class="remark">
+    <span>开门后将全程录像</span>
+  </view>
+</view>
+
+</form>
+
+
+<view class="cu-modal {{isOpening?'show':''}} " bindtap="hideChangeModal">
+<!-- <view class="cu-modal show" bindtap="hideChangeModal"> -->
+  <view class="cu-dialog" catchtap style="z-index:9999">
+    <view class="cu-bar bg-white justify-end">
+      <view class="content" style="">{{QCAName}}</view>
+      <!-- <view class="action" bindtap="hideModal">
+        <text class="cuIcon-close text-red" bindtap="hideChangeModal"></text>
+      </view> -->
+    </view>
+    <view class="opendoorgif" style="height:600rpx;">
+      <image src="https://api.chsdl.net/NewWryWebProxy/images/qca/opendoor.gif" style="width:300rpx;height:100%"></image>
+    </view>
+
+    <view class="btnfooter">
+      <button class="block bg-blue margin-tb-sm shadow">请在8秒内拉开门锁！</button>
+    </view>
+  </view>
+</view>

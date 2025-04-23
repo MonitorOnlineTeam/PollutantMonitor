@@ -8,24 +8,39 @@
 </view> -->
 <view>
   <image class="graduated-background" src="/images/bg_mine.png"/>
-  <view class="userinfo-avatar">
+  <view wx:if="{{headType == 'head1'}}">
+    <view class="userinfo-avatar1">
       <open-data type="userAvatarUrl"></open-data>
     </view>
-  <view class="info-container">
-    <open-data class="nick-name" type="userNickName"></open-data>
-    <text class="normal-text">{{'最近点位服务到期：'+(personalCenterData.ExpirationDate?personalCenterData.ExpirationDate:'--')}}</text>
-    <text class="normal-text">{{'服务过期点位数量：'+(personalCenterData.ExpirationNum?personalCenterData.ExpirationNum:'0')}}</text>
-    <view class="all-points-button-bg" bindtap="gotoOrderPointList" >
-      <image src="/images/ic_location_blue.png" style="width: 18rpx;height: 26rpx;margin-right: 10rpx;"></image>
-      <text class="all-points-button-text">{{'全部点位 >'}}</text>
+    <view class="user-nick-name">
+      <open-data type="userNickName"></open-data>
     </view>
   </view>
+  <!-- <view wx:if="{{headType == 'head2'}}"> -->
+  <view wx:if="{{headType != 'head1'}}">
+    <view class="userinfo-avatar">
+      <open-data type="userAvatarUrl"></open-data>
+    </view>
+    <view class="info-container">
+      <open-data class="nick-name" type="userNickName"></open-data>
+      <text class="normal-text">{{'最近点位服务到期：'+(personalCenterData.ExpirationDate?personalCenterData.ExpirationDate:'--')}}</text>
+      <text class="normal-text">{{'服务过期点位数量：'+(personalCenterData.ExpirationNum?personalCenterData.ExpirationNum:'0')}}</text>
+      <view class="all-points-button-bg" bindtap="gotoOrderPointList" >
+        <image src="/images/ic_location_blue.png" style="width: 18rpx;height: 26rpx;margin-right: 10rpx;"></image>
+        <text class="all-points-button-text">{{'全部点位 >'}}</text>
+      </view>
+    </view>
+  </view>
+  
   <view class="button-container">
-    <view bindtap="gotoFeedback" class="one-button-bg">
+    <!-- <view bindtap="gotoFeedback" class="one-button-bg">
       <image src="/images/ic_feedback.png" class="button-left-icon"></image>
       <text style="margin-left: 20rpx;">{{'意见反馈'}}</text>
       <view style="flex: 1;"></view>
       <image src="/images/More.png" class="button-right-icon"></image>
+    </view> -->
+    <view class="center">
+      <l-button bind:lintap="banding" bg-color="#0081ff" style="margin-top: 20rpx" width="680">微信公众号绑定</l-button>
     </view>
     <view class="center">
       <l-button bind:lintap="clear" bg-color="#0081ff" style="margin-top: 20rpx" width="680">清除缓存</l-button>

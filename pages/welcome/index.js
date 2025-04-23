@@ -31,11 +31,17 @@ Page({
         "text": "监控"
       },
       {
-        "pagePath": "/pages/alarm/index",
+        "pagePath": "/pages/alarmNew/alarmNew",
         "iconPath": "/images/SJJK.png",
         "selectedIconPath": "/images/SJJK_Select.png",
         "text": "报警"
       },
+      // {
+      //   "pagePath": "/pages/qca/analyzerList/analyzerList",
+      //   "iconPath": "/images/SJJK.png",
+      //   "selectedIconPath": "/images/SJJK_Select.png",
+      //   "text": "质控"
+      // },
       {
         "pagePath": "/pages/my/index",
         "text": "我的",
@@ -43,6 +49,7 @@ Page({
         "selectedIconPath": "/images/WD_Select.png"
       }
     ]
+    console.log('GetSysMenuByUserID tabBarList = ',tabBarList);
     wx.setStorageSync('tabBarList', tabBarList);
     wx.switchTab({
       url: tabBarList[0].pagePath,
@@ -67,7 +74,7 @@ Page({
       }
     }).then(result => {
       // 已注册
-      wx.setStorageSync('OpenId', '123456789');
+      wx.setStorageSync('OpenId', wxcode);
       // wx.setStorageSync('OpenId', result.data.Datas.OpenId);
       wx.setStorageSync('Ticket', result.data.Datas.Ticket);
       wx.setStorageSync('UserCode', result.data.Datas.UserCode);
@@ -79,6 +86,7 @@ Page({
       wx.navigateTo({
         url: '/pages/pointDetails/index?dgimn='+this.data.dgimn,
       })
+      console.log('navigateTo pointDetails dgimn = ',this.data.dgimn);
       this.setData({
         directToPointDetail:false
       });
@@ -103,6 +111,8 @@ Page({
     // 发送 res.code 到后台换取 openId, sessionKey, unionId
     let wxcode = '123456789'
     wx.setStorageSync('wxcode', wxcode)
+    
+
     request.get({
       url: 'SDLSMCIsRegister',
       data: {
@@ -114,11 +124,17 @@ Page({
       }
     }).then(result => {
       // 已注册
-      wx.setStorageSync('OpenId', '123456789');
+      wx.setStorageSync('OpenId', wxcode);
       wx.setStorageSync('Ticket', result.data.Datas.Ticket);
       wx.setStorageSync('UserCode', result.data.Datas.UserCode);
       console.log('welcome isRegister success')
-      this.GetSysMenuByUserID();
+      //演示排口 显示实时数据和历史数据
+      app.globalData.hasRealtimedata = true;
+      app.globalData.hasHistorydata = true;
+      wx.redirectTo({
+        url: '/pages/pointDetails/index?dgimn='+this.data.dgimn,
+      })
+      // this.GetSysMenuByUserID();
     }).catch(err => {
       // 演示账号配置成功后，不应该进入此页面
       // err.data.Message
@@ -129,42 +145,164 @@ Page({
   },
   // 验证是否注册
   isRegister() {
+    console.log('isRegister');
     wx.login({
       success: res => {
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
         let wxcode = res.code
         wx.setStorageSync('wxcode', wxcode)
-        request.get({
-          url: 'SDLSMCIsRegister',
-          data: {
-            wxcode: wxcode,
-            newPhone: ''
-          },
-          options: {
-            hideLoading: true
-          }
-        }).then(result => {
-          // 已注册
-          wx.setStorageSync('OpenId', result.data.Datas.OpenId);
-          wx.setStorageSync('Ticket', result.data.Datas.Ticket);
-          wx.setStorageSync('UserCode', result.data.Datas.UserCode);
-          console.log('welcome isRegister success')
-          this.GetSysMenuByUserID();
-        }).catch(err => {
-          console.log('welcome isRegister err')
-          // 未注册
-          wx.showToast({
-            title: err.data.Message,
+        var testApi = false;
+        if (!testApi) {
+          request.get({
+            url: 'SDLSMCIsRegister',
+            data: {
+              wxcode: wxcode,
+              newPhone: ''
+            },
+            options: {
+              hideLoading: true
+            }
+          }).then(result => {
+            // 已注册
+            wx.setStorageSync('OpenId', result.data.Datas.OpenId);
+            wx.setStorageSync('Ticket', result.data.Datas.Ticket);
+            wx.setStorageSync('Phone', result.data.Datas.Phone);
+            app.globalData.token = 'Bearer ' + result.data.Datas.Ticket;
+            app.globalData.Phone = result.data.Datas.Phone;
+            app.globalData.userName = result.data.Datas.userName;
+            wx.setStorageSync('UserCode', result.data.Datas.UserCode);
+            console.log('welcome isRegister success')
+            this.GetSysMenuByUserID();
+            const MenuDatas = result.data.Datas.MenuDatas;
+            console.log('MenuDatas = ',MenuDatas);
+            let tabBarList = [];
+            
+          
+            MenuDatas.map((item,index)=>{
+              if (item.NavigateUrl == 'monitor') {
+                tabBarList.push({
+                  "pagePath": "/pages/entAndAir/index",
+                  "iconPath": "/images/SSGY.png",
+                  "selectedIconPath": "/images/SSGY_Select.png",
+                  "text": "监控"
+                });
+                const pointMenu = item.children;
+                let hasRealtimedata = false;
+                let hasHistorydata = false;
+                let hasOoperationorder = false;
+                let hasEquipmentinfo = false;
+                pointMenu.map((pointItem,pointMenuIndex)=>{
+                  console.log('pointItem = ',pointItem);
+                  if (pointItem.NavigateUrl == "equipmentinfo") {
+                    hasEquipmentinfo = true;
+                  }
+                  if (pointItem.NavigateUrl == "realtimedata") {
+                    hasRealtimedata = true;
+                  }
+                  if (pointItem.NavigateUrl == "historydata") {
+                    hasHistorydata = true;
+                  }
+                  if (pointItem.NavigateUrl == "operationorder") {
+                    hasOoperationorder = true;
+                  }
+                });
+                app.globalData.hasRealtimedata = hasRealtimedata;
+                app.globalData.hasHistorydata = hasHistorydata;
+                app.globalData.hasOoperationorder = hasOoperationorder;
+                app.globalData.hasEquipmentinfo = hasEquipmentinfo;
+                
+              }
+              if (item.NavigateUrl == 'alarm') {
+                // tabBarList.push({
+                //   "pagePath": "/pages/alarm/index",
+                //   "iconPath": "/images/SJJK.png",
+                //   "selectedIconPath": "/images/SJJK_Select.png",
+                //   "text": "报警"
+                // });
+                tabBarList.push({
+                  "pagePath": "/pages/alarmNew/alarmNew",
+                  "iconPath": "/images/SJJK.png",
+                  "selectedIconPath": "/images/SJJK_Select.png",
+                  // "redDot":10,
+                  "text": "报警"
+                });
+              }
+              if (item.NavigateUrl == 'myinfo') {
+                tabBarList.push({
+                  "pagePath": "/pages/my/index",
+                  "text": "我的",
+                  "iconPath": "/images/WD.png",
+                  "selectedIconPath": "/images/WD_Select.png"
+                });
+                if (item.children&&item.children[0]
+                  &&item.children[0].NavigateUrl) {
+                  const headType = item.children[0].NavigateUrl;
+                  app.globalData.headType = headType;
+                }
+              }
+              /**
+               * {
+                  "pagePath": "/pages/qca/analyzerList/analyzerList",
+                  "iconPath": "/images/SJJK.png",
+                  "selectedIconPath": "/images/SJJK_Select.png",
+                  "text": "质控"
+                },
+              */
+            });
+            if (tabBarList.length == 0) {
+              tabBarList.push({
+                "pagePath": "/pages/my/index",
+                "text": "我的",
+                "iconPath": "/images/WD.png",
+                "selectedIconPath": "/images/WD_Select.png"
+              });
+            }
+            console.log('isRegister tabBarList = ',tabBarList);
+            wx.setStorageSync('tabBarList', tabBarList);
+            wx.switchTab({
+              url: tabBarList[0].pagePath,
+            })
+            // this.getTabBar().setData({
+            //   selectedIndex: 0,
+            //   list: tabBarList
+            // })
+            wx.showToast({
+              title: 'isRegister isRegister success',
+              icon: 'error',
+              // title:'授权码输入错误',
+              duration: 2500,
+            })
+          }).catch(err => {
+            console.log('err = ',err);
+            // wx.showToast({
+            //   title: err.data.Message,
+            // })
+            console.log('welcome isRegister err')
+            console.log('err = ',err);
+            if (err.statusCode == 404) {
+              wx.redirectTo({
+                url: '/pages/authorCode/index',
+              })
+            }else {
+              wx.showToast({
+                title: '1isRegister err to register',
+                icon: 'error',
+                // title:'授权码输入错误',
+                duration: 2500,
+              })
+              // 未注册
+              wx.redirectTo({
+                url: '/pages/register/register',
+              })
+            }
           })
-          wx.redirectTo({
-            url: '/pages/register/register',
-          })
-        })
+        }
       }
     })
   },
 
   init() {
+    console.log('authorCode = ',wx.getStorageSync('authorCode'));
     if (!wx.getStorageSync('authorCode') || !wx.getStorageSync('Ticket') || !wx.getStorageSync('OpenId')) {
       wx.redirectTo({
         url: '/pages/authorCode/index',
@@ -184,11 +322,23 @@ Page({
   onLoad: function (options) {
     if (options.q) {
       let url = options.q;
+      console.log('url = ',url);
       let alength  = url.length
       if (alength>0) {
         let strs = url.split('%2F')
         let alength = strs.length;
-        if (strs[alength-1] == 'singlePoint') {
+        if (strs[alength-1] == 'openDoor') {
+          getApp().globalData.launchType = 'openDoor'
+          wx.setStorageSync('launchType', 'openDoor');
+          const dgimn = strs[alength-2];
+          this.setData({
+            directToPointDetail:false,
+            launchType:'openDoor',
+            dgimn
+          })
+          wx.setStorageSync('dgimn', dgimn);
+          
+        } else if (strs[alength-1] == 'singlePoint') {
           // 保存项目类型
           getApp().globalData.launchType = 'singlePoint'
           wx.setStorageSync('launchType', 'singlePoint');
@@ -217,12 +367,21 @@ Page({
           wx.setStorageSync('pollutanttype', pollutanttype);
           app.globalData.pointInfo.dgimn = dgimn
         } else if (strs[alength-1] == 'demo') {
-          // 保存项目类型
-          wx.setStorageSync('launchType', 'demo');
           getApp().globalData.launchType = 'demo'
+          wx.setStorageSync('launchType', 'demo');
+          const dgimn = strs[alength-3];
+          const pollutanttype = strs[alength-2];
+          const pointName = strs[alength-4];
           this.setData({
+            directToPointDetail:true,
             launchType:'demo',
+            dgimn,pollutanttype
           })
+          // 保存项目类型
+          wx.setStorageSync('dgimn', dgimn);
+          wx.setStorageSync('pollutanttype', pollutanttype);
+          app.globalData.pointInfo.dgimn = dgimn
+          
         } else {
           // 其他功能在onShow 中执行
           wx.setStorageSync('launchType', 'normal');
@@ -266,9 +425,22 @@ Page({
   onShow: function () {
     console.log('welcome onShow');
     this.checkUpdate()
-    if (this.data.launchType == 'singlePoint'&& this.data.directToPointDetail) {
+    console.log('welcome onShow launchType = ',this.data.launchType);
+    console.log('welcome onShow this.data.directToPointDetail = ',this.data.directToPointDetail);
+    if (this.data.launchType == 'openDoor') {
+      console.log('redirectTo analyzerList');
+      wx.redirectTo({
+        url: '/pages/qca/analyzerList/analyzerList',
+      })
+      // wx.redirectTo({
+      //   url: '/pages/authorCode/index',
+      // })
+      
+    } else if (this.data.launchType == 'singlePoint'&& this.data.directToPointDetail) {
+      console.log('singlePoint login');
       wx.login({
         success: res => {
+          console.log('singlePoint login success');
           // 发送 res.code 到后台换取 openId, sessionKey, unionId
           let wxcode = res.code
           wx.setStorageSync('wxcode', wxcode)
@@ -282,14 +454,102 @@ Page({
               hideLoading: true
             }
           }).then(result => {
+
+            
+
             // 已注册
             wx.setStorageSync('OpenId', result.data.Datas.OpenId);
             wx.setStorageSync('Ticket', result.data.Datas.Ticket);
+            wx.setStorageSync('Phone', result.data.Datas.Phone);
+            app.globalData.token = 'Bearer ' + result.data.Datas.Ticket;
+            app.globalData.Phone = result.data.Datas.Phone;
+            app.globalData.userName = result.data.Datas.userName;
             wx.setStorageSync('UserCode', result.data.Datas.UserCode);
+            console.log('singlePoint login success GetSysMenuByUserID');
             this.GetSysMenuByUserID();
-            wx.navigateTo({
-              url: '/pages/pointDetails/index?dgimn='+this.data.dgimn,
+            // 此处跳转失败，跳转逻辑移动到 entAndAir onShow 中
+            // wx.navigateTo({
+            //   url: '/pages/pointDetails/index?dgimn='+this.data.dgimn
+            // })
+            const MenuDatas = result.data.Datas.MenuDatas;
+            console.log('MenuDatas = ',MenuDatas);
+            let tabBarList = [];
+            
+          
+            MenuDatas.map((item,index)=>{
+              if (item.NavigateUrl == 'monitor') {
+                tabBarList.push({
+                  "pagePath": "/pages/entAndAir/index",
+                  "iconPath": "/images/SSGY.png",
+                  "selectedIconPath": "/images/SSGY_Select.png",
+                  "text": "监控"
+                });
+                const pointMenu = item.children;
+                let hasRealtimedata = false;
+                let hasHistorydata = false;
+                let hasOoperationorder = false;
+                let hasEquipmentinfo = false;
+                pointMenu.map((pointItem,pointMenuIndex)=>{
+                  console.log('pointItem = ',pointItem);
+                  if (pointItem.NavigateUrl == "equipmentinfo") {
+                    hasEquipmentinfo = true;
+                  }
+                  if (pointItem.NavigateUrl == "realtimedata") {
+                    hasRealtimedata = true;
+                  }
+                  if (pointItem.NavigateUrl == "historydata") {
+                    hasHistorydata = true;
+                  }
+                  if (pointItem.NavigateUrl == "operationorder") {
+                    hasOoperationorder = true;
+                  }
+                });
+                app.globalData.hasRealtimedata = hasRealtimedata;
+                app.globalData.hasHistorydata = hasHistorydata;
+                app.globalData.hasOoperationorder = hasOoperationorder;
+                app.globalData.hasEquipmentinfo = hasEquipmentinfo;
+                
+              }
+              if (item.NavigateUrl == 'alarm') {
+                tabBarList.push({
+                  "pagePath": "/pages/alarmNew/alarmNew",
+                  "iconPath": "/images/SJJK.png",
+                  "selectedIconPath": "/images/SJJK_Select.png",
+                  "text": "报警"
+                });
+              }
+              if (item.NavigateUrl == 'myinfo') {
+                tabBarList.push({
+                  "pagePath": "/pages/my/index",
+                  "text": "我的",
+                  "iconPath": "/images/WD.png",
+                  "selectedIconPath": "/images/WD_Select.png"
+                });
+                if (item.children&&item.children[0]
+                  &&item.children[0].NavigateUrl) {
+                  const headType = item.children[0].NavigateUrl;
+                  app.globalData.headType = headType;
+                }
+              }
+            });
+            if (tabBarList.length == 0) {
+              tabBarList.push({
+                "pagePath": "/pages/my/index",
+                "text": "我的",
+                "iconPath": "/images/WD.png",
+                "selectedIconPath": "/images/WD_Select.png"
+              });
+            }
+            wx.setStorageSync('tabBarList', tabBarList);
+            wx.switchTab({
+              url: tabBarList[0].pagePath,
             })
+            this.getTabBar().setData({
+              selectedIndex: 0,
+              list: tabBarList
+            })
+
+            wx.setStorageSync('dgimn', this.data.dgimn);
             this.setData({
               directToPointDetail:false
             });
@@ -306,6 +566,7 @@ Page({
         }
       })
     } else if (this.data.launchType == 'singlePoint_demo'&& this.data.directToPointDetail) {
+      console.log('before demoValidateAuthorCode');
       this.demoValidateAuthorCode();
     } else if (this.data.launchType == 'demo') {
       this.demoValidateAuthorCode();
@@ -364,40 +625,52 @@ Page({
     console.log('set authorCode');
     wx.setStorageSync('encryData', cryptFirst.encrypt(authorCode));
 
-    request.post({
-      url: 'GetSystemConfigInfo',
-      data: {
-        "AuthCode":authorCode
-      },
-      options: {
-        authorCode: authorCode
-      }
-    }).then(result => {
-      let res = result.data;
-      if (res && res.IsSuccess) {
-        this.setData({
-          message: '授权验证成功，正在跳转…',
-          messageFlag: true
-        });
-        // wx.setStorageSync('authorCode', authorCode)
-        wx.setStorageSync('CenterLatitude', res.Datas.CenterLatitude)
-        wx.setStorageSync('CenterLongitude', res.Datas.CenterLongitude)
-        wx.setStorageSync('ZoomLevel', res.Datas.ZoomLevel)
-        let launchType = getApp().globalData.launchType
-        if (launchType == 'demo') {
-          wx.setStorageSync('launchType', launchType);
-          this.demoRegister();
-        } else if (launchType == 'singlePoint_demo') {
-          this.singlePointDemoRegister();
-        } else {
-          this.isRegister();
-        }
-      } else {
-        this.setData({
-          message: (res && res.Message) || '网络错误'
-        });
-      }
-    })
+    let launchType = getApp().globalData.launchType
+    if (launchType == 'demo') {
+      wx.setStorageSync('launchType', launchType);
+      this.demoRegister();
+    } else if (launchType == 'singlePoint_demo') {
+      console.log('before singlePointDemoRegister');
+      this.singlePointDemoRegister();
+    } else {
+      this.isRegister();
+    }
+
+    // request.post({
+    //   url: 'GetSystemConfigInfo',
+    //   data: {
+    //     "AuthCode":authorCode
+    //   },
+    //   options: {
+    //     authorCode: authorCode
+    //   }
+    // }).then(result => {
+    //   console.log('GetSystemConfigInfo result');
+    //   let res = result.data;
+    //   if (res && res.IsSuccess) {
+    //     this.setData({
+    //       message: '授权验证成功，正在跳转…',
+    //       messageFlag: true
+    //     });
+    //     // wx.setStorageSync('authorCode', authorCode)
+    //     wx.setStorageSync('CenterLatitude', res.Datas.CenterLatitude)
+    //     wx.setStorageSync('CenterLongitude', res.Datas.CenterLongitude)
+    //     wx.setStorageSync('ZoomLevel', res.Datas.ZoomLevel)
+    //     let launchType = getApp().globalData.launchType
+    //     if (launchType == 'demo') {
+    //       wx.setStorageSync('launchType', launchType);
+    //       this.demoRegister();
+    //     } else if (launchType == 'singlePoint_demo') {
+    //       this.singlePointDemoRegister();
+    //     } else {
+    //       this.isRegister();
+    //     }
+    //   } else {
+    //     this.setData({
+    //       message: (res && res.Message) || '网络错误'
+    //     });
+    //   }
+    // })
   },
   checkUpdate: function () {
     // 获取小程序更新机制兼容

@@ -187,6 +187,7 @@ page {
 
 .handle-content {
   height: 80rpx;
+  /* flex:1; */
   color: #666;
   display: flex;
   padding: 0 20rpx;
@@ -195,4 +196,5 @@ page {
   font-size: 24rpx;
   padding-right: 40rpx;
   justify-content: space-between;
+  align-items: center;
 }

@@ -1,0 +1,40 @@
+<!--pages/qca/analyzerList/analyzerList.wxml-->
+<!-- <text>pages/qca/analyzerList/analyzerList.wxml</text> -->
+<view class="bg-white padding  margin-top-xs">
+  <view class="cu-steps steps-arrow">
+    <view class="cu-item {{index>basics?'':'text-blue'}}" wx:for="{{basicsList}}" wx:key>
+      <text class="cuIcon-{{item.icon}}"></text> {{item.name}}
+    </view>
+  </view>
+</view>
+<view class="cu-bar  ">
+
+  <view class="action">
+    <text class="cuIcon-titles text-blue " bindtap="openScan"></text> 请扫描质控仪二维码，确认运维设备
+  </view>
+
+</view>
+<view class="flex padding justify-center bg-white">
+  <image src="https://img.zcool.cn/community/0108be59b11c1da801211d25ea07ad.jpg@2o.jpg" mode="widthFix"></image>
+
+</view>
+
+<view class="cu-bar  ">
+
+  <view class="action">
+    <text class="cuIcon-titles text-blue " bindtap="openScan"></text> 注意
+  </view>
+
+</view>
+    <view class=" text-sm padding-left">
+        <text class="text-gray">确保您的位置处于设备所在站旁\n</text>
+         <text class="text-gray">请确认您拥有该设备的运维权限</text>
+      </view>
+
+
+<view class='add_btn'>
+    <button bindtap="openScan"  class="cu-btn block bg-blue margin-tb-sm lg" type="button" style="width: 90%;margin-left: 5%;margin-right: 5%;">
+    <text class="cuIcon-scan"></text> {{'开始扫描'}}
+
+  </button>
+</view>

@@ -3,6 +3,8 @@ import request from '../../utils/request'
 import {
   getTabBarSelectedIndex
 } from '../../utils/util'
+import moment from 'moment'
+const app = getApp();
 Page({
 
   /**
@@ -11,9 +13,14 @@ Page({
   data: {
     canIUseOpenData: wx.canIUse('open-data.type.userAvatarUrl') && wx.canIUse('open-data.type.userNickName'),
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    personalCenterData:{}
+    personalCenterData:{},
+    headType:app.globalData.headType,
   },
-
+  banding() {
+    wx.navigateTo({
+      url: `/pages/bandingWebView/bandingWebView`,
+    })
+  },
   clear() {
     wx.showModal({
       title: '提示',
@@ -42,6 +49,9 @@ Page({
   onLoad: function (options) {
     // const aa = wx.canIUse('button.open-type.getUserInfo');
     // console.log('aa=', aa);
+    this.setData({
+      headType:app.globalData.headType,
+    });
     wx.getUserInfo({
       success: res => {
         // console.log(res) //获取的用户信息还有很多，都在res中，看打印结果
@@ -72,6 +82,8 @@ Page({
         list: wx.getStorageSync('tabBarList')
       })
     }
+
+    this.getCount();
   },
 
   /**
@@ -131,4 +143,39 @@ Page({
 
     })
   },
+
+  getCount(){
+    const tabBarList = wx.getStorageSync('tabBarList');
+    let newData = [].concat(tabBarList);
+    let newIndex = 0;
+    tabBarList.map((item,index)=>{
+      if (item.pagePath ==  "/pages/my/index") {
+        newIndex = index;
+      }
+    });
+    tabBarList.map((item,index)=>{
+      
+      if (item.pagePath ==  "/pages/alarmNew/alarmNew") {
+        request.post({
+          url: 'GetAlarmCountForEnt',
+          data: {
+            beginTime:moment().subtract(1,'days').format('YYYY-MM-DD 00:00:00'),
+            endTime:moment().format('YYYY-MM-DD HH:mm:ss'),
+          }
+        }).then(result => { 
+
+          newData[index] = {...newData[index]};
+          newData[index].redDot = result.data.Datas.allCount;
+          
+          this.getTabBar().setData({
+            selectedIndex: newIndex,
+            list: newData
+          })
+
+        });
+      }
+    });
+    
+  },
+
 })

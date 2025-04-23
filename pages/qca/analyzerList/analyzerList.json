@@ -1,0 +1,9 @@
+{
+  "usingComponents": {},
+  "navigationBarBackgroundColor": "#cce6ff",
+  "navigationBarTextStyle": "black",
+  "navigationBarTitleText": "质控仪开锁",
+  "backgroundColor": "#fff",
+  "backgroundTextStyle": "light",
+  "onPullDownRefresh": false
+}

@@ -1,0 +1,12 @@
+/* pages/alarmNew/alarmNew.wxss */
+.alarmNewContent{
+  padding-bottom: constant(safe-area-inset-bottom); /*兼容 IOS<11.2*/
+  padding-bottom: env(safe-area-inset-bottom); /*兼容 IOS>11.2*/
+}
+.tabs-index--l-tabpanel-content {
+  flex: 1; display: flex;flex-direction: column;
+  min-height: 80% !important;
+}
+.tabs-index--l-tabs .tabs-index--l-placement-top .tabs-index--l-tabs-horizontal{
+  height: 100px;
+}

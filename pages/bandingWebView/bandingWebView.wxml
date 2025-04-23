@@ -1,0 +1,77 @@
+<!--pages/bandingWebView/bandingWebView.wxml-->
+<!-- <text>pages/bandingWebView/bandingWebView.wxml</text> -->
+<!-- <web-view 
+src="{{url}}"></web-view> -->
+<scroll-view class="root-container">
+  <view 
+   class="base-flex first-row"
+  >
+    <text style="font-size: 28rpx;">绑定状态</text>
+    <text class="banding-status">{{bandingStatus}}</text>
+    <block wx:if="{{bandingStatus == '已绑定'}}">
+      <view class="one-button-bg" style="background-color: #eee;">
+        <text style="margin-left: 20rpx;margin-right: 20rpx;color: #999;">{{'检查绑定'}}</text>
+      </view>
+    </block>
+    <block wx:else>
+      <view hover-class="bover_btn" bindtap="checkBandingStatus" class="one-button-bg">
+        <text style="margin-left: 20rpx;margin-right: 20rpx;">{{'检查绑定'}}</text>
+      </view>
+    </block>
+    
+    <!-- <button class="mini-btn" type="default" size="mini">检查绑定</button> -->
+  </view>
+
+  <view 
+   class="base-flex second-row"
+  >
+    
+    <image src="../../static/bg_out_border.png"
+      style="width: 600rpx;height: 600rpx;"
+     />
+     <image src="../../static/bg_qr_border.png"
+      style="width: 500rpx;height: 500rpx;position: absolute;"
+     />
+     <view style="position:absolute; width:450rpx;height:450rpx;display: flex;justify-content: center;align-items: center;flex-direction: column;">
+     <text style="font-size: 20rpx;margin-bottom: 20rpx;">扫描二维码关注</text>
+     <canvas style="width: 380rpx; height: 380rpx;" canvas-id="myQrcode"></canvas>
+     </view>
+
+     <text style="font-size: 26rpx;">扫描二维码关注</text>
+     <!-- <view hover-class="bover_btn" bindtap="createCode"
+      style="display: flex;flex-direction: row;justify-content: center;align-items: center;"
+      >
+      <image 
+        src="../../static/ic_refresh.png"
+        style="width: 26rpx;height: 26rpx;"
+      />
+      <text style="font-size: 26rpx;color:rgb(102, 102, 102); margin-left: 20rpx;margin-right: 20rpx;">{{'检查绑定'}}</text>
+    </view> -->
+    
+    <!-- <canvas id="qrcode" canvas-id="qrcode" style="width: 200px;height: 200px;border: 1px black solid;" /> -->
+  </view>
+  <view 
+   class="base-flex third-row"
+  >
+  <view class="center">
+      <l-button disabled="{{bandingStatus != '已绑定'}}" plain="{{true}}" bind:lintap="UnbindWechat" bg-color="rgb(248, 248, 248)" style="margin-top: 20rpx" width="680">解除绑定</l-button>
+    </view>
+    <view class="center" style="margin-top: 20rpx;">
+      <l-button disabled="{{bandingStatus != '已绑定'}}" bind:lintap="TestPushWeChatInfo" bg-color="#0081ff" style="margin-top: 20rpx" width="680">测试</l-button>
+    </view>
+    <view style="width: 90%;height: 1rpx;background-color: rgb(216, 216, 216);margin-top: 20rpx;margin-bottom: 20rpx;"></view>
+    <!-- <rich-text
+      style="width:90%"
+      nodes="{{myRichText}}"
+    ></rich-text> -->
+    <text style="width: 90%;">
+      初次使用
+      1.微信扫码关注公众号。
+      2.点击检查绑定，检查是否成功绑定公众号，完成绑定后，请勿取消关注公众号。
+      3. 绑定后，可通过公众号接收系统发送的数据报警。
+    </text>
+    
+  
+  </view>
+  
+</scroll-view>

@@ -46,7 +46,7 @@ Page({
     request.post({
       url: 'GetPollutantList',
       data: {
-        "DGIMN": wx.getStorageSync('dgimn'),
+        "dgimNs": wx.getStorageSync('dgimn'),
       }
     }).then(result => {
       let res = result.data;
@@ -61,8 +61,8 @@ Page({
 
         thisData.map(function (item, index) {
           pollutantList.push({
-            code: item.pollutantCode,
-            name: item.pollutantName,
+            code: item.PollutantCode,
+            name: item.PollutantName,
             unit: item.unit,
             checked: false,
             color: '',

@@ -34,10 +34,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    wx.showLoading({
-      title: '加载中',
-      mask: true
-    })
+    // wx.showLoading({
+    //   title: '加载中',
+    //   mask: true
+    // })
     wx.login({
       success: res => {
         // 发送 res.code 到后台换取 openId, sessionKey, unionId

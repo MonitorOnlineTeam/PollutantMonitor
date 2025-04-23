@@ -1,0 +1,62 @@
+/* pages/bandingWebView/bandingWebView.wxss */
+
+.base-flex{
+  display: flex;
+}
+
+.root-container {
+  width: 750rpx;
+  height: 100%;
+  display: flex;
+  background-color: white;
+}
+
+.first-row {
+  height: 90rpx;
+  width: 750rpx;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  /* border: black 1px solid; */
+}
+
+.second-row {
+  height: 750rpx;
+  width: 750rpx;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  /* border: black 1px solid; */
+}
+
+.third-row{
+  height: 750rpx;
+  width: 750rpx;
+  align-items: center;
+  flex-direction: column;
+  /* border: black 1px solid; */
+}
+
+.banding-status{
+  margin-left: 8rpx; 
+  border: 0.5px solid rgb(216, 216, 216); 
+  width: 30%;
+  height: 45rpx;
+  text-align: center;
+}
+
+.one-button-bg {
+  border:1px solid rgba(0,0,0,.2);
+  background-color: #f8f8f8;
+  margin-left: 8rpx;
+  border-radius: 20rpx; 
+  height: 56rpx;
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.bover_btn {
+  background-color: rgba(0, 0, 0, 0.1); opacity: 0.7;
+}

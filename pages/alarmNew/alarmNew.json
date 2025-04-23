@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "custom-tab-bar": "/custom-tab-bar/index",
+    "l-tabs": "/miniprogram_npm/lin-ui/tabs/index",
+    "l-tabpanel": "/miniprogram_npm/lin-ui/tabpanel/index"
+  }
+}

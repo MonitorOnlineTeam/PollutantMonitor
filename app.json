@@ -1,6 +1,13 @@
 {
   "pages": [
     "pages/welcome/index",
+    "pages/qca/analyzerList/analyzerList",
+    "pages/qca/scan/scan",
+    "pages/qca/opendoor/opendoor",
+    "pages/qca/changeGas/changeGas",
+    "pages/qca/validatePhone/validatePhone",
+    "pages/qca/authorCode/authorCode",
+    "pages/qca/faceValidate/index",
     "pages/entAndAir/index",
     "pages/logs/logs",
     "pages/pointList/pointList",
@@ -12,8 +19,6 @@
     "pages/feedback/index",
     "pages/selectPollutant/selectPollutant",
     "pages/date-picker/index",
-    "pages/alarm/index",
-    "pages/ranking/index",
     "pages/authorCode/index",
     "pages/transit/index",
     "pages/register/register",
@@ -27,12 +32,17 @@
     "pages/workbench/qualityControlForm/qualityControlForm",
     "pages/workbench/qualityControlForm/pollutantsList",
     "pages/workbench/operationsForm/operationsForm",
-    "pages/test/test",
     "pages/myWebview/index",
     "pages/alarmDetail/alarmDetail",
     "pages/imageForm/imageForm",
     "pages/OrderPointList/OrderPointList",
-    "pages/pointRecords/pointRecords"
+    "pages/pointRecords/pointRecords",
+    "pages/bandingWebView/bandingWebView",
+    "pages/historyData/historyData",
+    "pages/alarmNew/alarmNew",
+    "pages/alarmRecords/alarmRecords",
+    "pages/historyDataPortrait/historyDataPortrait",
+    "pages/date-picker-landscape/datePickerLandscape"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -55,7 +65,7 @@
         "text": "监控"
       },
       {
-        "pagePath": "pages/alarm/index",
+        "pagePath": "pages/alarmNew/alarmNew",
         "iconPath": "/images/SJJK.png",
         "selectedIconPath": "/images/SJJK_Select.png",
         "text": "报警"

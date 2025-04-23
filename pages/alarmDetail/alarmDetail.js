@@ -145,7 +145,7 @@ Page({
       data: {
         // "DGIMN": wx.getStorageSync('dgimn'),
         // "DGIMN": "40142001012307",
-        "DGIMN": this.data.DGIMN,
+        "dgimNs": this.data.DGIMN,
       }
     }).then(result => {      
       let selectedPollutants = [];
@@ -339,8 +339,8 @@ Page({
         "pollutantCodes": pollutantCodes,
         // "dataType": app.globalData.dataType,
         "dataType": _dataType,
-        "pageIndex": 1,
-        "pageSize": 100,
+        // "pageIndex": 1,
+        // "pageSize": 100,
         "isAsc": true,
         "beginTime": beginTime,
         "endTime": endTime

@@ -82,25 +82,44 @@ Page({
   },
   // 获取系统菜单
   GetSysMenuByUserID() {
+    // let tabBarList = [{
+    //     "pagePath": "/pages/entAndAir/index",
+    //     "iconPath": "/images/SSGY.png",
+    //     "selectedIconPath": "/images/SSGY_Select.png",
+    //     "text": "监控"
+    //   },
+    //   {
+    //     "pagePath": "/pages/alarm/index",
+    //     "iconPath": "/images/SJJK.png",
+    //     "selectedIconPath": "/images/SJJK_Select.png",
+    //     "text": "报警"
+    //   },
+    //   {
+    //     "pagePath": "/pages/my/index",
+    //     "text": "我的",
+    //     "iconPath": "/images/WD.png",
+    //     "selectedIconPath": "/images/WD_Select.png"
+    //   }
+    // ]
     let tabBarList = [{
-        "pagePath": "/pages/entAndAir/index",
-        "iconPath": "/images/SSGY.png",
-        "selectedIconPath": "/images/SSGY_Select.png",
-        "text": "监控"
-      },
-      {
-        "pagePath": "/pages/alarm/index",
-        "iconPath": "/images/SJJK.png",
-        "selectedIconPath": "/images/SJJK_Select.png",
-        "text": "报警"
-      },
-      {
-        "pagePath": "/pages/my/index",
-        "text": "我的",
-        "iconPath": "/images/WD.png",
-        "selectedIconPath": "/images/WD_Select.png"
-      }
-    ]
+      "pagePath": "/pages/entAndAir/index",
+      "iconPath": "/images/SSGY.png",
+      "selectedIconPath": "/images/SSGY_Select.png",
+      "text": "监控"
+    },
+    {
+      "pagePath": "/pages/alarmNew/alarmNew",
+      "iconPath": "/images/SJJK.png",
+      "selectedIconPath": "/images/SJJK_Select.png",
+      "text": "报警"
+    },
+    {
+      "pagePath": "/pages/my/index",
+      "text": "我的",
+      "iconPath": "/images/WD.png",
+      "selectedIconPath": "/images/WD_Select.png"
+    }
+  ]
     wx.setStorageSync('tabBarList', tabBarList);
     wx.switchTab({
       url: tabBarList[0].pagePath,
@@ -138,7 +157,7 @@ Page({
     }
     wx.login({
       success: res => {
-        // console.log(res);
+        console.log(res);
         request.get({
           url: 'SDLSMCIsRegister',
           data: {
@@ -149,9 +168,106 @@ Page({
           // 已注册
           wx.setStorageSync('OpenId', result.data.Datas.OpenId);
           wx.setStorageSync('Ticket', result.data.Datas.Ticket);
+          wx.setStorageSync('Phone', result.data.Datas.Phone);
+          app.globalData.token = 'Bearer ' + result.data.Datas.Ticket;
+          app.globalData.Phone = result.data.Datas.Phone;
+          app.globalData.userName = result.data.Datas.userName;
           wx.setStorageSync('UserCode', result.data.Datas.UserCode);
+          console.log('welcome isRegister success')
           this.GetSysMenuByUserID();
+          const MenuDatas = result.data.Datas.MenuDatas;
+          console.log('MenuDatas = ',MenuDatas);
+          let tabBarList = [];
+          
+        
+          MenuDatas.map((item,index)=>{
+            if (item.NavigateUrl == 'monitor') {
+              tabBarList.push({
+                "pagePath": "/pages/entAndAir/index",
+                "iconPath": "/images/SSGY.png",
+                "selectedIconPath": "/images/SSGY_Select.png",
+                "text": "监控"
+              });
+              const pointMenu = item.children;
+              let hasRealtimedata = false;
+              let hasHistorydata = false;
+              let hasOoperationorder = false;
+              let hasEquipmentinfo = false;
+              pointMenu.map((pointItem,pointMenuIndex)=>{
+                console.log('pointItem = ',pointItem);
+                if (pointItem.NavigateUrl == "equipmentinfo") {
+                  hasEquipmentinfo = true;
+                }
+                if (pointItem.NavigateUrl == "realtimedata") {
+                  hasRealtimedata = true;
+                }
+                if (pointItem.NavigateUrl == "historydata") {
+                  hasHistorydata = true;
+                }
+                if (pointItem.NavigateUrl == "operationorder") {
+                  hasOoperationorder = true;
+                }
+              });
+              app.globalData.hasRealtimedata = hasRealtimedata;
+              app.globalData.hasHistorydata = hasHistorydata;
+              app.globalData.hasOoperationorder = hasOoperationorder;
+              app.globalData.hasEquipmentinfo = hasEquipmentinfo;
+              
+            }
+            if (item.NavigateUrl == 'alarm') {
+              // tabBarList.push({
+              //   "pagePath": "/pages/alarm/index",
+              //   "iconPath": "/images/SJJK.png",
+              //   "selectedIconPath": "/images/SJJK_Select.png",
+              //   "text": "报警"
+              // });
+              tabBarList.push({
+                "pagePath": "/pages/alarmNew/alarmNew",
+                "iconPath": "/images/SJJK.png",
+                "selectedIconPath": "/images/SJJK_Select.png",
+                "text": "报警"
+              });
+            }
+            if (item.NavigateUrl == 'myinfo') {
+              tabBarList.push({
+                "pagePath": "/pages/my/index",
+                "text": "我的",
+                "iconPath": "/images/WD.png",
+                "selectedIconPath": "/images/WD_Select.png"
+              });
+              if (item.children&&item.children[0]
+                &&item.children[0].NavigateUrl) {
+                const headType = item.children[0].NavigateUrl;
+                app.globalData.headType = headType;
+              }
+            }
+            /**
+             * {
+                "pagePath": "/pages/qca/analyzerList/analyzerList",
+                "iconPath": "/images/SJJK.png",
+                "selectedIconPath": "/images/SJJK_Select.png",
+                "text": "质控"
+              },
+            */
+          });
+          if (tabBarList.length == 0) {
+            tabBarList.push({
+              "pagePath": "/pages/my/index",
+              "text": "我的",
+              "iconPath": "/images/WD.png",
+              "selectedIconPath": "/images/WD_Select.png"
+            });
+          }
+          wx.setStorageSync('tabBarList', tabBarList);
+          wx.switchTab({
+            url: tabBarList[0].pagePath,
+          })
+          this.getTabBar().setData({
+            selectedIndex: 0,
+            list: tabBarList
+          })
         }).catch(err => {
+          console.log('err = ',err);
           // 未注册
           // wx.setStorageSync('OpenId', err.data.Datas.OpenId)
           // wx.setStorageSync('Ticket', err.data.Datas.Ticket)

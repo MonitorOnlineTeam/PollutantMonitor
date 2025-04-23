@@ -1,0 +1,54 @@
+<!--pages/alarmNew/alarmNew.wxml-->
+<view
+  class="page-container"
+  style="height:{{contentHeight}}px;width:100%;display: flex;flex-direction: column;"
+>
+  <l-tabs active-key="{{activeKey}}" active-color="#2d8cf0" 
+  style="flex: 1;height: 100%; display: flex;flex-direction: column;" bind:linchange="changeTabs">
+    <l-tabpanel
+    badge-count="{{secondTag[index]}}"
+      style="flex: 1; display: flex;flex-direction: column;height: 100%;"
+     wx:for="{{_tabs}}" wx:for-item="tab" tab="{{tab}}" key="{{index}}" slot="{{index}}">
+      <view class="tab-content"
+        style="display: flex;flex: 1;height: 100%; flex-direction: column;"
+      >
+      <scroll-view
+        id="myScrollView"
+        style="width:100%;flex: 1;height: 100%; display: flex;flex-direction: column;"
+        scroll-y
+        enhanced="true"
+        refresher-triggered="{{isTriggered}}"
+        refresher-enabled="true"
+        bindscrolltolower="getNextPage"
+        bindrefresherrefresh="refresh"
+      >
+        <block wx:for="{{listData}}" wx:for-item="itemO"
+          wx:key="itemIndex"
+        >
+          <view key="{{itemIndex}}" 
+          bind:tap="gotoAlarmDetailList"
+          data-item="{{itemO}}"
+          style="background-color:white; width:100%;height:130rpx; margin-bottom: 1px; display: flex; align-items: center;">
+            <image style="width: 24px;height: 24px;margin-left: 13px;margin-right: 13px;" src="{{itemO.src}}"/>
+            <view
+              style="display: flex;flex-direction: column;"
+            >
+              <view style="display: flex; align-items: center;">
+                <text style="font-size: 14px;color:#333;">{{itemO.Abbreviation}}</text>
+                <block wx:for="{{itemO.alarmTagList}}" wx:for-item="itemTag">
+                    <view style="display: flex; margin-left: 5px;background-color: #75A5FB22;align-items: center;justify-content: center;height: 16px;padding-left: 6px;padding-right: 6px;">
+                    <text style="font-size: 13px;color: #75A5FB;">{{itemTag}}</text>
+                    </view>
+                </block>
+              </view>
+              <text style="font-size: 13px;color:#666;margin-top: 5px;">{{itemO.PointName}}</text>
+            </view>
+          </view>
+        </block>
+      </scroll-view>
+      </view>
+    </l-tabpanel>
+    <l-tab-bar  selectedIndex="{{0}}" mut-bind:linchange="tabBarChange" bind:lintap="tabBarChange" text-selected-color="#56a6ff" list="{{[]}}" />
+  </l-tabs>
+</view>
+

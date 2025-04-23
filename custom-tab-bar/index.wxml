@@ -1,2 +1,7 @@
 <!--custom-tab-bar/index.wxml-->
-<l-tab-bar  selectedIndex="{{selectedIndex}}" mut-bind:linchange="tabBarChange" bind:lintap="tabBarChange" text-selected-color="#56a6ff" list="{{list}}" />
+<block wx:if="showTabbar">
+  <l-tab-bar id="customTabBar1"  selectedIndex="{{selectedIndex}}" mut-bind:linchange="tabBarChange" bind:lintap="tabBarChange" text-selected-color="#56a6ff" list="{{list}}" />
+</block>
+<block wx:else>
+  <l-tab-bar id="customTabBar2"  selectedIndex="{{selectedIndex}}" mut-bind:linchange="tabBarChange" bind:lintap="tabBarChange" text-selected-color="#56a6ff" list="{{list}}" />
+</block>

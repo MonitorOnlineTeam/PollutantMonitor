@@ -1,0 +1,9 @@
+{
+  "usingComponents": {
+    "l-tabs": "/miniprogram_npm/lin-ui/tabs/index",
+    "l-tabpanel": "/miniprogram_npm/lin-ui/tabpanel/index",
+    "f2": "@antv/wx-f2",
+    "i-row": "../../dist/row/index",
+    "i-col": "../../dist/col/index"
+  }
+}

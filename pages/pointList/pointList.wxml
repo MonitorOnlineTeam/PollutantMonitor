@@ -1,1 +1,17 @@
-<l-list bind:tap="onPointClick" l-class="sdl-list" wx:for="{{pointList}}" wx:key="index" data-PollutantType="{{item.PollutantType}}" data-DGIMN="{{item.DGIMN}}" data-index="{{index}}" title="{{item.title}}" is-link url="/pages/pointDetails/index?dgimn={{item.DGIMN}}&pointName={{item.title}}" />
+<!-- <l-list bind:tap="onPointClick" l-class="sdl-list" wx:for="{{pointList}}" wx:key="index" data-PollutantType="{{item.PollutantType}}" data-DGIMN="{{item.DGIMN}}" data-index="{{index}}" title="{{item.title}}" is-link url="/pages/pointDetails/index?dgimn={{item.DGIMN}}&pointName={{item.title}}" image="{{'/images/ic_gas_point.png'}}" icon-color="#ff0000" /> -->
+<block
+wx:for="{{pointList}}" wx:key="index"
+>
+<l-list 
+data-PollutantType="{{item.PollutantType}}" data-DGIMN="{{item.DGIMN}}" data-index="{{index}}"
+bind:tap="onPointClick"
+url="/pages/pointDetails/index?dgimn={{item.DGIMN}}&pointName={{item.title}}"
+l-class="sdl-list"
+>
+    <view slot="left-section" style="display: flex;flex-direction: row;align-items: center;">
+        <image style="width: 16px;height: 16px;margin-right: 4px;" src="{{item.src}}" tint-color="#ff0000" mode="scaleToFill"/>
+        <text>{{item.title}}</text>
+    </view> 
+    
+</l-list>
+</block>

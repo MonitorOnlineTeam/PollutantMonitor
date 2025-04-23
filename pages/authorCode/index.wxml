@@ -1,5 +1,7 @@
 <!--pages/qca/authorCode/authorCode.wxml-->
-
+<!-- <view class="warp-container" >
+  <input class="weui-input"  bindinput="bindHideKeyboard" placeholder="输入123自动收起键盘" />
+</view> -->
 
 <view class="warp">
   <image src="https://api.chsdl.net/NewWryWebProxy/images/smc/background_blue.png" class='imageClass blue'></image>
@@ -11,7 +13,7 @@
     </view>
 
     <view class="warp-input">
-      <input type='number' maxlength="5" name='input' bindinput='onChangeAuthorCode' value='{{authorCode}}' placeholder="请输入5位数的授权码"></input>
+      <input type='number' maxlength="5" name='input' bindinput="onChangeAuthorCode" value='{{authorCode}}' placeholder="请输入5位数的授权码"></input>
       <view class="warp-validateMessage">
         <text style="color:{{messageFlag?'blue':''}}">{{message}}</text>
       </view>

@@ -1,0 +1,6 @@
+/* pages/qca/scan/scan.wxss */
+
+.contanis {
+  margin-top: 60%;
+  padding: 20rpx;
+}

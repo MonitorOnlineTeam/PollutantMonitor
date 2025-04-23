@@ -1,0 +1,203 @@
+<!--pages/historyData/historyData.wxml-->
+<!-- <text>pages/historyData/historyData.wxml</text> -->
+<!-- <view style="background-color: white;">
+  <l-tabs active-key="{{dataType}}" active-color="#2d8cf0" bind:linchange="changeTabs">
+          <l-tabpanel wx:for="{{_tabs}}" wx:for-item="tab" tab="{{tab}}" key="{{index}}" slot="{{index}}">
+            <view class="tab-content">
+              <view style="border: 1px solid black;" class="handle-content">
+                <view style="display: flex;flex-direction: row;justify-content: center;align-items: center;">
+                  <text bind:tap="onChangeDate">当前选择：{{selectedDate}}</text>
+                  <image src="/images/down_grey.png" style="width: 30rpx;height: 30rpx;"/>
+                </view>
+                <view style="height: 40px;width: 40px;justify-content: center; align-items: center;"
+                bind:tap="gotoPortrait">
+                  <image style="height: 40px;width: 40px;" mode="aspectFit" src="/images/ic_cancel_full_screen.png"/>
+                </view>
+              </view>
+              <text>{{tab}}</text>
+
+              <block wx:if="{{chartDatas.length}}">
+                <view class="chart-content">
+                  <f2 type="2d" wx:if="{{chartShow}}" class="f2-chart" onInit="{{initChart}}" />
+                </view>
+                <i-row i-class="tips-content">
+                  <i-col wx:for="{{tipsData}}" span="8" i-class="col-class">
+                    <view class="tips-item">
+                      <view>{{item.PollutantName}}</view>
+                      <view class="tips-value">{{item.Value}}{{item.Unit}}</view>
+                    </view>
+                  </i-col> 
+                </i-row>
+              </block>
+              <block wx:else>
+                <view class="empty">
+                  <image src="/images/empty.png"></image>
+                  <text>暂无数据</text>
+                </view>
+              </block>
+            </view>
+          </l-tabpanel>
+        </l-tabs>
+</view> -->
+
+<view
+  style="width: 100%;height: {{screenWidth}}px;display: flex;flex-direction: row;"
+>
+  <view style="height: {{screenWidth}}px;width: 50px;background-color: black;" />
+  <view
+      style="flex:1;height: {{screenWidth}}px; display: flex; background-color: white; flex-direction: column;"
+  >
+    <view
+      style="width: 100%;height: 49px;flex-direction: row;display: flex;  border-bottom: 1px solid #999;"
+    >
+      <block
+        style="flex-direction: row;"
+        wx:for="{{_tabs}}"
+        wx:for-item="tab" tab="{{tab.label}}" key="{{index}}"
+      >
+      <view 
+      bind:tap="changeType"
+      data-index="{{index}}"
+      hover-class="bover_btn"  style="display: flex; width: 85px;height: 49px;justify-content: center;align-items: center; ">
+        <text style="font-size: 15rpx;color:{{tab.color}}; ">{{tab.label}}</text>
+      </view>
+      </block>
+      <view style="display: flex;flex-direction: row;justify-content: center;align-items: center;">
+        <text style="font-size: 15rpx;" bind:tap="onChangeDate">当前选择：{{selectedDate}}</text>
+        <image src="/images/down_grey.png" style="width: 20px;height: 20px;"/>
+      </view>
+      <view style="flex: 1;"/>
+      <view style="display: flex;align-items: center;">
+        <!-- <view>{{"windowHeight = "+screenWidth}}</view> -->
+        <view style="display: flex; height: 40px;width: 40px;justify-content: center; align-items: center;border-radius: 8px;"
+        bind:tap="changeShowMode">
+          <block wx:if="{{showMode == 'chart'}}">
+            <image style="height: 40px;width: 40px;" mode="aspectFit" src="/images/ic_map_list.png"/>
+          </block>
+          <block wx:else>
+            <image style="height: 40px;width: 40px;" mode="aspectFit" src="/images/ic_chart_change.png"/>
+          </block>
+        </view>
+        <view 
+        bind:tap="gotoPortrait"
+        style="display:flex; justify-content:center; align-items:center; ">
+          <image style="width: 40px;height: 40px;" src="/images/ic_cancel_full_screen.png"/>
+        </view>
+      </view>
+    </view>
+    <block wx:if="{{showMode == 'chart'}}">
+      <View style="flex-direction: row;display: flex; width:100%;height: {{screenWidth-49}}px;">
+      
+        <view style="display: flex; flex: 1; height: {{screenWidth-49}}px; " class="chart-content">
+          <f2 style="height: {{screenWidth-49}}px;" type="2d" wx:if="{{chartShow}}" class="f2-chart" onInit="{{initChart}}" />
+          <view style="width: 20px;height: {{screenWidth-49}}px;" />
+        </view>
+
+        <scroll-view scroll-y="true" style="width: 130px;height: {{screenWidth-49}}px;">
+          <block wx:for="{{tipsData}}">
+              <view style="height: 85px;padding-top: 8px;border-radius: 8px ;margin-bottom:8px;" class="tips-item">
+                <view style="position: relative;">
+                  <view style="width:110px; font-size: 15px;word-break: break-all;display: -webkit-box;overflow: hidden;white-space:nowrap;text-overflow: ellipsis;">{{item.PollutantName}}</view>
+                  <view style="position: absolute;top: -6px;right: -10px;">
+                    <block wx:if="{{item.Status == -1}}">
+                      <view style="display: flex;width: 32px;height: 20px;justify-content: center;align-items: center;background-color: {{item.bgColor}};border-radius: 10px 13px 10px 0px;">
+                        <text style="font-size:10px;color:white;">异常</text>
+                      </view>
+                    </block>
+                    <block wx:if="{{item.Status == 1}}">
+                      <view style="display: flex;width: 32px;height: 20px;justify-content: center;align-items: center;background-color: {{item.bgColor}};border-radius: 10px 13px 10px 0px;">
+                        <text style="font-size:10px;color:white;">超标</text>
+                      </view>
+                    </block>
+                    <block wx:if="{{item.Status != 1&&item.Status != -1}}">
+                      <view style="display: flex;width: 32px;height: 20px;justify-content: center;align-items: center;border-radius: 10px 13px 10px 0px;">
+                        <text style="font-size:10px;color:white;"> </text>
+                      </view>
+                    </block>
+                  </view>
+                  
+                </view>
+                <view style="font-size: 15px;" class="tips-value">{{item.chartMonitorTime}}</view>
+                <view style="font-size: 15px;" class="tips-value">{{item.showValue}}{{item.Unit}}</view>
+              </view>
+          </block>
+        </scroll-view>
+      </View>
+    </block>
+    
+    <block wx:if="{{showMode == 'list'}}">
+      <View style="flex-direction: row;display: flex; width:{{screenHeight-50}}px;height: {{screenWidth-49}}px;">
+        <scroll-view
+          style="width: 100%;flex:1;background-color: white;display: flex;"
+          scroll-x
+        >
+          <view style="display: flex;flex-direction: row;flex-wrap: nowrap;width: {{110+((listLabels.length-1)*85)}}px;">
+            <!-- <view wx:for="{{listLabels}}" style="display: flex;flex-direction: row;height: 64px;width: 1000px;justify-content: center;align-items: center;" wx:for-item="labelItem">
+              <view style="display: flex;flex-direction: column;height: 64px;width: 180px;justify-content: center;align-items: center;border-top: 1px solid #f0f0f0;border-bottom: 1px solid #f0f0f0;">
+                <view style="color: #333333;">{{labelItem.PollutantName}}</view>
+                <block wx:if="{{labelItem.Unit!=''}}">
+                  <view style="color: #333333;">{{labelItem.Unit}}</view>
+                </block>
+              </view>
+            </view> -->
+            
+            <view style="display: flex;height: 64px;width: {{110+((listLabels.length-1)*85)}}px;justify-content: center;align-items: center;" wx:for="{{listLabels}}" wx:for-item="labelItem">
+              <!-- <view>{{labelItem.PollutantName}}</view> -->
+              <view wx:if="{{labelItem.PollutantCode=='MonitorTime'}}">
+                <view style="display: flex;flex-direction: column;height: 64px;width: 110px;justify-content: center;align-items: center;border-top: 1px solid #f0f0f0;border-bottom: 1px solid #f0f0f0;">
+                  <view style="color: #333333;font-size: 14px;">{{labelItem.PollutantName}}</view>
+                  <block wx:if="{{labelItem.Unit!=''}}">
+                    <view style="color: #333333;font-size: 14px;">{{labelItem.Unit}}</view>
+                  </block>
+                </view>
+              </view>
+
+              <view wx:else>
+                <view style="display: flex;flex-direction: column;height: 64px;width: 85px;justify-content: center;align-items: center;border-top: 1px solid #f0f0f0;border-bottom: 1px solid #f0f0f0;">
+                  <view style="color: #333333;font-size: 14px;">{{labelItem.PollutantName}}</view>
+                  <block wx:if="{{labelItem.Unit!=''}}">
+                    <view style="color: #333333;font-size: 14px;">{{labelItem.Unit}}</view>
+                  </block>
+                </view>
+              </view>
+              
+            </view>
+          </view>
+          <scroll-view
+            style="width: {{110+((listLabels.length-1)*85)}}px; height: {{screenWidth-113}}px;"
+            scroll-y
+          >
+            <view wx:for="{{listData}}" wx:for-item="listItem"
+              
+            >
+              <view bind:tap="testOneRow" data-item="{{listItem}}" style="width: {{110+((listLabels.length-1)*85)}}px;display: flex;height: 40px;">
+                <view wx:for="{{listLabels}}" wx:for-item="pItem">
+                  <block wx:if="{{pItem.PollutantCode == 'MonitorTime'}}">
+                    <view style="width: 110px;height: 40px;display: flex;justify-content: center;align-items: center;border-bottom: 0.5px solid #f0f0f0;">
+                        <view style="color: #868686;font-size: 14px;">{{listItem['listMonitorTime']}}</view>
+                    </view>
+                  </block>
+                  
+                  <!-- <block wx:else>
+                    <view style="width: 92px;height: 40px;display: flex;justify-content: center;align-items: center;border-bottom: 0.5px solid #f0f0f0;">
+                        <view style="color: #666;font-size: 14px;">{{listItem[pItem.PollutantCode+"_flag"]}}</view>
+                    </view>
+                  </block> -->
+                  <block wx:else>
+                    <view style="width: 85px;height: 40px;display: flex;justify-content: center;align-items: center;border-bottom: 0.5px solid #f0f0f0;">
+                        <view style="background-color: {{(listItem[pItem.PollutantCode+'_status'] == 1||listItem[pItem.PollutantCode+'_status'] == -1)?listItem[pItem.PollutantCode+'_bgColor']:'white'}};border-radius: 10px; padding-left: 8px;padding-right: 8px;padding-top: 2px;padding-bottom: 2px;">
+                          <view style="color:{{ (listItem[pItem.PollutantCode+'_status'] == 1||listItem[pItem.PollutantCode+'_status'] == -1)?'white':'#666'}};font-size: 14px;">{{listItem[pItem.PollutantCode+"_flag"]}}</view>
+                          <!-- <view style="color: #666;">{{listItem[pItem.PollutantCode+"_bgColor"]}}</view> -->
+                        </view>
+                    </view>
+                  </block>
+                </view>
+              </view>
+            </view>
+          </scroll-view>
+        </scroll-view> 
+      </View>
+    </block>
+
+  </view>
+</view>

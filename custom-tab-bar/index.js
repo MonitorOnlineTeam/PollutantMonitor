@@ -11,6 +11,7 @@ Component({
    * 组件的初始数据
    */
   data: {
+    showTabbar:true,
     list: wx.getStorageSync('tabBarList'),
     selectedIndex: wx.getStorageSync('selectedIndex') || 0,
     // list: [{
@@ -46,17 +47,31 @@ Component({
     // ]
   },
 
+  updated: function () {
+    console.log('custom-tab-bar updated');
+    // 在组件更新时检查数据变化并刷新
+    if (this.data.redDotVisible === false) {
+        // 这里可以添加一些逻辑来刷新redDot的显示，比如重新渲染包含redDot的部分
+    }
+  },
+
   /**
    * 组件的方法列表
    */
   methods: {
     tabBarChange(e) {
+      console.log('this.data = ',this.data);
       let index = e.detail.index;
-      this.setData({
-        selectedIndex: index
-      })
+      console.log('e = ',e);
+      console.log('index = ',index);
+      if (typeof index != 'undefined') {
+        this.setData({
+          "selectedIndex": index
+        })
+        wx.setStorageSync('selectedIndex', index)
+      }
       // wx.getStorageSync('selectedIndex')
-      wx.setStorageSync('selectedIndex', index)
+      
     }
   },
   // created() {
